@@ -695,8 +695,8 @@ function ComparePanel({
         <h3 className="font-bold text-gray-900 text-lg">
           {compareIds.length === 1 ? "비교할 신발을 하나 더 선택하세요" : "신발 비교"}
         </h3>
-        <button onClick={onClear} className="text-xs text-gray-400 hover:text-gray-600">
-          초기화
+        <button onClick={onClear} className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors">
+          ✕ 초기화
         </button>
       </div>
       {compareIds.length === 2 && shoes.length === 2 && <CompareTable shoes={shoes} />}
@@ -724,27 +724,36 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
   if (!a || !b) return null;
   const cushDots = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"];
   const stabLabel: Record<string, string> = {
-    neutral: "중립",
-    stability: "안정화",
-    motion_control: "모션컨트롤",
+    neutral: "중립 (보통 발)",
+    stability: "안정화 (평발용)",
+    motion_control: "모션컨트롤 (심한 평발)",
   };
-  type Row = [string, string, string];
-  const rows: Row[] = [
-    ["가격",     a.priceKrw.toLocaleString() + "원",  b.priceKrw.toLocaleString() + "원"],
-    ["쿠셔닝",   cushDots[a.cushioning] ?? "",         cushDots[b.cushioning] ?? ""],
-    ["안정화",   stabLabel[a.stability] ?? "",         stabLabel[b.stability] ?? ""],
-    ["힐드롭",   a.heelDropMm + "mm",                  b.heelDropMm + "mm"],
-    ["스택높이", a.stackHeightMm + "mm",               b.stackHeightMm + "mm"],
-    ["무게",     a.weightGramsM9 + "g",                b.weightGramsM9 + "g"],
-    ["발볼옵션", a.widthOptions.join("·"),             b.widthOptions.join("·")],
-    ["국내구매", KR_AVAILABILITY_LABEL[a.krAvailability], KR_AVAILABILITY_LABEL[b.krAvailability]],
+  const footTypeLabel: Record<string, string> = {
+    flat: "평발", neutral: "중립", high_arch: "높은 아치",
+  };
+  const useLabel: Record<string, string> = {
+    daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱",
+  };
+
+  type LabeledRow = { label: string; desc: string; va: string; vb: string };
+  const rows: LabeledRow[] = [
+    { label: "가격",     desc: "",                                    va: a.priceKrw.toLocaleString() + "원",  vb: b.priceKrw.toLocaleString() + "원" },
+    { label: "쿠셔닝",   desc: "충격 흡수 정도 (많을수록 무릎 편함)",  va: cushDots[a.cushioning] ?? "",         vb: cushDots[b.cushioning] ?? "" },
+    { label: "안정화",   desc: "발 안쪽 쏠림 방지 기능",              va: stabLabel[a.stability] ?? "",         vb: stabLabel[b.stability] ?? "" },
+    { label: "힐드롭",   desc: "뒤꿈치-앞발 높이 차이 (낮을수록 자연스러운 착지)", va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm" },
+    { label: "스택높이", desc: "밑창 두께 (높을수록 쿠션 많고 무거움)", va: a.stackHeightMm + "mm",              vb: b.stackHeightMm + "mm" },
+    { label: "무게",     desc: "9인치 기준 한 짝 무게",               va: a.weightGramsM9 + "g",               vb: b.weightGramsM9 + "g" },
+    { label: "발볼",     desc: "폭 옵션 (D=보통, 2E·4E=넓음)",       va: a.widthOptions.join("·"),            vb: b.widthOptions.join("·") },
+    { label: "맞는 발",  desc: "어떤 발 타입에 적합한지",             va: a.footTypes.map(f => footTypeLabel[f] ?? f).join("·"), vb: b.footTypes.map(f => footTypeLabel[f] ?? f).join("·") },
+    { label: "추천 용도", desc: "어떤 훈련에 알맞은지",               va: a.uses.map(u => useLabel[u] ?? u).join("·"),           vb: b.uses.map(u => useLabel[u] ?? u).join("·") },
+    { label: "국내구매", desc: "",                                    va: KR_AVAILABILITY_LABEL[a.krAvailability], vb: KR_AVAILABILITY_LABEL[b.krAvailability] },
   ];
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr>
-            <th className="text-left pb-3 w-20 text-xs text-gray-400 font-normal" />
+            <th className="text-left pb-3 w-28 text-xs text-gray-400 font-normal" />
             <th className="text-center pb-3">
               <p className="font-bold text-gray-900">{a.brand}</p>
               <p className="text-xs text-gray-500">{a.model}</p>
@@ -756,11 +765,14 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map(([label, va, vb]) => (
+          {rows.map(({ label, desc, va, vb }) => (
             <tr key={label} className="border-t border-emerald-100">
-              <td className="py-2.5 text-xs text-gray-500 font-medium">{label}</td>
-              <td className={"py-2.5 text-center font-medium " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
-              <td className={"py-2.5 text-center font-medium " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
+              <td className="py-2.5 pr-2">
+                <p className="text-xs text-gray-700 font-semibold">{label}</p>
+                {desc && <p className="text-xs text-gray-400 leading-snug mt-0.5">{desc}</p>}
+              </td>
+              <td className={"py-2.5 text-center font-medium text-sm " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
+              <td className={"py-2.5 text-center font-medium text-sm " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
             </tr>
           ))}
         </tbody>
