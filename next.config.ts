@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.runrepeat.com" },
       { protocol: "https", hostname: "images.puma.com" },
       { protocol: "https", hostname: "images.hoka.com" },
+      { protocol: "https", hostname: "img.soldout.co.kr" },
+      { protocol: "https", hostname: "gazellesports.com" },
     ],
   },
 };
