@@ -371,6 +371,8 @@ export default function ShoeFinderPage() {
                 compareIds={compareIds}
                 shoes={sortedPrimary.filter(r => compareIds.includes(r.shoe.id)).map(r => r.shoe)}
                 onClear={() => setCompareIds([])}
+                userWidth={selectedWidth}
+                userFootType={selectedType}
               />
             )}
 
@@ -684,10 +686,14 @@ function ComparePanel({
   compareIds,
   shoes,
   onClear,
+  userWidth,
+  userFootType,
 }: {
   compareIds: string[];
   shoes: Shoe[];
   onClear: () => void;
+  userWidth: FootWidth;
+  userFootType: FootType;
 }) {
   return (
     <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
@@ -699,7 +705,7 @@ function ComparePanel({
           ✕ 초기화
         </button>
       </div>
-      {compareIds.length === 2 && shoes.length === 2 && <CompareTable shoes={shoes} />}
+      {compareIds.length === 2 && shoes.length === 2 && <CompareTable shoes={shoes} userWidth={userWidth} userFootType={userFootType} />}
       {compareIds.length === 1 && shoes[0] && (
         <div className="flex items-center gap-4">
           <div className="flex-1 rounded-xl bg-white border border-emerald-200 p-4">
@@ -718,7 +724,7 @@ function ComparePanel({
   );
 }
 
-function CompareTable({ shoes }: { shoes: Shoe[] }) {
+function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userWidth: FootWidth; userFootType: FootType }) {
   const a = shoes[0];
   const b = shoes[1];
   if (!a || !b) return null;
@@ -734,10 +740,10 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
   const useLabel: Record<string, string> = {
     daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱",
   };
-  const widthLabel: Record<string, string> = {
-    B: "좁음(B)", D: "보통(D)", "2E": "넓음(2E)", "4E": "매우넓음(4E)",
-  };
-  const toWidthText = (opts: string[]) => opts.map(w => widthLabel[w] ?? w).join(" / ");
+  const widthKr: Record<string, string> = { narrow: "좁음", normal: "보통", wide: "넓음", B: "좁음", D: "보통", "2E": "넓음", "4E": "매우넓음" };
+  const footTypeKr: Record<string, string> = { flat: "평발", neutral: "중립 아치", high_arch: "높은 아치" };
+  const toWidthText = (opts: string[]) => opts.map(w => widthKr[w] ?? w).join(" · ");
+  const toFootText = (types: string[]) => types.map(f => footTypeKr[f] ?? f).join(" · ");
 
   type Row = [string, string, string];
   const rows: Row[] = [
@@ -747,8 +753,8 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
     ["힐드롭",   a.heelDropMm + "mm",                                              b.heelDropMm + "mm"],
     ["스택높이", a.stackHeightMm + "mm",                                           b.stackHeightMm + "mm"],
     ["무게",     a.weightGramsM9 + "g",                                            b.weightGramsM9 + "g"],
-    ["발볼",     toWidthText(a.widthOptions),                                       toWidthText(b.widthOptions)],
-    ["맞는 발",  a.footTypes.map(f => footTypeLabel[f] ?? f).join("·"),            b.footTypes.map(f => footTypeLabel[f] ?? f).join("·")],
+    ["발볼 옵션", toWidthText(a.widthOptions),  toWidthText(b.widthOptions)],
+    ["발 타입",  toFootText(a.footTypes),    toFootText(b.footTypes)],
     ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),                    b.uses.map(u => useLabel[u] ?? u).join("·")],
     ["국내구매", KR_AVAILABILITY_LABEL[a.krAvailability],                          KR_AVAILABILITY_LABEL[b.krAvailability]],
   ];
