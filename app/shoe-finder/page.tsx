@@ -80,6 +80,13 @@ export default function ShoeFinderPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [sortKey,   setSortKey]   = useState<SortKey>("score");
   const [error,     setError]     = useState("");
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+
+  function toggleCompare(id: string) {
+    setCompareIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 2 ? [...prev, id] : prev
+    );
+  }
 
   // 범위 → 대표 수치 변환
   const weightKg = heightRange && weightRange
@@ -339,13 +346,30 @@ export default function ShoeFinderPage() {
               </div>
             </div>
 
+            {sortedPrimary.length >= 2 && compareIds.length === 0 && (
+              <p className="text-xs text-gray-400 mb-3">
+                💡 <strong>비교 추가</strong> 버튼으로 두 신발을 나란히 비교할 수 있어요.
+              </p>
+            )}
+
             <ul className="flex flex-col gap-4">
               {sortedPrimary.map((rec, i) => (
                 <ShoeCard key={rec.shoe.id} rec={rec} rank={i + 1}
                   expanded={expandedId === rec.shoe.id}
-                  onToggle={() => setExpandedId(expandedId === rec.shoe.id ? null : rec.shoe.id)} />
+                  onToggle={() => setExpandedId(expandedId === rec.shoe.id ? null : rec.shoe.id)}
+                  inCompare={compareIds.includes(rec.shoe.id)}
+                  canAddCompare={compareIds.length < 2 || compareIds.includes(rec.shoe.id)}
+                  onToggleCompare={() => toggleCompare(rec.shoe.id)} />
               ))}
             </ul>
+
+            {compareIds.length > 0 && (
+              <ComparePanel
+                compareIds={compareIds}
+                shoes={sortedPrimary.filter(r => compareIds.includes(r.shoe.id)).map(r => r.shoe)}
+                onClear={() => setCompareIds([])}
+              />
+            )}
 
             {/* 관련 부상 가이드 */}
             <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} />
@@ -356,8 +380,9 @@ export default function ShoeFinderPage() {
   );
 }
 
-function ShoeCard({ rec, rank, expanded, onToggle }: {
+function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onToggleCompare }: {
   rec: Recommendation; rank: number; expanded: boolean; onToggle: () => void;
+  inCompare: boolean; canAddCompare: boolean; onToggleCompare: () => void;
 }) {
   const { shoe, score, reasons } = rec;
 
@@ -426,6 +451,21 @@ function ShoeCard({ rec, rank, expanded, onToggle }: {
                   </a>
                 ))}
                 <CopyModelName name={`${shoe.brand} ${shoe.model}`} />
+                <button
+                  onClick={onToggleCompare}
+                  disabled={!canAddCompare}
+                  className={
+                    `text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors ${
+                      inCompare
+                        ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                        : canAddCompare
+                        ? "border-gray-300 bg-white text-gray-600 hover:border-emerald-400 hover:text-emerald-600"
+                        : "border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed"
+                    }`
+                  }
+                >
+                  {inCompare ? "✓ 비교 중" : "비교 추가"}
+                </button>
               </div>
               <p className="text-xs text-gray-400 mt-1.5">
                 공식몰 접속 후 위 모델명을 검색창에 붙여넣으세요.
@@ -613,6 +653,110 @@ function RelatedGuides({ footType, footWidth, use }: { footType: FootType; footW
             <p className="text-xs text-gray-500 leading-relaxed">{g.desc}</p>
           </a>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function ComparePanel({
+  compareIds,
+  shoes,
+  onClear,
+}: {
+  compareIds: string[];
+  shoes: Shoe[];
+  onClear: () => void;
+}) {
+  return (
+    <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-bold text-gray-900 text-lg">
+          {compareIds.length === 1 ? "비교할 신발을 하나 더 선택하세요" : "신발 비교"}
+        </h3>
+        <button onClick={onClear} className="text-xs text-gray-400 hover:text-gray-600">
+          초기화
+        </button>
+      </div>
+      {compareIds.length === 2 && shoes.length === 2 && <CompareTable shoes={shoes} />}
+      {compareIds.length === 1 && shoes[0] && (
+        <div className="flex items-center gap-4">
+          <div className="flex-1 rounded-xl bg-white border border-emerald-200 p-4">
+            <p className="text-sm font-semibold text-gray-900">
+              {shoes[0].brand} {shoes[0].model}
+            </p>
+            <p className="text-xs text-gray-400 mt-0.5">선택됨</p>
+          </div>
+          <span className="text-2xl text-gray-300">vs</span>
+          <div className="flex-1 rounded-xl border-2 border-dashed border-emerald-300 p-4 text-center">
+            <p className="text-sm text-emerald-600">신발 카드에서 선택</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CompareTable({ shoes }: { shoes: Shoe[] }) {
+  const a = shoes[0];
+  const b = shoes[1];
+  if (!a || !b) return null;
+  const cushDots = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"];
+  const stabLabel: Record<string, string> = {
+    neutral: "중립",
+    stability: "안정화",
+    motion_control: "모션컨트롤",
+  };
+  type Row = [string, string, string];
+  const rows: Row[] = [
+    ["가격",     a.priceKrw.toLocaleString() + "원",  b.priceKrw.toLocaleString() + "원"],
+    ["쿠셔닝",   cushDots[a.cushioning] ?? "",         cushDots[b.cushioning] ?? ""],
+    ["안정화",   stabLabel[a.stability] ?? "",         stabLabel[b.stability] ?? ""],
+    ["힐드롭",   a.heelDropMm + "mm",                  b.heelDropMm + "mm"],
+    ["스택높이", a.stackHeightMm + "mm",               b.stackHeightMm + "mm"],
+    ["무게",     a.weightGramsM9 + "g",                b.weightGramsM9 + "g"],
+    ["발볼옵션", a.widthOptions.join("·"),             b.widthOptions.join("·")],
+    ["국내구매", KR_AVAILABILITY_LABEL[a.krAvailability], KR_AVAILABILITY_LABEL[b.krAvailability]],
+  ];
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr>
+            <th className="text-left pb-3 w-20 text-xs text-gray-400 font-normal" />
+            <th className="text-center pb-3">
+              <p className="font-bold text-gray-900">{a.brand}</p>
+              <p className="text-xs text-gray-500">{a.model}</p>
+            </th>
+            <th className="text-center pb-3">
+              <p className="font-bold text-gray-900">{b.brand}</p>
+              <p className="text-xs text-gray-500">{b.model}</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([label, va, vb]) => (
+            <tr key={label} className="border-t border-emerald-100">
+              <td className="py-2.5 text-xs text-gray-500 font-medium">{label}</td>
+              <td className={"py-2.5 text-center font-medium " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
+              <td className={"py-2.5 text-center font-medium " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {[a, b].map((shoe) =>
+          shoe.buyLinks[0] ? (
+            <a
+              key={shoe.id}
+              href={shoe.buyLinks[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl transition-colors"
+            >
+              {shoe.brand} {shoe.model} 구매 ↗
+            </a>
+          ) : null
+        )}
       </div>
     </div>
   );
