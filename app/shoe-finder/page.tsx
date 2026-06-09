@@ -348,9 +348,12 @@ export default function ShoeFinderPage() {
             </div>
 
             {sortedPrimary.length >= 2 && compareIds.length === 0 && (
-              <p className="text-xs text-gray-400 mb-3">
-                💡 <strong>비교 추가</strong> 버튼으로 두 신발을 나란히 비교할 수 있어요.
-              </p>
+              <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 mb-4">
+                <span className="text-emerald-600 text-base">⚖️</span>
+                <p className="text-sm text-emerald-700">
+                  각 카드 오른쪽 위 <strong>「비교」</strong> 버튼을 눌러 두 신발을 나란히 비교할 수 있어요.
+                </p>
+              </div>
             )}
 
             <ul className="flex flex-col gap-4">
@@ -414,9 +417,24 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 <h3 className="text-lg font-bold text-gray-900 leading-tight">{shoe.brand} {shoe.model}</h3>
                 <p className="text-sm text-gray-500 mt-0.5 leading-relaxed">{shoe.blurb}</p>
               </div>
-              <div className="shrink-0 text-right">
+              <div className="shrink-0 text-right flex flex-col items-end gap-1.5">
                 <div className="text-3xl font-bold tabular-nums text-emerald-600">{score}</div>
                 <div className="text-xs text-gray-400">적합도</div>
+                <button
+                  onClick={onToggleCompare}
+                  disabled={!canAddCompare}
+                  className={
+                    `text-sm font-semibold px-3 py-1.5 rounded-lg border-2 transition-colors ${
+                      inCompare
+                        ? "border-emerald-500 bg-emerald-500 text-white"
+                        : canAddCompare
+                        ? "border-emerald-400 bg-white text-emerald-600 hover:bg-emerald-50"
+                        : "border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed"
+                    }`
+                  }
+                >
+                  {inCompare ? "✓ 비교중" : "⚖️ 비교"}
+                </button>
               </div>
             </div>
 
