@@ -394,6 +394,8 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
             <img
               src={shoe.imageUrl}
               alt={`${shoe.brand} ${shoe.model}`}
+              referrerPolicy="no-referrer"
+              crossOrigin="anonymous"
               onError={e => { (e.target as HTMLImageElement).src = `https://placehold.co/200x200/f3f4f6/9ca3af?text=${encodeURIComponent(shoe.brand)}`; }}
               className="w-full h-full object-contain p-1"
             />
