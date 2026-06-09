@@ -5,7 +5,7 @@ import Image from "next/image";
 import SiteHeader from "@/components/SiteHeader";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
-import type { FootType, FootWidth, Gender, Recommendation, ShoeUse } from "@/lib/shoes/types";
+import type { FootType, FootWidth, Gender, Recommendation, Shoe, ShoeUse } from "@/lib/shoes/types";
 
 // ── 범위 선택 옵션 (Malisoux 2013 / Heiderscheit 2011 체형 8분류 기반) ──────────
 type HeightRange = "small" | "mid" | "tall";
