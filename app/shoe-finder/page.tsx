@@ -278,6 +278,7 @@ export default function ShoeFinderPage() {
         {/* 결과 */}
         {result && weightKg && heightCm && (
           <section className="mt-10">
+
             {/* 내 분석 결과 — 쉬운 말 */}
             <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
               <div className="flex items-center gap-2 mb-2">
@@ -345,6 +346,9 @@ export default function ShoeFinderPage() {
                   onToggle={() => setExpandedId(expandedId === rec.shoe.id ? null : rec.shoe.id)} />
               ))}
             </ul>
+
+            {/* 관련 부상 가이드 */}
+            <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} />
           </section>
         )}
       </main>
@@ -559,5 +563,57 @@ function CopyModelName({ name }: { name: string }) {
 function Tag({ children }: { children: React.ReactNode }) {
   return (
     <span className="rounded-full bg-gray-100 px-2.5 py-1 font-medium text-gray-600 text-xs">{children}</span>
+  );
+}
+
+type GuideItem = { href: string; tag: string; title: string; desc: string };
+
+const GUIDE_MAP: Record<string, GuideItem[]> = {
+  flat: [
+    { href: "/injury/wide-foot",  tag: "발볼",    title: "발볼 넓은 러너 와이드 규격 총정리",       desc: "평발은 발볼이 넓어지는 경향. 2E·4E 규격 판단법." },
+    { href: "/injury/knee-pain",  tag: "무릎",    title: "무릎 통증 없이 달리는 법",                desc: "평발 러너의 과내전이 무릎 통증으로 이어지는 이유." },
+    { href: "/injury/it-band",    tag: "무릎",    title: "장경인대염 초기 대처법 3가지",             desc: "평발에서 자주 오는 무릎 바깥쪽 통증 대처법." },
+  ],
+  high_arch: [
+    { href: "/injury/achilles",   tag: "아킬레스", title: "미드풋 전환 후 아킬레스건 스트레칭",      desc: "높은 아치는 아킬레스건 부담이 큼. 필수 스트레칭." },
+    { href: "/injury/midfoot",    tag: "착지",    title: "미드풋 착지 완전 가이드",                 desc: "높은 아치 러너에게 맞는 착지법 전환 방법." },
+  ],
+  neutral: [
+    { href: "/injury/cadence",    tag: "케이던스", title: "케이던스 맞추는 법",                     desc: "중립 아치 러너의 무릎 부하를 줄이는 보폭 조정." },
+    { href: "/injury/beginner-guide", tag: "입문", title: "초보 러너 완전 가이드",                  desc: "처음 달리기 시작할 때 꼭 알아야 할 것들." },
+  ],
+};
+
+const USE_GUIDE_MAP: Record<string, GuideItem> = {
+  long:   { href: "/injury/first-10k",  tag: "장거리", title: "첫 10km 완주 가이드",               desc: "하프·풀 준비 전 10km부터 완주하는 법." },
+  racing: { href: "/injury/advanced-guide", tag: "숙련", title: "숙련자 훈련 가이드",               desc: "기록 단축을 위한 고강도 훈련 전략." },
+  tempo:  { href: "/injury/intermediate-guide", tag: "중급", title: "중급자 훈련 가이드",           desc: "템포런·인터벌 훈련을 안전하게 시작하는 법." },
+  daily:  { href: "/injury/rest-day",   tag: "회복",  title: "회복일 관리 가이드",                  desc: "매일 달리고 싶다면 회복일이 더 중요합니다." },
+};
+
+function RelatedGuides({ footType, footWidth, use }: { footType: FootType; footWidth: FootWidth; use: ShoeUse | "" }) {
+  const guides = [...(GUIDE_MAP[footType] ?? GUIDE_MAP["neutral"])];
+  if (footWidth === "wide" && !guides.find(g => g.href === "/injury/wide-foot")) {
+    guides.unshift({ href: "/injury/wide-foot", tag: "발볼", title: "발볼 넓은 러너 와이드 규격 총정리", desc: "2E·4E 규격이 필요한지 판단하는 방법." });
+  }
+  if (use && USE_GUIDE_MAP[use]) guides.push(USE_GUIDE_MAP[use]);
+  const shown = guides.slice(0, 3);
+
+  return (
+    <div className="mt-12 pt-8 border-t border-gray-100">
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">내 발 타입에 맞는 부상 예방 가이드</h3>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {shown.map(g => (
+          <a key={g.href} href={g.href}
+            className="block border border-gray-100 rounded-xl p-4 hover:border-emerald-300 hover:shadow-sm transition-all bg-white">
+            <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full mb-2">
+              {g.tag}
+            </span>
+            <p className="font-semibold text-gray-900 text-sm leading-snug mb-1">{g.title}</p>
+            <p className="text-xs text-gray-500 leading-relaxed">{g.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
   );
 }
