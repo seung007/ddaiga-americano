@@ -393,7 +393,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
         <div className="flex gap-4">
           <div className="shrink-0 w-24 h-24 rounded-xl bg-gray-50 border border-gray-100 overflow-hidden flex items-center justify-center">
             <Image
-              src={shoe.imageUrl}
+              src={`/api/img?url=${encodeURIComponent(shoe.imageUrl)}`}
               alt={`${shoe.brand} ${shoe.model}`}
               width={96}
               height={96}
