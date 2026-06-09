@@ -8,38 +8,40 @@ import type { FootType, FootWidth, Gender, Recommendation, Shoe, ShoeUse } from 
 
 // ── 범위 선택 옵션 (Malisoux 2013 / Heiderscheit 2011 체형 8분류 기반) ──────────
 type HeightRange = "small" | "mid" | "tall";
-type WeightRange = "light" | "mid_w" | "heavy";
+type WeightRange = "very_light" | "light" | "mid_w" | "heavy";
 
 const HEIGHT_OPTIONS: { value: HeightRange; label: string; cm: number; desc: string }[] = [
-  { value: "small", label: "163cm 이하", cm: 160, desc: "소형 — 드롭 4-8mm 권장" },
-  { value: "mid",   label: "164 – 177cm", cm: 171, desc: "중형 — 드롭 6-10mm 권장" },
-  { value: "tall",  label: "178cm 이상", cm: 182, desc: "대형 — 드롭 8-14mm 권장" },
+  { value: "small", label: "163cm 이하", cm: 160, desc: "발이 땅에 닿는 느낌 살리는 신발이 잘 맞아요" },
+  { value: "mid",   label: "164 – 177cm", cm: 171, desc: "균형 잡힌 쿠션과 반응성" },
+  { value: "tall",  label: "178cm 이상", cm: 182, desc: "충격 흡수가 우선인 신발" },
 ];
 
 const WEIGHT_OPTIONS: Record<HeightRange, { value: WeightRange; label: string; kg: number; desc: string }[]> = {
   small: [
-    { value: "light", label: "55kg 이하", kg: 50,  desc: "쿠셔닝 1-2 충분" },
-    { value: "mid_w", label: "56 – 75kg", kg: 65,  desc: "쿠셔닝 3 권장" },
-    { value: "heavy", label: "76kg 이상", kg: 82,  desc: "쿠셔닝 4-5 필요" },
+    { value: "very_light", label: "50kg 미만", kg: 45,  desc: "정말 가벼운 쿠션으로도 충분해요" },
+    { value: "light",      label: "50 – 55kg", kg: 52,  desc: "가벼운 쿠션으로 충분해요" },
+    { value: "mid_w",      label: "56 – 75kg", kg: 65,  desc: "중간 쿠션이 딱 맞아요" },
+    { value: "heavy",      label: "76kg 이상", kg: 82,  desc: "두꺼운 쿠션이 무릎을 지켜줘요" },
   ],
   mid: [
-    { value: "light", label: "60kg 이하", kg: 56,  desc: "쿠셔닝 2-3 충분" },
-    { value: "mid_w", label: "61 – 80kg", kg: 70,  desc: "쿠셔닝 3-4 권장" },
-    { value: "heavy", label: "81kg 이상", kg: 87,  desc: "쿠셔닝 4-5 필요" },
+    { value: "very_light", label: "50kg 미만", kg: 46,  desc: "정말 가벼운 쿠션으로도 충분해요" },
+    { value: "light",      label: "50 – 60kg", kg: 55,  desc: "가벼운 쿠션으로 충분해요" },
+    { value: "mid_w",      label: "61 – 80kg", kg: 70,  desc: "중간 쿠션이 딱 맞아요" },
+    { value: "heavy",      label: "81kg 이상", kg: 87,  desc: "두꺼운 쿠션이 무릎을 지켜줘요" },
   ],
   tall: [
-    { value: "light", label: "85kg 이하", kg: 77,  desc: "쿠셔닝 4 권장" },
-    { value: "heavy", label: "86kg 이상", kg: 93,  desc: "쿠셔닝 5 필요" },
+    { value: "light", label: "85kg 이하", kg: 77,  desc: "두꺼운 쿠션이 필요해요" },
+    { value: "heavy", label: "86kg 이상", kg: 93,  desc: "맥스 쿠션으로 무릎을 보호해요" },
   ],
 };
 
 const FOOT_OPTIONS: { id: string; category: "width" | "type"; label: string; desc: string; width?: FootWidth; footType?: FootType }[] = [
-  { id: "narrow",     category: "width", label: "좁은 발볼",      desc: "신발이 항상 헐렁한 편",                width: "narrow" },
-  { id: "normal",     category: "width", label: "보통 발볼",      desc: "대부분의 신발이 잘 맞음",              width: "normal" },
-  { id: "wide",       category: "width", label: "넓은 발볼 2E/4E", desc: "신발 옆이 자주 눌리거나 물집 생김",   width: "wide" },
-  { id: "flat",       category: "type",  label: "평발",           desc: "발이 안쪽으로 쏠림 (과회내)",          footType: "flat" },
-  { id: "neutral",    category: "type",  label: "중립 아치",      desc: "일반적인 아치, 특별한 지지 불필요",     footType: "neutral" },
-  { id: "high_arch",  category: "type",  label: "높은 아치",      desc: "발바닥 가운데가 많이 뜨고 외측으로 기움", footType: "high_arch" },
+  { id: "narrow",     category: "width", label: "좁은 발볼",       desc: "신발이 항상 헐렁한 편",             width: "narrow" },
+  { id: "normal",     category: "width", label: "보통 발볼",       desc: "대부분의 신발이 잘 맞아요",           width: "normal" },
+  { id: "wide",       category: "width", label: "넓은 발볼 2E/4E", desc: "신발 옆이 자주 눌리거나 물집 생겨요", width: "wide" },
+  { id: "flat",       category: "type",  label: "평발",            desc: "발이 안쪽으로 쏠리는 편이에요",       footType: "flat" },
+  { id: "neutral",    category: "type",  label: "중립 아치",       desc: "특별한 지지대 없어도 괜찮아요",       footType: "neutral" },
+  { id: "high_arch",  category: "type",  label: "높은 아치",       desc: "발바닥 가운데가 뜨는 편이에요",       footType: "high_arch" },
 ];
 
 const USES: { value: ShoeUse | ""; label: string }[] = [
@@ -68,19 +70,33 @@ const BUDGETS: { value: number; label: string }[] = [
 
 type SortKey = "score" | "price_asc" | "price_desc";
 
+const TOTAL_STEPS = 6;
+const STEP_LABELS = ["예산", "성별", "키", "체중", "발 특성", "용도"];
+const STEP_MICROCOPY = [
+  "먼저 예산을 알려주세요",
+  "성별도 알려주시면 더 잘 맞아요",
+  "키가 어떻게 되세요?",
+  "체중도 알려주세요",
+  "발 특성을 골라주세요",
+  "거의 다 왔어요! 💪",
+];
+
 export default function ShoeFinderPage() {
   const [gender,    setGender]    = useState<Gender | "">("");
   const [heightRange, setHeightRange] = useState<HeightRange | "">("");
   const [weightRange, setWeightRange] = useState<WeightRange | "">("");
   const [footSelections, setFootSelections] = useState<string[]>([]);
   const [use,       setUse]       = useState<ShoeUse | "">("");
-  // PRD F-01 — 예산
   const [budget,    setBudget]    = useState<number>(0);
   const [submitted, setSubmitted] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [sortKey,   setSortKey]   = useState<SortKey>("score");
   const [error,     setError]     = useState("");
   const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  function goNext() { setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1)); }
+  function goPrev() { setCurrentStep(s => Math.max(s - 1, 0)); }
 
   function toggleCompare(id: string) {
     setCompareIds(prev =>
@@ -121,8 +137,8 @@ export default function ShoeFinderPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!heightRange) { setError("키 범위를 선택해주세요."); return; }
-    if (!weightRange) { setError("체중 범위를 선택해주세요."); return; }
+    if (!heightRange) { setError("키를 먼저 골라주세요!"); return; }
+    if (!weightRange) { setError("체중도 골라주세요!"); return; }
     setError("");
     setSubmitted(true);
     setExpandedId(null);
@@ -139,63 +155,107 @@ export default function ShoeFinderPage() {
     setError("");
   }
 
+  function handleReset() {
+    setSubmitted(false);
+    setError("");
+    setCurrentStep(0);
+  }
+
   return (
     <>
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
-        <header className="mb-4">
-          <h1 className="text-3xl font-bold text-gray-900">러닝화 추천기</h1>
+        <header className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
           <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-            체형 범위를 선택하면 과학 논문 기반으로 맞는 신발을 추천합니다.
+            키·체중·발볼만 알려주시면, 무릎 안 망가지는 신발 바로 찾아드려요.
           </p>
         </header>
 
+        {/* ── 진행 표시 ── */}
+        {!submitted && (
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex gap-1.5 items-center">
+              {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i < currentStep ? "w-5 bg-emerald-500" :
+                  i === currentStep ? "w-7 bg-emerald-500" :
+                  "w-5 bg-gray-200"
+                }`} />
+              ))}
+            </div>
+            <span className="text-xs text-gray-400">
+              <span className="font-semibold text-gray-700">{currentStep + 1}</span> / {TOTAL_STEPS} · 약 1분
+            </span>
+          </div>
+        )}
+
+        {submitted && result && (
+          <div className="mb-4 text-sm text-gray-500">
+            <button type="button" onClick={handleReset}
+              className="text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2">
+              ← 조건 다시 고르기
+            </button>
+          </div>
+        )}
+
+        {!submitted && (
         <form onSubmit={handleSubmit} noValidate
           className="flex flex-col gap-5 rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
 
-          {/* 예산 (PRD F-01 수용기준) — 맨 위 배치: 사용자가 가장 먼저 거르는 기준 */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-semibold text-gray-700">예산</span>
-            <div className="grid grid-cols-4 gap-2">
-              {BUDGETS.map(o => (
-                <button key={o.value} type="button"
-                  onClick={() => { setBudget(o.value); handleChange(); }}
-                  className={`px-3 py-2.5 rounded-lg border text-sm transition-colors
-                    ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 font-semibold text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
-                  {o.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* 마이크로카피 */}
+          {!submitted && (
+            <p className="text-base font-semibold text-gray-800 -mb-1">
+              {STEP_MICROCOPY[currentStep]}
+            </p>
+          )}
 
-          {/* 성별 */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-semibold text-gray-700">성별</span>
-            <div className="flex gap-2">
-              {([
-                { value: "male" as Gender,   label: "🚹 남성", desc: "중립발에 중립화 우선" },
-                { value: "female" as Gender, label: "🚺 여성", desc: "안정화 가중치 추가" },
-              ]).map(g => (
-                <button key={g.value} type="button"
-                  onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
-                  className={`flex-1 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                    ${gender === g.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                  <span className="font-semibold text-sm text-gray-900">{g.label}</span>
-                  <span className="text-xs text-gray-500">{g.desc}</span>
-                </button>
-              ))}
+          {/* ── STEP 0: 예산 ── */}
+          {currentStep === 0 && (
+            <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-2 gap-2">
+                {BUDGETS.map(o => (
+                  <button key={o.value} type="button"
+                    onClick={() => { setBudget(o.value); handleChange(); }}
+                    className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors text-left
+                      ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-gray-400 mt-1">선택 안 해도 괜찮아요 — 그냥 넘어가도 됩니다.</p>
+            </div>
+          )}
+
+          {/* ── STEP 1: 성별 ── */}
+          {currentStep === 1 && (
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                {([
+                  { value: "male" as Gender,   label: "🚹 남성", desc: "남성 발형 기준으로 추천해요" },
+                  { value: "female" as Gender, label: "🚺 여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
+                ]).map(g => (
+                  <button key={g.value} type="button"
+                    onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
+                    className={`flex-1 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                      ${gender === g.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className="font-semibold text-sm text-gray-900">{g.label}</span>
+                    <span className="text-xs text-gray-500">{g.desc}</span>
+                  </button>
+                ))}
+              </div>
               <button type="button"
                 onClick={() => { setGender(""); handleChange(); }}
-                className={`px-4 py-3 rounded-xl border text-sm transition-colors
+                className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors text-left
                   ${gender === "" ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 font-semibold text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-500"}`}>
                 선택 안 함
               </button>
+              <p className="text-xs text-gray-400 mt-1">선택 안 해도 추천 받을 수 있어요.</p>
             </div>
-          </div>
+          )}
 
-          {/* 키 범위 */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-semibold text-gray-700">키</span>
+          {/* ── STEP 2: 키 ── */}
+          {currentStep === 2 && (
             <div className="grid grid-cols-3 gap-2">
               {HEIGHT_OPTIONS.map(o => (
                 <button key={o.value} type="button"
@@ -203,84 +263,112 @@ export default function ShoeFinderPage() {
                   className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
                     ${heightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
                   <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                  <span className="text-xs text-gray-500">{o.desc}</span>
+                  <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
                 </button>
               ))}
             </div>
-          </div>
+          )}
 
-          {/* 체중 범위 — 키 선택 후 표시 */}
-          {heightRange && (
-            <div className="flex flex-col gap-1.5">
-              <span className="text-sm font-semibold text-gray-700">체중</span>
-              <div className={`grid gap-2 ${WEIGHT_OPTIONS[heightRange].length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
-                {WEIGHT_OPTIONS[heightRange].map(o => (
-                  <button key={o.value} type="button"
-                    onClick={() => { setWeightRange(o.value); handleChange(); }}
-                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${weightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                    <span className="text-xs text-gray-500">{o.desc}</span>
-                  </button>
-                ))}
-              </div>
+          {/* ── STEP 3: 체중 ── */}
+          {currentStep === 3 && (
+            <div className="flex flex-col gap-2">
+              {!heightRange ? (
+                <p className="text-sm text-amber-600">키를 먼저 골라주세요!</p>
+              ) : (
+                <div className={`grid gap-2 ${WEIGHT_OPTIONS[heightRange].length <= 2 ? "grid-cols-2" : "grid-cols-2"}`}>
+                  {WEIGHT_OPTIONS[heightRange].map(o => (
+                    <button key={o.value} type="button"
+                      onClick={() => { setWeightRange(o.value); handleChange(); }}
+                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                        ${weightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                      <span className="font-semibold text-sm text-gray-900">{o.label}</span>
+                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
-          {/* 내 발 특성 — 발볼+발타입 통합, 1~2개 선택 */}
-          <div className="flex flex-col gap-1.5">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-gray-700">내 발 특성</span>
-              <span className="text-xs text-gray-400 bg-gray-50 border border-gray-200 rounded-full px-2 py-0.5">최대 2개 선택</span>
+          {/* ── STEP 4: 발 특성 ── */}
+          {currentStep === 4 && (
+            <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-3 gap-2">
+                {FOOT_OPTIONS.map(o => {
+                  const active = footSelections.includes(o.id);
+                  return (
+                    <button key={o.id} type="button"
+                      onClick={() => {
+                        handleChange();
+                        setFootSelections(prev => {
+                          if (prev.includes(o.id)) return prev.filter(id => id !== o.id);
+                          const filtered = prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== o.category);
+                          return [...filtered, o.id];
+                        });
+                      }}
+                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                        ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                      <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-gray-400">발볼이랑 발 모양 각각 하나씩 고르면 더 잘 맞는 신발을 찾아드려요.</p>
+              <p className="text-xs text-gray-400">선택 안 해도 추천 받을 수 있어요.</p>
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              {FOOT_OPTIONS.map(o => {
-                const active = footSelections.includes(o.id);
-                return (
-                  <button key={o.id} type="button"
-                    onClick={() => {
-                      handleChange();
-                      setFootSelections(prev => {
-                        if (prev.includes(o.id)) return prev.filter(id => id !== o.id);
-                        // 같은 카테고리 기존 선택 교체 후 추가
-                        const filtered = prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== o.category);
-                        return [...filtered, o.id];
-                      });
-                    }}
-                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                  </button>
-                );
-              })}
+          )}
+
+          {/* ── STEP 5: 용도 + 추천 받기 ── */}
+          {currentStep === 5 && (
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-semibold text-gray-700">용도</label>
+                <select value={use} onChange={e => { setUse(e.target.value as ShoeUse | ""); handleChange(); }}
+                  className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100">
+                  {USES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+
+              {error && <p className="text-sm text-red-500">{error}</p>}
+
+              <button type="submit"
+                className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
+                내 러닝화 찾기 →
+              </button>
+
+              <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
+                키·체중·발 정보는 <strong className="font-medium text-gray-500">추천 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
+                「내 러닝화 찾기」를 누르면{" "}
+                <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
+              </p>
             </div>
-            <p className="text-xs text-gray-400">발볼·발타입 중 각 1개씩 선택하면 더 정밀한 추천을 받을 수 있어요.</p>
-          </div>
+          )}
 
-          {/* 용도 */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-semibold text-gray-700">용도</label>
-            <select value={use} onChange={e => { setUse(e.target.value as ShoeUse | ""); handleChange(); }}
-              className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100">
-              {USES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-          </div>
-
-          {error && <p className="text-sm text-red-500">{error}</p>}
-
-          <button type="submit"
-            className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
-            추천 받기
-          </button>
-
-          {/* 개인정보 — 묵시적 동의(NFR: 수집 전 고지). 별도 체크박스 없이 클릭 최소화 */}
-          <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
-            키·체중·발 정보는 <strong className="font-medium text-gray-500">추천 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
-            「추천 받기」를 누르면{" "}
-            <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
-          </p>
+          {/* ── 이전 / 다음 버튼 ── */}
+          {!submitted && (
+            <div className="flex gap-2 mt-1">
+              {currentStep > 0 && (
+                <button type="button" onClick={goPrev}
+                  className="px-4 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-colors">
+                  ← 이전
+                </button>
+              )}
+              {currentStep < TOTAL_STEPS - 1 && (
+                <button type="button" onClick={() => {
+                  if (currentStep === 2 && !heightRange) { setError("키를 먼저 골라주세요!"); return; }
+                  if (currentStep === 3 && !weightRange) { setError("체중도 골라주세요!"); return; }
+                  setError("");
+                  goNext();
+                }}
+                  className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
+                  다음 →
+                </button>
+              )}
+            </div>
+          )}
         </form>
+        )}
 
         {/* 결과 */}
         {result && weightKg && heightCm && (
@@ -328,9 +416,10 @@ export default function ShoeFinderPage() {
             )}
 
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">
-                추천 결과 — {result.primary.length}개
-              </h2>
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
+                <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 내 키·체중·발볼 조건을 통과한 결과예요.</p>
+              </div>
               <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
                 {([
                   { key: "score" as SortKey,      label: "적합도순" },
