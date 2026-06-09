@@ -735,48 +735,57 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
     daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱",
   };
 
-  type LabeledRow = { label: string; desc: string; va: string; vb: string };
-  const rows: LabeledRow[] = [
-    { label: "가격",     desc: "",                                    va: a.priceKrw.toLocaleString() + "원",  vb: b.priceKrw.toLocaleString() + "원" },
-    { label: "쿠셔닝",   desc: "충격 흡수 정도 (많을수록 무릎 편함)",  va: cushDots[a.cushioning] ?? "",         vb: cushDots[b.cushioning] ?? "" },
-    { label: "안정화",   desc: "발 안쪽 쏠림 방지 기능",              va: stabLabel[a.stability] ?? "",         vb: stabLabel[b.stability] ?? "" },
-    { label: "힐드롭",   desc: "뒤꿈치-앞발 높이 차이 (낮을수록 자연스러운 착지)", va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm" },
-    { label: "스택높이", desc: "밑창 두께 (높을수록 쿠션 많고 무거움)", va: a.stackHeightMm + "mm",              vb: b.stackHeightMm + "mm" },
-    { label: "무게",     desc: "9인치 기준 한 짝 무게",               va: a.weightGramsM9 + "g",               vb: b.weightGramsM9 + "g" },
-    { label: "발볼",     desc: "폭 옵션 (D=보통, 2E·4E=넓음)",       va: a.widthOptions.join("·"),            vb: b.widthOptions.join("·") },
-    { label: "맞는 발",  desc: "어떤 발 타입에 적합한지",             va: a.footTypes.map(f => footTypeLabel[f] ?? f).join("·"), vb: b.footTypes.map(f => footTypeLabel[f] ?? f).join("·") },
-    { label: "추천 용도", desc: "어떤 훈련에 알맞은지",               va: a.uses.map(u => useLabel[u] ?? u).join("·"),           vb: b.uses.map(u => useLabel[u] ?? u).join("·") },
-    { label: "국내구매", desc: "",                                    va: KR_AVAILABILITY_LABEL[a.krAvailability], vb: KR_AVAILABILITY_LABEL[b.krAvailability] },
+  type Row = [string, string, string];
+  const rows: Row[] = [
+    ["가격",     a.priceKrw.toLocaleString() + "원",                              b.priceKrw.toLocaleString() + "원"],
+    ["쿠셔닝",   cushDots[a.cushioning] ?? "",                                     cushDots[b.cushioning] ?? ""],
+    ["안정화",   stabLabel[a.stability] ?? "",                                     stabLabel[b.stability] ?? ""],
+    ["힐드롭",   a.heelDropMm + "mm",                                              b.heelDropMm + "mm"],
+    ["스택높이", a.stackHeightMm + "mm",                                           b.stackHeightMm + "mm"],
+    ["무게",     a.weightGramsM9 + "g",                                            b.weightGramsM9 + "g"],
+    ["발볼",     a.widthOptions.join("·"),                                         b.widthOptions.join("·")],
+    ["맞는 발",  a.footTypes.map(f => footTypeLabel[f] ?? f).join("·"),            b.footTypes.map(f => footTypeLabel[f] ?? f).join("·")],
+    ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),                    b.uses.map(u => useLabel[u] ?? u).join("·")],
+    ["국내구매", KR_AVAILABILITY_LABEL[a.krAvailability],                          KR_AVAILABILITY_LABEL[b.krAvailability]],
   ];
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead>
-          <tr>
-            <th className="text-left pb-3 w-28 text-xs text-gray-400 font-normal" />
-            <th className="text-center pb-3">
-              <p className="font-bold text-gray-900">{a.brand}</p>
-              <p className="text-xs text-gray-500">{a.model}</p>
-            </th>
-            <th className="text-center pb-3">
-              <p className="font-bold text-gray-900">{b.brand}</p>
-              <p className="text-xs text-gray-500">{b.model}</p>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(({ label, desc, va, vb }) => (
-            <tr key={label} className="border-t border-emerald-100">
-              <td className="py-2.5 pr-2">
-                <p className="text-xs text-gray-700 font-semibold">{label}</p>
-                {desc && <p className="text-xs text-gray-400 leading-snug mt-0.5">{desc}</p>}
-              </td>
-              <td className={"py-2.5 text-center font-medium text-sm " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
-              <td className={"py-2.5 text-center font-medium text-sm " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
+    <div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr>
+              <th className="text-left pb-3 w-24 text-xs text-gray-400 font-normal" />
+              <th className="text-center pb-3 px-2">
+                <p className="font-bold text-gray-900">{a.brand}</p>
+                <p className="text-xs text-gray-500">{a.model}</p>
+              </th>
+              <th className="text-center pb-3 px-2">
+                <p className="font-bold text-gray-900">{b.brand}</p>
+                <p className="text-xs text-gray-500">{b.model}</p>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map(([label, va, vb]) => (
+              <tr key={label} className="border-t border-emerald-100">
+                <td className="py-2.5 text-xs font-semibold text-gray-600 whitespace-nowrap pr-3">{label}</td>
+                <td className={"py-2.5 text-center font-medium text-sm px-2 " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
+                <td className={"py-2.5 text-center font-medium text-sm px-2 " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
+        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">📖 용어 설명 보기</summary>
+        <ul className="mt-2 space-y-1 leading-relaxed">
+          <li><strong>쿠셔닝</strong> — 충격 흡수 정도. 많을수록 무릎·관절이 편하지만 무거워짐.</li>
+          <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 잡아주는 기능. 평발이면 안정화·모션컨트롤 권장.</li>
+          <li><strong>힐드롭</strong> — 뒤꿈치와 앞발의 높이 차이. 낮을수록(0–4mm) 자연스러운 발착지에 가깝고, 높을수록(8mm+) 뒤꿈치 착지에 유리.</li>
+          <li><strong>스택높이</strong> — 밑창 두께. 높을수록 쿠션이 많고, 낮을수록 지면 감각이 살아있음.</li>
+          <li><strong>발볼</strong> — D=표준, 2E=넓음(와이드), 4E=매우 넓음. 발이 넓으면 2E 이상 권장.</li>
+        </ul>
+      </details>
       <div className="mt-4 grid grid-cols-2 gap-2">
         {[a, b].map((shoe) =>
           shoe.buyLinks[0] ? (
