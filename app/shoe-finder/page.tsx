@@ -734,6 +734,10 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
   const useLabel: Record<string, string> = {
     daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱",
   };
+  const widthLabel: Record<string, string> = {
+    B: "좁음(B)", D: "보통(D)", "2E": "넓음(2E)", "4E": "매우넓음(4E)",
+  };
+  const toWidthText = (opts: string[]) => opts.map(w => widthLabel[w] ?? w).join(" / ");
 
   type Row = [string, string, string];
   const rows: Row[] = [
@@ -743,7 +747,7 @@ function CompareTable({ shoes }: { shoes: Shoe[] }) {
     ["힐드롭",   a.heelDropMm + "mm",                                              b.heelDropMm + "mm"],
     ["스택높이", a.stackHeightMm + "mm",                                           b.stackHeightMm + "mm"],
     ["무게",     a.weightGramsM9 + "g",                                            b.weightGramsM9 + "g"],
-    ["발볼",     a.widthOptions.join("·"),                                         b.widthOptions.join("·")],
+    ["발볼",     toWidthText(a.widthOptions),                                       toWidthText(b.widthOptions)],
     ["맞는 발",  a.footTypes.map(f => footTypeLabel[f] ?? f).join("·"),            b.footTypes.map(f => footTypeLabel[f] ?? f).join("·")],
     ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),                    b.uses.map(u => useLabel[u] ?? u).join("·")],
     ["국내구매", KR_AVAILABILITY_LABEL[a.krAvailability],                          KR_AVAILABILITY_LABEL[b.krAvailability]],
