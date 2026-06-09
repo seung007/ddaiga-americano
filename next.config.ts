@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "placehold.co" },
       { protocol: "https", hostname: "image.msscdn.net" },
       { protocol: "https", hostname: "www.on.com" },
+      { protocol: "https", hostname: "cdn.runrepeat.com" },
+      { protocol: "https", hostname: "images.puma.com" },
+      { protocol: "https", hostname: "images.hoka.com" },
     ],
   },
 };

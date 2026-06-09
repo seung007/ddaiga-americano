@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import SiteHeader from "@/components/SiteHeader";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
@@ -391,12 +392,12 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
       <div className="p-5">
         <div className="flex gap-4">
           <div className="shrink-0 w-24 h-24 rounded-xl bg-gray-50 border border-gray-100 overflow-hidden flex items-center justify-center">
-            <img
+            <Image
               src={shoe.imageUrl}
               alt={`${shoe.brand} ${shoe.model}`}
-              referrerPolicy="no-referrer"
-              crossOrigin="anonymous"
-              onError={e => { (e.target as HTMLImageElement).src = `https://placehold.co/200x200/f3f4f6/9ca3af?text=${encodeURIComponent(shoe.brand)}`; }}
+              width={96}
+              height={96}
+              unoptimized={false}
               className="w-full h-full object-contain p-1"
             />
           </div>
