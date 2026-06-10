@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -56,6 +57,21 @@ export default function Page() {
           { label: "무릎통증 러너 필수 시청 — 이것만 풀어도 사라집니다", channel: "건강TV", url: "https://www.youtube.com/watch?v=kCYjn49dJm0" },
           { label: "무릎 통증 세 가지만 기억하라! (명지병원 정형외과)", channel: "명지병원 TV", url: "https://www.youtube.com/watch?v=bKcjVC3jus0" },
           { label: "무릎 부상 후 재활 운동 5단계", channel: "재활TV", url: "https://www.youtube.com/shorts/Ixvh9w5uEYs" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "계단을 내려갈 때 무릎 앞쪽이 아픈 건 무슨 부상인가요?",
+            a: "계단을 내려가거나 오래 앉았다 일어날 때 무릎 앞쪽이 뻐근하다면 슬개대퇴 증후군(러너 무릎)을 의심해야 합니다. 슬개골이 대퇴골 위에서 정렬이 어긋날 때 통증이 생기며, 장경인대염과 함께 초보 러너에게 가장 흔한 부상입니다.",
+          },
+          {
+            q: "러너 무릎을 예방하는 운동은 뭐가 있나요?",
+            a: "세 가지가 효과적입니다. ① 클램셸 — 옆으로 누워 위쪽 다리를 벌리기, 15회×3세트 ② 스텝다운 — 계단 끝에서 한 다리로 천천히 내려오기, 10회×3세트 ③ 폼롤러로 허벅지 앞쪽 2~3분 이완. 약한 고관절 외전근이 주요 원인이라 이를 강화하는 운동이 핵심입니다.",
+          },
+          {
+            q: "신발이 무릎 통증에 영향을 주나요?",
+            a: "네. 쿠셔닝이 약한 신발(5단계 중 2 이하)은 착지 충격을 슬개골에 직접 전달합니다. 평발로 발이 안쪽으로 쏠리는 과회내가 있다면 안정화 신발을 선택해야 무릎 정렬이 개선됩니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

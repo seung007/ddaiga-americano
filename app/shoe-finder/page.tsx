@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
-import type { FootType, FootWidth, Gender, Recommendation, Shoe, ShoeUse } from "@/lib/shoes/types";
+import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 
 // ── 범위 선택 옵션 (Malisoux 2013 / Heiderscheit 2011 체형 8분류 기반) ──────────
 type HeightRange = "small" | "mid" | "tall";
@@ -64,18 +64,49 @@ const BUDGETS: { value: number; label: string }[] = [
   { value: 250000, label: "25만원 이하" },
 ];
 
+// ── PRD F-01 추가 문항: 경험 · 주간 거리 · 부상 이력 ──────────────
+const LEVEL_OPTIONS: { value: RunnerLevel; label: string; desc: string }[] = [
+  { value: "beginner",     label: "입문",  desc: "달리기 시작 6개월 미만" },
+  { value: "intermediate", label: "중급",  desc: "6개월 ~ 2년 정도" },
+  { value: "advanced",     label: "숙련",  desc: "2년 이상 · 대회 경험" },
+];
+
+const DISTANCE_OPTIONS: { value: RunDistance; label: string; desc: string }[] = [
+  { value: "short", label: "주 10km 미만",  desc: "가볍게 달려요" },
+  { value: "mid",   label: "주 10 – 30km", desc: "꾸준히 달려요" },
+  { value: "long",  label: "주 30km 이상",  desc: "많이 달려요" },
+];
+
+const INJURY_OPTIONS: { value: InjuryArea; label: string; desc: string }[] = [
+  { value: "none",     label: "없음",            desc: "다친 적 없어요" },
+  { value: "knee",     label: "무릎",            desc: "무릎 앞·바깥쪽 통증" },
+  { value: "ankle",    label: "발목",            desc: "접질림 · 불안정한 느낌" },
+  { value: "achilles", label: "아킬레스·종아리", desc: "뒤꿈치 위쪽이 당김" },
+  { value: "plantar",  label: "족저근막",        desc: "아침 첫발에 발바닥 통증" },
+];
+
 type SortKey = "score" | "price_asc" | "price_desc";
 
-const TOTAL_STEPS = 6;
-const STEP_LABELS = ["예산", "성별", "키", "체중", "발 특성", "용도"];
+const TOTAL_STEPS = 8;
+const STEP_LABELS = ["예산", "성별", "키", "체중", "발 특성", "경험·거리", "부상 이력", "용도"];
 const STEP_MICROCOPY = [
   "예산이 어느 정도예요?",
   "성별을 알려주시면 발형에 맞게 추천해드려요",
   "키가 어떻게 되세요?",
   "체중도 알려주세요 — 쿠션 두께가 달라져요",
   "내 발 특성이 어때요?",
+  "달린 지 얼마나 됐어요?",
+  "달리다 다쳐본 적 있어요?",
   "달리기 목표가 뭔가요?",
 ];
+
+// ── 재방문 · 공유: 프로필 저장/복원 ─────────────────────────────
+const STORAGE_KEY = "ddaiga:lastProfile";
+
+type SavedProfile = {
+  g: string; h: string; w: string; f: string[]; u: string; b: number;
+  lv: string; d: string; inj: string[]; t: number;
+};
 
 export default function ShoeFinderPage() {
   const [gender,    setGender]    = useState<Gender | "">("");
@@ -90,9 +121,72 @@ export default function ShoeFinderPage() {
   const [error,     setError]     = useState("");
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [level,     setLevel]     = useState<RunnerLevel | "">("");
+  const [distance,  setDistance]  = useState<RunDistance | "">("");
+  const [injuries,  setInjuries]  = useState<InjuryArea[]>([]);
+  const [savedProfile, setSavedProfile] = useState<SavedProfile | null>(null);
 
   function goNext() { setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1)); }
   function goPrev() { setCurrentStep(s => Math.max(s - 1, 0)); }
+
+  // 저장된 프로필을 상태에 적용 (공유 URL · 지난 추천 다시보기 공용)
+  function applyProfile(p: SavedProfile, submit: boolean) {
+    const h = HEIGHT_OPTIONS.find(o => o.value === p.h)?.value;
+    if (!h) return;
+    const w = WEIGHT_OPTIONS[h].find(o => o.value === p.w)?.value;
+    if (!w) return;
+    setHeightRange(h);
+    setWeightRange(w);
+    setGender(p.g === "male" || p.g === "female" ? (p.g as Gender) : "");
+    setFootSelections((p.f ?? []).filter(id => FOOT_OPTIONS.some(o => o.id === id)));
+    setUse(USES.some(o => o.value === p.u) ? (p.u as ShoeUse) : "");
+    setBudget(BUDGETS.some(o => o.value === p.b) ? p.b : 0);
+    setLevel(LEVEL_OPTIONS.some(o => o.value === p.lv) ? (p.lv as RunnerLevel) : "");
+    setDistance(DISTANCE_OPTIONS.some(o => o.value === p.d) ? (p.d as RunDistance) : "");
+    setInjuries((p.inj ?? []).filter((i): i is InjuryArea => INJURY_OPTIONS.some(o => o.value === i)));
+    if (submit) setSubmitted(true);
+  }
+
+  // 마운트 시: ① 공유 URL 파라미터 복원 ② localStorage 지난 추천 확인
+  useEffect(() => {
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      if (sp.get("h") && sp.get("w")) {
+        applyProfile({
+          g: sp.get("g") ?? "", h: sp.get("h")!, w: sp.get("w")!,
+          f: (sp.get("f") ?? "").split(",").filter(Boolean),
+          u: sp.get("u") ?? "", b: Number(sp.get("b") ?? 0) || 0,
+          lv: sp.get("lv") ?? "", d: sp.get("d") ?? "",
+          inj: (sp.get("inj") ?? "").split(",").filter(Boolean), t: 0,
+        }, true);
+        return;
+      }
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) setSavedProfile(JSON.parse(raw) as SavedProfile);
+    } catch { /* 손상된 데이터는 무시 */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function currentProfileForSave(): SavedProfile {
+    return {
+      g: gender, h: heightRange, w: weightRange, f: footSelections,
+      u: use, b: budget, lv: level, d: distance, inj: injuries, t: Date.now(),
+    };
+  }
+
+  function buildShareUrl(): string {
+    const p = currentProfileForSave();
+    const sp = new URLSearchParams();
+    if (p.g) sp.set("g", p.g);
+    sp.set("h", p.h); sp.set("w", p.w);
+    if (p.f.length) sp.set("f", p.f.join(","));
+    if (p.u) sp.set("u", p.u);
+    if (p.b) sp.set("b", String(p.b));
+    if (p.lv) sp.set("lv", p.lv);
+    if (p.d) sp.set("d", p.d);
+    if (p.inj.length) sp.set("inj", p.inj.join(","));
+    return `${window.location.origin}/shoe-finder?${sp.toString()}`;
+  }
 
   function toggleCompare(id: string) {
     setCompareIds(prev =>
@@ -117,8 +211,11 @@ export default function ShoeFinderPage() {
       use: use || undefined,
       gender: gender || undefined,
       budgetKrw: budget || undefined,
+      level: level || undefined,
+      distance: distance || undefined,
+      injuryHistory: injuries.length ? injuries : undefined,
     });
-  }, [submitted, weightKg, heightCm, selectedWidth, selectedType, use, gender, budget]);
+  }, [submitted, weightKg, heightCm, selectedWidth, selectedType, use, gender, budget, level, distance, injuries]);
 
   const sortedPrimary = useMemo(() => {
     if (!result) return [];
@@ -137,9 +234,13 @@ export default function ShoeFinderPage() {
     setError("");
     setSubmitted(true);
     setExpandedId(null);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(currentProfileForSave()));
+    } catch { /* 저장 실패는 무시 */ }
     if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag === "function") {
       (window as unknown as { gtag: (...a: unknown[]) => void }).gtag("event", "recommend_form_complete", {
         gender: gender || "unset",
+        level: level || "unset",
       });
     }
   }
@@ -166,6 +267,26 @@ export default function ShoeFinderPage() {
           </p>
         </header>
 
+        {!submitted && savedProfile && (
+          <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <p className="text-sm text-emerald-800">
+              🕐 지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
+            </p>
+            <div className="flex shrink-0 gap-2">
+              <button type="button"
+                onClick={() => { applyProfile(savedProfile, true); setSavedProfile(null); }}
+                className="text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
+                다시 보기 →
+              </button>
+              <button type="button"
+                onClick={() => { setSavedProfile(null); try { localStorage.removeItem(STORAGE_KEY); } catch {} }}
+                className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1.5 transition-colors">
+                지우기
+              </button>
+            </div>
+          </div>
+        )}
+
         {!submitted && (
           <div className="flex items-center justify-between mb-4">
             <div className="flex gap-1.5 items-center">
@@ -184,11 +305,12 @@ export default function ShoeFinderPage() {
         )}
 
         {submitted && result && (
-          <div className="mb-4 text-sm text-gray-500">
+          <div className="mb-4 flex items-center justify-between text-sm text-gray-500">
             <button type="button" onClick={handleReset}
               className="text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2">
               ← 조건 다시 고르기
             </button>
+            <ShareResultButton buildUrl={buildShareUrl} />
           </div>
         )}
 
@@ -311,8 +433,69 @@ export default function ShoeFinderPage() {
             </div>
           )}
 
-          {/* ── STEP 5: 용도 + 추천 받기 ── */}
+          {/* ── STEP 5: 경험 · 주간 거리 (PRD F-01) ── */}
           {currentStep === 5 && (
+            <div className="flex flex-col gap-4">
+              <div className="grid grid-cols-3 gap-2">
+                {LEVEL_OPTIONS.map(o => (
+                  <button key={o.value} type="button"
+                    onClick={() => { setLevel(prev => prev === o.value ? "" : o.value); handleChange(); }}
+                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                      ${level === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className={`font-semibold text-sm ${level === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                  </button>
+                ))}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-700 mb-2">일주일에 얼마나 달려요?</p>
+                <div className="grid grid-cols-3 gap-2">
+                  {DISTANCE_OPTIONS.map(o => (
+                    <button key={o.value} type="button"
+                      onClick={() => { setDistance(prev => prev === o.value ? "" : o.value); handleChange(); }}
+                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                        ${distance === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                      <span className={`font-semibold text-sm ${distance === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-gray-400 -mt-1">선택 안 해도 추천 받을 수 있어요. 입문이면 부상 위험이 큰 레이싱화를 빼드려요.</p>
+            </div>
+          )}
+
+          {/* ── STEP 6: 부상 이력 (PRD F-01) ── */}
+          {currentStep === 6 && (
+            <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {INJURY_OPTIONS.map(o => {
+                  const active = injuries.includes(o.value);
+                  return (
+                    <button key={o.value} type="button"
+                      onClick={() => {
+                        handleChange();
+                        setInjuries(prev => {
+                          if (prev.includes(o.value)) return prev.filter(i => i !== o.value);
+                          if (o.value === "none") return ["none"];
+                          return [...prev.filter(i => i !== "none"), o.value];
+                        });
+                      }}
+                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                        ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                      <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-gray-400 mt-1">여러 개 골라도 돼요. 다친 부위에 부담이 덜한 신발을 우선 추천해드려요.</p>
+              <p className="text-xs text-gray-400">※ 참고용이에요. 지금 아프다면 신발보다 병원 진료가 먼저예요.</p>
+            </div>
+          )}
+
+          {/* ── STEP 7: 용도 + 추천 받기 ── */}
+          {currentStep === 7 && (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {([
@@ -692,6 +875,23 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
         </div>
       )}
     </li>
+  );
+}
+
+function ShareResultButton({ buildUrl }: { buildUrl: () => string }) {
+  const [copied, setCopied] = useState(false);
+  function copy() {
+    navigator.clipboard.writeText(buildUrl()).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+  return (
+    <button type="button" onClick={copy}
+      className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors
+        ${copied ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-300 bg-white text-gray-600 hover:border-emerald-400 hover:text-emerald-600"}`}>
+      {copied ? "✓ 링크 복사됨" : "🔗 결과 링크 복사"}
+    </button>
   );
 }
 

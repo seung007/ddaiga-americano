@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -143,6 +144,21 @@ export default function AchillesPage() {
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
         </section>
+
+        <FaqSection items={[
+          {
+            q: "미드풋으로 바꾼 뒤 아킬레스건이 당기는 게 정상인가요?",
+            a: "미드풋 착지는 아킬레스건과 종아리에 가는 부하를 늘리기 때문에 전환 초기의 가벼운 당김은 흔합니다. 힐스트라이크에서 미드풋 전환은 최소 6~8주에 걸쳐 천천히 해야 합니다. 다만 날카로운 통증이 오거나 아침 첫 발걸음에 극심한 통증이 있다면 중단하고 진료를 받아야 합니다.",
+          },
+          {
+            q: "아킬레스건·종아리 통증에 어떤 스트레칭이 효과적인가요?",
+            a: "세 가지를 권장합니다. ① 벽 카프 스트레칭 30초 ② 솔리어스(종아리 깊은 근육) 스트레칭 30초 ③ 편심성 카프 레이즈 — 양발로 올라가 한 발로 3~5초에 걸쳐 천천히 내려오기, 한쪽 15회×3세트 하루 1~2회. 메타분석(Prudêncio 2023)에서 편심성 운동이 아킬레스건병에 가장 효과적인 운동으로 확인됐습니다.",
+          },
+          {
+            q: "아킬레스건이 약하면 신발 드롭은 몇 mm가 좋나요?",
+            a: "드롭(뒤꿈치와 앞발 높이 차)이 높을수록 아킬레스건 부담이 줄어듭니다. 주법 전환 중이거나 아킬레스건에 통증 이력이 있다면 드롭 8mm 이상을 추천합니다. 드롭 4mm 이하의 낮은 신발은 부담을 키울 수 있습니다.",
+          },
+        ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">드롭 높이까지 고려한 신발이 필요하다면</p>

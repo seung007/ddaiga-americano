@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -128,6 +129,21 @@ export default function WideFootPage() {
           { label: "Best Running Shoes for Wide Feet 2024: Top 3 Picks Revealed!", channel: "The Run Experience", url: "https://www.youtube.com/watch?v=hv9V9D51cFU" },
           { label: "The Best Wide-Fitting Neutral Running Shoes: Expert Review", channel: "Doctors of Running", url: "https://www.youtube.com/watch?v=g9BGWko7e9M" },
           { label: "Running Shoes for Wide Feet — My Top 5 Picks", channel: "Ben Parkes Running", url: "https://www.youtube.com/watch?v=CALXqH6mhsw" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "와이드(2E·4E) 규격이 필요한지 어떻게 판단하나요?",
+            a: "세 가지로 확인합니다. ① 신발 밑창보다 발이 옆으로 삐져나와 있다 ② 5km 이상 달린 뒤 새끼발가락·발 바깥쪽에 압박이나 물집이 생긴다 ③ 앞코 길이는 여유가 있는데 옆이 눌린다 — 길이가 아닌 폭 문제입니다. 발은 달릴수록 최대 1cm 정도 길어지고 넓어집니다.",
+          },
+          {
+            q: "러닝화 폭 규격 B·D·2E·4E는 무슨 뜻인가요?",
+            a: "미국 규격 기준 폭 표기입니다. B(좁음) → D(표준) → 2E(넓음) → 4E(매우 넓음) 순으로 넓어집니다. 국내에서 팔리는 대부분의 러닝화는 D 규격이며, 와이드 버전은 따로 구매해야 합니다.",
+          },
+          {
+            q: "와이드 옵션이 많은 러닝화 브랜드는 어디인가요?",
+            a: "New Balance와 Brooks가 B부터 4E까지 폭 옵션이 가장 다양합니다. Asics는 주요 모델에 2E·4E 옵션이 있고, Hoka는 2E까지만 제공합니다. On은 와이드 옵션이 없어 발볼이 넓다면 피하는 게 좋습니다. (2026년 기준, 모델별로 다를 수 있음)",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -134,6 +135,21 @@ export default function ITBandPage() {
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
         </section>
+
+        <FaqSection items={[
+          {
+            q: "달릴 때 무릎 바깥쪽이 아픈 이유는 뭔가요?",
+            a: "무릎 바깥쪽의 날카로운 통증은 장경인대염(IT Band Syndrome)일 가능성이 높습니다. 장경인대가 무릎을 굽혔다 펼 때 허벅지 뼈 돌출부와 반복해서 마찰하며 염증이 생깁니다. 주 10% 이상의 갑작스러운 거리 증가와 체중 대비 쿠셔닝이 부족한 신발이 주요 원인입니다.",
+          },
+          {
+            q: "장경인대염이 생기면 달리기를 완전히 쉬어야 하나요?",
+            a: "완전히 쉴 필요는 없지만, 통증이 느껴지는 즉시 이번 주 거리를 30% 줄이고 아프지 않은 수준에서만 달려야 합니다. 통증을 참고 달리면 회복에 4~6주가 걸릴 수 있습니다. 지속적인 통증은 전문의 상담을 권장합니다.",
+          },
+          {
+            q: "장경인대염에 폼롤러는 어떻게 사용하나요?",
+            a: "폼롤러를 허벅지 바깥쪽 아래에 놓고 옆으로 누워, 무릎부터 엉덩이까지 천천히 체중을 실어 굴립니다. 아픈 부위에서 10~15초 멈추고, 하루 2번 각 2~3분씩 반복합니다. 장경인대 자체는 늘어나지 않지만 주변 근육(대퇴근막장근)을 풀면 인대 장력이 줄어듭니다.",
+          },
+        ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">내 체중에 맞는 쿠셔닝 신발이 필요하다면</p>
