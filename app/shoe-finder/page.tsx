@@ -73,12 +73,12 @@ type SortKey = "score" | "price_asc" | "price_desc";
 const TOTAL_STEPS = 6;
 const STEP_LABELS = ["예산", "성별", "키", "체중", "발 특성", "용도"];
 const STEP_MICROCOPY = [
-  "먼저 예산을 알려주세요",
-  "성별도 알려주시면 더 잘 맞아요",
+  "예산이 어느 정도예요?",
+  "성별을 알려주시면 발형에 맞게 추천해드려요",
   "키가 어떻게 되세요?",
-  "체중도 알려주세요",
-  "발 특성을 골라주세요",
-  "거의 다 왔어요! 💪",
+  "체중도 알려주세요 — 쿠션 두께가 달라져요",
+  "내 발 특성이 어때요?",
+  "달리기 목표가 뭔가요?",
 ];
 
 export default function ShoeFinderPage() {
@@ -168,7 +168,7 @@ export default function ShoeFinderPage() {
         <header className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
           <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-            키·체중·발볼만 알려주시면, 무릎 안 망가지는 신발 바로 찾아드려요.
+            내 체형에 맞는 신발, 1분이면 찾아드려요.
           </p>
         </header>
 
@@ -185,7 +185,7 @@ export default function ShoeFinderPage() {
               ))}
             </div>
             <span className="text-xs text-gray-400">
-              <span className="font-semibold text-gray-700">{currentStep + 1}</span> / {TOTAL_STEPS} · 약 1분
+              <span className="font-semibold text-gray-700">{currentStep + 1}</span> / {TOTAL_STEPS}
             </span>
           </div>
         )}
@@ -322,12 +322,22 @@ export default function ShoeFinderPage() {
           {/* ── STEP 5: 용도 + 추천 받기 ── */}
           {currentStep === 5 && (
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-gray-700">용도</label>
-                <select value={use} onChange={e => { setUse(e.target.value as ShoeUse | ""); handleChange(); }}
-                  className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100">
-                  {USES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
+              <div className="flex flex-col gap-2">
+                {([
+                  { value: "" as ShoeUse | "",      label: "전체",     desc: "아직 잘 모르겠어요" },
+                  { value: "daily" as ShoeUse,      label: "데일리",   desc: "매일 꾸준히 달려요" },
+                  { value: "long" as ShoeUse,       label: "장거리",   desc: "하프·풀 마라톤 준비 중" },
+                  { value: "tempo" as ShoeUse,      label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
+                  { value: "racing" as ShoeUse,     label: "레이싱",   desc: "기록 단축이 목표예요" },
+                ]).map(o => (
+                  <button key={o.value} type="button"
+                    onClick={() => { setUse(o.value); handleChange(); }}
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
+                      ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className={`font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                    <span className="text-xs text-gray-400">{o.desc}</span>
+                  </button>
+                ))}
               </div>
 
               {error && <p className="text-sm text-red-500">{error}</p>}
