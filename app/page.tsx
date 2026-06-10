@@ -22,13 +22,13 @@ export default function Home() {
 
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <p className="text-sm font-medium text-emerald-600 mb-4">달리기 시작했는데, 신발부터 막막하다면</p>
+        <p className="text-sm font-medium text-emerald-600 mb-4">광고 없는 데이터 기반 러닝화 추천</p>
         <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-5">
-          아무 신발이나 신고 뛰다가<br />무릎 나가기 전에
+          내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>
         <p className="text-lg text-gray-600 leading-relaxed mb-8">
-          유튜브 따라 샀다가 부상으로 달리기를 포기하는 초보가 많아요.<br />
-          키·체중·발 타입에 맞는 신발과 부상 예방법을 1분 만에 알려드려요.
+          키·체중·발볼만 고르면 논문 기반 추천이<br />
+          내 체형에 맞는 신발 3개를 골라드려요. 광고·협찬 없이.
         </p>
         <Link
           href="/shoe-finder"
@@ -62,9 +62,9 @@ export default function Home() {
       {/* Feature 3-grid */}
       <section className="max-w-3xl mx-auto px-6 pb-16 grid gap-4 md:grid-cols-3">
         {[
-          { t: "막연한 추천이 아니에요", d: "키·체중·발볼·발 타입·성별까지 반영한 논문 기반 추천. 내 몸이 기준이에요." },
-          { t: "다치기 전에 알려드려요", d: "무릎·발목·아킬레스건, 증상별로 지금 뭘 해야 하는지 바로 확인." },
-          { t: "협찬받고 띄우지 않아요", d: "광고비가 아니라 내 데이터로만 골라요. 광고·협찬 없는 중립 추천." },
+          { t: "논문으로 고른 추천", d: "키·체중·발볼·발 타입·성별까지 반영한 논문 기반 추천. 내 몸이 기준이에요." },
+          { t: "부상 예방까지 함께", d: "무릎·발목·아킬레스건, 증상별 대처법을 추천과 함께 연결해드려요." },
+          { t: "광고 없는 중립 추천", d: "협찬·광고비가 아니라 내 데이터로만 골라요." },
         ].map((x, i) => (
           <div key={i} className="border border-gray-100 rounded-xl p-5">
             <h3 className="font-semibold text-gray-900 mb-1">{x.t}</h3>
@@ -164,8 +164,8 @@ export default function Home() {
       {/* 마무리 CTA */}
       <section className="bg-emerald-600">
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">유튜브 정보만 보고 막막했다면</h2>
-          <p className="text-emerald-50 mb-6">키·체중·발 타입만 고르면 내 발에 맞는 신발이 1분 안에 나와요.</p>
+          <h2 className="text-2xl font-bold text-white mb-2">어떤 신발이 맞는지 모르겠다면</h2>
+          <p className="text-emerald-50 mb-6">키·체중·발 타입만 고르면 논문 기반 추천이 1분 안에 신발 3개를 골라드려요.</p>
           <Link
             href="/shoe-finder"
             className="inline-block bg-white text-emerald-700 font-semibold px-8 py-4 rounded-xl hover:bg-emerald-50 transition-colors"
