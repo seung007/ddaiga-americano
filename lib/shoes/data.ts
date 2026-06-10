@@ -540,7 +540,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gel-nimbus-27",
     brand: "Asics",
     model: "Gel-Nimbus 27",
-    imageUrl: "https://images.asics.com/is/image/asics/1011B955-006_SR_RT_GLB?$zoom$",
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40620/asics-gel-nimbus-27-22584818-720.jpg",
     colorways: ["블루/화이트", "블랙/카본"],
     widthOptions: ["D", "2E", "4E"],
     heelDropMm: 8,
