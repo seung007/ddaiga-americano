@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -53,6 +54,21 @@ export default function Page() {
           { label: "러닝 후 쿨다운 스트레칭, 5분만 투자하세요 #초보러너", channel: "러닝스튜디오", url: "https://www.youtube.com/watch?v=4Vbiu6RdpkE" },
           { label: "5분만에 끝나는 러닝 후 스트레칭", channel: "러닝TV", url: "https://www.youtube.com/watch?v=bsWU6ata_tw" },
           { label: "러닝 스트레칭 종결 l 달리기 전후 제발 5분씩만 따라하세요", channel: "피지컬TV", url: "https://www.youtube.com/watch?v=qoPyfVxqpQc" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "달리고 나서 바로 앉거나 누우면 안 되나요?",
+            a: "바로 앉거나 누우면 혈액이 다리에 정체돼 어지러움이 생기거나 회복이 늦어질 수 있습니다. 먼저 5분 걷기로 심박수를 서서히 내린 뒤 10분 정적 스트레칭을 하는 게 좋습니다.",
+          },
+          {
+            q: "쿨다운 정적 스트레칭은 어떤 순서로 하나요?",
+            a: "① 종아리 벽 스트레칭 → ② 햄스트링(서서 앞으로 굽히기) → ③ 고관절 굴근(런지 자세) → ④ 장경인대(다리 꼬아 옆으로 기울기) → ⑤ 엉덩이(누워서 무릎 당기기), 각 30초씩 2회. 통증이 아니라 당기는 느낌에서 멈추세요.",
+          },
+          {
+            q: "회복을 더 빠르게 하려면 뭘 하면 되나요?",
+            a: "스트레칭 후 단백질+탄수화물 음료(초콜릿 밀크 등)를 섭취하면 근육 회복 속도가 빨라집니다. 수면의 질도 회복에 직접 영향을 줍니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

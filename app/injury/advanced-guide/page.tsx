@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -151,6 +152,21 @@ export default function AdvancedGuidePage() {
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>
         </section>
+
+        <FaqSection items={[
+          {
+            q: "숙련 러너의 부상 주원인은 무엇인가요?",
+            a: "보이지 않게 쌓이는 누적 부하(Cumulative Load)입니다. 고강도·고볼륨을 감당할 수 있더라도 피로가 눈에 띄지 않게 축적됩니다. Bahr & Mæhlum(2004)에 따르면 엘리트에 가까울수록 누적 부하가 부상의 주요 원인이 됩니다.",
+          },
+          {
+            q: "HRV(심박변이도)는 어떻게 활용하나요?",
+            a: "매일 아침 기상 직후 1~3분 측정(Elite HRV, HRV4Training 등)해서 평균 대비 5% 이상 떨어지면 그날은 저강도 조깅이나 휴식으로 강도를 낮춥니다. 컨디션을 객관적 수치로 관리하는 방법입니다.",
+          },
+          {
+            q: "기록을 높이면서 부상을 막으려면?",
+            a: "주기화(periodization) 훈련으로 고강도·고볼륨과 회복 구간을 구조적으로 번갈아 배치하세요. 근력 훈련도 스포츠 부상 예방 효과가 메타분석으로 입증돼 있습니다.",
+          },
+        ]} />
 
         <div className="p-6 bg-emerald-50 rounded-2xl text-center">
           <p className="font-medium text-emerald-900 mb-2">고볼륨 훈련엔 체중에 정확히 맞는 쿠셔닝이 필요합니다</p>

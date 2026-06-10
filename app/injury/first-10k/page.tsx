@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -55,6 +56,21 @@ export default function Page() {
           { label: "10km 대회를 준비하는 방법 #초보러너", channel: "달리기TV", url: "https://www.youtube.com/watch?v=nevTzDZhAa4" },
           { label: "초보자~10km 맞춤 Q&A — 페이스·훈련 완전 정리", channel: "러닝궁금증", url: "https://www.youtube.com/watch?v=B4A61x6T3ao" },
           { label: "10km 1시간 이내 완주! 같이 뛰어요", channel: "달리기 유튜버", url: "https://www.youtube.com/watch?v=vuxhV314PqE" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "첫 10km 대회 준비물은 무엇이 필요한가요?",
+            a: "미리 길들인 러닝화(대회 2주 전 미리 신어 물집 확인), 기능성 러닝 양말(면 양말 금지), 번호표 핀 4개나 클립, 페이스 측정용 워치·앱, 7km 이후용 에너지 젤. 새 장비는 절대 대회날 처음 쓰지 마세요.",
+          },
+          {
+            q: "첫 대회에서 페이스 전략은 어떻게 잡나요?",
+            a: "출발 분위기에 휩쓸려 첫 1~2km를 너무 빠르게 달리는 게 가장 흔한 실수입니다. 목표 페이스보다 10~15초/km 느리게 출발하고, 5km 이후 여유가 있으면 속도를 올리세요. 이런 '음의 분할(Negative Split)'이 완주율과 기록 모두에 유리합니다.",
+          },
+          {
+            q: "7~8km에서 너무 힘들 때는 어떻게 하나요?",
+            a: "대부분의 초보 러너가 이 구간에서 멘탈이 무너집니다. '지금이 고통의 최고조이고 2km만 더 가면 끝'이라고 생각하세요. 달리기의 고통은 선형으로 증가하지 않아 종반 1km는 의외로 잘 달려집니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

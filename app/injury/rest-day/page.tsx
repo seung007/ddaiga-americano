@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -53,6 +54,21 @@ export default function Page() {
           { label: "러닝 후 회복 — 쉬는 날 이렇게 보내세요", channel: "러닝코치TV", url: "https://www.youtube.com/watch?v=ddJ9JUcIHvU" },
           { label: "오버트레이닝 신호 & 회복 전략 — 러너를 위한 가이드", channel: "피지컬TV", url: "https://www.youtube.com/watch?v=sfF4f-QGRn8" },
           { label: "Active Recovery vs 완전 휴식 — 러너를 위한 정답", channel: "Ben Parkes Running", url: "https://www.youtube.com/watch?v=YgNsGODqSVA" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "휴식일에는 완전히 쉬는 게 좋나요?",
+            a: "대개는 아닙니다. 저강도 유산소 운동(최대 심박수의 50~60%)인 액티브 리커버리가 완전 휴식보다 회복을 20~30% 빠르게 한다는 연구가 있습니다. 쉬는 날 아무것도 안 하면 근육이 굳어 다음 훈련이 더 힘들어집니다.",
+          },
+          {
+            q: "휴식일에 어떤 활동을 하면 좋나요?",
+            a: "① 20~30분 빠른 걷기(대화 가능한 속도) ② 수영 또는 아쿠아 조깅 ③ 가벼운 자전거 ④ 요가·필라테스. 핵심은 숨이 차지 않는 강도이며, 달리기는 하지 않습니다.",
+          },
+          {
+            q: "완전 휴식이 필요한 신호는 무엇인가요?",
+            a: "극심한 피로, 수면 장애, 안정시 심박수가 평소보다 7회 이상 상승, 달리기 의욕 완전 소실 — 이 4가지 중 2개 이상이면 오버트레이닝 신호입니다. 이때는 2~3일 완전 휴식이 필요합니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

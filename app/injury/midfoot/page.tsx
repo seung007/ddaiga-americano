@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -54,6 +55,21 @@ export default function Page() {
           { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "달리기연구소", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
           { label: "수십 년째 논쟁 — 힐스트라이크 vs 미드풋 vs 포어풋", channel: "굿러너TV", url: "https://www.youtube.com/watch?v=b20-GrHPMWI" },
           { label: "오버스트라이드 교정 — 부상 없이 달리는 발 착지법", channel: "Sage Running", url: "https://www.youtube.com/watch?v=b-4qnRhRBGs" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "미드풋 착지가 힐스트라이크보다 무조건 좋은가요?",
+            a: "아니요. 2023년 기준 스포츠의학 연구들은 착지 방식 자체보다 '착지 위치'가 더 중요하다고 봅니다. 힐스트라이크 러너도 보폭이 과도하게 길지 않으면 부상률에 차이가 없다는 결과가 있습니다.",
+          },
+          {
+            q: "그럼 착지에서 진짜 중요한 건 뭔가요?",
+            a: "오버스트라이드 방지입니다. 발이 무게중심보다 앞에서 닿으면 충격이 큽니다. 힐스트라이크라도 발이 무게중심 바로 아래나 그 근처에서 닿으면 충격이 적습니다.",
+          },
+          {
+            q: "초보는 착지법을 어떻게 바꿔야 하나요?",
+            a: "착지법을 강제로 바꾸기보다 케이던스를 현재보다 5~10% 높이세요. 케이던스가 높아지면 자연스럽게 보폭이 줄어 오버스트라이드가 교정됩니다. 강제적인 미드풋 전환은 아킬레스 부상으로 이어질 수 있습니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

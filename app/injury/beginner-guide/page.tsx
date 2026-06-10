@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -180,6 +181,21 @@ export default function BeginnerGuidePage() {
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
         </section>
+
+        <FaqSection items={[
+          {
+            q: "초보 러너가 가장 먼저 지켜야 할 한 가지는?",
+            a: "'10% 규칙'입니다. 주간 달리기 거리를 전주 대비 10% 넘게 늘리지 마세요. 이번 주 10km였다면 다음 주는 최대 11km입니다. 뼈·힘줄·연골은 심폐 능력보다 적응 속도가 느립니다.",
+          },
+          {
+            q: "왜 거리를 급하게 늘리면 위험한가요?",
+            a: "Nielsen et al.(2014, BJSM) 연구에서 주간 거리를 30% 이상 급격히 늘린 러너의 부상 위험이 30% 이내로 늘린 러너보다 2.4배 높았습니다. 러닝 부상의 79%는 과훈련(too much, too soon)이 원인입니다(van Gent 2007).",
+          },
+          {
+            q: "달리기 시작 후 언제가 가장 부상 위험이 큰가요?",
+            a: "처음 6개월입니다. 가장 위험한 시기이자 가장 예방하기 쉬운 시기이기도 합니다. 10% 규칙을 지키고 워밍업·쿨다운을 챙기면 대부분의 초기 부상을 막을 수 있습니다.",
+          },
+        ]} />
 
         <div className="p-6 bg-emerald-50 rounded-2xl text-center">
           <p className="font-medium text-emerald-900 mb-2">초심자에게 맞는 신발이 부상 위험을 줄입니다</p>

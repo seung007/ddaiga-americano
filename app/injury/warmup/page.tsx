@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -53,6 +54,21 @@ export default function Page() {
           { label: "러닝 전 동적 스트레칭 — 워밍업 8분, 부상방지·퍼포먼스 향상", channel: "러닝스튜디오", url: "https://www.youtube.com/watch?v=ddJ9JUcIHvU" },
           { label: "러닝 전 꼭 해야 할 동적 스트레칭 #달리기준비운동", channel: "달리기준비", url: "https://www.youtube.com/watch?v=rEj3vyacaw4" },
           { label: "5분 워밍업 — 부상 없이 달리기 위한 필수 루틴", channel: "Sage Running", url: "https://www.youtube.com/watch?v=sfF4f-QGRn8" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "달리기 전에 정적 스트레칭을 하면 안 되나요?",
+            a: "달리기 전 앉아서 늘리는 정적 스트레칭은 오히려 근육 출력을 10~15% 낮춥니다. 달리기 전에는 관절을 움직이며 혈류를 올리는 동적 워밍업을 하고, 정적 스트레칭은 달린 뒤 쿨다운 단계에서 하세요.",
+          },
+          {
+            q: "5분 동적 워밍업은 어떻게 구성하나요?",
+            a: "① 제자리 걷기 1분 → ② 레그 스윙(앞뒤·옆) 각 10회 → ③ 힙 써클 각 10회 → ④ 워킹 런지 10보 → ⑤ 하이 니즈 30초 → ⑥ 버트 킥스 30초. 마지막 1분은 천천히 조깅으로 마무리합니다.",
+          },
+          {
+            q: "추운 날에는 워밍업을 어떻게 해야 하나요?",
+            a: "겨울에는 워밍업 시간을 평소의 2배로 늘리세요. 근육이 따뜻해지는 데 더 오래 걸리고, 차가운 공기가 호흡기에 부담을 줍니다. 마스크 착용이나 실내 워밍업을 권장합니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

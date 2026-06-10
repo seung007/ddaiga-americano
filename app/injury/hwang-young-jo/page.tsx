@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -114,6 +115,21 @@ export default function HwangYoungJoPage() {
       { label: "황영조 바르셀로나 올림픽 마라톤 — 몬주익 언덕 역전 장면", channel: "KBS 스포츠", url: "https://www.youtube.com/results?search_query=황영조+바르셀로나+올림픽+마라톤+1992" },
       { label: "황영조 선수 인터뷰 — 달리기 철학", channel: "MBC 스포츠", url: "https://www.youtube.com/results?search_query=황영조+마라톤+인터뷰+훈련" },
       { label: "한국 마라톤 역사 — 황영조부터 현재까지", channel: "대한육상연맹", url: "https://www.youtube.com/results?search_query=한국+마라톤+역사+황영조" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "황영조 선수는 어떤 기록을 세웠나요?",
+            a: "1992년 바르셀로나 올림픽 마라톤에서 몬주익 언덕을 오르며 일본의 모리시타 코이치를 제치고 금메달을 땄습니다. 당시 24세였고, 한국 마라톤 역사상 처음이자 유일한 올림픽 금메달입니다.",
+          },
+          {
+            q: "'고통을 읽는다'는 말은 무슨 뜻인가요?",
+            a: "황영조 선수는 여러 인터뷰에서 \"달리기에서 고통은 피하는 것이 아니라 읽어야 하는 신호\"라고 말해왔습니다. 통증을 무시하고 참기보다, 몸이 보내는 신호로 해석해 페이스와 휴식을 조절하라는 의미입니다.",
+          },
+          {
+            q: "초보 러너가 여기서 배울 점은 무엇인가요?",
+            a: "고통을 무리하게 견디기보다 신호로 읽어 강도와 회복을 조절하는 태도입니다. 이 글은 공개된 인터뷰·공식 기록·저서 《나는 달린다》를 바탕으로 작성됐습니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

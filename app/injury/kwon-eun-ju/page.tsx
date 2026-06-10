@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -104,6 +105,21 @@ export default function KwonEunJuPage() {
       { label: "권은주 선수 인터뷰 — 부상 극복과 훈련", channel: "SBS 스포츠", url: "https://www.youtube.com/results?search_query=권은주+마라톤+인터뷰+훈련" },
       { label: "여성 러너 부상 예방 — 전문가 가이드", channel: "런닝 유튜브 KR", url: "https://www.youtube.com/results?search_query=여성+러너+부상+예방+훈련" },
       { label: "여자 마라톤 훈련법 — 페이스·거리 관리", channel: "런닝 유튜브 KR", url: "https://www.youtube.com/results?search_query=여성+마라톤+훈련+페이스+관리" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "여성 러너가 특히 조심해야 할 부상은?",
+            a: "골반 구조 차이로 여성은 남성보다 슬개대퇴 증후군(러너 무릎)과 장경인대염 발생률이 높습니다. 엘리트 여성 선수들이 장기간 부상 없이 달리는 비결은 고관절과 코어 근력 훈련에 있습니다.",
+          },
+          {
+            q: "권은주 선수의 훈련 원칙은 무엇인가요?",
+            a: "\"빠르게보다 오래\", 즉 '축적'입니다. 한국 여자 마라톤의 대표적인 장수 선수로서, 부상 없이 달리기를 오래 지속하는 것을 우선하는 철학입니다. 초보 러너에게도 그대로 적용됩니다.",
+          },
+          {
+            q: "초보 여성 러너가 바로 적용할 원칙은?",
+            a: "주당 거리를 전주 대비 10% 이상 늘리지 않는 '10% 법칙'입니다. 엘리트 선수든 초보든 모든 러너에게 통하는 가장 기본적인 과부하 예방법입니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

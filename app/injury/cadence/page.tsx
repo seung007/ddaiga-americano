@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -127,6 +128,21 @@ export default function CadencePage() {
           { label: "러닝 케이던스 올리는 법", channel: "달리기TV", url: "https://www.youtube.com/shorts/AYcPMquGIds" },
           { label: "이상적인 러닝 케이던스는? (서울대 스포츠공학)", channel: "서울대 스포츠공학", url: "https://www.youtube.com/shorts/c0mtXc3Twmo" },
           { label: "케이던스 180이 정답일까요?", channel: "달리기연구소", url: "https://www.youtube.com/shorts/PUBWGbEuTSg" },
+        ]} />
+
+        <FaqSection items={[
+          {
+            q: "케이던스 180 spm을 꼭 맞춰야 하나요?",
+            a: "아니요. 180은 키 175cm 전후 남성 엘리트 선수들에게서 관찰된 평균값입니다(1984년 잭 다니엘스가 LA 올림픽 마라톤 선수를 관찰). 키가 다르면 적정 케이던스도 달라지고, 개인 보폭·체력에 따라 ±5 spm 편차는 정상입니다.",
+          },
+          {
+            q: "내 케이던스는 어떻게 측정하나요?",
+            a: "한쪽 발(예: 오른발)이 땅에 닿는 횟수를 30초 동안 센 뒤 4를 곱하면 분당 케이던스(spm)입니다.",
+          },
+          {
+            q: "케이던스를 높이면 뭐가 좋아지나요?",
+            a: "현재보다 5~10% 높이면 착지 시 무릎·고관절에 가해지는 충격이 줄어든다는 연구(Heiderscheit 2011)가 있습니다. 단 '180으로 맞춰라'가 아니라 '현재 케이던스에서 조금씩 높여라'가 핵심입니다.",
+          },
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -140,6 +141,21 @@ export default function IntermediateGuidePage() {
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>
         </section>
+
+        <FaqSection items={[
+          {
+            q: "중급자는 어느 단계의 러너를 말하나요?",
+            a: "보통 러닝 경험 6~24개월 구간의 러너입니다. '이제 좀 달릴 만하다'는 자신감이 생기는 시기인데, 이 자신감이 부상의 씨앗이 되곤 합니다.",
+          },
+          {
+            q: "중급자가 부상당하는 가장 흔한 원인은?",
+            a: "훈련 오류(training error)입니다. Taunton et al.(2003) 연구에 따르면 러닝 부상의 70%가 여기서 비롯됩니다. 즉 신체 능력보다 부하 관리와 회복이 부상 예방의 핵심입니다.",
+          },
+          {
+            q: "언제 쉬어야 하는지 어떻게 아나요?",
+            a: "오버트레이닝 징후를 살펴야 합니다. 누적 피로, 수행력 저하, 수면 장애, 안정시 심박수 상승, 달리기 의욕 감소 등이 신호이며, 이때는 부하를 줄이고 회복일을 늘려야 합니다.",
+          },
+        ]} />
 
         <div className="p-6 bg-emerald-50 rounded-2xl text-center">
           <p className="font-medium text-emerald-900 mb-2">주간 거리 늘릴 때 체중에 맞는 쿠셔닝이 중요합니다</p>
