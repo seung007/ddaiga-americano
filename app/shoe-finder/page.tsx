@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
@@ -44,8 +45,7 @@ const FOOT_OPTIONS: { id: string; category: "width" | "type"; label: string; des
   { id: "high_arch",  category: "type",  label: "높은 아치",       desc: "발바닥 가운데가 뜨는 편이에요",       footType: "high_arch" },
 ];
 
-const USES: { value: ShoeUse | ""; label: string }[] = [
-  { value: "",       label: "전체 (상관없음)" },
+const USES: { value: ShoeUse; label: string }[] = [
   { value: "daily",  label: "데일리 (매일 달리기)" },
   { value: "long",   label: "장거리 (하프·풀 마라톤)" },
   { value: "tempo",  label: "템포 / 인터벌" },
@@ -63,10 +63,6 @@ const BUDGETS: { value: number; label: string }[] = [
   { value: 200000, label: "20만원 이하" },
   { value: 250000, label: "25만원 이하" },
 ];
-
-
-
-
 
 type SortKey = "score" | "price_asc" | "price_desc";
 
@@ -104,7 +100,6 @@ export default function ShoeFinderPage() {
     );
   }
 
-  // 범위 → 대표 수치 변환
   const weightKg = heightRange && weightRange
     ? WEIGHT_OPTIONS[heightRange].find(o => o.value === weightRange)!.kg
     : null;
@@ -112,7 +107,6 @@ export default function ShoeFinderPage() {
     ? HEIGHT_OPTIONS.find(o => o.value === heightRange)!.cm
     : null;
 
-  // footSelections에서 width/type 추출 (미선택 시 기본값)
   const selectedWidth = FOOT_OPTIONS.find(o => o.category === "width" && footSelections.includes(o.id))?.width ?? "normal";
   const selectedType  = FOOT_OPTIONS.find(o => o.category === "type"  && footSelections.includes(o.id))?.footType ?? "neutral";
 
@@ -139,10 +133,10 @@ export default function ShoeFinderPage() {
     e.preventDefault();
     if (!heightRange) { setError("키를 먼저 골라주세요!"); return; }
     if (!weightRange) { setError("체중도 골라주세요!"); return; }
+    if (!use) { setError("달리기 목적을 골라주세요!"); return; }
     setError("");
     setSubmitted(true);
     setExpandedId(null);
-    // GA4 이벤트 (gtag 있으면 전송) — PRD 선행지표: 추천 폼 완료율
     if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag === "function") {
       (window as unknown as { gtag: (...a: unknown[]) => void }).gtag("event", "recommend_form_complete", {
         gender: gender || "unset",
@@ -172,7 +166,6 @@ export default function ShoeFinderPage() {
           </p>
         </header>
 
-        {/* ── 진행 표시 ── */}
         {!submitted && (
           <div className="flex items-center justify-between mb-4">
             <div className="flex gap-1.5 items-center">
@@ -203,7 +196,6 @@ export default function ShoeFinderPage() {
         <form onSubmit={handleSubmit} noValidate
           className="flex flex-col gap-5 rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
 
-          {/* 마이크로카피 */}
           {!submitted && (
             <p className="text-base font-semibold text-gray-800 -mb-1">
               {STEP_MICROCOPY[currentStep]}
@@ -324,11 +316,10 @@ export default function ShoeFinderPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {([
-                  { value: "" as ShoeUse | "",      label: "전체",     desc: "아직 잘 모르겠어요" },
-                  { value: "daily" as ShoeUse,      label: "데일리",   desc: "매일 꾸준히 달려요" },
-                  { value: "long" as ShoeUse,       label: "장거리",   desc: "하프·풀 마라톤 준비 중" },
-                  { value: "tempo" as ShoeUse,      label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
-                  { value: "racing" as ShoeUse,     label: "레이싱",   desc: "기록 단축이 목표예요" },
+                  { value: "daily" as ShoeUse,   label: "데일리",      desc: "매일 달리기 · 처음 시작이라면 이걸로!" },
+                  { value: "long" as ShoeUse,    label: "장거리",      desc: "하프·풀 마라톤 준비 중" },
+                  { value: "tempo" as ShoeUse,   label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
+                  { value: "racing" as ShoeUse,  label: "레이싱",      desc: "기록 단축이 목표예요" },
                 ]).map(o => (
                   <button key={o.value} type="button"
                     onClick={() => { setUse(o.value); handleChange(); }}
@@ -384,7 +375,6 @@ export default function ShoeFinderPage() {
         {result && weightKg && heightCm && (
           <section className="mt-10">
 
-            {/* 내 분석 결과 — 쉬운 말 */}
             <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-base">🔎</span>
@@ -475,7 +465,6 @@ export default function ShoeFinderPage() {
               />
             )}
 
-            {/* 관련 부상 가이드 */}
             <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} />
           </section>
         )}
@@ -804,7 +793,22 @@ function ComparePanel({
           ✕ 초기화
         </button>
       </div>
-      {compareIds.length === 2 && shoes.length === 2 && <CompareTable shoes={shoes} userWidth={userWidth} userFootType={userFootType} />}
+      {compareIds.length === 2 && shoes.length === 2 && (
+        <>
+          <CompareTable shoes={shoes} userWidth={userWidth} userFootType={userFootType} />
+          <div className="mt-4 pt-4 border-t border-emerald-200 flex items-center justify-between">
+            <p className="text-xs text-gray-500">이 비교를 저장하거나 친구에게 공유하고 싶다면?</p>
+            <Link
+              href={`/compare/${compareIds[0]}-vs-${compareIds[1]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold text-emerald-700 border border-emerald-300 bg-white hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ml-3"
+            >
+              비교 페이지 열기 ↗
+            </Link>
+          </div>
+        </>
+      )}
       {compareIds.length === 1 && shoes[0] && (
         <div className="flex items-center gap-4">
           <div className="flex-1 rounded-xl bg-white border border-emerald-200 p-4">
@@ -844,19 +848,22 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
   const toWidthText = (opts: string[]) => opts.map(w => widthKr[w] ?? w).join(" · ");
   const toFootText = (types: string[]) => types.map(f => footTypeKr[f] ?? f).join(" · ");
 
+  void footTypeLabel; void userWidth; void userFootType;
+
   type Row = [string, string, string];
   const rows: Row[] = [
-    ["가격",     a.priceKrw.toLocaleString() + "원",                              b.priceKrw.toLocaleString() + "원"],
-    ["쿠셔닝",   cushDots[a.cushioning] ?? "",                                     cushDots[b.cushioning] ?? ""],
-    ["안정화",   stabLabel[a.stability] ?? "",                                     stabLabel[b.stability] ?? ""],
-    ["힐드롭",   a.heelDropMm + "mm",                                              b.heelDropMm + "mm"],
-    ["스택높이", a.stackHeightMm + "mm",                                           b.stackHeightMm + "mm"],
-    ["무게",     a.weightGramsM9 + "g",                                            b.weightGramsM9 + "g"],
-    ["발볼 옵션", toWidthText(a.widthOptions),  toWidthText(b.widthOptions)],
-    ["발 타입",  toFootText(a.footTypes),    toFootText(b.footTypes)],
-    ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),                    b.uses.map(u => useLabel[u] ?? u).join("·")],
-    ["국내구매", KR_AVAILABILITY_LABEL[a.krAvailability],                          KR_AVAILABILITY_LABEL[b.krAvailability]],
+    ["가격",      a.priceKrw.toLocaleString() + "원",               b.priceKrw.toLocaleString() + "원"],
+    ["쿠셔닝",    cushDots[a.cushioning] ?? "",                      cushDots[b.cushioning] ?? ""],
+    ["안정화",    stabLabel[a.stability] ?? "",                      stabLabel[b.stability] ?? ""],
+    ["힐드롭",    a.heelDropMm + "mm",                               b.heelDropMm + "mm"],
+    ["스택높이",  a.stackHeightMm + "mm",                            b.stackHeightMm + "mm"],
+    ["무게",      a.weightGramsM9 + "g",                             b.weightGramsM9 + "g"],
+    ["발볼 옵션", toWidthText(a.widthOptions),                       toWidthText(b.widthOptions)],
+    ["발 타입",   toFootText(a.footTypes),                           toFootText(b.footTypes)],
+    ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),       b.uses.map(u => useLabel[u] ?? u).join("·")],
+    ["국내구매",  KR_AVAILABILITY_LABEL[a.krAvailability],           KR_AVAILABILITY_LABEL[b.krAvailability]],
   ];
+
   return (
     <div>
       <div className="overflow-x-auto">
