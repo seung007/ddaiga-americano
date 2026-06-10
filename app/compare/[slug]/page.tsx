@@ -4,6 +4,7 @@ import { SHOES } from "@/lib/shoes/data";
 import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import SiteHeader from "@/components/SiteHeader";
+import ShoeImage from "@/components/ShoeImage";
 
 // ── 슬러그 파싱 ────────────────────────────────────────────────
 // URL: /compare/nb-fuelcell-rebel-v4-vs-hoka-clifton-10
@@ -199,7 +200,12 @@ export default async function ComparePage({
               key={shoe.id}
               className="rounded-2xl border border-gray-200 bg-white p-5 flex flex-col items-center text-center"
             >
-              <ShoeImage shoe={shoe} side={idx === 0 ? "A" : "B"} />
+              <ShoeImage
+                src={shoe.imageUrl}
+                alt={`${shoe.brand} ${shoe.model}`}
+                model={shoe.model}
+                side={idx === 0 ? "A" : "B"}
+              />
               <p className="mt-3 text-xs font-semibold text-emerald-600">
                 {shoe.brand}
               </p>
@@ -391,28 +397,6 @@ export default async function ComparePage({
         <OtherCompares currentA={shoeA} currentB={shoeB} />
       </main>
     </>
-  );
-}
-
-// ── 이미지 컴포넌트 ─────────────────────────────────────────────
-function ShoeImage({ shoe, side }: { shoe: Shoe; side: "A" | "B" }) {
-  return (
-    <div className="relative w-full aspect-square max-w-[140px]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={shoe.imageUrl}
-        alt={`${shoe.brand} ${shoe.model}`}
-        referrerPolicy="no-referrer"
-        className="w-full h-full object-contain rounded-xl"
-        onError={(e) => {
-          (e.target as HTMLImageElement).src =
-            `https://placehold.co/280x280/f3f4f6/9ca3af?text=${encodeURIComponent(shoe.model)}`;
-        }}
-      />
-      <span className="absolute top-1 left-1 text-xs font-bold bg-gray-900 text-white px-1.5 py-0.5 rounded">
-        {side}
-      </span>
-    </div>
   );
 }
 
