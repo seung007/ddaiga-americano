@@ -140,7 +140,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 43,
     weightGramsM9: 278,
     priceUsd: 145,
-    priceKrw: 179000,
+    priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "호카 공식몰 — 클리프톤", url: "https://www.hoka.com/ko-kr/running/road/clifton/", isOfficial: true },
@@ -880,7 +880,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 36,
     weightGramsM9: 265,
     priceUsd: 140,
-    priceKrw: 195000,
+    priceKrw: 189000,
     krAvailability: "kr_parallel",
     buyLinks: [
       { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Guide%2018", isOfficial: false },
@@ -1334,7 +1334,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 37,
     weightGramsM9: 258,
     priceUsd: 165,
-    priceKrw: 219000,
+    priceKrw: 199000,
     krAvailability: "kr_parallel",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 글리세린 22 여성", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0+22", isOfficial: true },
@@ -1376,7 +1376,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 36,
     weightGramsM9: 258,
     priceUsd: 140,
-    priceKrw: 179000,
+    priceKrw: 189000,
     krAvailability: "kr_parallel",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 아드레날린 GTS 25 여성", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0", isOfficial: true },
@@ -1418,7 +1418,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 40,
     weightGramsM9: 258,
     priceUsd: 165,
-    priceKrw: 239000,
+    priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰(asics.co.kr) — 젤카야노 32 우먼", url: "https://www.asics.co.kr/p/19974", isOfficial: true },
