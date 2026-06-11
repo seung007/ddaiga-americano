@@ -146,6 +146,8 @@ export default function WideFootPage() {
           },
         ]} />
 
+        <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 발 통증이 지속되면 전문의 상담을 권장합니다.</p>
+
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">발볼 넓은 내 발에 맞는 신발 찾기</p>
           <p className="text-sm text-emerald-800 mb-4">

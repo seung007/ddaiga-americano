@@ -649,6 +649,11 @@ export default function ShoeFinderPage() {
             )}
 
             <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} />
+
+            <p className="mt-10 text-xs text-gray-400 leading-relaxed">
+              ※ 이 추천은 <span className="font-medium text-gray-500">참고용 정보</span>예요. 의료 진단·전문 피팅을 대체하지 않으니 최종 선택은 직접 신어보고 결정하세요. 통증·기저 질환이 있다면 전문 의료인과 상담 후 고르세요.{" "}
+              <a href="/terms" className="underline hover:text-gray-600">자세한 고지 →</a>
+            </p>
           </section>
         )}
       </main>

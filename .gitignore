@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 내부 작업 문서 (PRD, 블로그 초안 등) — 웹 배포 대상 아님
+Claude/
+*.docx
+네이버블로그_*.md
+홍보글_*.md
