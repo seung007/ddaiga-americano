@@ -5,6 +5,7 @@ import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import SiteHeader from "@/components/SiteHeader";
 import ShoeImage from "@/components/ShoeImage";
+import { COMPARE_SLUGS } from "@/lib/compares";
 
 // ── 슬러그 파싱 ────────────────────────────────────────────────
 // URL: /compare/nb-fuelcell-rebel-v4-vs-hoka-clifton-10
@@ -41,22 +42,7 @@ export async function generateMetadata({
 
 // ── generateStaticParams: 실제 검색 수요가 있는 페어만 사전 렌더링 ──
 export async function generateStaticParams() {
-  const FEATURED_PAIRS = [
-    "hoka-clifton-10-vs-brooks-ghost-17",
-    "hoka-clifton-10-vs-nb-1080-v15",
-    "brooks-ghost-17-vs-nb-1080-v15",
-    "asics-gel-nimbus-27-vs-hoka-bondi-9",
-    "asics-gt-2000-14-vs-brooks-adrenaline-gts-25",
-    "asics-gt-2000-14-vs-saucony-guide-18",
-    "brooks-adrenaline-gts-25-vs-nb-860-v15",
-    "hoka-clifton-10-vs-asics-gt-2000-14",
-    "nike-pegasus-42-vs-brooks-ghost-17",
-    "nike-pegasus-42-vs-hoka-clifton-10",
-    "nb-fuelcell-rebel-v4-vs-saucony-endorphin-speed-5",
-    "adidas-adizero-adios-pro-4-vs-nike-vaporfly-4",
-  ];
-
-  return FEATURED_PAIRS.map((slug) => ({ slug }));
+  return COMPARE_SLUGS.map((slug) => ({ slug }));
 }
 
 // 사전 렌더링 목록에 없는 URL도 허용 — 요청 시 서버에서 렌더링

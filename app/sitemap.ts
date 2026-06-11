@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { COMPARE_SLUGS } from "@/lib/compares";
 
 // PRD 도메인 (가비아 구매 예정). 배포 환경에서는 NEXT_PUBLIC_SITE_URL로 덮어쓸 수 있음.
 const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.com").replace(/\/$/, "");
@@ -41,5 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...core, ...injury];
+  const compare: MetadataRoute.Sitemap = COMPARE_SLUGS.map((slug) => ({
+    url: `${BASE_URL}/compare/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...core, ...injury, ...compare];
 }
