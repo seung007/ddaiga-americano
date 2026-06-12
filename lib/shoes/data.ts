@@ -170,7 +170,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gt-2000-14",
     brand: "Asics",
     model: "GT-2000 14",
-    imageUrl: "https://images.asics.com/is/image/asics/1011C202-400_SR_RT_GLB?$zoom$",
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40930/asics-gt-2000-14-23520459-main.jpg",
     colorways: ["딥 오션", "블랙/카본"],
     widthOptions: ["D", "2E", "4E"],
     heelDropMm: 9,
