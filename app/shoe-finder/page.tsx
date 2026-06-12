@@ -108,6 +108,13 @@ type SavedProfile = {
   lv: string; d: string; inj: string[]; t: number;
 };
 
+// GA4 이벤트 헬퍼 — 퍼널 추적용 (gtag 없으면 무시)
+function gtagEvent(name: string, params: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+  if (typeof g === "function") g("event", name, params);
+}
+
 export default function ShoeFinderPage() {
   const [gender,    setGender]    = useState<Gender | "">("");
   const [heightRange, setHeightRange] = useState<HeightRange | "">("");
@@ -189,9 +196,14 @@ export default function ShoeFinderPage() {
   }
 
   function toggleCompare(id: string) {
-    setCompareIds(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 2 ? [...prev, id] : prev
-    );
+    setCompareIds(prev => {
+      if (prev.includes(id)) return prev.filter(x => x !== id);
+      if (prev.length < 2) {
+        gtagEvent("compare_add", { shoe_id: id });
+        return [...prev, id];
+      }
+      return prev;
+    });
   }
 
   const weightKg = heightRange && weightRange
@@ -745,6 +757,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <div className="flex flex-wrap items-center gap-2">
                 {shoe.buyLinks.map(link => (
                   <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer"
+                    onClick={() => gtagEvent("buy_link_click", { shoe: `${shoe.brand} ${shoe.model}`, store: link.label })}
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
                       ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
                     {link.isOfficial ? "🏪" : "🛒"} {link.label} ↗
@@ -874,7 +887,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
             </div>
             <a href={shoe.sourceUrl} target="_blank" rel="noopener noreferrer"
               className="inline-block mt-3 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-700">
-              스펙 출처 (RunRepeat) ↗
+              스펙 출처: 브랜드 공식·RunRepeat 참고 ↗
             </a>
           </div>
         </div>

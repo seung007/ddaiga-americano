@@ -9,13 +9,29 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
+
+const SITE_TITLE = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
+const SITE_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 1분 만에 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
 
 export const metadata: Metadata = {
-  title: "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천",
-  description: "키·체중·발볼·발 타입에 맞는 러닝화를 1분 만에 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESC,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    url: SITE_URL,
+    siteName: "뛰다가 아메리카노",
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESC,
+  },
 };
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
 
 // schema.org WebSite — 구글 및 AI 검색의 사이트 인식용 구조화 데이터
 const websiteJsonLd = {
