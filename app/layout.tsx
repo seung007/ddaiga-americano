@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESC,
   },
+  verification: {
+    other: { "naver-site-verification": "2d395d28fe901aa9b5db7136be81a47665ba57a2" },
+  },
 };
 
 // schema.org WebSite — 구글 및 AI 검색의 사이트 인식용 구조화 데이터
