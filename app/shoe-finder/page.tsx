@@ -67,9 +67,9 @@ const BUDGETS: { value: number; label: string }[] = [
 
 // ── PRD F-01 추가 문항: 경험 · 주간 거리 · 부상 이력 ──────────────
 const LEVEL_OPTIONS: { value: RunnerLevel; label: string; desc: string }[] = [
-  { value: "beginner",     label: "입문",  desc: "달리기 시작 6개월 미만" },
-  { value: "intermediate", label: "중급",  desc: "6개월 ~ 2년 정도" },
-  { value: "advanced",     label: "숙련",  desc: "2년 이상 · 대회 경험" },
+  { value: "beginner",     label: "입문",  desc: "5km를 편하게 달린 적 없어요" },
+  { value: "intermediate", label: "중급",  desc: "5km는 쉽게, 하프마라톤도 완주했어요" },
+  { value: "advanced",     label: "숙련",  desc: "하프 이상 꾸준히 · 기록 단축 중" },
 ];
 
 const DISTANCE_OPTIONS: { value: RunDistance; label: string; desc: string }[] = [
@@ -474,7 +474,7 @@ export default function ShoeFinderPage() {
                   ))}
                 </div>
               </div>
-              <p className="text-xs text-gray-400 -mt-1">선택 안 해도 추천 받을 수 있어요. 입문이면 부상 위험이 큰 레이싱화를 빼드려요.</p>
+              <p className="text-xs text-gray-400 -mt-1">선택 안 해도 추천 받을 수 있어요. 입문이면 부상 위험이 큰 카본화를 빼드려요.</p>
             </div>
           )}
 
@@ -1138,9 +1138,4 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
             >
               {shoe.brand} {shoe.model} 구매 ↗
             </a>
-          ) : null
-        )}
-      </div>
-    </div>
-  );
-}
+          ) : 
