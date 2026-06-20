@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import FeedbackForm from "@/components/FeedbackForm";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
@@ -661,6 +662,11 @@ export default function ShoeFinderPage() {
             )}
 
             <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} />
+
+            <FeedbackForm
+              shoeIds={result.primary.map((r) => r.shoe.id)}
+              bodyType={result.bodyType}
+            />
 
             <p className="mt-10 text-xs text-gray-400 leading-relaxed">
               ※ 이 추천은 <span className="font-medium text-gray-500">참고용 정보</span>예요. 같은 신발도 달리는 페이스나 착지법에 따라 체감이 달라질 수 있으니, 최종 선택은 직접 신어보고 결정하세요. 의료 진단·전문 피팅을 대체하지 않으며, 통증·기저 질환이 있다면 전문 의료인과 상담 후 고르세요.{" "}
