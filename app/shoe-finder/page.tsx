@@ -1138,4 +1138,9 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
             >
               {shoe.brand} {shoe.model} 구매 ↗
             </a>
-          ) : 
+          ) : null
+        )}
+      </div>
+    </div>
+  );
+}

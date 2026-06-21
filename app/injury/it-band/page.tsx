@@ -2,7 +2,10 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
+
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/it-band";
 
 export const metadata: Metadata = {
   title: "장경인대염 초기 대처법 3가지 — 뛰다가 아메리카노",
@@ -12,6 +15,12 @@ export const metadata: Metadata = {
 export default function ITBandPage() {
   return (
     <>
+      <ArticleJsonLd
+        headline="장경인대염 초기 대처법 3가지"
+        description="달릴 때마다 무릎 바깥쪽이 아프다면 장경인대염을 의심하세요. 초기에 잡는 3가지 방법을 알려드립니다."
+        url={PAGE_URL}
+        datePublished="2025-03-01"
+      />
       <SiteHeader />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">

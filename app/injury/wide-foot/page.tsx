@@ -2,7 +2,10 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
+
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/wide-foot";
 
 export const metadata: Metadata = {
   title: "발볼 넓은 러너 와이드 규격 총정리 — 뛰다가 아메리카노",
@@ -12,6 +15,12 @@ export const metadata: Metadata = {
 export default function WideFootPage() {
   return (
     <>
+      <ArticleJsonLd
+        headline="발볼 넓은 러너 와이드 규격 총정리"
+        description="2E·4E 규격이 필요한지 판단하는 방법과 발볼 넓은 러너에게 맞는 러닝화를 알려드립니다."
+        url={PAGE_URL}
+        datePublished="2025-03-01"
+      />
       <SiteHeader />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">

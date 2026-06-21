@@ -25,11 +25,20 @@ export const metadata: Metadata = {
     siteName: "뛰다가 아메리카노",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESC,
+    images: ["/opengraph-image"],
   },
   verification: {
     other: { "naver-site-verification": "2d395d28fe901aa9b5db7136be81a47665ba57a2" },

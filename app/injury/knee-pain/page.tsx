@@ -2,7 +2,10 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
+
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/knee-pain";
 
 export const metadata: Metadata = {
   title: "러너 무릎(슬개대퇴 증후군) 예방법 — 뛰다가 아메리카노",
@@ -12,6 +15,12 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
+      <ArticleJsonLd
+        headline="러너 무릎(슬개대퇴 증후군) 예방법"
+        description="무릎 앞쪽이 계단 오를 때 아프다면? 슬개대퇴 증후군의 원인과 예방 운동을 알아봅니다."
+        url={PAGE_URL}
+        datePublished="2025-03-01"
+      />
       <SiteHeader />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">

@@ -2,7 +2,10 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
+
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/beginner-guide";
 
 export const metadata: Metadata = {
   title: "초심자 부상 예방 완전 가이드 (0~6개월) — 뛰다가 아메리카노",
@@ -12,6 +15,12 @@ export const metadata: Metadata = {
 export default function BeginnerGuidePage() {
   return (
     <>
+      <ArticleJsonLd
+        headline="초심자 부상 예방 완전 가이드 (0~6개월)"
+        description="러닝 시작 6개월 이내 초보 러너를 위한 부상 예방 완전 가이드. 10% 규칙, 준비운동, 흔한 부상 대처법."
+        url={PAGE_URL}
+        datePublished="2025-03-01"
+      />
       <SiteHeader />
       <article className="max-w-3xl mx-auto px-6 py-12 text-gray-900">
 
