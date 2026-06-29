@@ -11,6 +11,17 @@ export default function SiteHeader() {
           <Link href="/injury" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
             부상 예방
           </Link>
+          <Link href="/community" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            Q&A
+          </Link>
+          <a
+            href="https://blog.naver.com/whwlsdn10"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            블로그
+          </a>
           <Link
             href="/shoe-finder"
             className="text-sm font-medium bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"

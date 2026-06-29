@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import HomeCommunitySection from "@/components/HomeCommunitySection";
 
 // 사전 렌더링된 인기 비교 페어 (app/compare/[slug] generateStaticParams와 일치)
 const POPULAR_COMPARES = [
@@ -101,62 +102,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Injury preview */}
+      {/* Injury preview + Community */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">부상 예방 가이드</h2>
-            <Link href="/injury" className="text-sm text-emerald-600 hover:underline">
-              전체 보기 →
-            </Link>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                href: "/injury/it-band",
-                tag: "무릎",
-                title: "장경인대염 초기 대처법 3가지",
-                desc: "달릴 때마다 무릎 바깥쪽이 아프다면 읽어보세요.",
-              },
-              {
-                href: "/injury/wide-foot",
-                tag: "발볼",
-                title: "발볼 넓은 러너 와이드 규격 총정리",
-                desc: "2E·4E 규격이 필요한지 판단하는 방법.",
-              },
-              {
-                href: "/injury/achilles",
-                tag: "아킬레스",
-                title: "미드풋 전환 후 아킬레스건 스트레칭",
-                desc: "주법 바꾼 뒤 종아리·아킬레스가 당긴다면.",
-              },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block bg-white border border-gray-100 rounded-xl p-5 hover:border-emerald-300 transition-colors"
-              >
-                <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full mb-2">
-                  {item.tag}
-                </span>
-                <h3 className="font-semibold text-gray-900 mb-1 leading-snug">{item.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
-              </Link>
-            ))}
-          </div>
+          <div className="grid gap-10 md:grid-cols-2">
 
-          {/* 수준별 가이드 링크 */}
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="text-sm text-gray-500 mr-1">경력별 가이드:</span>
-            {LEVEL_GUIDES.map((g) => (
-              <Link
-                key={g.href}
-                href={g.href}
-                className="text-sm font-medium text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full hover:bg-emerald-100 transition-colors"
-              >
-                {g.label}
-              </Link>
-            ))}
+            {/* 부상 예방 가이드 */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-gray-900">부상 예방 가이드</h2>
+                <Link href="/injury" className="text-sm text-emerald-600 hover:underline">전체 보기 →</Link>
+              </div>
+              <div className="flex flex-col gap-3">
+                {[
+                  {
+                    href: "/injury/it-band",
+                    tag: "무릎",
+                    title: "장경인대염 초기 대처법 3가지",
+                    desc: "달릴 때마다 무릎 바깥쪽이 아프다면.",
+                  },
+                  {
+                    href: "/injury/knee-pain",
+                    tag: "무릎",
+                    title: "한쪽 무릎만 아픈 이유",
+                    desc: "비대칭 통증의 원인과 엉덩이 근육 강화법.",
+                  },
+                  {
+                    href: "/injury/achilles",
+                    tag: "아킬레스",
+                    title: "미드풋 전환 후 아킬레스건 스트레칭",
+                    desc: "주법 바꾼 뒤 종아리·아킬레스가 당긴다면.",
+                  },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-start gap-3 bg-white border border-gray-100 rounded-xl p-4 hover:border-emerald-300 transition-colors"
+                  >
+                    <span className="shrink-0 mt-0.5 inline-block text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      {item.tag}
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-0.5">{item.title}</h3>
+                      <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="text-xs text-gray-400">경력별:</span>
+                {LEVEL_GUIDES.map((g) => (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className="text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full hover:bg-emerald-100 transition-colors"
+                  >
+                    {g.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* 커뮤니티 */}
+            <HomeCommunitySection />
+
           </div>
         </div>
       </section>
