@@ -12,10 +12,10 @@ export default function SiteHeader() {
             부상 예방
           </Link>
           <Link href="/community" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-            Q&A
+            Q&amp;A
           </Link>
           <a
-            href="https://blog.naver.com/whwlsdn10"
+            href="https://blog.naver.com/coffee_study_"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-gray-600 hover:text-gray-900 transition-colors"

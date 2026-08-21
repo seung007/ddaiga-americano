@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SiteHeader from "@/components/SiteHeader";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseConfigured } from "@/lib/supabase";
 
 const TAGS = ["전체", "신발추천", "무릎", "발볼", "족저근막", "아킬레스", "기타"] as const;
 type Tag = (typeof TAGS)[number];
@@ -42,9 +42,11 @@ function timeAgo(dateStr: string) {
 export default function CommunityPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [activeTag, setActiveTag] = useState<Tag>("전체");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
+  const reqSeq = useRef(0);
 
   // 질문 폼 상태
   const [nickname, setNickname] = useState("");
@@ -59,12 +61,38 @@ export default function CommunityPage() {
   const [formError, setFormError] = useState("");
 
   async function fetchPosts() {
+    const seq = ++reqSeq.current;
     setLoading(true);
-    const { data } = await supabase
-      .from("community_posts")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (data) setPosts(data as Post[]);
+    setLoadFailed(false);
+
+    if (!supabaseConfigured) {
+      setLoadFailed(true);
+      setPosts([]);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("community_posts")
+        .select("*")
+        .order("created_at", { ascending: false });
+      // 재시도를 연달아 누르면 요청이 경쟁한다. 마지막 요청의 결과만 반영한다.
+      if (seq !== reqSeq.current) return;
+      if (error || !data) {
+        // 실패를 "질문이 없음"으로 위장하지 않는다.
+        console.error("[community] 질문 목록 조회 실패", error);
+        setLoadFailed(true);
+        setPosts([]);
+      } else {
+        setPosts(data as Post[]);
+      }
+    } catch (e) {
+      if (seq !== reqSeq.current) return;
+      console.error("[community] 질문 목록 조회 중 예외", e);
+      setLoadFailed(true);
+      setPosts([]);
+    }
     setLoading(false);
   }
 
@@ -92,7 +120,12 @@ export default function CommunityPage() {
       budget_krw: budget ? parseInt(budget) * 10000 : null,
     });
     setSubmitting(false);
-    if (error) { setFormError("등록에 실패했어요. 다시 시도해주세요."); return; }
+    if (error) {
+      // 폼을 치우지 않는다 — 사용자가 입력한 내용을 잃지 않게 그대로 두고 메시지만 보여준다.
+      console.error("[community] 질문 등록 실패", error);
+      setFormError("질문을 저장하지 못했어요. 잠시 후 다시 시도해주세요.");
+      return;
+    }
     setSubmitted(true);
     setNickname(""); setQuestion(""); setBody(""); setHeightCm(""); setWeightKg(""); setBudget("");
     fetchPosts();
@@ -131,6 +164,16 @@ export default function CommunityPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/*
+                목록 조회가 실패해도 폼은 계속 연다. 조회 실패와 등록 실패는 별개이고,
+                등록이 실패하면 handleSubmit 이 입력 내용을 지우지 않고 메시지만 띄운다.
+              */}
+              {!loading && loadFailed && (
+                <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 leading-relaxed" role="status">
+                  지금 기존 질문 목록을 불러오지 못하고 있어요. 질문 등록은 시도할 수 있지만,
+                  저장에 실패하면 안내 메시지가 뜨고 입력하신 내용은 그대로 남습니다.
+                </p>
+              )}
               {/* 닉네임 + 태그 */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -215,8 +258,8 @@ export default function CommunityPage() {
           )}
         </section>
 
-        {/* 태그 필터 */}
-        <div className="flex gap-2 flex-wrap mb-6">
+        {/* 태그 필터 — 조회 실패 시에는 전부 0으로 표시되므로 숨긴다 */}
+        <div className={`flex gap-2 flex-wrap mb-6 ${loadFailed ? "hidden" : ""}`}>
           {TAGS.map(t => (
             <button key={t} onClick={() => setActiveTag(t)}
               className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
@@ -234,9 +277,36 @@ export default function CommunityPage() {
         {/* 질문 목록 */}
         {loading ? (
           <div className="text-center py-16 text-gray-400 text-sm">불러오는 중…</div>
-        ) : filtered.length === 0 ? (
+        ) : loadFailed ? (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-10 text-center" role="alert">
+            <p className="text-2xl mb-2">🔌</p>
+            <p className="text-sm font-semibold text-amber-800">질문 목록을 불러오지 못했어요</p>
+            <p className="text-xs text-amber-700 mt-1 leading-relaxed">
+              일시적인 문제일 수 있어요. 새로고침해도 같으면 잠시 뒤에 다시 방문해 주세요.
+            </p>
+            <button
+              onClick={() => fetchPosts()}
+              disabled={loading}
+              className="mt-4 rounded-xl border border-amber-300 bg-white px-4 py-2 text-xs font-medium text-amber-800 hover:bg-amber-100 transition-colors disabled:opacity-50"
+            >
+              다시 시도
+            </button>
+          </div>
+        ) : posts.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-gray-400 text-sm">아직 질문이 없어요. 첫 번째 질문을 올려보세요!</p>
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-gray-400 text-sm">
+              <span className="font-medium text-gray-500">{activeTag}</span> 태그에는 아직 질문이 없어요.
+            </p>
+            <button
+              onClick={() => setActiveTag("전체")}
+              className="mt-3 text-xs text-emerald-600 hover:underline"
+            >
+              전체 보기
+            </button>
           </div>
         ) : (
           <ul className="flex flex-col gap-3">
@@ -263,7 +333,7 @@ export default function CommunityPage() {
                         <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{post.body}</p>
                       )}
                       <div className="flex items-center gap-3 mt-2">
-                        <span className="text-xs text-gray-400">{post.nickname}</span>
+                        <span className="text-xs text-gray-400">{post.nickname || "익명"}</span>
                         <span className="text-xs text-gray-300">·</span>
                         <span className="text-xs text-gray-400">{timeAgo(post.created_at)}</span>
                         {(post.height_cm || post.weight_kg || post.budget_krw) && (
