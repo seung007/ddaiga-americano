@@ -7,6 +7,14 @@ import { supabase, supabaseConfigured } from "@/lib/supabase";
 const TAGS = ["전체", "신발추천", "무릎", "발볼", "족저근막", "아킬레스", "기타"] as const;
 type Tag = (typeof TAGS)[number];
 
+/** 질문 폼의 태그 선택지 — 목록 필터의 "전체"는 제외한다. */
+const FORM_TAGS = TAGS.filter((t) => t !== "전체");
+
+const QUESTION_MAX = 300;
+
+/** 닉네임을 비워도 등록되게 한다. community_posts.nickname 이 NOT NULL 이라 빈 값 대신 이걸 넣는다. */
+const DEFAULT_NICKNAME = "런린이";
+
 const TAG_COLORS: Record<string, string> = {
   신발추천:   "bg-emerald-50 text-emerald-700 border-emerald-200",
   무릎:       "bg-red-50 text-red-600 border-red-200",
@@ -59,6 +67,8 @@ export default function CommunityPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
+  const [showMore, setShowMore] = useState(false);
+  const questionRef = useRef<HTMLTextAreaElement>(null);
 
   async function fetchPosts() {
     const seq = ++reqSeq.current;
@@ -106,12 +116,16 @@ export default function CommunityPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!nickname.trim()) { setFormError("닉네임을 입력해주세요."); return; }
-    if (!question.trim()) { setFormError("질문을 입력해주세요."); return; }
+    // 필수는 질문 하나뿐이다. 닉네임은 비워도 되고, 실패 시 해당 칸으로 포커스를 옮긴다.
+    if (!question.trim()) {
+      setFormError("질문을 입력해주세요.");
+      questionRef.current?.focus();
+      return;
+    }
     setFormError("");
     setSubmitting(true);
     const { error } = await supabase.from("community_posts").insert({
-      nickname: nickname.trim(),
+      nickname: nickname.trim() || DEFAULT_NICKNAME,
       question: question.trim(),
       body: body.trim() || null,
       tag,
@@ -149,7 +163,7 @@ export default function CommunityPage() {
           <p className="text-sm font-medium text-emerald-600 mb-1">런린이 Q&A</p>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">달리기 질문, 여기서 해결해요</h1>
           <p className="text-gray-500 text-sm leading-relaxed">
-            신발 추천, 부상 고민, 달리기 자세까지 — 닉네임만 있으면 바로 질문할 수 있어요.
+            신발 추천, 부상 고민, 달리기 자세까지 — 질문 한 줄만 쓰면 바로 올라가요. 가입도, 닉네임도 필요 없어요.
           </p>
         </header>
 
@@ -174,78 +188,130 @@ export default function CommunityPage() {
                   저장에 실패하면 안내 메시지가 뜨고 입력하신 내용은 그대로 남습니다.
                 </p>
               )}
-              {/* 닉네임 + 태그 */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-gray-500 mb-1 block">닉네임</label>
-                  <input
-                    value={nickname} onChange={e => setNickname(e.target.value)}
-                    placeholder="런린이123"
-                    maxLength={20}
-                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-gray-500 mb-1 block">태그</label>
-                  <select
-                    value={tag} onChange={e => setTag(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 bg-white"
-                  >
-                    {["신발추천", "무릎", "발볼", "족저근막", "아킬레스", "기타"].map(t => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* 질문 */}
+              {/* 질문 — 유일한 필수 항목 */}
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">질문 <span className="text-red-400">*</span></label>
-                <input
-                  value={question} onChange={e => setQuestion(e.target.value)}
-                  placeholder="예: 평발인데 장거리 달릴 때 무릎이 아파요. 어떤 신발이 좋을까요?"
-                  maxLength={150}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                />
-              </div>
-
-              {/* 상세 내용 */}
-              <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">상세 내용 <span className="text-gray-400">(선택)</span></label>
+                <label htmlFor="q-question" className="text-sm font-semibold text-gray-800 mb-1.5 block">
+                  무엇이 궁금하세요?
+                </label>
                 <textarea
-                  value={body} onChange={e => setBody(e.target.value)}
-                  placeholder="지금 신고 있는 신발, 달리는 거리, 통증 위치 등 알려주시면 더 정확하게 답변 드릴 수 있어요."
-                  rows={3} maxLength={500}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 resize-none"
+                  id="q-question"
+                  ref={questionRef}
+                  value={question}
+                  onChange={e => setQuestion(e.target.value)}
+                  required
+                  aria-required="true"
+                  aria-invalid={formError ? true : undefined}
+                  aria-describedby="q-question-help"
+                  rows={3}
+                  maxLength={QUESTION_MAX}
+                  placeholder="예: 평발인데 10km 넘게 뛰면 무릎 바깥쪽이 아파요. 어떤 신발이 좋을까요?"
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-emerald-300 resize-y"
                 />
-              </div>
-
-              {/* 선택 정보 */}
-              <div>
-                <p className="text-xs font-medium text-gray-500 mb-2">체형 정보 <span className="text-gray-400">(선택 — 신발 추천에 도움이 돼요)</span></p>
-                <div className="grid grid-cols-3 gap-2">
-                  <div>
-                    <label className="text-xs text-gray-400 mb-1 block">키 (cm)</label>
-                    <input type="number" value={heightCm} onChange={e => setHeightCm(e.target.value)}
-                      placeholder="170" min={140} max={220}
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-400 mb-1 block">체중 (kg)</label>
-                    <input type="number" value={weightKg} onChange={e => setWeightKg(e.target.value)}
-                      placeholder="65" min={30} max={200}
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-400 mb-1 block">예산 (만원)</label>
-                    <input type="number" value={budget} onChange={e => setBudget(e.target.value)}
-                      placeholder="20" min={5} max={100}
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
-                  </div>
+                <div className="flex items-start justify-between gap-3 mt-1">
+                  <p id="q-question-help" className="text-xs text-gray-400 leading-relaxed">
+                    이 칸만 채우면 등록돼요. 말하듯이 편하게 적어주세요.
+                  </p>
+                  <span className="text-xs text-gray-300 shrink-0 tabular-nums" aria-hidden="true">
+                    {question.length}/{QUESTION_MAX}
+                  </span>
                 </div>
               </div>
 
-              {formError && <p className="text-sm text-red-500">{formError}</p>}
+              {/* 태그 — 클릭 한 번, 기본값 있음 */}
+              <fieldset className="min-w-0">
+                <legend className="text-xs font-medium text-gray-500 mb-2">어떤 주제인가요?</legend>
+                <div className="flex flex-wrap gap-2">
+                  {FORM_TAGS.map(t => (
+                    <label key={t} className="cursor-pointer">
+                      <input
+                        type="radio" name="tag" value={t}
+                        checked={tag === t}
+                        onChange={() => setTag(t)}
+                        className="sr-only peer"
+                      />
+                      <span
+                        className={`block px-3 py-1.5 rounded-full text-sm border transition-colors
+                          peer-focus-visible:ring-2 peer-focus-visible:ring-emerald-300
+                          ${tag === t
+                            ? "bg-emerald-600 text-white border-emerald-600"
+                            : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}
+                      >
+                        {t}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {/* 나머지는 전부 선택 — 기본으로 접어둔다 */}
+              <div className="border-t border-gray-100 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setShowMore(v => !v)}
+                  aria-expanded={showMore}
+                  aria-controls="q-more"
+                  className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-emerald-600 transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+                >
+                  <span aria-hidden="true">{showMore ? "▾" : "▸"}</span>
+                  닉네임 · 상세 내용 · 체형 정보 <span className="text-gray-400">(선택)</span>
+                </button>
+
+                {showMore && (
+                  <div id="q-more" className="flex flex-col gap-4 mt-4">
+                    <div>
+                      <label htmlFor="q-nickname" className="text-xs font-medium text-gray-500 mb-1 block">닉네임</label>
+                      <input
+                        id="q-nickname"
+                        value={nickname} onChange={e => setNickname(e.target.value)}
+                        placeholder={DEFAULT_NICKNAME}
+                        maxLength={20}
+                        className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="q-body" className="text-xs font-medium text-gray-500 mb-1 block">상세 내용</label>
+                      <textarea
+                        id="q-body"
+                        value={body} onChange={e => setBody(e.target.value)}
+                        placeholder="지금 신고 있는 신발, 달리는 거리, 통증 위치 등을 알려주시면 더 정확하게 답변 드릴 수 있어요."
+                        rows={3} maxLength={500}
+                        className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 resize-y"
+                      />
+                    </div>
+
+                    <fieldset>
+                      <legend className="text-xs font-medium text-gray-500 mb-2">
+                        체형 정보 <span className="text-gray-400">— 신발 추천에 도움이 돼요</span>
+                      </legend>
+                      <div className="grid grid-cols-3 gap-2">
+                        <div>
+                          <label htmlFor="q-height" className="text-xs text-gray-400 mb-1 block">키 (cm)</label>
+                          <input id="q-height" type="number" inputMode="numeric" value={heightCm} onChange={e => setHeightCm(e.target.value)}
+                            placeholder="170" min={140} max={220}
+                            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
+                        </div>
+                        <div>
+                          <label htmlFor="q-weight" className="text-xs text-gray-400 mb-1 block">체중 (kg)</label>
+                          <input id="q-weight" type="number" inputMode="numeric" value={weightKg} onChange={e => setWeightKg(e.target.value)}
+                            placeholder="65" min={30} max={200}
+                            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
+                        </div>
+                        <div>
+                          <label htmlFor="q-budget" className="text-xs text-gray-400 mb-1 block">예산 (만원)</label>
+                          <input id="q-budget" type="number" inputMode="numeric" value={budget} onChange={e => setBudget(e.target.value)}
+                            placeholder="20" min={5} max={100}
+                            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                )}
+              </div>
+
+              {formError && (
+                <p className="text-sm text-red-500" role="alert">{formError}</p>
+              )}
 
               <button
                 type="submit" disabled={submitting}
@@ -253,7 +319,9 @@ export default function CommunityPage() {
               >
                 {submitting ? "등록 중…" : "질문 올리기 →"}
               </button>
-              <p className="text-xs text-gray-400 text-center -mt-1">닉네임은 익명으로 표시돼요. 개인정보는 입력하지 마세요.</p>
+              <p className="text-xs text-gray-400 text-center -mt-1">
+                닉네임을 비우면 &lsquo;{DEFAULT_NICKNAME}&rsquo;으로 표시돼요. 개인정보는 입력하지 마세요.
+              </p>
             </form>
           )}
         </section>
