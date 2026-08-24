@@ -1,7 +1,13 @@
 import type { Shoe } from "./types";
 
 /**
- * 러닝화 DB v3 — 2026년 현행 판매 모델 기준
+ * 러닝화 DB v3 — 2025~2026 모델년 기준 (마지막 실사: 2026-06)
+ *
+ * ⚠️ "현행 판매 모델"이라고 쓰지 않는다. 2026-08-21 확인 결과 아래 4종은 후속작이 나왔다.
+ *   Ghost 17 → Ghost 18 (2026-05-01)          Gel-Nimbus 27 → 28 (2026-01-09)
+ *   Gel-Kayano 32 → 33 (2026-06-01)           Clifton 10 → 11 (2026-07-01)
+ * 후속작이 있는 신발에는 `successor` 필드를 채워두면 추천 결과에 안내가 뜬다.
+ * 새 모델을 추가하거나 후속작을 확인했으면 이 주석과 `successor`를 같이 갱신할 것.
  *
  * priceKrw: 2026년 6월 기준 한국 공식가
  * primaryBodyTypes: 각 신발이 최적인 체형 (1~3개)
@@ -136,6 +142,7 @@ export const SHOES: Shoe[] = [
     id: "hoka-clifton-10",
     brand: "Hoka",
     model: "Clifton 10",
+    successor: "Clifton 11",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40691/hoka-clifton-10-22918659-720.jpg",
     colorways: ["스카이 블루", "미스트/화이트"],
     widthOptions: ["D", "2E", "4E"],
@@ -250,6 +257,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gel-kayano-32",
     brand: "Asics",
     model: "Gel-Kayano 32",
+    successor: "Gel-Kayano 33",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40809/asics-gel-kayano-32-23240127-720.jpg",
     colorways: ["블랙/화이트", "화이트/오렌지글로우"],
     widthOptions: ["D", "2E", "4E"],
@@ -364,6 +372,7 @@ export const SHOES: Shoe[] = [
     id: "brooks-ghost-17",
     brand: "Brooks",
     model: "Ghost 17",
+    successor: "Ghost 18",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40767/brooks-ghost-17-23734399-720.jpg",
     colorways: ["블루/화이트", "블랙/이브닝"],
     widthOptions: ["B", "D", "2E", "4E"],
@@ -554,6 +563,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gel-nimbus-27",
     brand: "Asics",
     model: "Gel-Nimbus 27",
+    successor: "Gel-Nimbus 28",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40620/asics-gel-nimbus-27-22584818-720.jpg",
     colorways: ["블루/화이트", "블랙/카본"],
     widthOptions: ["D", "2E", "4E"],

@@ -174,7 +174,7 @@ export default function CommunityPage() {
             <div className="text-center py-6">
               <p className="text-2xl mb-2">🙌</p>
               <p className="font-semibold text-emerald-700">질문이 등록됐어요!</p>
-              <p className="text-sm text-gray-500 mt-1">최대한 빠르게 답변 달아드릴게요.</p>
+              <p className="text-sm text-gray-500 mt-1">운영자가 직접 확인하고 답을 답니다. 기한은 약속드리기 어려워요.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -441,7 +441,8 @@ export default function CommunityPage() {
                       </div>
                     ) : (
                       <div className="text-center py-4 border border-dashed border-gray-200 rounded-xl">
-                        <p className="text-sm text-gray-400">답변 준비 중이에요. 보통 1~2일 내로 달아드려요 🙏</p>
+                        {/* 답변자는 운영자 1명뿐이고 알림 경로도 없다. 지킬 수 없는 기한을 약속하지 않는다. */}
+                        <p className="text-sm text-gray-400">아직 답변이 없어요. 운영자가 직접 답을 달기 때문에 시간이 걸릴 수 있어요.</p>
                       </div>
                     )}
                     <div className="mt-3 flex items-center justify-end">

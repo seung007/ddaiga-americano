@@ -145,6 +145,16 @@ export interface Shoe {
   instepVolume?: InstepVolume;
   /** 성별/라스트 관련 추가 근거 설명 (상세 카드에 노출) */
   genderNote?: string;
+
+  /**
+   * 후속 모델이 출시된 경우 그 이름 (예: "Ghost 18").
+   *
+   * DB를 즉시 최신 모델로 갈아엎는 대신, 구형임을 사용자에게 알리는 쪽을 택했다.
+   * 후속작이 나왔다고 이 신발이 나쁜 건 아니고 오히려 재고 할인이 붙지만,
+   * 그 사실을 숨기면 "논문 기반 중립 추천"이라는 이 사이트의 유일한 주장이 무너진다.
+   * 값이 있으면 추천 결과 카드에 안내가 노출된다.
+   */
+  successor?: string;
 }
 
 export interface Recommendation {

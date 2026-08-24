@@ -746,6 +746,11 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                   약 {shoe.priceKrw.toLocaleString()}원
                 </span>
                 <span className="text-xs text-gray-400">(${shoe.priceUsd} · 2026-06-01 추산)</span>
+                {shoe.successor && (
+                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                    후속 {shoe.successor} 출시됨
+                  </span>
+                )}
                 <span className={`text-xs font-medium px-2 py-0.5 rounded-full ml-auto
                   ${shoe.krAvailability === "kr_official" ? "bg-emerald-100 text-emerald-700" :
                     shoe.krAvailability === "kr_parallel" ? "bg-blue-100 text-blue-700" :
