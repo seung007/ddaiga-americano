@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
@@ -133,7 +133,24 @@ export default function ShoeFinderPage() {
   const [injuries,  setInjuries]  = useState<InjuryArea[]>([]);
   const [savedProfile, setSavedProfile] = useState<SavedProfile | null>(null);
 
-  function goNext() { setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1)); }
+  /**
+   * 퍼널 계측용 플래그.
+   *
+   * 완주율을 계산하려면 분모가 필요한데 지금까지 그게 없었다. session_start를 분모로 쓰면
+   * /shoe-finder를 밟지도 않은 세션이 전부 들어가 값이 무의미해진다.
+   * recommend_form_start를 심어 "폼을 실제로 시작한 사람" 대비 완주율을 재도록 한다.
+   */
+  const startFiredRef = useRef(false);
+  const completeFiredRef = useRef(false);
+
+  function goNext() {
+    // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
+    if (!startFiredRef.current) {
+      startFiredRef.current = true;
+      gtagEvent("recommend_form_start", {});
+    }
+    setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1));
+  }
   function goPrev() { setCurrentStep(s => Math.max(s - 1, 0)); }
 
   // 저장된 프로필을 상태에 적용 (공유 URL · 지난 추천 다시보기 공용)
@@ -249,11 +266,14 @@ export default function ShoeFinderPage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(currentProfileForSave()));
     } catch { /* 저장 실패는 무시 */ }
-    if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag === "function") {
-      (window as unknown as { gtag: (...a: unknown[]) => void }).gtag("event", "recommend_form_complete", {
-        gender: gender || "unset",
-        level: level || "unset",
-      });
+
+    // 한 번의 퍼널 진행에서 완주는 한 번만 센다.
+    // 이전에는 여기서 무조건 발화했는데, handleChange()가 submitted를 되돌리기 때문에
+    // 사용자가 필터만 바꿔 재제출해도 완주가 또 찍혔다. 2026-08-27 GA4에서
+    // 이벤트 20건 / 사용자 15명(1.33배)으로 그 중복이 실제로 관측됐다.
+    if (!completeFiredRef.current) {
+      completeFiredRef.current = true;
+      gtagEvent("recommend_form_complete", { gender: gender || "unset", level: level || "unset" });
     }
   }
 
@@ -266,6 +286,9 @@ export default function ShoeFinderPage() {
     setSubmitted(false);
     setError("");
     setCurrentStep(0);
+    // 새 퍼널 진행이므로 시작·완주를 다시 셀 수 있게 되돌린다.
+    startFiredRef.current = false;
+    completeFiredRef.current = false;
   }
 
   return (
