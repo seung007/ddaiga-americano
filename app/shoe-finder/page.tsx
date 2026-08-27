@@ -660,7 +660,7 @@ export default function ShoeFinderPage() {
               />
             )}
 
-            <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} />
+            <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} injuries={injuries} />
 
             <p className="mt-10 text-xs text-gray-400 leading-relaxed">
               ※ 이 추천은 <span className="font-medium text-gray-500">참고용 정보</span>예요. 같은 신발도 달리는 페이스나 착지법에 따라 체감이 달라질 수 있으니, 최종 선택은 직접 신어보고 결정하세요. 의료 진단·전문 피팅을 대체하지 않으며, 통증·기저 질환이 있다면 전문 의료인과 상담 후 고르세요.{" "}
@@ -966,10 +966,27 @@ const USE_GUIDE_MAP: Record<string, GuideItem> = {
   daily:  { href: "/injury/rest-day",   tag: "회복",  title: "회복일 관리 가이드",                  desc: "매일 달리고 싶다면 회복일이 더 중요합니다." },
 };
 
-function RelatedGuides({ footType, footWidth, use }: { footType: FootType; footWidth: FootWidth; use: ShoeUse | "" }) {
+/**
+ * 부상 이력 → 해당 부위 가이드.
+ *
+ * 7단계에서 부상 이력을 물어놓고 결과 화면에서 아무 데도 쓰지 않고 있었다.
+ * 발 타입보다 본인이 직접 고른 부상이 우선이므로 목록 맨 앞에 넣는다.
+ */
+const INJURY_GUIDE_MAP: Partial<Record<InjuryArea, GuideItem>> = {
+  plantar:  { href: "/injury/plantar-fasciitis", tag: "족저근막", title: "족저근막염 — 아침 첫발이 아픈 이유", desc: "스트레칭보다 효과가 확인된 방법과 회복 기간." },
+  knee:     { href: "/injury/knee-pain",         tag: "무릎",     title: "러너 무릎(슬개대퇴 증후군) 예방법",   desc: "무릎 앞쪽이 계단에서 아프다면 확인할 것들." },
+  achilles: { href: "/injury/achilles",          tag: "아킬레스", title: "아킬레스건·종아리 통증 대처",        desc: "뒤꿈치 위쪽이 당길 때 읽어보세요." },
+};
+
+function RelatedGuides({ footType, footWidth, use, injuries }: { footType: FootType; footWidth: FootWidth; use: ShoeUse | ""; injuries: InjuryArea[] }) {
   const guides = [...(GUIDE_MAP[footType] ?? GUIDE_MAP["neutral"])];
   if (footWidth === "wide" && !guides.find(g => g.href === "/injury/wide-foot")) {
     guides.unshift({ href: "/injury/wide-foot", tag: "발볼", title: "발볼 넓은 러너 와이드 규격 총정리", desc: "2E·4E 규격이 필요한지 판단하는 방법." });
+  }
+  // 본인이 고른 부상이 가장 강한 신호다 — 맨 앞으로.
+  for (const area of injuries) {
+    const g = INJURY_GUIDE_MAP[area];
+    if (g && !guides.find(x => x.href === g.href)) guides.unshift(g);
   }
   if (use && USE_GUIDE_MAP[use]) guides.push(USE_GUIDE_MAP[use]);
   const shown = guides.slice(0, 3);
