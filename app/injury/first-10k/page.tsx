@@ -23,7 +23,7 @@ export default function Page() {
           <p className="text-gray-500 text-sm mb-4">7분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            광고·협찬 없음 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
           </div>
         </header>
         <p className="text-lg leading-relaxed mb-8 text-gray-700">첫 10km 대회는 단순한 달리기가 아닙니다. 수백~수천 명이 함께 달리는 에너지, 응원 소리, 그리고 결승선을 밟는 순간은 달리기를 평생 즐기게 만드는 경험입니다. 하지만 준비가 부족하면 부상이나 완주 실패로 첫 경험이 나쁜 기억이 될 수 있습니다.</p>
@@ -48,7 +48,7 @@ export default function Page() {
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://www.kaaf.or.kr" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">대한육상연맹 대회 일정 ↗</a></li>
 
           </ul>
-          <p className="mt-3 text-xs text-gray-400">광고·협찬 없이 공적 연구 자료와 러너의 이익을 위해 작성되었습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
         </section>
 
         <YoutubeSection links={[

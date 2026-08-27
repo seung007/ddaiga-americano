@@ -20,7 +20,7 @@ export default function YoutubeSection({ links }: Props) {
     <section className="mb-8">
       <h2 className="text-xl font-bold text-gray-900 mb-2">관련 유튜브 영상</h2>
       <p className="text-sm text-gray-500 mb-4">
-        실제 영상 링크입니다. 광고·협찬 관계 없습니다.
+        실제 영상 링크입니다. 이 채널들과 협찬 관계는 없습니다.
       </p>
 
       {regular.length > 0 && (

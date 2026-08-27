@@ -23,7 +23,7 @@ export default function Page() {
           <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            광고·협찬 없음 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
           </div>
         </header>
         <p className="text-lg leading-relaxed mb-8 text-gray-700">쉬는 날 아무것도 안 하면 근육이 굳어 다음 훈련이 더 힘들어집니다. 연구에 따르면 저강도 유산소 운동(심박수 최대치의 50~60%)은 완전 휴식보다 회복을 20~30% 빠르게 합니다.</p>
@@ -47,7 +47,7 @@ export default function Page() {
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">과훈련 증후군 관련 자료 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
 
           </ul>
-          <p className="mt-3 text-xs text-gray-400">광고·협찬 없이 공적 연구 자료와 러너의 이익을 위해 작성되었습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
         </section>
 
         <YoutubeSection links={[

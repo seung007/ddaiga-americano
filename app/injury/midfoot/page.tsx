@@ -23,7 +23,7 @@ export default function Page() {
           <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            광고·협찬 없음 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
           </div>
         </header>
         <p className="text-lg leading-relaxed mb-8 text-gray-700">"힐스트라이크로 달리면 무릎이 망가진다"는 말, 한 번쯤 들어보셨을 겁니다. 하지만 2023년 기준 스포츠의학 연구들은 착지 방식 자체보다 '착지 위치'가 더 중요하다고 말합니다.</p>
@@ -48,7 +48,7 @@ export default function Page() {
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/22504436/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Overstriding & running economy — NCBI ↗</a></li>
 
           </ul>
-          <p className="mt-3 text-xs text-gray-400">광고·협찬 없이 공적 연구 자료와 러너의 이익을 위해 작성되었습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
         </section>
 
         <YoutubeSection links={[

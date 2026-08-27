@@ -28,7 +28,7 @@ export default function HwangYoungJoPage() {
           {/* 비광고 표기 */}
           <div className="mt-4 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            광고·협찬 없음 — 공개된 인터뷰·저서·공식 기록 기반으로 작성되었습니다
+            협찬 없이 작성 — 공개된 인터뷰·저서·공식 기록 기반되었습니다
           </div>
         </header>
 

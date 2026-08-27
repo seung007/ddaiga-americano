@@ -26,7 +26,7 @@ export default function KwonEunJuPage() {
           <p className="text-gray-500 text-sm mb-4">6분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            광고·협찬 없음 — 공개된 인터뷰·공식 기록 기반으로 작성되었습니다
+            협찬 없이 작성 — 공개된 인터뷰·공식 기록 기반
           </div>
         </header>
 
@@ -97,7 +97,7 @@ export default function KwonEunJuPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-gray-400">광고·협찬 없이 공적 연구 자료와 러너의 이익을 위해 작성되었습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
         </section>
 
 

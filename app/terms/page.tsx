@@ -54,11 +54,17 @@ export default function TermsPage() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-base font-semibold text-gray-900 mb-3">4. 광고 및 협찬 없음</h2>
+          <h2 className="text-base font-semibold text-gray-900 mb-3">4. 추천 순서와 광고</h2>
           <p className="text-sm leading-relaxed text-gray-700">
-            본 서비스는 어떠한 신발 브랜드, 판매자, 광고주로부터 금전적 대가를 받지 않습니다.
-            추천 결과는 오직 입력된 신체 데이터와 알고리즘 점수만을 기반으로 하며,
+            추천 결과는 입력된 신체 데이터와 알고리즘 점수만을 기반으로 합니다.
+            <strong>어떤 브랜드도 돈을 내고 순위를 올릴 수 없습니다.</strong>
             특정 브랜드를 우대하거나 배제하지 않습니다.
+          </p>
+          <p className="text-sm leading-relaxed text-gray-700 mt-3">
+            현재 이 사이트는 신발 브랜드·판매자·광고주로부터 어떠한 금전적 대가도 받지 않습니다.
+            향후 제휴 링크 등으로 수익이 발생하는 구조를 도입할 경우, 관련 법령에 따라
+            해당 사실을 각 페이지 본문 첫 부분에 명시하고 이 조항을 함께 갱신합니다.
+            그 경우에도 <strong>추천 순서 산정에는 영향을 주지 않습니다.</strong>
           </p>
         </section>
 

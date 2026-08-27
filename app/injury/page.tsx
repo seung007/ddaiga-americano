@@ -68,7 +68,7 @@ export default function InjuryListPage() {
           </p>
           <div className="mt-3 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            광고·협찬 없이 공적 정보와 의학적 근거만으로 작성
+            추천 순서는 광고비로 바뀌지 않습니다
           </div>
         </header>
 

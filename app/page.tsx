@@ -29,7 +29,7 @@ export default function Home() {
         </h1>
         <p className="text-lg text-gray-600 leading-relaxed mb-8">
           키·체중·발볼만 고르면 논문 기반 추천이<br />
-          내 체형에 맞는 신발 3개를 골라드려요. 광고·협찬 없이.
+          내 체형에 맞는 신발 3개를 골라드려요. 추천 순서는 광고비로 바뀌지 않습니다.
         </p>
         <Link
           href="/shoe-finder"
@@ -37,7 +37,7 @@ export default function Home() {
         >
           내 신발 찾기 시작 →
         </Link>
-        <p className="mt-4 text-xs text-gray-400">가입 없이 무료 · 광고·협찬 없는 중립 추천</p>
+        <p className="mt-4 text-xs text-gray-400">가입 없이 무료 · 추천 순서는 광고비로 바뀌지 않습니다</p>
       </section>
 
       {/* How it works */}
@@ -65,7 +65,7 @@ export default function Home() {
         {[
           { t: "논문으로 고른 추천", d: "키·체중·발볼·발 타입·성별까지 반영한 논문 기반 추천. 내 몸이 기준이에요." },
           { t: "부상 예방까지 함께", d: "무릎·발목·아킬레스건, 증상별 대처법을 추천과 함께 연결해드려요." },
-          { t: "광고 없는 중립 추천", d: "협찬·광고비가 아니라 내 데이터로만 골라요." },
+          { t: "광고비로 순서가 안 바뀝니다", d: "브랜드가 아니라 입력한 내 데이터로만 골라요." },
         ].map((x, i) => (
           <div key={i} className="border border-gray-100 rounded-xl p-5">
             <h3 className="font-semibold text-gray-900 mb-1">{x.t}</h3>

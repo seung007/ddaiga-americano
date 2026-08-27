@@ -7,7 +7,7 @@ export default function SiteFooter() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold text-gray-800">🏃 뛰다가 아메리카노</p>
-            <p className="text-xs text-gray-400 mt-1">과학 논문 기반 중립 러닝화 추천. 광고·협찬 없음.</p>
+            <p className="text-xs text-gray-400 mt-1">공개 연구 기반 러닝화 추천. 추천 순서는 광고비로 바뀌지 않습니다.</p>
           </div>
           <nav className="flex flex-wrap gap-x-5 gap-y-1">
             <Link href="/shoe-finder" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">신발 찾기</Link>
