@@ -2,12 +2,24 @@
  * 러닝화 추천 로직 v3 — 체형 8분류 + 성별 골격 + 한국인 발
  *
  * 핵심 참고 문헌:
- * 1. Malisoux et al. (2013) Scand J Med Sci Sports — 쿠셔닝·체중 상관관계
+ * 1. Malisoux et al. (2020) Am J Sports Med — 쿠셔닝 경도 × 체중 (848명 RCT)
  * 2. 신장·보폭·드롭 매칭 — 자체 설계 휴리스틱 (뒷받침하는 논문 없음)
- * 3. Richards et al. (2009) Br J Sports Med — 발 타입·안정화
+ * 3. Malisoux et al. (2021) JOSPT — 모션컨트롤화가 과회내 관련 부상 위험 낮춤
+ *    (HR 0.41, 95% CI 0.17-0.98). 단 2차 분석이고 다른 부상엔 효과 없었다
  * 4. van Gent et al. (2007) Br J Sports Med — 러닝 부상 발생률·결정요인 체계적 고찰
- *    (주의: 이 논문은 쿠셔닝을 다루지 않는다. 부상 빈도의 배경 자료로만 인용할 것)
- * 5. Sinclair et al. (2014) J Hum Kinet — 신장·관절 하중
+ *    (이 논문은 쿠셔닝을 다루지 않는다. 부상 빈도의 배경 자료로만 인용할 것)
+ *
+ * ⚠️ 여기에 다시 달지 말 것 — 2026-08-27 감사에서 걸러낸 것들
+ *
+ *  · Richards et al. (2009) Br J Sports Med — **결론이 정반대다.**
+ *    발 타입으로 회내 제어화를 처방하는 관행에 근거가 없다("not evidence-based")는 것이
+ *    논지이고, 8개 DB를 뒤져 지지 연구를 한 건도 찾지 못했다고 보고했다.
+ *    이 사이트는 그 논문을 오랫동안 '발 타입별 안정화 매칭'의 지지 근거로 인용해왔다.
+ *    아래 3항의 발 타입×안정화 점수(20점)는 Malisoux 2021 위에서만 부분적으로 성립하며,
+ *    Malisoux 역시 2차 분석이라 근거 등급이 낮다. 이 점수 구간은 약한 근거 위에 서 있다.
+ *
+ *  · Sinclair et al. (2014) J Hum Kinet — 신장과 관절 하중을 연결한 논문이 아니다.
+ *    맨발·미니멀 신발의 무릎·발목 부하를 다룬다. 신장×드롭 로직에 근거로 쓸 수 없다.
  *
  * 성별·한국 발 보정 근거:
  * 6. Ferber, Davis & Williams (2003) Clin Biomech — 여성 고관절 내전·무릎 외전 ↑ (동적 Q앵글)
@@ -55,7 +67,7 @@ function isGenderEligible(shoe: Shoe, gender?: Gender): boolean {
 /**
  * 체중별 최소 쿠셔닝 등급.
  *
- * Malisoux 2013이 쿠셔닝·체중 상관을 다루지만 이 구간 값 자체는 자체 설계다.
+ * Malisoux 2020(848명 RCT)이 쿠셔닝 경도 × 체중을 다루지만 이 구간 값 자체는 자체 설계다.
  * van Gent 2007은 여기 근거가 아니다 — 그 논문은 쿠셔닝을 다루지 않는다.
  */
 export function getMinCushioning(weightKg: number): number {

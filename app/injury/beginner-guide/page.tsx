@@ -181,7 +181,7 @@ export default function BeginnerGuidePage() {
             </table>
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            기준: Malisoux et al. (2013) — 주 3회 이하 러닝이 초심자 부상 위험 최저
+            위 빈도는 이 사이트가 정한 기준입니다. '주 3회가 최적'이라는 특정 논문 근거는 확인하지 못했습니다.
           </p>
         </section>
 

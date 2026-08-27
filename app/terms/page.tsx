@@ -42,13 +42,14 @@ export default function TermsPage() {
             단, 논문의 연구 조건과 개인의 실제 상황은 다를 수 있으므로 추천 결과를 절대적 기준으로 삼지 마세요.
           </p>
           <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-            <li>Malisoux et al. (2013) — 쿠셔닝과 체중의 상관관계, Scand J Med Sci Sports</li>
+            <li>Malisoux et al. (2020) — 쿠셔닝 경도와 체중, Am J Sports Med (848명 RCT)</li>
             <li>Heiderscheit et al. (2011) — 스텝빈도 조작이 관절역학에 미치는 영향, Med Sci Sports Exerc</li>
-            <li>Richards et al. (2009) — 발 타입과 안정화 신발, Br J Sports Med</li>
+            <li>Richards et al. (2009) — 발 타입 기반 러닝화 처방에 근거가 없다는 체계적 고찰, Br J Sports Med</li>
+            <li>Malisoux et al. (2021) — 모션컨트롤화와 과회내 관련 부상, JOSPT (2차 분석)</li>
             <li>van Gent et al. (2007) — 러닝 부상 발생률·결정요인 체계적 고찰, Br J Sports Med</li>
             <li>Ferber et al. (2003) — 성별에 따른 러닝 생체역학 차이</li>
-            <li>Taunton et al. (2003) — 여성 러닝 부상 패턴 분석</li>
-            <li>Sinclair et al. (2014) — 신장과 관절 하중, J Hum Kinet</li>
+            <li>Taunton et al. (2002) — 러닝 부상 2,002건 후향적 분석, Br J Sports Med</li>
+            
           </ul>
         </section>
 

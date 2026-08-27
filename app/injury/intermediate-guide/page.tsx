@@ -23,7 +23,7 @@ export default function IntermediateGuidePage() {
           <h1 className="text-3xl font-bold mb-3">중급자 부상 예방 가이드</h1>
           <p className="text-gray-600 leading-relaxed">
             중급자는 "이제 좀 달릴 만하다"는 자신감이 부상의 씨앗이 됩니다.
-            Taunton et al.(2003) 연구에 따르면 러닝 부상의 70%는 훈련 오류(training error)로, 
+            러닝 부상의 60~70%가 훈련 오류(too much, too soon)에서 온다는 추정이 널리 인용되는데, 그 출처는 Clement·Taunton·Smart (1981)의 초기 조사입니다. 
             적절한 부하 관리와 회복이 부상 예방의 핵심입니다.
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function IntermediateGuidePage() {
             <li>• 1km 페이스 5~7분대</li>
           </ul>
           <p className="text-xs text-amber-700 mt-3">
-            출처: Taunton et al. (2003) <em>Running injuries</em>, Br J Sports Med — 중급자 부상 패턴 분석
+            출처: Clement DB, Taunton JE, Smart GW (1981) <em>A survey of overuse running injuries</em>, Phys Sportsmed — 60~70% 수치의 원출처. 1981년 조사이므로 최신 추정치로 보기는 어렵습니다
           </p>
         </section>
 
@@ -149,7 +149,7 @@ export default function IntermediateGuidePage() {
           },
           {
             q: "중급자가 부상당하는 가장 흔한 원인은?",
-            a: "훈련 오류(training error)입니다. Taunton et al.(2003) 연구에 따르면 러닝 부상의 70%가 여기서 비롯됩니다. 즉 신체 능력보다 부하 관리와 회복이 부상 예방의 핵심입니다.",
+            a: "훈련 오류(too much, too soon)입니다. 60~70%라는 추정이 널리 인용되지만 원출처는 1981년 조사(Clement et al.)이므로 정확한 값으로 받아들이기보다 경향으로 보세요. 즉 신체 능력보다 부하 관리와 회복이 부상 예방의 핵심입니다.",
           },
           {
             q: "언제 쉬어야 하는지 어떻게 아나요?",

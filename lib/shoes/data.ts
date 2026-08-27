@@ -285,7 +285,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily"],
     hasCarbon: false,
     blurb: "드롭 8mm 안정화. 소형·고체중 평발 러너 과회내 제어.",
-    scienceBasis: "4D Guidance System — 발 내측 지지로 과회내 보정, Richards 2009 족저 압력 분산.",
+    scienceBasis: "4D Guidance System — 발 내측 지지로 과회내 보정.",
     youtubeReviews: [
       { label: "Kayano 32 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+kayano+32+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+카야노+32+리뷰" },
@@ -591,7 +591,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily", "long"],
     hasCarbon: false,
     blurb: "스택 44mm 플래그십 쿠션. 대형·중량 러너 장거리 관절 보호.",
-    scienceBasis: "FF Blast+ Eco 폼 + GEL — 고체중 러너 착지 충격 최대 흡수, Sinclair 2014 신장·관절 부하.",
+    scienceBasis: "FF Blast+ Eco 폼 + GEL — 고체중 러너 착지 충격 최대 흡수.",
     youtubeReviews: [
       { label: "Nimbus 27 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+nimbus+27+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+님버스+27+리뷰" },
@@ -1485,7 +1485,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily", "long"],
     hasCarbon: false,
     blurb: "여성 라스트 + 4D Guidance 안정화 + 맥시멀 쿠션. 과회내 여성 장거리 최적.",
-    scienceBasis: "여성 평발·과회내 러너에게 4D Guidance System이 회내 속도를 늦춤(Richards 2009: 발타입별 안정화 매칭). 여성 라스트로 힐 고정력 확보.",
+    scienceBasis: "여성 평발·과회내 러너에게 4D Guidance System이 회내 속도를 늦춤. 여성 라스트로 힐 고정력 확보.",
     genderFit: "womens_last",
     womensWidths: ["B", "D", "2E"],
     forefootFit: "standard",
