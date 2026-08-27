@@ -52,7 +52,8 @@ export default function CadencePage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">키별 적정 케이던스 기준값</h2>
           <p className="text-sm text-gray-600 mb-4">
-            아래 값은 데이터 기반 권장 범위입니다. 개인 보폭·체력에 따라 ±5 spm 편차는 정상입니다.
+            아래 표는 <strong>논문 수치가 아니라 통상 알려진 경험칙</strong>을 정리한 것입니다.
+            키에 따른 적정 케이던스를 제시한 연구는 찾지 못했습니다. 개인 보폭·체력에 따라 ±5 spm 편차는 정상입니다.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
@@ -80,7 +81,9 @@ export default function CadencePage() {
             </table>
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            출처: Heiderscheit BC et al., "Effects of step rate manipulation on joint mechanics during running." Med Sci Sports Exerc. 2011 /
+            위 표는 자체 정리이며 아래 논문에서 나온 값이 아닙니다. 이 논문이 뒷받침하는 것은
+            &ldquo;현재 케이던스를 5~10% 높이면 관절 부하가 준다&rdquo;는 부분뿐입니다 —
+            Heiderscheit BC et al., &ldquo;Effects of step rate manipulation on joint mechanics during running.&rdquo; Med Sci Sports Exerc. 2011 /
             <a href="https://pubmed.ncbi.nlm.nih.gov/21085030/" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 ml-1">PubMed ↗</a>
           </p>
         </section>

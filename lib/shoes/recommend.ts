@@ -5,7 +5,8 @@
  * 1. Malisoux et al. (2013) Scand J Med Sci Sports — 쿠셔닝·체중 상관관계
  * 2. 신장·보폭·드롭 매칭 — 자체 설계 휴리스틱 (뒷받침하는 논문 없음)
  * 3. Richards et al. (2009) Br J Sports Med — 발 타입·안정화
- * 4. van Gent et al. (2007) Br J Sports Med — 체중·부상률
+ * 4. van Gent et al. (2007) Br J Sports Med — 러닝 부상 발생률·결정요인 체계적 고찰
+ *    (주의: 이 논문은 쿠셔닝을 다루지 않는다. 부상 빈도의 배경 자료로만 인용할 것)
  * 5. Sinclair et al. (2014) J Hum Kinet — 신장·관절 하중
  *
  * 성별·한국 발 보정 근거:
@@ -51,7 +52,12 @@ function isGenderEligible(shoe: Shoe, gender?: Gender): boolean {
   return true;
 }
 
-/** 체중별 최소 쿠셔닝 등급 (van Gent 2007 + Malisoux 2013) */
+/**
+ * 체중별 최소 쿠셔닝 등급.
+ *
+ * Malisoux 2013이 쿠셔닝·체중 상관을 다루지만 이 구간 값 자체는 자체 설계다.
+ * van Gent 2007은 여기 근거가 아니다 — 그 논문은 쿠셔닝을 다루지 않는다.
+ */
 export function getMinCushioning(weightKg: number): number {
   if (weightKg < 50) return 1;
   if (weightKg < 60) return 2;

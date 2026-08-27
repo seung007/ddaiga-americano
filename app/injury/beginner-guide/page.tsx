@@ -47,7 +47,7 @@ export default function BeginnerGuidePage() {
             <li>• 1km 페이스 7~9분대</li>
           </ul>
           <p className="text-xs text-green-700 mt-3">
-            출처: Nielsen et al. (2012) <em>Running-Related Injuries</em>, BJSM — 초심자 정의 및 부상 위험도 분석
+            위 구간은 이 사이트가 정한 기준입니다. 러닝 경력·주간 거리로 초심자를 정의하는 공인된 분류는 없습니다.
           </p>
         </section>
 

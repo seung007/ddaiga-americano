@@ -128,7 +128,7 @@ export interface Shoe {
   heightRangeCm: [number, number];
   primaryBodyTypes: BodyType[];
   uses: ShoeUse[];
-  /** 카본 플레이트 여부 — true면 초보자 패널티 적용 (Hoogkamer 2018 기준) */
+  /** 카본 플레이트 여부 — true면 초보자 패널티 적용 (근거는 recommend.ts 주석 참조. 논문 아님) */
   hasCarbon?: boolean;
   blurb: string;
   scienceBasis: string;

@@ -246,7 +246,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily", "long"],
     hasCarbon: false,
     blurb: "스택 40mm 맥시멀 쿠션. 소형·고체중 러너 관절 보호 최우선.",
-    scienceBasis: "맥시멀 쿠션 — 고체중 러너(65kg+) 착지 충격 최대 흡수, van Gent 2007 부상 위험 감소.",
+    scienceBasis: "맥시멀 쿠션 — 고체중 러너(65kg+) 착지 충격 최대 흡수.",
     youtubeReviews: [
       { label: "Hoka Bondi 9 리뷰", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+본디9+리뷰" },
@@ -1160,7 +1160,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily", "long"],
     hasCarbon: false,
     blurb: "FF Blast+ 41mm 스택 261g. 중형 러너 부드럽고 믿음직한 만능 데일리.",
-    scienceBasis: "FF Blast+ + GEL — 착지 충격 분산 + 에너지 반환. 스택 41mm로 중장거리 관절 보호 (van Gent 2007).",
+    scienceBasis: "FF Blast+ + GEL — 착지 충격 분산 + 에너지 반환. 스택 41mm로 중장거리 관절 보호.",
     youtubeReviews: [
       { label: "Gel-Cumulus 27 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+cumulus+27+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+큐물러스+27+리뷰" },
