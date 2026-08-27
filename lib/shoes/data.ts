@@ -55,7 +55,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily", "tempo"],
     hasCarbon: false,
     blurb: "207g 초경량 + 드롭 5mm. 소형·경량 러너의 미드풋 데일리 최적.",
-    scienceBasis: "드롭 5mm — 소형 러너의 짧은 보폭에서 미드풋 착지 자연 유도 (Heiderscheit 2011).",
+    scienceBasis: "드롭 5mm — 소형 러너의 짧은 보폭에서 미드풋 착지를 유도하는 설계.",
     youtubeReviews: [
       { label: "Kinvara 16 리뷰", url: "https://www.youtube.com/results?search_query=saucony+kinvara+16" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+키나라+16+리뷰" },
@@ -131,7 +131,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing"],
     hasCarbon: true,
     blurb: "200g 카본 레이싱화. 소형·경량 러너 풀마라톤 기록 단축.",
-    scienceBasis: "EnergyRods 2.0 카본 — 족저굴곡 강성 극대화로 추진 효율 6-8% 향상 (Hoogkamer 2018 응용).",
+    scienceBasis: "EnergyRods 2.0 카본 — 족저굴곡 강성 극대화로 추진 효율 6-8% 향상.",
     youtubeReviews: [
       { label: "Adios Pro 4 리뷰", url: "https://www.youtube.com/results?search_query=adizero+adios+pro+4+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아디다스+아디오스+프로4+리뷰" },
@@ -705,7 +705,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing"],
     hasCarbon: true,
     blurb: "166g ZoomX 카본 레이싱화. 풀마라톤 기록 단축 최강.",
-    scienceBasis: "ZoomX 폼 + 카본 플레이트 — 에너지 반환율 85%+, Hoogkamer 2018 4% 효율 향상.",
+    scienceBasis: "ZoomX 폼 + 카본 플레이트 — 나이키 발표 기준 에너지 반환율 85%+(제조사 수치). 레이싱 목적 설계.",
     youtubeReviews: [
       { label: "Vaporfly 4 리뷰", url: "https://www.youtube.com/results?search_query=nike+vaporfly+4+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+베이퍼플라이+4+리뷰" },
@@ -1198,7 +1198,7 @@ export const SHOES: Shoe[] = [
     uses: ["tempo", "daily"],
     hasCarbon: false,
     blurb: "Supercritical EVA 232g + 드롭 5mm. 소형·경량 러너 경쾌한 템포·데일리 겸용.",
-    scienceBasis: "Supercritical EVA 폼 — 저중량 고반발. 드롭 5mm로 소형 러너 미드풋 착지 유도 (Heiderscheit 2011).",
+    scienceBasis: "Supercritical EVA 폼 — 저중량 고반발. 드롭 5mm로 소형 러너 미드풋 착지 유도.",
     youtubeReviews: [
       { label: "Hoka Mach 6 리뷰", url: "https://www.youtube.com/results?search_query=hoka+mach+6+review" },
       { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+마하+6+리뷰" },
@@ -1828,7 +1828,16 @@ export const SHOES: Shoe[] = [
   
   // ════════════════════════════════════════════════════════════════
   // 카본 플레이트 레이싱화 (hasCarbon: true)
-  // Hoogkamer et al. (2018) — 카본 플레이트는 약 5:30/km 이하 페이스에서 ~4% 러닝 이코노미 향상
+  //
+  // ⚠️ 이 블록에 Hoogkamer et al. (2018)을 근거로 붙이지 말 것.
+  //    그 논문은 Nike 프로토타입(후일 Vaporfly 4%) vs Zoom Streak 6 vs Adios Boost 2를
+  //    14·16·18 km/h에서 비교해 대사 에너지 비용이 약 4% 낮다고 보고한 것이다.
+  //    - 여기 실린 신발 중 그 논문이 실측한 모델은 없다
+  //    - 14 km/h(≈4:17/km)보다 느린 속도는 아예 시험하지 않았다 → "5:30/km 경계"는 논문 밖 숫자였다
+  //    - 카본 플레이트 단독 효과를 폼과 분리하지 않았다 → "플레이트 덕분"이라고 말할 수 없다
+  //    - 4%는 성적 향상이 아니라 대사 에너지 비용 감소다
+  //    에너지 반환율(85%·87%·70.1% 등)은 브랜드 발표 수치이지 논문 수치가 아니다.
+  //
   // 초보자 패널티 적용 대상 (recommend.ts: shoe.hasCarbon → score -12)
   // ════════════════════════════════════════════════════════════════
   {
@@ -1861,7 +1870,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing"],
     hasCarbon: true,
     blurb: "198g 카본 레이싱화. ZoomX 폼+에어줌 포드로 마라톤 기록 단축 최고 무기.",
-    scienceBasis: "ZoomX 폼 에너지 반환 87% + 카본 플레이트 + 에어줌 포드 추진 — 러닝 이코노미 ~4% 향상(Hoogkamer 2018). 5:30/km 이하 페이스에서 효과 극대화.",
+    scienceBasis: "ZoomX 폼 에너지 반환 87%(제조사 수치) + 카본 플레이트 + 에어줌 포드 추진 — 레이싱 페이스에서 효과가 크다고 알려진 설계.",
     forefootFit: "narrow",
     instepVolume: "low",
     youtubeReviews: [
@@ -1901,7 +1910,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing", "tempo"],
     hasCarbon: true,
     blurb: "205g 카본 레이싱화. FF Turbo 폼+카본 플레이트로 미드풋 고속 러너 최적.",
-    scienceBasis: "FF Turbo 폼 에너지 반환 70.1% + 카본 플레이트(발 가까이 재배치로 반응성 향상) — 러닝 이코노미 향상(Hoogkamer 2018). 드롭 5mm → 미드/전족부 스트라이크 최적.",
+    scienceBasis: "FF Turbo 폼 에너지 반환 70.1%(제조사 수치) + 카본 플레이트(발 가까이 재배치로 반응성 향상). 드롭 5mm → 미드/전족부 스트라이크 최적.",
     forefootFit: "narrow",
     instepVolume: "standard",
     youtubeReviews: [
@@ -1941,7 +1950,7 @@ export const SHOES: Shoe[] = [
     uses: ["daily", "tempo"],
     hasCarbon: true,
     blurb: "261g 카본 로드 템포화. EnergyRods+Lightstrike Pro로 일상 훈련부터 대회까지.",
-    scienceBasis: "EnergyRods 2.0(5개 카본 파이버 로드) + Lightstrike Pro 폼 — 플레이트형보다 유연한 카본 추진. 중급 러너 훈련화 중 카본 요소 탑재(Hoogkamer 2018 부분 적용).",
+    scienceBasis: "EnergyRods 2.0(5개 카본 파이버 로드) + Lightstrike Pro 폼 — 플레이트형보다 유연한 카본 추진. 중급 러너 훈련화 중 카본 요소 탑재.",
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [
@@ -1981,7 +1990,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing", "tempo"],
     hasCarbon: true,
     blurb: "218g 카본 레이싱화. PWRRUN PB 폼+카본 플레이트로 힐~미드풋 스트라이크 폭넓게 대응.",
-    scienceBasis: "PWRRUN PB(PEBA 계열) 폼 고반발 + 카본 플레이트 — 힐·미드풋 스트라이크 모두 대응하는 로커 설계. 러닝 이코노미 향상(Hoogkamer 2018).",
+    scienceBasis: "PWRRUN PB(PEBA 계열) 폼 고반발 + 카본 플레이트 — 힐·미드풋 스트라이크 모두 대응하는 로커 설계. 러닝 이코노미 향상.",
     forefootFit: "narrow",
     instepVolume: "standard",
     youtubeReviews: [
@@ -2021,7 +2030,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing", "tempo"],
     hasCarbon: true,
     blurb: "224g 카본 레이싱화. PEBA 미드솔+카본 플레이트+호카 넓은 베이스로 안정적 고속 주행.",
-    scienceBasis: "PEBA(식물성) 미드솔 고탄성 에너지 반환 + 카본 플레이트 강성 — 러닝 이코노미 향상(Hoogkamer 2018). 호카 특유의 넓은 베이스 → 코너링·내리막 안정성 우수.",
+    scienceBasis: "PEBA(식물성) 미드솔 고탄성 에너지 반환 + 카본 플레이트 강성 — 러닝 이코노미 향상. 호카 특유의 넓은 베이스 → 코너링·내리막 안정성 우수.",
     forefootFit: "narrow",
     instepVolume: "standard",
     youtubeReviews: [
@@ -2061,7 +2070,7 @@ export const SHOES: Shoe[] = [
     uses: ["racing", "tempo"],
     hasCarbon: true,
     blurb: "230g 카본 레이싱화. FuelCell 폼+카본 플레이트+드롭 4mm — 미드풋 마라토너 최적.",
-    scienceBasis: "FuelCell(PEBA 계열) 폼 고탄성 + 카본 파이버 플레이트 — 드롭 4mm로 미드풋 착지 유도, 러닝 이코노미 향상(Hoogkamer 2018).",
+    scienceBasis: "FuelCell(PEBA 계열) 폼 고탄성 + 카본 파이버 플레이트 — 드롭 4mm로 미드풋 착지 유도, 러닝 이코노미 향상.",
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [

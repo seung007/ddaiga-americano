@@ -61,7 +61,7 @@ export default function InjuryListPage() {
           <p className="text-sm font-medium text-emerald-600 mb-2">부상 예방 · 스트레칭 · 주법 · 런닝 이야기</p>
           <h1 className="text-3xl font-bold text-gray-900 mb-3">달리다가 아프지 않으려면</h1>
           <p className="text-gray-600 leading-relaxed">
-            러닝 부상의 79%는 과훈련이 원인입니다(van Gent 2007). 
+            연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent 2007).
             경력 단계에 맞는 정보를 선택하세요.
           </p>
           <div className="mt-3 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">

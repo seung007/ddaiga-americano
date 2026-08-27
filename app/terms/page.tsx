@@ -43,7 +43,7 @@ export default function TermsPage() {
           </p>
           <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
             <li>Malisoux et al. (2013) — 쿠셔닝과 체중의 상관관계, Scand J Med Sci Sports</li>
-            <li>Heiderscheit et al. (2011) — 키·보폭·드롭의 관계, Med Sci Sports Exerc</li>
+            <li>Heiderscheit et al. (2011) — 스텝빈도 조작이 관절역학에 미치는 영향, Med Sci Sports Exerc</li>
             <li>Richards et al. (2009) — 발 타입과 안정화 신발, Br J Sports Med</li>
             <li>van Gent et al. (2007) — 체중과 러닝 부상률, Br J Sports Med</li>
             <li>Ferber et al. (2003) — 성별에 따른 러닝 생체역학 차이</li>

@@ -111,7 +111,7 @@ export default function IntermediateGuidePage() {
           <div className="flex flex-col gap-3">
             {[
               { title: "3주 증가 + 1주 회복 주기", desc: "3주간 점진적으로 거리·강도를 높인 뒤, 4주차는 이전 주 대비 20~30% 줄이는 회복 주를 넣어야 합니다." },
-              { title: "폴리메트릭 훈련 병행", desc: "주 1~2회 스쿼트·런지·힙힌지 등 근력 운동은 힘줄·뼈 적응 속도를 높여 부상을 예방합니다(Lauersen 2014, BJSM)." },
+              { title: "근력 훈련 병행", desc: "주 1~2회 스쿼트·런지·힙힌지 등 근력 운동은 스포츠 부상을 뚜렷하게 줄입니다 — 메타분석에서 근력 훈련군의 부상 위험비 0.32(Lauersen 2014, BJSM). 같은 분석에서 스트레칭은 효과가 확인되지 않았습니다." },
               { title: "장거리는 주간 거리의 30% 이내", desc: "1회 장거리 런은 주간 총 거리의 30%를 넘기지 않아야 합니다." },
             ].map(item => (
               <div key={item.title} className="bg-white border border-gray-200 rounded-xl p-4">

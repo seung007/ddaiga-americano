@@ -32,7 +32,7 @@ export default function BeginnerGuidePage() {
           </div>
           <h1 className="text-3xl font-bold mb-3">초심자 부상 예방 완전 가이드</h1>
           <p className="text-gray-600 leading-relaxed">
-            러닝 부상의 79%는 과훈련(too much, too soon)이 원인입니다(van Gent et al., 2007).
+            연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent et al., 2007).
             처음 6개월이 가장 위험하고, 가장 예방하기 쉬운 시기이기도 합니다.
           </p>
         </div>
@@ -60,10 +60,23 @@ export default function BeginnerGuidePage() {
           </p>
           <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 border border-gray-200">
             <p className="font-semibold mb-1">왜 10%인가?</p>
-            <p>Nielsen et al. (2014, BJSM)의 연구에 따르면, 주간 거리를 30% 이상 급격히 늘린 러너의 부상 위험이 30% 이내로 늘린 러너보다 <strong>2.4배</strong> 높았습니다. 뼈·힘줄·연골은 심폐 능력보다 적응 속도가 느립니다.</p>
+            <p>
+              솔직히 말하면 <strong>10%라는 숫자 자체를 뒷받침하는 연구는 없습니다.</strong> 초보 러너 874명을
+              1년간 추적한 연구에서 주간 거리를 30% 넘게 늘린 그룹과 10% 미만으로 늘린 그룹의 전체 부상률은
+              통계적으로 유의한 차이가 없었습니다. 거리와 관련된 부상만 따로 보면 위험이 1.59배로 나왔지만
+              이것도 통계적 유의성에는 못 미쳤습니다(HR 1.59, 95% CI 0.96–2.66, P=.07).
+            </p>
+            <p className="mt-2">
+              그래도 10% 규칙을 권하는 이유는, 뼈·힘줄·연골이 심폐 능력보다 적응이 느리다는 점과
+              위 연구가 <em>안전하다고 증명한 것이 아니라 차이를 찾지 못한 것</em>이기 때문입니다.
+              확실한 근거가 있는 규칙이 아니라 <strong>보수적인 경험칙</strong>으로 받아들이세요.
+            </p>
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            출처: Nielsen RO et al. (2014) <a href="https://pubmed.ncbi.nlm.nih.gov/24243914/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">BJSM 48(22): 1613-18</a>
+            출처: Nielsen RØ et al. (2014){" "}
+            <a href="https://doi.org/10.2519/jospt.2014.5164" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
+              JOSPT 44(10): 739–747
+            </a>
           </p>
         </section>
 
@@ -184,8 +197,8 @@ export default function BeginnerGuidePage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">과학적 근거 논문</h2>
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
-            <li><strong>van Gent et al. (2007)</strong> — 러닝 부상 유병률 및 원인 체계적 고찰. BJSM 41(8):469-480. <a href="https://pubmed.ncbi.nlm.nih.gov/17473005/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Nielsen et al. (2014)</strong> — 주간 달리기 거리 급증과 부상 관계. BJSM 48(22):1613-18. <a href="https://pubmed.ncbi.nlm.nih.gov/24243914/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>van Gent et al. (2007)</strong> — 러닝 부상 발생률 및 결정요인 체계적 고찰. 하지 부상 발생률 19.4~79.3%. BJSM 41(8):469-480. <a href="https://pubmed.ncbi.nlm.nih.gov/17473005/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Nielsen RØ et al. (2014)</strong> — 주간 거리 증가폭과 부상. 초보 러너 874명 1년 추적. 전체 부상률에서 유의차 없음. JOSPT 44(10):739-747. <a href="https://doi.org/10.2519/jospt.2014.5164" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
             <li><strong>Behm & Chaouachi (2011)</strong> — 동적 워밍업 운동 능력 향상 효과. Eur J Appl Physiol. <a href="https://pubmed.ncbi.nlm.nih.gov/21302337/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
@@ -194,11 +207,11 @@ export default function BeginnerGuidePage() {
         <FaqSection items={[
           {
             q: "초보 러너가 가장 먼저 지켜야 할 한 가지는?",
-            a: "'10% 규칙'입니다. 주간 달리기 거리를 전주 대비 10% 넘게 늘리지 마세요. 이번 주 10km였다면 다음 주는 최대 11km입니다. 뼈·힘줄·연골은 심폐 능력보다 적응 속도가 느립니다.",
+            a: "거리를 천천히 늘리는 것입니다. 흔히 '10% 규칙'(주간 거리를 전주 대비 10% 넘게 늘리지 않기)이라고 부르는데, 이 숫자 자체를 입증한 연구는 없습니다. 뼈·힘줄·연골이 심폐 능력보다 적응이 느리다는 점에 근거한 보수적인 경험칙으로 받아들이세요.",
           },
           {
-            q: "왜 거리를 급하게 늘리면 위험한가요?",
-            a: "Nielsen et al.(2014, BJSM) 연구에서 주간 거리를 30% 이상 급격히 늘린 러너의 부상 위험이 30% 이내로 늘린 러너보다 2.4배 높았습니다. 러닝 부상의 79%는 과훈련(too much, too soon)이 원인입니다(van Gent 2007).",
+            q: "거리를 급하게 늘리면 정말 위험한가요?",
+            a: "생각보다 근거가 약합니다. 초보 러너 874명을 1년간 추적한 연구(Nielsen 2014, JOSPT)에서 주간 거리를 30% 넘게 늘린 그룹과 10% 미만으로 늘린 그룹의 전체 부상률은 통계적으로 유의한 차이가 없었습니다. 거리 관련 부상만 보면 1.59배였지만 이것도 유의성에는 못 미쳤습니다(P=.07). 다만 '차이가 없다고 증명된 것'이 아니라 '차이를 찾지 못한 것'이므로, 급격한 증가는 여전히 피하는 편이 안전합니다.",
           },
           {
             q: "달리기 시작 후 언제가 가장 부상 위험이 큰가요?",

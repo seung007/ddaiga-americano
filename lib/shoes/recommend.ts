@@ -3,7 +3,7 @@
  *
  * 핵심 참고 문헌:
  * 1. Malisoux et al. (2013) Scand J Med Sci Sports — 쿠셔닝·체중 상관관계
- * 2. Heiderscheit et al. (2011) Med Sci Sports Exerc — 키·보폭·드롭
+ * 2. 신장·보폭·드롭 매칭 — 자체 설계 휴리스틱 (뒷받침하는 논문 없음)
  * 3. Richards et al. (2009) Br J Sports Med — 발 타입·안정화
  * 4. van Gent et al. (2007) Br J Sports Med — 체중·부상률
  * 5. Sinclair et al. (2014) J Hum Kinet — 신장·관절 하중
@@ -60,7 +60,12 @@ export function getMinCushioning(weightKg: number): number {
   return 5;
 }
 
-/** 신장별 권장 드롭 범위 (Heiderscheit 2011) */
+/**
+ * 신장별 권장 드롭 범위.
+ *
+ * ⚠️ 논문 근거 없음 — 자체 휴리스틱이다. 이전에 Heiderscheit 2011을 달아뒀는데,
+ * 그 논문은 스텝빈도 ±5/10% 조작 시 관절역학을 본 것이지 신발 드롭도 신장도 다루지 않는다.
+ */
 function idealDropRange(heightCm: number): [number, number] {
   if (heightCm <= 163) return [4, 8];
   if (heightCm <= 177) return [6, 10];
@@ -221,9 +226,16 @@ function scoreShoe(shoe: Shoe, profile: RunnerProfile, bodyType: BodyType): Scor
 
   // ── 7. 경험 수준 (PRD F-01) ───────────────────────────────
   if (profile.level === "beginner") {
-    // 카본 플레이트 신발은 초심자에게 부상 위험 ↑ → 강한 감점
+    // 카본화 감점.
+    //
+    // 이전 문구는 "카본 플레이트는 고속에서만 효과(Hoogkamer 2018)"였는데 논문이 그걸 말하지 않는다.
+    // Hoogkamer 2018은 14·16·18 km/h만 시험했고 그보다 느린 속도는 아예 측정하지 않았으며,
+    // 카본 플레이트 단독 효과를 폼과 분리하지도 않았다(신소재 미드솔+플레이트 결합 완제품 비교).
+    // 즉 "느린 속도에서 효과 없음"은 데이터 부재를 반증으로 쓴 것이다.
+    // 감점 자체는 유지한다 — 근거는 논문이 아니라 레이싱화의 낮은 안정성·짧은 수명·높은 가격이라는
+    // 실무적 이유이고, 그 이유를 그대로 사용자에게 말한다.
     // (레이싱화지만 카본 없는 모델 — 예: Endorphin Speed — 은 패널티 없음)
-    if (shoe.hasCarbon === true) { score -= 12; reasons.push("초심자에겐 카본화 비권장 — 카본 플레이트는 고속에서만 효과(Hoogkamer 2018), 안정적 데일리화부터"); }
+    if (shoe.hasCarbon === true) { score -= 12; reasons.push("초심자에겐 카본화 비권장 — 밑창이 얇고 불안정한 데다 수명이 짧고 비쌉니다. 안정적인 데일리화부터"); }
     if (shoe.cushioning >= 3 && shoe.uses.includes("daily")) { score += 4; reasons.push("초심자에게 충분한 쿠션의 데일리화"); }
   } else if (profile.level === "advanced") {
     if (shoe.uses.includes("tempo") || shoe.uses.includes("racing")) { score += 3; }

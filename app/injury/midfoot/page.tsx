@@ -44,7 +44,7 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/20111000/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Lieberman et al. 2010 — Foot strike & impact (Nature) ↗</a></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://bjsm.bmj.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Foot strike pattern & injury — BJSM 2017 ↗</a></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">착지 패턴과 부상 관련 리뷰 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/22504436/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Overstriding & running economy — NCBI ↗</a></li>
 
           </ul>

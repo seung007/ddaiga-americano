@@ -55,7 +55,7 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/24229736/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Patellofemoral Pain — BMJ Clinical Evidence ↗</a></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://bjsm.bmj.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">BJSM — Patellofemoral syndrome review 2016 ↗</a></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">슬개대퇴 통증 증후군 관련 리뷰 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">광고·협찬 없이 공적 연구 자료와 러너의 이익을 위해 작성되었습니다.</p>
