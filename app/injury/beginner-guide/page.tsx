@@ -8,8 +8,10 @@ import type { Metadata } from "next";
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/beginner-guide";
 
 export const metadata: Metadata = {
-  title: "초심자 부상 예방 완전 가이드 (0~6개월) — 뛰다가 아메리카노",
-  description: "러닝 시작 6개월 이내 초보 러너를 위한 부상 예방 완전 가이드. 10% 규칙, 준비운동, 흔한 부상 대처법.",
+  // 네이버 실측(2026-08): "초보 러너 뛰는법" 노출 73 · CTR 1.4%.
+  // 사용자는 '뛰는 법'을 찾는데 제목은 '부상 예방'을 내놓아 의도가 어긋났다.
+  title: "초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기 | 뛰다가 아메리카노",
+  description: "러닝을 막 시작했다면. 얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법까지 정리했습니다.",
 };
 
 export default function BeginnerGuidePage() {

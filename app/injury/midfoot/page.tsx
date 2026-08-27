@@ -5,8 +5,12 @@ import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "미드풋 착지, 무조건 좋은 게 아닌 이유 — 뛰다가 아메리카노",
-  description: "힐스트라이크가 나쁜 게 아닙니다. 초보 러너에게 맞는 착지법이 따로 있습니다.",
+  // 네이버 서치어드바이저 실측(2026-08): "미드풋" 질의로 노출 329 · 클릭 2 · CTR 0.6%.
+  // 전체 키워드 중 노출 1위인데 CTR은 최하위였다. 이전 제목이 "무조건 좋은 게 아닌 이유"로
+  // 부정부터 시작해, "미드풋이 뭔지" 알고 싶어 검색한 사람에게 답을 약속하지 못했다.
+  // 질의어를 앞에 두고 무엇을 알게 되는지 먼저 밝히는 쪽으로 교체.
+  title: "미드풋 착지란? 힐스트라이크와 차이, 나한테 맞는지 판단하는 법 — 뛰다가 아메리카노",
+  description: "미드풋이 무엇인지, 힐스트라이크와 뭐가 다른지, 그리고 초보 러너가 굳이 바꿔야 하는지까지 정리했습니다.",
 };
 
 export default function Page() {

@@ -8,8 +8,11 @@ import type { Metadata } from "next";
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/wide-foot";
 
 export const metadata: Metadata = {
-  title: "발볼 넓은 러너 와이드 규격 총정리 — 뛰다가 아메리카노",
-  description: "2E·4E 규격이 필요한지 판단하는 방법과 발볼 넓은 러너에게 맞는 러닝화를 알려드립니다.",
+  // 네이버 실측(2026-08): "2e 와이드 뜻" 노출 134·CTR 0.7%, "런닝화 와이드 뜻" 노출 18·CTR 5.6%.
+  // 둘 다 '뜻'을 찾는 질의인데 이전 제목엔 "2E"도 "뜻"도 없었다.
+  // 반면 "발볼 와이드 기준"은 CTR 50% — 제목에 그 단어들이 있었기 때문이다.
+  title: "2E·4E 와이드 뜻과 내 발볼 재는 법 — 러닝화 와이드 규격 총정리 | 뛰다가 아메리카노",
+  description: "2E·4E가 무슨 뜻인지, 내 발볼이 와이드 기준에 해당하는지 재는 법, 브랜드별 폭 옵션까지 정리했습니다.",
 };
 
 export default function WideFootPage() {
