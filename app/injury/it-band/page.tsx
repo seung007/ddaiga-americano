@@ -137,10 +137,13 @@ export default function ITBandPage() {
               <strong>Sanchez-Alvarado et al. (2024)</strong> — 러너 장경인대염 보존적 치료 전략의 체계적 고찰. 엉덩이 외전근 강화(HAS)가 가장 유효한 중재로 확인됨.{" "}
               <a href="https://pubmed.ncbi.nlm.nih.gov/39247485/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed 원문 →</a>
             </li>
-            <li className="text-sm text-gray-700">
-              <strong>Liao et al. (2022, Frontiers in Sports)</strong> — 장경인대 압축 이론: 무릎 30° 굴곡 시 장경인대가 외측 대퇴상과에 압박되어 통증 발생. 달리기 중 고관절 내전·내회전 제어가 핵심.{" "}
-              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11377285/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC 원문 →</a>
-            </li>
+            {/* 2026-08-28 삭제: "Liao et al. (2022)"로 적혀 있던 항목을 내렸다.
+                링크(PMC11377285)를 열어보니 바로 위 Sanchez-Alvarado (2024)와
+                **같은 논문**이었다. 저자명도 연도도 틀렸고, 무엇보다 그 논문은
+                보존적 치료 효과에 대한 체계적 고찰이지 압축 이론을 다룬 논문이 아니다.
+                근거 하나를 둘로 보이게 만들고 있었던 셈이다.
+                압축 이론 자체는 통용되는 설명이지만 원 출처(Fairclough 2006 등)를
+                확인하지 못했으므로, 확인 전까지는 출처를 달지 않는다. */}
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
         </section>

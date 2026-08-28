@@ -67,7 +67,12 @@ export default function AdvancedGuidePage() {
                 cause: "인터벌·언덕 훈련 증가, 앉는 자세로 인한 건 압박",
                 fix: "노르딕 햄스트링 운동, 인터벌 빈도 감소, 딱딱한 자리에 오래 앉기 금지",
                 color: "border-purple-200 bg-purple-50",
-                ref: "Beyer et al. (2015) Am J Sports Med — 편심성 운동 효과"
+                // 2026-08-28 정정: 여기 "Beyer et al. (2015) AJSM — 편심성 운동 효과"가
+                // 붙어 있었다. 그 논문은 실재하지만 **아킬레스건** 건병증 RCT다
+                // (Heavy Slow Resistance vs Eccentric, AJSM 43(7):1704-11).
+                // 햄스트링과는 무관하고, 노르딕 햄스트링 운동을 다루지도 않는다.
+                // 대체 근거를 확인하기 전까지 출처를 비워둔다.
+                ref: "출처 확인 중 — 이전 인용이 다른 부위(아킬레스) 논문이라 내렸습니다"
               }
             ].map(item => (
               <div key={item.name} className={`rounded-xl border p-4 ${item.color}`}>
@@ -118,8 +123,21 @@ export default function AdvancedGuidePage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">③ HRV(심박변이도) 모니터링</h2>
           <p className="text-gray-700 mb-3 leading-relaxed">
-            Plews et al. (2013, IJSPP)에 따르면 아침 안정 HRV를 7일 평균과 비교해 <strong>5ms 이상 하락 시</strong> 
-            훈련 강도를 자동으로 낮추는 HRV 기반 훈련 계획이 고정 계획 대비 VO₂max 향상폭 2배였습니다.
+            {/* 2026-08-28 전면 수정. 이전 문장은 "5ms 이상 하락 시 강도를 낮추는 HRV 기반
+                훈련이 고정 계획 대비 VO₂max 향상폭 2배"라고 썼는데, 인용한 Plews 2013은
+                **그런 실험을 한 논문이 아니다.** 러너 10명에서 HR·HRV 지표와 수행능력 변화의
+                상관을 본 방법론 비교 연구이고, 5ms도 2배도 그 논문에 없는 숫자였다.
+                (인용 서지도 8(5):536-545로 적혀 있었으나 실제는 8(6):688-691이다.)
+                논문이 실제로 말한 것만 남긴다. */}
+            Plews et al. (2013, IJSPP)은 러너 10명의 9주 훈련을 추적해, HRV를 <strong>하루치로 보는 것과
+            일주일 평균으로 보는 것</strong> 중 어느 쪽이 수행능력 변화와 잘 맞는지 비교했습니다.
+            결과는 <strong>일주일 평균 쪽</strong>이었습니다. 실용적 함의는 하나입니다 —
+            <strong>오늘 하루 수치에 반응하지 마세요.</strong> HRV는 수면·음주·측정 자세만으로도 흔들립니다.
+          </p>
+          <p className="text-sm text-gray-500 mb-3 leading-relaxed">
+            다만 이건 10명짜리 상관 연구입니다. &ldquo;HRV를 보고 훈련을 조절하면 더 좋아진다&rdquo;는
+            개입 효과를 증명한 논문이 아니라는 점은 분명히 해둡니다. 아래 방법은 참고용 운영 규칙이지
+            논문이 검증한 프로토콜이 아닙니다.
           </p>
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 text-sm">
             <p className="font-semibold mb-2">실용적 HRV 모니터링 방법</p>
@@ -147,7 +165,7 @@ export default function AdvancedGuidePage() {
           <h2 className="text-xl font-bold mb-3">과학적 근거 논문</h2>
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>Meeusen et al. (2013)</strong> — 오버트레이닝 증후군 합의문. MSSE 45(1):186-205. <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Plews et al. (2013)</strong> — HRV 기반 훈련 계획 효과. IJSPP 8(5):536-545. <a href="https://pubmed.ncbi.nlm.nih.gov/23479483/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Plews et al. (2013)</strong> — 훈련 적응을 HR·HRV로 평가하는 방법 비교(러너 10명). IJSPP 8(6):688-691. <a href="https://pubmed.ncbi.nlm.nih.gov/23479483/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Lauersen et al. (2014)</strong> — 근력 훈련의 스포츠 부상 예방 효과 메타분석. BJSM 48(11):871-877. <a href="https://pubmed.ncbi.nlm.nih.gov/23813543/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>

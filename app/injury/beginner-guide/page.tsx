@@ -147,7 +147,10 @@ export default function BeginnerGuidePage() {
             </div>
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            출처: Behm & Chaouachi (2011) <a href="https://pubmed.ncbi.nlm.nih.gov/21302337/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">EJAP — 동적 워밍업 효과</a>
+            {/* 2026-08-28 정정: 링크가 PMID 21302337로 걸려 있었는데 그건 비선형 광학
+                유기금속 화합물 논문이다(Adv Mater). 러닝과 아무 관계가 없다.
+                올바른 PMID는 21373870. 설명도 논문이 실제로 말한 것으로 바꾼다. */}
+            출처: Behm & Chaouachi (2011) <a href="https://pubmed.ncbi.nlm.nih.gov/21373870/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">EJAP — 정적·동적 스트레칭의 즉각적 효과 리뷰</a>
           </p>
         </section>
 
@@ -201,7 +204,7 @@ export default function BeginnerGuidePage() {
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>van Gent et al. (2007)</strong> — 러닝 부상 발생률 및 결정요인 체계적 고찰. 하지 부상 발생률 19.4~79.3%. BJSM 41(8):469-480. <a href="https://pubmed.ncbi.nlm.nih.gov/17473005/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Nielsen RØ et al. (2014)</strong> — 주간 거리 증가폭과 부상. 초보 러너 874명 1년 추적. 전체 부상률에서 유의차 없음. JOSPT 44(10):739-747. <a href="https://doi.org/10.2519/jospt.2014.5164" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
-            <li><strong>Behm & Chaouachi (2011)</strong> — 동적 워밍업 운동 능력 향상 효과. Eur J Appl Physiol. <a href="https://pubmed.ncbi.nlm.nih.gov/21302337/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Behm & Chaouachi (2011)</strong> — 정적·동적 스트레칭이 수행능력에 미치는 즉각적 효과 리뷰. 동적 스트레칭은 수행능력을 떨어뜨리지 않거나 오히려 높였다. Eur J Appl Physiol 111:2633-2651. <a href="https://pubmed.ncbi.nlm.nih.gov/21373870/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
         </section>

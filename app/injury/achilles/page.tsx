@@ -147,7 +147,10 @@ export default function AchillesPage() {
               <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC 원문 →</a>
             </li>
             <li className="text-sm text-gray-700">
-              <strong>Beyer et al. (2023, Frontiers Sports)</strong> — 아킬레스건 중부 건병증 재활 운동 효과에 대한 체계적 고찰. 점진적 부하 운동이 통증 및 기능 회복에 유의미한 개선 효과.{" "}
+              {/* 2026-08-28 정정: 이 링크의 제1저자는 Beyer가 아니라 Kim이다.
+                  링크와 내용은 맞았고 저자명만 틀렸다 — Beyer는 아킬레스 건병증
+                  분야의 다른 유명 논문(2015 AJSM) 저자라 섞인 것으로 보인다. */}
+              <strong>Kim et al. (2023, Front Sports Act Living)</strong> — 아킬레스건 중부 건병증 재활 운동 효과에 대한 체계적 고찰. 점진적 부하 운동이 통증 및 기능 회복에 유의미한 개선 효과.{" "}
               <a href="https://www.frontiersin.org/articles/10.3389/fspor.2023.1144484/full" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">Frontiers 원문 →</a>
             </li>
           </ul>
