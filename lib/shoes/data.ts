@@ -3,10 +3,24 @@ import type { Shoe } from "./types";
 /**
  * 러닝화 DB v3 — 2025~2026 모델년 기준 (마지막 실사: 2026-06)
  *
- * ⚠️ "현행 판매 모델"이라고 쓰지 않는다. 2026-08-21 확인 결과 아래 4종은 후속작이 나왔다.
- *   Ghost 17 → Ghost 18 (2026-05-01)          Gel-Nimbus 27 → 28 (2026-01-09)
- *   Gel-Kayano 32 → 33 (2026-06-01)           Clifton 10 → 11 (2026-07-01)
- * 후속작이 있는 신발에는 `successor` 필드를 채워두면 추천 결과에 안내가 뜬다.
+ * ⚠️ "현행 판매 모델"이라고 쓰지 않는다.
+ *
+ * 2026-08-28 전수 점검: 52종 중 27종(여성 버전 포함)이 이미 구형이었다.
+ * 그전까지 `successor`가 채워진 건 4종뿐이었고, 나머지 23종은 후속작이 나온 줄도
+ * 모르고 "추천"하고 있었다. 이 사이트의 유일한 주장이 "광고 아닌 중립 추천"인데,
+ * 단종된 모델을 아무 표시 없이 1순위로 올리면 그 주장이 먼저 무너진다.
+ *
+ * 판정 기준은 **실제 출시 확인**이다. 출시 예정·루머·티저는 후속작으로 치지 않는다.
+ * 이 기준 때문에 Adrenaline GTS 26·Revolution 8은 후속으로 표기하지 않았다 —
+ * 캘린더에는 존재하는데 출시를 확인하지 못했고, 확인 못 한 것을 채우면
+ * 이 필드 전체의 신뢰도가 사라진다. 미확인은 비워두는 쪽이 맞다.
+ *
+ * 확인 못 한 채 남긴 것: GT-2000 14, Jolt 4, InfinityRN 4, Revolution 7,
+ *   Adrenaline GTS 25, Cloudrunner 3, SuperComp Elite v4, 520 v9, KIPRUN KS500 2,
+ *   Vaporfly 4 — 다음 점검 때 여기부터 볼 것.
+ *
+ * 후속작이 나왔다고 그 신발이 나빠지는 건 아니고 오히려 재고 할인이 붙는다.
+ * 그래서 최신작으로 갈아엎지 않고 `successor`만 채운다. 판단은 사용자가 한다.
  * 새 모델을 추가하거나 후속작을 확인했으면 이 주석과 `successor`를 같이 갱신할 것.
  *
  * priceKrw: 2026년 6월 기준 한국 공식가
@@ -66,6 +80,7 @@ export const SHOES: Shoe[] = [
     id: "nb-fuelcell-rebel-v4",
     brand: "New Balance",
     model: "FuelCell Rebel v4",
+    successor: "FuelCell Rebel v5",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40311/new-balance-fuel-cell-rebel-v-4-21446877-720.jpg",
     colorways: ["일렉트릭 블루", "네온 옐로우"],
     widthOptions: ["D", "2E"],
@@ -449,6 +464,7 @@ export const SHOES: Shoe[] = [
     id: "saucony-triumph-23",
     brand: "Saucony",
     model: "Triumph 23",
+    successor: "Triumph 24",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40870/saucony-triumph-23-23515039-720.jpg",
     colorways: ["화이트/블루", "블랙"],
     widthOptions: ["D"],
@@ -487,6 +503,7 @@ export const SHOES: Shoe[] = [
     id: "hoka-arahi-8",
     brand: "Hoka",
     model: "Arahi 8",
+    successor: "Arahi 9",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40854/hoka-arahi-8-23493841-720.jpg",
     colorways: ["블랙/화이트", "블루/오렌지"],
     widthOptions: ["D", "2E"],
@@ -602,6 +619,7 @@ export const SHOES: Shoe[] = [
     id: "mizuno-wave-rider-29",
     brand: "Mizuno",
     model: "Wave Rider 29",
+    successor: "Wave Rider 30",
     imageUrl: "https://assets.mizuno.com/globalimages/shoes/running/u3gd250001_01.png",
     colorways: ["화이트/블루", "블랙/실버"],
     widthOptions: ["D", "2E"],
@@ -754,6 +772,7 @@ export const SHOES: Shoe[] = [
     id: "brooks-beast-24",
     brand: "Brooks",
     model: "Beast 24",
+    successor: "Beast GTS 26",
     imageUrl: "https://brooks-res.cloudinary.com/image/upload/b_white,c_pad,dpr_2.0,f_auto,h_490,q_auto,w_490/v1/eComm/110418_1D.jpg",
     colorways: ["블루/화이트", "블랙/실버"],
     widthOptions: ["2E", "4E"],
@@ -830,6 +849,7 @@ export const SHOES: Shoe[] = [
     id: "asics-superblast-2",
     brand: "Asics",
     model: "Superblast 2",
+    successor: "Superblast 3",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40450/asics-superblast-2-21749161-720.jpg",
     colorways: ["화이트/옐로우", "블랙/화이트"],
     widthOptions: ["D"],
@@ -906,6 +926,7 @@ export const SHOES: Shoe[] = [
     id: "saucony-guide-18",
     brand: "Saucony",
     model: "Guide 18",
+    successor: "Guide 19",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40636/saucony-guide-18-22687917-720.jpg",
     colorways: ["화이트/블루", "블랙/화이트"],
     widthOptions: ["D", "2E"],
@@ -981,6 +1002,7 @@ export const SHOES: Shoe[] = [
     id: "brooks-glycerin-22",
     brand: "Brooks",
     model: "Glycerin 22",
+    successor: "Glycerin 23",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40658/brooks-glycerin-22-22723203-main.jpg",
     colorways: ["블루/화이트", "블랙/화이트"],
     widthOptions: ["B", "D", "2E", "4E"],
@@ -1095,6 +1117,7 @@ export const SHOES: Shoe[] = [
     id: "asics-novablast-5",
     brand: "Asics",
     model: "Novablast 5",
+    successor: "Novablast 6",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40608/asics-novablast-5-22312736-720.jpg",
     colorways: ["블루/화이트", "블랙/화이트", "옐로우/그린"],
     widthOptions: ["D", "2E"],
@@ -1133,6 +1156,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gel-cumulus-27",
     brand: "Asics",
     model: "Gel-Cumulus 27",
+    successor: "Gel-Cumulus 28",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40699/asics-gel-cumulus-27-22918744-720.jpg",
     colorways: ["블랙/코랄 리프", "화이트/블루"],
     widthOptions: ["D", "2E", "4E"],
@@ -1171,6 +1195,7 @@ export const SHOES: Shoe[] = [
     id: "hoka-mach-6",
     brand: "Hoka",
     model: "Mach 6",
+    successor: "Mach 7",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40333/hoka-mach-6-21454844-main.jpg",
     colorways: ["블루/에메랄드", "블랙/화이트"],
     widthOptions: ["D"],
@@ -1209,6 +1234,7 @@ export const SHOES: Shoe[] = [
     id: "saucony-ride-18",
     brand: "Saucony",
     model: "Ride 18",
+    successor: "Ride 19",
     imageUrl: "https://gazellesports.com/cdn/shop/files/S21000-100_1.jpg?v=1734443649",
     colorways: ["화이트/블루", "블랙/레드"],
     widthOptions: ["D", "2E"],
@@ -1285,6 +1311,7 @@ export const SHOES: Shoe[] = [
     id: "on-cloudmonster-2",
     brand: "On",
     model: "Cloudmonster 2",
+    successor: "Cloudmonster 3",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40327/on-cloudmonster-2-21369854-720.jpg",
     colorways: ["아이스/플래시", "블랙/이클립스"],
     widthOptions: ["D"],
@@ -1329,6 +1356,7 @@ export const SHOES: Shoe[] = [
     id: "brooks-ghost-17-w",
     brand: "Brooks",
     model: "Ghost 17 (여성)",
+    successor: "Ghost 18",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40767/brooks-ghost-17-23734399-720.jpg",
     colorways: ["피치/라벤더", "화이트/실버"],
     widthOptions: ["B", "D", "2E"],
@@ -1372,6 +1400,7 @@ export const SHOES: Shoe[] = [
     id: "brooks-glycerin-22-w",
     brand: "Brooks",
     model: "Glycerin 22 (여성)",
+    successor: "Glycerin 23",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40658/brooks-glycerin-22-22723203-main.jpg",
     colorways: ["로즈/그레이", "블랙/핑크"],
     widthOptions: ["B", "D"],
@@ -1458,6 +1487,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gel-kayano-32-w",
     brand: "Asics",
     model: "Gel-Kayano 32 (여성)",
+    successor: "Gel-Kayano 33",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40809/asics-gel-kayano-32-23240127-720.jpg",
     colorways: ["화이트/로즈골드", "퓨어실버/핑크"],
     widthOptions: ["B", "D", "2E"],
@@ -1544,6 +1574,7 @@ export const SHOES: Shoe[] = [
     id: "saucony-guide-18-w",
     brand: "Saucony",
     model: "Guide 18 (여성)",
+    successor: "Guide 19",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40636/saucony-guide-18-22687917-720.jpg",
     colorways: ["라일락/오로라", "포그/핑크"],
     widthOptions: ["B", "D"],
@@ -1587,6 +1618,7 @@ export const SHOES: Shoe[] = [
     id: "hoka-clifton-10-w",
     brand: "Hoka",
     model: "Clifton 10 (여성)",
+    successor: "Clifton 11",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40691/hoka-clifton-10-22918659-720.jpg",
     colorways: ["페일 모브/피치", "화이트/로즈"],
     widthOptions: ["B", "D", "2E"],
@@ -1634,6 +1666,7 @@ export const SHOES: Shoe[] = [
     id: "puma-velocity-nitro-3",
     brand: "Puma",
     model: "Velocity NITRO 3",
+    successor: "Velocity NITRO 5",
     imageUrl: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/377748/01/sv01/fnd/PNA/fmt/png/Velocity-NITRO-3-Mens-Running-Shoes",
     colorways: ["블랙/화이트", "쿨 블루"],
     widthOptions: ["D"],
@@ -1883,6 +1916,7 @@ export const SHOES: Shoe[] = [
     id: "asics-metaspeed-sky-plus",
     brand: "Asics",
     model: "MetaSpeed Sky+",
+    successor: "MetaSpeed Sky Tokyo",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/38635/asics-metaspeed-sky-21232018-720.jpg",
     colorways: ["화이트/블랙", "화이트/블루"],
     widthOptions: ["D"],
@@ -1923,6 +1957,7 @@ export const SHOES: Shoe[] = [
     id: "adidas-adizero-boston-12",
     brand: "Adidas",
     model: "Adizero Boston 12",
+    successor: "Adizero Boston 13",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/39959/adidas-adizero-boston-12-21158467-720.jpg",
     colorways: ["코어 블랙/화이트", "화이트/블루"],
     widthOptions: ["D"],
@@ -1963,6 +1998,7 @@ export const SHOES: Shoe[] = [
     id: "saucony-endorphin-pro-4",
     brand: "Saucony",
     model: "Endorphin Pro 4",
+    successor: "Endorphin Pro 5",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40334/saucony-endorphin-pro-4-21356820-720.jpg",
     colorways: ["화이트/블랙", "블랙/레드"],
     widthOptions: ["D"],
@@ -2003,6 +2039,7 @@ export const SHOES: Shoe[] = [
     id: "hoka-rocket-x-2",
     brand: "Hoka",
     model: "Rocket X 2",
+    successor: "Rocket X 3",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/39714/hoka-rocket-x-2-21208105-720.jpg",
     colorways: ["화이트/블랙", "블랙/화이트"],
     widthOptions: ["D"],

@@ -198,6 +198,14 @@ export default async function ComparePage({
               <p className="font-bold text-gray-900 text-sm leading-tight">
                 {shoe.model}
               </p>
+              {/* 비교 페이지는 검색으로 직접 들어오는 입구다. 추천 결과 카드에만
+                  후속작 안내를 달아두면, 여기로 바로 들어온 사람은 구형인 줄 모르고
+                  비교하고 나간다. 같은 정보를 같은 자리에서 보여줘야 한다. */}
+              {shoe.successor && (
+                <p className="mt-1.5 text-[11px] font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
+                  후속 {shoe.successor} 출시됨
+                </p>
+              )}
               <p className="mt-1.5 text-xs text-gray-500 leading-relaxed">
                 {shoe.blurb}
               </p>
