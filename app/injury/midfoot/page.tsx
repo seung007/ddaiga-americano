@@ -23,7 +23,9 @@ export default function Page() {
         </Link>
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-violet-600 bg-violet-50 px-2 py-0.5 rounded-full mb-3">착지법</span>
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">미드풋 착지, 무조건 좋은 게 아닌 이유</h1>
+          {/* h1은 <title>과 같은 말을 해야 한다. 검색결과에서 "미드풋 착지란?"을 보고 들어왔는데
+              화면에 "무조건 좋은 게 아닌 이유"가 있으면 약속한 답이 아니라 반박부터 만나게 된다. */}
+          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">미드풋 착지란? 힐스트라이크와 차이</h1>
           <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>

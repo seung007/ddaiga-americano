@@ -32,7 +32,7 @@ export default function BeginnerGuidePage() {
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-700">🟢 초심자</span>
             <span className="text-xs text-gray-400">러닝 0~6개월 · 주간거리 ≤15km</span>
           </div>
-          <h1 className="text-3xl font-bold mb-3">초심자 부상 예방 완전 가이드</h1>
+          <h1 className="text-3xl font-bold mb-3">초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기</h1>
           <p className="text-gray-600 leading-relaxed">
             연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent et al., 2007).
             처음 6개월이 가장 위험하고, 가장 예방하기 쉬운 시기이기도 합니다.

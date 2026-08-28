@@ -35,7 +35,7 @@ export default function WideFootPage() {
             발볼
           </span>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
-            발볼 넓은 러너를 위한<br />와이드 규격 총정리
+            2E·4E 와이드 뜻과<br />내 발볼 재는 법
           </h1>
           <p className="text-gray-500 text-sm">4분 읽기</p>
         </header>
