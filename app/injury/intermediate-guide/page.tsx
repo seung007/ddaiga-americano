@@ -127,8 +127,8 @@ export default function IntermediateGuidePage() {
           { label: "아킬레스건이 아픈 원인과 치료, 스트레칭 방법 (골통 의사 윤재웅)", url: "https://www.youtube.com/watch?v=aKWMUcOL4bE" },
           { label: "[장경인대증후군] 러너에게 흔한 통증질환 TOP3", channel: "화이팅!통증피디아", url: "https://www.youtube.com/watch?v=4Y7xKZc6KtE" },
           { label: "정형외과 의사가 생각하는 달리기 부상과 장경인대염", channel: "러너의 풍경", url: "https://www.youtube.com/watch?v=z3UUVQf57m0" },
-          { label: "자전거·러닝 전 이거 안하면 무릎 나갑니다! 3분 장경인대 #Shorts", url: "https://www.youtube.com/shorts/uNI9DtqCy6M" },
-          { label: "달리기 후 아킬레스건 통증 해결하는 3분 운동 #Shorts", url: "https://www.youtube.com/shorts/2BsTWOvhmPg" },
+          { label: "자전거·러닝 전 이거 안하면 무릎 나갑니다! 3분 장경인대 #Shorts", channel: "이정표의 레그웰", url: "https://www.youtube.com/shorts/uNI9DtqCy6M" },
+          { label: "달리기 후 아킬레스건 통증 해결하는 3분 운동 #Shorts", channel: "피지오스튜디오 PHYSIOSTUDIO", url: "https://www.youtube.com/shorts/2BsTWOvhmPg" },
         ]} />
 
         <section className="mb-8">

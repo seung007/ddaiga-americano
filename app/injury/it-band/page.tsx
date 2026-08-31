@@ -125,9 +125,9 @@ export default function ITBandPage() {
           { label: "무릎 통증, 치료법 다 모여라! 장경인대증후군 자가 운동법", channel: "이정표의 레그웰", url: "https://www.youtube.com/watch?v=c7-JDyYg4c0" },
           { label: "[장경인대증후군] 러너에게 흔한 통증질환 TOP3", channel: "화이팅!통증피디아", url: "https://www.youtube.com/watch?v=4Y7xKZc6KtE" },
           { label: "정형외과 의사가 생각하는 달리기 부상과 장경인대염", channel: "러너의 풍경", url: "https://www.youtube.com/watch?v=z3UUVQf57m0" },
-          { label: "자전거·러닝 전 이거 안 하면 무릎 나갑니다! 3분 장경인대증후군", url: "https://www.youtube.com/shorts/uNI9DtqCy6M" },
-          { label: "무릎 통증(장경인대 통증) 해결! 러닝 자세 Before & After", url: "https://www.youtube.com/shorts/Ar7Fijekr_8" },
-          { label: "장경인대 스트레칭 30초 핵심", url: "https://www.youtube.com/shorts/HPsUUJlEiKk" },
+          { label: "자전거·러닝 전 이거 안 하면 무릎 나갑니다! 3분 장경인대증후군", channel: "이정표의 레그웰", url: "https://www.youtube.com/shorts/uNI9DtqCy6M" },
+          { label: "무릎 통증(장경인대 통증) 해결! 러닝 자세 Before & After", channel: "아인즈 러닝랩 / EINZ Runninglab", url: "https://www.youtube.com/shorts/Ar7Fijekr_8" },
+          { label: "장경인대 스트레칭", channel: "알쓸참본", url: "https://www.youtube.com/shorts/HPsUUJlEiKk" },
         ]} />
 
         <section className="mb-8">
