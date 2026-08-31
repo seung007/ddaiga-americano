@@ -124,17 +124,36 @@ function scoreShoe(shoe: Shoe, profile: RunnerProfile, bodyType: BodyType): Scor
     reasons.push(`${profile.footWidth === "wide" ? "넓은" : profile.footWidth === "narrow" ? "좁은" : "보통"} 발볼에 맞는 폭 옵션`);
   }
 
-  // ── 3. 발 타입 + 안정화 (20점) ─────────────────────────────
+  // ── 3. 발 타입 + 안정화 (가중치 축소, 2026-08-31) ───────────
+  //
+  // ⚠️ 여기를 낮춘 이유를 남겨둔다. 다시 올리려면 이 문단을 먼저 반박해야 한다.
+  //
+  // 이 블록은 오랫동안 Richards et al. (2009) Br J Sports Med를 근거로 달고 있었다.
+  // 그 논문은 **결론이 정반대다** — 발 타입으로 회내 제어화를 처방하는 관행에
+  // 근거가 없다("not evidence-based")는 것이 논지이고, 8개 DB를 뒤져 지지 연구를
+  // 한 건도 찾지 못했다고 보고했다.
+  //
+  // 2026-08-27에 인용을 Malisoux et al. (2021) JOSPT로 교체했는데, **점수는 그대로 뒀다.**
+  // 그건 정정이 아니라 근거만 갈아끼운 것이었다. 2026-08-31 심의에서 지적받아 여기를 고친다.
+  //
+  // Malisoux 2021이 실제로 지탱할 수 있는 무게:
+  //   · RCT의 **2차 분석**이다 (사전 등록된 주 가설이 아니다)
+  //   · HR 0.41, 95% CI 0.17–0.98 — **상한이 0.98로 간신히 1을 안 넘는다**
+  //   · 즉 "효과가 거의 없음"이 신뢰구간 안에 들어 있다
+  //
+  // 그래서 이 축의 가중치를 약 1/3로 줄이고, 사용자에게 보이는 문구도
+  // 확정된 사실("과회내 제어 안정화 구조")에서 갈리는 사항으로 바꾼다.
+  // 발볼(20점)·체형(25점)은 물리적 치수 매칭이라 근거의 성질이 다르므로 유지한다.
   if (shoe.footTypes.includes(profile.footType)) {
     score += 12;
     reasons.push(`${profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : "중립"} 발에 적합`);
   }
   if (profile.footType === "flat") {
-    if (shoe.stability !== "neutral") { score += 8; reasons.push("과회내 제어 안정화 구조"); }
-    else { score -= 6; reasons.push("중립화 — 평발에 지지력 부족 가능"); }
+    if (shoe.stability !== "neutral") { score += 3; reasons.push("안정화 구조 — 평발에 도움이 될 수 있지만 연구가 갈리는 사항입니다"); }
+    else { score -= 2; }
   } else if (profile.footType === "high_arch") {
-    if (shoe.stability === "neutral") { score += 8; reasons.push("고아치에 적합한 중립화"); }
-    else { score -= 4; reasons.push("안정화는 고아치 러너에게 과교정 위험"); }
+    if (shoe.stability === "neutral") { score += 3; reasons.push("중립화 — 높은 아치에 흔히 권장되지만 강한 근거는 없습니다"); }
+    else { score -= 2; }
   } else {
     score += 4;
   }
@@ -158,10 +177,16 @@ function scoreShoe(shoe: Shoe, profile: RunnerProfile, bodyType: BodyType): Scor
       genderFitNote = "남성 기준 라스트 — 뒤꿈치가 헐렁할 수 있어요";
       reasons.push("남성 기준 라스트 — 여성 발엔 힐 고정력이 떨어질 수 있음");
     }
-    // (2) 동적 Q앵글 ↑ → 평발·중립발 여성에게 안정화 가점 (Ferber 2003 / Taunton 2002)
+    // (2) 동적 Q앵글 ↑ → 여성에게 안정화 소폭 가점
+    //
+    // 2026-08-31 가중치 축소(8 → 3). Ferber 2003과 Taunton 2002는 실재하고 인용도 맞지만,
+    // 두 논문이 말하는 것은 **"여성이 남성과 생체역학·부상률이 다르다"**까지다.
+    // "그러니 안정화화를 신으면 그 차이가 줄어든다"는 건 두 논문에 없는 도약이다.
+    // 위 3번 블록과 같은 이유로 낮춘다. 이 가점이 위 블록과 겹쳐서
+    // 평발 여성에게 +16이 한꺼번에 붙던 것도 문제였다.
     if (shoe.stability === "stability") {
-      score += 8;
-      reasons.push("여성 동적 Q앵글·과회내 경향(Ferber 2003, PFPS 2배 Taunton 2002)에 맞는 안정화");
+      score += 3;
+      reasons.push("여성은 동적 Q앵글이 커 과회내 경향이 있다는 보고가 있습니다(Ferber 2003) — 다만 안정화화가 그 차이를 줄이는지는 별개 문제입니다");
     } else if (shoe.stability === "motion_control") {
       score -= 3; // 극단 안정화는 과교정 위험
     }
@@ -270,7 +295,10 @@ function scoreShoe(shoe: Shoe, profile: RunnerProfile, bodyType: BodyType): Scor
   // ── 9. 부상 이력 (PRD F-01 수용기준) ──────────────────────
   for (const inj of profile.injuryHistory ?? []) {
     if (inj === "knee") {
-      if (shoe.stability !== "neutral") { score += 6; reasons.push("무릎 이력 — 과회내 제어 안정화가 슬개대퇴 부담 완화"); }
+      // 2026-08-31 축소(6 → 2). "안정화화가 슬개대퇴 부담을 완화한다"는 문장을
+      // 지지하는 근거가 이 저장소에 없다. 위 3번 블록과 같은 축인데 부상 이력에서
+      // 한 번 더 가점되어 평발 + 무릎 이력 조합에 중복 누적되고 있었다.
+      if (shoe.stability !== "neutral") { score += 2; }
       if (shoe.cushioning >= 3) { score += 3; }
     } else if (inj === "achilles") {
       // 낮은 드롭은 아킬레스 부하 ↑ → 높은 드롭 우대
@@ -280,7 +308,8 @@ function scoreShoe(shoe: Shoe, profile: RunnerProfile, bodyType: BodyType): Scor
       if (shoe.cushioning >= 4) { score += 5; reasons.push("족저근막 이력 — 두꺼운 쿠션이 발바닥 충격 완화"); }
       if (shoe.stability !== "neutral") { score += 2; }
     } else if (inj === "ankle") {
-      if (shoe.stability !== "neutral") { score += 4; reasons.push("발목 이력 — 안정화 구조가 좌우 흔들림 억제"); }
+      // 2026-08-31 축소(4 → 2). 같은 축의 중복 누적.
+      if (shoe.stability !== "neutral") { score += 2; }
     }
   }
 

@@ -51,7 +51,7 @@ export default function Page() {
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/20111000/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Lieberman et al. 2010 — Foot strike & impact (Nature) ↗</a></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">착지 패턴과 부상 관련 리뷰 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/22504436/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Overstriding & running economy — NCBI ↗</a></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">오버스트라이드 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>

@@ -133,7 +133,7 @@ export default function Page() {
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://bjsm.bmj.com/content/48/11/871" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+              <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
                 Lauersen et al. (2014) BJSM — 근력 운동의 부상 예방 효과 메타분석 ↗
               </a>
             </li>

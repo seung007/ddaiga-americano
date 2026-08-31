@@ -43,7 +43,7 @@ export default function Page() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/16985505/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Dynamic vs Static Stretching before running — NCBI ↗</a></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">동적·정적 스트레칭 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://www.nsca.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">NSCA — Warm-up guidelines for endurance athletes ↗</a></li>
 
           </ul>

@@ -84,7 +84,7 @@ export default function CadencePage() {
             위 표는 자체 정리이며 아래 논문에서 나온 값이 아닙니다. 이 논문이 뒷받침하는 것은
             &ldquo;현재 케이던스를 5~10% 높이면 관절 부하가 준다&rdquo;는 부분뿐입니다 —
             Heiderscheit BC et al., &ldquo;Effects of step rate manipulation on joint mechanics during running.&rdquo; Med Sci Sports Exerc. 2011 /
-            <a href="https://pubmed.ncbi.nlm.nih.gov/21085030/" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 ml-1">PubMed ↗</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/20581720/" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 ml-1">PubMed ↗</a>
           </p>
         </section>
 
@@ -108,7 +108,7 @@ export default function CadencePage() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             {[
-              { title: "Heiderscheit et al. (2011) — Step rate & joint mechanics (PubMed)", url: "https://pubmed.ncbi.nlm.nih.gov/21085030/" },
+              { title: "Heiderscheit et al. (2011) — Step rate & joint mechanics (PubMed)", url: "https://pubmed.ncbi.nlm.nih.gov/20581720/" },
               { title: "Jack Daniels' Running Formula (3rd Ed.) — 케이던스 관찰 원전", url: "https://www.worldathletics.org" },
               { title: "British Journal of Sports Medicine — Cadence review", url: "https://bjsm.bmj.com" },
             ].map((ref, i) => (

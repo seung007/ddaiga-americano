@@ -119,7 +119,7 @@ export default function Page() {
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span>
               <a href="https://www.jospt.org/doi/10.2519/jospt.2023.0303" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                JOSPT 임상진료지침 — Heel Pain / Plantar Fasciitis: Revision 2023 ↗
+                Koc et al. (2023) JOSPT 임상진료지침 — Heel Pain / Plantar Fasciitis: Revision 2023 ↗
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span>

@@ -149,7 +149,7 @@ export default function AdvancedGuidePage() {
             </ul>
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            출처: Plews et al. (2013) Int J Sports Physiol Perform. <a href="https://pubmed.ncbi.nlm.nih.gov/23479483/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            출처: Plews et al. (2013) Int J Sports Physiol Perform. <a href="https://doi.org/10.1123/ijspp.8.6.688" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a>
           </p>
         </section>
 
@@ -165,8 +165,8 @@ export default function AdvancedGuidePage() {
           <h2 className="text-xl font-bold mb-3">과학적 근거 논문</h2>
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>Meeusen et al. (2013)</strong> — 오버트레이닝 증후군 합의문. MSSE 45(1):186-205. <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Plews et al. (2013)</strong> — 훈련 적응을 HR·HRV로 평가하는 방법 비교(러너 10명). IJSPP 8(6):688-691. <a href="https://pubmed.ncbi.nlm.nih.gov/23479483/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Lauersen et al. (2014)</strong> — 근력 훈련의 스포츠 부상 예방 효과 메타분석. BJSM 48(11):871-877. <a href="https://pubmed.ncbi.nlm.nih.gov/23813543/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Plews et al. (2013)</strong> — 훈련 적응을 HR·HRV로 평가하는 방법 비교(러너 10명). IJSPP 8(6):688-691. <a href="https://doi.org/10.1123/ijspp.8.6.688" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
+            <li><strong>Lauersen et al. (2014)</strong> — 근력 훈련의 스포츠 부상 예방 효과 메타분석. BJSM 48(11):871-877. <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>
         </section>

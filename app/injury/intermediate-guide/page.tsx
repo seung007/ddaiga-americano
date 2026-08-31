@@ -134,7 +134,7 @@ export default function IntermediateGuidePage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">과학적 근거 논문</h2>
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
-            <li><strong>Taunton et al. (2003)</strong> — 러닝 부상 2002건 후향 분석. BJSM 37(3):239-244. <a href="https://pubmed.ncbi.nlm.nih.gov/12782543/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Taunton et al. (2002)</strong> — 러닝 부상 2,002건 후향적 환자-대조군 분석. BJSM 36(2):95-101. <a href="https://pubmed.ncbi.nlm.nih.gov/11916889/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Sanchez-Alvarado et al. (2024)</strong> — IT밴드 증후군 보존적 치료 체계적 고찰. Frontiers in Sports. <a href="https://pubmed.ncbi.nlm.nih.gov/39247485/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Prudêncio et al. (2023)</strong> — 아킬레스건병증 편심성 운동 메타분석. J Hum Kinet. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC →</a></li>
             <li><strong>Meeusen et al. (2013)</strong> — 오버트레이닝 증후군 합의문. MSSE 45(1):186-205. <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>

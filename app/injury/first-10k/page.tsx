@@ -43,7 +43,7 @@ export default function Page() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Pacing strategy in 10km running — NCBI ↗</a></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">10km 페이싱 전략 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://www.seoul-marathon.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">서울마라톤 공식 사이트 ↗</a></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://www.kaaf.or.kr" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">대한육상연맹 대회 일정 ↗</a></li>
 
