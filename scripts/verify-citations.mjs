@@ -83,7 +83,16 @@ const CLAIM_RE = new RegExp(
     "(?:\\s+[A-ZÀ-Þ][A-Za-zÀ-ÿ]{0,3}\\.?)?",          // 이니셜/중간자 (Nielsen RØ)
     "(?:\\s*(?:&|and)\\s*[A-ZÀ-Þ][A-Za-zÀ-ÿ'\\-]+)?", // 공동 제1저자 (Behm & Chaouachi)
     "\\s*(?:et\\s+al\\.?)?",                          // et al.
-    "\\s*[\\(,]?\\s*(?<year>(?:19|20)\\d{2})",        // 연도
+    // 저자와 연도 사이에 논문 제목·학술지명이 끼는 표기를 허용한다.
+    //   Heiderscheit BC et al., "Effects of step rate…" Med Sci Sports Exerc. 2011
+    // 이 형태가 케이던스 페이지에서 매번 '미검출' 경고를 냈다. 요소 경계(<)는
+    // 넘지 않고, 다른 연도를 건너뛰지 않도록 비탐욕으로 최대 160자만 허용한다.
+    "(?:[^<0-9]{0,160}?)?",
+    // 연도는 **숫자에 둘러싸이지 않은** 4자리여야 한다.
+    // 이 lookaround가 없으면 URL의 PMID에서 연도를 뽑는다 —
+    // 실제로 pubmed/20581720 에서 "2058"을 연도로, 앵커 텍스트의 "Step"을
+    // 성으로 읽어 "Step 2058"이라는 유령 인용이 만들어졌다.
+    "\\s*[\\(,.]?\\s*(?<!\\d)(?<year>(?:19|20)\\d{2})(?!\\d)",
   ].join(""),
   "g"
 );
@@ -319,11 +328,17 @@ function judge(claim, actual) {
   }
   if (actual.year && claim.year !== actual.year) {
     const gap = Math.abs(actual.year - claim.year);
-    issues.push({
-      // 온라인 선공개/정식호 차이로 1년은 흔하다
-      level: gap <= 1 ? "warn" : "error",
-      msg: `연도 불일치 — 페이지 ${claim.year} vs 실제 ${actual.year}${gap <= 1 ? " (선공개 차이일 수 있음)" : ""}`,
-    });
+    const authorMatches = as && cs === as;
+    if (gap <= 1 && authorMatches) {
+      // 온라인 선공개(epub ahead of print)와 정식호 발행 연도가 갈리는 것은
+      // 이 분야에서 매우 흔하다. 예: Rathleff, DOI는 2014인데 인쇄본은
+      // Scand J Med Sci Sports 2015;25(3):e292-300 이라 페이지의 2015도 맞다.
+      // 제1저자가 일치하는데 1년 차이면 같은 논문으로 보고 통과시킨다.
+      // 그러지 않으면 고칠 수 없는 경고가 매번 떠서 도구 전체가 무시된다.
+      issues.push({ level: "info", msg: `연도 ${claim.year} vs ${actual.year} — 선공개/정식호 차이로 보고 통과` });
+    } else {
+      issues.push({ level: "error", msg: `연도 불일치 — 페이지 ${claim.year} vs 실제 ${actual.year}` });
+    }
   }
   if (claim.distance > 300) {
     issues.push({ level: "warn", msg: `주장과 링크가 ${claim.distance}자 떨어져 있다 — 짝이 잘못 잡혔을 수 있음` });
@@ -414,12 +429,15 @@ for (const c of citations) {
 
   if (!AS_JSON) {
     const worst = issues.some((i) => i.level === "error") ? "error"
-                : issues.length ? "warn" : "ok";
+                : issues.some((i) => i.level === "warn") ? "warn" : "ok";
     const mark = worst === "error" ? C.red("✗") : worst === "warn" ? C.yellow("!") : C.green("✓");
     const claimStr = c.claim ? `${c.claim.surname} ${c.claim.year}` : C.dim("(주장 미검출)");
     console.log(`${mark} ${c.file}:${c.line}  ${claimStr}  ${C.dim(`[${c.kind} ${c.id}]`)}`);
     if (actual) console.log(C.dim(`    실제: ${actual.firstAuthor ?? "?"} ${actual.year ?? "?"} — ${(actual.title ?? "").slice(0, 90)}`));
-    for (const i of issues) console.log(`    ${i.level === "error" ? C.red("→") : C.yellow("→")} ${i.msg}`);
+    for (const i of issues) {
+      const arrow = i.level === "error" ? C.red("→") : i.level === "warn" ? C.yellow("→") : C.dim("→");
+      console.log(`    ${arrow} ${i.level === "info" ? C.dim(i.msg) : i.msg}`);
+    }
     if (actual?.abstract) console.log(C.dim(`    초록: ${actual.abstract.replace(/\s+/g, " ").slice(0, 400)}…`));
   }
 }
@@ -427,6 +445,7 @@ for (const c of citations) {
 const dups = findDuplicates(rows);
 const errors = rows.filter((r) => r.issues.some((i) => i.level === "error"));
 const warns = rows.filter((r) => r.issues.some((i) => i.level === "warn") && !errors.includes(r));
+const notes = rows.filter((r) => r.issues.some((i) => i.level === "info")).length;
 
 if (AS_JSON) {
   console.log(JSON.stringify({
@@ -447,7 +466,7 @@ if (AS_JSON) {
     }
   }
   console.log(C.bold("\n─────────────────────────────"));
-  console.log(`검사 ${rows.length}건 · ${C.red(`오류 ${errors.length}`)} · ${C.yellow(`경고 ${warns.length}`)} · ${C.green(`정상 ${rows.length - errors.length - warns.length}`)}`);
+  console.log(`검사 ${rows.length}건 · ${C.red(`오류 ${errors.length}`)} · ${C.yellow(`경고 ${warns.length}`)} · ${C.green(`정상 ${rows.length - errors.length - warns.length}`)}${notes ? C.dim(` · 참고 ${notes}`) : ""}`);
   if (dups.length) console.log(`${C.red(`중복 계상 ${dups.length}건`)}`);
   console.log(C.dim("\n주의: 이 도구는 서지정보만 본다. 논문의 결론을 반대로 서술한 경우는"));
   console.log(C.dim("      잡지 못한다. --abstracts 로 초록을 띄워 사람이 대조할 것.\n"));
