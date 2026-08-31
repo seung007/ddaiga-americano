@@ -58,9 +58,8 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "달리기연구소", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
-          { label: "수십 년째 논쟁 — 힐스트라이크 vs 미드풋 vs 포어풋", channel: "굿러너TV", url: "https://www.youtube.com/watch?v=b20-GrHPMWI" },
-          { label: "오버스트라이드 교정 — 부상 없이 달리는 발 착지법", channel: "Sage Running", url: "https://www.youtube.com/watch?v=b-4qnRhRBGs" },
+          { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "러닝비하인드 RunningBehind 쟐쌤", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
+          { label: "수십 년째 논쟁 — 힐스트라이크 vs 미드풋 vs 포어풋", channel: "애슬레틱 라이프 Athletic Life", url: "https://www.youtube.com/watch?v=b20-GrHPMWI" },
         ]} />
 
         <FaqSection items={[

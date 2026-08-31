@@ -52,10 +52,10 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "10km 대회, 이 영상으로 종결 — 완벽 준비 가이드 #초보러너", channel: "러닝코치TV", url: "https://www.youtube.com/watch?v=3oS5VzHTW3A" },
-          { label: "10km 대회를 준비하는 방법 #초보러너", channel: "달리기TV", url: "https://www.youtube.com/watch?v=nevTzDZhAa4" },
-          { label: "초보자~10km 맞춤 Q&A — 페이스·훈련 완전 정리", channel: "러닝궁금증", url: "https://www.youtube.com/watch?v=B4A61x6T3ao" },
-          { label: "10km 1시간 이내 완주! 같이 뛰어요", channel: "달리기 유튜버", url: "https://www.youtube.com/watch?v=vuxhV314PqE" },
+          { label: "10km 대회, 이 영상으로 종결 — 완벽 준비 가이드 #초보러너", channel: "달려라하나", url: "https://www.youtube.com/watch?v=3oS5VzHTW3A" },
+          { label: "10km 대회를 준비하는 방법 #초보러너", channel: "달려라하나", url: "https://www.youtube.com/watch?v=nevTzDZhAa4" },
+          { label: "초보자~10km 맞춤 Q&A — 페이스·훈련 완전 정리", channel: "션과 함께", url: "https://www.youtube.com/watch?v=B4A61x6T3ao" },
+          { label: "10km 1시간 이내 완주! 같이 뛰어요", channel: "힙으뜸", url: "https://www.youtube.com/watch?v=vuxhV314PqE" },
         ]} />
 
         <FaqSection items={[

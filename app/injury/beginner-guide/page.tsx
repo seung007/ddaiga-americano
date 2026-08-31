@@ -191,12 +191,12 @@ export default function BeginnerGuidePage() {
         </section>
 
         <YoutubeSection links={[
-          { label: "러닝 전 꼭 해야 할 동적 스트레칭 — 초심자 5분 루틴", channel: "달리기준비TV", url: "https://www.youtube.com/watch?v=rEj3vyacaw4" },
-          { label: "10km 대회, 이 영상으로 종결 — 완벽 준비 가이드", channel: "러닝코치TV", url: "https://www.youtube.com/watch?v=3oS5VzHTW3A" },
-          { label: "무릎 앞 통증 한방에 해결 — 슬개대퇴통증증후군", channel: "재활운동TV", url: "https://www.youtube.com/watch?v=69TZ8_yYDp4" },
-          { label: "5분만에 끝나는 러닝 후 스트레칭", channel: "러닝TV", url: "https://www.youtube.com/watch?v=bsWU6ata_tw" },
-          { label: "초보러너 10km 준비 Q&A — 페이스·훈련 완전 정리", channel: "러닝궁금증", url: "https://www.youtube.com/watch?v=B4A61x6T3ao" },
-          { label: "달리기 전 꼭 해야 할 동적 스트레칭 #Shorts", channel: "달리기준비", url: "https://www.youtube.com/shorts/rEj3vyacaw4" },
+          { label: "러닝 전 꼭 해야 할 동적 스트레칭 — 초심자 5분 루틴", url: "https://www.youtube.com/watch?v=rEj3vyacaw4" },
+          { label: "10km 대회, 이 영상으로 종결 — 완벽 준비 가이드", channel: "달려라하나", url: "https://www.youtube.com/watch?v=3oS5VzHTW3A" },
+          { label: "무릎 앞 통증 한방에 해결 — 슬개대퇴통증증후군", channel: "알쓸물치", url: "https://www.youtube.com/watch?v=69TZ8_yYDp4" },
+          { label: "5분만에 끝나는 러닝 후 스트레칭", channel: "지니코치", url: "https://www.youtube.com/watch?v=bsWU6ata_tw" },
+          { label: "초보러너 10km 준비 Q&A — 페이스·훈련 완전 정리", channel: "션과 함께", url: "https://www.youtube.com/watch?v=B4A61x6T3ao" },
+          { label: "달리기 전 꼭 해야 할 동적 스트레칭 #Shorts", url: "https://www.youtube.com/shorts/rEj3vyacaw4" },
         ]} />
 
         <section className="mb-8">

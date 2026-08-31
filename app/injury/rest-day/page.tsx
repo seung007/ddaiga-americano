@@ -51,9 +51,6 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "러닝 후 회복 — 쉬는 날 이렇게 보내세요", channel: "러닝코치TV", url: "https://www.youtube.com/watch?v=ddJ9JUcIHvU" },
-          { label: "오버트레이닝 신호 & 회복 전략 — 러너를 위한 가이드", channel: "피지컬TV", url: "https://www.youtube.com/watch?v=sfF4f-QGRn8" },
-          { label: "Active Recovery vs 완전 휴식 — 러너를 위한 정답", channel: "Ben Parkes Running", url: "https://www.youtube.com/watch?v=YgNsGODqSVA" },
         ]} />
 
         <FaqSection items={[

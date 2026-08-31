@@ -51,9 +51,8 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "러닝 전 동적 스트레칭 — 워밍업 8분, 부상방지·퍼포먼스 향상", channel: "러닝스튜디오", url: "https://www.youtube.com/watch?v=ddJ9JUcIHvU" },
-          { label: "러닝 전 꼭 해야 할 동적 스트레칭 #달리기준비운동", channel: "달리기준비", url: "https://www.youtube.com/watch?v=rEj3vyacaw4" },
-          { label: "5분 워밍업 — 부상 없이 달리기 위한 필수 루틴", channel: "Sage Running", url: "https://www.youtube.com/watch?v=sfF4f-QGRn8" },
+          { label: "러닝 전 동적 스트레칭 — 워밍업 8분, 부상방지·퍼포먼스 향상", channel: "빅씨스 Bigsis", url: "https://www.youtube.com/watch?v=ddJ9JUcIHvU" },
+          { label: "러닝 전 꼭 해야 할 동적 스트레칭 #달리기준비운동", url: "https://www.youtube.com/watch?v=rEj3vyacaw4" },
         ]} />
 
         <FaqSection items={[

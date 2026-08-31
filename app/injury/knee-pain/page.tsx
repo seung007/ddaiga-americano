@@ -62,10 +62,10 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "무릎 앞 통증 한방에 해결! 슬개대퇴통증증후군 마사지·운동법", channel: "재활운동TV", url: "https://www.youtube.com/watch?v=69TZ8_yYDp4" },
-          { label: "무릎통증 러너 필수 시청 — 이것만 풀어도 사라집니다", channel: "건강TV", url: "https://www.youtube.com/watch?v=kCYjn49dJm0" },
-          { label: "무릎 통증 세 가지만 기억하라! (명지병원 정형외과)", channel: "명지병원 TV", url: "https://www.youtube.com/watch?v=bKcjVC3jus0" },
-          { label: "무릎 부상 후 재활 운동 5단계", channel: "재활TV", url: "https://www.youtube.com/shorts/Ixvh9w5uEYs" },
+          { label: "무릎 앞 통증 한방에 해결! 슬개대퇴통증증후군 마사지·운동법", channel: "알쓸물치", url: "https://www.youtube.com/watch?v=69TZ8_yYDp4" },
+          { label: "무릎통증 러너 필수 시청 — 이것만 풀어도 사라집니다", channel: "통증요정 김학조", url: "https://www.youtube.com/watch?v=kCYjn49dJm0" },
+          { label: "무릎 통증 세 가지만 기억하라! (명지병원 정형외과)", channel: "명지병원-MYONGJI HOSPITAL", url: "https://www.youtube.com/watch?v=bKcjVC3jus0" },
+          { label: "무릎 부상 후 재활 운동 5단계", url: "https://www.youtube.com/shorts/Ixvh9w5uEYs" },
         ]} />
 
         <FaqSection items={[

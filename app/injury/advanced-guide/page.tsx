@@ -154,11 +154,11 @@ export default function AdvancedGuidePage() {
         </section>
 
         <YoutubeSection links={[
-          { label: "케이던스·보폭의 진실 — 내 몸에 맞는 리듬 찾기", channel: "굿러너TV", url: "https://www.youtube.com/watch?v=2RBeakkyw7c" },
-          { label: "직접 180 케이던스로 뛰어보며 비교 — 러닝 트렌드", channel: "러닝 트렌드", url: "https://www.youtube.com/watch?v=iGeS1N1eYJQ" },
-          { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "달리기연구소", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
-          { label: "서울대 스포츠공학 연구원이 알려주는 이상적인 러닝 케이던스 #Shorts", channel: "서울대 스포츠공학", url: "https://www.youtube.com/shorts/c0mtXc3Twmo" },
-          { label: "케이던스 180이 정답일까요? #Shorts", channel: "달리기연구소", url: "https://www.youtube.com/shorts/PUBWGbEuTSg" },
+          { label: "케이던스·보폭의 진실 — 내 몸에 맞는 리듬 찾기", channel: "신정식 RUN_TV", url: "https://www.youtube.com/watch?v=2RBeakkyw7c" },
+          { label: "직접 180 케이던스로 뛰어보며 비교 — 러닝 트렌드", channel: "방구석 운동가 디어", url: "https://www.youtube.com/watch?v=iGeS1N1eYJQ" },
+          { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "러닝비하인드 RunningBehind 쟐쌤", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
+          { label: "서울대 스포츠공학 연구원이 알려주는 이상적인 러닝 케이던스 #Shorts", url: "https://www.youtube.com/shorts/c0mtXc3Twmo" },
+          { label: "케이던스 180이 정답일까요? #Shorts", url: "https://www.youtube.com/shorts/PUBWGbEuTSg" },
         ]} />
 
         <section className="mb-8">

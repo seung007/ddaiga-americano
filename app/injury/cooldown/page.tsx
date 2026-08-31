@@ -51,9 +51,9 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "러닝 후 쿨다운 스트레칭, 5분만 투자하세요 #초보러너", channel: "러닝스튜디오", url: "https://www.youtube.com/watch?v=4Vbiu6RdpkE" },
-          { label: "5분만에 끝나는 러닝 후 스트레칭", channel: "러닝TV", url: "https://www.youtube.com/watch?v=bsWU6ata_tw" },
-          { label: "러닝 스트레칭 종결 l 달리기 전후 제발 5분씩만 따라하세요", channel: "피지컬TV", url: "https://www.youtube.com/watch?v=qoPyfVxqpQc" },
+          { label: "러닝 후 쿨다운 스트레칭, 5분만 투자하세요 #초보러너", channel: "달려라하나", url: "https://www.youtube.com/watch?v=4Vbiu6RdpkE" },
+          { label: "5분만에 끝나는 러닝 후 스트레칭", channel: "지니코치", url: "https://www.youtube.com/watch?v=bsWU6ata_tw" },
+          { label: "러닝 스트레칭 종결 l 달리기 전후 제발 5분씩만 따라하세요", channel: "부부물리치료사", url: "https://www.youtube.com/watch?v=qoPyfVxqpQc" },
         ]} />
 
         <FaqSection items={[

@@ -82,7 +82,14 @@ async function collect() {
         let line = 1;
         for (let i = 0; i < offsets.length; i++) { if (offsets[i] > m.index) break; line = i + 1; }
         const url = m[3];
-        const vid = url.match(/[?&]v=([\w-]{11})/)?.[1] ?? null;
+        // watch?v=ID 와 /shorts/ID 를 모두 잡는다.
+        // 첫 실전 실행에서 shorts만 조용히 검증에서 빠졌고, 하필 남아 있던
+        // 가짜 채널명("재활운동TV", "러닝자세TV", "재활TV")이 거기 몰려 있었다.
+        // 검사기가 안 보는 자리에 문제가 고인다.
+        const vid =
+          url.match(/[?&]v=([\w-]{11})/)?.[1] ??
+          url.match(/\/shorts\/([\w-]{11})/)?.[1] ??
+          null;
         out.push({
           file: path.relative(ROOT, file).replace(/\\/g, "/"),
           line,
@@ -105,7 +112,11 @@ async function oembed(videoId) {
   )}&format=json`;
   const r = await fetch(u, { headers: { "User-Agent": "ddaiga-youtube-check/1.0" } });
   if (r.status === 404) throw new Error("삭제되었거나 비공개 영상");
-  if (r.status === 401) throw new Error("임베드가 차단된 영상");
+  // 401은 죽은 링크가 아니다. 영상은 살아 있고 임베드만 막혀 있다.
+  // 이 사이트는 임베드가 아니라 링크로 걸므로 사용자에게는 정상 작동한다.
+  // 첫 실행에서 이 둘을 같이 세는 바람에 살아 있는 영상 4개를 죽었다고 보고했다.
+  // 다만 oEmbed로 채널명을 확인할 수 없으므로 채널 주장은 달지 않는다.
+  if (r.status === 401) { const e = new Error("임베드 차단 — 링크는 정상, 채널 확인 불가"); e.embedBlocked = true; throw e; }
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const j = await r.json();
   return { title: j.title, channel: j.author_name };
@@ -139,12 +150,20 @@ console.log(C.bold(`\n유튜브 링크 검증 — 실제 영상 ${curated.length
 
 const rows = [];
 for (const it of curated) {
-  let actual = null, error = null;
-  try { actual = await oembed(it.videoId); } catch (e) { error = e.message; }
+  let actual = null, error = null, blocked = false;
+  try { actual = await oembed(it.videoId); }
+  catch (e) { error = e.message; blocked = Boolean(e.embedBlocked); }
   await sleep(DELAY_MS);
 
   const issues = [];
-  if (error) issues.push({ level: "error", msg: error });
+  if (blocked) {
+    // 링크는 살아 있다. 채널명을 주장하고 있으면 그것만 문제 삼는다.
+    issues.push({
+      level: it.channel ? "warn" : "info",
+      msg: it.channel ? `${error} — 확인 못 한 채널명("${it.channel}")을 달아두면 안 된다` : error,
+    });
+  }
+  else if (error) issues.push({ level: "error", msg: error });
   else if (it.channel && actual.channel && it.channel.trim() !== actual.channel.trim()) {
     issues.push({ level: "warn", msg: `채널 불일치 — 페이지 "${it.channel}" vs 실제 "${actual.channel}"` });
   }
@@ -160,6 +179,7 @@ for (const it of curated) {
 }
 
 const dead = rows.filter(r => r.issues.some(i => i.level === "error"));
+const infos = rows.filter(r => r.issues.every(i => i.level === "info") && r.issues.length);
 const mism = rows.filter(r => r.issues.some(i => i.level === "warn"));
 
 if (AS_JSON) {

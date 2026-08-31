@@ -51,9 +51,9 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "달리기 자세 완벽 정리 — 착지, 케이던스, 보폭, 무게중심", channel: "러닝코치TV", url: "https://www.youtube.com/watch?v=Bph9EsM-24I" },
-          { label: "달리기 전후 필요한 스트레칭 — 운동 강도별 루틴", channel: "건강운동TV", url: "https://www.youtube.com/watch?v=kBluJKveigU" },
-          { label: "러닝폼 상체 교정 — 팔 스윙·어깨·시선 체크리스트", channel: "James Dunne", url: "https://www.youtube.com/watch?v=brFHyOtTwH4" },
+          { label: "달리기 자세 완벽 정리 — 착지, 케이던스, 보폭, 무게중심", channel: "지니코치", url: "https://www.youtube.com/watch?v=Bph9EsM-24I" },
+          { label: "달리기 전후 필요한 스트레칭 — 운동 강도별 루틴", channel: "엔듀로레이스 ENDURORACE", url: "https://www.youtube.com/watch?v=kBluJKveigU" },
+          { label: "What Is Perfect Running Form? — Run Technique Tips", channel: "Global Triathlon Network", url: "https://www.youtube.com/watch?v=brFHyOtTwH4" },
         ]} />
 
         <FaqSection items={[

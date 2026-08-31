@@ -138,9 +138,9 @@ export default function WideFootPage() {
 
 
         <YoutubeSection links={[
-          { label: "Best Running Shoes for Wide Feet 2024: Top 3 Picks Revealed!", channel: "The Run Experience", url: "https://www.youtube.com/watch?v=hv9V9D51cFU" },
-          { label: "The Best Wide-Fitting Neutral Running Shoes: Expert Review", channel: "Doctors of Running", url: "https://www.youtube.com/watch?v=g9BGWko7e9M" },
-          { label: "Running Shoes for Wide Feet — My Top 5 Picks", channel: "Ben Parkes Running", url: "https://www.youtube.com/watch?v=CALXqH6mhsw" },
+          { label: "Best Running Shoes for Wide Feet 2024: Top 3 Picks Revealed!", channel: "FORDY RUNS", url: "https://www.youtube.com/watch?v=hv9V9D51cFU" },
+          { label: "The Best Wide-Fitting Neutral Running Shoes: Expert Review", channel: "Run and Become", url: "https://www.youtube.com/watch?v=g9BGWko7e9M" },
+          { label: "Running Shoes for Wide Feet — My Top 5 Picks", channel: "Find My Footwear", url: "https://www.youtube.com/watch?v=CALXqH6mhsw" },
         ]} />
 
         <FaqSection items={[

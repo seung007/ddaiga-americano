@@ -133,10 +133,10 @@ export default function AchillesPage() {
 
 
         <YoutubeSection links={[
-          { label: "아킬레스건이 아픈 원인과 치료, 스트레칭 방법까지! (골통 의사 윤재웅)", channel: "골통 의사 윤재웅", url: "https://www.youtube.com/watch?v=aKWMUcOL4bE" },
-          { label: "아킬레스건 통증! 순식간에 사라지는 운동 루틴", channel: "재활운동TV", url: "https://www.youtube.com/watch?v=gj8XiInamMw" },
-          { label: "아킬레스건 통증 해결을 위한 5분 운동", channel: "피지컬 갤러리", url: "https://www.youtube.com/watch?v=SJ_DtvsdNlo" },
-          { label: "달리기 후 아킬레스건 통증 해결하는 3분 운동", channel: "재활운동TV", url: "https://www.youtube.com/shorts/2BsTWOvhmPg" },
+          { label: "아킬레스건이 아픈 원인과 치료, 스트레칭 방법까지! (골통 의사 윤재웅)", url: "https://www.youtube.com/watch?v=aKWMUcOL4bE" },
+          { label: "아킬레스건 통증! 순식간에 사라지는 운동 루틴", channel: "몸수리 (구 운동한입)", url: "https://www.youtube.com/watch?v=gj8XiInamMw" },
+          { label: "아킬레스건 통증 해결을 위한 5분 운동", channel: "피지오스튜디오 PHYSIOSTUDIO", url: "https://www.youtube.com/watch?v=SJ_DtvsdNlo" },
+          { label: "달리기 후 아킬레스건 통증 해결하는 3분 운동", url: "https://www.youtube.com/shorts/2BsTWOvhmPg" },
         ]} />
 
         <section className="mb-8">

@@ -123,14 +123,14 @@ export default function CadencePage() {
 
 
         <YoutubeSection links={[
-          { label: "케이던스·보폭의 진실 — 내 몸에 맞는 리듬 찾기", channel: "굿러너TV", url: "https://www.youtube.com/watch?v=2RBeakkyw7c" },
-          { label: "초보러너에게 맞는 케이던스 찾기 (보폭, 리듬) | 존2 러닝", channel: "러닝코치", url: "https://www.youtube.com/watch?v=bbgqFviCdd8" },
-          { label: "케이던스는 무조건 빠른 게 좋을까? [달리기 보폭과 케이던스]", channel: "달리기연구소", url: "https://www.youtube.com/watch?v=9XIpX69kW2c" },
-          { label: "직접 180 케이던스로 뛰어보며 비교 — 러닝 트렌드", channel: "러닝 트렌드", url: "https://www.youtube.com/watch?v=iGeS1N1eYJQ" },
-          { label: "러닝 케이던스 180으로 고정하지 마세요", channel: "러닝코치", url: "https://www.youtube.com/shorts/FoMWaZKMTMU" },
-          { label: "러닝 케이던스 올리는 법", channel: "달리기TV", url: "https://www.youtube.com/shorts/AYcPMquGIds" },
-          { label: "이상적인 러닝 케이던스는? (서울대 스포츠공학)", channel: "서울대 스포츠공학", url: "https://www.youtube.com/shorts/c0mtXc3Twmo" },
-          { label: "케이던스 180이 정답일까요?", channel: "달리기연구소", url: "https://www.youtube.com/shorts/PUBWGbEuTSg" },
+          { label: "케이던스·보폭의 진실 — 내 몸에 맞는 리듬 찾기", channel: "신정식 RUN_TV", url: "https://www.youtube.com/watch?v=2RBeakkyw7c" },
+          { label: "초보러너에게 맞는 케이던스 찾기 (보폭, 리듬) | 존2 러닝", channel: "뛰뛰 유경띠", url: "https://www.youtube.com/watch?v=bbgqFviCdd8" },
+          { label: "케이던스는 무조건 빠른 게 좋을까? [달리기 보폭과 케이던스]", channel: "달려라주원", url: "https://www.youtube.com/watch?v=9XIpX69kW2c" },
+          { label: "직접 180 케이던스로 뛰어보며 비교 — 러닝 트렌드", channel: "방구석 운동가 디어", url: "https://www.youtube.com/watch?v=iGeS1N1eYJQ" },
+          { label: "러닝 케이던스 180으로 고정하지 마세요", url: "https://www.youtube.com/shorts/FoMWaZKMTMU" },
+          { label: "러닝 케이던스 올리는 법", url: "https://www.youtube.com/shorts/AYcPMquGIds" },
+          { label: "이상적인 러닝 케이던스는? (서울대 스포츠공학)", url: "https://www.youtube.com/shorts/c0mtXc3Twmo" },
+          { label: "케이던스 180이 정답일까요?", url: "https://www.youtube.com/shorts/PUBWGbEuTSg" },
         ]} />
 
         <FaqSection items={[
