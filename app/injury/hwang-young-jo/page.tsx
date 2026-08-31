@@ -112,11 +112,14 @@ export default function HwangYoungJoPage() {
 
 
         <YoutubeSection links={[
-          // 2026-08-31: 검색 URL → 실제 영상. channel은 확인 전이라 비워둔다.
-          // npm run check:youtube 가 알려준 이름으로 채울 것.
-      { label: "몬주익의 언덕을 극복한 몬주익의 영웅 — 1992 바르셀로나 올림픽 남자 마라톤", url: "https://www.youtube.com/watch?v=YuEVcF9Ivi0" },
-      { label: "1992 바르셀로나 올림픽 마라톤 금메달리스트 황영조 선수와 함께", url: "https://www.youtube.com/watch?v=g2k77DarTEs" },
-      { label: "황영조의 마라톤 금메달, 경기장엔 손기정이 기다리고 있었다", url: "https://www.youtube.com/watch?v=_-GwbFEU99E" },
+          // 2026-08-31 검증 완료. 다만 두 건은 출처 맥락에 문제가 있어 남겨둔다.
+          //  · "스탐"은 MBC 방송 영상의 재업로드다. 권리자가 아니라 언제든 내려갈 수 있고
+          //    저작권 문제도 있다. MBC 공식 채널 영상을 찾으면 교체할 것.
+          //  · "한문철 TV"는 교통사고·법률 채널이다. 황영조 게스트 출연이라 거짓은 아니지만
+          //    러닝 사이트가 인용할 출처로는 맥락이 어긋난다.
+      { label: "몬주익의 언덕을 극복한 몬주익의 영웅 — 1992 바르셀로나 올림픽 남자 마라톤", channel: "스탐", url: "https://www.youtube.com/watch?v=YuEVcF9Ivi0" },
+          { label: "1992 바르셀로나 올림픽 마라톤 금메달리스트 황영조 선수와 함께", channel: "한문철 TV", url: "https://www.youtube.com/watch?v=g2k77DarTEs" },
+      { label: "황영조의 마라톤 금메달, 경기장엔 손기정이 기다리고 있었다", channel: "JTBC News", url: "https://www.youtube.com/watch?v=_-GwbFEU99E" },
         ]} />
 
         <FaqSection items={[

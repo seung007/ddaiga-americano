@@ -102,11 +102,10 @@ export default function KwonEunJuPage() {
 
 
         <YoutubeSection links={[
-          // 2026-08-31: 검색 URL → 실제 영상. channel은 확인 전이라 비워둔다.
-          // npm run check:youtube 가 알려준 이름으로 채울 것.
-      { label: "한국 마라톤의 전설, 권은주 감독님을 뵙고 왔습니다", url: "https://www.youtube.com/watch?v=t6sqbXLDjok" },
-      { label: "D-2, 이럴 땐 이렇게! (한국 여자 마라톤 기록 보유자 권은주 감독)", url: "https://www.youtube.com/watch?v=i3Z1sqVfiG4" },
-      { label: "인생은 마라톤처럼 — 21년간 한국신기록을 보유한 권은주 감독", url: "https://www.youtube.com/watch?v=0tPsua6vVHQ" },
+          // 2026-08-31 검증 완료. 채널명은 oEmbed로 확인한 실제 업로더.
+      { label: "한국 마라톤의 전설, 권은주 감독님을 뵙고 왔습니다", channel: "262wave", url: "https://www.youtube.com/watch?v=t6sqbXLDjok" },
+      { label: "D-2, 이럴 땐 이렇게! (한국 여자 마라톤 기록 보유자 권은주 감독)", channel: "서울신문", url: "https://www.youtube.com/watch?v=i3Z1sqVfiG4" },
+      { label: "인생은 마라톤처럼 — 21년간 한국신기록을 보유한 권은주 감독", channel: "다컴스", url: "https://www.youtube.com/watch?v=0tPsua6vVHQ" },
         ]} />
 
         <FaqSection items={[
