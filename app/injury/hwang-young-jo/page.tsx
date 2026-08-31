@@ -112,9 +112,9 @@ export default function HwangYoungJoPage() {
 
 
         <YoutubeSection links={[
-      { label: "황영조 바르셀로나 올림픽 마라톤 — 몬주익 언덕 역전 장면", channel: "KBS 스포츠", url: "https://www.youtube.com/results?search_query=황영조+바르셀로나+올림픽+마라톤+1992" },
-      { label: "황영조 선수 인터뷰 — 달리기 철학", channel: "MBC 스포츠", url: "https://www.youtube.com/results?search_query=황영조+마라톤+인터뷰+훈련" },
-      { label: "한국 마라톤 역사 — 황영조부터 현재까지", channel: "대한육상연맹", url: "https://www.youtube.com/results?search_query=한국+마라톤+역사+황영조" },
+      { label: "황영조 바르셀로나 올림픽 마라톤 — 몬주익 언덕 역전 장면", url: "https://www.youtube.com/results?search_query=황영조+바르셀로나+올림픽+마라톤+1992" },
+      { label: "황영조 선수 인터뷰 — 달리기 철학", url: "https://www.youtube.com/results?search_query=황영조+마라톤+인터뷰+훈련" },
+      { label: "한국 마라톤 역사 — 황영조부터 현재까지", url: "https://www.youtube.com/results?search_query=한국+마라톤+역사+황영조" },
         ]} />
 
         <FaqSection items={[

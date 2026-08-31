@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "check:citations": "node scripts/verify-citations.mjs",
-    "check:citations:dry": "node scripts/verify-citations.mjs --dry"
+    "check:citations:dry": "node scripts/verify-citations.mjs --dry",
+    "check:youtube": "node scripts/verify-youtube.mjs",
+    "check:youtube:todo": "node scripts/verify-youtube.mjs --todo"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

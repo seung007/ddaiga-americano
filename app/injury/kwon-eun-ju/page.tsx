@@ -102,9 +102,9 @@ export default function KwonEunJuPage() {
 
 
         <YoutubeSection links={[
-      { label: "권은주 선수 인터뷰 — 부상 극복과 훈련", channel: "SBS 스포츠", url: "https://www.youtube.com/results?search_query=권은주+마라톤+인터뷰+훈련" },
-      { label: "여성 러너 부상 예방 — 전문가 가이드", channel: "런닝 유튜브 KR", url: "https://www.youtube.com/results?search_query=여성+러너+부상+예방+훈련" },
-      { label: "여자 마라톤 훈련법 — 페이스·거리 관리", channel: "런닝 유튜브 KR", url: "https://www.youtube.com/results?search_query=여성+마라톤+훈련+페이스+관리" },
+      { label: "권은주 선수 인터뷰 — 부상 극복과 훈련", url: "https://www.youtube.com/results?search_query=권은주+마라톤+인터뷰+훈련" },
+      { label: "여성 러너 부상 예방 — 전문가 가이드", url: "https://www.youtube.com/results?search_query=여성+러너+부상+예방+훈련" },
+      { label: "여자 마라톤 훈련법 — 페이스·거리 관리", url: "https://www.youtube.com/results?search_query=여성+마라톤+훈련+페이스+관리" },
         ]} />
 
         <FaqSection items={[

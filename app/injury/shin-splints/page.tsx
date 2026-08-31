@@ -142,8 +142,8 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "신스플린트(정강이 통증) 원인과 재활", channel: "재활운동TV", url: "https://www.youtube.com/results?search_query=신스플린트+정강이+통증+재활" },
-          { label: "Shin Splints vs Stress Fracture — 구별법", channel: "E3 Rehab", url: "https://www.youtube.com/results?search_query=shin+splints+vs+stress+fracture" },
+          { label: "신스플린트(정강이 통증) 원인과 재활", url: "https://www.youtube.com/results?search_query=신스플린트+정강이+통증+재활" },
+          { label: "Shin Splints vs Stress Fracture — 구별법", url: "https://www.youtube.com/results?search_query=shin+splints+vs+stress+fracture" },
         ]} />
 
         <FaqSection items={[

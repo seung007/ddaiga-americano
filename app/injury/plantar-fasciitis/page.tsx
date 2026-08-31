@@ -137,8 +137,8 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "족저근막염 재활 — 고부하 근력 운동 방법", channel: "재활운동TV", url: "https://www.youtube.com/results?search_query=족저근막염+재활+운동" },
-          { label: "Plantar Fasciitis — What Actually Works", channel: "E3 Rehab", url: "https://www.youtube.com/results?search_query=plantar+fasciitis+evidence+based+treatment" },
+          { label: "족저근막염 재활 — 고부하 근력 운동 방법", url: "https://www.youtube.com/results?search_query=족저근막염+재활+운동" },
+          { label: "Plantar Fasciitis — What Actually Works", url: "https://www.youtube.com/results?search_query=plantar+fasciitis+evidence+based+treatment" },
         ]} />
 
         <FaqSection items={[

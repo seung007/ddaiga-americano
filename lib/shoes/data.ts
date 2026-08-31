@@ -71,9 +71,9 @@ export const SHOES: Shoe[] = [
     blurb: "207g 초경량 + 드롭 5mm. 소형·경량 러너의 미드풋 데일리 최적.",
     scienceBasis: "드롭 5mm — 소형 러너의 짧은 보폭에서 미드풋 착지를 유도하는 설계.",
     youtubeReviews: [
-      { label: "Kinvara 16 리뷰", url: "https://www.youtube.com/results?search_query=saucony+kinvara+16" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+키나라+16+리뷰" },
-      { label: "비교 영상", url: "https://www.youtube.com/results?search_query=kinvara+16+review" },
+      { label: "Kinvara 16 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+kinvara+16" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+키나라+16+리뷰" },
+      { label: "비교 영상 검색", url: "https://www.youtube.com/results?search_query=kinvara+16+review" },
     ],
   },
   {
@@ -110,9 +110,9 @@ export const SHOES: Shoe[] = [
     blurb: "212g 경량 템포화. 소형·경량 러너 하프마라톤 최적.",
     scienceBasis: "FuelCell 폼 낮은 드롭 — 경량 러너 미드풋 착지 에너지 반환 효율 높음.",
     youtubeReviews: [
-      { label: "FuelCell Rebel 리뷰", url: "https://www.youtube.com/results?search_query=FuelCell+Rebel+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=뉴발란스+퓨얼셀+리벨+리뷰" },
-      { label: "비교 영상", url: "https://www.youtube.com/results?search_query=FuelCell+Rebel+v4+vs+comparison" },
+      { label: "FuelCell Rebel 리뷰 검색", url: "https://www.youtube.com/results?search_query=FuelCell+Rebel+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=뉴발란스+퓨얼셀+리벨+리뷰" },
+      { label: "비교 영상 검색", url: "https://www.youtube.com/results?search_query=FuelCell+Rebel+v4+vs+comparison" },
     ],
   },
   {
@@ -148,9 +148,9 @@ export const SHOES: Shoe[] = [
     blurb: "200g 카본 레이싱화. 소형·경량 러너 풀마라톤 기록 단축.",
     scienceBasis: "EnergyRods 2.0 카본 — 족저굴곡 강성 극대화로 추진 효율 6-8% 향상.",
     youtubeReviews: [
-      { label: "Adios Pro 4 리뷰", url: "https://www.youtube.com/results?search_query=adizero+adios+pro+4+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아디다스+아디오스+프로4+리뷰" },
-      { label: "레이싱화 비교", url: "https://www.youtube.com/results?search_query=adios+pro+4+vs+vaporfly+comparison" },
+      { label: "Adios Pro 4 리뷰 검색", url: "https://www.youtube.com/results?search_query=adizero+adios+pro+4+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아디다스+아디오스+프로4+리뷰" },
+      { label: "레이싱화 비교 검색", url: "https://www.youtube.com/results?search_query=adios+pro+4+vs+vaporfly+comparison" },
     ],
   },
   {
@@ -187,9 +187,9 @@ export const SHOES: Shoe[] = [
     blurb: "드롭 8mm + 스택 43mm. 소형·중량 러너 맥시멀 쿠션 데일리.",
     scienceBasis: "높은 스택 + 드롭 8mm — 소형 러너의 착지 충격 분산과 힐스트라이커 수용 동시 달성.",
     youtubeReviews: [
-      { label: "Hoka Clifton 10 리뷰", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+클리프톤+10+리뷰" },
-      { label: "Clifton 10 vs 9 비교", url: "https://www.youtube.com/results?search_query=clifton+10+vs+clifton+9" },
+      { label: "Hoka Clifton 10 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+클리프톤+10+리뷰" },
+      { label: "Clifton 10 vs 9 비교 검색", url: "https://www.youtube.com/results?search_query=clifton+10+vs+clifton+9" },
     ],
   },
   {
@@ -225,9 +225,9 @@ export const SHOES: Shoe[] = [
     blurb: "평발·보통 발볼 소형 러너 가성비 안정화. 드롭 9mm 힐스트라이커 친화.",
     scienceBasis: "LYTE TRUSS 경량 안정화 — 과회내 제어하면서 소형 러너 체중에 적합한 쿠션 밀도.",
     youtubeReviews: [
-      { label: "GT-2000 14 리뷰", url: "https://www.youtube.com/results?search_query=asics+gt+2000+14+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+GT2000+14+리뷰" },
-      { label: "안정화 비교", url: "https://www.youtube.com/results?search_query=gt+2000+14+vs+kayano+comparison" },
+      { label: "GT-2000 14 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gt+2000+14+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+GT2000+14+리뷰" },
+      { label: "안정화 비교 검색", url: "https://www.youtube.com/results?search_query=gt+2000+14+vs+kayano+comparison" },
     ],
   },
   {
@@ -263,9 +263,9 @@ export const SHOES: Shoe[] = [
     blurb: "스택 40mm 맥시멀 쿠션. 소형·고체중 러너 관절 보호 최우선.",
     scienceBasis: "맥시멀 쿠션 — 고체중 러너(65kg+) 착지 충격 최대 흡수.",
     youtubeReviews: [
-      { label: "Hoka Bondi 9 리뷰", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+본디9+리뷰" },
-      { label: "Bondi vs Clifton 비교", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+vs+clifton+comparison" },
+      { label: "Hoka Bondi 9 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+본디9+리뷰" },
+      { label: "Bondi vs Clifton 비교 검색", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+vs+clifton+comparison" },
     ],
   },
   {
@@ -302,9 +302,9 @@ export const SHOES: Shoe[] = [
     blurb: "드롭 8mm 안정화. 소형·고체중 평발 러너 과회내 제어.",
     scienceBasis: "4D Guidance System — 발 내측 지지로 과회내 보정.",
     youtubeReviews: [
-      { label: "Kayano 32 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+kayano+32+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+카야노+32+리뷰" },
-      { label: "카야노 vs GT-2000 비교", url: "https://www.youtube.com/results?search_query=kayano+32+vs+gt+2000+comparison" },
+      { label: "Kayano 32 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+kayano+32+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+카야노+32+리뷰" },
+      { label: "카야노 vs GT-2000 비교 검색", url: "https://www.youtube.com/results?search_query=kayano+32+vs+gt+2000+comparison" },
     ],
   },
   {
@@ -340,9 +340,9 @@ export const SHOES: Shoe[] = [
     blurb: "경량 템포화 + PWRRUN PB 폼. 중형·경량 러너 하프·풀 기록 단축.",
     scienceBasis: "PWRRUN PB 폼 — 경량 러너 미드풋 착지 에너지 반환 효율 극대화.",
     youtubeReviews: [
-      { label: "Endorphin Speed 5 리뷰", url: "https://www.youtube.com/results?search_query=saucony+endorphin+speed+5+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+엔도르핀+스피드+5+리뷰" },
-      { label: "비교 영상", url: "https://www.youtube.com/results?search_query=endorphin+speed+5+vs+pegasus+comparison" },
+      { label: "Endorphin Speed 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+endorphin+speed+5+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+엔도르핀+스피드+5+리뷰" },
+      { label: "비교 영상 검색", url: "https://www.youtube.com/results?search_query=endorphin+speed+5+vs+pegasus+comparison" },
     ],
   },
   {
@@ -378,9 +378,9 @@ export const SHOES: Shoe[] = [
     blurb: "드롭 10mm + React X 폼. 중형·경량 러너 전천후 만능 데일리.",
     scienceBasis: "React X 폼 — 드롭 10mm 힐스트라이커 충격 흡수 + 에너지 반환 균형.",
     youtubeReviews: [
-      { label: "Pegasus 42 리뷰", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+페가수스+42+리뷰" },
-      { label: "Pegasus 42 vs 41 비교", url: "https://www.youtube.com/results?search_query=pegasus+42+vs+41+comparison" },
+      { label: "Pegasus 42 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+페가수스+42+리뷰" },
+      { label: "Pegasus 42 vs 41 비교 검색", url: "https://www.youtube.com/results?search_query=pegasus+42+vs+41+comparison" },
     ],
   },
   {
@@ -417,9 +417,9 @@ export const SHOES: Shoe[] = [
     blurb: "폭 옵션 B~4E 전체. 중형·중량 러너 드롭 10mm 만능 데일리.",
     scienceBasis: "DNA Loft v3 폼 — 164-177cm 러너 보폭에서 충격 흡수·내구성 균형.",
     youtubeReviews: [
-      { label: "Ghost 17 리뷰", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+고스트+17+리뷰" },
-      { label: "Ghost 17 vs Pegasus 42", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+vs+nike+pegasus+42" },
+      { label: "Ghost 17 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+고스트+17+리뷰" },
+      { label: "Ghost 17 vs Pegasus 42 검색", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+vs+nike+pegasus+42" },
     ],
   },
   {
@@ -455,9 +455,9 @@ export const SHOES: Shoe[] = [
     blurb: "Infinion 폼 261g. 중형·중량 러너 최고급 쿠션 장거리 데일리.",
     scienceBasis: "Infinion 폼(TPEE+EVA) — 고탄성+내구성으로 중량 러너 장거리 충격 흡수 최적.",
     youtubeReviews: [
-      { label: "1080 v15 리뷰", url: "https://www.youtube.com/results?search_query=new+balance+1080+v15+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=뉴발란스+1080+v15+리뷰" },
-      { label: "1080 v15 vs Triumph 23", url: "https://www.youtube.com/results?search_query=nb+1080+v15+vs+triumph+23" },
+      { label: "1080 v15 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+1080+v15+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=뉴발란스+1080+v15+리뷰" },
+      { label: "1080 v15 vs Triumph 23 검색", url: "https://www.youtube.com/results?search_query=nb+1080+v15+vs+triumph+23" },
     ],
   },
   {
@@ -494,9 +494,9 @@ export const SHOES: Shoe[] = [
     blurb: "PWRRUN PB 42mm 스택. 중형 러너 최고급 쿠션 장거리.",
     scienceBasis: "PWRRUN PB 폼 — 중형 체중 분산 + 고스택으로 장거리 관절 보호.",
     youtubeReviews: [
-      { label: "Triumph 23 리뷰", url: "https://www.youtube.com/results?search_query=saucony+triumph+23+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+트라이엄프+23+리뷰" },
-      { label: "Triumph 23 vs 1080 v15", url: "https://www.youtube.com/results?search_query=triumph+23+vs+1080+v15" },
+      { label: "Triumph 23 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+triumph+23+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+트라이엄프+23+리뷰" },
+      { label: "Triumph 23 vs 1080 v15 검색", url: "https://www.youtube.com/results?search_query=triumph+23+vs+1080+v15" },
     ],
   },
   {
@@ -533,9 +533,9 @@ export const SHOES: Shoe[] = [
     blurb: "J-Frame 안정화 + 스택 39mm. 중형·고체중 평발 러너.",
     scienceBasis: "J-Frame — 내측 경질폼으로 과회내 제어, 고체중 러너 발목 안정화.",
     youtubeReviews: [
-      { label: "Arahi 8 리뷰", url: "https://www.youtube.com/results?search_query=hoka+arahi+8+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+아라히+8+리뷰" },
-      { label: "Arahi 8 vs Kayano 32", url: "https://www.youtube.com/results?search_query=hoka+arahi+8+vs+kayano+32" },
+      { label: "Arahi 8 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+arahi+8+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+아라히+8+리뷰" },
+      { label: "Arahi 8 vs Kayano 32 검색", url: "https://www.youtube.com/results?search_query=hoka+arahi+8+vs+kayano+32" },
     ],
   },
   {
@@ -571,9 +571,9 @@ export const SHOES: Shoe[] = [
     blurb: "GuideRails 안정화 + 드롭 12mm. 중형·고체중 힐스트라이커.",
     scienceBasis: "GuideRails — 과도한 움직임 제어, 고체중 러너 무릎 부하 감소.",
     youtubeReviews: [
-      { label: "Adrenaline GTS 25 리뷰", url: "https://www.youtube.com/results?search_query=brooks+adrenaline+gts+25+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+아드레날린+GTS+25+리뷰" },
-      { label: "GTS 25 vs Kayano 32", url: "https://www.youtube.com/results?search_query=adrenaline+gts+25+vs+kayano+32" },
+      { label: "Adrenaline GTS 25 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+adrenaline+gts+25+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+아드레날린+GTS+25+리뷰" },
+      { label: "GTS 25 vs Kayano 32 검색", url: "https://www.youtube.com/results?search_query=adrenaline+gts+25+vs+kayano+32" },
     ],
   },
   {
@@ -610,9 +610,9 @@ export const SHOES: Shoe[] = [
     blurb: "스택 44mm 플래그십 쿠션. 대형·중량 러너 장거리 관절 보호.",
     scienceBasis: "FF Blast+ Eco 폼 + GEL — 고체중 러너 착지 충격 최대 흡수.",
     youtubeReviews: [
-      { label: "Nimbus 27 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+nimbus+27+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+님버스+27+리뷰" },
-      { label: "Nimbus 27 vs Bondi 9", url: "https://www.youtube.com/results?search_query=nimbus+27+vs+bondi+9+comparison" },
+      { label: "Nimbus 27 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+nimbus+27+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+님버스+27+리뷰" },
+      { label: "Nimbus 27 vs Bondi 9 검색", url: "https://www.youtube.com/results?search_query=nimbus+27+vs+bondi+9+comparison" },
     ],
   },
   {
@@ -649,9 +649,9 @@ export const SHOES: Shoe[] = [
     blurb: "Wave 플레이트 + Enerzy NXT. 대형·중량 러너 데일리 드롭 10mm.",
     scienceBasis: "Wave 플레이트 — 대형 러너의 보폭 충격 분산, 드롭 10mm 힐스트라이커 최적.",
     youtubeReviews: [
-      { label: "Wave Rider 29 리뷰", url: "https://www.youtube.com/results?search_query=mizuno+wave+rider+29+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=미즈노+웨이브라이더+29+리뷰" },
-      { label: "Wave Rider 29 vs Ghost 17", url: "https://www.youtube.com/results?search_query=wave+rider+29+vs+ghost+17" },
+      { label: "Wave Rider 29 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+rider+29+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=미즈노+웨이브라이더+29+리뷰" },
+      { label: "Wave Rider 29 vs Ghost 17 검색", url: "https://www.youtube.com/results?search_query=wave+rider+29+vs+ghost+17" },
     ],
   },
   {
@@ -687,9 +687,9 @@ export const SHOES: Shoe[] = [
     blurb: "Light Boost 폼 프리미엄. 대형 러너 부드러운 장거리·일상겸용.",
     scienceBasis: "Light Boost TPU 폼 — 고체중 중형 러너 충격 흡수 + 에너지 반환.",
     youtubeReviews: [
-      { label: "Ultraboost 25 리뷰", url: "https://www.youtube.com/results?search_query=adidas+ultraboost+25+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아디다스+울트라부스트+25+리뷰" },
-      { label: "Ultraboost vs 1080 v15", url: "https://www.youtube.com/results?search_query=ultraboost+25+vs+1080+v15" },
+      { label: "Ultraboost 25 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+ultraboost+25+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아디다스+울트라부스트+25+리뷰" },
+      { label: "Ultraboost vs 1080 v15 검색", url: "https://www.youtube.com/results?search_query=ultraboost+25+vs+1080+v15" },
     ],
   },
   {
@@ -725,9 +725,9 @@ export const SHOES: Shoe[] = [
     blurb: "166g ZoomX 카본 레이싱화. 풀마라톤 기록 단축 최강.",
     scienceBasis: "ZoomX 폼 + 카본 플레이트 — 나이키 발표 기준 에너지 반환율 85%+(제조사 수치). 레이싱 목적 설계.",
     youtubeReviews: [
-      { label: "Vaporfly 4 리뷰", url: "https://www.youtube.com/results?search_query=nike+vaporfly+4+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+베이퍼플라이+4+리뷰" },
-      { label: "Vaporfly 4 vs Adios Pro 4", url: "https://www.youtube.com/results?search_query=vaporfly+4+vs+adios+pro+4" },
+      { label: "Vaporfly 4 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+vaporfly+4+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+베이퍼플라이+4+리뷰" },
+      { label: "Vaporfly 4 vs Adios Pro 4 검색", url: "https://www.youtube.com/results?search_query=vaporfly+4+vs+adios+pro+4" },
     ],
   },
   {
@@ -763,9 +763,9 @@ export const SHOES: Shoe[] = [
     blurb: "2E/4E 와이드 + 맥스쿠션. 대형·고체중·넓은발 러너 관절 보호.",
     scienceBasis: "맥시멀 쿠션 + 와이드 라스트 — 고체중 러너(82kg+) 착지 충격 최대 흡수.",
     youtubeReviews: [
-      { label: "Bondi 9 Wide 리뷰", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+wide+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+본디+와이드+리뷰" },
-      { label: "와이드 러닝화 비교", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+wide+vs+regular" },
+      { label: "Bondi 9 Wide 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+wide+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+본디+와이드+리뷰" },
+      { label: "와이드 러닝화 비교 검색", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+wide+vs+regular" },
     ],
   },
   {
@@ -802,9 +802,9 @@ export const SHOES: Shoe[] = [
     blurb: "모션컨트롤 + 2E/4E. 대형·초고체중 과회내 러너 전용.",
     scienceBasis: "Extended Progressive Diagonal Rollbar — 심한 과회내 완전 제어, 90kg+ 러너.",
     youtubeReviews: [
-      { label: "Brooks Beast 24 리뷰", url: "https://www.youtube.com/results?search_query=brooks+beast+24+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+비스트+24+리뷰" },
-      { label: "모션컨트롤 비교", url: "https://www.youtube.com/results?search_query=brooks+beast+24+vs+adrenaline" },
+      { label: "Brooks Beast 24 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+beast+24+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+비스트+24+리뷰" },
+      { label: "모션컨트롤 비교 검색", url: "https://www.youtube.com/results?search_query=brooks+beast+24+vs+adrenaline" },
     ],
   },
   {
@@ -840,9 +840,9 @@ export const SHOES: Shoe[] = [
     blurb: "Wave 플레이트 + 고스택. 대형·중량 러너 프리미엄 쿠션.",
     scienceBasis: "Wave 플레이트 + 고스택 — 대형 러너 착지 충격 흡수 + 안정성.",
     youtubeReviews: [
-      { label: "Wave Sky 9 리뷰", url: "https://www.youtube.com/results?search_query=mizuno+wave+sky+9+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=미즈노+웨이브스카이+9+리뷰" },
-      { label: "비교 영상", url: "https://www.youtube.com/results?search_query=mizuno+wave+sky+9+vs+comparison" },
+      { label: "Wave Sky 9 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+sky+9+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=미즈노+웨이브스카이+9+리뷰" },
+      { label: "비교 영상 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+sky+9+vs+comparison" },
     ],
   },
   {
@@ -879,9 +879,9 @@ export const SHOES: Shoe[] = [
     blurb: "스택 45mm + 250g. 카본 없는 맥시멀 쿠션 일상·레이스 겸용.",
     scienceBasis: "FF Blast Turbo 폼 + 광폭 라스트 — 착지 안정성 + 에너지 반환 균형.",
     youtubeReviews: [
-      { label: "Superblast 2 리뷰", url: "https://www.youtube.com/results?search_query=asics+superblast+2+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+수퍼블라스트+2+리뷰" },
-      { label: "Superblast vs Nimbus 27", url: "https://www.youtube.com/results?search_query=superblast+2+vs+nimbus+27" },
+      { label: "Superblast 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+superblast+2+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+수퍼블라스트+2+리뷰" },
+      { label: "Superblast vs Nimbus 27 검색", url: "https://www.youtube.com/results?search_query=superblast+2+vs+nimbus+27" },
     ],
   },
   {
@@ -917,9 +917,9 @@ export const SHOES: Shoe[] = [
     blurb: "Fresh Foam 안정화 + 4E 옵션. 중형·넓은발 과회내 러너.",
     scienceBasis: "Fresh Foam 안정화 포스트 — 과회내 제어 + 충격 흡수 병행.",
     youtubeReviews: [
-      { label: "860 v15 리뷰", url: "https://www.youtube.com/results?search_query=new+balance+860+v15+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=뉴발란스+860+v15+리뷰" },
-      { label: "860 vs GT-2000 비교", url: "https://www.youtube.com/results?search_query=nb+860+v15+vs+gt+2000+14" },
+      { label: "860 v15 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+860+v15+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=뉴발란스+860+v15+리뷰" },
+      { label: "860 vs GT-2000 비교 검색", url: "https://www.youtube.com/results?search_query=nb+860+v15+vs+gt+2000+14" },
     ],
   },
   {
@@ -956,9 +956,9 @@ export const SHOES: Shoe[] = [
     blurb: "Center Path 안정화. 중형 평발 러너 가성비 안정화.",
     scienceBasis: "Center Path Technology — 착지 후 발 중심 정렬 유도, 과회내 자연 보정.",
     youtubeReviews: [
-      { label: "Guide 18 리뷰", url: "https://www.youtube.com/results?search_query=saucony+guide+18+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+가이드+18+리뷰" },
-      { label: "Guide vs Adrenaline GTS 비교", url: "https://www.youtube.com/results?search_query=saucony+guide+18+vs+adrenaline+gts" },
+      { label: "Guide 18 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+guide+18+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+가이드+18+리뷰" },
+      { label: "Guide vs Adrenaline GTS 비교 검색", url: "https://www.youtube.com/results?search_query=saucony+guide+18+vs+adrenaline+gts" },
     ],
   },
   {
@@ -993,9 +993,9 @@ export const SHOES: Shoe[] = [
     blurb: "CloudTec + Helion 폼. 중형 러너 부드럽고 반응성 좋은 데일리.",
     scienceBasis: "CloudTec 레이어 — 착지 시 압축→에너지 반환, 중형 체중 최적화.",
     youtubeReviews: [
-      { label: "Cloudrunner 3 리뷰", url: "https://www.youtube.com/results?search_query=on+cloudrunner+3+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=온러닝+클라우드러너+3+리뷰" },
-      { label: "On vs Hoka 비교", url: "https://www.youtube.com/results?search_query=on+cloudrunner+3+vs+hoka+clifton" },
+      { label: "Cloudrunner 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudrunner+3+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=온러닝+클라우드러너+3+리뷰" },
+      { label: "On vs Hoka 비교 검색", url: "https://www.youtube.com/results?search_query=on+cloudrunner+3+vs+hoka+clifton" },
     ],
   },
   {
@@ -1032,9 +1032,9 @@ export const SHOES: Shoe[] = [
     blurb: "DNA Tuned 고쿠션 + B~4E. 대형·고체중 중립 러너 프리미엄 장거리.",
     scienceBasis: "DNA Tuned 폼 — 체중별 맞춤 반응성, 고체중 러너 관절 보호 극대화.",
     youtubeReviews: [
-      { label: "Glycerin 22 리뷰", url: "https://www.youtube.com/results?search_query=brooks+glycerin+22+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+글리세린+22+리뷰" },
-      { label: "Glycerin vs 1080 v15", url: "https://www.youtube.com/results?search_query=glycerin+22+vs+1080+v15" },
+      { label: "Glycerin 22 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+22+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+글리세린+22+리뷰" },
+      { label: "Glycerin vs 1080 v15 검색", url: "https://www.youtube.com/results?search_query=glycerin+22+vs+1080+v15" },
     ],
   },
   {
@@ -1070,9 +1070,9 @@ export const SHOES: Shoe[] = [
     blurb: "React X 안정화 + 드롭 9mm. 대형·고체중 평발 힐스트라이커.",
     scienceBasis: "React X + 안정화 플레이트 — 과회내 보정 + 에너지 반환 균형.",
     youtubeReviews: [
-      { label: "InfinityRN 4 리뷰", url: "https://www.youtube.com/results?search_query=nike+infinityrn+4+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+인피니티런+4+리뷰" },
-      { label: "InfinityRN 4 vs Adrenaline GTS", url: "https://www.youtube.com/results?search_query=infinityrn+4+vs+adrenaline+gts" },
+      { label: "InfinityRN 4 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+infinityrn+4+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+인피니티런+4+리뷰" },
+      { label: "InfinityRN 4 vs Adrenaline GTS 검색", url: "https://www.youtube.com/results?search_query=infinityrn+4+vs+adrenaline+gts" },
     ],
   },
   {
@@ -1108,9 +1108,9 @@ export const SHOES: Shoe[] = [
     blurb: "Fan Wave 안정화 + 드롭 12mm. 대형·고체중 평발 힐스트라이커.",
     scienceBasis: "Fan Wave 플레이트 — 과회내 시 내측 지지 + 충격 분산 동시 수행.",
     youtubeReviews: [
-      { label: "Wave Inspire 22 리뷰", url: "https://www.youtube.com/results?search_query=mizuno+wave+inspire+22+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=미즈노+웨이브인스파이어+22+리뷰" },
-      { label: "비교 영상", url: "https://www.youtube.com/results?search_query=mizuno+wave+inspire+22+vs+comparison" },
+      { label: "Wave Inspire 22 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+inspire+22+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=미즈노+웨이브인스파이어+22+리뷰" },
+      { label: "비교 영상 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+inspire+22+vs+comparison" },
     ],
   },
   {
@@ -1147,9 +1147,9 @@ export const SHOES: Shoe[] = [
     blurb: "FF BLAST MAX 폼 255g. 한국 러너 국민 데일리 — 쿠션·반발력·무게 균형 최상.",
     scienceBasis: "FF BLAST MAX(발포 TPE) — 착지 에너지 반환 + 소프트 착지 동시 구현. 드롭 8mm 중형 러너 미드풋/힐스트라이크 모두 수용.",
     youtubeReviews: [
-      { label: "Novablast 5 리뷰", url: "https://www.youtube.com/results?search_query=asics+novablast+5+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+노바블라스트+5+리뷰" },
-      { label: "Novablast 5 vs Superblast 2", url: "https://www.youtube.com/results?search_query=novablast+5+vs+superblast+2" },
+      { label: "Novablast 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+novablast+5+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+노바블라스트+5+리뷰" },
+      { label: "Novablast 5 vs Superblast 2 검색", url: "https://www.youtube.com/results?search_query=novablast+5+vs+superblast+2" },
     ],
   },
   {
@@ -1186,9 +1186,9 @@ export const SHOES: Shoe[] = [
     blurb: "FF Blast+ 41mm 스택 261g. 중형 러너 부드럽고 믿음직한 만능 데일리.",
     scienceBasis: "FF Blast+ + GEL — 착지 충격 분산 + 에너지 반환. 스택 41mm로 중장거리 관절 보호.",
     youtubeReviews: [
-      { label: "Gel-Cumulus 27 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+cumulus+27+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+큐물러스+27+리뷰" },
-      { label: "Cumulus 27 vs Nimbus 27", url: "https://www.youtube.com/results?search_query=cumulus+27+vs+nimbus+27" },
+      { label: "Gel-Cumulus 27 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+cumulus+27+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+큐물러스+27+리뷰" },
+      { label: "Cumulus 27 vs Nimbus 27 검색", url: "https://www.youtube.com/results?search_query=cumulus+27+vs+nimbus+27" },
     ],
   },
   {
@@ -1225,9 +1225,9 @@ export const SHOES: Shoe[] = [
     blurb: "Supercritical EVA 232g + 드롭 5mm. 소형·경량 러너 경쾌한 템포·데일리 겸용.",
     scienceBasis: "Supercritical EVA 폼 — 저중량 고반발. 드롭 5mm로 소형 러너 미드풋 착지 유도.",
     youtubeReviews: [
-      { label: "Hoka Mach 6 리뷰", url: "https://www.youtube.com/results?search_query=hoka+mach+6+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+마하+6+리뷰" },
-      { label: "Mach 6 vs Clifton 10", url: "https://www.youtube.com/results?search_query=hoka+mach+6+vs+clifton+10" },
+      { label: "Hoka Mach 6 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+mach+6+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+마하+6+리뷰" },
+      { label: "Mach 6 vs Clifton 10 검색", url: "https://www.youtube.com/results?search_query=hoka+mach+6+vs+clifton+10" },
     ],
   },
   {
@@ -1264,9 +1264,9 @@ export const SHOES: Shoe[] = [
     blurb: "PWRRUN+ 274g. 중형 러너 플래그십 중립 데일리 — 부드럽고 내구성 강함.",
     scienceBasis: "PWRRUN+ 폼(고밀도 발포 폴리우레탄) — 고내구성 + 소프트 착지. 드롭 8mm 중형 러너 힐·미드풋 착지 모두 수용.",
     youtubeReviews: [
-      { label: "Ride 18 리뷰", url: "https://www.youtube.com/results?search_query=saucony+ride+18+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+라이드+18+리뷰" },
-      { label: "Ride 18 vs Pegasus 42", url: "https://www.youtube.com/results?search_query=saucony+ride+18+vs+pegasus+42" },
+      { label: "Ride 18 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+ride+18+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+라이드+18+리뷰" },
+      { label: "Ride 18 vs Pegasus 42 검색", url: "https://www.youtube.com/results?search_query=saucony+ride+18+vs+pegasus+42" },
     ],
   },
   {
@@ -1302,9 +1302,9 @@ export const SHOES: Shoe[] = [
     blurb: "풀렝스 ZoomX 244g. 경량 러너 페가수스 라인 최고 반발력 템포화.",
     scienceBasis: "ZoomX 폼(발포 PEBA) — 플레이트 없이 85%+ 에너지 반환. 드롭 10mm 경량 러너 힐스트라이크 충격 분산 최적.",
     youtubeReviews: [
-      { label: "Pegasus Plus 리뷰", url: "https://www.youtube.com/results?search_query=nike+pegasus+plus+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+페가수스+플러스+리뷰" },
-      { label: "Pegasus Plus vs Pegasus 42", url: "https://www.youtube.com/results?search_query=pegasus+plus+vs+pegasus+42" },
+      { label: "Pegasus Plus 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+plus+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+페가수스+플러스+리뷰" },
+      { label: "Pegasus Plus vs Pegasus 42 검색", url: "https://www.youtube.com/results?search_query=pegasus+plus+vs+pegasus+42" },
     ],
   },
   {
@@ -1340,9 +1340,9 @@ export const SHOES: Shoe[] = [
     blurb: "CloudTec Phase 35mm + 295g. On 라인업 최고 쿠션 — 중형 러너 부드러운 장거리.",
     scienceBasis: "CloudTec Phase — 착지 시 단계적 클라우드 압축으로 충격 흡수 후 탄성 에너지 반환. 중형 체중 장거리 관절 보호.",
     youtubeReviews: [
-      { label: "Cloudmonster 2 리뷰", url: "https://www.youtube.com/results?search_query=on+cloudmonster+2+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=온러닝+클라우드몬스터+2+리뷰" },
-      { label: "Cloudmonster 2 vs Clifton 10", url: "https://www.youtube.com/results?search_query=cloudmonster+2+vs+clifton+10" },
+      { label: "Cloudmonster 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudmonster+2+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=온러닝+클라우드몬스터+2+리뷰" },
+      { label: "Cloudmonster 2 vs Clifton 10 검색", url: "https://www.youtube.com/results?search_query=cloudmonster+2+vs+clifton+10" },
     ],
   },
 
@@ -1391,9 +1391,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "low",
     genderNote: "여성 전용 라스트(좁은 힐·낮은 발등). 무게·가격은 여성(WW) 기준. 한국 여성 넓은 앞볼이면 2E 폭 권장.",
     youtubeReviews: [
-      { label: "Ghost 17 여성 리뷰", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+고스트+17+여성+리뷰" },
-      { label: "여성 데일리화 비교", url: "https://www.youtube.com/results?search_query=best+womens+daily+running+shoe+2025" },
+      { label: "Ghost 17 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+고스트+17+여성+리뷰" },
+      { label: "여성 데일리화 비교 검색", url: "https://www.youtube.com/results?search_query=best+womens+daily+running+shoe+2025" },
     ],
   },
   {
@@ -1435,9 +1435,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "low",
     genderNote: "여성 전용 라스트 + 여성용 폼 경도. 발등이 높은 편이면 끈 압박 확인 권장.",
     youtubeReviews: [
-      { label: "Glycerin 22 여성 리뷰", url: "https://www.youtube.com/results?search_query=brooks+glycerin+22+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+글리세린+22+여성+리뷰" },
-      { label: "여성 쿠션화 비교", url: "https://www.youtube.com/results?search_query=best+womens+max+cushion+running+shoe" },
+      { label: "Glycerin 22 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+22+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+글리세린+22+여성+리뷰" },
+      { label: "여성 쿠션화 비교 검색", url: "https://www.youtube.com/results?search_query=best+womens+max+cushion+running+shoe" },
     ],
   },
   {
@@ -1478,9 +1478,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "low",
     genderNote: "여성 전용 라스트 + 안정화. 평발·무릎 안쪽 통증 있는 여성에게 우선 추천.",
     youtubeReviews: [
-      { label: "Adrenaline GTS 25 여성 리뷰", url: "https://www.youtube.com/results?search_query=brooks+adrenaline+gts+25+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=브룩스+아드레날린+25+여성+리뷰" },
-      { label: "여성 안정화 비교", url: "https://www.youtube.com/results?search_query=best+womens+stability+running+shoe+2025" },
+      { label: "Adrenaline GTS 25 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+adrenaline+gts+25+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+아드레날린+25+여성+리뷰" },
+      { label: "여성 안정화 비교 검색", url: "https://www.youtube.com/results?search_query=best+womens+stability+running+shoe+2025" },
     ],
   },
   {
@@ -1522,9 +1522,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "standard",
     genderNote: "여성 전용 라스트 + 안정화. 평발 여성의 장거리 무릎·발목 보호용. 넓은 앞볼이면 2E 권장.",
     youtubeReviews: [
-      { label: "Gel-Kayano 32 여성 리뷰", url: "https://www.youtube.com/results?search_query=asics+gel+kayano+32+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+카야노+32+여성+리뷰" },
-      { label: "여성 안정화 비교", url: "https://www.youtube.com/results?search_query=kayano+32+vs+adrenaline+gts+25" },
+      { label: "Gel-Kayano 32 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+kayano+32+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+카야노+32+여성+리뷰" },
+      { label: "여성 안정화 비교 검색", url: "https://www.youtube.com/results?search_query=kayano+32+vs+adrenaline+gts+25" },
     ],
   },
   {
@@ -1565,9 +1565,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "low",
     genderNote: "여성 전용 라스트지만 앞볼이 좁음. 한국인 넓은 발볼이면 Ghost·Glycerin 여성 권장.",
     youtubeReviews: [
-      { label: "Pegasus 42 여성 리뷰", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+페가수스+42+여성+리뷰" },
-      { label: "페가수스 42 핏 가이드", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+fit+narrow" },
+      { label: "Pegasus 42 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+페가수스+42+여성+리뷰" },
+      { label: "페가수스 42 핏 가이드 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+fit+narrow" },
     ],
   },
   {
@@ -1609,9 +1609,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "low",
     genderNote: "여성 전용 라스트 + 경량 안정화. 평발이지만 무거운 신발이 싫은 여성에게 적합.",
     youtubeReviews: [
-      { label: "Guide 18 여성 리뷰", url: "https://www.youtube.com/results?search_query=saucony+guide+18+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+가이드+18+여성+리뷰" },
-      { label: "경량 안정화 비교", url: "https://www.youtube.com/results?search_query=saucony+guide+18+vs+brooks+adrenaline" },
+      { label: "Guide 18 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+guide+18+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+가이드+18+여성+리뷰" },
+      { label: "경량 안정화 비교 검색", url: "https://www.youtube.com/results?search_query=saucony+guide+18+vs+brooks+adrenaline" },
     ],
   },
   {
@@ -1652,9 +1652,9 @@ export const SHOES: Shoe[] = [
     instepVolume: "low",
     genderNote: "여성 핏(좁은 힐). 넓은 앞볼 여성은 2E(Wide) 옵션 선택.",
     youtubeReviews: [
-      { label: "Clifton 10 여성 리뷰", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+women+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+클리프턴+10+여성+리뷰" },
-      { label: "여성 쿠션화 비교", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+vs+brooks+glycerin" },
+      { label: "Clifton 10 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+women+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+클리프턴+10+여성+리뷰" },
+      { label: "여성 쿠션화 비교 검색", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+vs+brooks+glycerin" },
     ],
   },
 
@@ -1697,9 +1697,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "Velocity NITRO 3 리뷰", url: "https://www.youtube.com/results?search_query=puma+velocity+nitro+3+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=푸마+벨로시티+니트로+3+리뷰" },
-      { label: "가성비 러닝화 비교", url: "https://www.youtube.com/results?search_query=best+budget+running+shoe+2025" },
+      { label: "Velocity NITRO 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=puma+velocity+nitro+3+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=푸마+벨로시티+니트로+3+리뷰" },
+      { label: "가성비 러닝화 비교 검색", url: "https://www.youtube.com/results?search_query=best+budget+running+shoe+2025" },
     ],
   },
   {
@@ -1735,9 +1735,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "KIPRUN KS500 리뷰", url: "https://www.youtube.com/results?search_query=kiprun+ks500+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=데카트론+킵런+KS500+리뷰" },
-      { label: "데카트론 러닝화 비교", url: "https://www.youtube.com/results?search_query=decathlon+kiprun+comparison" },
+      { label: "KIPRUN KS500 리뷰 검색", url: "https://www.youtube.com/results?search_query=kiprun+ks500+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=데카트론+킵런+KS500+리뷰" },
+      { label: "데카트론 러닝화 비교 검색", url: "https://www.youtube.com/results?search_query=decathlon+kiprun+comparison" },
     ],
   },
   {
@@ -1774,9 +1774,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "wide",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "Jolt 4 리뷰", url: "https://www.youtube.com/results?search_query=asics+jolt+4+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+졸트+4+리뷰" },
-      { label: "입문 러닝화 비교", url: "https://www.youtube.com/results?search_query=asics+jolt+vs+contend" },
+      { label: "Jolt 4 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+jolt+4+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+졸트+4+리뷰" },
+      { label: "입문 러닝화 비교 검색", url: "https://www.youtube.com/results?search_query=asics+jolt+vs+contend" },
     ],
   },
   {
@@ -1813,9 +1813,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "narrow",
     instepVolume: "low",
     youtubeReviews: [
-      { label: "Revolution 7 리뷰", url: "https://www.youtube.com/results?search_query=nike+revolution+7+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+레볼루션+7+리뷰" },
-      { label: "가성비 입문화 비교", url: "https://www.youtube.com/results?search_query=nike+revolution+7+vs+downshifter" },
+      { label: "Revolution 7 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+revolution+7+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+레볼루션+7+리뷰" },
+      { label: "가성비 입문화 비교 검색", url: "https://www.youtube.com/results?search_query=nike+revolution+7+vs+downshifter" },
     ],
   },
   {
@@ -1852,9 +1852,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "wide",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "520 v9 리뷰", url: "https://www.youtube.com/results?search_query=new+balance+520+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=뉴발란스+520+리뷰" },
-      { label: "가성비 입문화 비교", url: "https://www.youtube.com/results?search_query=new+balance+520+vs+fresh+foam" },
+      { label: "520 v9 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+520+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=뉴발란스+520+리뷰" },
+      { label: "가성비 입문화 비교 검색", url: "https://www.youtube.com/results?search_query=new+balance+520+vs+fresh+foam" },
     ],
   },
 
@@ -1907,9 +1907,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "narrow",
     instepVolume: "low",
     youtubeReviews: [
-      { label: "Alphafly 3 리뷰", url: "https://www.youtube.com/results?search_query=nike+alphafly+3+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=나이키+알파플라이+3+리뷰" },
-      { label: "카본화 비교", url: "https://www.youtube.com/results?search_query=alphafly+3+vs+vaporfly+4" },
+      { label: "Alphafly 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+alphafly+3+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+알파플라이+3+리뷰" },
+      { label: "카본화 비교 검색", url: "https://www.youtube.com/results?search_query=alphafly+3+vs+vaporfly+4" },
     ],
   },
   {
@@ -1948,9 +1948,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "narrow",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "MetaSpeed Sky+ 리뷰", url: "https://www.youtube.com/results?search_query=asics+metaspeed+sky+plus+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아식스+메타스피드+스카이+리뷰" },
-      { label: "카본화 비교", url: "https://www.youtube.com/results?search_query=metaspeed+sky+plus+vs+vaporfly" },
+      { label: "MetaSpeed Sky+ 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+metaspeed+sky+plus+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+메타스피드+스카이+리뷰" },
+      { label: "카본화 비교 검색", url: "https://www.youtube.com/results?search_query=metaspeed+sky+plus+vs+vaporfly" },
     ],
   },
   {
@@ -1989,9 +1989,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "Boston 12 리뷰", url: "https://www.youtube.com/results?search_query=adidas+adizero+boston+12+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=아디다스+보스턴+12+리뷰" },
-      { label: "카본 훈련화 비교", url: "https://www.youtube.com/results?search_query=adizero+boston+12+vs+endorphin+speed" },
+      { label: "Boston 12 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+adizero+boston+12+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아디다스+보스턴+12+리뷰" },
+      { label: "카본 훈련화 비교 검색", url: "https://www.youtube.com/results?search_query=adizero+boston+12+vs+endorphin+speed" },
     ],
   },
   {
@@ -2030,9 +2030,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "narrow",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "Endorphin Pro 4 리뷰", url: "https://www.youtube.com/results?search_query=saucony+endorphin+pro+4+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=사코니+엔돌핀+프로+4+리뷰" },
-      { label: "카본화 비교", url: "https://www.youtube.com/results?search_query=endorphin+pro+4+vs+vaporfly" },
+      { label: "Endorphin Pro 4 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+endorphin+pro+4+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+엔돌핀+프로+4+리뷰" },
+      { label: "카본화 비교 검색", url: "https://www.youtube.com/results?search_query=endorphin+pro+4+vs+vaporfly" },
     ],
   },
   {
@@ -2071,9 +2071,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "narrow",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "Rocket X 2 리뷰", url: "https://www.youtube.com/results?search_query=hoka+rocket+x+2+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=호카+로켓+X+2+리뷰" },
-      { label: "카본화 비교", url: "https://www.youtube.com/results?search_query=hoka+rocket+x+2+vs+vaporfly" },
+      { label: "Rocket X 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+rocket+x+2+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+로켓+X+2+리뷰" },
+      { label: "카본화 비교 검색", url: "https://www.youtube.com/results?search_query=hoka+rocket+x+2+vs+vaporfly" },
     ],
   },
   {
@@ -2111,9 +2111,9 @@ export const SHOES: Shoe[] = [
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [
-      { label: "SuperComp Elite v4 리뷰", url: "https://www.youtube.com/results?search_query=new+balance+supercomp+elite+v4+review" },
-      { label: "한국어 리뷰", url: "https://www.youtube.com/results?search_query=뉴발란스+슈퍼컴프+엘리트+v4+리뷰" },
-      { label: "카본화 비교", url: "https://www.youtube.com/results?search_query=supercomp+elite+v4+vs+vaporfly" },
+      { label: "SuperComp Elite v4 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+supercomp+elite+v4+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=뉴발란스+슈퍼컴프+엘리트+v4+리뷰" },
+      { label: "카본화 비교 검색", url: "https://www.youtube.com/results?search_query=supercomp+elite+v4+vs+vaporfly" },
     ],
   },
 ];

@@ -128,6 +128,14 @@ export default function ShoeFinderPage() {
   const [error,     setError]     = useState("");
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
+  /**
+   * 결과 화면에서 조건 하나만 고쳐보는 모드. null이면 평소의 8단계 마법사.
+   *
+   * 이게 없을 때는 예산 하나 바꾸려고 「조건 다시 고르기」로 8단계를 전부 다시 돌아야 했다.
+   * 추천 결과는 이미 useMemo라 입력이 바뀌면 자동으로 다시 계산되므로,
+   * `submitted`만 유지하면 재제출 없이 결과가 그 자리에서 갱신된다.
+   */
+  const [editingStep, setEditingStep] = useState<number | null>(null);
   const [level,     setLevel]     = useState<RunnerLevel | "">("");
   const [distance,  setDistance]  = useState<RunDistance | "">("");
   const [injuries,  setInjuries]  = useState<InjuryArea[]>([]);
@@ -277,15 +285,70 @@ export default function ShoeFinderPage() {
     }
   }
 
+  /**
+   * 단계 8개가 값이 바뀔 때마다 전부 이 함수를 부른다.
+   *
+   * 인라인 편집 중에는 `submitted`를 내리지 않는 것이 이 모드의 전부다.
+   * 그래서 단계 JSX는 한 줄도 고치지 않고 두 모드에서 같이 쓴다.
+   */
   function handleChange() {
-    setSubmitted(false);
+    if (editingStep === null) setSubmitted(false);
     setError("");
   }
+
+  /** 결과 화면의 조건 칩에서 특정 단계만 열기 */
+  function startInlineEdit(step: number) {
+    setEditingStep(step);
+    setError("");
+    setExpandedId(null);
+    gtagEvent("recommend_inline_edit", { field: STEP_LABELS[step] ?? String(step) });
+  }
+
+  function finishInlineEdit() {
+    setEditingStep(null);
+    setError("");
+  }
+
+  /** 지금 화면에 그릴 단계 — 인라인 편집 중이면 그 단계, 아니면 마법사의 현재 단계 */
+  const activeStep = editingStep ?? currentStep;
+  const isEditing = editingStep !== null;
+
+  /**
+   * 키를 바꾸면 STEP 2의 onClick이 체중을 비운다(체중 구간이 키에 따라 다르므로).
+   * 인라인 편집에서는 그 순간 weightKg가 없어져 결과가 통째로 사라진다.
+   * 그래서 키를 고친 직후에는 체중 단계로 자동으로 넘겨준다 —
+   * 사용자가 "결과가 왜 없어졌지" 하고 헤매지 않도록.
+   */
+  useEffect(() => {
+    if (editingStep === 2 && heightRange && !weightRange) setEditingStep(3);
+  }, [editingStep, heightRange, weightRange]);
+
+  /** 조건 칩에 띄울 현재 값. null이면 아직 안 고른 것 */
+  const stepSummaries: (string | null)[] = [
+    BUDGETS.find(o => o.value === budget)?.label ?? null,
+    gender === "male" ? "남성" : gender === "female" ? "여성" : null,
+    HEIGHT_OPTIONS.find(o => o.value === heightRange)?.label ?? null,
+    (heightRange && WEIGHT_OPTIONS[heightRange].find(o => o.value === weightRange)?.label) || null,
+    footSelections.length
+      ? footSelections.map(id => FOOT_OPTIONS.find(x => x.id === id)?.label).filter(Boolean).join(" · ")
+      : null,
+    [LEVEL_OPTIONS.find(o => o.value === level)?.label, DISTANCE_OPTIONS.find(o => o.value === distance)?.label]
+      .filter(Boolean).join(" · ") || null,
+    injuries.length
+      ? injuries.map(v => INJURY_OPTIONS.find(o => o.value === v)?.label).filter(Boolean).join(" · ")
+      : null,
+    USES.find(o => o.value === use)?.label ?? null,
+  ];
+
+  const topPick = sortedPrimary[0];
 
   function handleReset() {
     setSubmitted(false);
     setError("");
     setCurrentStep(0);
+    // 인라인 편집 중에 「처음부터」를 누를 수 있다. 이걸 안 지우면 isEditing이 계속 참이라
+    // 마법사로 돌아가고도 편집 헤더가 남는다.
+    setEditingStep(null);
     // 새 퍼널 진행이므로 시작·완주를 다시 셀 수 있게 되돌린다.
     startFiredRef.current = false;
     completeFiredRef.current = false;
@@ -339,28 +402,69 @@ export default function ShoeFinderPage() {
           </div>
         )}
 
+        {/* ── 조건 칩 바 ──────────────────────────────────────────
+            이전에는 여기에 「← 조건 다시 고르기」 하나만 있었고, 그게 handleReset()이라
+            예산 하나 바꾸려면 8단계를 전부 다시 돌아야 했다. 이제 칩을 누르면
+            그 항목만 열리고, 고치는 즉시 아래 결과가 갱신된다. */}
         {submitted && result && (
-          <div className="mb-4 flex items-center justify-between text-sm text-gray-500">
-            <button type="button" onClick={handleReset}
-              className="text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2">
-              ← 조건 다시 고르기
-            </button>
-            <ShareResultButton buildUrl={buildShareUrl} />
+          <div className="mb-4">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-xs font-semibold text-gray-500">
+                내 조건 <span className="font-normal text-gray-400">— 눌러서 바로 고치기</span>
+              </p>
+              <ShareResultButton buildUrl={buildShareUrl} />
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {STEP_LABELS.map((label, i) => {
+                const val = stepSummaries[i];
+                const open = editingStep === i;
+                return (
+                  <button key={label} type="button"
+                    onClick={() => (open ? finishInlineEdit() : startInlineEdit(i))}
+                    aria-expanded={open}
+                    className={`flex items-baseline gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors
+                      ${open
+                        ? "border-emerald-500 bg-emerald-600 text-white"
+                        : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"}`}>
+                    <span className={open ? "text-emerald-100" : "text-gray-400"}>{label}</span>
+                    <span className="font-semibold">{val ?? "선택 안 함"}</span>
+                  </button>
+                );
+              })}
+              <button type="button" onClick={handleReset}
+                className="rounded-full px-3 py-1.5 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-600 transition-colors">
+                처음부터
+              </button>
+            </div>
           </div>
         )}
 
-        {!submitted && (
+        {(!submitted || isEditing) && (
         <form onSubmit={handleSubmit} noValidate
-          className="flex flex-col gap-5 rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
+          className={`flex flex-col gap-5 rounded-2xl border bg-white p-6 ${
+            isEditing ? "border-emerald-300 ring-2 ring-emerald-100 shadow-md" : "border-gray-200 shadow-sm"
+          }`}>
+
+          {isEditing && (
+            <div className="-mt-1 -mb-1 flex items-center justify-between gap-3">
+              <p className="text-base font-semibold text-gray-900">
+                {STEP_LABELS[activeStep]} 고치기
+              </p>
+              <button type="button" onClick={finishInlineEdit}
+                className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
+                완료
+              </button>
+            </div>
+          )}
 
           {!submitted && (
             <p className="text-base font-semibold text-gray-800 -mb-1">
-              {STEP_MICROCOPY[currentStep]}
+              {STEP_MICROCOPY[activeStep]}
             </p>
           )}
 
           {/* ── STEP 0: 예산 ── */}
-          {currentStep === 0 && (
+          {activeStep === 0 && (
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-2 gap-2">
                 {BUDGETS.map(o => (
@@ -377,7 +481,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 1: 성별 ── */}
-          {currentStep === 1 && (
+          {activeStep === 1 && (
             <div className="flex flex-col gap-2">
               <div className="flex gap-2">
                 {([
@@ -404,7 +508,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 2: 키 ── */}
-          {currentStep === 2 && (
+          {activeStep === 2 && (
             <div className="grid grid-cols-3 gap-2">
               {HEIGHT_OPTIONS.map(o => (
                 <button key={o.value} type="button"
@@ -419,7 +523,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 3: 체중 ── */}
-          {currentStep === 3 && (
+          {activeStep === 3 && (
             <div className="flex flex-col gap-2">
               {!heightRange ? (
                 <p className="text-sm text-amber-600">키를 먼저 골라주세요!</p>
@@ -440,7 +544,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 4: 발 특성 ── */}
-          {currentStep === 4 && (
+          {activeStep === 4 && (
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-3 gap-2">
                 {FOOT_OPTIONS.map(o => {
@@ -469,7 +573,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 5: 경험 · 주간 거리 (PRD F-01) ── */}
-          {currentStep === 5 && (
+          {activeStep === 5 && (
             <div className="flex flex-col gap-4">
               <div className="grid grid-cols-3 gap-2">
                 {LEVEL_OPTIONS.map(o => (
@@ -501,7 +605,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 6: 부상 이력 (PRD F-01) ── */}
-          {currentStep === 6 && (
+          {activeStep === 6 && (
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {INJURY_OPTIONS.map(o => {
@@ -530,7 +634,7 @@ export default function ShoeFinderPage() {
           )}
 
           {/* ── STEP 7: 용도 + 추천 받기 ── */}
-          {currentStep === 7 && (
+          {activeStep === 7 && (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {([
@@ -551,10 +655,12 @@ export default function ShoeFinderPage() {
 
               {error && <p className="text-sm text-red-500">{error}</p>}
 
+              {!isEditing && (
               <button type="submit"
                 className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
                 내 러닝화 찾기 →
               </button>
+              )}
 
               <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
                 키·체중·발 정보는 <strong className="font-medium text-gray-500">추천 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
@@ -583,6 +689,32 @@ export default function ShoeFinderPage() {
                   className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
                   다음 →
                 </button>
+              )}
+            </div>
+          )}
+
+          {/* ── 인라인 편집 중 1순위 고정 ────────────────────────────
+              모바일(네이버 유입의 대부분)에서 조건 패널을 펼치면 추천 목록이
+              화면 밖으로 밀려난다. 바꾼 것이 무엇을 바꿨는지 안 보이면
+              실시간 갱신은 의미가 없으므로, 1순위만 패널 안에 붙여둔다. */}
+          {isEditing && (
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5">
+              {topPick ? (
+                <>
+                  <p className="text-[11px] font-bold tracking-wide text-emerald-700">지금 1순위</p>
+                  <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
+                    {topPick.shoe.brand} {topPick.shoe.model}
+                  </p>
+                  <p className="mt-0.5 text-xs text-gray-600">
+                    {topPick.shoe.priceKrw.toLocaleString()}원
+                    {topPick.shoe.successor && ` · 후속 ${topPick.shoe.successor} 출시됨`}
+                  </p>
+                  <p className="mt-2 text-[11px] text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
+                </>
+              ) : (
+                <p className="text-sm text-amber-700">
+                  이 조건에 맞는 신발이 없어요 — 예산이나 발 조건을 조금 넓혀보세요.
+                </p>
               )}
             </div>
           )}
