@@ -146,8 +146,8 @@ export default function Page() {
           // channel은 일부러 비워둔다 — 실제 업로더를 확인하지 않았고,
           // 짐작으로 채우는 것이 이 저장소에서 40건 오류를 만든 원인이다.
           // npm run check:youtube 가 확인해준 이름으로 채울 것.
-          { label: "정강이 통증, 신스프린트 vs 피로골절! 러너 필수 체크", url: "https://www.youtube.com/watch?v=JfAEEhy5iEg" },
-          { label: "정강이 피로골절 — 정의, 진단, 감별진단", url: "https://www.youtube.com/watch?v=eAgBvQWuifA" },
+          { label: "정강이 통증, 신스프린트 vs 피로골절! 러너 필수 체크", channel: "연세이음정형외과", url: "https://www.youtube.com/watch?v=JfAEEhy5iEg" },
+          { label: "정강이 피로골절 — 정의, 진단, 감별진단", channel: "선수촌병원", url: "https://www.youtube.com/watch?v=eAgBvQWuifA" },
         ]} />
 
         <FaqSection items={[

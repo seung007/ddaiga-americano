@@ -102,9 +102,11 @@ export default function KwonEunJuPage() {
 
 
         <YoutubeSection links={[
-      { label: "권은주 선수 인터뷰 — 부상 극복과 훈련", url: "https://www.youtube.com/results?search_query=권은주+마라톤+인터뷰+훈련" },
-      { label: "여성 러너 부상 예방 — 전문가 가이드", url: "https://www.youtube.com/results?search_query=여성+러너+부상+예방+훈련" },
-      { label: "여자 마라톤 훈련법 — 페이스·거리 관리", url: "https://www.youtube.com/results?search_query=여성+마라톤+훈련+페이스+관리" },
+          // 2026-08-31: 검색 URL → 실제 영상. channel은 확인 전이라 비워둔다.
+          // npm run check:youtube 가 알려준 이름으로 채울 것.
+      { label: "한국 마라톤의 전설, 권은주 감독님을 뵙고 왔습니다", url: "https://www.youtube.com/watch?v=t6sqbXLDjok" },
+      { label: "D-2, 이럴 땐 이렇게! (한국 여자 마라톤 기록 보유자 권은주 감독)", url: "https://www.youtube.com/watch?v=i3Z1sqVfiG4" },
+      { label: "인생은 마라톤처럼 — 21년간 한국신기록을 보유한 권은주 감독", url: "https://www.youtube.com/watch?v=0tPsua6vVHQ" },
         ]} />
 
         <FaqSection items={[
