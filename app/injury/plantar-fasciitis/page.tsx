@@ -137,8 +137,12 @@ export default function Page() {
         </section>
 
         <YoutubeSection links={[
-          { label: "족저근막염 재활 — 고부하 근력 운동 방법", url: "https://www.youtube.com/results?search_query=족저근막염+재활+운동" },
-          { label: "Plantar Fasciitis — What Actually Works", url: "https://www.youtube.com/results?search_query=plantar+fasciitis+evidence+based+treatment" },
+          // 2026-08-31: 검색 URL을 실제 영상으로 교체.
+          // channel은 일부러 비워둔다 — 실제 업로더를 확인하지 않았고,
+          // 짐작으로 채우는 것이 이 저장소에서 40건 오류를 만든 원인이다.
+          // npm run check:youtube 가 확인해준 이름으로 채울 것.
+          { label: "발뒤꿈치 통증 대표 질환 족저근막염 — 환자 맞춤 자가 운동법", url: "https://www.youtube.com/watch?v=-y9BZ3qE1vE" },
+          { label: "족저근막염 재활 운동", url: "https://www.youtube.com/watch?v=sQ1IdjdZkxk" },
         ]} />
 
         <FaqSection items={[
