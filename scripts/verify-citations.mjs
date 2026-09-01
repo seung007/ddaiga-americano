@@ -377,7 +377,10 @@ async function auditBadges(rows) {
     let it; try { it = walk(path.join(ROOT, dir)); } catch { continue; }
     for await (const file of it) {
       const text = await readFile(file, "utf8");
-      const found = [...text.matchAll(/basis="([^"]*)"/g)].map((m) => m[1]);
+      // 주석 줄은 뺀다. 이 파일의 설명 주석에도 basis="paper"라는 문자열이 들어 있어
+      // 그대로 세면 배지가 실제보다 하나 많게 잡힌다(2026-09-01에 실제로 그랬다).
+      const code = text.split("\n").filter((l) => !/^\s*(\*|\/\/)/.test(l)).join("\n");
+      const found = [...code.matchAll(/basis="([^"]*)"/g)].map((m) => m[1]);
       if (!found.length) continue;
       const rel = path.relative(ROOT, file).replace(/\\/g, "/");
       const bad = found.filter((b) => !ALLOWED_BASIS.has(b));
@@ -385,8 +388,12 @@ async function auditBadges(rows) {
       const cites = byFile.get(rel) ?? 0;
       scanned.push({ file: rel, total: found.length, papers, cites });
       if (bad.length) out.push({ file: rel, level: "error", msg: `허용되지 않은 basis 값: ${[...new Set(bad)].join(", ")}` });
+      // 2026-09-01: "paper 배지 수 > 인용 수면 경고"라는 규칙을 뺐다.
+      // **1:1 대응을 전제한 잘못된 규칙이었다.** 여러 항목이 같은 논문을 근거로 삼는 것은
+      // 정상이다(급수 절과 젤 절이 둘 다 Hew-Butler 2015를 가리키는 식).
+      // 규칙이 틀리면 경고가 노이즈가 되고, 노이즈가 쌓이면 검사기 전체를 무시하게 된다.
+      // 남기는 것은 "paper 배지가 있는데 검증된 인용이 아예 0건"뿐이다.
       if (papers && cites === 0) out.push({ file: rel, level: "error", msg: `basis="paper" ${papers}건인데 검증된 인용이 0건이다` });
-      else if (papers > cites) out.push({ file: rel, level: "warn", msg: `basis="paper" ${papers}건 vs 검증된 인용 ${cites}건 — 배지가 더 많다` });
     }
   }
   return { issues: out, scanned };

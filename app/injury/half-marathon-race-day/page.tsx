@@ -36,18 +36,33 @@ const BASIS_STYLE: Record<Basis, { label: string; cls: string }> = {
   experience: { label: "직접 경험", cls: "border-violet-200 text-violet-700 bg-violet-50" },
 };
 
+/**
+ * 배지 한 쌍. Item 카드 밖(예: 급수 경고 절)에서도 같은 경로를 쓰게 분리했다.
+ *
+ * 손으로 span을 박으면 소스에 `basis="paper"`가 남지 않아
+ * verify-citations의 배지 감사가 그 배지를 못 본다.
+ * 검사기 밖에 근거 표시를 두지 않는다 — AGENTS.md 출처 규칙 3번.
+ */
+function Badges({ weight, basis }: { weight: Weight; basis: Basis }) {
+  const w = WEIGHT_STYLE[weight];
+  const b = BASIS_STYLE[basis];
+  return (
+    <>
+      <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${w.cls}`}>{w.label}</span>
+      <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${b.cls}`}>{b.label}</span>
+    </>
+  );
+}
+
 function Item({
   weight, basis, title, children,
 }: {
   weight: Weight; basis: Basis; title: string; children: React.ReactNode;
 }) {
-  const w = WEIGHT_STYLE[weight];
-  const b = BASIS_STYLE[basis];
   return (
     <div className="border border-gray-200 rounded-xl p-4">
       <div className="flex flex-wrap items-center gap-1.5 mb-2">
-        <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${w.cls}`}>{w.label}</span>
-        <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${b.cls}`}>{b.label}</span>
+        <Badges weight={weight} basis={basis} />
         <span className="font-semibold text-gray-900 text-sm ml-0.5">{title}</span>
       </div>
       <div className="text-sm text-gray-700 leading-relaxed space-y-2">{children}</div>
@@ -109,6 +124,13 @@ export default function Page() {
 
         {/* ── 국내 통념과 국제 합의가 갈리는 지점. 이 페이지에서 가장 중요한 부분 ── */}
         <section className="mb-8 p-5 bg-red-50 rounded-2xl border border-red-200">
+          {/* 2026-08-31 심의 지적 반영 — 이 절은 페이지에서 가장 센 주장을 담고 있는데
+              Item 카드가 아니라서 근거 배지가 붙지 않았다. 표시 체계가 정작
+              가장 논쟁적인 부분을 비켜간 셈이었다. 절 전체가 하나의 주장이라
+              카드로 쪼개지 않고 제목 옆에 배지를 단다. */}
+          <div className="mb-3 flex flex-wrap items-center gap-1.5">
+            <Badges weight="must" basis="paper" />
+          </div>
           <h2 className="text-lg font-bold text-red-900 mb-3">
             먼저 — 급수에 대해 국내 통념과 국제 합의가 갈립니다
           </h2>
