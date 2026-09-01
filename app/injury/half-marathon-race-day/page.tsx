@@ -125,7 +125,18 @@ export default function Page() {
             이유는 이렇습니다. 땀으로 나트륨이 빠진 상태에서 물을 필요 이상으로 마시면
             혈중 나트륨이 묽어집니다. 이게 <strong>운동유발 저나트륨혈증</strong>이고,
             심하면 의식 저하와 경련까지 갑니다.
-            대회 현장에서 <strong>탈수보다 이쪽이 더 자주 문제가 됩니다.</strong>
+            마라톤 완주자를 검사하면 <strong>7~15%</strong>에서 관찰된다는 보고가 있습니다
+            (증상 없는 경우 포함).
+          </p>
+          <p className="text-sm text-red-900 leading-relaxed mb-3">
+            <strong>이게 특히 위험한 이유는 증상이 열탈진과 겹치기 때문입니다.</strong>
+            메스꺼움·두통·어지럼은 양쪽에 다 나타납니다. 그런데 대처가 정반대예요 —
+            <b>탈수인 줄 알고 물이나 수액을 더 넣으면 저나트륨혈증 환자는 더 나빠집니다.</b>
+            그래서 스스로 판단하지 말고 의료진에게 가야 합니다.
+          </p>
+          <p className="text-xs text-red-700 leading-relaxed mb-3">
+            처음 이 글에는 &ldquo;탈수보다 이쪽이 더 자주 문제가 된다&rdquo;고 썼다가 내렸습니다 —
+            <strong>둘의 빈도를 비교한 근거를 찾지 못했습니다.</strong>
           </p>
           <div className="rounded-xl bg-white/70 border border-red-200 p-3 mb-3">
             <p className="text-xs font-bold text-red-900 mb-1.5">달리는 중에 알아챌 수 있는 신호</p>
@@ -174,7 +185,8 @@ export default function Page() {
                 <strong> 90분을 훌쩍 넘긴다면</strong> 대회 1~2일 전 탄수화물 비중을 올리는 정도가 현실적입니다.
               </p>
               <p className="text-gray-500">
-                풀코스용 로딩(체중 1kg당 8~12g/일)을 하프에 그대로 적용하면 몸만 무겁습니다.
+                풀코스용 고용량 로딩을 하프에 그대로 적용하면 몸만 무겁습니다.
+                (구체적인 g/kg 수치는 원문에서 확인하지 못해 적지 않습니다.)
               </p>
             </Item>
 

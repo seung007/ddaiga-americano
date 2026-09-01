@@ -15,9 +15,14 @@ import type { Shoe } from "./types";
  * 캘린더에는 존재하는데 출시를 확인하지 못했고, 확인 못 한 것을 채우면
  * 이 필드 전체의 신뢰도가 사라진다. 미확인은 비워두는 쪽이 맞다.
  *
- * 확인 못 한 채 남긴 것: GT-2000 14, Jolt 4, InfinityRN 4, Revolution 7,
- *   Adrenaline GTS 25, Cloudrunner 3, SuperComp Elite v4, 520 v9, KIPRUN KS500 2,
- *   Vaporfly 4 — 다음 점검 때 여기부터 볼 것.
+ * 2026-09-01 재점검: 미확인 10종 중 3종을 확인해 채웠다.
+ *   GT-2000 14 → 15 (2026-08-01 출시)
+ *   Jolt 4 → 5 (아식스 공식 제품 페이지 존재)
+ *   SuperComp Elite v4 → v5 (**2025-08-07 출시** — 1년 넘게 구형인 걸 모르고 있었다)
+ *
+ * 아직 확인 못 한 것 7종: InfinityRN 4, Revolution 7, Adrenaline GTS 25,
+ *   Cloudrunner 3, 520 v9, KIPRUN KS500 2, Vaporfly 4.
+ *   Adrenaline GTS 26은 "2026 Q3 예정"까지만 확인돼 채우지 않았다 — 예정은 출시가 아니다.
  *
  * 후속작이 나왔다고 그 신발이 나빠지는 건 아니고 오히려 재고 할인이 붙는다.
  * 그래서 최신작으로 갈아엎지 않고 `successor`만 채운다. 판단은 사용자가 한다.
@@ -196,6 +201,7 @@ export const SHOES: Shoe[] = [
     id: "asics-gt-2000-14",
     brand: "Asics",
     model: "GT-2000 14",
+    successor: "GT-2000 15",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40930/asics-gt-2000-14-23520459-main.jpg",
     colorways: ["딥 오션", "블랙/카본"],
     widthOptions: ["D", "2E", "4E"],
@@ -1744,6 +1750,7 @@ export const SHOES: Shoe[] = [
     id: "asics-jolt-4",
     brand: "Asics",
     model: "Jolt 4",
+    successor: "Jolt 5",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/39800/asics-jolt-4-primary-21182975-main.jpg",
     colorways: ["블랙/화이트", "네이비"],
     widthOptions: ["D", "2E"],
@@ -2080,6 +2087,7 @@ export const SHOES: Shoe[] = [
     id: "nb-fuelcell-supercomp-elite-v4",
     brand: "New Balance",
     model: "FuelCell SuperComp Elite v4",
+    successor: "FuelCell SuperComp Elite v5",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40283/new-balance-fuel-cell-super-comp-elite-v-4-21356876-720.jpg",
     colorways: ["화이트/오렌지", "블랙/실버"],
     widthOptions: ["D"],
