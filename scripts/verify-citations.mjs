@@ -372,6 +372,7 @@ async function auditBadges(rows) {
     byFile.set(r.file, (byFile.get(r.file) ?? 0) + 1);
   }
   const out = [];
+  const scanned = [];
   for (const dir of SCAN_DIRS) {
     let it; try { it = walk(path.join(ROOT, dir)); } catch { continue; }
     for await (const file of it) {
@@ -382,12 +383,13 @@ async function auditBadges(rows) {
       const bad = found.filter((b) => !ALLOWED_BASIS.has(b));
       const papers = found.filter((b) => b === "paper").length;
       const cites = byFile.get(rel) ?? 0;
+      scanned.push({ file: rel, total: found.length, papers, cites });
       if (bad.length) out.push({ file: rel, level: "error", msg: `허용되지 않은 basis 값: ${[...new Set(bad)].join(", ")}` });
       if (papers && cites === 0) out.push({ file: rel, level: "error", msg: `basis="paper" ${papers}건인데 검증된 인용이 0건이다` });
       else if (papers > cites) out.push({ file: rel, level: "warn", msg: `basis="paper" ${papers}건 vs 검증된 인용 ${cites}건 — 배지가 더 많다` });
     }
   }
-  return out;
+  return { issues: out, scanned };
 }
 
 function findDuplicates(rows) {
@@ -487,7 +489,7 @@ for (const c of citations) {
 }
 
 const dups = findDuplicates(rows);
-const badges = await auditBadges(rows);
+const { issues: badges, scanned: badgeScanned } = await auditBadges(rows);
 const errors = rows.filter((r) => r.issues.some((i) => i.level === "error"));
 const warns = rows.filter((r) => r.issues.some((i) => i.level === "warn") && !errors.includes(r));
 const notes = rows.filter((r) => r.issues.some((i) => i.level === "info")).length;
@@ -508,6 +510,17 @@ if (AS_JSON) {
       console.log(`  ${C.red("✗")} ${d.key}`);
       console.log(`    ${d.names.join(" / ")} 로 각각 표기됨`);
       for (const g of d.group) console.log(C.dim(`      ${g.file}:${g.line}`));
+    }
+  }
+  // 통과할 때도 반드시 한 줄 남긴다.
+  // 조용한 출력은 "통과했다"와 "안 돌았다"를 구분해주지 못한다.
+  // 2026-08-31에 /shorts/ 가 검증에서 조용히 빠져 있었고 거기에 문제가 고여 있었다.
+  if (badgeScanned.length === 0) {
+    console.log(C.bold("\n근거 배지 감사") + C.dim("  — basis 배지를 쓰는 파일이 없다 (검사 대상 0)"));
+  } else if (badges.length === 0) {
+    console.log(C.bold("\n근거 배지 감사") + C.green("  통과"));
+    for (const f of badgeScanned) {
+      console.log(C.dim(`  ✓ ${f.file}  배지 ${f.total}개 (paper ${f.papers}) · 검증된 인용 ${f.cites}건`));
     }
   }
   if (badges.length) {
