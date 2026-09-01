@@ -50,7 +50,10 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/20111000/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Lieberman et al. 2010 — Foot strike & impact (Nature) ↗</a></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">착지 패턴과 부상 관련 리뷰 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/26304644/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                Almeida et al. (2015) JOSPT 45(10):738-755 — 착지 패턴별 생체역학 차이 메타분석. 뒤꿈치 착지는 무릎·슬개대퇴 부하가 높고, 앞발 착지는 부하 위치가 다르다 ↗
+              </a>
+            </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">오버스트라이드 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
 
           </ul>

@@ -44,7 +44,14 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">능동회복 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">과훈련 증후군 관련 자료 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://doi.org/10.1186/s40798-024-00673-0" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                Zouhal et al. (2024) Sports Med Open 10(1):21 — 장기(3주 이상) 인터벌 훈련에서 능동회복과 수동휴식의 체력 향상 효과 차이가 확인되지 않았다는 체계적 고찰 ↗
+              </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                Meeusen et al. (2013) MSSE 45(1):186-205 — 오버트레이닝 증후군 국제 합의문 ↗
+              </a>
+            </li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>

@@ -67,12 +67,12 @@ export default function AdvancedGuidePage() {
                 cause: "인터벌·언덕 훈련 증가, 앉는 자세로 인한 건 압박",
                 fix: "노르딕 햄스트링 운동, 인터벌 빈도 감소, 딱딱한 자리에 오래 앉기 금지",
                 color: "border-purple-200 bg-purple-50",
-                // 2026-08-28 정정: 여기 "Beyer et al. (2015) AJSM — 편심성 운동 효과"가
-                // 붙어 있었다. 그 논문은 실재하지만 **아킬레스건** 건병증 RCT다
-                // (Heavy Slow Resistance vs Eccentric, AJSM 43(7):1704-11).
-                // 햄스트링과는 무관하고, 노르딕 햄스트링 운동을 다루지도 않는다.
-                // 대체 근거를 확인하기 전까지 출처를 비워둔다.
-                ref: "출처 확인 중 — 이전 인용이 다른 부위(아킬레스) 논문이라 내렸습니다"
+                // 2026-08-28에 "Beyer et al. (2015) AJSM"이 붙어 있던 자리다.
+                // 그 논문은 실재하지만 **아킬레스건** RCT라 부위가 달라 내렸다.
+                // 2026-09-01에 대체 근거를 찾아 채운다 — 아래 참고 자료 목록에 링크가 있다.
+                // 다만 그 고찰의 결론은 "이게 최선이다"가 아니라
+                // **"하나를 다른 것보다 권할 근거가 불충분하다"**에 가깝다.
+                ref: "Dizon et al. (2023) IJSPT — 다만 단일 최선 중재를 가릴 근거는 불충분하다"
               }
             ].map(item => (
               <div key={item.name} className={`rounded-xl border p-4 ${item.color}`}>
@@ -166,6 +166,7 @@ export default function AdvancedGuidePage() {
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>Meeusen et al. (2013)</strong> — 오버트레이닝 증후군 합의문. MSSE 45(1):186-205. <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Plews et al. (2013)</strong> — 훈련 적응을 HR·HRV로 평가하는 방법 비교(러너 10명). IJSPP 8(6):688-691. <a href="https://doi.org/10.1123/ijspp.8.6.688" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
+            <li><strong>Dizon et al. (2023)</strong> — 근위 햄스트링 건병증 보존적 중재 비교 체계적 고찰. Int J Sports Phys Ther. <a href="https://pubmed.ncbi.nlm.nih.gov/36976939/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed →</a></li>
             <li><strong>Lauersen et al. (2014)</strong> — 근력 훈련의 스포츠 부상 예방 효과 메타분석. BJSM 48(11):871-877. <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>

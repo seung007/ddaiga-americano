@@ -55,7 +55,10 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">슬개대퇴 통증 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">슬개대퇴 통증 증후군 관련 리뷰 — 정확한 서지정보 확인 중이라 링크를 내렸습니다</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/29925502/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                Collins et al. (2018) BJSM 52(18):1170-1178 — 슬개대퇴 통증 운동치료 국제 합의문. 고관절·무릎 운동을 함께 하는 쪽을 권고 ↗
+              </a>
+            </li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
