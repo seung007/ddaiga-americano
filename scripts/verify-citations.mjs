@@ -346,6 +346,50 @@ function judge(claim, actual) {
   return issues;
 }
 
+/**
+ * `basis="paper"` 배지를 단 항목이 실제로 검증된 인용을 가진 페이지에 있는지 본다.
+ *
+ * 2026-08-31에 하프마라톤 페이지가 무게(필수/추천/취향)와 근거(논문/관행/경험)를
+ * 배지로 표시하는 체계를 새로 도입했다. 그런데 **검사기 범위는 한 줄도 안 늘렸다.**
+ * AGENTS.md에 "새 종류의 출처를 추가하면 검사기 범위부터 늘려라"고 써놓고 어긴 것이다.
+ *
+ * 실제로 그 페이지에서 basis="paper"인 항목 하나가 본문에서는 "국내 러너들 사이의
+ * 요령"이라고 말하고 있었다. 서지는 맞는데 주장이 다른 Richards 2009와 같은 형태다.
+ *
+ * 이 검사가 **못 하는 것**도 분명히 해둔다. 어떤 배지가 어떤 논문에 대응하는지는
+ * 코드에 표현돼 있지 않으므로 1:1 대응은 확인할 수 없다. 여기서 잡는 것은
+ *   · 허용되지 않은 basis 값
+ *   · 논문 인용이 하나도 없는 페이지에 붙은 paper 배지
+ *   · paper 배지 수가 그 페이지의 검증된 인용 수를 넘는 경우
+ * 세 가지뿐이다. 배지와 본문 주장의 일치는 여전히 사람이 봐야 한다.
+ */
+const ALLOWED_BASIS = new Set(["paper", "practice", "experience"]);
+
+async function auditBadges(rows) {
+  const byFile = new Map();
+  for (const r of rows) {
+    if (r.issues.some((i) => i.level === "error")) continue;
+    byFile.set(r.file, (byFile.get(r.file) ?? 0) + 1);
+  }
+  const out = [];
+  for (const dir of SCAN_DIRS) {
+    let it; try { it = walk(path.join(ROOT, dir)); } catch { continue; }
+    for await (const file of it) {
+      const text = await readFile(file, "utf8");
+      const found = [...text.matchAll(/basis="([^"]*)"/g)].map((m) => m[1]);
+      if (!found.length) continue;
+      const rel = path.relative(ROOT, file).replace(/\\/g, "/");
+      const bad = found.filter((b) => !ALLOWED_BASIS.has(b));
+      const papers = found.filter((b) => b === "paper").length;
+      const cites = byFile.get(rel) ?? 0;
+      if (bad.length) out.push({ file: rel, level: "error", msg: `허용되지 않은 basis 값: ${[...new Set(bad)].join(", ")}` });
+      if (papers && cites === 0) out.push({ file: rel, level: "error", msg: `basis="paper" ${papers}건인데 검증된 인용이 0건이다` });
+      else if (papers > cites) out.push({ file: rel, level: "warn", msg: `basis="paper" ${papers}건 vs 검증된 인용 ${cites}건 — 배지가 더 많다` });
+    }
+  }
+  return out;
+}
+
 function findDuplicates(rows) {
   const byId = new Map();
   for (const r of rows) {
@@ -443,6 +487,7 @@ for (const c of citations) {
 }
 
 const dups = findDuplicates(rows);
+const badges = await auditBadges(rows);
 const errors = rows.filter((r) => r.issues.some((i) => i.level === "error"));
 const warns = rows.filter((r) => r.issues.some((i) => i.level === "warn") && !errors.includes(r));
 const notes = rows.filter((r) => r.issues.some((i) => i.level === "info")).length;
@@ -465,6 +510,15 @@ if (AS_JSON) {
       for (const g of d.group) console.log(C.dim(`      ${g.file}:${g.line}`));
     }
   }
+  if (badges.length) {
+    console.log(C.bold("\n근거 배지 감사"));
+    console.log(C.dim("  basis=\"paper\" 배지가 실제 인용을 가진 페이지에 있는지만 본다.\n  배지와 본문 주장의 일치는 사람이 봐야 한다.\n"));
+    for (const b of badges) {
+      const mark = b.level === "error" ? C.red("✗") : C.yellow("!");
+      console.log(`  ${mark} ${b.file}`);
+      console.log(`      ${b.msg}`);
+    }
+  }
   console.log(C.bold("\n─────────────────────────────"));
   console.log(`검사 ${rows.length}건 · ${C.red(`오류 ${errors.length}`)} · ${C.yellow(`경고 ${warns.length}`)} · ${C.green(`정상 ${rows.length - errors.length - warns.length}`)}${notes ? C.dim(` · 참고 ${notes}`) : ""}`);
   if (dups.length) console.log(`${C.red(`중복 계상 ${dups.length}건`)}`);
@@ -472,4 +526,4 @@ if (AS_JSON) {
   console.log(C.dim("      잡지 못한다. --abstracts 로 초록을 띄워 사람이 대조할 것.\n"));
 }
 
-process.exit(errors.length || dups.length ? 1 : 0);
+process.exit(errors.length || dups.length || badges.some(b => b.level === "error") ? 1 : 0);

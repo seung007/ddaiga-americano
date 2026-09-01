@@ -46,6 +46,7 @@ const ARTICLES = [
   { href: "/injury/hwang-young-jo", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 달리기 철학 — 고통을 읽는 것",       desc: "1992 바르셀로나 금메달리스트의 훈련 철학.", readTime: "6분" },
   { href: "/injury/kwon-eun-ju", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700",    tag: "권은주", tagColor: "text-pink-600 bg-pink-50",   title: "권은주 선수에게 배우는 여성 러너 부상 예방",   desc: "한국 여자 마라톤을 이끌어온 권은주 선수의 훈련 방식.", readTime: "6분" },
   { href: "/injury/first-10k",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50","title": "생애 첫 10km 대회 준비물과 페이스 전략",  desc: "출발선에 서기 전에 알아야 할 것들.", readTime: "7분" },
+  { href: "/injury/half-marathon-race-day", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 대회 당일 체크리스트", desc: "젤·급수·바세린·페이스. 논문 근거와 직접 뛰어본 경험을 항목마다 구분해 적었습니다.", readTime: "8분" },
 ];
 
 export default function InjuryListPage() {
