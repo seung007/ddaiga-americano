@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import FinderCta from "@/components/FinderCta";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
@@ -55,6 +56,8 @@ export default function AchillesPage() {
             처음 2주는 전체 달리기의 20~30%만 미드풋으로 달리세요.
           </div>
         </section>
+
+        <FinderCta from="achilles" variant="inline" headline="드롭이 낮은 신발은 아킬레스 부하를 늘립니다. 전환 중이라면 드롭 8~12mm를 유지하세요." />
 
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-6">전환 중 꼭 해야 할 스트레칭 루틴</h2>
@@ -172,18 +175,7 @@ export default function AchillesPage() {
           },
         ]} />
 
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">드롭 높이까지 고려한 신발이 필요하다면</p>
-          <p className="text-sm text-emerald-800 mb-4">
-            추천 결과에 드롭(mm)과 쿠셔닝 정보가 함께 표시됩니다. 전환 중이라면 드롭 8mm 이상을 추천합니다.
-          </p>
-          <Link
-            href="/shoe-finder"
-            className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors"
-          >
-            내 러닝화 찾기 →
-          </Link>
-        </div>
+        <FinderCta from="achilles" headline="아킬레스에 부담이 덜한 신발 찾기" sub="부상 이력에 '아킬레스·종아리'를 선택하면 드롭이 낮은 신발을 걸러냅니다." />
       </article>
     </>
   );

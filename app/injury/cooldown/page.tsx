@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import FinderCta from "@/components/FinderCta";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
@@ -35,6 +36,8 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">10분 정적 스트레칭 루틴</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">① 종아리 벽 스트레칭 30초×2 → ② 햄스트링 (서서 앞으로 굽히기) 30초×2 → ③ 고관절 굴근 (런지 자세 유지) 30초×2 → ④ 장경인대 (다리 꼬아 옆으로 기울기) 30초×2 → ⑤ 엉덩이 (누워서 무릎 당기기) 30초×2. 통증이 아닌 당기는 느낌에서 멈추세요.</p>
         </section>
+
+        <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다 — 러닝화 수명은 보통 500~800km입니다." />
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">회복을 빠르게 하는 추가 팁</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">스트레칭 후 차가운 물이나 단백질+탄수화물 음료(초콜릿 밀크 등)를 섭취하면 근육 회복 속도가 빨라집니다. 수면의 질도 회복에 직접 영향을 미칩니다.</p>
@@ -73,12 +76,7 @@ export default function Page() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">내 체형에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 러닝화 찾기 →
-          </Link>
-        </div>
+        <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형·발볼·부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
       </article>
     </>
   );

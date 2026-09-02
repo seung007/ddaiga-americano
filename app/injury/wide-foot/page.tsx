@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import FinderCta from "@/components/FinderCta";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
@@ -104,6 +105,8 @@ export default function WideFootPage() {
           </div>
         </section>
 
+        <FinderCta from="wide-foot" variant="inline" headline="발볼 조건을 넣으면 2E·4E 옵션이 있는 신발만 골라서 보여드립니다." />
+
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">브랜드별 와이드 옵션 현황</h2>
           <div className="overflow-x-auto">
@@ -160,18 +163,7 @@ export default function WideFootPage() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 발 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">발볼 넓은 내 발에 맞는 신발 찾기</p>
-          <p className="text-sm text-emerald-800 mb-4">
-            발볼 조건을 선택하면 2E·4E 옵션이 있는 신발만 필터링해서 추천합니다.
-          </p>
-          <Link
-            href="/shoe-finder"
-            className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors"
-          >
-            내 러닝화 찾기 →
-          </Link>
-        </div>
+        <FinderCta from="wide-foot" headline="발볼 넓은 내 발에 맞는 신발 찾기" sub="발볼 조건을 선택하면 2E·4E 옵션이 있는 신발만 필터링해서 추천합니다." />
       </article>
     </>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import FinderCta from "@/components/FinderCta";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
@@ -46,6 +47,8 @@ export default function Page() {
 2. 스텝다운: 계단 끝에 서서 한쪽 다리로 천천히 내려옵니다. 무릎이 발가락 방향을 유지하도록. 10회×3세트.
 3. 폼롤러 대퇴사두근 이완: 엎드려 허벅지 앞쪽을 2~3분 롤링.</p>
         </section>
+
+        <FinderCta from="knee-pain" variant="inline" headline="체중 대비 쿠션이 부족하면 무릎이 먼저 받습니다. 지금 신발이 맞는지 확인해보세요." />
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">신발과의 관계</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">쿠셔닝이 2 이하인 신발은 착지 시 슬개골에 충격을 직접 전달합니다. 또한 과회내(평발)가 있다면 안정화를 선택해야 무릎 정렬이 개선됩니다.</p>
@@ -88,12 +91,7 @@ export default function Page() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">내 체형에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 러닝화 찾기 →
-          </Link>
-        </div>
+        <FinderCta from="knee-pain" headline="무릎에 부담이 덜한 신발 찾기" sub="체중과 부상 이력을 넣으면 쿠션이 충분한 신발을 우선 추천합니다." />
       </article>
     </>
   );

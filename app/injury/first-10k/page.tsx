@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import FinderCta from "@/components/FinderCta";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
@@ -35,6 +36,8 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">페이스 전략</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">초보 러너의 가장 흔한 실수는 출발 시 주변 분위기에 휩쓸려 첫 1~2km를 너무 빠르게 달리는 것입니다. 목표 페이스보다 10~15초/km 느리게 출발하세요. 5km 이후 여유가 있으면 속도를 높입니다. '음의 분할(Negative Split)'이 완주율과 기록 모두에 유리합니다.</p>
         </section>
+
+        <FinderCta from="first-10k" variant="inline" headline="첫 10km, 신발은 정하셨나요? 길들이지 않은 새 신발이 물집의 가장 흔한 원인입니다." />
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">멘탈 관리 — 7km의 벽</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">대부분의 초보 러너는 7~8km 구간에서 멘탈이 무너집니다. 이때 '지금 고통이 최고조다, 2km만 더 가면 끝'이라고 생각하세요. 달리기의 고통은 선형으로 증가하지 않습니다 — 종반 1km는 의외로 잘 달려집니다.</p>
@@ -75,12 +78,7 @@ export default function Page() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">내 체형에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 러닝화 찾기 →
-          </Link>
-        </div>
+        <FinderCta from="first-10k" headline="대회 전에 신발부터 확인하세요" sub="새 신발로 대회에 나가면 물집과 발톱 멍으로 직행합니다. 체형과 발 조건을 넣으면 맞는 신발을 추려드립니다." />
       </article>
     </>
   );
