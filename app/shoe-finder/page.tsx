@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import AffiliateNotice from "@/components/AffiliateNotice";
+import { resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
@@ -446,6 +448,8 @@ export default function ShoeFinderPage() {
             </span>
           </div>
         )}
+
+        <AffiliateNotice />
 
         {/* ── 조건 칩 바 ──────────────────────────────────────────
             이전에는 여기에 「← 조건 다시 고르기」 하나만 있었고, 그게 handleReset()이라
@@ -960,12 +964,17 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                {shoe.buyLinks.map(link => (
+                {resolveBuyLinks(shoe.id, shoe.buyLinks).map(link => (
                   <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer"
-                    onClick={() => gtagEvent("buy_link_click", { shoe: `${shoe.brand} ${shoe.model}`, store: link.label })}
+                    onClick={() => gtagEvent("buy_link_click", {
+                      shoe: `${shoe.brand} ${shoe.model}`,
+                      store: link.label,
+                      // 제휴 링크 클릭을 따로 셀 수 있어야 수익 파이프가 실제로 도는지 잰다.
+                      affiliate: link.isAffiliate ? "yes" : "no",
+                    })}
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
                       ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
-                    {link.isOfficial ? "🏪" : "🛒"} {link.label} ↗
+                    {link.isOfficial ? "🏪" : "🛒"} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                   </a>
                 ))}
                 <CopyModelName name={`${shoe.brand} ${shoe.model}`} />

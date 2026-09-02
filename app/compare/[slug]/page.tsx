@@ -4,6 +4,8 @@ import { SHOES } from "@/lib/shoes/data";
 import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import SiteHeader from "@/components/SiteHeader";
+import AffiliateNotice from "@/components/AffiliateNotice";
+import { resolveBuyLinks } from "@/lib/shoes/affiliate";
 import ShoeImage from "@/components/ShoeImage";
 import { COMPARE_SLUGS } from "@/lib/compares";
 
@@ -164,6 +166,8 @@ export default async function ComparePage({
     <>
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
+        <AffiliateNotice />
+
         {/* ── 헤더 ── */}
         <header className="mb-8">
           <p className="text-xs font-medium text-emerald-600 mb-2 tracking-wide uppercase">
@@ -348,7 +352,7 @@ export default async function ComparePage({
                 <p className="text-xs font-bold text-gray-700">
                   {shoe.brand} {shoe.model}
                 </p>
-                {shoe.buyLinks.slice(0, 2).map((link) => (
+                {resolveBuyLinks(shoe.id, shoe.buyLinks).slice(0, 2).map((link) => (
                   <a
                     key={link.label}
                     href={link.url}
