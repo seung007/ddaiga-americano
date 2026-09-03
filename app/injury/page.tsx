@@ -90,18 +90,46 @@ export default function InjuryListPage() {
           </div>
         </section>
 
-        {/* 레벨 필터 */}
+        {/* 레벨 필터
+            2026-09-03: "전체 칩이 굳이 필요한가"라는 질문에서 출발했다.
+            빼지 않기로 했다 — **빼면 되돌아올 길이 막힌다.** 중급자를 누른 뒤 전부 보려면
+            같은 칩을 다시 눌러 해제해야 하는데, 그 동작은 발견 가능성이 낮아 사용자가 갇힌다.
+            대신 **개수를 붙여 정보가 되게** 했다. "전체 N"은 중복이 아니라
+            글이 몇 편인지와 난이도 분포를 알려주는 값이다.
+
+            붙이자마자 값을 했다 — 나는 이 페이지의 글이 19편이라고 보고했는데
+            **실제 ARTICLES는 16편**(초심자 8·중급자 5·숙련자 3)이었다.
+            파일 전체를 grep해서 상단 "내 레벨 가이드" 카드 3개까지 세었던 것이다.
+            **숫자는 세는 코드가 세게 하고, 사람은 grep 결과를 결론으로 삼지 마라.**
+            개수를 화면에 띄우는 것 자체가 검사기 역할을 한다.
+
+            그리고 이 페이지에는 **GA 이벤트가 하나도 없었다.** 필터를 쓰는 사람이
+            있는지조차 모르는 채로 UI를 손보고 있었다. 재는 것부터 붙인다 —
+            2주 뒤에도 `injury_filter`가 0건이면 필터 자체를 없애는 게 맞다. */}
         <section className="mb-6">
           <div className="flex gap-2 flex-wrap">
-            {LEVELS.map(lv => (
-              <button key={lv} onClick={() => setActiveLevel(lv)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
-                  ${activeLevel === lv
-                    ? "bg-emerald-600 text-white border-emerald-600"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
-                {lv}
-              </button>
-            ))}
+            {LEVELS.map(lv => {
+              const count = lv === "전체"
+                ? ARTICLES.length
+                : ARTICLES.filter(a => a.level === lv).length;
+              return (
+                <button key={lv}
+                  onClick={() => {
+                    setActiveLevel(lv);
+                    const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+                    if (typeof g === "function") g("event", "injury_filter", { level: lv, count });
+                  }}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
+                    ${activeLevel === lv
+                      ? "bg-emerald-600 text-white border-emerald-600"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
+                  {lv}
+                  <span className={activeLevel === lv ? "ml-1.5 text-emerald-100" : "ml-1.5 text-gray-400"}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </section>
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import { CourseMap, ChafingMap, PaceCurve } from "@/components/RaceGraphics";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -269,6 +270,7 @@ export default function Page() {
         {/* ── 레이스 중 ── */}
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">레이스 중 — 젤과 급수</h2>
+          <CourseMap />
           <div className="space-y-3">
             <Item weight="should" basis="paper" title="90분을 넘긴다면 시간당 탄수화물 30~60g">
               <p>
@@ -325,6 +327,7 @@ export default function Page() {
                 <strong>겨드랑이, 유두, 사타구니, 발가락 사이</strong>가 흔한 자리입니다.
                 바세린이나 바디 글라이드 같은 마찰 방지 제품을 <strong>출발 직전에</strong> 바릅니다.
               </p>
+              <ChafingMap />
               <p>
                 러너들이 공통으로 강조하는 요령이 하나 있습니다 —
                 <strong>바르기 전에 그 부위를 닦고 말리세요.</strong> 땀이나 물기가 남은 채로 바르면 겉돕니다.
@@ -416,6 +419,21 @@ export default function Page() {
         {/* ── 페이스 ── */}
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">페이스 — 가장 많이 망하는 지점</h2>
+          <PaceCurve />
+
+          {/* 페이스를 다루면서 정작 페이스 계산기로 보내지 않고 있었다.
+              구간 통과 시간표는 대회 당일 손목에 적어가는 물건이라 여기가 제자리다. */}
+          <div className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <p className="min-w-0 flex-1 text-sm font-medium text-emerald-900">
+              목표 시간을 넣으면 5km 단위 구간 통과 시간표를 만들어드립니다
+            </p>
+            <Link
+              href="/tools/pace"
+              className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+            >
+              페이스 계산기 →
+            </Link>
+          </div>
           <div className="space-y-3">
             <Item weight="must" basis="experience" title="첫 5km는 &lsquo;조금 느린데?&rsquo; 싶을 정도로">
               <p>
@@ -472,6 +490,80 @@ export default function Page() {
           </div>
         </section>
 
+        {/* ── 날씨별 복장 ──
+            2026-09-03 신설. 이 페이지에 "추운 날 버릴 옷" 항목만 있고
+            더위·비에 대한 복장 이야기가 통째로 빠져 있었다. 대회 당일 변수 중 큰 축이다. */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">날씨별 복장</h2>
+          <div className="space-y-3">
+            <Item weight="should" basis="practice" title="기온보다 얇게 — 달리면 체감이 올라갑니다">
+              <p>
+                출발선에서 딱 좋은 옷은 5km 지점에서 덥습니다. 러너들 사이에서 흔히 쓰는 기준은
+                <strong> 지금 기온보다 5~10도 따뜻한 날에 입을 옷</strong>을 고르라는 것입니다.
+                출발 전 추위는 버리는 옷 한 겹으로 해결하고, 본 복장은 달릴 때를 기준으로 맞춥니다.
+              </p>
+              <p className="text-gray-500">
+                널리 통용되는 요령이고 <strong>구체적인 온도 폭을 검증한 자료는 확인하지 못했습니다.</strong>
+                숫자보다 &ldquo;출발선에서 살짝 서늘한 정도&rdquo;라는 감각으로 잡는 편이 낫습니다.
+              </p>
+            </Item>
+
+            <Item weight="should" basis="practice" title="비 오는 날 — 면은 피하고, 마찰 지점을 늘려 잡으세요">
+              <p>
+                젖은 옷은 무거워지고 마찰이 크게 늘어납니다. <strong>면 소재를 피하고</strong>,
+                평소보다 마찰 방지제를 넓게 바르세요. 위의 그림에서 표시한 자리 외에
+                옷 봉제선이 닿는 곳이 새로 문제가 됩니다.
+              </p>
+              <p>
+                모자챙이 있으면 눈에 물이 들어오는 걸 크게 줄여줍니다.
+                비닐 우의는 출발 전까지만 입고 벗는 쪽이 일반적입니다 — 달리면서 입으면 열이 갇힙니다.
+              </p>
+            </Item>
+          </div>
+        </section>
+
+        {/* ── 완주 후 ──
+            2026-09-03 신설. 페이지가 결승선에서 끝나 있었는데,
+            완주 직후 30분이 실제로는 사고가 잦은 구간이다. */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">완주 후 30분 — 여기서 끝이 아닙니다</h2>
+          <div className="space-y-3">
+            <Item weight="must" basis="practice" title="바로 주저앉지 말고 걸으세요">
+              <p>
+                결승선을 통과하자마자 멈춰 서거나 주저앉으면 어지럼이 오는 경우가 있습니다.
+                다리 근육이 펌프 역할을 하다가 갑자기 멈추기 때문이라고 설명됩니다.
+                <strong> 최소 5~10분은 천천히 걸으세요.</strong>
+              </p>
+              <p className="text-gray-500">
+                기전에 대한 설명은 널리 통용되지만 <strong>이 페이지에서 논문으로 확인하지는
+                않았습니다.</strong> 다만 &ldquo;바로 앉지 말고 걸어라&rdquo;는 대회 안내방송에서도
+                반복되는 권고입니다.
+              </p>
+            </Item>
+
+            <Item weight="must" basis="practice" title="젖은 옷을 갈아입으세요 — 특히 추운 날">
+              <p>
+                달릴 때는 열이 나서 몰랐는데, 멈추는 순간 젖은 옷이 체온을 빠르게 뺏어갑니다.
+                기온이 낮은 날에는 이게 생각보다 위험합니다.
+                <strong> 물품보관소에서 마른 옷을 가장 먼저 꺼내세요.</strong>
+                담요나 보온포를 나눠주는 대회라면 받아서 두르는 게 맞습니다.
+              </p>
+            </Item>
+
+            <Item weight="should" basis="practice" title="물집·발톱은 그날 확인하세요">
+              <p>
+                집에 가서 씻을 때 처음 발견하면 이미 터져 있는 경우가 많습니다.
+                <strong>양말을 벗고 발가락 사이까지</strong> 보세요.
+                발톱 밑이 검게 변했다면 압박 때문일 수 있고, 다음 대회 전에 신발 사이즈를
+                다시 볼 신호입니다.
+              </p>
+              <p className="text-gray-500">
+                통증이 심하거나 발톱 밑에 피가 고여 부풀었다면 직접 뚫지 말고 병원에 가세요.
+              </p>
+            </Item>
+          </div>
+        </section>
+
         {/* ── 참고 자료 ── */}
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
@@ -521,8 +613,14 @@ export default function Page() {
             a: "90분 이내로 들어온다면 없어도 됩니다. 그 이상 걸린다면 시간당 탄수화물 30~60g이 권장 범위이고, 젤 하나가 보통 20~30g이라 시간당 1~2개 꼴입니다. 중요한 건 개수보다 연습 롱런에서 같은 제품으로 미리 시험해보는 것입니다 — 대회 당일 처음 먹는 젤은 배탈 위험이 큽니다.",
           },
           {
+            // 2026-09-03 정정: 본문에서 이미 철회한 문장이 **FAQ에는 그대로 살아 있었다.**
+            // "탈수보다 이쪽이 더 자주 문제가 됩니다" — 본문 160행에 "둘의 빈도를 비교한
+            // 근거를 찾지 못해 내렸다"고 적어놓고 FAQ는 안 봤다.
+            // **같은 페이지가 자기 자신과 모순하고 있었다.**
+            // 같은 유형이 warmup 페이지에서도 나왔다(본문은 카드로 바꾸고 FAQ는 옛 요약 유지).
+            // 본문을 고치면 **FAQ와 metadata도 같이 훑을 것.**
             q: "대회 중에 물은 얼마나 마셔야 하나요?",
-            a: "목마른 만큼만 마시는 것이 현재 국제 합의 권고입니다. 급수대마다 무조건 마실 필요는 없습니다. 물을 과하게 마시면 혈중 나트륨이 희석되는 운동유발 저나트륨혈증 위험이 있고, 탈수보다 이쪽이 더 자주 문제가 됩니다. 달리는 중 체중이 늘었거나 메스꺼움·두통·손발 부기가 있으면 즉시 의료진에게 가세요.",
+            a: "목마른 만큼만 마시는 것이 현재 국제 합의 권고입니다(Hew-Butler 2015). 급수대마다 무조건 마실 필요는 없습니다. 물을 과하게 마시면 혈중 나트륨이 희석되는 운동유발 저나트륨혈증 위험이 있습니다. 다만 탈수와 저나트륨혈증 중 어느 쪽이 더 흔한지는 이 페이지에서 근거를 확인하지 못했으니, 어느 한쪽을 더 겁내기보다 신호를 보고 판단하세요. 달리는 중 메스꺼움·두통·손발 부기가 있거나 완주 후 체중이 늘었다면 물을 더 마시지 말고 즉시 의료진에게 가세요. 반대로 기온이 높고 2시간 이상 걸린다면 갈증은 확실히 오고, 오면 참지 말고 마셔야 합니다.",
           },
           {
             q: "대회 전날 저녁과 당일 아침에 피해야 할 음식은 뭔가요?",
