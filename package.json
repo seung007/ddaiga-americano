@@ -11,7 +11,8 @@
     "check:citations:dry": "node scripts/verify-citations.mjs --dry",
     "check:youtube": "node scripts/verify-youtube.mjs",
     "check:youtube:todo": "node scripts/verify-youtube.mjs --todo",
-    "check:shoes": "node scripts/shoe-freshness.mjs"
+    "check:shoes": "node scripts/shoe-freshness.mjs",
+    "check:figures": "node scripts/check-figures.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

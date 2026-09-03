@@ -40,6 +40,7 @@ npm run check:citations       # 논문: 저자·연도가 링크된 실제 논�
 npm run check:youtube         # 영상: 살아 있는지, 채널명이 실제 업로더와 맞는지
 npm run check:youtube:todo    # 아직 검색 URL로 남은 자리 (오프라인)
 npm run check:shoes           # 신발: 어느 모델을 언제 확인했는지 (원장 lib/shoes/verified.json)
+npm run check:figures         # 동작 그림: 관절 각도를 계산해 발이 바닥을 뚫는지
 ```
 
 **출처를 하나라도 건드렸으면 커밋 전에 돌린다.** 셋 다 불일치·기한초과 시 exit 1이다.
