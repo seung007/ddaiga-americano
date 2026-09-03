@@ -34,6 +34,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const core: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`,           lastModified: now, changeFrequency: "weekly",  priority: 1 },
     { url: `${BASE_URL}/shoe-finder`, lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    // 2026-09-02: 계산기를 만들면서 여기에 등재하는 것을 빼먹었다.
+    // `app/tools/page.tsx`에 "각각이 별개의 검색 입구가 된다"고 적어놓고
+    // **그 입구를 만드는 유일한 장치를 빠뜨렸다.** 위 주석이 경고한 실패를 그대로 반복했다.
+    // 계산기를 추가할 때마다 이 배열에 한 줄 추가할 것.
+    { url: `${BASE_URL}/tools`,            lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/tools/shoe-life`,  lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/tools/pace`,       lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/injury`,      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
     { url: `${BASE_URL}/community`,   lastModified: now, changeFrequency: "weekly",  priority: 0.4 },
     { url: `${BASE_URL}/terms`,       lastModified: now, changeFrequency: "yearly",  priority: 0.3 },

@@ -11,14 +11,20 @@ export default function SiteHeader() {
           <Link href="/injury" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
             부상 예방
           </Link>
-          <Link href="/community" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+          <Link href="/tools" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            계산기
+          </Link>
+          <Link href="/community" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
             Q&amp;A
           </Link>
+          {/* 2026-09-02: 계산기를 추가하면서 헤더가 5개가 됐다.
+              모바일에서 넘치지 않게 Q&A와 블로그는 sm 이상에서만 보인다.
+              둘 다 푸터에 남아 있어 접근 경로가 사라지지는 않는다. */}
           <a
             href="https://blog.naver.com/coffee_study_"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block"
           >
             블로그
           </a>

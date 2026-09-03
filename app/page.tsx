@@ -23,7 +23,12 @@ export default function Home() {
 
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <p className="text-sm font-medium text-emerald-600 mb-4">광고 없는 데이터 기반 러닝화 추천</p>
+        {/* 2026-09-02: "광고 없는"에서 바꿨다.
+            "광고를 안 받는다"는 수익 모델이 생기는 순간 거짓이 되지만,
+            "광고비로 순서가 바뀌지 않는다"는 제휴 링크를 붙여도 참이다 —
+            추천 알고리즘이 수수료를 입력으로 쓰지 않기 때문이다.
+            지킬 수 있는 약속만 1면에 건다. */}
+        <p className="text-sm font-medium text-emerald-600 mb-4">광고비로 순서가 바뀌지 않는 데이터 기반 러닝화 추천</p>
         <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-5">
           내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>

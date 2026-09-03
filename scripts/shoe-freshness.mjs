@@ -140,8 +140,28 @@ if (AS_JSON) {
 
   console.log(C.bold("\n─────────────────────────────"));
   console.log(`총 ${rows.length}종 · ${C.yellow(`확인 필요 ${needCheck.length}`)} · ${C.red(`기한 초과 ${stale.length}`)}`);
-  console.log(C.dim("\n확인을 마쳤으면 lib/shoes/verified.json 에 오늘 날짜를 적으세요."));
-  console.log(C.dim('  { "asics-gel-kayano-32": "2026-09-02", ... }\n'));
+
+  // 다 통과했는데 "확인을 마쳤으면 날짜를 적으세요"가 뜨면 안 된다.
+  // 할 일이 없는데 할 일 안내가 나오면 출력 전체를 대충 보게 된다 —
+  // 그게 9/2에 꼬리만 보고 "통과"라고 오판한 것과 같은 종류의 실패다.
+  if (needCheck.length) {
+    console.log(C.dim("\n확인을 마쳤으면 lib/shoes/verified.json 에 오늘 날짜를 적으세요."));
+    console.log(C.dim(`  { "asics-gel-kayano-32": "${new Date().toISOString().slice(0, 10)}", ... }`));
+  }
+
+  // 2026-09-03: 만료가 한 날짜에 몰려 있으면 그날 52종이 한꺼번에 빨간불이 된다.
+  // 지금 41종이 2026-08-28로 같아 2026-11-26에 절벽이 온다.
+  // **날짜를 흩뿌려서 피하지는 않는다** — 확인하지 않은 날을 적는 것이기 때문이다.
+  // 대신 절벽이 온다는 사실을 미리 알린다. 큐는 이미 우선순위대로 나오므로
+  // 그날은 벽이 아니라 작업 목록이 된다.
+  const byDate = new Map();
+  for (const r of rows) if (r.lastVerified) byDate.set(r.lastVerified, (byDate.get(r.lastVerified) ?? 0) + 1);
+  const [cliffDate, cliffCount] = [...byDate.entries()].sort((a, b) => b[1] - a[1])[0] ?? [];
+  if (cliffCount && cliffCount >= rows.length * 0.3) {
+    const due = new Date(new Date(cliffDate).getTime() + CHECK_DAYS * 86_400_000).toISOString().slice(0, 10);
+    console.log(C.dim(`\n참고: ${cliffDate}에 확인한 ${cliffCount}종이 ${due}에 한꺼번에 만료됩니다.`));
+  }
+  console.log();
 }
 
 // 원장이 없으면 뼈대를 만들어준다 (값은 비워둔다 — 확인하지 않은 것을 확인했다고 적지 않는다)

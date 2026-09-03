@@ -61,6 +61,11 @@ const ID_PATTERNS = [
   { kind: "doi",    re: /tandfonline\.com\/doi\/(?:full\/|abs\/)?(10\.\d{4,}\/[^\s"'<>]+)/i },
   { kind: "doi",    re: /link\.springer\.com\/article\/(10\.\d{4,}\/[^\s"'<>]+)/i },
   { kind: "doi",    re: /onlinelibrary\.wiley\.com\/doi\/(10\.\d{4,}\/[^\s"'<>]+)/i },
+  // 2026-09-03: 링크가 아니라 **평문으로 적힌 식별자**도 잡는다.
+  // 블로그 원고는 네이버 본문용이라 `(PMID 24923269)`처럼 맨 숫자로 적힌다.
+  // URL 패턴만 보면 원고의 인용이 통째로 검사망 밖에 남는다 — 실제로 그랬다.
+  { kind: "pmid",   re: /\bPMID[:\s]+(\d{6,9})\b/i },
+  { kind: "pmc",    re: /\b(PMC\d{6,9})\b/ },
 ];
 
 /**
@@ -106,6 +111,14 @@ const NOT_SURNAMES = new Set([
   // --dry 첫 실행에서 실제로 성으로 오인됐던 것들
   "Revision", "Overstriding", "Heel", "Pain", "Biomechanical", "StatPearls",
   "Achilles", "Stiffness", "Muscle", "Power", "Deficits", "Midportion",
+  // 2026-09-02: 학술지명 약어 토큰.
+  // shoe-life 페이지가 `Cornwall MW, McPoil TG. <em>제목</em> Int J Sports Phys Ther. 2017`
+  // 형태로 쓰여 있었다. 요소 경계(<)를 넘지 못하니 저자-연도 연결이 끊겨,
+  // **연도 바로 앞 토큰인 "Int"가 제1저자로 잡혔다.**
+  // 이번엔 실제 저자가 Cornwall이라 불일치로 걸렸지만, 학술지 약어가 우연히
+  // 실제 제1저자의 성과 겹치면 **틀린 인용이 조용히 통과한다.** 그쪽이 더 위험하다.
+  "Int", "Am", "Br", "Eur", "Scand", "Phys", "Ther", "Physiol", "Orthop",
+  "Rehabil", "Nutr", "Res", "Appl", "Biomech", "Sportsmed", "Strength", "Cond",
 ]);
 
 /**
@@ -126,7 +139,22 @@ const BOUNDARY_RE = /<li\b|<\/li>|<p\b|<\/p>|<\/strong>\s*<\/li>|\n\s*\n/gi;
  *   ② 이름이 링크 안  — `<li><a href="…">Hamstra-Wright et al. (2015) BJSM — …</a></li>`
  * 뒤로만 훑으면 ②가 전부 미검출로 빠진다(15건이 그랬다). 요소 전체를 본다.
  */
-function elementSpan(text, linkIndex) {
+function elementSpan(text, linkIndex, isMarkdown = false) {
+  // 2026-09-03: 마크다운은 **줄 하나가 곧 요소**다.
+  //
+  // 블로그 원고를 검사 범위에 넣자마자 이 버그가 드러났다.
+  // 참고문헌이 `- Xu Y et al. (2021) … (PMID 32813597)` 같은 불릿 목록인데,
+  // BOUNDARY_RE는 `<li>`·`<p>`만 경계로 보므로 **불릿을 넘어 다음 줄 저자명을 가져왔다.**
+  // 실제로 PMID 32813597(Xu 2021)이 바로 아래 줄의 "Almeida 2015"와 짝지어졌다.
+  //
+  // 이건 이 스크립트가 첫 실행에서 겪었던 것과 **같은 버그의 마크다운 판본**이다
+  // (그때는 앞 <li>의 저자명을 가져왔다). 형식이 바뀌면 경계도 다시 정의해야 한다.
+  if (isMarkdown) {
+    const start = text.lastIndexOf("\n", linkIndex) + 1;
+    const nl = text.indexOf("\n", linkIndex);
+    return { start, end: nl === -1 ? text.length : nl };
+  }
+
   let start = Math.max(0, linkIndex - CONTEXT_CHARS);
   const pre = text.slice(start, linkIndex);
   let lastBoundary = -1;
@@ -139,8 +167,8 @@ function elementSpan(text, linkIndex) {
   return { start, end };
 }
 
-function extractClaim(text, linkIndex) {
-  const { start, end } = elementSpan(text, linkIndex);
+function extractClaim(text, linkIndex, isMarkdown = false) {
+  const { start, end } = elementSpan(text, linkIndex, isMarkdown);
   const window = text.slice(start, end);
   const linkOffset = linkIndex - start;
 
@@ -169,15 +197,85 @@ async function* walk(dir) {
   }
 }
 
+/**
+ * 저장소 루트의 블로그 원고도 스캔 대상이다. (2026-09-03 추가)
+ *
+ * 이걸 안 보다가 실제로 이런 일이 있었다 — 사이트의 인용 26건을 정정하는 동안
+ * **네이버 블로그 원고 9편은 한 번도 검사받지 않았고**, 그 사이 원고가 사이트와
+ * 정반대를 말하는 상태로 남아 있었다. 네이버 유입이 76%이고 검색에서 블로그가
+ * 사이트보다 먼저 도달하므로, **검사받지 않는 쪽이 더 많이 읽히고 있었다.**
+ *
+ * AGENTS.md §3 — "새 종류의 출처를 추가하면 검사기 범위부터 늘려라."
+ * 원고에 PMID를 달기 시작했으면 원고도 검사 범위다.
+ *
+ * 주의: 원고는 `.gitignore`에 걸려 있어 저장소에 없을 수 있다. 없으면 조용히 건너뛴다.
+ */
+async function* walkBlogDrafts() {
+  let entries;
+  try {
+    entries = await readdir(ROOT, { withFileTypes: true });
+  } catch { return; }
+  for (const e of entries) {
+    if (e.isFile() && /^네이버블로그_.*\.md$/.test(e.name)) yield path.join(ROOT, e.name);
+  }
+}
+
+/**
+ * 주석 내용을 공백으로 덮는다 (오프셋은 보존 → 줄번호가 그대로 맞는다).
+ *
+ * 왜 필요한가 (2026-09-03)
+ * ───────────────────────
+ * 평문 PMID 탐지를 추가하자마자 **정정 기록을 오탐으로 잡았다.**
+ * `beginner-guide/page.tsx:150`에는 이런 주석이 있다 —
+ *   "링크가 PMID 21302337로 걸려 있었는데 그건 비선형 광학 논문이다. 올바른 PMID는 21373870."
+ * 즉 **틀렸다고 기록해둔 PMID**인데 검사기가 실제 인용으로 읽고 불일치를 냈다.
+ *
+ * 이대로 두면 **정직하게 기록할수록 검사기가 시끄러워진다.** 노이즈가 쌓이면
+ * 검사기 전체를 무시하게 되고, 그건 이 저장소가 이미 겪은 실패다.
+ *
+ * ⚠️ 문자열 안의 `//`를 주석으로 오인하면 안 된다 — `"https://pubmed..."`가 통째로 날아간다.
+ *    그래서 따옴표·백틱 상태를 추적하는 작은 스캐너로 처리한다.
+ */
+function maskComments(src) {
+  const out = src.split("");
+  let i = 0;
+  const N = src.length;
+  let state = "code"; // code | sq | dq | bt | line | block
+  while (i < N) {
+    const c = src[i], d = src[i + 1];
+    if (state === "code") {
+      if (c === "/" && d === "/") { state = "line"; out[i] = out[i + 1] = " "; i += 2; continue; }
+      if (c === "/" && d === "*") { state = "block"; out[i] = out[i + 1] = " "; i += 2; continue; }
+      if (c === "'") state = "sq";
+      else if (c === '"') state = "dq";
+      else if (c === "`") state = "bt";
+    } else if (state === "sq" || state === "dq" || state === "bt") {
+      if (c === "\\") { i += 2; continue; }
+      if ((state === "sq" && c === "'") || (state === "dq" && c === '"') || (state === "bt" && c === "`")) state = "code";
+    } else if (state === "line") {
+      if (c === "\n") state = "code";
+      else out[i] = " ";
+    } else if (state === "block") {
+      if (c === "*" && d === "/") { out[i] = out[i + 1] = " "; state = "code"; i += 2; continue; }
+      if (c !== "\n") out[i] = " ";
+    }
+    i++;
+  }
+  return out.join("");
+}
+
 async function collectCitations() {
   const out = [];
-  for (const dir of SCAN_DIRS) {
+  for (const dir of [...SCAN_DIRS, "__blog__"]) {
     let entries;
     try {
-      entries = walk(path.join(ROOT, dir));
+      entries = dir === "__blog__" ? walkBlogDrafts() : walk(path.join(ROOT, dir));
     } catch { continue; }
     for await (const file of entries) {
-      const text = await readFile(file, "utf8");
+      const raw = await readFile(file, "utf8");
+      // 마크다운에는 JS 주석이 없다. 코드 파일만 주석을 덮는다.
+      // 오프셋이 보존되므로 아래 줄번호 역산은 그대로 유효하다.
+      const text = file.endsWith(".md") ? raw : maskComments(raw);
       const lines = text.split("\n");
       // 줄 시작 오프셋 미리 계산 (line 번호 역산용)
       const offsets = [];
@@ -185,9 +283,25 @@ async function collectCitations() {
       for (const l of lines) { offsets.push(acc); acc += l.length + 1; }
 
       const seen = new Set();
+      // 2026-09-03: **이미 잡힌 구간과 겹치면 건너뛴다.**
+      //
+      // 평문 식별자 패턴을 추가하면서 생긴 문제다.
+      // `pmc.ncbi.nlm.nih.gov/articles/PMC9878810`은 URL 패턴이 한 번 잡고,
+      // 평문 패턴 `\b(PMC\d{6,9})\b`가 **같은 자리를 또 잡는다.**
+      // 그러면 같은 인용이 2건으로 계상되고 총계가 부풀려진다(실제로 44 vs 42).
+      //
+      // ID_PATTERNS는 URL 패턴이 앞, 평문 패턴이 뒤에 있으므로
+      // 앞에서 잡은 구간을 기록해두고 뒤에서 겹치는 것을 버리면 된다.
+      // **URL 표기가 평문 표기를 이긴다** — 더 구체적인 쪽이 맞다.
+      const claimed = [];
+      const overlaps = (s, e) => claimed.some(([a, b]) => s < b && e > a);
+
       for (const { kind, re } of ID_PATTERNS) {
         const g = new RegExp(re.source, "gi");
         for (const m of text.matchAll(g)) {
+          if (overlaps(m.index, m.index + m[0].length)) continue;
+          claimed.push([m.index, m.index + m[0].length]);
+
           const id = kind === "doi" ? m[1].replace(/[.,;)]+$/, "") : m[1].toUpperCase();
           const key = `${kind}:${id}:${m.index}`;
           if (seen.has(key)) continue;
@@ -204,7 +318,7 @@ async function collectCitations() {
             line,
             kind,
             id,
-            claim: extractClaim(text, m.index),
+            claim: extractClaim(text, m.index, file.endsWith(".md")),
           });
         }
       }
@@ -469,8 +583,20 @@ for (const c of citations) {
   }
   await sleep(NCBI_DELAY_MS);
 
+  // 2026-09-02: **"인용이 틀렸다"와 "조회를 못 했다"를 갈라 표시한다.**
+  //
+  // 오늘 35건이 전부 `fetch failed`로 떴다. NCBI에 닿지 못한 것뿐인데 화면에는
+  // 인용 오류 35건과 똑같이 보였다. 그리고 나는 꼬리 4줄만 보고 "통과"라고 보고했다.
+  // 두 실패는 성격이 다르다 —
+  //   불일치  = 페이지를 고쳐야 한다
+  //   조회실패 = 페이지는 멀쩡할 수도 있고, **아무것도 검증되지 않았다**는 뜻이다
+  // 후자를 전자처럼 보여주면 "고칠 게 35개"로 착각하거나, 더 나쁘게는
+  // "어차피 네트워크 문제겠지" 하고 진짜 불일치까지 무시하게 된다.
+  //
+  // 둘 다 exit 1이다(fail closed). 검증 못 한 것을 통과로 처리하지는 않는다.
+  const NET_RE = /fetch failed|ENOTFOUND|ETIMEDOUT|ECONNRESET|socket hang up|EAI_AGAIN|403|429|502|503|504/i;
   const issues = error
-    ? [{ level: "error", msg: `조회 실패: ${error}` }]
+    ? [{ level: "error", kind: NET_RE.test(error) ? "unreachable" : "lookup", msg: `조회 실패: ${error}` }]
     : judge(c.claim, actual);
 
   if (WANT_ABSTRACTS && actual) {
@@ -539,9 +665,24 @@ if (AS_JSON) {
       console.log(`      ${b.msg}`);
     }
   }
+  // 네트워크 때문에 못 본 것과 실제로 틀린 것을 갈라서 센다.
+  const unreachable = rows.filter((r) => r.issues.some((i) => i.kind === "unreachable"));
+  const mismatched = errors.filter((r) => !r.issues.some((i) => i.kind === "unreachable"));
+
   console.log(C.bold("\n─────────────────────────────"));
-  console.log(`검사 ${rows.length}건 · ${C.red(`오류 ${errors.length}`)} · ${C.yellow(`경고 ${warns.length}`)} · ${C.green(`정상 ${rows.length - errors.length - warns.length}`)}${notes ? C.dim(` · 참고 ${notes}`) : ""}`);
+  console.log(`검사 ${rows.length}건 · ${C.red(`불일치 ${mismatched.length}`)} · ${C.yellow(`경고 ${warns.length}`)} · ${C.green(`정상 ${rows.length - errors.length - warns.length}`)}${notes ? C.dim(` · 참고 ${notes}`) : ""}`);
   if (dups.length) console.log(`${C.red(`중복 계상 ${dups.length}건`)}`);
+
+  if (unreachable.length) {
+    console.log("");
+    console.log(C.red(`⚠  ${unreachable.length}건은 조회 자체를 못 했다 — 검증된 게 아니다.`));
+    console.log(C.dim("   NCBI에 닿지 못했다. 인용이 맞는지 틀린지 **알 수 없는** 상태다."));
+    console.log(C.dim("   네트워크가 되는 곳에서 다시 돌린 뒤에 커밋할 것."));
+    if (unreachable.length === rows.length) {
+      console.log(C.red("   전부 실패했다 = 이번 실행으로 확인된 것은 하나도 없다."));
+    }
+  }
+
   console.log(C.dim("\n주의: 이 도구는 서지정보만 본다. 논문의 결론을 반대로 서술한 경우는"));
   console.log(C.dim("      잡지 못한다. --abstracts 로 초록을 띄워 사람이 대조할 것.\n"));
 }

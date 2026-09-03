@@ -20,9 +20,29 @@ import type { Shoe } from "./types";
  *   Jolt 4 → 5 (아식스 공식 제품 페이지 존재)
  *   SuperComp Elite v4 → v5 (**2025-08-07 출시** — 1년 넘게 구형인 걸 모르고 있었다)
  *
- * 아직 확인 못 한 것 7종: InfinityRN 4, Revolution 7, Adrenaline GTS 25,
+ * 아직 확인 못 한 것 8개 SKU: InfinityRN 4, Revolution 7, Adrenaline GTS 25(남·여),
  *   Cloudrunner 3, 520 v9, KIPRUN KS500 2, Vaporfly 4.
  *   Adrenaline GTS 26은 "2026 Q3 예정"까지만 확인돼 채우지 않았다 — 예정은 출시가 아니다.
+ *
+ * 2026-09-03: **미확인 8개를 브랜드 공식 도메인으로 전수 확인했다. 남은 미확인 0.**
+ *   Revolution 7 → **Revolution 8 (출시 확정)** — nike.com에 정식 제품 페이지·SKU·리뷰·파생 모델
+ *   나머지 7개는 후속작이 확인되지 않아 비워둔다. 다만 성격이 둘로 갈린다 —
+ *     ① **현행 확정** (공식 사이트에 후속 세대가 없음을 확인):
+ *        Vaporfly 4, Cloudrunner 3, InfinityRN 4, KIPRUN KS500 2
+ *     ② **판단 보류** (후속 존재 여부를 확정하지 못함):
+ *        Adrenaline GTS 25(남·여) — GTS 26이 "2026 Q3 예정"까지만. 예정은 출시가 아니다
+ *        520 v9 — newbalance.com에 520v10이 없고, 520이 라이프스타일 라인으로 표기돼 있다
+ *   ①과 ②는 `successor`가 똑같이 비어 있지만 뜻이 다르다. 원장에는 날짜만 남으므로
+ *   구분이 필요하면 이 주석을 볼 것. 그리고 검색으로 확인할 때 **URL을 추측하지 마라** —
+ *   오늘 brooksrunning.com URL을 짐작해서 넣었더니 **Beast GTS 26**이라는 다른 신발로
+ *   리다이렉트됐다. 그럴듯한 페이지가 떠서 대충 봤으면 "GTS 26 출시됨"으로 적을 뻔했다.
+ *
+ * 2026-09-02: **이 주석에 "7종"이라고 적혀 있었는데 실제로는 8개였다.**
+ *   Adrenaline GTS 25 여성 버전을 세지 않았다. 모델 단위로 세고 SKU 단위로 관리하니
+ *   생긴 어긋남이다. 사람이 주석으로 개수를 관리하면 이렇게 된다 —
+ *   그래서 `npm run check:shoes`(scripts/shoe-freshness.mjs)를 만들었다.
+ *   확인 날짜는 이제 **lib/shoes/verified.json**이 원장이고, 이 주석은 경위 기록이다.
+ *   개수를 알고 싶으면 주석을 읽지 말고 검사기를 돌릴 것.
  *
  * 후속작이 나왔다고 그 신발이 나빠지는 건 아니고 오히려 재고 할인이 붙는다.
  * 그래서 최신작으로 갈아엎지 않고 `successor`만 채운다. 판단은 사용자가 한다.
@@ -1790,6 +1810,11 @@ export const SHOES: Shoe[] = [
     id: "nike-revolution-7",
     brand: "Nike",
     model: "Revolution 7",
+    // 2026-09-03 확인: nike.com에 Revolution 8 정식 제품 페이지가 있다.
+    // SKU HQ1996-004(와이드)·HQ1996-100(엑스트라와이드)·IR0233-001(Realtree),
+    // 리뷰 페이지와 EasyOn 파생까지 존재 → **출시 확정.**
+    // 8/31에는 "2026 Q3 예정"까지만 확인돼 비워뒀던 자리다. 이번에 채운다.
+    successor: "Revolution 8",
     imageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/4f37fca8-6bce-43e7-ad07-f57ae3c13142/revolution-7-road-running-shoes-sWMq63.png",
     colorways: ["블랙/화이트", "그레이"],
     widthOptions: ["D"],
