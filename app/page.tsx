@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import HomeCommunitySection from "@/components/HomeCommunitySection";
+import HeroBackdrop from "@/components/HeroBackdrop";
 
 // 사전 렌더링된 인기 비교 페어 (app/compare/[slug] generateStaticParams와 일치)
 const POPULAR_COMPARES = [
@@ -21,8 +22,14 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       <SiteHeader />
 
-      {/* Hero */}
-      <section className="max-w-3xl mx-auto px-6 py-20 text-center">
+      {/* Hero
+          2026-09-03: 배경이 비어 보인다는 지적으로 HeroBackdrop을 넣었다.
+          바깥에 relative + overflow-hidden을 두어 배경을 화면 전체 폭으로 깔고,
+          안쪽 콘텐츠는 기존대로 max-w-3xl 가운데 정렬을 유지한다.
+          콘텐츠에 relative를 줘야 배경(absolute) 위로 올라온다. */}
+      <div className="relative overflow-hidden">
+        <HeroBackdrop />
+        <section className="relative max-w-3xl mx-auto px-6 py-20 text-center">
         {/* 2026-09-03: "광고비로 순서가 바뀌지 않는 데이터 기반 러닝화 추천"에서 바꿨다.
             그 문장에는 문제가 셋 있었다.
 
@@ -58,8 +65,10 @@ export default function Home() {
             남아 있고, 거기는 **설명하는 자리**라 제자리다.
             대신 포기하는 것: 첫 화면만 보고 이탈하는 사람은 이 주장을 못 본다.
             네이버 유입 76%에 평균 참여 19~48초라 그 비중이 작지 않다. */}
-        <p className="mt-4 text-xs text-gray-400">가입 없이 무료</p>
-      </section>
+        {/* 배경 산책로 띠와 겹치는 자리라 gray-400은 안 읽혔다. 한 단계 진하게. */}
+        <p className="mt-4 text-xs font-medium text-gray-500">가입 없이 무료</p>
+        </section>
+      </div>
 
       {/* How it works */}
       <section className="max-w-3xl mx-auto px-6 pb-16">
