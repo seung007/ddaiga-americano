@@ -24,8 +24,12 @@
  * "마포대교까지 3.2km" 같은 숫자는 실측이 필요한데 나는 실측할 수 없다.
  *
  * 노면(우레탄·아스팔트 구간 위치)도 **공식 자료에 없어서 적지 않았다.**
- * 한강공원 산책로가 포장로라는 것과 강변 둔치라 평탄하다는 것까지가 확인된 사실이고,
- * 그 두 가지만으로도 신발 선택 근거는 충분하다.
+ * 한강공원 산책로가 포장로라는 것과 강변 둔치라 평탄하다는 것까지가 확인된 사실이다.
+ *
+ * **신발은 여기 없다.** 초안에는 코스마다 `shoeIds`가 있었는데 뺐다.
+ * 네 곳 다 포장로·평탄이라 코스가 바꾸는 건 '한 번에 얼마나 오래 달리는가' 하나뿐이고,
+ * 그건 코스 데이터가 아니라 `lengthKm`에서 바로 나온다. 코스마다 모델을 박아 두면
+ * 코스 글이 신발 글이 되고, 신발이 단종되면 코스 데이터까지 낡는다.
  *
  * ⚠️ 지도를 베끼지 않았다. 카카오맵·네이버지도 화면을 따라 그리면 2차적 저작물
  * 소지가 있다. 아래 `bridges`는 **다리 이름과 상류→하류 순서**라는 사실만 담고,
@@ -51,10 +55,6 @@ export interface HangangCourse {
   facts: string[];
   /** 이 코스를 어떤 러너에게 권하는가 — 거리와 포장 상태에서만 도출한다 */
   fit: string;
-  /** 신발 2개 (lib/shoes/data.ts 의 id) */
-  shoeIds: [string, string];
-  /** 왜 이 두 켤레인가 — 코스의 거리·노면에서만 도출한 이유 */
-  shoeReason: string;
   source: { label: string; url: string; checkedAt: string };
 }
 
@@ -77,9 +77,6 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "잠실종합운동장·롯데월드·올림픽공원이 인접해 있다",
     ],
     fit: "가장 짧아서 첫 5K를 끊기 좋습니다. 끝까지 갔다가 돌아와도 10km가 안 되고, 중간에 그만두기로 해도 돌아오는 길이 짧습니다.",
-    shoeIds: ["decathlon-kiprun-ks500-2", "on-cloudrunner-3"],
-    shoeReason:
-      "5km 안팎에서는 최대 쿠션까지 필요하지 않습니다. 첫 러닝화라면 가격 부담이 적은 쪽부터 시작해도 충분합니다.",
     source: {
       label: "서울시 미래한강본부 — 잠실 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/651.do?mid=444",
@@ -106,9 +103,6 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "달빛무지개분수 — 총길이 1,140m, 세계 최장 교량분수로 기네스 등재",
     ],
     fit: "자전거도로와 산책로가 나뉘어 있다고 서울시가 명시한 구간입니다. 아직 옆을 살피며 뛰는 게 익숙지 않다면 여기가 편합니다.",
-    shoeIds: ["nike-pegasus-42", "mizuno-wave-sky-9"],
-    shoeReason:
-      "편도 7.2km면 데일리 트레이너 영역입니다. 포장로 위를 한 번에 40분 넘게 달리게 되므로, 쿠션이 얇은 신발은 뒤쪽에서 부담이 옵니다.",
     source: {
       label: "서울시 미래한강본부 — 반포 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/663.do?mid=463",
@@ -135,9 +129,6 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "지하철·버스 접근성이 좋아 직장인이 즐겨 찾는다고 공식 소개에 적혀 있다",
     ],
     fit: "평탄하고 길어서 10K·하프 준비에 맞습니다. 여의나루역에서 1분이면 도착하니 퇴근 후에 붙이기도 쉽습니다.",
-    shoeIds: ["nb-1080-v15", "saucony-endorphin-speed-5"],
-    shoeReason:
-      "거리를 쌓는 날과 페이스를 올리는 날이 섞이는 코스입니다. 두 켤레의 역할이 다릅니다 — 앞은 쿠션을 두껍게 깔아 주고, 뒤는 가벼워서 속도를 낼 때 편합니다.",
     source: {
       label: "서울시 미래한강본부 — 여의도 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/669.do?mid=473",
@@ -162,9 +153,6 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "체력단련장·X게임장·인공암벽장 등 운동시설이 있다",
     ],
     fit: "한 번에 가장 길게 이어 달릴 수 있습니다. 돌아 나올 지점을 미리 정하지 않아도 계속 갈 수 있어서 LSD(느린 장거리)에 맞습니다.",
-    shoeIds: ["hoka-bondi-9", "adidas-ultraboost-25"],
-    shoeReason:
-      "10km 이상을 딱딱한 포장 위에서 달리면 착지 충격이 누적됩니다. 이 코스만큼은 쿠션을 최대로 두는 쪽이 무게 손해보다 이득이 큽니다.",
     source: {
       label: "서울시 미래한강본부 — 뚝섬 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/654.do?mid=449",

@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import CourseFigure from "@/components/CourseFigure";
 import FinderCta from "@/components/FinderCta";
 import InlineAsk from "@/components/InlineAsk";
 import ShareButtons from "@/components/ShareButtons";
 import { HANGANG_COURSES } from "@/lib/courses";
-import { SHOES } from "@/lib/shoes/data";
 
 export const metadata: Metadata = {
-  title: "한강 러닝 코스 4곳 — 거리·가는 길·신발까지 | 뛰다가 아메리카노",
+  title: "한강 러닝 코스 4곳 — 여의도·반포·뚝섬·잠실 거리와 가는 길 | 뛰다가 아메리카노",
   description:
-    "여의도·반포·뚝섬·잠실 한강공원의 공식 길이와 가는 길을 서울시 자료로 정리하고, 코스 길이에 맞는 러닝화를 붙였습니다. 블로그에서 옮겨 적은 거리가 아니라 서울시 고시 수치입니다.",
+    "여의도 8.4km, 반포 7.2km, 뚝섬 11.5km, 잠실 4.8km. 서울시 미래한강본부가 고시한 공식 길이와 지하철 안내를 출처와 함께 정리했습니다. 블로그에서 옮겨 적은 거리가 아닙니다.",
 };
 
 /**
@@ -24,11 +22,7 @@ export const metadata: Metadata = {
  * 같은 이유로 여기에 입구를 하나 더 낸다. 다만 **지도 싸움은 이길 수 없다** —
  * 카카오맵과 러닝 앱들이 이미 그 자리에 있다.
  *
- * 우리가 유일하게 쓸 수 있는 각도는 **"러닝화 데이터를 가진 쪽이 쓰는 코스 글"**이다.
- * 실제로 러닝 앱의 코스 페이지를 열어 보니 제목에 "노면"이라고 적어놓고 본문에는
- * 노면 이야기가 없었다. 코스와 신발을 잇는 자리는 비어 있다.
- *
- * 두 번째 각도는 **정확성**이다. 러닝 앱·블로그들이 서울시 공원 길이를 "코스 거리"로
+ * 우리가 쓸 수 있는 각도는 **정확성**이다. 러닝 앱·블로그들이 서울시 공원 길이를 "코스 거리"로
  * 옮겨 적고 있고, 어떤 곳은 잠실을 7.0km로 적었는데 **공식 공원 길이는 4.8km**다.
  * 우리는 공식 수치만 쓰고 출처를 건다. 이건 이 사이트가 논문에 하는 것과 같은 일이다.
  *
@@ -38,11 +32,13 @@ export const metadata: Metadata = {
  *   실측할 수 없다. 공식 길이(편도)와 그 2배(왕복)까지만 적는다.
  * · **노면 종류를 지어내지 않는다.** 우레탄 구간 위치는 공식 자료에 없다.
  *   포장로이고 평탄하다는 것까지가 확인된 사실이고, 신발 근거로는 그걸로 충분하다.
- * · **코스로 안정화를 추천하지 않는다.** 안정성·발볼은 코스가 아니라 발이 정한다.
- *   코스에서 도출할 수 있는 건 거리에 따른 쿠션량까지다. 그 이상은 finder로 보낸다.
+ * · **코스마다 신발을 붙이지 않는다.** 초안에서는 코스 4개에 각각 신발 카드를
+ *   크게 달았는데, 그러면 코스 글이 아니라 신발 글이 된다. 코스를 보러 온 사람에게
+ *   매 코스마다 상품을 들이미는 셈이라 페이지 성격이 바뀐다.
+ *   지금은 코스를 먼저 온전히 보여주고, 신발은 **맨 아래 한 번, 표 하나로** 놓는다.
+ *   그마저도 특정 모델을 찍지 않는다 — 코스에서 도출되는 건 거리에 따른 쿠션량까지고,
+ *   안정성·발볼·체중은 코스가 아니라 발이 정한다. 모델 선택은 finder의 몫이다.
  */
-
-const SHOE_BY_ID = new Map(SHOES.map((s) => [s.id, s]));
 
 export default function CoursesPage() {
   return (
@@ -106,7 +102,6 @@ export default function CoursesPage() {
 
       {/* ── 코스별 ── */}
       {HANGANG_COURSES.map((c) => {
-        const shoes = c.shoeIds.map((id) => SHOE_BY_ID.get(id)).filter(Boolean);
         return (
           <section key={c.slug} id={c.slug} className="mb-14 scroll-mt-20">
             <h2 className="mb-1 text-2xl font-bold text-gray-900">{c.name}</h2>
@@ -149,61 +144,6 @@ export default function CoursesPage() {
               </div>
             </div>
 
-            {/* ── 신발 2개 ── */}
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
-              <h3 className="mb-1 text-sm font-semibold text-emerald-900">
-                이 코스 길이에 맞는 러닝화
-              </h3>
-              <p className="mb-4 text-sm leading-relaxed text-emerald-800">{c.shoeReason}</p>
-
-              <div className="grid gap-3 sm:grid-cols-2">
-                {shoes.map((s) => (
-                  <div key={s!.id} className="rounded-xl border border-emerald-100 bg-white p-4">
-                    <div className="mb-3 flex items-center gap-3">
-                      <Image
-                        src={s!.imageUrl}
-                        alt={`${s!.brand} ${s!.model}`}
-                        width={64}
-                        height={64}
-                        className="h-16 w-16 shrink-0 object-contain"
-                        unoptimized
-                      />
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-gray-900">
-                          {s!.brand} {s!.model}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          쿠셔닝 {s!.cushioning}/5 · {s!.weightGramsM9}g ·{" "}
-                          {s!.priceKrw.toLocaleString()}원
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {s!.buyLinks.slice(0, 2).map((l) => (
-                        <a
-                          key={l.url}
-                          href={l.url}
-                          target="_blank"
-                          rel="noopener noreferrer nofollow sponsored"
-                          className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-700"
-                        >
-                          {l.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-4 text-xs leading-relaxed text-emerald-900/70">
-                코스로 고를 수 있는 건 <strong>거리에 따른 쿠션량</strong>까지입니다.
-                발볼·평발 여부·체중은 코스가 아니라 발이 정합니다 —{" "}
-                <Link href="/shoe-finder" className="underline hover:text-emerald-900">
-                  내 체형으로 다시 고르기
-                </Link>
-              </p>
-            </div>
-
             <p className="mt-3 text-xs text-gray-400">
               출처{" "}
               <a
@@ -219,6 +159,54 @@ export default function CoursesPage() {
           </section>
         );
       })}
+
+      {/* ── 신발은 여기 한 번만, 부수적으로 ──────────────────────────
+          처음에는 코스마다 신발 카드를 큼직하게 붙였다가 뺐다.
+          코스를 보러 온 사람에게 매 코스마다 신발을 들이미는 건
+          **코스 글이 아니라 신발 글**이 된다. 코스는 코스대로 읽히게 두고,
+          신발은 다 읽은 뒤 한 번만 놓는다. 그게 이 페이지의 성격에 맞다. */}
+      <section className="mb-10 rounded-2xl border border-gray-200 p-5">
+        <h2 className="mb-1 text-lg font-bold text-gray-900">
+          참고 — 거리에 따라 달라지는 것은 쿠션량뿐입니다
+        </h2>
+        <p className="mb-4 text-sm leading-relaxed text-gray-600">
+          한강은 네 곳 다 포장로이고 평탄합니다. 그러니 코스가 바꾸는 조건은{" "}
+          <strong className="text-gray-900">한 번에 얼마나 오래 달리느냐</strong> 하나뿐이에요.
+          발볼·평발 여부·체중은 코스가 아니라 발이 정합니다.
+        </p>
+
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-gray-200 text-left text-gray-500">
+                <th className="py-2 pr-3 font-medium">한 번에 달리는 거리</th>
+                <th className="py-2 font-medium">쿠션 기준</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              <tr className="border-b border-gray-100">
+                <td className="py-2 pr-3">5km 안팎 (잠실 정도)</td>
+                <td className="py-2">최대 쿠션까지는 필요 없습니다. 가벼운 쪽이 편합니다</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="py-2 pr-3">7~9km (반포·여의도)</td>
+                <td className="py-2">40분 이상 포장로에 착지합니다. 데일리 트레이너 영역</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-3">10km 이상 (뚝섬)</td>
+                <td className="py-2">충격이 누적됩니다. 쿠션을 두껍게 두는 편이 무게 손해보다 낫습니다</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-4 text-sm leading-relaxed text-gray-600">
+          구체적인 모델은 체형까지 봐야 정해집니다.{" "}
+          <Link href="/shoe-finder" className="font-medium text-emerald-700 hover:underline">
+            키·체중·발볼로 3개 골라 보기 →
+          </Link>
+        </p>
+      </section>
 
       {/* ── 도구 연결 ── */}
       <section className="mb-10 rounded-2xl border border-gray-200 p-5">
