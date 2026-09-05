@@ -41,6 +41,8 @@ npm run check:youtube         # 영상: 살아 있는지, 채널명이 실제 �
 npm run check:youtube:todo    # 아직 검색 URL로 남은 자리 (오프라인)
 npm run check:shoes           # 신발: 어느 모델을 언제 확인했는지 (원장 lib/shoes/verified.json)
 npm run check:figures         # 동작 그림: 관절 각도를 계산해 발이 바닥을 뚫는지
+npm run check:links           # 구매 링크 406개: 상태코드
+npm run check:links:plan      # 확인할 쇼핑몰 큐 (오프라인)
 ```
 
 **출처를 하나라도 건드렸으면 커밋 전에 돌린다.** 셋 다 불일치·기한초과 시 exit 1이다.
@@ -103,9 +105,28 @@ SKU 단위로 관리하면 반드시 어긋난다. 세는 일은 검사기에 �
 
 넓힌 보람은 있었다. `it-band:141`의 `PMC11377285`는 평문이라 그동안 검사망 밖이었다.
 
+**2026-09-06: 위험을 좁히다가 더 흔한 위험을 놓쳤다.** `check:links`를 만들면서
+위험 큐를 "단종 × 검색형 × 세대번호"로 좁혔다. 102개까지 줄어 잘 좁힌 줄 알았는데,
+쇼핑몰을 하나씩 눌러보니 **그 세 조건 중 어느 것에도 안 걸리는 17개가 이미 죽어 있었다.**
+
+- `fleetrunner.co.kr/search?keyword=` → 404. 실제 경로는 `/goods/goods_search.php?keyword=`
+- `29cm.co.kr/search?keyword=` → 삭제된 페이지. 실제는 `/store/search?keyword=`
+- `www.mizuno.com/ko-kr/search?q=` → 일본 기업사이트로 리다이렉트. 한국몰은 `kor.mizuno.com`
+
+**경로가 틀린 링크는 단종보다 흔하고 더 치명적이다.** 단종은 다른 모델이라도 보여주지만
+경로 오류는 아무것도 안 보여준다. 그런데 내 가설은 "단종"에만 걸려 있었다.
+지금은 `check-links.mjs`의 `VERIFIED` 대장에 **사람이 눌러본 URL 형태**를 적어두고
+거기서 벗어나면 exit 1이다. `verified.json`과 같은 발상 —
+자동으로 알 수 없는 것을 사람이 한 번 확인하고, 그 확인을 날짜와 함께 기억시킨다.
+
+그리고 **넓히자마자 오탐이 나왔다**(이번에도). 나이키 shape를 `?q=`만 적었더니
+`/kr/w/pegasus-shoes-8nexhzy7ok` 카테고리 링크 4개를 깨진 것으로 잡았다.
+눌러보니 정상이었고 오히려 검색보다 나은 형태였다. 형태를 넓혀 오탐을 없앴다.
+
 새 종류의 출처를 추가하면 **검사기 범위부터 늘려라.** 아직 안 보는 것들:
 
-- 구매 링크가 실제로 결과를 반환하는지 (단종 27종은 브랜드몰 검색이 빈 결과일 수 있다)
+- 200인데 **찾던 모델이 아닌 것이 나오는** 경우 — 자동 판정 불가. 대장에 성질을 적어 사람이 본다
+- 아직 눌러보지 않은 쇼핑몰 7곳 (coupang·asics·hoka·newbalance·on·decathlon·puma)
 - `bjsm.bmj.com/content/48/11/871`처럼 DOI·PMID가 없는 서지 URL
 - **논문의 결론을 반대로 서술한 경우** — 서지는 완벽한데 주장이 반대다.
   Richards 2009는 "발 타입으로 회내 제어화를 처방할 근거가 없다"는 논문인데

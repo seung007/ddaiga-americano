@@ -77,8 +77,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 185000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Kinvara%2016", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Kinvara%2016", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Kinvara", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%82%AC%EC%BD%94%EB%8B%88%20%ED%82%A4%EB%82%98%EB%9D%BC%2016", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony%20Kinvara%2016", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony%20Kinvara%2016", isOfficial: false },
@@ -347,8 +346,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 229000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Endorphin%20Speed%205", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Endorphin%20Speed%205", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Endorphin+Speed+5", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%82%AC%EC%BD%94%EB%8B%88%20%EC%97%94%EB%8F%84%EB%A5%B4%ED%95%80%20%EC%8A%A4%ED%94%BC%EB%93%9C%205", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony%20Endorphin%20Speed%205", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony%20Endorphin%20Speed%205", isOfficial: false },
@@ -501,8 +499,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 225000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Triumph%2023", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Triumph%2023", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Triumph+23", isOfficial: false },
+      { label: "29CM 검색", url: "https://www.29cm.co.kr/store/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%97%84%ED%94%84", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%82%AC%EC%BD%94%EB%8B%88%20%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%97%84%ED%94%84%2023", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony%20Triumph%2023", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony%20Triumph%2023", isOfficial: false },
@@ -656,7 +654,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 195000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "미즈노 공식 코리아", url: "https://www.mizuno.com/ko-kr/search?q=wave+rider+29", isOfficial: true },
+      { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+rider+29", isOfficial: true },
       { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2029", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Rider%2029", isOfficial: false },
@@ -847,7 +845,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 209000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "미즈노 공식 코리아", url: "https://www.mizuno.com/ko-kr/search?q=wave+sky+9", isOfficial: true },
+      { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+sky+9", isOfficial: true },
       { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%209", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Sky%209", isOfficial: false },
@@ -963,8 +961,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 189000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Guide%2018", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Guide%2018", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Guide", isOfficial: false },
+      { label: "29CM 검색", url: "https://www.29cm.co.kr/store/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%EA%B0%80%EC%9D%B4%EB%93%9C", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%82%AC%EC%BD%94%EB%8B%88%20%EA%B0%80%EC%9D%B4%EB%93%9C%2018", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony%20Guide%2018", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony%20Guide%2018", isOfficial: false },
@@ -1115,7 +1113,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 195000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "미즈노 공식 코리아", url: "https://www.mizuno.com/ko-kr/search?q=wave+inspire+22", isOfficial: true },
+      { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+inspire+22", isOfficial: true },
       { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%9D%B8%EC%8A%A4%ED%8C%8C%EC%9D%B4%EC%96%B4%2022", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Inspire%2022", isOfficial: false },
@@ -1271,8 +1269,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 205000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Ride%2018", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Ride%2018", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Ride+18", isOfficial: false },
+      { label: "29CM 검색", url: "https://www.29cm.co.kr/store/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%EB%9D%BC%EC%9D%B4%EB%93%9C", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%82%AC%EC%BD%94%EB%8B%88+%EB%9D%BC%EC%9D%B4%EB%93%9C+18", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony%20Ride%2018", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony%20Ride%2018", isOfficial: false },
@@ -1611,8 +1609,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 189000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Guide%2018%20", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Guide%2018%20", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Guide", isOfficial: false },
+      { label: "29CM 검색", url: "https://www.29cm.co.kr/store/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%EA%B0%80%EC%9D%B4%EB%93%9C", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=사코니+가이드+18+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony%20Guide%2018%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony%20Guide%2018%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -2041,8 +2039,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 320000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/search?keyword=Endorphin+Pro+4", isOfficial: false },
-      { label: "29CM 검색", url: "https://www.29cm.co.kr/search?keyword=Endorphin+Pro+4", isOfficial: false },
+      { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Endorphin+Pro+4", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=사코니+엔돌핀+프로+4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony+Endorphin+Pro+4", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Saucony+Endorphin+Pro+4", isOfficial: false },
