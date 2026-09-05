@@ -7,9 +7,16 @@ export default function SiteHeader() {
         <Link href="/" className="text-lg font-bold text-gray-900 hover:text-emerald-600 transition-colors">
           🏃 뛰다가 아메리카노
         </Link>
-        <nav className="flex items-center gap-5">
+        {/* 2026-09-06: 코스가 들어와 모바일 항목이 3 → 4개가 됐다.
+            헤더에서 빼면 클릭이 한 번 늘고, 그 한 번에서 대부분을 잃는다.
+            대신 간격을 좁혀 감당한다(gap-3 sm:gap-5). 375px에서 넘치면
+            줄일 것은 항목 수가 아니라 로고 쪽이다. */}
+        <nav className="flex items-center gap-3 sm:gap-5">
           <Link href="/injury" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
             부상 예방
+          </Link>
+          <Link href="/courses" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            코스
           </Link>
           <Link href="/tools" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
             계산기

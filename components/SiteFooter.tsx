@@ -15,6 +15,7 @@ export default function SiteFooter() {
             <Link href="/shoe-finder" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">신발 찾기</Link>
             <Link href="/tools"       className="text-xs text-gray-500 hover:text-gray-800 transition-colors">계산기</Link>
             <Link href="/injury"      className="text-xs text-gray-500 hover:text-gray-800 transition-colors">부상 예방</Link>
+            <Link href="/courses"     className="text-xs text-gray-500 hover:text-gray-800 transition-colors">한강 코스</Link>
             <Link href="/community"   className="text-xs text-gray-500 hover:text-gray-800 transition-colors">Q&amp;A</Link>
             <a href="https://blog.naver.com/coffee_study_" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">블로그</a>
             <Link href="/terms"       className="text-xs text-gray-500 hover:text-gray-800 transition-colors">이용약관</Link>
