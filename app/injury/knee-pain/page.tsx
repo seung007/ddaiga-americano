@@ -1,8 +1,10 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import FinderCta from "@/components/FinderCta";
+import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
 
@@ -91,7 +93,14 @@ export default function Page() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
+            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
+            두 달간 질문 0건이 그 증거다. */}
+        <InlineAsk from="knee-pain" tag="무릎" placeholder="예) 계단 내려갈 때만 무릎 앞이 아픈데 신발 문제일까요?" />
+
         <FinderCta from="knee-pain" headline="무릎에 부담이 덜한 신발 찾기" sub="체중과 부상 이력을 넣으면 쿠션이 충분한 신발을 우선 추천합니다." />
+        <ShareButtons from="knee-pain" title="러너 무릎 예방법" description="무릎 앞쪽이 아플 때 확인할 것들을 논문 근거로 정리했습니다." />
+
       </article>
     </>
   );

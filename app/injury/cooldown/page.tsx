@@ -1,8 +1,10 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import FinderCta from "@/components/FinderCta";
+import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -76,7 +78,14 @@ export default function Page() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
+            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
+            두 달간 질문 0건이 그 증거다. */}
+        <InlineAsk from="cooldown" tag="기타" placeholder="예) 쿨다운을 얼마나 해야 하는지 매번 헷갈려요" />
+
         <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형·발볼·부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
+        <ShareButtons from="cooldown" title="달리기 후 쿨다운" description="쿨다운을 왜, 얼마나 해야 하는지 정리했습니다." />
+
       </article>
     </>
   );

@@ -2,6 +2,7 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import { CourseMap, ChafingMap, PaceCurve } from "@/components/RaceGraphics";
 import type { Metadata } from "next";
 
@@ -643,6 +644,8 @@ export default function Page() {
             내 러닝화 찾기 →
           </Link>
         </div>
+        <ShareButtons from="half-marathon-race-day" title="하프마라톤 대회 당일 체크리스트" description="페이스·급수·젤·바세린을 근거와 경험으로 구분해 정리했습니다." />
+
       </article>
     </>
   );

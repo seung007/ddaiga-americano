@@ -1,8 +1,10 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import FinderCta from "@/components/FinderCta";
+import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
 
@@ -175,7 +177,14 @@ export default function AchillesPage() {
           },
         ]} />
 
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
+            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
+            두 달간 질문 0건이 그 증거다. */}
+        <InlineAsk from="achilles" tag="아킬레스" placeholder="예) 아킬레스가 아침에만 뻣뻣한데 뛰어도 되나요?" />
+
         <FinderCta from="achilles" headline="아킬레스에 부담이 덜한 신발 찾기" sub="부상 이력에 '아킬레스·종아리'를 선택하면 드롭이 낮은 신발을 걸러냅니다." />
+        <ShareButtons from="achilles" title="아킬레스건염 대처법" description="아킬레스가 아플 때 뭘 해야 하고 뭘 하면 안 되는지." />
+
       </article>
     </>
   );

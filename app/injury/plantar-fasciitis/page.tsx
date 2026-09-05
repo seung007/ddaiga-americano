@@ -2,6 +2,8 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
+import InlineAsk from "@/components/InlineAsk";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -174,6 +176,11 @@ export default function Page() {
             내 러닝화 찾기 →
           </Link>
         </div>
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다. 클릭 한 번이 이탈을 만든다. */}
+        <InlineAsk from="plantar-fasciitis" tag="족저근막" placeholder="예) 아침 첫발이 아픈 게 두 달째인데 병원 가야 할까요?" />
+
+        <ShareButtons from="plantar-fasciitis" title="족저근막염 — 아침 첫발이 아픈 이유" description="효과가 확인된 방법과 신발로는 낫지 않는 이유." />
+
       </article>
     </>
   );

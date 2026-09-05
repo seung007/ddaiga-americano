@@ -1,8 +1,10 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import FinderCta from "@/components/FinderCta";
+import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -78,7 +80,14 @@ export default function Page() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
+            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
+            두 달간 질문 0건이 그 증거다. */}
+        <InlineAsk from="first-10k" tag="기타" placeholder="예) 10km 뛰고 나면 발바닥이 얼얼한데 괜찮은 건가요?" />
+
         <FinderCta from="first-10k" headline="대회 전에 신발부터 확인하세요" sub="새 신발로 대회에 나가면 물집과 발톱 멍으로 직행합니다. 체형과 발 조건을 넣으면 맞는 신발을 추려드립니다." />
+        <ShareButtons from="first-10k" title="첫 10km 완주 가이드" description="10km를 처음 뛸 때 준비할 것들을 논문 근거와 함께 정리했습니다." />
+
       </article>
     </>
   );

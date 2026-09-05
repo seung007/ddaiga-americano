@@ -1,8 +1,10 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import FinderCta from "@/components/FinderCta";
+import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import type { Metadata } from "next";
 
@@ -163,7 +165,14 @@ export default function WideFootPage() {
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 발 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
+            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
+            두 달간 질문 0건이 그 증거다. */}
+        <InlineAsk from="wide-foot" tag="발볼" placeholder="예) 2E 신어도 새끼발가락이 눌리는데 4E로 가야 하나요?" />
+
         <FinderCta from="wide-foot" headline="발볼 넓은 내 발에 맞는 신발 찾기" sub="발볼 조건을 선택하면 2E·4E 옵션이 있는 신발만 필터링해서 추천합니다." />
+        <ShareButtons from="wide-foot" title="발볼 넓은 러너 와이드 규격 총정리" description="2E·4E가 필요한지 판단하는 법과 브랜드별 옵션." />
+
       </article>
     </>
   );

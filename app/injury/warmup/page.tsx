@@ -2,6 +2,7 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
+import ShareButtons from "@/components/ShareButtons";
 import ExerciseFigure from "@/components/ExerciseFigure";
 import type { Metadata } from "next";
 
@@ -164,6 +165,8 @@ export default function Page() {
             내 러닝화 찾기 →
           </Link>
         </div>
+        <ShareButtons from="warmup" title="달리기 전 5분 동적 스트레칭" description="동작 6개를 그림으로 정리했습니다." />
+
       </article>
     </>
   );
