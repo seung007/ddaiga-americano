@@ -1512,7 +1512,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "아식스 공식몰(asics.co.kr) — 젤카야노 32 우먼", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Kayano+32", isOfficial: true },
+      { label: "아식스 공식몰(asics.co.kr) — 젤카야노 32 우먼", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Kayano", isOfficial: true },
       { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=아식스+젤카야노+32+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Kayano%2032%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },

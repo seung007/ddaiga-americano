@@ -14,7 +14,9 @@
     "check:shoes": "node scripts/shoe-freshness.mjs",
     "check:figures": "node scripts/check-figures.mjs",
     "check:links": "node scripts/check-links.mjs",
-    "check:links:plan": "node scripts/check-links.mjs --plan"
+    "check:links:plan": "node scripts/check-links.mjs --plan",
+    "check:images": "node scripts/check-images.mjs",
+    "check:images:plan": "node scripts/check-images.mjs --plan"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
