@@ -19,7 +19,8 @@
     "check:links": "node scripts/check-links.mjs",
     "check:links:plan": "node scripts/check-links.mjs --plan",
     "check:images": "node scripts/check-images.mjs",
-    "check:images:plan": "node scripts/check-images.mjs --plan"
+    "check:images:plan": "node scripts/check-images.mjs --plan",
+    "check:images:sheet": "node scripts/image-sheet.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
