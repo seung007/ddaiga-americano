@@ -1061,7 +1061,10 @@ export const SHOES: Shoe[] = [
     brand: "Nike",
     model: "InfinityRN 4",
     // ⚠️ 2026-09-06: 이 URL은 **200으로 400×400 이미지를 주는데 내용이 나이키의
-    //   "IMAGE UNAVAILABLE" 플레이스홀더**다. 정상 로드되므로 onError 폴백도 안 걸리고
+    //   "IMAGE UNAVAILABLE" 플레이스홀더**다.
+    //   같은 날 `nike.com/kr/w/infinity-run-shoes-56j6z` 카테고리도 사라져
+    //   전체 제품 페이지로 튕겼다. **단종 가능성이 있으나 확인하지 못했다** —
+    //   확인 전에는 successor 를 적지 않는다. 정상 로드되므로 onError 폴백도 안 걸리고
     //   check:images 의 Content-Type 검사도 통과한다 — 기계가 원리상 못 잡는 종류다.
     //   대체 URL을 찾으려 했으나 나이키 검색 페이지에서 추출하지 못했다.
     //   **추측한 URL로 바꾸지 않는다.** 찾으면 그때 교체할 것. `npm run check:images:sheet` 참고.
@@ -1296,6 +1299,14 @@ export const SHOES: Shoe[] = [
     id: "nike-pegasus-plus",
     brand: "Nike",
     model: "Pegasus Plus",
+    // 2026-09-06 나이키 코리아에서 직접 확인 — "나이키 페가수스 플러스 2"가
+    // **신제품 배지를 달고** 올라와 있다(nike.com/kr/w/pegasus-shoes-8nexhzy7ok).
+    // 이 신발이 나빠진 건 아니지만 구형임을 숨기면 이 사이트의 주장이 무너진다.
+    successor: "Pegasus Plus 2",
+    // ⚠️ 이 이미지는 **200으로 "IMAGE UNAVAILABLE" 나이키 플레이스홀더**를 준다.
+    //   `check:images`(Content-Type)도 `onError` 폴백도 통과하는 종류다 — 픽셀을 봐야 안다.
+    //   나이키 코리아에는 **2세대 이미지만** 있어서 그걸 붙이면 잘못된 사진이 된다.
+    //   1세대 이미지를 찾을 때까지 그대로 둔다. **추측한 URL로 바꾸지 않는다.**
     imageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e447a700-9a18-4a16-8d68-b955ca35d9f7/pegasus-plus-road-running-shoes-HB4KlG.png",
     colorways: ["화이트/볼트", "블랙/앤스라사이트"],
     widthOptions: ["D"],
