@@ -3,6 +3,7 @@ import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import CourseFigure from "@/components/CourseFigure";
 import CourseMapLive from "@/components/CourseMapLive";
+import NearestCourse from "@/components/NearestCourse";
 import FinderCta from "@/components/FinderCta";
 import InlineAsk from "@/components/InlineAsk";
 import ShareButtons from "@/components/ShareButtons";
@@ -103,6 +104,19 @@ export default function CoursesPage() {
           같은 코스가 매체마다 다른 거리로 적혀 있습니다.
         </p>
       </section>
+
+      {/* 위치로 고르기 — 한눈에 비교 표 바로 다음, 코스 본문 앞.
+          2026-09-07: 이 페이지에 온 사람의 첫 질문은 "넷 중 어디로 갈까"인데
+          페이지는 넷을 나란히 놓고 알아서 고르라고만 했다.
+          중심 좌표는 lib/courses.ts 의 map.center 를 그대로 쓴다 — 새 데이터가 없다. */}
+      <NearestCourse
+        courses={HANGANG_COURSES.map((c) => ({
+          slug: c.slug,
+          name: c.name,
+          lat: c.map.center[0],
+          lon: c.map.center[1],
+        }))}
+      />
 
       {/* ── 코스별 ── */}
       {HANGANG_COURSES.map((c) => {
