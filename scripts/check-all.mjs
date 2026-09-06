@@ -53,6 +53,8 @@ const CHECKS = [
   { name: "구매링크", cmd: "node", args: ["scripts/check-links.mjs", "--plan"],        net: false },
   { name: "사진출처", cmd: "node", args: ["scripts/check-images.mjs", "--plan"],       net: false },
   { name: "영상큐",   cmd: "node", args: ["scripts/verify-youtube.mjs", "--todo"],     net: false },
+  // 2026-09-06 추가. GSC 가 "참조 페이지: 감지된 페이지 없음"이라고 한 날 만들었다.
+  { name: "내부링크", cmd: "node", args: ["scripts/check-internal-links.mjs"],        net: false },
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
   { name: "영상(실조회)",   cmd: "node", args: ["scripts/verify-youtube.mjs"],   net: true },
