@@ -39,6 +39,10 @@ export async function generateMetadata({
     title,
     description,
     openGraph: { title, description },
+    // 2026-09-06: 저장소 전체에 canonical 이 하나도 없었다.
+    // metadataBase 는 OG 이미지의 상대경로를 푸는 데만 쓰이고 canonical 을 만들지 않는다.
+    // compare 는 동적 라우트라 대소문자·순서 변형이 생길 수 있어 여기가 특히 필요하다.
+    alternates: { canonical: `/compare/${slug}` },
   };
 }
 
@@ -398,15 +402,40 @@ export default async function ComparePage({
   );
 }
 
-// ── 다른 비교 추천 ──────────────────────────────────────────────
+/**
+ * 다른 비교 추천
+ *
+ * ⚠️ 2026-09-06: 여기가 **고아 페이지 18개를 만들고 있었다.**
+ *
+ * 이전 코드는 `SHOES`에서 현재 두 켤레만 빼고 앞의 4개를 잘라 **새 페어를 즉석에서 만들었다.**
+ * 그 조합은 `COMPARE_SLUGS`(22개)와 무관하다. 결과가 두 가지로 갈렸다.
+ *
+ *   · `COMPARE_SLUGS`의 22개는 **사이트맵에는 있는데 어떤 내부 링크도 가리키지 않았다.**
+ *     실제로 들어가는 길은 홈의 `POPULAR_COMPARES` 4개뿐이었다 → 나머지 18개가 고아다.
+ *   · 반대로 대장 밖의 임의 조합이 `dynamicParams`를 타고 계속 새로 링크됐다.
+ *
+ * 사이트맵에 URL을 올려도 **내부 링크가 뒷받침하지 않으면 크롤 우선순위가 낮다.**
+ * 구글 유입 2.7%의 원인 중 자동으로 고칠 수 있는 부분이 여기였다.
+ * 지금은 **대장(`COMPARE_SLUGS`)에서만 고른다** — 사이트맵과 내부 링크가 같은 목록을 본다.
+ */
 function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe }) {
-  const others = SHOES.filter(
-    (s) => s.id !== currentA.id && s.id !== currentB.id
-  ).slice(0, 4);
+  const byId = new Map(SHOES.map((s) => [s.id, s]));
+  const current = `${currentA.id}-vs-${currentB.id}`;
+  const reversed = `${currentB.id}-vs-${currentA.id}`;
 
   const pairs: [Shoe, Shoe][] = [];
-  for (let i = 0; i + 1 < others.length; i += 2) {
-    pairs.push([others[i], others[i + 1]]);
+  for (const slug of COMPARE_SLUGS) {
+    if (slug === current || slug === reversed) continue;
+    const ids = parseSlug(slug);
+    if (!ids) continue;
+    const a = byId.get(ids[0]);
+    const b = byId.get(ids[1]);
+    if (!a || !b) continue;
+    // 지금 보고 있는 신발이 낀 비교를 먼저 보여주면 이어보기가 자연스럽다.
+    const related = a.id === currentA.id || a.id === currentB.id || b.id === currentA.id || b.id === currentB.id;
+    if (related) pairs.unshift([a, b]);
+    else pairs.push([a, b]);
+    if (pairs.length >= 12) break;
   }
 
   if (pairs.length === 0) return null;
