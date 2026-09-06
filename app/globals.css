@@ -20,3 +20,59 @@ body {
   font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", Arial, Helvetica, sans-serif;
   line-height: 1.7;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Leaflet 지도 — 네이버·카카오 지도의 컨트롤 느낌으로 맞춘다.
+   2026-09-07: 기본 Leaflet 컨트롤은 각지고 테두리가 진해서
+   한국 지도 서비스에 익숙한 사람에게는 낯설게 보인다.
+   기능은 그대로 두고 모양만 바꾼다.
+   ───────────────────────────────────────────────────────────── */
+.leaflet-container {
+  font-family: inherit;
+  background: #eef2f5;
+}
+.leaflet-touch .leaflet-bar,
+.leaflet-bar {
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 0.18);
+  overflow: hidden;
+}
+.leaflet-bar a,
+.leaflet-touch .leaflet-bar a {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  color: #334155;
+  border-bottom-color: #eef2f6;
+  font-weight: 600;
+}
+.leaflet-bar a:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+/* 저작자 표시는 OSM 정책상 의무다. 지우지 말고 눈에 덜 띄게만 한다. */
+.leaflet-control-attribution {
+  background: rgb(255 255 255 / 0.85);
+  border-radius: 6px 0 0 0;
+  font-size: 10px;
+  color: #64748b;
+}
+.leaflet-control-attribution a {
+  color: #475569;
+}
+.leaflet-control-scale-line {
+  border: 1px solid #94a3b8;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+  background: rgb(255 255 255 / 0.85);
+  color: #334155;
+  font-weight: 600;
+}
+.leaflet-tooltip {
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 0.2);
+  font-size: 12px;
+  padding: 5px 9px;
+}

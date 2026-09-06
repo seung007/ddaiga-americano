@@ -54,6 +54,50 @@ import type { HangangCourse } from "@/lib/courses";
 
 const TIMEOUT_MS = 12_000;
 
+/**
+ * 지점 종류 — 색·글리프·이름표를 여기 한 곳에서 정한다.
+ *
+ * 2026-09-07: 전에는 알약 모양 라벨 두 종류(초록/검정)뿐이었다. 문제가 둘.
+ *   ① **알약의 가운데가 좌표를 가리켰다.** 지도 마커는 네이버·카카오처럼
+ *      **끝이 한 점을 찍어야** 어디를 말하는지가 분명하다.
+ *   ② 지하철 출구와 공원 진입점이 **둘 다 초록 '출발'** 이었다.
+ *      한 코스에 출발이 두 개 찍히니 구분이 안 됐다.
+ *
+ * 그래서 물방울 핀 + 종류별 색·글리프로 바꿨다. 색은 사이트 팔레트를 따른다.
+ */
+const KINDS = {
+  station: { label: "지하철", color: "#2563eb", glyph: "M" },
+  start: { label: "출발", color: "#059669", glyph: "▶" },
+  turn: { label: "반환", color: "#e11d48", glyph: "↩" },
+} as const;
+type Kind = (typeof KINDS)[keyof typeof KINDS];
+
+function escapeHtml(s: string) {
+  return s.replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string
+  );
+}
+
+/**
+ * 물방울 핀 + 그 밑 이름표.
+ *
+ * 핀은 SVG 라 확대해도 안 깨지고, 이름표는 흰 알약이라 지도 글씨 위에서도 읽힌다.
+ * 이름표를 핀 **아래**에 두는 것이 네이버·카카오와 같은 배치다 — 핀 끝이 가리키는
+ * 지점을 이름표가 가리지 않는다.
+ */
+function pinHtml(k: Kind, name: string) {
+  return `<div style="width:160px;text-align:center;font:600 11px/1.25 -apple-system,system-ui,'Malgun Gothic',sans-serif">
+  <svg width="26" height="38" viewBox="0 0 26 38" style="display:block;margin:0 auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))">
+    <path d="M13 37C13 37 25 22.5 25 13A12 12 0 1 0 1 13c0 9.5 12 24 12 24z" fill="${k.color}" stroke="#fff" stroke-width="2"/>
+    <circle cx="13" cy="13" r="6.5" fill="#fff"/>
+    <text x="13" y="16.5" text-anchor="middle" fill="${k.color}" style="font:700 9px/1 -apple-system,system-ui,sans-serif">${k.glyph}</text>
+  </svg>
+  <span style="display:inline-block;margin-top:2px;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.95);box-shadow:0 1px 3px rgba(0,0,0,.25);color:#0f172a;white-space:nowrap">
+    <span style="color:${k.color}">${k.label}</span> ${escapeHtml(name)}
+  </span>
+</div>`;
+}
+
 /** leaflet 모듈을 한 번만 불러온다. 지도가 4개여도 청크는 하나다. */
 let leafletPromise: Promise<typeof import("leaflet")> | null = null;
 function loadLeaflet() {
@@ -94,20 +138,30 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 기여자',
         }).addTo(map);
 
+        // 거리 눈금 — 지도를 얼마나 확대해 보고 있는지 알려준다.
+        L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
+
         for (const p of course.map.points) {
-          const start = p.kind === "start";
-          const icon = L.divIcon({
-            className: "",
-            html: `<div style="
-                background:${start ? "#059669" : "#0f172a"};
-                color:#fff;font:600 11px/1.2 -apple-system,system-ui,sans-serif;
-                padding:4px 7px;border-radius:999px;white-space:nowrap;
-                box-shadow:0 1px 4px rgba(0,0,0,.35);transform:translate(-50%,-50%)">
-                ${start ? "출발 " : "반환 "}${p.name}
-              </div>`,
-            iconSize: [0, 0],
-          });
-          L.marker([p.lat, p.lon], { icon }).addTo(map);
+          const k = KINDS[p.kind];
+          L.marker([p.lat, p.lon], {
+            icon: L.divIcon({
+              className: "",
+              html: pinHtml(k, p.name),
+              // 물방울 핀은 **끝이 좌표를 가리켜야** 한다. 가운데가 아니다.
+              // 폭 160 의 가운데(80), 높이 중 핀 끝(38)을 앵커로 잡는다.
+              iconSize: [160, 62],
+              iconAnchor: [80, 38],
+            }),
+            // 반환점이 지하철 표시에 가리지 않게 순서를 준다.
+            zIndexOffset: p.kind === "turn" ? 300 : p.kind === "start" ? 200 : 100,
+            title: `${k.label} ${p.name}`,
+          })
+            .addTo(map)
+            .bindTooltip(`<b>${k.label}</b> ${escapeHtml(p.name)}`, {
+              direction: "top",
+              offset: [0, -40],
+              opacity: 1,
+            });
         }
 
         map.fitBounds(
@@ -158,11 +212,27 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
           </div>
         )}
       </div>
-      <p className="border-t border-gray-100 bg-white px-4 py-2.5 text-xs leading-relaxed text-gray-500">
-        <strong className="text-emerald-700">초록</strong> = 출발 지점 ·{" "}
-        <strong className="text-gray-900">검정</strong> = 왕복 반환점.
-        {" "}지도를 움직여 강변 산책로를 확인하세요. 마우스 휠 확대는 페이지 스크롤과 겹쳐 껐습니다.
-      </p>
+      <div className="border-t border-gray-100 bg-white px-4 py-2.5">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-medium">
+          <span className="flex items-center gap-1.5 text-blue-600">
+            <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />
+            지하철 출구
+          </span>
+          <span className="flex items-center gap-1.5 text-emerald-700">
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" />
+            공원 진입 지점
+          </span>
+          <span className="flex items-center gap-1.5 text-rose-600">
+            <span className="h-2.5 w-2.5 rounded-full bg-rose-600" />
+            왕복 반환점
+          </span>
+        </div>
+        <p className="mt-1.5 text-xs leading-relaxed text-gray-500">
+          핀 끝이 실제 지점입니다. 지도를 끌어 강변 산책로를 확인하세요 — 왼쪽 아래 눈금이
+          거리 기준입니다. 마우스 휠 확대는 페이지 스크롤과 겹쳐 껐고, <b>＋ －</b> 버튼으로
+          확대·축소합니다.
+        </p>
+      </div>
     </div>
   );
 }

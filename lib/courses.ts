@@ -68,7 +68,20 @@ export interface HangangCourse {
   map: {
     center: [number, number];
     zoom: number;
-    points: { name: string; lat: number; lon: number; kind: "start" | "turn" }[];
+    points: {
+      name: string;
+      lat: number;
+      lon: number;
+      /**
+       * station = 지하철 출구(공식 '오시는길' 값) · start = 공원 진입 지점 · turn = 왕복 반환점
+       *
+       * 2026-09-07: 전에는 station 과 start 가 둘 다 "start" 였다.
+       * 그래서 지도에 **초록 '출발' 표시가 한 코스에 두 개** 찍혔고,
+       * 하나는 지하철역이고 하나는 광장인데 그림에서는 구분이 안 됐다.
+       * 표시가 구분을 못 하면 표시가 아니다.
+       */
+      kind: "station" | "start" | "turn";
+    }[];
   };
   source: { label: string; url: string; checkedAt: string };
 }
@@ -96,7 +109,7 @@ export const HANGANG_COURSES: HangangCourse[] = [
       center: [37.5210, 127.0930],
       zoom: 14,
       points: [
-        { name: "잠실나루역 3·4번 출구", lat: 37.52045, lon: 127.1042, kind: "start" },
+        { name: "잠실나루역 3·4번 출구", lat: 37.52045, lon: 127.1042, kind: "station" },
         { name: "잠실한강공원 만남의광장", lat: 37.51757, lon: 127.08433, kind: "start" },
         { name: "잠실대교", lat: 37.52381, lon: 127.09208, kind: "turn" },
         { name: "청담대교", lat: 37.52561, lon: 127.06397, kind: "turn" },
@@ -132,7 +145,7 @@ export const HANGANG_COURSES: HangangCourse[] = [
       center: [37.5110, 126.9940],
       zoom: 14,
       points: [
-        { name: "고속터미널역 8-1·8-2번 출구", lat: 37.50504, lon: 127.00492, kind: "start" },
+        { name: "고속터미널역 8-1·8-2번 출구", lat: 37.50504, lon: 127.00492, kind: "station" },
         { name: "반포한강공원", lat: 37.50887, lon: 126.99394, kind: "start" },
         { name: "반포대교·잠수교", lat: 37.51456, lon: 126.99651, kind: "turn" },
         { name: "동작대교", lat: 37.51089, lon: 126.98192, kind: "turn" },
@@ -168,7 +181,7 @@ export const HANGANG_COURSES: HangangCourse[] = [
       center: [37.5290, 126.9400],
       zoom: 14,
       points: [
-        { name: "여의나루역 2·3번 출구", lat: 37.52685, lon: 126.93253, kind: "start" },
+        { name: "여의나루역 2·3번 출구", lat: 37.52685, lon: 126.93253, kind: "station" },
         { name: "여의도한강공원", lat: 37.52567, lon: 126.93606, kind: "start" },
         { name: "마포대교", lat: 37.53355, lon: 126.93637, kind: "turn" },
         { name: "원효대교", lat: 37.52787, lon: 126.94726, kind: "turn" },
@@ -202,7 +215,7 @@ export const HANGANG_COURSES: HangangCourse[] = [
       center: [37.5330, 127.0520],
       zoom: 13,
       points: [
-        { name: "뚝섬한강공원 (자양역 2·3번 출구)", lat: 37.52983, lon: 127.06811, kind: "start" },
+        { name: "뚝섬한강공원 (자양역 2·3번 출구)", lat: 37.52983, lon: 127.06811, kind: "station" },
         { name: "성수대교", lat: 37.53695, lon: 127.03501, kind: "turn" },
         { name: "영동대교", lat: 37.53111, lon: 127.05775, kind: "turn" },
       ],
