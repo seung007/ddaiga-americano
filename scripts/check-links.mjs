@@ -89,7 +89,10 @@ const C = {
  *   note     사람에게 남기는 한 줄
  */
 const VERIFIED = {
-  "coupang.com":          { date: null,         shape: /\/np\/search\?q=/,                 nature: "미확인", note: "안전 정책상 브라우저로 열 수 없었다. 확인 못 함" },
+  // 쿠팡은 **자동 확인이 불가능한 것으로 확정**됐다(2026-09-06, Scrapling으로 hyun 로컬에서).
+  // 링크가 죽었다는 뜻이 아니다 — 사람이 브라우저로 열면 정상이다. 우리가 못 볼 뿐이다.
+  // 그러니 링크를 내리지 마라. 아래 nature 를 "미확인"에서 "확인불가"로 바꾼 이유가 그것이다.
+  "coupang.com":          { date: "2026-09-06", shape: /\/np\/search\?q=/,                 nature: "확인불가", note: "Akamai가 봇을 차단한다. 200 + 'Access Denied' 본문 — 상태코드로는 통과한다" },
   "asics.co.kr":          { date: "2026-09-06", shape: /\/(goods\/search\?search_text=|c\/)/, nature: "남아있음", note: "젤 카야노 79건, 사이즈까지 노출. 카테고리형(/c/…)도 정상" },
   "decathlon.co.kr":      { date: "2026-09-06", shape: /\/search\?q=/,                     nature: "주의",    note: "검색은 되지만 결과 수가 전체(7,741)로 표시되고 상단에 의류가 온다" },
   "kr.puma.com":          { date: "2026-09-06", shape: /\/kr\/ko\/search\?q=/,             nature: "남아있음", note: "검색어가 반영된다. 다만 한글 검색어는 의류까지 같이 잡힌다" },
@@ -267,7 +270,7 @@ if (PLAN_ONLY) {
   const todo = entries.filter(([, v]) => !v.date);
   console.log(C.bold(`쇼핑몰 대장 — 확인 ${done.length}곳 / 미확인 ${todo.length}곳`));
   for (const [d, v] of done) {
-    const tag = { 남아있음: C.green("남아있음"), 대체됨: C.yellow("대체됨  "), 일부0건: C.red("일부0건 "), 해당없음: C.dim("해당없음") }[v.nature] ?? v.nature;
+    const tag = { 남아있음: C.green("남아있음"), 대체됨: C.yellow("대체됨  "), 일부0건: C.red("일부0건 "), 확인불가: C.yellow("확인불가"), 해당없음: C.dim("해당없음") }[v.nature] ?? v.nature;
     console.log(`  ${tag}  ${C.bold(d.padEnd(22))} ${C.dim(v.note)}`);
   }
   for (const [d] of todo) console.log(`  ${C.dim("미확인  ")}  ${d}`);
