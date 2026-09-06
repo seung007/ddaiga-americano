@@ -2,6 +2,34 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import HomeCommunitySection from "@/components/HomeCommunitySection";
 import HeroBackdrop from "@/components/HeroBackdrop";
+import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
+import { SHOES } from "@/lib/shoes/data";
+
+/**
+ * 띠에 실을 신발 — 서버에서 골라 최소 필드만 넘긴다.
+ *
+ * **단종된 것은 뺀다.** 첫 화면에서 "후속작 나옴" 안내를 보여줄 이유가 없다.
+ * 그리고 **여성 전용 중복 모델도 뺀다** — 같은 신발이 두 번 지나가면 종류가 적어 보인다.
+ * (남녀 모두에게 필요한 정보는 finder가 성별을 받아 처리한다.)
+ *
+ * 이미지 40장이 경쟁사 CDN이라(`check:images`) 홈에 의존을 무한정 얹지 않는다.
+ * 지금은 단종 아닌 것 전부이고, 그게 커지면 여기서 잘라야 한다.
+ */
+const STRIP_SHOES: StripShoe[] = SHOES.filter((s) => !s.successor && s.gender !== "female").map(
+  (s) => ({
+    id: s.id,
+    brand: s.brand,
+    model: s.model,
+    imageUrl: s.imageUrl,
+    cushioning: s.cushioning,
+    weightGramsM9: s.weightGramsM9,
+    priceKrw: s.priceKrw,
+    tagline: s.blurb,
+    uses: s.uses,
+    widthOptions: s.widthOptions,
+    hasCarbon: !!s.hasCarbon,
+  })
+);
 
 // 사전 렌더링된 인기 비교 페어 (app/compare/[slug] generateStaticParams와 일치)
 const POPULAR_COMPARES = [
@@ -69,6 +97,12 @@ export default function Home() {
         <p className="mt-4 text-xs font-medium text-gray-500">가입 없이 무료</p>
         </section>
       </div>
+
+      {/* 신발 띠 — 히어로 바로 밑.
+          2026-09-06: 홈에 신발 사진이 한 장도 없었다. 러닝화 추천 사이트에서.
+          "어떻게 추천하나요?"(설명)보다 신발(실물)이 먼저 오는 게 맞다 —
+          설명은 볼 것을 본 다음에 읽는다. */}
+      <ShoeStrip shoes={STRIP_SHOES} />
 
       {/* How it works */}
       <section className="max-w-3xl mx-auto px-6 pb-16">
