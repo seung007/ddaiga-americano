@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import type { Map as LeafletMap } from "leaflet";
+import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 import type { HangangCourse } from "@/lib/courses";
 
 /**
@@ -109,7 +109,18 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
+  /**
+   * 지점 버튼 -> 핀 이동에 쓴다.
+   *
+   * 2026-09-07: 지도 밑에 지점 목록을 두고 누르면 그 핀으로 날아가게 했다.
+   * 지도만 있으면 **핀을 눈으로 찾아야** 하는데, 네 코스가 다 강변이라 핀 네 개가
+   * 비슷하게 생겼다. 목록은 "여기가 뭐뭐가 있다"를 한눈에 주고,
+   * 누르면 지도가 대신 찾아준다 — 네이버 지도의 장소 목록과 같은 조작이다.
+   * 새 데이터는 하나도 필요 없다. 이미 있는 좌표를 다르게 보여줄 뿐이다.
+   */
+  const markersRef = useRef<LeafletMarker[]>([]);
   const [state, setState] = useState<"idle" | "loading" | "ready" | "error">("idle");
+  const [active, setActive] = useState<number | null>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -141,9 +152,10 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
         // 거리 눈금 — 지도를 얼마나 확대해 보고 있는지 알려준다.
         L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
 
+        markersRef.current = [];
         for (const p of course.map.points) {
           const k = KINDS[p.kind];
-          L.marker([p.lat, p.lon], {
+          const marker = L.marker([p.lat, p.lon], {
             icon: L.divIcon({
               className: "",
               html: pinHtml(k, p.name),
@@ -162,6 +174,7 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
               offset: [0, -40],
               opacity: 1,
             });
+          markersRef.current.push(marker);
         }
 
         map.fitBounds(
@@ -194,8 +207,20 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
       io.disconnect();
       mapRef.current?.remove();
       mapRef.current = null;
+      markersRef.current = [];
     };
   }, [course]);
+
+  /** 목록에서 고른 지점으로 지도를 옮기고 이름표를 띄운다. */
+  const focusPoint = (i: number) => {
+    const map = mapRef.current;
+    const marker = markersRef.current[i];
+    const p = course.map.points[i];
+    if (!map || !marker || !p) return;
+    setActive(i);
+    map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 16), { duration: 0.6 });
+    marker.openTooltip();
+  };
 
   return (
     <div ref={wrapRef} className="overflow-hidden rounded-2xl border border-gray-200">
@@ -227,8 +252,36 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
             왕복 반환점
           </span>
         </div>
-        <p className="mt-1.5 text-xs leading-relaxed text-gray-500">
-          핀 끝이 실제 지점입니다. 지도를 끌어 강변 산책로를 확인하세요 — 왼쪽 아래 눈금이
+        {/* 지점 목록 — 누르면 지도가 그 핀으로 간다.
+            지도가 아직 안 떴으면(state !== "ready") 버튼을 못 누르게 한다.
+            눌러도 아무 일이 없는 버튼은 고장으로 읽힌다. */}
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
+          {course.map.points.map((p, i) => {
+            const k = KINDS[p.kind];
+            const on = active === i;
+            return (
+              <button
+                key={`${p.name}-${i}`}
+                type="button"
+                onClick={() => focusPoint(i)}
+                disabled={state !== "ready"}
+                className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                  on
+                    ? "border-gray-900 bg-gray-900 text-white"
+                    : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                }`}
+              >
+                <span
+                  className="h-2 w-2 shrink-0 rounded-full"
+                  style={{ background: on ? "#fff" : k.color }}
+                />
+                {p.name}
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-2 text-xs leading-relaxed text-gray-500">
+          위 지점을 누르면 지도가 그 핀으로 이동합니다. 핀 끝이 실제 지점입니다. 지도를 끌어 강변 산책로를 확인하세요 — 왼쪽 아래 눈금이
           거리 기준입니다. 마우스 휠 확대는 페이지 스크롤과 겹쳐 껐고, <b>＋ －</b> 버튼으로
           확대·축소합니다.
         </p>
