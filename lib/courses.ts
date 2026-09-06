@@ -55,6 +55,21 @@ export interface HangangCourse {
   facts: string[];
   /** 이 코스를 어떤 러너에게 권하는가 — 거리와 포장 상태에서만 도출한다 */
   fit: string;
+  /**
+   * 지도에 찍을 지점들.
+   *
+   * ⚠️ 좌표는 **전부 OpenStreetMap Nominatim 으로 실제 조회한 값**이다(2026-09-06).
+   * 손으로 적거나 눈대중으로 넣은 것이 하나도 없다. 새 지점을 넣을 때도
+   * `nominatim.openstreetmap.org/search?q=…` 로 조회해서 넣어라 —
+   * **좌표를 지어내면 사람이 엉뚱한 데로 간다.** 글자를 지어내는 것보다 나쁘다.
+   *
+   * kind: start = 지하철에서 내려 진입하는 지점 · turn = 왕복 반환점(다리)
+   */
+  map: {
+    center: [number, number];
+    zoom: number;
+    points: { name: string; lat: number; lon: number; kind: "start" | "turn" }[];
+  };
   source: { label: string; url: string; checkedAt: string };
 }
 
@@ -77,6 +92,16 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "잠실종합운동장·롯데월드·올림픽공원이 인접해 있다",
     ],
     fit: "가장 짧아서 첫 5K를 끊기 좋습니다. 끝까지 갔다가 돌아와도 10km가 안 되고, 중간에 그만두기로 해도 돌아오는 길이 짧습니다.",
+    map: {
+      center: [37.5210, 127.0930],
+      zoom: 14,
+      points: [
+        { name: "잠실나루역 3·4번 출구", lat: 37.52045, lon: 127.1042, kind: "start" },
+        { name: "잠실한강공원 만남의광장", lat: 37.51757, lon: 127.08433, kind: "start" },
+        { name: "잠실대교", lat: 37.52381, lon: 127.09208, kind: "turn" },
+        { name: "청담대교", lat: 37.52561, lon: 127.06397, kind: "turn" },
+      ],
+    },
     source: {
       label: "서울시 미래한강본부 — 잠실 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/651.do?mid=444",
@@ -103,6 +128,16 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "달빛무지개분수 — 총길이 1,140m, 세계 최장 교량분수로 기네스 등재",
     ],
     fit: "자전거도로와 산책로가 나뉘어 있다고 서울시가 명시한 구간입니다. 아직 옆을 살피며 뛰는 게 익숙지 않다면 여기가 편합니다.",
+    map: {
+      center: [37.5110, 126.9940],
+      zoom: 14,
+      points: [
+        { name: "고속터미널역 8-1·8-2번 출구", lat: 37.50504, lon: 127.00492, kind: "start" },
+        { name: "반포한강공원", lat: 37.50887, lon: 126.99394, kind: "start" },
+        { name: "반포대교·잠수교", lat: 37.51456, lon: 126.99651, kind: "turn" },
+        { name: "동작대교", lat: 37.51089, lon: 126.98192, kind: "turn" },
+      ],
+    },
     source: {
       label: "서울시 미래한강본부 — 반포 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/663.do?mid=463",
@@ -129,6 +164,16 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "지하철·버스 접근성이 좋아 직장인이 즐겨 찾는다고 공식 소개에 적혀 있다",
     ],
     fit: "평탄하고 길어서 10K·하프 준비에 맞습니다. 여의나루역에서 1분이면 도착하니 퇴근 후에 붙이기도 쉽습니다.",
+    map: {
+      center: [37.5290, 126.9400],
+      zoom: 14,
+      points: [
+        { name: "여의나루역 2·3번 출구", lat: 37.52685, lon: 126.93253, kind: "start" },
+        { name: "여의도한강공원", lat: 37.52567, lon: 126.93606, kind: "start" },
+        { name: "마포대교", lat: 37.53355, lon: 126.93637, kind: "turn" },
+        { name: "원효대교", lat: 37.52787, lon: 126.94726, kind: "turn" },
+      ],
+    },
     source: {
       label: "서울시 미래한강본부 — 여의도 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/669.do?mid=473",
@@ -153,6 +198,15 @@ export const HANGANG_COURSES: HangangCourse[] = [
       "체력단련장·X게임장·인공암벽장 등 운동시설이 있다",
     ],
     fit: "한 번에 가장 길게 이어 달릴 수 있습니다. 돌아 나올 지점을 미리 정하지 않아도 계속 갈 수 있어서 LSD(느린 장거리)에 맞습니다.",
+    map: {
+      center: [37.5330, 127.0520],
+      zoom: 13,
+      points: [
+        { name: "뚝섬한강공원 (자양역 2·3번 출구)", lat: 37.52983, lon: 127.06811, kind: "start" },
+        { name: "성수대교", lat: 37.53695, lon: 127.03501, kind: "turn" },
+        { name: "영동대교", lat: 37.53111, lon: 127.05775, kind: "turn" },
+      ],
+    },
     source: {
       label: "서울시 미래한강본부 — 뚝섬 소개·오시는길",
       url: "https://hangang.seoul.go.kr/www/contents/654.do?mid=449",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import CourseFigure from "@/components/CourseFigure";
+import CourseMapLive from "@/components/CourseMapLive";
 import FinderCta from "@/components/FinderCta";
 import InlineAsk from "@/components/InlineAsk";
 import ShareButtons from "@/components/ShareButtons";
@@ -57,6 +58,9 @@ export default function CoursesPage() {
         그래서 서울시 공식 자료에 있는 것만 적었고,{" "}
         <strong>구간별 거리와 노면 종류는 확인할 수 없어 쓰지 않았습니다.</strong> 정확한
         거리는 러닝 앱이나 시계가 재는 쪽이 맞습니다.
+        <br />
+        <strong>지도의 출발·반환 지점 좌표는 OpenStreetMap에서 실제로 조회한 값</strong>이고,
+        강변 산책로는 지도 자체가 그려서 보여줍니다 — 없는 경로를 그려 넣지 않았습니다.
       </div>
 
       {/* ── 한눈에 비교 ── */}
@@ -109,9 +113,21 @@ export default function CoursesPage() {
               {c.district} · 공식 길이 {c.lengthKm}km · {c.zone}
             </p>
 
-            <div className="mb-5 rounded-2xl border border-gray-200 bg-white p-4">
-              <CourseFigure name={c.slug} bridges={c.bridges} lengthKm={c.lengthKm} />
+            {/* 실제 지도가 먼저 온다.
+                도식은 "다리 순서"만 알려주고, 사람이 알고 싶은 건 "길이 어디냐"다.
+                도식은 지도 아래 보조로 남긴다 — 그 안의 텍스트는 크롤되므로 버리지 않는다. */}
+            <div className="mb-4">
+              <CourseMapLive course={c} />
             </div>
+
+            <details className="mb-5 rounded-2xl border border-gray-200 bg-white">
+              <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
+                다리 순서 도식 보기 (상류 → 하류)
+              </summary>
+              <div className="px-4 pb-4">
+                <CourseFigure name={c.slug} bridges={c.bridges} lengthKm={c.lengthKm} />
+              </div>
+            </details>
 
             <p className="mb-5 leading-relaxed text-gray-700">{c.fit}</p>
 
