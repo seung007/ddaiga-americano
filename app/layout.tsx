@@ -50,7 +50,20 @@ export const metadata: Metadata = {
     description: SITE_DESC,
     images: ["/opengraph-image"],
   },
+  /**
+   * 2026-09-06: 구글 인증 자리를 환경변수로 열어 뒀다.
+   *
+   * 구글 유입이 **2.7%**다. 한국 구글 점유율은 측정 방식에 따라 28~47%인데
+   * 어떤 기준으로 봐도 2.7%는 비정상이다. 그런데 **원인을 모른다** —
+   * 색인이 안 된 것(노출 0)인지 순위가 낮은 것(노출은 있는데 클릭 0)인지
+   * Search Console을 봐야 갈린다. `유입_설정_기준선.md`에 미확인으로 3주째 적혀 있다.
+   *
+   * 값이 없으면 이 메타태그는 아예 렌더되지 않는다(undefined면 Next가 생략한다).
+   * Vercel 환경변수에 `GOOGLE_SITE_VERIFICATION`을 넣고 재배포하면 켜진다.
+   * **코드를 고칠 필요가 없다** — 절차는 `설정_안내.md` 참고.
+   */
   verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
     other: { "naver-site-verification": "2d395d28fe901aa9b5db7136be81a47665ba57a2" },
   },
 };
