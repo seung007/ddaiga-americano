@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "nb.scene7.com" },
       { protocol: "https", hostname: "www.saucony.com" },
       { protocol: "https", hostname: "assets.mizuno.com" },
+      // 2026-09-06: assets.mizuno.com 3장이 전부 죽어 한국몰로 옮겼다
+      { protocol: "https", hostname: "kor.mizuno.com" },
       { protocol: "https", hostname: "assets.adidas.com" },
       { protocol: "https", hostname: "www.on-running.com" },
       { protocol: "https", hostname: "placehold.co" },

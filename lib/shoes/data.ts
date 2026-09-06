@@ -639,7 +639,7 @@ export const SHOES: Shoe[] = [
     brand: "Mizuno",
     model: "Wave Rider 29",
     successor: "Wave Rider 30",
-    imageUrl: "https://assets.mizuno.com/globalimages/shoes/running/u3gd250001_01.png",
+    imageUrl: "https://kor.mizuno.com/web/product/medium/202512/8a978aeefd4fa2187bb3cb477417a779.jpg",
     colorways: ["화이트/블루", "블랙/실버"],
     widthOptions: ["D", "2E"],
     heelDropMm: 10,
@@ -791,6 +791,9 @@ export const SHOES: Shoe[] = [
     brand: "Brooks",
     model: "Beast 24",
     successor: "Beast GTS 26",
+    // ⚠️ 2026-09-06: 이 이미지는 **죽었다**(브라우저 확인, onError 발생 → 회색 폴백).
+    //   브룩스 한국몰에서 대체본을 찾으려 했으나 페이지가 응답하지 않아 못 찾았다.
+    //   Beast 24는 단종(→ Beast GTS 26)이라 우선순위가 낮다. **추측한 URL로 바꾸지 않는다.**
     imageUrl: "https://brooks-res.cloudinary.com/image/upload/b_white,c_pad,dpr_2.0,f_auto,h_490,q_auto,w_490/v1/eComm/110418_1D.jpg",
     colorways: ["블루/화이트", "블랙/실버"],
     widthOptions: ["2E", "4E"],
@@ -829,7 +832,7 @@ export const SHOES: Shoe[] = [
     id: "mizuno-wave-sky-9",
     brand: "Mizuno",
     model: "Wave Sky 9",
-    imageUrl: "https://assets.mizuno.com/globalimages/shoes/running/u3gd210001_01.png",
+    imageUrl: "https://kor.mizuno.com/web/product/medium/202512/c5e003fbde4dc4c9d5192afb56c9e808.jpg",
     colorways: ["화이트/블루", "블랙/실버"],
     widthOptions: ["D", "2E"],
     heelDropMm: 10,
@@ -1057,6 +1060,11 @@ export const SHOES: Shoe[] = [
     id: "nike-infinity-run-4",
     brand: "Nike",
     model: "InfinityRN 4",
+    // ⚠️ 2026-09-06: 이 URL은 **200으로 400×400 이미지를 주는데 내용이 나이키의
+    //   "IMAGE UNAVAILABLE" 플레이스홀더**다. 정상 로드되므로 onError 폴백도 안 걸리고
+    //   check:images 의 Content-Type 검사도 통과한다 — 기계가 원리상 못 잡는 종류다.
+    //   대체 URL을 찾으려 했으나 나이키 검색 페이지에서 추출하지 못했다.
+    //   **추측한 URL로 바꾸지 않는다.** 찾으면 그때 교체할 것. `npm run check:images:sheet` 참고.
     imageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7e01e069-9b9f-47fc-ad9e-4d5a0d1c2285/infinity-run-4-road-running-shoes-XxRvxG.png",
     colorways: ["블랙/앤스라사이트", "화이트/퓨어플래티넘"],
     widthOptions: ["D", "2E"],
@@ -1095,7 +1103,7 @@ export const SHOES: Shoe[] = [
     id: "mizuno-wave-inspire-22",
     brand: "Mizuno",
     model: "Wave Inspire 22",
-    imageUrl: "https://assets.mizuno.com/globalimages/shoes/running/u3gb230001_01.png",
+    imageUrl: "https://kor.mizuno.com/web/product/medium/202606/bfef1a789cfd93e3afe3527578a4d42e.jpg",
     colorways: ["블루/화이트", "블랙/실버"],
     widthOptions: ["D", "2E"],
     heelDropMm: 12,
