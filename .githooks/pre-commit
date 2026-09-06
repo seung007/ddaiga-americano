@@ -1,0 +1,18 @@
+#!/bin/sh
+# 커밋 전 자동 검사 — 사람이 기억할 필요를 없앤다
+#
+# AGENTS.md §2: "출처를 하나라도 건드렸으면 커밋 전에 돌린다."
+# 문서에 적는 것으로는 안 지켜졌다. 그래서 훅으로 강제한다.
+#
+# 켜는 법 (저장소당 한 번):  git config core.hooksPath .githooks
+# 급할 때 건너뛰기:          git commit --no-verify
+#
+# 오프라인 검사만 돈다. 네트워크 조회는 느리고 샌드박스·비행기에서 실패하므로
+# 커밋을 막을 이유가 없다 — 그건 주간 CI가 한다.
+
+npm run --silent check || {
+  echo ""
+  echo "검사가 실패해 커밋을 멈췄습니다. 위 출력을 보고 고치세요."
+  echo "정말 그대로 커밋하려면: git commit --no-verify"
+  exit 1
+}

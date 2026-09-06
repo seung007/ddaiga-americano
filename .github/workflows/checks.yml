@@ -1,0 +1,60 @@
+# 검사기 자동 실행
+#
+# 왜 만들었나 (2026-09-06)
+# ───────────────────────
+# 두 가지를 동시에 푼다.
+#
+# 1) **사람이 기억해야 하는 규칙을 없앤다.** AGENTS.md에 "출처를 건드렸으면
+#    커밋 전에 검사기를 돌려라"고 적혀 있는데, 문서에 적는 것으로는 안 지켜졌다
+#    (제목 실험 때 "2주간 사이트를 바꾸지 마세요"를 적어놓고 계속 바꿨다).
+#    여기서는 푸시하면 무조건 돈다.
+#
+# 2) **내가 못 하는 네트워크 검증을 대신 한다.** 에이전트 샌드박스는 외부
+#    사이트를 프록시에서 막는다 — `check:images` 51장이 전부 `fetch failed`였고
+#    Scrapling도 `curl (7) CONNECT tunnel failed 403`으로 막혔다.
+#    GitHub Actions 러너에는 네트워크가 있으므로 **여기가 유일하게 진짜로
+#    확인되는 자리**다. 인용 논문·유튜브·구매 링크·신발 사진이 실제로 살아 있는지
+#    매주 여기서 확인한다.
+#
+# 토큰 관점: 이 워크플로는 **모델을 전혀 쓰지 않는다.** 스크립트가 판정하고
+# 실패할 때만 사람에게 알림이 간다. 자동화의 기본은 "모델을 루프에서 빼는 것"이다.
+
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # 매주 월요일 09:00 KST (= 일요일 00:00 UTC).
+  # 링크와 사진은 우리가 안 건드려도 상대방이 없앨 수 있다 —
+  # 이번 주에 실제로 브랜드 공식몰 3곳이 죽어 링크 14개가 함께 죽어 있었다.
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  offline:
+    name: 오프라인 검사 (타입·인용·신발·그림·링크구성·사진출처)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+
+  network:
+    name: 네트워크 검사 (실제 조회)
+    runs-on: ubuntu-latest
+    # 푸시마다 남의 서버를 두드리면 민폐다. 주간 실행과 수동 실행에서만 돈다.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:all
