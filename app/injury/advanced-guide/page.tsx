@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
@@ -12,7 +11,6 @@ export const metadata: Metadata = {
 export default function AdvancedGuidePage() {
   return (
     <>
-      <SiteHeader />
       <article className="max-w-3xl mx-auto px-6 py-12 text-gray-900">
 
         <div className="mb-8">

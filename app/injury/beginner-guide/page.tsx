@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SiteHeader from "@/components/SiteHeader";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
@@ -23,7 +22,6 @@ export default function BeginnerGuidePage() {
         url={PAGE_URL}
         datePublished="2025-03-01"
       />
-      <SiteHeader />
       <article className="max-w-3xl mx-auto px-6 py-12 text-gray-900">
 
         {/* 헤더 */}

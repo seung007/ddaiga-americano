@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SiteHeader from "@/components/SiteHeader";
 import HomeCommunitySection from "@/components/HomeCommunitySection";
 import HeroBackdrop from "@/components/HeroBackdrop";
 import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
@@ -48,7 +47,6 @@ const LEVEL_GUIDES = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <SiteHeader />
 
       {/* Hero
           2026-09-03: 배경이 비어 보인다는 지적으로 HeroBackdrop을 넣었다.

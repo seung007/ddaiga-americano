@@ -2,7 +2,12 @@ import Link from "next/link";
 
 export default function SiteHeader() {
   return (
-    <header className="border-b border-gray-100 bg-white sticky top-0 z-10">
+    // z-[1100] 인 이유 — Leaflet 때문이다.
+    // Leaflet은 자기 내부 요소에 z-index 400(타일·마커)~1000(컨트롤·팝업)을 직접 박는다.
+    // 헤더가 z-10 이면 /courses 에서 스크롤할 때 **지도가 헤더 위로 올라와 덮는다.**
+    // 헤더를 전역으로 올린 오늘(2026-09-06) 전까지는 /courses 에 헤더가 아예 없어서
+    // 이 충돌이 드러날 일이 없었다. 1000보다 큰 값이어야 한다.
+    <header className="border-b border-gray-100 bg-white sticky top-0 z-[1100]">
       <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-lg font-bold text-gray-900 hover:text-emerald-600 transition-colors">
           🏃 뛰다가 아메리카노

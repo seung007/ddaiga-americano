@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import SiteHeader from "@/components/SiteHeader";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
@@ -402,478 +401,475 @@ export default function ShoeFinderPage() {
   }
 
   return (
-    <>
-      <SiteHeader />
-      <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
-        <header className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
-          <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-            내 체형에 맞는 신발, 1분이면 찾아드려요.
-          </p>
-        </header>
+    <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
+        <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
+          내 체형에 맞는 신발, 1분이면 찾아드려요.
+        </p>
+      </header>
 
-        {!submitted && savedProfile && (
-          <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
-            <p className="text-sm text-emerald-800">
-              🕐 지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
+      {!submitted && savedProfile && (
+        <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+          <p className="text-sm text-emerald-800">
+            🕐 지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
+          </p>
+          <div className="flex shrink-0 gap-2">
+            <button type="button"
+              onClick={() => { applyProfile(savedProfile, true); setSavedProfile(null); }}
+              className="text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
+              다시 보기 →
+            </button>
+            <button type="button"
+              onClick={() => { setSavedProfile(null); try { localStorage.removeItem(STORAGE_KEY); } catch {} }}
+              className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1.5 transition-colors">
+              지우기
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!submitted && (
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-1.5 items-center">
+            {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+              <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${
+                i < currentStep ? "w-5 bg-emerald-500" :
+                i === currentStep ? "w-7 bg-emerald-500" :
+                "w-5 bg-gray-200"
+              }`} />
+            ))}
+          </div>
+          <span className="text-xs text-gray-400">
+            <span className="font-semibold text-gray-700">{currentStep + 1}</span> / {TOTAL_STEPS}
+          </span>
+        </div>
+      )}
+
+      <AffiliateNotice />
+
+      {/* ── 조건 칩 바 ──────────────────────────────────────────
+          이전에는 여기에 「← 조건 다시 고르기」 하나만 있었고, 그게 handleReset()이라
+          예산 하나 바꾸려면 8단계를 전부 다시 돌아야 했다. 이제 칩을 누르면
+          그 항목만 열리고, 고치는 즉시 아래 결과가 갱신된다. */}
+      {submitted && result && (
+        <div className="mb-4">
+          <div className="mb-2 flex items-center justify-between">
+            <p className="text-xs font-semibold text-gray-500">
+              내 조건 <span className="font-normal text-gray-400">— 눌러서 바로 고치기</span>
             </p>
-            <div className="flex shrink-0 gap-2">
-              <button type="button"
-                onClick={() => { applyProfile(savedProfile, true); setSavedProfile(null); }}
-                className="text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
-                다시 보기 →
-              </button>
-              <button type="button"
-                onClick={() => { setSavedProfile(null); try { localStorage.removeItem(STORAGE_KEY); } catch {} }}
-                className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1.5 transition-colors">
-                지우기
-              </button>
-            </div>
+            <ShareResultButton buildUrl={buildShareUrl} />
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {STEP_LABELS.map((label, i) => {
+              const val = stepSummaries[i];
+              const open = editingStep === i;
+              return (
+                <button key={label} type="button"
+                  onClick={() => (open ? finishInlineEdit() : startInlineEdit(i))}
+                  aria-expanded={open}
+                  className={`flex items-baseline gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors
+                    ${open
+                      ? "border-emerald-500 bg-emerald-600 text-white"
+                      : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"}`}>
+                  <span className={open ? "text-emerald-100" : "text-gray-400"}>{label}</span>
+                  <span className="font-semibold">{val ?? "선택 안 함"}</span>
+                </button>
+              );
+            })}
+            <button type="button" onClick={handleReset}
+              className="rounded-full px-3 py-1.5 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-600 transition-colors">
+              처음부터
+            </button>
+          </div>
+        </div>
+      )}
+
+      {(!submitted || isEditing) && (
+      <form onSubmit={handleSubmit} noValidate
+        className={`flex flex-col gap-5 rounded-2xl border bg-white p-6 ${
+          isEditing ? "border-emerald-300 ring-2 ring-emerald-100 shadow-md" : "border-gray-200 shadow-sm"
+        }`}>
+
+        {isEditing && (
+          <div className="-mt-1 -mb-1 flex items-center justify-between gap-3">
+            <p className="text-base font-semibold text-gray-900">
+              {STEP_LABELS[activeStep]} 고치기
+            </p>
+            <button type="button" onClick={finishInlineEdit}
+              className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
+              완료
+            </button>
           </div>
         )}
 
         {!submitted && (
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex gap-1.5 items-center">
-              {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i < currentStep ? "w-5 bg-emerald-500" :
-                  i === currentStep ? "w-7 bg-emerald-500" :
-                  "w-5 bg-gray-200"
-                }`} />
-              ))}
-            </div>
-            <span className="text-xs text-gray-400">
-              <span className="font-semibold text-gray-700">{currentStep + 1}</span> / {TOTAL_STEPS}
-            </span>
-          </div>
+          <p className="text-base font-semibold text-gray-800 -mb-1">
+            {STEP_MICROCOPY[activeStep]}
+          </p>
         )}
 
-        <AffiliateNotice />
-
-        {/* ── 조건 칩 바 ──────────────────────────────────────────
-            이전에는 여기에 「← 조건 다시 고르기」 하나만 있었고, 그게 handleReset()이라
-            예산 하나 바꾸려면 8단계를 전부 다시 돌아야 했다. 이제 칩을 누르면
-            그 항목만 열리고, 고치는 즉시 아래 결과가 갱신된다. */}
-        {submitted && result && (
-          <div className="mb-4">
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-xs font-semibold text-gray-500">
-                내 조건 <span className="font-normal text-gray-400">— 눌러서 바로 고치기</span>
-              </p>
-              <ShareResultButton buildUrl={buildShareUrl} />
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {STEP_LABELS.map((label, i) => {
-                const val = stepSummaries[i];
-                const open = editingStep === i;
-                return (
-                  <button key={label} type="button"
-                    onClick={() => (open ? finishInlineEdit() : startInlineEdit(i))}
-                    aria-expanded={open}
-                    className={`flex items-baseline gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors
-                      ${open
-                        ? "border-emerald-500 bg-emerald-600 text-white"
-                        : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"}`}>
-                    <span className={open ? "text-emerald-100" : "text-gray-400"}>{label}</span>
-                    <span className="font-semibold">{val ?? "선택 안 함"}</span>
-                  </button>
-                );
-              })}
-              <button type="button" onClick={handleReset}
-                className="rounded-full px-3 py-1.5 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-600 transition-colors">
-                처음부터
-              </button>
-            </div>
-          </div>
-        )}
-
-        {(!submitted || isEditing) && (
-        <form onSubmit={handleSubmit} noValidate
-          className={`flex flex-col gap-5 rounded-2xl border bg-white p-6 ${
-            isEditing ? "border-emerald-300 ring-2 ring-emerald-100 shadow-md" : "border-gray-200 shadow-sm"
-          }`}>
-
-          {isEditing && (
-            <div className="-mt-1 -mb-1 flex items-center justify-between gap-3">
-              <p className="text-base font-semibold text-gray-900">
-                {STEP_LABELS[activeStep]} 고치기
-              </p>
-              <button type="button" onClick={finishInlineEdit}
-                className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
-                완료
-              </button>
-            </div>
-          )}
-
-          {!submitted && (
-            <p className="text-base font-semibold text-gray-800 -mb-1">
-              {STEP_MICROCOPY[activeStep]}
-            </p>
-          )}
-
-          {/* ── STEP 0: 예산 ── */}
-          {activeStep === 0 && (
-            <div className="flex flex-col gap-2">
-              <div className="grid grid-cols-2 gap-2">
-                {BUDGETS.map(o => (
-                  <button key={o.value} type="button"
-                    onClick={() => { setBudget(o.value); handleChange(); }}
-                    className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors text-left
-                      ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
-                    {o.label}
-                  </button>
-                ))}
-              </div>
-              <p className="text-xs text-gray-400 mt-1">선택 안 해도 괜찮아요 — 그냥 넘어가도 됩니다.</p>
-            </div>
-          )}
-
-          {/* ── STEP 1: 성별 ── */}
-          {activeStep === 1 && (
-            <div className="flex flex-col gap-2">
-              <div className="flex gap-2">
-                {([
-                  { value: "male" as Gender,   label: "🚹 남성", desc: "남성 발형 기준으로 추천해요" },
-                  { value: "female" as Gender, label: "🚺 여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
-                ]).map(g => (
-                  <button key={g.value} type="button"
-                    onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
-                    className={`flex-1 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${gender === g.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className="font-semibold text-sm text-gray-900">{g.label}</span>
-                    <span className="text-xs text-gray-500">{g.desc}</span>
-                  </button>
-                ))}
-              </div>
-              <button type="button"
-                onClick={() => { setGender(""); handleChange(); }}
-                className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors text-left
-                  ${gender === "" ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 font-semibold text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-500"}`}>
-                선택 안 함
-              </button>
-              <p className="text-xs text-gray-400 mt-1">선택 안 해도 추천 받을 수 있어요.</p>
-            </div>
-          )}
-
-          {/* ── STEP 2: 키 ── */}
-          {activeStep === 2 && (
-            <div className="grid grid-cols-3 gap-2">
-              {HEIGHT_OPTIONS.map(o => (
+        {/* ── STEP 0: 예산 ── */}
+        {activeStep === 0 && (
+          <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-2 gap-2">
+              {BUDGETS.map(o => (
                 <button key={o.value} type="button"
-                  onClick={() => { setHeightRange(o.value); setWeightRange(""); handleChange(); }}
-                  className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                    ${heightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                  <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                  <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                  onClick={() => { setBudget(o.value); handleChange(); }}
+                  className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors text-left
+                    ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
+                  {o.label}
                 </button>
               ))}
             </div>
-          )}
+            <p className="text-xs text-gray-400 mt-1">선택 안 해도 괜찮아요 — 그냥 넘어가도 됩니다.</p>
+          </div>
+        )}
 
-          {/* ── STEP 3: 체중 ── */}
-          {activeStep === 3 && (
-            <div className="flex flex-col gap-2">
-              {!heightRange ? (
-                <p className="text-sm text-amber-600">키를 먼저 골라주세요!</p>
-              ) : (
-                <div className={`grid gap-2 ${WEIGHT_OPTIONS[heightRange].length <= 2 ? "grid-cols-2" : "grid-cols-2"}`}>
-                  {WEIGHT_OPTIONS[heightRange].map(o => (
-                    <button key={o.value} type="button"
-                      onClick={() => { setWeightRange(o.value); handleChange(); }}
-                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                        ${weightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                      <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
+        {/* ── STEP 1: 성별 ── */}
+        {activeStep === 1 && (
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
+              {([
+                { value: "male" as Gender,   label: "🚹 남성", desc: "남성 발형 기준으로 추천해요" },
+                { value: "female" as Gender, label: "🚺 여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
+              ]).map(g => (
+                <button key={g.value} type="button"
+                  onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
+                  className={`flex-1 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                    ${gender === g.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                  <span className="font-semibold text-sm text-gray-900">{g.label}</span>
+                  <span className="text-xs text-gray-500">{g.desc}</span>
+                </button>
+              ))}
             </div>
-          )}
+            <button type="button"
+              onClick={() => { setGender(""); handleChange(); }}
+              className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors text-left
+                ${gender === "" ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 font-semibold text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-500"}`}>
+              선택 안 함
+            </button>
+            <p className="text-xs text-gray-400 mt-1">선택 안 해도 추천 받을 수 있어요.</p>
+          </div>
+        )}
 
-          {/* ── STEP 4: 발 특성 ── */}
-          {activeStep === 4 && (
-            <div className="flex flex-col gap-2">
-              <div className="grid grid-cols-3 gap-2">
-                {FOOT_OPTIONS.map(o => {
-                  const active = footSelections.includes(o.id);
-                  return (
-                    <button key={o.id} type="button"
-                      onClick={() => {
-                        handleChange();
-                        setFootSelections(prev => {
-                          if (prev.includes(o.id)) return prev.filter(id => id !== o.id);
-                          const filtered = prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== o.category);
-                          return [...filtered, o.id];
-                        });
-                      }}
-                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                        ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                      <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="text-xs text-gray-400">발볼이랑 발 모양 각각 하나씩 고르면 더 잘 맞는 신발을 찾아드려요.</p>
-              <p className="text-xs text-gray-400">선택 안 해도 추천 받을 수 있어요.</p>
-            </div>
-          )}
+        {/* ── STEP 2: 키 ── */}
+        {activeStep === 2 && (
+          <div className="grid grid-cols-3 gap-2">
+            {HEIGHT_OPTIONS.map(o => (
+              <button key={o.value} type="button"
+                onClick={() => { setHeightRange(o.value); setWeightRange(""); handleChange(); }}
+                className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                  ${heightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                <span className="font-semibold text-sm text-gray-900">{o.label}</span>
+                <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+              </button>
+            ))}
+          </div>
+        )}
 
-          {/* ── STEP 5: 경험 · 주간 거리 (PRD F-01) ── */}
-          {activeStep === 5 && (
-            <div className="flex flex-col gap-4">
-              <div className="grid grid-cols-3 gap-2">
-                {LEVEL_OPTIONS.map(o => (
+        {/* ── STEP 3: 체중 ── */}
+        {activeStep === 3 && (
+          <div className="flex flex-col gap-2">
+            {!heightRange ? (
+              <p className="text-sm text-amber-600">키를 먼저 골라주세요!</p>
+            ) : (
+              <div className={`grid gap-2 ${WEIGHT_OPTIONS[heightRange].length <= 2 ? "grid-cols-2" : "grid-cols-2"}`}>
+                {WEIGHT_OPTIONS[heightRange].map(o => (
                   <button key={o.value} type="button"
-                    onClick={() => { setLevel(prev => prev === o.value ? "" : o.value); handleChange(); }}
+                    onClick={() => { setWeightRange(o.value); handleChange(); }}
                     className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${level === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className={`font-semibold text-sm ${level === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                      ${weightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className="font-semibold text-sm text-gray-900">{o.label}</span>
                     <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
                   </button>
                 ))}
               </div>
-              <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">일주일에 얼마나 달려요?</p>
-                <div className="grid grid-cols-3 gap-2">
-                  {DISTANCE_OPTIONS.map(o => (
-                    <button key={o.value} type="button"
-                      onClick={() => { setDistance(prev => prev === o.value ? "" : o.value); handleChange(); }}
-                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                        ${distance === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                      <span className={`font-semibold text-sm ${distance === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <p className="text-xs text-gray-400 -mt-1">선택 안 해도 추천 받을 수 있어요. 입문이면 부상 위험이 큰 카본화를 빼드려요.</p>
-            </div>
-          )}
-
-          {/* ── STEP 6: 부상 이력 (PRD F-01) ── */}
-          {activeStep === 6 && (
-            <div className="flex flex-col gap-2">
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {INJURY_OPTIONS.map(o => {
-                  const active = injuries.includes(o.value);
-                  return (
-                    <button key={o.value} type="button"
-                      onClick={() => {
-                        handleChange();
-                        setInjuries(prev => {
-                          if (prev.includes(o.value)) return prev.filter(i => i !== o.value);
-                          if (o.value === "none") return ["none"];
-                          return [...prev.filter(i => i !== "none"), o.value];
-                        });
-                      }}
-                      className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                        ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                      <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                      <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="text-xs text-gray-400 mt-1">여러 개 골라도 돼요. 다친 부위에 부담이 덜한 신발을 우선 추천해드려요.</p>
-              <p className="text-xs text-gray-400">※ 참고용이에요. 지금 아프다면 신발보다 병원 진료가 먼저예요.</p>
-            </div>
-          )}
-
-          {/* ── STEP 7: 용도 + 추천 받기 ── */}
-          {activeStep === 7 && (
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                {([
-                  { value: "daily" as ShoeUse,   label: "데일리",      desc: "매일 달리기 · 처음 시작이라면 이걸로!" },
-                  { value: "long" as ShoeUse,    label: "장거리",      desc: "하프·풀 마라톤 준비 중" },
-                  { value: "tempo" as ShoeUse,   label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
-                  { value: "racing" as ShoeUse,  label: "레이싱",      desc: "기록 단축이 목표예요" },
-                ]).map(o => (
-                  <button key={o.value} type="button"
-                    onClick={() => { setUse(o.value); handleChange(); }}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
-                      ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className={`font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                    <span className="text-xs text-gray-400">{o.desc}</span>
-                  </button>
-                ))}
-              </div>
-
-              {error && <p className="text-sm text-red-500">{error}</p>}
-
-              {!isEditing && (
-              <button type="submit"
-                className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
-                내 러닝화 찾기 →
-              </button>
-              )}
-
-              <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
-                키·체중·발 정보는 <strong className="font-medium text-gray-500">추천 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
-                「내 러닝화 찾기」를 누르면{" "}
-                <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
-              </p>
-            </div>
-          )}
-
-          {/* ── 이전 / 다음 버튼 ── */}
-          {!submitted && (
-            <div className="flex gap-2 mt-1">
-              {currentStep > 0 && (
-                <button type="button" onClick={goPrev}
-                  className="px-4 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-colors">
-                  ← 이전
-                </button>
-              )}
-              {currentStep < TOTAL_STEPS - 1 && (
-                <button type="button" onClick={() => {
-                  if (currentStep === 2 && !heightRange) { setError("키를 먼저 골라주세요!"); return; }
-                  if (currentStep === 3 && !weightRange) { setError("체중도 골라주세요!"); return; }
-                  setError("");
-                  goNext();
-                }}
-                  className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
-                  다음 →
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* ── 인라인 편집 중 1순위 고정 ────────────────────────────
-              모바일(네이버 유입의 대부분)에서 조건 패널을 펼치면 추천 목록이
-              화면 밖으로 밀려난다. 바꾼 것이 무엇을 바꿨는지 안 보이면
-              실시간 갱신은 의미가 없으므로, 1순위만 패널 안에 붙여둔다. */}
-          {isEditing && (
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5">
-              {topPick ? (
-                <>
-                  <p className="text-[11px] font-bold tracking-wide text-emerald-700">지금 1순위</p>
-                  <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
-                    {topPick.shoe.brand} {topPick.shoe.model}
-                  </p>
-                  <p className="mt-0.5 text-xs text-gray-600">
-                    {topPick.shoe.priceKrw.toLocaleString()}원
-                    {topPick.shoe.successor && ` · 후속 ${topPick.shoe.successor} 출시됨`}
-                  </p>
-                  <p className="mt-2 text-[11px] text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
-                </>
-              ) : (
-                <p className="text-sm text-amber-700">
-                  이 조건에 맞는 신발이 없어요 — 예산이나 발 조건을 조금 넓혀보세요.
-                </p>
-              )}
-            </div>
-          )}
-        </form>
+            )}
+          </div>
         )}
 
-        {/* 결과 */}
-        {result && weightKg && heightCm && (
-          <section className="mt-10">
-
-            <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-base">🔎</span>
-                <h3 className="text-sm font-bold text-blue-900">내 분석 결과</h3>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 mb-2.5">
-                <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                  내 체형 · {BODY_TYPE_LABEL[result.bodyType]}
-                </span>
-                <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                  추천 쿠션 · 5단계 중 {getMinCushioning(weightKg)}단계 이상
-                </span>
-                <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                  권장 케이던스 · {result.cadenceSpm[0]}~{result.cadenceSpm[1]} spm
-                </span>
-              </div>
-
-              <p className="text-[11px] text-blue-600/80 leading-relaxed mb-2.5">
-                케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 분당 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음 리듬이 무릎 충격을 줄여줘요.{" "}
-                <a href="/injury/cadence" className="underline hover:text-blue-800">케이던스 맞추는 법 →</a>
-              </p>
-
-              {result.profileComment && (
-                <p className="text-[15px] text-blue-900 leading-relaxed">{result.profileComment}</p>
-              )}
-
-              {result.evidenceNote && (
-                <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-[11px] text-blue-500 leading-relaxed">
-                  {result.evidenceNote}
-                </p>
-              )}
-            </div>
-
-            {result.usedFallback && (
-              <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-                ⚠️ {result.fallbackNote}
-              </div>
-            )}
-
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
-                <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 내 키·체중·발볼 조건을 통과한 결과예요.</p>
-              </div>
-              <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
-                {([
-                  { key: "score" as SortKey,      label: "적합도순" },
-                  { key: "price_asc" as SortKey,  label: "가격 낮은순" },
-                  { key: "price_desc" as SortKey, label: "가격 높은순" },
-                ] as { key: SortKey; label: string }[]).map(o => (
-                  <button key={o.key} type="button" onClick={() => setSortKey(o.key)}
-                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors
-                      ${sortKey === o.key ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-700"}`}>
-                    {o.label}
+        {/* ── STEP 4: 발 특성 ── */}
+        {activeStep === 4 && (
+          <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-3 gap-2">
+              {FOOT_OPTIONS.map(o => {
+                const active = footSelections.includes(o.id);
+                return (
+                  <button key={o.id} type="button"
+                    onClick={() => {
+                      handleChange();
+                      setFootSelections(prev => {
+                        if (prev.includes(o.id)) return prev.filter(id => id !== o.id);
+                        const filtered = prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== o.category);
+                        return [...filtered, o.id];
+                      });
+                    }}
+                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                      ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
                   </button>
-                ))}
-              </div>
+                );
+              })}
             </div>
+            <p className="text-xs text-gray-400">발볼이랑 발 모양 각각 하나씩 고르면 더 잘 맞는 신발을 찾아드려요.</p>
+            <p className="text-xs text-gray-400">선택 안 해도 추천 받을 수 있어요.</p>
+          </div>
+        )}
 
-            {sortedPrimary.length >= 2 && compareIds.length === 0 && (
-              <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 mb-4">
-                <span className="text-emerald-600 text-base">⚖️</span>
-                <p className="text-sm text-emerald-700">
-                  각 카드 오른쪽 위 <strong>「비교」</strong> 버튼을 눌러 두 신발을 나란히 비교할 수 있어요.
-                </p>
-              </div>
-            )}
-
-            <ul className="flex flex-col gap-4">
-              {sortedPrimary.map((rec, i) => (
-                <ShoeCard key={rec.shoe.id} rec={rec} rank={i + 1}
-                  expanded={expandedId === rec.shoe.id}
-                  onToggle={() => setExpandedId(expandedId === rec.shoe.id ? null : rec.shoe.id)}
-                  inCompare={compareIds.includes(rec.shoe.id)}
-                  canAddCompare={compareIds.length < 2 || compareIds.includes(rec.shoe.id)}
-                  onToggleCompare={() => toggleCompare(rec.shoe.id)} />
+        {/* ── STEP 5: 경험 · 주간 거리 (PRD F-01) ── */}
+        {activeStep === 5 && (
+          <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-3 gap-2">
+              {LEVEL_OPTIONS.map(o => (
+                <button key={o.value} type="button"
+                  onClick={() => { setLevel(prev => prev === o.value ? "" : o.value); handleChange(); }}
+                  className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                    ${level === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                  <span className={`font-semibold text-sm ${level === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                  <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                </button>
               ))}
-            </ul>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">일주일에 얼마나 달려요?</p>
+              <div className="grid grid-cols-3 gap-2">
+                {DISTANCE_OPTIONS.map(o => (
+                  <button key={o.value} type="button"
+                    onClick={() => { setDistance(prev => prev === o.value ? "" : o.value); handleChange(); }}
+                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                      ${distance === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className={`font-semibold text-sm ${distance === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="text-xs text-gray-400 -mt-1">선택 안 해도 추천 받을 수 있어요. 입문이면 부상 위험이 큰 카본화를 빼드려요.</p>
+          </div>
+        )}
 
-            {compareIds.length > 0 && (
-              <ComparePanel
-                compareIds={compareIds}
-                shoes={sortedPrimary.filter(r => compareIds.includes(r.shoe.id)).map(r => r.shoe)}
-                onClear={() => setCompareIds([])}
-                userWidth={selectedWidth}
-                userFootType={selectedType}
-              />
+        {/* ── STEP 6: 부상 이력 (PRD F-01) ── */}
+        {activeStep === 6 && (
+          <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {INJURY_OPTIONS.map(o => {
+                const active = injuries.includes(o.value);
+                return (
+                  <button key={o.value} type="button"
+                    onClick={() => {
+                      handleChange();
+                      setInjuries(prev => {
+                        if (prev.includes(o.value)) return prev.filter(i => i !== o.value);
+                        if (o.value === "none") return ["none"];
+                        return [...prev.filter(i => i !== "none"), o.value];
+                      });
+                    }}
+                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
+                      ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                    <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-gray-400 mt-1">여러 개 골라도 돼요. 다친 부위에 부담이 덜한 신발을 우선 추천해드려요.</p>
+            <p className="text-xs text-gray-400">※ 참고용이에요. 지금 아프다면 신발보다 병원 진료가 먼저예요.</p>
+          </div>
+        )}
+
+        {/* ── STEP 7: 용도 + 추천 받기 ── */}
+        {activeStep === 7 && (
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              {([
+                { value: "daily" as ShoeUse,   label: "데일리",      desc: "매일 달리기 · 처음 시작이라면 이걸로!" },
+                { value: "long" as ShoeUse,    label: "장거리",      desc: "하프·풀 마라톤 준비 중" },
+                { value: "tempo" as ShoeUse,   label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
+                { value: "racing" as ShoeUse,  label: "레이싱",      desc: "기록 단축이 목표예요" },
+              ]).map(o => (
+                <button key={o.value} type="button"
+                  onClick={() => { setUse(o.value); handleChange(); }}
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
+                    ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                  <span className={`font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                  <span className="text-xs text-gray-400">{o.desc}</span>
+                </button>
+              ))}
+            </div>
+
+            {error && <p className="text-sm text-red-500">{error}</p>}
+
+            {!isEditing && (
+            <button type="submit"
+              className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
+              내 러닝화 찾기 →
+            </button>
             )}
 
-            <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} injuries={injuries} />
-
-            <p className="mt-10 text-xs text-gray-400 leading-relaxed">
-              ※ 이 추천은 <span className="font-medium text-gray-500">참고용 정보</span>예요. 같은 신발도 달리는 페이스나 착지법에 따라 체감이 달라질 수 있으니, 최종 선택은 직접 신어보고 결정하세요. 의료 진단·전문 피팅을 대체하지 않으며, 통증·기저 질환이 있다면 전문 의료인과 상담 후 고르세요.{" "}
-              <a href="/terms" className="underline hover:text-gray-600">자세한 고지 →</a>
+            <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
+              키·체중·발 정보는 <strong className="font-medium text-gray-500">추천 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
+              「내 러닝화 찾기」를 누르면{" "}
+              <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
             </p>
-          </section>
+          </div>
         )}
-      </main>
-    </>
+
+        {/* ── 이전 / 다음 버튼 ── */}
+        {!submitted && (
+          <div className="flex gap-2 mt-1">
+            {currentStep > 0 && (
+              <button type="button" onClick={goPrev}
+                className="px-4 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-colors">
+                ← 이전
+              </button>
+            )}
+            {currentStep < TOTAL_STEPS - 1 && (
+              <button type="button" onClick={() => {
+                if (currentStep === 2 && !heightRange) { setError("키를 먼저 골라주세요!"); return; }
+                if (currentStep === 3 && !weightRange) { setError("체중도 골라주세요!"); return; }
+                setError("");
+                goNext();
+              }}
+                className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
+                다음 →
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* ── 인라인 편집 중 1순위 고정 ────────────────────────────
+            모바일(네이버 유입의 대부분)에서 조건 패널을 펼치면 추천 목록이
+            화면 밖으로 밀려난다. 바꾼 것이 무엇을 바꿨는지 안 보이면
+            실시간 갱신은 의미가 없으므로, 1순위만 패널 안에 붙여둔다. */}
+        {isEditing && (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5">
+            {topPick ? (
+              <>
+                <p className="text-[11px] font-bold tracking-wide text-emerald-700">지금 1순위</p>
+                <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
+                  {topPick.shoe.brand} {topPick.shoe.model}
+                </p>
+                <p className="mt-0.5 text-xs text-gray-600">
+                  {topPick.shoe.priceKrw.toLocaleString()}원
+                  {topPick.shoe.successor && ` · 후속 ${topPick.shoe.successor} 출시됨`}
+                </p>
+                <p className="mt-2 text-[11px] text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
+              </>
+            ) : (
+              <p className="text-sm text-amber-700">
+                이 조건에 맞는 신발이 없어요 — 예산이나 발 조건을 조금 넓혀보세요.
+              </p>
+            )}
+          </div>
+        )}
+      </form>
+      )}
+
+      {/* 결과 */}
+      {result && weightKg && heightCm && (
+        <section className="mt-10">
+
+          <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-base">🔎</span>
+              <h3 className="text-sm font-bold text-blue-900">내 분석 결과</h3>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 mb-2.5">
+              <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
+                내 체형 · {BODY_TYPE_LABEL[result.bodyType]}
+              </span>
+              <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
+                추천 쿠션 · 5단계 중 {getMinCushioning(weightKg)}단계 이상
+              </span>
+              <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
+                권장 케이던스 · {result.cadenceSpm[0]}~{result.cadenceSpm[1]} spm
+              </span>
+            </div>
+
+            <p className="text-[11px] text-blue-600/80 leading-relaxed mb-2.5">
+              케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 분당 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음 리듬이 무릎 충격을 줄여줘요.{" "}
+              <a href="/injury/cadence" className="underline hover:text-blue-800">케이던스 맞추는 법 →</a>
+            </p>
+
+            {result.profileComment && (
+              <p className="text-[15px] text-blue-900 leading-relaxed">{result.profileComment}</p>
+            )}
+
+            {result.evidenceNote && (
+              <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-[11px] text-blue-500 leading-relaxed">
+                {result.evidenceNote}
+              </p>
+            )}
+          </div>
+
+          {result.usedFallback && (
+            <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              ⚠️ {result.fallbackNote}
+            </div>
+          )}
+
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
+              <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 내 키·체중·발볼 조건을 통과한 결과예요.</p>
+            </div>
+            <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
+              {([
+                { key: "score" as SortKey,      label: "적합도순" },
+                { key: "price_asc" as SortKey,  label: "가격 낮은순" },
+                { key: "price_desc" as SortKey, label: "가격 높은순" },
+              ] as { key: SortKey; label: string }[]).map(o => (
+                <button key={o.key} type="button" onClick={() => setSortKey(o.key)}
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors
+                    ${sortKey === o.key ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-700"}`}>
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {sortedPrimary.length >= 2 && compareIds.length === 0 && (
+            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 mb-4">
+              <span className="text-emerald-600 text-base">⚖️</span>
+              <p className="text-sm text-emerald-700">
+                각 카드 오른쪽 위 <strong>「비교」</strong> 버튼을 눌러 두 신발을 나란히 비교할 수 있어요.
+              </p>
+            </div>
+          )}
+
+          <ul className="flex flex-col gap-4">
+            {sortedPrimary.map((rec, i) => (
+              <ShoeCard key={rec.shoe.id} rec={rec} rank={i + 1}
+                expanded={expandedId === rec.shoe.id}
+                onToggle={() => setExpandedId(expandedId === rec.shoe.id ? null : rec.shoe.id)}
+                inCompare={compareIds.includes(rec.shoe.id)}
+                canAddCompare={compareIds.length < 2 || compareIds.includes(rec.shoe.id)}
+                onToggleCompare={() => toggleCompare(rec.shoe.id)} />
+            ))}
+          </ul>
+
+          {compareIds.length > 0 && (
+            <ComparePanel
+              compareIds={compareIds}
+              shoes={sortedPrimary.filter(r => compareIds.includes(r.shoe.id)).map(r => r.shoe)}
+              onClear={() => setCompareIds([])}
+              userWidth={selectedWidth}
+              userFootType={selectedType}
+            />
+          )}
+
+          <RelatedGuides footType={selectedType} footWidth={selectedWidth} use={use} injuries={injuries} />
+
+          <p className="mt-10 text-xs text-gray-400 leading-relaxed">
+            ※ 이 추천은 <span className="font-medium text-gray-500">참고용 정보</span>예요. 같은 신발도 달리는 페이스나 착지법에 따라 체감이 달라질 수 있으니, 최종 선택은 직접 신어보고 결정하세요. 의료 진단·전문 피팅을 대체하지 않으며, 통증·기저 질환이 있다면 전문 의료인과 상담 후 고르세요.{" "}
+            <a href="/terms" className="underline hover:text-gray-600">자세한 고지 →</a>
+          </p>
+        </section>
+      )}
+    </main>
   );
 }
 

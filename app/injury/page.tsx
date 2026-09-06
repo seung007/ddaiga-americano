@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import SiteHeader from "@/components/SiteHeader";
 import { useState } from "react";
 
 const LEVELS = ["전체", "🟢 초심자", "🟡 중급자", "🔴 숙련자"] as const;
@@ -57,116 +56,113 @@ export default function InjuryListPage() {
     : ARTICLES.filter(a => a.level === activeLevel);
 
   return (
-    <>
-      <SiteHeader />
-      <main className="max-w-3xl mx-auto px-6 py-12">
-        <header className="mb-8">
-          <p className="text-sm font-medium text-emerald-600 mb-2">부상 예방 · 스트레칭 · 주법 · 런닝 이야기</p>
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">달리다가 아프지 않으려면</h1>
-          <p className="text-gray-600 leading-relaxed">
-            연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent 2007).
-            경력 단계에 맞는 정보를 선택하세요.
-          </p>
-          <div className="mt-3 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
-            <span className="text-emerald-600">✓</span>
-            추천 순서는 광고비로 바뀌지 않습니다
-          </div>
-        </header>
-
-        {/* 레벨별 가이드 카드 */}
-        <section className="mb-8">
-          <h2 className="text-base font-bold text-gray-700 mb-3">내 레벨 가이드 바로가기</h2>
-          <div className="grid grid-cols-3 gap-3">
-            {LEVEL_GUIDES.map(g => (
-              <Link key={g.href} href={g.href}
-                className="flex flex-col gap-1.5 p-4 rounded-2xl border hover:shadow-md transition-all bg-white">
-                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full self-start border ${g.levelColor}`}>
-                  {g.level}
-                </span>
-                <p className="font-semibold text-sm text-gray-900">{g.title}</p>
-                <p className="text-xs text-gray-500 leading-relaxed">{g.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* 레벨 필터
-            2026-09-03: "전체 칩이 굳이 필요한가"라는 질문에서 출발했다.
-            빼지 않기로 했다 — **빼면 되돌아올 길이 막힌다.** 중급자를 누른 뒤 전부 보려면
-            같은 칩을 다시 눌러 해제해야 하는데, 그 동작은 발견 가능성이 낮아 사용자가 갇힌다.
-            대신 **개수를 붙여 정보가 되게** 했다. "전체 N"은 중복이 아니라
-            글이 몇 편인지와 난이도 분포를 알려주는 값이다.
-
-            붙이자마자 값을 했다 — 나는 이 페이지의 글이 19편이라고 보고했는데
-            **실제 ARTICLES는 16편**(초심자 8·중급자 5·숙련자 3)이었다.
-            파일 전체를 grep해서 상단 "내 레벨 가이드" 카드 3개까지 세었던 것이다.
-            **숫자는 세는 코드가 세게 하고, 사람은 grep 결과를 결론으로 삼지 마라.**
-            개수를 화면에 띄우는 것 자체가 검사기 역할을 한다.
-
-            그리고 이 페이지에는 **GA 이벤트가 하나도 없었다.** 필터를 쓰는 사람이
-            있는지조차 모르는 채로 UI를 손보고 있었다. 재는 것부터 붙인다 —
-            2주 뒤에도 `injury_filter`가 0건이면 필터 자체를 없애는 게 맞다. */}
-        <section className="mb-6">
-          <div className="flex gap-2 flex-wrap">
-            {LEVELS.map(lv => {
-              const count = lv === "전체"
-                ? ARTICLES.length
-                : ARTICLES.filter(a => a.level === lv).length;
-              return (
-                <button key={lv}
-                  onClick={() => {
-                    setActiveLevel(lv);
-                    const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
-                    if (typeof g === "function") g("event", "injury_filter", { level: lv, count });
-                  }}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
-                    ${activeLevel === lv
-                      ? "bg-emerald-600 text-white border-emerald-600"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
-                  {lv}
-                  <span className={activeLevel === lv ? "ml-1.5 text-emerald-100" : "ml-1.5 text-gray-400"}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* 아티클 목록 */}
-        <section className="mb-10">
-          <ul className="flex flex-col gap-3">
-            {filtered.map(a => (
-              <li key={a.href}>
-                <Link href={a.href}
-                  className="flex items-start justify-between gap-4 bg-white border border-gray-100 rounded-xl p-5 hover:border-emerald-300 hover:shadow-sm transition-all">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.tagColor}`}>
-                        {a.tag}
-                      </span>
-                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.levelColor}`}>
-                        {a.level}
-                      </span>
-                    </div>
-                    <h3 className="font-semibold text-gray-900 leading-snug mb-1">{a.title}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">{a.desc}</p>
-                  </div>
-                  <span className="shrink-0 text-xs text-gray-400 mt-1 whitespace-nowrap">{a.readTime}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <div className="p-6 bg-emerald-50 rounded-2xl text-center">
-          <p className="text-sm text-emerald-800 mb-3 font-medium">부상 예방의 절반은 내 발에 맞는 신발입니다</p>
-          <Link href="/shoe-finder"
-            className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 러닝화 찾기 →
-          </Link>
+    <main className="max-w-3xl mx-auto px-6 py-12">
+      <header className="mb-8">
+        <p className="text-sm font-medium text-emerald-600 mb-2">부상 예방 · 스트레칭 · 주법 · 런닝 이야기</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">달리다가 아프지 않으려면</h1>
+        <p className="text-gray-600 leading-relaxed">
+          연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent 2007).
+          경력 단계에 맞는 정보를 선택하세요.
+        </p>
+        <div className="mt-3 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
+          <span className="text-emerald-600">✓</span>
+          추천 순서는 광고비로 바뀌지 않습니다
         </div>
-      </main>
-    </>
+      </header>
+
+      {/* 레벨별 가이드 카드 */}
+      <section className="mb-8">
+        <h2 className="text-base font-bold text-gray-700 mb-3">내 레벨 가이드 바로가기</h2>
+        <div className="grid grid-cols-3 gap-3">
+          {LEVEL_GUIDES.map(g => (
+            <Link key={g.href} href={g.href}
+              className="flex flex-col gap-1.5 p-4 rounded-2xl border hover:shadow-md transition-all bg-white">
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full self-start border ${g.levelColor}`}>
+                {g.level}
+              </span>
+              <p className="font-semibold text-sm text-gray-900">{g.title}</p>
+              <p className="text-xs text-gray-500 leading-relaxed">{g.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 레벨 필터
+          2026-09-03: "전체 칩이 굳이 필요한가"라는 질문에서 출발했다.
+          빼지 않기로 했다 — **빼면 되돌아올 길이 막힌다.** 중급자를 누른 뒤 전부 보려면
+          같은 칩을 다시 눌러 해제해야 하는데, 그 동작은 발견 가능성이 낮아 사용자가 갇힌다.
+          대신 **개수를 붙여 정보가 되게** 했다. "전체 N"은 중복이 아니라
+          글이 몇 편인지와 난이도 분포를 알려주는 값이다.
+
+          붙이자마자 값을 했다 — 나는 이 페이지의 글이 19편이라고 보고했는데
+          **실제 ARTICLES는 16편**(초심자 8·중급자 5·숙련자 3)이었다.
+          파일 전체를 grep해서 상단 "내 레벨 가이드" 카드 3개까지 세었던 것이다.
+          **숫자는 세는 코드가 세게 하고, 사람은 grep 결과를 결론으로 삼지 마라.**
+          개수를 화면에 띄우는 것 자체가 검사기 역할을 한다.
+
+          그리고 이 페이지에는 **GA 이벤트가 하나도 없었다.** 필터를 쓰는 사람이
+          있는지조차 모르는 채로 UI를 손보고 있었다. 재는 것부터 붙인다 —
+          2주 뒤에도 `injury_filter`가 0건이면 필터 자체를 없애는 게 맞다. */}
+      <section className="mb-6">
+        <div className="flex gap-2 flex-wrap">
+          {LEVELS.map(lv => {
+            const count = lv === "전체"
+              ? ARTICLES.length
+              : ARTICLES.filter(a => a.level === lv).length;
+            return (
+              <button key={lv}
+                onClick={() => {
+                  setActiveLevel(lv);
+                  const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+                  if (typeof g === "function") g("event", "injury_filter", { level: lv, count });
+                }}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
+                  ${activeLevel === lv
+                    ? "bg-emerald-600 text-white border-emerald-600"
+                    : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
+                {lv}
+                <span className={activeLevel === lv ? "ml-1.5 text-emerald-100" : "ml-1.5 text-gray-400"}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 아티클 목록 */}
+      <section className="mb-10">
+        <ul className="flex flex-col gap-3">
+          {filtered.map(a => (
+            <li key={a.href}>
+              <Link href={a.href}
+                className="flex items-start justify-between gap-4 bg-white border border-gray-100 rounded-xl p-5 hover:border-emerald-300 hover:shadow-sm transition-all">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.tagColor}`}>
+                      {a.tag}
+                    </span>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.levelColor}`}>
+                      {a.level}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 leading-snug mb-1">{a.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{a.desc}</p>
+                </div>
+                <span className="shrink-0 text-xs text-gray-400 mt-1 whitespace-nowrap">{a.readTime}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <div className="p-6 bg-emerald-50 rounded-2xl text-center">
+        <p className="text-sm text-emerald-800 mb-3 font-medium">부상 예방의 절반은 내 발에 맞는 신발입니다</p>
+        <Link href="/shoe-finder"
+          className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+          내 러닝화 찾기 →
+        </Link>
+      </div>
+    </main>
   );
 }

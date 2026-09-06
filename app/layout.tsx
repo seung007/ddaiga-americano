@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -87,6 +88,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+        {/* 2026-09-06: 헤더를 여기로 올렸다.
+            그전에는 페이지마다 <SiteHeader /> 를 직접 넣는 방식이었고,
+            **5개 페이지에서 빠져 있었다** — /courses 와 계산기 3개 전부, /login.
+            로고가 없으니 홈으로 돌아갈 길이 없었고, 더 나쁜 건 **그 페이지에서
+            나가는 내부 링크가 하나도 없었다**는 것이다. `/tools` 에는
+            "각각이 별개의 검색 입구가 된다"고 주석까지 달아 놓고 정작 출구가 없었다.
+            같은 날 GSC 가 "참조 페이지: 감지된 페이지 없음"이라고 한 것과 같은 병이다.
+            푸터처럼 전역으로 두면 **다음 페이지를 만들 때 기억할 필요가 없다.** */}
+        <SiteHeader />
         {children}
         <SiteFooter />
         <Analytics />

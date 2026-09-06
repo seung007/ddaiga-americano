@@ -3,7 +3,6 @@ import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
 import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
-import SiteHeader from "@/components/SiteHeader";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { resolveBuyLinks } from "@/lib/shoes/affiliate";
 import ShoeImage from "@/components/ShoeImage";
@@ -167,238 +166,235 @@ export default async function ComparePage({
   }
 
   return (
-    <>
-      <SiteHeader />
-      <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
-        <AffiliateNotice />
+    <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
+      <AffiliateNotice />
 
-        {/* ── 헤더 ── */}
-        <header className="mb-8">
-          <p className="text-xs font-medium text-emerald-600 mb-2 tracking-wide uppercase">
-            러닝화 비교
-          </p>
-          <h1 className="text-2xl font-bold text-gray-900 leading-snug">
-            {shoeA.brand} {shoeA.model}
-            <span className="text-gray-400 mx-2">vs</span>
-            {shoeB.brand} {shoeB.model}
-          </h1>
-          <p className="mt-2 text-sm text-gray-500">
-            힐드롭·쿠션·무게·가격을 한눈에 비교했어요.
-          </p>
-        </header>
+      {/* ── 헤더 ── */}
+      <header className="mb-8">
+        <p className="text-xs font-medium text-emerald-600 mb-2 tracking-wide uppercase">
+          러닝화 비교
+        </p>
+        <h1 className="text-2xl font-bold text-gray-900 leading-snug">
+          {shoeA.brand} {shoeA.model}
+          <span className="text-gray-400 mx-2">vs</span>
+          {shoeB.brand} {shoeB.model}
+        </h1>
+        <p className="mt-2 text-sm text-gray-500">
+          힐드롭·쿠션·무게·가격을 한눈에 비교했어요.
+        </p>
+      </header>
 
-        {/* ── 이미지 + 한줄 요약 ── */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          {[shoeA, shoeB].map((shoe, idx) => (
+      {/* ── 이미지 + 한줄 요약 ── */}
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        {[shoeA, shoeB].map((shoe, idx) => (
+          <div
+            key={shoe.id}
+            className="rounded-2xl border border-gray-200 bg-white p-5 flex flex-col items-center text-center"
+          >
+            <ShoeImage
+              src={shoe.imageUrl}
+              alt={`${shoe.brand} ${shoe.model}`}
+              model={shoe.model}
+              side={idx === 0 ? "A" : "B"}
+            />
+            <p className="mt-3 text-xs font-semibold text-emerald-600">
+              {shoe.brand}
+            </p>
+            <p className="font-bold text-gray-900 text-sm leading-tight">
+              {shoe.model}
+            </p>
+            {/* 비교 페이지는 검색으로 직접 들어오는 입구다. 추천 결과 카드에만
+                후속작 안내를 달아두면, 여기로 바로 들어온 사람은 구형인 줄 모르고
+                비교하고 나간다. 같은 정보를 같은 자리에서 보여줘야 한다. */}
+            {shoe.successor && (
+              <p className="mt-1.5 text-[11px] font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
+                후속 {shoe.successor} 출시됨
+              </p>
+            )}
+            <p className="mt-1.5 text-xs text-gray-500 leading-relaxed">
+              {shoe.blurb}
+            </p>
+            <p className="mt-3 text-base font-bold text-gray-900">
+              {shoe.priceKrw.toLocaleString()}원
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* ── 스펙 비교 테이블 ── */}
+      <section className="mb-8">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+          스펙 비교
+        </h2>
+        <div className="rounded-2xl border border-gray-200 overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-200">
+                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 w-[30%]">
+                  항목
+                </th>
+                <th className="text-center px-3 py-3 text-xs font-semibold text-gray-700 w-[35%]">
+                  {shoeA.brand} {shoeA.model}
+                </th>
+                <th className="text-center px-3 py-3 text-xs font-semibold text-gray-700 w-[35%]">
+                  {shoeB.brand} {shoeB.model}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {SPEC_ROWS.map((row, i) => {
+                const winner = numericWinner(shoeA, shoeB, row);
+                const va = row.getValue(shoeA);
+                const vb = row.getValue(shoeB);
+                const displayA =
+                  typeof va === "number" ? `${va}${row.unit ?? ""}` : va;
+                const displayB =
+                  typeof vb === "number" ? `${vb}${row.unit ?? ""}` : vb;
+
+                return (
+                  <tr
+                    key={row.label}
+                    className={`border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
+                  >
+                    <td className="px-4 py-3">
+                      <p className="font-medium text-gray-800 text-xs">
+                        {row.label}
+                      </p>
+                      <p className="text-gray-400 text-xs mt-0.5 leading-relaxed hidden sm:block">
+                        {row.explain}
+                      </p>
+                    </td>
+                    <td className="px-3 py-3 text-center">
+                      <span
+                        className={`inline-block text-xs font-semibold px-2 py-1 rounded-lg ${
+                          winner === "a"
+                            ? "bg-emerald-100 text-emerald-700"
+                            : "text-gray-700"
+                        }`}
+                      >
+                        {displayA}
+                        {winner === "a" && (
+                          <span className="ml-1 text-emerald-500">✓</span>
+                        )}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3 text-center">
+                      <span
+                        className={`inline-block text-xs font-semibold px-2 py-1 rounded-lg ${
+                          winner === "b"
+                            ? "bg-emerald-100 text-emerald-700"
+                            : "text-gray-700"
+                        }`}
+                      >
+                        {displayB}
+                        {winner === "b" && (
+                          <span className="ml-1 text-emerald-500">✓</span>
+                        )}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-gray-400 mt-2">
+          ✓ 표시는 해당 항목에서 수치상 유리한 신발을 나타내요. 달리기 목적에 따라 맞는 신발은 달라질 수 있어요.
+        </p>
+      </section>
+
+      {/* ── 어떤 체형에게 맞나? ── */}
+      <section className="mb-8">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+          어떤 체형에 최적인가?
+        </h2>
+        <div className="grid grid-cols-2 gap-4">
+          {[shoeA, shoeB].map((shoe) => (
             <div
               key={shoe.id}
-              className="rounded-2xl border border-gray-200 bg-white p-5 flex flex-col items-center text-center"
+              className="rounded-xl border border-gray-200 bg-white p-4"
             >
-              <ShoeImage
-                src={shoe.imageUrl}
-                alt={`${shoe.brand} ${shoe.model}`}
-                model={shoe.model}
-                side={idx === 0 ? "A" : "B"}
-              />
-              <p className="mt-3 text-xs font-semibold text-emerald-600">
-                {shoe.brand}
+              <p className="text-xs font-bold text-gray-800 mb-2">
+                {shoe.brand} {shoe.model}
               </p>
-              <p className="font-bold text-gray-900 text-sm leading-tight">
-                {shoe.model}
-              </p>
-              {/* 비교 페이지는 검색으로 직접 들어오는 입구다. 추천 결과 카드에만
-                  후속작 안내를 달아두면, 여기로 바로 들어온 사람은 구형인 줄 모르고
-                  비교하고 나간다. 같은 정보를 같은 자리에서 보여줘야 한다. */}
-              {shoe.successor && (
-                <p className="mt-1.5 text-[11px] font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
-                  후속 {shoe.successor} 출시됨
-                </p>
-              )}
-              <p className="mt-1.5 text-xs text-gray-500 leading-relaxed">
+              <p className="text-sm text-gray-700 leading-relaxed">
                 {shoe.blurb}
               </p>
-              <p className="mt-3 text-base font-bold text-gray-900">
-                {shoe.priceKrw.toLocaleString()}원
+              <div className="mt-3 space-y-1">
+                {shoe.footTypes.map((ft) => (
+                  <span
+                    key={ft}
+                    className="inline-block text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full mr-1"
+                  >
+                    {ft === "flat"
+                      ? "평발"
+                      : ft === "neutral"
+                        ? "중립 아치"
+                        : "높은 아치"}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-3 text-xs text-gray-500 leading-relaxed">
+                {shoe.scienceBasis}
               </p>
             </div>
           ))}
         </div>
+      </section>
 
-        {/* ── 스펙 비교 테이블 ── */}
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
-            스펙 비교
-          </h2>
-          <div className="rounded-2xl border border-gray-200 overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 w-[30%]">
-                    항목
-                  </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-700 w-[35%]">
-                    {shoeA.brand} {shoeA.model}
-                  </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-700 w-[35%]">
-                    {shoeB.brand} {shoeB.model}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {SPEC_ROWS.map((row, i) => {
-                  const winner = numericWinner(shoeA, shoeB, row);
-                  const va = row.getValue(shoeA);
-                  const vb = row.getValue(shoeB);
-                  const displayA =
-                    typeof va === "number" ? `${va}${row.unit ?? ""}` : va;
-                  const displayB =
-                    typeof vb === "number" ? `${vb}${row.unit ?? ""}` : vb;
+      {/* ── 구매 링크 ── */}
+      <section className="mb-10">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+          구매하기
+        </h2>
+        <div className="grid grid-cols-2 gap-4">
+          {[shoeA, shoeB].map((shoe) => (
+            <div key={shoe.id} className="space-y-2">
+              <p className="text-xs font-bold text-gray-700">
+                {shoe.brand} {shoe.model}
+              </p>
+              {resolveBuyLinks(shoe.id, shoe.buyLinks).slice(0, 2).map((link) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-colors ${
+                    link.isOfficial
+                      ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                      : "bg-gray-700 hover:bg-gray-800 text-white"
+                  }`}
+                >
+                  {link.isOfficial ? "🏪" : "🛒"} {link.label} ↗
+                </a>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
 
-                  return (
-                    <tr
-                      key={row.label}
-                      className={`border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
-                    >
-                      <td className="px-4 py-3">
-                        <p className="font-medium text-gray-800 text-xs">
-                          {row.label}
-                        </p>
-                        <p className="text-gray-400 text-xs mt-0.5 leading-relaxed hidden sm:block">
-                          {row.explain}
-                        </p>
-                      </td>
-                      <td className="px-3 py-3 text-center">
-                        <span
-                          className={`inline-block text-xs font-semibold px-2 py-1 rounded-lg ${
-                            winner === "a"
-                              ? "bg-emerald-100 text-emerald-700"
-                              : "text-gray-700"
-                          }`}
-                        >
-                          {displayA}
-                          {winner === "a" && (
-                            <span className="ml-1 text-emerald-500">✓</span>
-                          )}
-                        </span>
-                      </td>
-                      <td className="px-3 py-3 text-center">
-                        <span
-                          className={`inline-block text-xs font-semibold px-2 py-1 rounded-lg ${
-                            winner === "b"
-                              ? "bg-emerald-100 text-emerald-700"
-                              : "text-gray-700"
-                          }`}
-                        >
-                          {displayB}
-                          {winner === "b" && (
-                            <span className="ml-1 text-emerald-500">✓</span>
-                          )}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-xs text-gray-400 mt-2">
-            ✓ 표시는 해당 항목에서 수치상 유리한 신발을 나타내요. 달리기 목적에 따라 맞는 신발은 달라질 수 있어요.
-          </p>
-        </section>
+      {/* ── CTA ── */}
+      <section className="rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center">
+        <p className="text-xs font-medium text-emerald-600 mb-1">
+          어떤 신발이 내 체형에 맞는지 모르겠다면?
+        </p>
+        <h3 className="text-base font-bold text-gray-900 mb-2">
+          키·체중·발 타입만 입력하면 1분 안에 알려드려요
+        </h3>
+        <p className="text-sm text-gray-500 mb-4">
+          수십 개 데이터베이스에서 내 체형에 맞는 신발만 골라줘요.
+        </p>
+        <Link
+          href="/shoe-finder"
+          className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
+        >
+          내 발에 맞는 러닝화 찾기 →
+        </Link>
+      </section>
 
-        {/* ── 어떤 체형에게 맞나? ── */}
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
-            어떤 체형에 최적인가?
-          </h2>
-          <div className="grid grid-cols-2 gap-4">
-            {[shoeA, shoeB].map((shoe) => (
-              <div
-                key={shoe.id}
-                className="rounded-xl border border-gray-200 bg-white p-4"
-              >
-                <p className="text-xs font-bold text-gray-800 mb-2">
-                  {shoe.brand} {shoe.model}
-                </p>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {shoe.blurb}
-                </p>
-                <div className="mt-3 space-y-1">
-                  {shoe.footTypes.map((ft) => (
-                    <span
-                      key={ft}
-                      className="inline-block text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full mr-1"
-                    >
-                      {ft === "flat"
-                        ? "평발"
-                        : ft === "neutral"
-                          ? "중립 아치"
-                          : "높은 아치"}
-                    </span>
-                  ))}
-                </div>
-                <p className="mt-3 text-xs text-gray-500 leading-relaxed">
-                  {shoe.scienceBasis}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── 구매 링크 ── */}
-        <section className="mb-10">
-          <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
-            구매하기
-          </h2>
-          <div className="grid grid-cols-2 gap-4">
-            {[shoeA, shoeB].map((shoe) => (
-              <div key={shoe.id} className="space-y-2">
-                <p className="text-xs font-bold text-gray-700">
-                  {shoe.brand} {shoe.model}
-                </p>
-                {resolveBuyLinks(shoe.id, shoe.buyLinks).slice(0, 2).map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-colors ${
-                      link.isOfficial
-                        ? "bg-emerald-600 hover:bg-emerald-700 text-white"
-                        : "bg-gray-700 hover:bg-gray-800 text-white"
-                    }`}
-                  >
-                    {link.isOfficial ? "🏪" : "🛒"} {link.label} ↗
-                  </a>
-                ))}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── CTA ── */}
-        <section className="rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center">
-          <p className="text-xs font-medium text-emerald-600 mb-1">
-            어떤 신발이 내 체형에 맞는지 모르겠다면?
-          </p>
-          <h3 className="text-base font-bold text-gray-900 mb-2">
-            키·체중·발 타입만 입력하면 1분 안에 알려드려요
-          </h3>
-          <p className="text-sm text-gray-500 mb-4">
-            수십 개 데이터베이스에서 내 체형에 맞는 신발만 골라줘요.
-          </p>
-          <Link
-            href="/shoe-finder"
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
-          >
-            내 발에 맞는 러닝화 찾기 →
-          </Link>
-        </section>
-
-        {/* ── 다른 비교 보기 ── */}
-        <OtherCompares currentA={shoeA} currentB={shoeB} />
-      </main>
-    </>
+      {/* ── 다른 비교 보기 ── */}
+      <OtherCompares currentA={shoeA} currentB={shoeB} />
+    </main>
   );
 }
 
@@ -468,18 +464,15 @@ function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe 
 // ── 404 폴백 ────────────────────────────────────────────────────
 function NotFound({ message }: { message: string }) {
   return (
-    <>
-      <SiteHeader />
-      <main className="mx-auto w-full max-w-3xl px-6 py-24 text-center text-gray-900">
-        <p className="text-lg font-semibold mb-2">신발을 찾을 수 없어요</p>
-        <p className="text-sm text-gray-500 mb-6">{message}</p>
-        <Link
-          href="/shoe-finder"
-          className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-emerald-700 transition-colors"
-        >
-          내 발에 맞는 신발 찾기 →
-        </Link>
-      </main>
-    </>
+    <main className="mx-auto w-full max-w-3xl px-6 py-24 text-center text-gray-900">
+      <p className="text-lg font-semibold mb-2">신발을 찾을 수 없어요</p>
+      <p className="text-sm text-gray-500 mb-6">{message}</p>
+      <Link
+        href="/shoe-finder"
+        className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-emerald-700 transition-colors"
+      >
+        내 발에 맞는 신발 찾기 →
+      </Link>
+    </main>
   );
 }
