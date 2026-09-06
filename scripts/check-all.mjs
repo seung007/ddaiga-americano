@@ -55,6 +55,8 @@ const CHECKS = [
   { name: "영상큐",   cmd: "node", args: ["scripts/verify-youtube.mjs", "--todo"],     net: false },
   // 2026-09-06 추가. GSC 가 "참조 페이지: 감지된 페이지 없음"이라고 한 날 만들었다.
   { name: "내부링크", cmd: "node", args: ["scripts/check-internal-links.mjs"],        net: false },
+  // 2026-09-07 추가. 지도 3개가 200 성공 뒤에도 안 뜬 사건에서 나왔다.
+  { name: "외부CDN",  cmd: "node", args: ["scripts/check-cdn.mjs"],                  net: false },
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
   { name: "영상(실조회)",   cmd: "node", args: ["scripts/verify-youtube.mjs"],   net: true },

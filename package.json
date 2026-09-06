@@ -21,11 +21,14 @@
     "check:images": "node scripts/check-images.mjs",
     "check:images:plan": "node scripts/check-images.mjs --plan",
     "check:images:sheet": "node scripts/image-sheet.mjs",
-    "check:internal": "node scripts/check-internal-links.mjs"
+    "check:internal": "node scripts/check-internal-links.mjs",
+    "check:cdn": "node scripts/check-cdn.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
+    "@types/leaflet": "^1.9.22",
     "@vercel/analytics": "^2.0.1",
+    "leaflet": "^1.9.4",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4"
