@@ -90,6 +90,9 @@ const C = {
  */
 const VERIFIED = {
   "coupang.com":          { date: null,         shape: /\/np\/search\?q=/,                 nature: "미확인", note: "안전 정책상 브라우저로 열 수 없었다. 확인 못 함" },
+  "asics.co.kr":          { date: "2026-09-06", shape: /\/(goods\/search\?search_text=|c\/)/, nature: "남아있음", note: "젤 카야노 79건, 사이즈까지 노출. 카테고리형(/c/…)도 정상" },
+  "decathlon.co.kr":      { date: "2026-09-06", shape: /\/search\?q=/,                     nature: "주의",    note: "검색은 되지만 결과 수가 전체(7,741)로 표시되고 상단에 의류가 온다" },
+  "kr.puma.com":          { date: "2026-09-06", shape: /\/kr\/ko\/search\?q=/,             nature: "남아있음", note: "검색어가 반영된다. 다만 한글 검색어는 의류까지 같이 잡힌다" },
   "search.danawa.com":    { date: "2026-09-06", shape: /\/dsearch\.php\?query=/,           nature: "남아있음", note: "가격비교 55건, 단종품이 오히려 최저가로 남는다" },
   "kream.co.kr":          { date: "2026-09-06", shape: /\/search\?keyword=/,               nature: "남아있음", note: "리셀이라 단종품이 더 잘 잡힌다. 한글 오타도 보정된다" },
   "musinsa.com":          { date: "2026-09-06", shape: /\/brand\//,                        nature: "해당없음", note: "브랜드 페이지라 모델과 무관하다 — 41개가 여기 속한다" },
@@ -102,12 +105,25 @@ const VERIFIED = {
   "kor.mizuno.com":       { date: "2026-09-06", shape: /\/product\/search\.html\?keyword=/, nature: "남아있음", note: "웨이브라이더 29 8건+, 30% 할인. 영문 검색어도 먹는다" },
   "fleetrunner.co.kr":    { date: "2026-09-06", shape: /\/goods\/goods_search\.php\?keyword=/, nature: "일부0건", note: "Guide 18·Kinvara 16은 0건이라 세대번호를 뺐다(9건·1건)" },
   "29cm.co.kr":           { date: "2026-09-06", shape: /\/store\/search\?keyword=/,        nature: "일부0건", note: "영문 검색어가 0건. 한글로 바꾸고 킨바라·엔돌핀은 링크를 내렸다" },
-  "asics.co.kr":          { date: null,         shape: null,                               nature: "미확인", note: "" },
-  "hoka.com":             { date: null,         shape: null,                               nature: "미확인", note: "" },
-  "newbalance.co.kr":     { date: null,         shape: null,                               nature: "미확인", note: "" },
-  "on.com":               { date: null,         shape: null,                               nature: "미확인", note: "" },
-  "decathlon.co.kr":      { date: null,         shape: null,                               nature: "미확인", note: "" },
-  "kr.puma.com":          { date: null,         shape: null,                               nature: "미확인", note: "" },
+};
+
+/**
+ * **죽은 도메인** — 2026-09-06에 브라우저로 확인했다. 여기 링크를 걸면 즉시 exit 1이다.
+ *
+ * 이 목록이 왜 필요한가. 위 `VERIFIED`의 `shape`는 "형태가 맞는가"만 본다.
+ * 그런데 이 세 곳은 **형태와 무관하게 도메인 또는 한국 경로 자체가 없다.**
+ * 형태 검사로는 영원히 안 잡히고, 상태 조회는 네트워크가 필요하다.
+ * 그래서 사람이 확인한 사실을 상수로 박아 오프라인에서도 걸리게 한다.
+ *
+ * 되살아나면 지우면 된다 — 다만 **지우기 전에 브라우저로 다시 눌러볼 것.**
+ */
+const DEAD_DOMAINS = {
+  "newbalance.co.kr":
+    "도메인이 존재하지 않는다 (DNS_PROBE_FINISHED_NXDOMAIN). 2026-09-06 확인",
+  "hoka.com":
+    "한국 경로가 전부 404다. /ko-kr/ 도, /ko/kr/ 도 미국 사이트의 오류 페이지로 간다. 2026-09-06 확인",
+  "on.com":
+    "/ko-kr/cloudrunner 등 제품 경로가 404다. /ko-kr/shop 은 살아 있으나 검색 URL 형태를 찾지 못했다. 2026-09-06 확인",
 };
 
 /** 검색 결과 페이지인가 — 이런 링크는 200이어도 빈 결과일 수 있다 */
@@ -191,9 +207,14 @@ function domainOf(u) {
   try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return "?"; }
 }
 const shapeBroken = [];
+const deadDomainLinks = [];
 const unknownDomains = new Map();
 for (const l of all) {
   const d = domainOf(l.url);
+  if (DEAD_DOMAINS[d]) {
+    deadDomainLinks.push({ ...l, domain: d, why: DEAD_DOMAINS[d] });
+    continue;
+  }
   const v = VERIFIED[d];
   if (!v) {
     // 이미지 CDN·리뷰 사이트 등은 구매 링크가 아니므로 대장에 없어도 된다.
@@ -202,6 +223,20 @@ for (const l of all) {
     continue;
   }
   if (v.shape && !v.shape.test(l.url)) shapeBroken.push({ ...l, domain: d, expect: v.shape });
+}
+
+if (deadDomainLinks.length) {
+  console.log(C.red(C.bold(`✗ 죽은 것으로 확인된 도메인입니다 — ${deadDomainLinks.length}개`)));
+  const byDom = new Map();
+  for (const l of deadDomainLinks) {
+    if (!byDom.has(l.domain)) byDom.set(l.domain, []);
+    byDom.get(l.domain).push(l);
+  }
+  for (const [d, ls] of byDom) {
+    console.log(`  ${C.bold(d)} ${C.dim(`— ${ls.length}개`)}`);
+    console.log(C.dim(`    ${DEAD_DOMAINS[d]}`));
+  }
+  console.log();
 }
 
 if (shapeBroken.length) {
@@ -276,7 +311,7 @@ if (PLAN_ONLY) {
   console.log(C.dim("  (예: 'FuelCell Rebel v4' → 'FuelCell Rebel') 아예 내리면 됩니다."));
   console.log(C.dim("  --plan 은 네트워크를 쓰지 않습니다. 상태 조회는 인자 없이 실행하세요.\n"));
   // 형태가 깨진 링크는 네트워크 없이도 확실하니 --plan 에서도 exit 1 이다.
-  process.exit(shapeBroken.length ? 1 : 0);
+  process.exit(shapeBroken.length || deadDomainLinks.length ? 1 : 0);
 }
 
 // ── 상태 조회 ──────────────────────────────────────────────
@@ -335,4 +370,4 @@ console.log(
 console.log(C.dim("\n주의: 이 검사는 **상태코드만** 본다. 200인데 검색 결과가 0건인 경우는 잡지 못한다."));
 console.log(C.dim(`      단종 신발의 검색형 링크 ${riskQueue.length}개는 --plan 으로 큐를 뽑아 직접 눌러볼 것.\n`));
 
-process.exit(dead.length || shapeBroken.length ? 1 : 0);
+process.exit(dead.length || shapeBroken.length || deadDomainLinks.length ? 1 : 0);

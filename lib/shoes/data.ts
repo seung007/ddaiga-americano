@@ -115,7 +115,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 179000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "뉴발란스 공식몰", url: "https://www.newbalance.co.kr/ko/search?q=FuelCell+Rebel", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20%ED%93%A8%EC%96%BC%EC%85%80%20%EB%A6%AC%EB%B2%A8", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20FuelCell%20Rebel%20v4", isOfficial: false },
@@ -192,7 +191,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "호카 공식몰 — 클리프톤", url: "https://www.hoka.com/ko-kr/running/road/clifton/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Clifton%2010", isOfficial: false },
@@ -269,7 +267,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 239000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "호카 공식몰 — 본디", url: "https://www.hoka.com/ko-kr/running/road/bondi/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%B3%B8%EB%94%94", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Bondi%209", isOfficial: false },
@@ -460,7 +457,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 239000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "뉴발란스 공식몰", url: "https://www.newbalance.co.kr/ko/search?q=Fresh+Foam+1080", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%201080%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20Fresh%20Foam%20X%201080%20v15", isOfficial: false },
@@ -538,7 +534,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "호카 공식몰 — 아라히", url: "https://www.hoka.com/ko-kr/running/road/arahi/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EC%95%84%EB%9D%BC%ED%9E%88%208", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Arahi%208", isOfficial: false },
@@ -768,7 +763,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 239000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "호카 공식몰 — 본디 와이드", url: "https://www.hoka.com/ko-kr/running/road/bondi/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%B3%B8%EB%94%94%20%EC%99%80%EC%9D%B4%EB%93%9C", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Bondi%209%20%28Wide%29", isOfficial: false },
@@ -922,7 +916,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 179000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "뉴발란스 공식몰", url: "https://www.newbalance.co.kr/ko/search?q=860+v15", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20860%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20860%20v15", isOfficial: false },
@@ -999,7 +992,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "온러닝 공식몰", url: "https://www.on.com/ko-kr/cloudrunner", isOfficial: true },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%98%A8%20%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EB%9F%AC%EB%84%88%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=On%20Cloudrunner%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=On%20Cloudrunner%203", isOfficial: false },
@@ -1230,7 +1222,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 189000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "호카 공식몰 — Mach 6", url: "https://www.hoka.com/ko-kr/running/road/mach/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4+%EB%A7%88%ED%95%98+6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Mach%206", isOfficial: false },
@@ -1346,7 +1337,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 229000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "온러닝 공식몰 — Cloudmonster 2", url: "https://www.on.com/ko-kr/cloudmonster", isOfficial: true },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%98%A8+%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EB%AA%AC%EC%8A%A4%ED%84%B0+2", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=On%20Cloudmonster%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=On%20Cloudmonster%202", isOfficial: false },
@@ -1522,7 +1512,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "아식스 공식몰(asics.co.kr) — 젤카야노 32 우먼", url: "https://www.asics.co.kr/p/19974", isOfficial: true },
+      { label: "아식스 공식몰(asics.co.kr) — 젤카야노 32 우먼", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Kayano+32", isOfficial: true },
       { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=아식스+젤카야노+32+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Kayano%2032%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1653,7 +1643,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "호카 공식몰 — 클리프턴 10 여성", url: "https://www.hoka.com/ko/kr/women-clifton/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Clifton%2010%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Clifton%2010%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1862,7 +1851,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 89000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "뉴발란스 공식몰 — 520", url: "https://www.newbalance.co.kr/ko/search?q=520", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20520%20v9", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20520%20v9", isOfficial: false },
@@ -2079,7 +2067,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 340000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "호카 공식몰(kr.hoka.com) — Rocket X 2", url: "https://www.hoka.com/ko-kr/", isOfficial: true },
       { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=호카+로켓+X+2", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka+Rocket+X+2", isOfficial: false },
@@ -2120,7 +2107,6 @@ export const SHOES: Shoe[] = [
     priceKrw: 340000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "뉴발란스 공식몰 — SuperComp Elite", url: "https://www.newbalance.co.kr/ko/search?q=SuperComp+Elite", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=뉴발란스+슈퍼컴프+엘리트", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New+Balance+FuelCell+SuperComp+Elite+v4", isOfficial: false },
