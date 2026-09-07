@@ -36,6 +36,8 @@
  * `CourseFigure`는 그 사실로 개략 도식을 그린다. 축척도 좌표도 실제와 다르다.
  */
 
+import ROUTES from "./courses.routes.json";
+
 export interface HangangCourse {
   slug: string;
   /** 공원 공식 명칭 */
@@ -82,6 +84,29 @@ export interface HangangCourse {
        */
       kind: "station" | "start" | "turn";
     }[];
+    /**
+     * 실제 강변 산책로 선형. **내가 그린 게 아니라 OpenStreetMap 에서 가져온 것이다.**
+     *
+     * 2026-09-07: 처음에는 경로선을 아예 안 그렸다. "실제 경로 좌표가 없으니
+     * 다리 좌표를 이으면 강 위를 가로지르는 엉뚱한 선이 된다"는 이유였다.
+     * 맞는 걱정이었지만 **결론이 틀렸다** — 없으면 지어내지 말고 **찾아야** 했다.
+     * 한강 자전거길은 OSM 에 이미 그려져 있다(지도 타일에 보이는 그 선이다).
+     *
+     * 사용자 지적이 이걸 드러냈다 — *"맵 보고 모르면 그냥 나가는 거야."*
+     * 경로선 없는 코스 지도는 코스 지도가 아니다.
+     *
+     * 뽑는 방법: Overpass 로 해당 구간 보행·자전거 길을 받아 그래프를 만들고,
+     * **다리(bridge) 구간을 빼서** 강을 건너 질러가지 못하게 한 뒤, 그 강변
+     * 연결 성분 안에서 두 끝점 사이 최단경로를 구하고 Douglas-Peucker 로 줄였다.
+     *
+     * `km` 는 그 선의 실제 길이다. `lengthKm`(서울시 고시 공원 길이)과는 다른
+     * 숫자이고, 섞어 쓰면 안 된다.
+     */
+    route?: {
+      coords: [number, number][];
+      km: number;
+      source: { label: string; url: string; checkedAt: string };
+    };
   };
   source: { label: string; url: string; checkedAt: string };
 }
@@ -229,3 +254,20 @@ export const HANGANG_COURSES: HangangCourse[] = [
 ];
 
 export const COURSE_SLUGS = HANGANG_COURSES.map((c) => c.slug);
+
+/**
+ * 경로선을 코스에 붙인다.
+ *
+ * `lib/courses.routes.json` 은 **손으로 쓰지 마라.** `npm run routes` 가 쓴다
+ * (`scripts/fetch-course-routes.mjs`). 그 스크립트는 OSM 에서 실제 강변 산책로
+ * 선형을 받아오고, **직선거리보다 짧은 경로는 쓰지 않고 버린다** — 길이 직선보다
+ * 짧을 수는 없으니 그건 계산이 틀린 것이다.
+ *
+ * 아직 못 받은 코스는 여기 없고, 지도는 그 코스만 경로선 없이 그린다.
+ * **틀린 선을 그리는 것보다 없는 게 낫다.**
+ */
+const ROUTE_MAP = ROUTES as Record<string, HangangCourse["map"]["route"]>;
+for (const c of HANGANG_COURSES) {
+  const r = ROUTE_MAP[c.slug];
+  if (r) c.map.route = r;
+}

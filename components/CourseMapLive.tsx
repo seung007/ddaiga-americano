@@ -68,7 +68,7 @@ const TIMEOUT_MS = 12_000;
 const KINDS = {
   station: { label: "지하철", color: "#2563eb", glyph: "M" },
   start: { label: "출발", color: "#059669", glyph: "▶" },
-  turn: { label: "반환", color: "#e11d48", glyph: "↩" },
+  turn: { label: "U턴", color: "#e11d48", glyph: "↺" },
 } as const;
 type Kind = (typeof KINDS)[keyof typeof KINDS];
 
@@ -152,6 +152,20 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
         // 거리 눈금 — 지도를 얼마나 확대해 보고 있는지 알려준다.
         L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
 
+        /**
+         * 경로선. 사용자 지적이 이걸 만들게 했다 — **"맵 보고 모르면 그냥 나가는 거야."**
+         * 핀만 흩어져 있으면 어디서 어디로 뛰는지 알 수 없다.
+         *
+         * 좌표는 내가 그린 게 아니라 OSM 의 실제 강변 산책로다(`npm run routes`).
+         * 흰 테두리를 밑에 한 겹 깔면 지도 위 어떤 색에서도 선이 읽힌다 —
+         * 네이버·카카오의 경로선도 같은 방식이다.
+         */
+        const route = course.map.route;
+        if (route?.coords.length) {
+          L.polyline(route.coords, { color: "#ffffff", weight: 9, opacity: 0.9 }).addTo(map);
+          L.polyline(route.coords, { color: "#059669", weight: 5, opacity: 1 }).addTo(map);
+        }
+
         markersRef.current = [];
         for (const p of course.map.points) {
           const k = KINDS[p.kind];
@@ -177,9 +191,13 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
           markersRef.current.push(marker);
         }
 
+        // 경로선이 있으면 선 전체가 화면에 들어와야 한다. 핀만 기준으로 잡으면 선이 잘린다.
         map.fitBounds(
-          L.latLngBounds(course.map.points.map((p) => [p.lat, p.lon] as [number, number])),
-          { padding: [40, 40] }
+          L.latLngBounds([
+            ...course.map.points.map((p) => [p.lat, p.lon] as [number, number]),
+            ...(course.map.route?.coords ?? []),
+          ]),
+          { padding: [42, 42] }
         );
 
         clearTimeout(timer);
@@ -229,33 +247,30 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
       <div className="relative h-[320px] w-full bg-gray-50 sm:h-[380px]">
         {/* Leaflet 전용 — React 는 여기에 자식을 렌더하지 않는다. */}
         <div ref={boxRef} className="absolute inset-0" />
+
+        {/* 거리 칩.
+            2026-09-07: 사용자 지적 — **"글은 진짜 간단하게만 적어놓는 거고."**
+            거리를 문단으로 설명하는 대신 지도 위에 숫자만 얹는다.
+            z-[800]인 이유: Leaflet 내부 패널이 400~700을 쓴다. 그보다 커야 위에 온다. */}
+        {state === "ready" && course.map.route && (
+          <div className="pointer-events-none absolute left-3 top-3 z-[800] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
+            편도 {course.map.route.km}km
+            <span className="mx-1.5 font-normal text-gray-300">|</span>
+            <span className="text-emerald-700">왕복 {(course.map.route.km * 2).toFixed(1)}km</span>
+          </div>
+        )}
+
         {state !== "ready" && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-sm text-gray-400">
-            {state === "error"
-              ? "지도를 불러오지 못했습니다. 아래 ‘다리 순서 도식’과 가는 길 안내로 확인하세요."
-              : "지도 불러오는 중…"}
+            {state === "error" ? "지도를 불러오지 못했습니다" : "지도 불러오는 중…"}
           </div>
         )}
       </div>
-      <div className="border-t border-gray-100 bg-white px-4 py-2.5">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-medium">
-          <span className="flex items-center gap-1.5 text-blue-600">
-            <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />
-            지하철 출구
-          </span>
-          <span className="flex items-center gap-1.5 text-emerald-700">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" />
-            공원 진입 지점
-          </span>
-          <span className="flex items-center gap-1.5 text-rose-600">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-600" />
-            왕복 반환점
-          </span>
-        </div>
-        {/* 지점 목록 — 누르면 지도가 그 핀으로 간다.
-            지도가 아직 안 떴으면(state !== "ready") 버튼을 못 누르게 한다.
-            눌러도 아무 일이 없는 버튼은 고장으로 읽힌다. */}
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
+
+      {/* 지도 밑은 **누를 것만** 둔다. 설명은 한 줄이다.
+          핀 색이 뭘 뜻하는지는 핀에 글자로 적혀 있어서(출발/지하철/U턴) 범례가 없어도 읽힌다. */}
+      <div className="border-t border-gray-100 bg-white px-4 py-3">
+        <div className="flex flex-wrap gap-1.5">
           {course.map.points.map((p, i) => {
             const k = KINDS[p.kind];
             const on = active === i;
@@ -280,11 +295,7 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
             );
           })}
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-gray-500">
-          위 지점을 누르면 지도가 그 핀으로 이동합니다. 핀 끝이 실제 지점입니다. 지도를 끌어 강변 산책로를 확인하세요 — 왼쪽 아래 눈금이
-          거리 기준입니다. 마우스 휠 확대는 페이지 스크롤과 겹쳐 껐고, <b>＋ －</b> 버튼으로
-          확대·축소합니다.
-        </p>
+        <p className="mt-2 text-xs text-gray-500">눌러서 지도에서 찾기</p>
       </div>
     </div>
   );

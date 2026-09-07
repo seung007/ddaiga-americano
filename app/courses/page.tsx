@@ -48,21 +48,12 @@ export default function CoursesPage() {
       <AffiliateNotice />
 
       <h1 className="mb-3 text-3xl font-bold text-gray-900">한강 러닝 코스 4곳</h1>
-      <p className="mb-6 leading-relaxed text-gray-600">
-        여의도·반포·뚝섬·잠실입니다. 거리는{" "}
-        <strong className="text-gray-900">서울시 미래한강본부가 고시한 공원 길이</strong>를
-        그대로 옮겼고, 각 코스마다 출처 링크와 확인 날짜를 달았습니다.
-      </p>
-
-      <div className="mb-10 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
-        <strong>미리 밝힙니다.</strong> 저희는 이 코스들을 직접 달려보고 쓴 글이 아닙니다.
-        그래서 서울시 공식 자료에 있는 것만 적었고,{" "}
-        <strong>구간별 거리와 노면 종류는 확인할 수 없어 쓰지 않았습니다.</strong> 정확한
-        거리는 러닝 앱이나 시계가 재는 쪽이 맞습니다.
-        <br />
-        <strong>지도의 출발·반환 지점 좌표는 OpenStreetMap에서 실제로 조회한 값</strong>이고,
-        강변 산책로는 지도 자체가 그려서 보여줍니다 — 없는 경로를 그려 넣지 않았습니다.
-      </div>
+      {/* 2026-09-07: 인트로 문단과 노란 고지 상자를 걷어냈다.
+          사용자 지적 — **"맵 보고 모르면 그냥 나가는 거야. 글은 진짜 간단하게만."**
+          맞는 말이다. 지도를 보러 온 사람 앞에 문단 두 개를 세워두면 지도가 아래로 밀린다.
+          고지 내용은 **버리지 않고 페이지 맨 아래 <details> 로 옮겼다** —
+          `<details>` 안의 텍스트는 DOM 에 있어서 크롤도 되고, 궁금한 사람은 열어 본다. */}
+      <p className="mb-8 text-gray-600">여의도 · 반포 · 뚝섬 · 잠실</p>
 
       {/* ── 한눈에 비교 ── */}
       <section className="mb-12">
@@ -98,11 +89,8 @@ export default function CoursesPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-gray-500">
-          여기서 &lsquo;공식 길이&rsquo;는 공원의 끝에서 끝까지입니다. 중간에서 돌아서면
-          그만큼 짧아집니다. 러닝 앱들이 이 숫자를 &lsquo;코스 거리&rsquo;로 옮겨 적는 바람에
-          같은 코스가 매체마다 다른 거리로 적혀 있습니다.
-        </p>
+        {/* 이 설명은 맨 아래 <details> 로 옮겼다. 표 밑에 문단을 세우면 표를 못 읽는다. */}
+        <p className="mt-3 text-xs text-gray-500">공원 끝에서 끝까지 기준입니다.</p>
       </section>
 
       {/* 위치로 고르기 — 한눈에 비교 표 바로 다음, 코스 본문 앞.
@@ -143,9 +131,15 @@ export default function CoursesPage() {
               </div>
             </details>
 
-            <p className="mb-5 leading-relaxed text-gray-700">{c.fit}</p>
+            <p className="mb-4 text-gray-700">{c.fit}</p>
 
-            <div className="mb-5 grid gap-4 sm:grid-cols-2">
+            {/* 가는 길·시설·출처를 접었다. 지도 위 핀에 역 이름이 이미 적혀 있어서
+                펼치지 않아도 출발점을 안다. 접어도 DOM 에 남으니 검색에는 그대로 잡힌다. */}
+            <details className="mb-5 rounded-2xl border border-gray-200 bg-white">
+              <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
+                가는 길 · 시설 · 출처
+              </summary>
+              <div className="grid gap-4 px-4 pb-4 sm:grid-cols-2">
               <div className="rounded-xl bg-gray-50 p-4">
                 <h3 className="mb-2 text-sm font-semibold text-gray-900">가는 길 (공식 안내)</h3>
                 <ul className="space-y-1.5 text-sm leading-relaxed text-gray-600">
@@ -174,7 +168,7 @@ export default function CoursesPage() {
               </div>
             </div>
 
-            <p className="mt-3 text-xs text-gray-400">
+            <p className="px-4 pb-4 text-xs text-gray-400">
               출처{" "}
               <a
                 href={c.source.url}
@@ -186,6 +180,7 @@ export default function CoursesPage() {
               </a>{" "}
               · {c.source.checkedAt} 확인
             </p>
+            </details>
           </section>
         );
       })}
@@ -288,6 +283,34 @@ export default function CoursesPage() {
           placeholder="예) 여의도에서 처음 5km 뛰려는데 어떤 신발이 좋을까요?"
         />
       </div>
+      {/* 옮겨온 고지.
+          내용을 줄이지 않았다 — **자리만 옮겼다.** 정직성 문구를 지우는 건 다른 문제다.
+          맨 아래에 접어두면 지도를 보러 온 사람을 막지 않고, 궁금한 사람은 열어 본다. */}
+      <details className="mt-14 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+        <summary className="cursor-pointer font-medium text-gray-700">
+          이 숫자들은 어디서 왔나 (직접 달려보고 쓴 글이 아닙니다)
+        </summary>
+        <div className="mt-3 space-y-2 leading-relaxed">
+          <p>
+            저희는 이 코스들을 직접 달려보지 않았습니다. 그래서{" "}
+            <strong className="text-gray-800">서울시 미래한강본부 공식 자료에 있는 것만</strong>{" "}
+            적었고, 노면 종류처럼 공식 자료에 없는 것은 쓰지 않았습니다.
+          </p>
+          <p>
+            표의 <strong className="text-gray-800">&lsquo;공식 길이&rsquo;는 공원 끝에서 끝까지</strong>입니다.
+            중간에서 돌아서면 그만큼 짧아집니다. 러닝 앱들이 이 숫자를 &lsquo;코스 거리&rsquo;로
+            옮겨 적는 바람에 같은 코스가 매체마다 다른 거리로 적혀 있습니다.
+          </p>
+          <p>
+            지도의 <strong className="text-gray-800">경로선과 편도·왕복 거리는 OpenStreetMap 의
+            실제 강변 산책로 선형</strong>에서 계산한 값입니다(다리로 강을 건너 질러가지 않게
+            처리하고, 직선거리보다 짧게 나온 경로는 계산이 틀린 것으로 보아 버립니다).
+            핀 좌표도 OSM 조회값입니다. <strong className="text-gray-800">없는 경로를 그려 넣지
+            않았습니다</strong> — 못 받은 코스는 경로선 없이 표시됩니다.
+          </p>
+        </div>
+      </details>
+
     </main>
   );
 }

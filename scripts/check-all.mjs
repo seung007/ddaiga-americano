@@ -57,6 +57,8 @@ const CHECKS = [
   { name: "내부링크", cmd: "node", args: ["scripts/check-internal-links.mjs"],        net: false },
   // 2026-09-07 추가. 지도 3개가 200 성공 뒤에도 안 뜬 사건에서 나왔다.
   { name: "외부CDN",  cmd: "node", args: ["scripts/check-cdn.mjs"],                  net: false },
+  // 경로선이 말이 되는 값인지. 직선거리보다 짧으면 계산이 틀린 것이다.
+  { name: "경로선",   cmd: "node", args: ["scripts/fetch-course-routes.mjs", "--check"], net: false },
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
   { name: "영상(실조회)",   cmd: "node", args: ["scripts/verify-youtube.mjs"],   net: true },
