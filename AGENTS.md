@@ -162,6 +162,41 @@ npm run hooks:on     # 커밋 훅 켜기 (저장소당 한 번)
 실제로는 8개였다 — Adrenaline GTS 25 여성 버전을 빠뜨렸다. 모델 단위로 세고
 SKU 단위로 관리하면 반드시 어긋난다. 세는 일은 검사기에 맡기고 주석에는 경위만 적어라.
 
+### 사례 — 오류를 `e.name` 만 찍어서 원인을 지웠다 (2026-09-07)
+
+406 을 고치면서 User-Agent 를 붙였다. 이렇게 썼다:
+
+```js
+const UA = "ddaiga-americano/1.0 (러닝 코스 경로선; https://...)";
+```
+
+**HTTP 헤더 값은 ASCII(ByteString)만 허용된다.** Node 는 이걸 정확히 알려준다:
+
+```
+TypeError: Cannot convert argument to a ByteString because the character
+at index 22 has a value of 47084 which is greater than 255
+```
+
+그런데 내 catch 는 `e.name` 만 담았다. 사용자 화면에 남은 것은 이랬다:
+
+```
+overpass-api.de TypeError / kumi.systems TypeError / private.coffee TypeError
+```
+
+**세 서버가 전부 죽은 것처럼 보인다.** 실제로는 요청이 나가지도 않았다.
+index 22 라고 정확히 짚어 주는 메시지를 내가 버렸다.
+
+규칙:
+
+- **오류는 `name` 이 아니라 `message` 를 찍는다.** `cause?.code`(ENOTFOUND,
+  ECONNREFUSED 등)도 같이 찍는다. 이름만 남기면 진단이 사라진다.
+- **헤더 값·URL·파일명에 한글을 넣지 마라.** 이 저장소는 주석과 사용자 문구를
+  한글로 쓰지만, **프로토콜 값은 ASCII 다.**
+- 같은 실수를 두 번 했다는 점이 중요하다. 406 사례는 "상태코드를 원인으로 번역
+  하지 마라"였고, 이번은 "원인을 아예 지워 버렸다"다. 둘 다 **진단 정보를 다루는
+  방식**의 문제다. 실패 경로의 출력은 성공 경로만큼 신경 써서 만들어라 —
+  실패 메시지는 사람이 다음에 무엇을 할지 정하는 유일한 입력이다.
+
 ### 사례 — 406 을 "서버 혼잡"으로 읽었다 (2026-09-07)
 
 `npm run routes` 가 사용자 PC 에서 전부 실패했다.

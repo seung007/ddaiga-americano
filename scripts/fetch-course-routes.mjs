@@ -133,8 +133,18 @@ function pathKm(pts) {
  * 교훈은 이 저장소에 이미 적혀 있던 것과 같다 — **상태코드를 원인으로 바로
  * 번역하지 마라.** 406 을 혼잡으로 읽는 바람에 "나중에 다시 실행하세요"라는
  * 쓸모없는 안내를 내보냈다.
+ *
+ * ⚠️ 그리고 고치면서 **또 틀렸다.** UA 에 한글을 넣었다:
+ *      "ddaiga-americano/1.0 (러닝 코스 경로선; ...)"
+ *    HTTP 헤더 값은 **ASCII(ByteString)만 허용된다.** Node 는 이걸
+ *      `TypeError: Cannot convert argument to a ByteString because the
+ *       character at index 22 has a value of 47084`
+ *    로 던지는데, 내 catch 는 `e.name` 만 찍었다 — 화면에는 `TypeError` 다섯 글자만
+ *    남았고 원인이 통째로 사라졌다. **UA 는 반드시 ASCII 로 쓴다.**
+ *    그리고 오류는 name 이 아니라 **message 를 찍는다.**
  */
-const UA = "ddaiga-americano/1.0 (러닝 코스 경로선; https://ddaiga-americano.vercel.app)";
+// ASCII 만. 한글을 넣으면 fetch 가 TypeError 를 던진다(위 주석 참고).
+const UA = "ddaiga-americano/1.0 (+https://ddaiga-americano.vercel.app)";
 
 async function overpass(query, ms = 90_000) {
   const errors = [];
@@ -165,7 +175,11 @@ async function overpass(query, ms = 90_000) {
       errors.push(`${new URL(url).host} ${res.status} (${hint})`);
     } catch (e) {
       clearTimeout(to);
-      errors.push(`${new URL(url).host} ${e.name === "AbortError" ? "시간초과" : e.name}`);
+      // **message 를 찍는다.** name 만 찍으면 "TypeError" 다섯 글자가 남고
+      // 원인(잘못된 헤더인지, DNS 인지, TLS 인지)이 통째로 사라진다.
+      errors.push(
+        `${new URL(url).host} ${e.name === "AbortError" ? "시간초과" : `${e.name}: ${e.message}${e.cause?.code ? ` (${e.cause.code})` : ""}`}`
+      );
     }
     await new Promise((r) => setTimeout(r, 1500));
   }
