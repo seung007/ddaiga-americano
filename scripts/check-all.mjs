@@ -68,7 +68,16 @@ const CHECKS = [
 
 function run(c) {
   return new Promise((resolve) => {
-    const p = spawn(c.cmd, c.args, { cwd: ROOT, shell: process.platform === "win32" });
+    /**
+     * Windows 에서 npx 를 부르려면 shell 이 필요한데, args 와 shell:true 를
+     * 같이 주면 Node 가 DEP0190 경고를 찍는다(인자가 이스케이프되지 않는다).
+     * 그래서 Windows 에서는 **한 줄 명령으로 합쳐** 넘긴다. 인자는 전부
+     * 이 파일 안에 적힌 고정값이라 외부 입력이 섞이지 않는다.
+     */
+    const win = process.platform === "win32";
+    const p = win
+      ? spawn([c.cmd, ...c.args].join(" "), { cwd: ROOT, shell: true })
+      : spawn(c.cmd, c.args, { cwd: ROOT });
     let out = "";
     p.stdout.on("data", (d) => (out += d));
     p.stderr.on("data", (d) => (out += d));

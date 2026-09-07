@@ -23,7 +23,8 @@
  * ① Claude 작업 환경(샌드박스)은 외부 네트워크가 403 으로 막힌다.
  *    Overpass 도, 타일 서버도 못 부른다.
  * ② 공개 Overpass 서버는 시간대에 따라 큐가 밀려 504/타임아웃이 잦다.
- *    2026-09-07 시도에서 4개 중 2개가 안 왔다.
+ *    (2026-09-07 첫 실행이 전부 실패한 건 혼잡이 아니라 **내 요청 형식 문제**였다.
+ *     아래 `overpass()` 주석 참고 — 406 을 혼잡으로 잘못 읽었다.)
  * 그래서 **네트워크가 되는 곳에서 돌리는 스크립트**로 만들었다. 결과는 저장소에
  * 커밋되므로, 한 번 받으면 다시 받을 필요가 없다.
  *
@@ -113,21 +114,60 @@ function pathKm(pts) {
 }
 
 // ── Overpass ────────────────────────────────────────────────
+/**
+ * 요청 형식을 왜 이렇게 쓰는가 — 2026-09-07 에 한 번 틀렸다.
+ *
+ * 처음에는 `body: query` 로 질의문을 그대로 보냈다. 브라우저에서는 됐는데
+ * Node 에서는 **overpass-api.de 가 406**, 미러들이 **429** 를 돌려줬다.
+ * 나는 이걸 "서버 혼잡"이라고 적었다. **틀린 진단이었다** —
+ * 406(Not Acceptable)은 혼잡이 아니라 **요청을 받아들일 수 없다**는 뜻이다.
+ *
+ * 두 가지가 빠져 있었다.
+ *   ① Overpass 가 문서에 적어 둔 형식은 `data=<urlencoded>` +
+ *      `application/x-www-form-urlencoded` 다. 브라우저 fetch 가 붙여 주던
+ *      `text/plain` 을 서버가 관용적으로 받아 줬을 뿐이다.
+ *   ② **User-Agent 가 없었다.** Overpass 사용 예절(및 미러들의 차단 규칙)은
+ *      연락 가능한 UA 를 요구한다. Node fetch 는 기본 UA 가 빈약하다.
+ *      미러의 즉각적인 429 는 혼잡이 아니라 **이것 때문일 가능성이 크다.**
+ *
+ * 교훈은 이 저장소에 이미 적혀 있던 것과 같다 — **상태코드를 원인으로 바로
+ * 번역하지 마라.** 406 을 혼잡으로 읽는 바람에 "나중에 다시 실행하세요"라는
+ * 쓸모없는 안내를 내보냈다.
+ */
+const UA = "ddaiga-americano/1.0 (러닝 코스 경로선; https://ddaiga-americano.vercel.app)";
+
 async function overpass(query, ms = 90_000) {
   const errors = [];
   for (const url of ENDPOINTS) {
     const ac = new AbortController();
     const to = setTimeout(() => ac.abort(), ms);
     try {
-      const res = await fetch(url, { method: "POST", body: query, signal: ac.signal });
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "User-Agent": UA,
+          Accept: "application/json",
+        },
+        body: "data=" + encodeURIComponent(query),
+        signal: ac.signal,
+      });
       clearTimeout(to);
       const text = await res.text();
-      if (res.ok && text.startsWith("{")) return JSON.parse(text);
-      errors.push(`${new URL(url).host} ${res.status}`);
+      if (res.ok && text.trimStart().startsWith("{")) return JSON.parse(text);
+      // 상태코드마다 사람이 할 일이 다르다. 뭉뚱그리면 잘못된 안내가 나간다.
+      const hint =
+        res.status === 429 || res.status === 504
+          ? "서버 혼잡 — 잠시 뒤 다시"
+          : res.status === 406 || res.status === 400
+            ? "질의 형식 거부 — 코드 문제다"
+            : `HTTP ${res.status}`;
+      errors.push(`${new URL(url).host} ${res.status} (${hint})`);
     } catch (e) {
       clearTimeout(to);
-      errors.push(`${new URL(url).host} ${e.name}`);
+      errors.push(`${new URL(url).host} ${e.name === "AbortError" ? "시간초과" : e.name}`);
     }
+    await new Promise((r) => setTimeout(r, 1500));
   }
   throw new Error(`Overpass 실패 — ${errors.join(" / ")}`);
 }
@@ -345,6 +385,7 @@ if (ok) {
   console.log(`\n${green(`${ok}개를 ${OUT} 에 썼습니다.`)} ${failed ? red(`${failed}개 실패.`) : ""}`);
   console.log(dim("실패한 것은 서버 혼잡일 수 있습니다 — 시간을 두고 다시 실행하면 채워집니다."));
 } else {
-  console.log(red(`\n하나도 못 받았습니다. Overpass 공개 서버 혼잡일 가능성이 큽니다 — 나중에 다시 실행하세요.`));
+  console.log(red(`\n하나도 못 받았습니다.`));
+  console.log(dim("위 괄호 안 진단을 보세요 — '서버 혼잡'이면 잠시 뒤 다시, '질의 형식 거부'면 코드 문제입니다."));
 }
 process.exit(0);
