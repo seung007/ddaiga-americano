@@ -40,9 +40,13 @@
  * 빼자 지천을 건너는 짧은 교량에서 길이 끊겼다(잠실).
  *
  * 그래서 이 스크립트는 **직선거리 대비 비율을 반드시 확인하고, 1.0 미만이면
- * 실패로 처리한다.** 이 검사 한 줄이 위 두 오류를 다 잡는다.
+ * 실패로 처리한다.** 이 검사 한 줄이 위 두 오류를 다 잡았다.
  * 통과하지 못한 코스는 **파일에 쓰지 않는다** — 지도는 경로선 없이 그려지고,
  * 그게 틀린 선을 보여주는 것보다 낫다.
+ *
+ * ⚠️ 그런데 **그 검사도 처음엔 틀린 비교였다.** 다리 좌표 사이 직선과 비교했는데,
+ * 경로가 실제로 잇는 것은 강변에 스냅된 점이다(다리는 강 가운데다).
+ * 정상 경로가 떨어졌다 — 자세한 경위는 `verdict()` 주석에 있다.
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
@@ -310,26 +314,52 @@ function buildRoute(osm, { hint, from, to }) {
     rawPoints: path.length,
     snapFromM: Math.round(s.d * 1000),
     snapToM: Math.round(t.d * 1000),
+    // 검사에 쓴다 — 경로가 실제로 이은 두 점. 다리 좌표가 아니다.
+    snapFrom: pos.get(s.k),
+    snapTo: pos.get(t.k),
   };
 }
 
 /**
  * 말이 되는 값인가.
  *
- * **비율 1.0 미만은 물리적으로 불가능하다** — 길이 직선거리보다 짧을 수 없다.
- * 이 한 줄이 첫 시도의 오류 두 개(여의도 0.91km, 잠실 2.24km)를 다 잡았다.
- * 위쪽 한계 2.2 는 경로가 엉뚱하게 돌아간 경우를 잡는다(강변길은 거의 직선이다).
+ * **길은 두 끝점 사이 직선거리보다 짧을 수 없다.** 비율 1.0 미만은 불가능한 값이다.
+ *
+ * ⚠️ 2026-09-07 — 이 검사를 처음엔 **잘못 비교했다.**
+ * 나는 `hv(job.from, job.to)` 즉 **다리 좌표 사이** 직선거리와 비교했다.
+ * 그런데 경로가 실제로 잇는 두 점은 다리가 아니라 **강변에 스냅된 점**이고,
+ * 다리는 강 가운데에 있으니 스냅으로 400~600m 가 빠진다.
+ * 그래서 정상 경로인데도 "직선보다 짧다"로 떨어질 수 있다 —
+ * 여의도 1.01km(다리 직선 1.15km)가 그 경우였다. **서로 다른 두 점 사이의
+ * 거리를 비교했으니 애초에 판정할 수 없는 값이었다.**
+ *
+ * 지금은 **경로가 실제로 이은 두 점** 사이 직선거리와 비교한다. 이건 참이어야
+ * 하는 부등식이라(경로 ≥ 직선) 위반은 곧 계산 오류다.
+ * 다리 좌표까지의 거리는 별도로 `snapFromM/snapToM` 으로 본다 — 그건
+ * "엉뚱한 곳에 붙었나"를 보는 다른 질문이다.
+ *
+ * **검사를 만들 때도 같은 것끼리 비교하는지 먼저 확인해야 한다.**
+ * 검사가 틀리면 옳은 데이터를 버린다.
  */
 function verdict(job, r) {
-  const straight = hv(job.from, job.to);
+  // 경로가 실제로 이은 두 점 사이 직선거리. 이것과 비교하는 것이 맞다.
+  const straight = hv(r.snapFrom, r.snapTo);
   const ratio = r.km / straight;
+  // 참고용 — 다리 좌표 사이 직선거리. 판정에는 쓰지 않는다.
+  const bridgeStraight = hv(job.from, job.to);
   const problems = [];
-  if (ratio < 1.0) problems.push(`직선거리(${straight.toFixed(2)}km)보다 짧다 — 불가능한 값이다`);
-  if (ratio > 2.2) problems.push(`직선거리의 ${ratio.toFixed(1)}배다 — 엉뚱하게 돌아간 경로다`);
+  if (ratio < 0.999)
+    problems.push(`끝점 사이 직선(${straight.toFixed(2)}km)보다 짧다 — 불가능한 값이다`);
+  if (ratio > 2.2) problems.push(`직선의 ${ratio.toFixed(1)}배다 — 엉뚱하게 돌아간 경로다`);
   if (r.coords.length < 4) problems.push(`점이 ${r.coords.length}개뿐이다 — 선이 안 그려진다`);
   if (Math.max(r.snapFromM, r.snapToM) > 1200)
     problems.push(`끝점 보정이 ${Math.max(r.snapFromM, r.snapToM)}m다 — 엉뚱한 곳에 붙었다`);
-  return { straight: +straight.toFixed(2), ratio: +ratio.toFixed(2), problems };
+  return {
+    straight: +straight.toFixed(2),
+    bridgeStraight: +bridgeStraight.toFixed(2),
+    ratio: +ratio.toFixed(2),
+    problems,
+  };
 }
 
 // ── 실행 ────────────────────────────────────────────────────
@@ -347,9 +377,17 @@ if (CHECK_ONLY) {
   for (const job of JOBS) {
     const r = data[job.slug];
     if (!r) { console.log(dim(`  · ${job.slug} 없음 (지도는 경로선 없이 그려집니다)`)); continue; }
-    const v = verdict(job, r);
+    // 저장 파일에는 스냅 좌표를 남기지 않는다(불필요한 중복이다).
+    // 대신 저장된 선의 **양 끝점**을 쓴다 — 그게 경로가 실제로 이은 두 점이다.
+    const v = verdict(job, {
+      ...r,
+      snapFrom: r.coords[0],
+      snapTo: r.coords.at(-1),
+      snapFromM: 0,
+      snapToM: 0,
+    });
     if (v.problems.length) { bad++; console.log(red(`  ✗ ${job.slug} ${r.km}km — ${v.problems.join("; ")}`)); }
-    else console.log(green(`  ✓ ${job.slug} ${r.km}km (직선 ${v.straight}km, ${v.ratio}배, 점 ${r.coords.length}개)`));
+    else console.log(green(`  ✓ ${job.slug} ${r.km}km (양끝 직선 ${v.straight}km, ${v.ratio}배, 점 ${r.coords.length}개)`));
   }
   process.exit(bad ? 1 : 0);
 }
@@ -386,7 +424,7 @@ for (const job of JOBS) {
     ok++;
     console.log(
       green(`✓ ${r.km}km`) +
-        dim(` (직선 ${v.straight}km · ${v.ratio}배 · 점 ${r.coords.length}개 · 다리 ${r.droppedBridges}개 제외 · 보정 ${r.snapFromM}/${r.snapToM}m)`)
+        dim(` (양끝 직선 ${v.straight}km · ${v.ratio}배 · 점 ${r.coords.length}개 · 다리기준 ${v.bridgeStraight}km · 보정 ${r.snapFromM}/${r.snapToM}m)`)
     );
   } catch (e) {
     failed++;

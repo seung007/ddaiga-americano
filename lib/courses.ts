@@ -266,8 +266,22 @@ export const COURSE_SLUGS = HANGANG_COURSES.map((c) => c.slug);
  * 아직 못 받은 코스는 여기 없고, 지도는 그 코스만 경로선 없이 그린다.
  * **틀린 선을 그리는 것보다 없는 게 낫다.**
  */
-const ROUTE_MAP = ROUTES as Record<string, HangangCourse["map"]["route"]>;
+/**
+ * JSON import 는 좌표를 `number[][]` 로 읽는다 — `[number, number][]` 가 아니다.
+ * TS 가 이걸 정확히 막았다(TS2352). **`as unknown` 으로 뭉개지 않고 실제로 검사한다** —
+ * 길이가 2가 아닌 항목은 버린다. 파일이 손상돼도 지도가 이상한 선을 그리지 않는다.
+ */
+type RouteFile = Record<
+  string,
+  { coords: number[][]; km: number; source: { label: string; url: string; checkedAt: string } }
+>;
+
 for (const c of HANGANG_COURSES) {
-  const r = ROUTE_MAP[c.slug];
-  if (r) c.map.route = r;
+  const r = (ROUTES as RouteFile)[c.slug];
+  if (!r) continue;
+  const coords = r.coords.filter(
+    (p): p is [number, number] => Array.isArray(p) && p.length === 2
+  );
+  if (coords.length < 4) continue; // 점이 너무 적으면 선이 아니다
+  c.map.route = { coords, km: r.km, source: r.source };
 }
