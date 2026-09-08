@@ -30,6 +30,9 @@
  * 출력 규칙 — **성공은 짧게, 실패는 전부.** 붙여넣기 비용이 정보량에 비례해야 한다.
  */
 import { spawnSync } from "node:child_process";
+import { writeFileSync, unlinkSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join as pjoin } from "node:path";
 
 const dim = (s) => `\x1b[2m${s}\x1b[0m`;
 const red = (s) => `\x1b[31m${s}\x1b[0m`;
@@ -71,7 +74,17 @@ if (changed.length) {
       .slice(0, 3)
       .map((l) => l.slice(3).split("/").pop())
       .join(", ")}${changed.length > 3 ? ` 외 ${changed.length - 3}건` : ""}`;
-  const commit = run("git", ["commit", "-m", JSON.stringify(msg)]);
+  /**
+   * 메시지를 **파일로 넘긴다.** `-m` 에 문자열을 주면 인용 문제가 생긴다 —
+   * Windows 는 shell:true 라 따옴표가 필요하고 Linux 는 shell:false 라 따옴표가
+   * **메시지 안에 그대로 박힌다.** 실제로 그렇게 커밋됐다:
+   *   "chore(하네스): 왕복 줄이기 — ..."   <- 따옴표가 제목의 일부가 됐다
+   * `-F` 는 플랫폼과 무관하고 여러 줄 메시지도 그대로 들어간다.
+   */
+  const msgFile = pjoin(tmpdir(), `ship-msg-${process.pid}.txt`);
+  writeFileSync(msgFile, msg + "\n", "utf8");
+  const commit = run("git", ["commit", "-F", msgFile]);
+  try { unlinkSync(msgFile); } catch {}
   if (commit.code !== 0) {
     console.log(red("커밋 실패\n"));
     console.log(commit.out);
