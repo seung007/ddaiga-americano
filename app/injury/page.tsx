@@ -32,6 +32,9 @@ const LEVEL_GUIDES = [
 const ARTICLES = [
   { href: "/injury/it-band",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "장경인대염 초기 대처법 3가지",              desc: "달릴 때마다 무릎 바깥쪽이 아프다면? 초기에 잡는 방법.", readTime: "5분" },
   { href: "/injury/wide-foot",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "발볼",    tagColor: "text-blue-600 bg-blue-50",   title: "발볼 넓은 러너 와이드 규격 총정리",           desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분" },
+  // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데
+  // 평발을 다루는 페이지가 하나도 없었다 — 가장 많이 묻는 것에 답이 없었다.
+  { href: "/injury/flat-feet",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "평발",    tagColor: "text-blue-600 bg-blue-50",   title: "평발 러닝화, 안정화화가 정답일까",            desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "5분" },
   { href: "/injury/achilles",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "미드풋 전환 후 아킬레스건·종아리 통증",        desc: "주법 바꾼 뒤 당긴다면 읽어보세요.", readTime: "4분" },
   { href: "/injury/shin-splints", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "정강이", tagColor: "text-red-600 bg-red-50",     title: "정강이 통증(신스플린트) — 초보 부상 1위",     desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "5분" },
   { href: "/injury/plantar-fasciitis", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유",       desc: "스트레칭보다 효과가 확인된 방법과, 얼마나 걸리는지.", readTime: "5분" },
