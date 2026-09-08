@@ -26,6 +26,7 @@
     "check:routes": "node scripts/fetch-course-routes.mjs --check",
     "routes": "node scripts/fetch-course-routes.mjs",
     "shot": "node scripts/shot.mjs",
+    "shot:local": "node scripts/shot.mjs --local",
     "ship": "node scripts/ship.mjs"
   },
   "dependencies": {
