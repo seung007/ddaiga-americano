@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { shoePlaceholder } from "@/lib/shoes/placeholder";
 
 /**
  * 홈 신발 띠 — 클릭 0회로 신발이 보인다
@@ -288,7 +289,10 @@ function ShoeCard({ shoe }: { shoe: StripShoe }) {
           referrerPolicy="no-referrer"
           className="h-full w-full object-contain p-2"
           onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = `https://placehold.co/220x160/f3f4f6/9ca3af?text=${encodeURIComponent(shoe.brand)}`;
+            // 2026-09-08: placehold.co → 자체 SVG. lib/shoes/placeholder.ts 참고.
+            const el = e.currentTarget as HTMLImageElement;
+            el.onerror = null;
+            el.src = shoePlaceholder(shoe.brand, 220, 160);
           }}
         />
       </div>

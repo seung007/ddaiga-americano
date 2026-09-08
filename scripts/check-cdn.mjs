@@ -31,6 +31,22 @@ const DIRS = ["app", "components", "lib"];
 const CDN = /(cdnjs\.cloudflare\.com|unpkg\.com|cdn\.jsdelivr\.net|ajax\.googleapis\.com)/;
 
 /**
+ * 실패 경로에 숨은 외부 의존 (2026-09-08 추가)
+ *
+ * `onError` 대체 이미지가 세 곳에서 `placehold.co` 를 불렀다.
+ * 즉 **사진 실패의 대비책이 또 다른 외부 요청**이었다.
+ *
+ * 왜 위험한가 — 신발 사진 48장 중 40장이 같은 CDN(`cdn.runrepeat.com`)에 있다.
+ * 그쪽이 막히는 날에는 `onError` 가 40번 터지고 그 순간 placehold.co 로
+ * 40개 요청이 나간다. 그게 느리거나 죽어 있으면 **대비책마저 실패한다.**
+ *
+ * 그리고 이건 위 CDN 목록에 안 걸렸다 — **평소에는 아무 일도 안 하는 코드라
+ * 눈에 띌 이유가 없었다.** 그래서 검사에 넣는다.
+ * data URI 로 그리면 요청이 0이다(`lib/shoes/placeholder.ts`).
+ */
+const FALLBACK_CDN = /(placehold\.co|placeholder\.com|dummyimage\.com|picsum\.photos)/;
+
+/**
  * SVG 안의 `<title>` 금지 (2026-09-08 추가)
  *
  * `components/CourseFigure.tsx` 의 `<svg><title>` 하나가 **사이트 전체
@@ -75,6 +91,13 @@ for (const d of DIRS) {
     src.split("\n").forEach((line, i) => {
       if (CDN.test(line))
         hits.push({ rel, n: i + 1, why: "외부 CDN", line: line.trim().slice(0, 100) });
+      if (FALLBACK_CDN.test(line))
+        hits.push({
+          rel,
+          n: i + 1,
+          why: "대체 이미지에 외부 요청 — lib/shoes/placeholder.ts 의 shoePlaceholder() 를 쓰세요",
+          line: line.trim().slice(0, 100),
+        });
       if (SVG_TITLE.test(line))
         hits.push({
           rel,

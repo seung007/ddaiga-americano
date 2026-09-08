@@ -36,6 +36,32 @@ function brandShoes(brand: string): Shoe[] {
   return SHOES.filter((s) => s.brand === brand && s.gender !== "female");
 }
 
+/**
+ * 평균을 낼 대상 — **카본 레이싱화를 뺀 데일리 트레이너만.**
+ *
+ * ⚠️ 2026-09-08 정정. 처음에는 브랜드의 모든 신발을 한 통에 넣고 평균을 냈다.
+ * 그게 틀렸다는 걸 나이키를 넣어 보고 알았다:
+ *
+ *   나이키 6개 중 **3개가 카본 레이싱화**다 — Vaporfly 4(166g), Alphafly 3(198g),
+ *   Pegasus Plus. 그래서 무게 평균이 240.7g 으로 나온다.
+ *   같은 계산으로 호카는 268.5g 이다. "나이키가 28g 가볍다"고 쓰면
+ *   **레이싱화 셋과 데일리화 다섯을 비교한 것**이 된다.
+ *
+ * 호카 vs 브룩스에도 같은 오염이 있었다 — 호카 쪽에 Rocket X 2(카본, 224g)가
+ * 하나 들어가서 무게 평균이 268.5g 이었다. 데일리만 보면 **277.4g** 이고,
+ * 브룩스와의 차이가 43.8g 에서 **34.9g** 으로 줄어든다.
+ * 결론(드롭 범위가 안 겹친다)은 그대로지만 **내가 배포한 숫자가 틀렸다.**
+ *
+ * 교훈: **평균을 내기 전에 같은 종류인지 먼저 확인한다.**
+ * 이 저장소에 이미 있는 규칙과 같다 — 검사를 만들 때도 같은 것끼리 비교하는지 본다.
+ * 카본화는 용도·무게·가격이 다른 제품군이라 브랜드의 "보통 신발"을 대표하지 않는다.
+ *
+ * 카본화 자체가 궁금한 사람도 있으니 개수는 따로 내보낸다(`carbonCount`).
+ */
+function dailyShoes(shoes: Shoe[]): Shoe[] {
+  return shoes.filter((s) => !s.hasCarbon);
+}
+
 function avg(ns: number[]): number {
   return ns.length ? ns.reduce((a, b) => a + b, 0) / ns.length : 0;
 }
@@ -44,7 +70,10 @@ export type BrandStats = {
   brand: string;
   /** 화면에 쓰는 한글 이름 */
   ko: string;
+  /** **평균에 들어간 개수** — 카본 레이싱화를 뺀 데일리 트레이너 수다. */
   sampleSize: number;
+  /** 평균에서 제외한 카본화 수. 화면에 같이 밝힌다. */
+  carbonCount: number;
   /** 후속 모델이 안 나온 것 = 현행 */
   currentCount: number;
   dropAvg: number;
@@ -64,7 +93,9 @@ export type BrandStats = {
 };
 
 export function brandStats(brand: string, ko: string): BrandStats {
-  const shoes = brandShoes(brand);
+  const all = brandShoes(brand);
+  // 평균은 데일리 트레이너만으로 낸다. 이유는 `dailyShoes` 주석에.
+  const shoes = dailyShoes(all);
   const stability: Record<string, number> = {};
   for (const s of shoes) stability[s.stability] = (stability[s.stability] ?? 0) + 1;
 
@@ -74,6 +105,7 @@ export function brandStats(brand: string, ko: string): BrandStats {
     brand,
     ko,
     sampleSize: shoes.length,
+    carbonCount: all.length - shoes.length,
     currentCount: shoes.filter((s) => !s.successor).length,
     dropAvg: avg(shoes.map((s) => s.heelDropMm)),
     dropMin: Math.min(...shoes.map((s) => s.heelDropMm)),

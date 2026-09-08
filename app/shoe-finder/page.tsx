@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { resolveBuyLinks } from "@/lib/shoes/affiliate";
+import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
@@ -891,7 +892,12 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               referrerPolicy="no-referrer"
               className="w-full h-full object-contain p-1"
               onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = `https://placehold.co/96x96/f3f4f6/9ca3af?text=${encodeURIComponent(shoe.brand)}`;
+                // 2026-09-08: placehold.co → 자체 SVG. 사진 40장이 같은 외부 CDN 에
+                // 있어서 그쪽이 막히면 대체 요청도 40개가 한꺼번에 나갔다.
+                // 자세한 경위는 lib/shoes/placeholder.ts 주석에.
+                const el = e.currentTarget as HTMLImageElement;
+                el.onerror = null;
+                el.src = shoePlaceholder(shoe.brand, 96, 96);
               }}
             />
           </div>

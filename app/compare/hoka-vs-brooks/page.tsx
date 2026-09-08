@@ -176,6 +176,19 @@ export default function HokaVsBrooks() {
           브랜드 인상이 아니라 <strong>이 사이트가 검증한 스펙을 집계</strong>했습니다.
           호카 {HOKA.sampleSize}개, 브룩스 {BROOKS.sampleSize}개 기준입니다.
         </p>
+        {/**
+         * 2026-09-08: 카본화를 평균에서 뺐다. 처음엔 넣고 냈는데, 호카 쪽에
+         * Rocket X 2(224g)가 들어가서 무게 평균이 실제보다 가볍게 나왔다.
+         * 용도·무게·가격이 다른 제품군이라 브랜드의 "보통 신발"을 대표하지 않는다.
+         * 자세한 경위는 `lib/brands.ts` 의 `dailyShoes` 주석에.
+         */}
+        {(HOKA.carbonCount > 0 || BROOKS.carbonCount > 0) && (
+          <p className="mt-1.5 text-sm text-gray-500">
+            카본 레이싱화는 평균에서 뺐습니다 (호카 {HOKA.carbonCount}개, 브룩스{" "}
+            {BROOKS.carbonCount}개) — 용도와 무게가 다른 제품군이라 데일리화와 같이
+            평균 내면 숫자가 왜곡됩니다.
+          </p>
+        )}
 
         {/* 결론을 맨 위에 둔다. 스크롤해서 찾게 만들면 대부분 안 찾는다. */}
         <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
