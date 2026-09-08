@@ -24,7 +24,9 @@
     "check:internal": "node scripts/check-internal-links.mjs",
     "check:cdn": "node scripts/check-cdn.mjs",
     "check:routes": "node scripts/fetch-course-routes.mjs --check",
-    "routes": "node scripts/fetch-course-routes.mjs"
+    "routes": "node scripts/fetch-course-routes.mjs",
+    "shot": "node scripts/shot.mjs",
+    "ship": "node scripts/ship.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

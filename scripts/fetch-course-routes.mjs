@@ -48,7 +48,22 @@
  * 경로가 실제로 잇는 것은 강변에 스냅된 점이다(다리는 강 가운데다).
  * 정상 경로가 떨어졌다 — 자세한 경위는 `verdict()` 주석에 있다.
  */
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+
+/**
+ * Overpass 원본 응답 캐시.
+ *
+ * 2026-09-08: 이 스크립트를 다섯 번 돌렸고, 그중 세 번은 **이미 성공한 코스까지
+ * 다시 받았다.** 공개 서버는 혼잡하고(429/504) 예절상 같은 질의를 반복해서
+ * 던지면 안 된다. 성공한 응답을 디스크에 두면 다음 실행은 못 받은 것만 받는다.
+ *
+ * `--fresh` 를 주면 캐시를 무시한다(OSM 데이터가 갱신됐을 때).
+ */
+const CACHE_DIR = ".cache/osm";
+const FRESH = process.argv.includes("--fresh");
+function cachePath(slug) {
+  return `${CACHE_DIR}/${slug}.json`;
+}
 
 const OUT = "lib/courses.routes.json";
 const CHECK_ONLY = process.argv.includes("--check");
@@ -429,9 +444,18 @@ let failed = 0;
 for (const job of JOBS) {
   process.stdout.write(dim(`  ${job.slug} 받는 중… `));
   try {
-    const osm = await overpass(
-      `[out:json][timeout:90];\nway["highway"]["name"~"자전거길|산책로"](${job.bbox});\nout geom;`
-    );
+    let osm;
+    const cf = cachePath(job.slug);
+    if (!FRESH && existsSync(cf)) {
+      osm = JSON.parse(readFileSync(cf, "utf8"));
+      process.stdout.write(dim("(캐시) "));
+    } else {
+      osm = await overpass(
+        `[out:json][timeout:90];\nway["highway"]["name"~"자전거길|산책로"](${job.bbox});\nout geom;`
+      );
+      mkdirSync(CACHE_DIR, { recursive: true });
+      writeFileSync(cf, JSON.stringify(osm), "utf8");
+    }
     const r = buildRoute(osm, job);
     const v = verdict(job, r);
     if (v.problems.length) {
