@@ -116,31 +116,29 @@ if (changed.length) {
 }
 
 /**
- * 배포 지문 — 지금 떠 있는 빌드를 식별한다.
+ * 지금 배포된 커밋을 **직접 물어본다.** (`app/version/route.ts`)
  *
- * 2026-09-08: 이걸로 왕복 한 번을 또 날렸다. 푸시 직후 `npm run shot` 을 돌렸고,
- * **캡처가 Vercel 배포보다 먼저 찍혔다.** 나는 옛 화면을 보고 "아직 안 고쳐졌다"고
- * 판단했다. 커밋은 이미 올라가 있었다.
+ * 2026-09-08: 처음엔 `/_next/static/` 청크 해시를 지문으로 썼다. 프록시였고 틀렸다.
+ * `scripts/ship.mjs` 만 바꾼 커밋은 **클라이언트 번들이 안 바뀐다** — 배포는 됐는데
+ * 지문은 그대로여서 3분을 꽉 채우고 "배포 로그를 확인하세요"라는 **틀린 경고**를 냈다.
  *
- * "1~2분 걸립니다"라고 안내하는 것으로는 부족하다 — **사람이 시계를 보고 기다리게
- * 만드는 안내는 실패한다.** 기다림은 도구가 해야 한다.
- *
- * App Router 는 buildId 를 페이지에 안 박으니, `/_next/static/chunks/...` 스크립트
- * 목록을 지문으로 쓴다. 빌드가 바뀌면 청크 해시가 바뀐다.
+ * **묻고 싶은 것을 직접 물어라.** 알고 싶은 건 "지금 떠 있는 커밋"인데
+ * 나는 "번들이 바뀌었나"를 물었다. 두 답이 갈리는 경우가 곧 문제가 되는 경우다.
  */
 const SITE = "https://ddaiga-americano.vercel.app";
-async function deployFingerprint(ms = 15_000) {
+async function deployedSha(ms = 12_000) {
   try {
-    const r = await fetch(SITE, { cache: "no-store", signal: AbortSignal.timeout(ms) });
-    const html = await r.text();
-    const chunks = [...html.matchAll(/\/_next\/static\/[^"']+/g)].map((m) => m[0]).sort();
-    return chunks.join("|") || null;
+    const r = await fetch(`${SITE}/version`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(ms),
+    });
+    if (!r.ok) return null;
+    const t = (await r.text()).trim();
+    return /^[0-9a-f]{7,40}$/.test(t) ? t : null;
   } catch {
     return null;
   }
 }
-
-const before = await deployFingerprint();
 
 // ── 3. 푸시 — 커밋할 게 없어도 한다 ────────────────────────
 const branch = run("git", ["rev-parse", "--abbrev-ref", "HEAD"]).out.trim();
@@ -173,23 +171,37 @@ if (local === remote) {
    * **배포가 실제로 바뀔 때까지 기다린다.** 추측하지 않는다.
    * 올릴 커밋이 없었으면(ahead === "0") 배포도 안 바뀌니 기다리지 않는다.
    */
-  if (ahead !== "0" && before) {
+  const localFull = run("git", ["rev-parse", "HEAD"]).out.trim();
+  if (ahead !== "0") {
     process.stdout.write(dim("배포 반영 대기… "));
     const started = Date.now();
     let live = false;
-    while (Date.now() - started < 180_000) {
+    let seen = null;
+    let missing = false;
+    while (Date.now() - started < 240_000) {
       await new Promise((r) => setTimeout(r, 6_000));
-      const now = await deployFingerprint();
-      if (now && now !== before) { live = true; break; }
+      seen = await deployedSha();
+      /**
+       * `/version` 이 아직 배포에 없으면(이 기능을 넣은 커밋 이전 배포) null 이다.
+       * 그때는 **기다려도 답이 안 온다** — 영원히 기다리게 하지 않고 그렇게 말한다.
+       */
+      if (seen === null) { missing = true; break; }
+      if (seen === localFull) { live = true; break; }
       process.stdout.write(dim("."));
     }
     const sec = Math.round((Date.now() - started) / 1000);
-    console.log(
-      live
-        ? green(`반영됨 (${sec}초)`)
-        : red(`3분 안에 안 바뀜 — Vercel 배포 로그를 확인하세요`)
-    );
-    if (live) console.log(dim("이제 npm run shot 을 돌려도 새 화면이 찍힙니다."));
+    if (live) {
+      console.log(green(`반영됨 (${sec}초)`));
+      console.log(dim("이제 npm run shot 을 돌려도 새 화면이 찍힙니다."));
+    } else if (missing) {
+      console.log(dim("건너뜀"));
+      console.log(dim("  배포에 /version 이 아직 없습니다 — 이번 배포가 끝나면 다음부터 동작합니다."));
+    } else {
+      console.log(red(`${sec}초 안에 안 바뀜`));
+      console.log(dim(`  배포된 커밋: ${seen ?? "확인 불가"}`));
+      console.log(dim(`  로컬 커밋:   ${localFull.slice(0, 12)}`));
+      console.log(dim("  Vercel 배포 로그를 확인하세요."));
+    }
   } else if (ahead === "0") {
     console.log(dim("배포도 그대로입니다."));
   }
