@@ -390,14 +390,30 @@ if (CHECK_ONLY) {
   for (const job of JOBS) {
     const r = data[job.slug];
     if (!r) { console.log(dim(`  · ${job.slug} 없음 (지도는 경로선 없이 그려집니다)`)); continue; }
+    /**
+     * **검사에 필요한 값이 없으면 통과가 아니다.**
+     *
+     * 2026-09-08 에 이걸로 한 번 통과했다. `snapFromM/snapToM` 필드를 나중에
+     * 추가했더니, 그 전에 저장된 여의도 항목에는 값이 없었다. 나는 `?? 0` 으로
+     * 기본값을 줬고 — **0m 는 완벽한 값이라 검사를 무조건 통과한다.**
+     * 그래서 보정 939m 짜리 잘못된 선이 배포됐다.
+     *
+     * 없는 값에 관대한 기본값을 주는 것은 검사를 끄는 것과 같다.
+     * 모르면 **모른다고 실패**해야 한다 — 다시 받으면 채워진다.
+     */
+    if (r.snapFromM === undefined || r.snapToM === undefined) {
+      bad++;
+      console.log(
+        red(`  ✗ ${job.slug} — 끝점 보정값이 원장에 없습니다. \`npm run routes\` 로 다시 받으세요`)
+      );
+      continue;
+    }
     // 저장 파일에는 스냅 좌표를 남기지 않는다(불필요한 중복이다).
     // 대신 저장된 선의 **양 끝점**을 쓴다 — 그게 경로가 실제로 이은 두 점이다.
     const v = verdict(job, {
       ...r,
       snapFrom: r.coords[0],
       snapTo: r.coords.at(-1),
-      snapFromM: r.snapFromM ?? 0,
-      snapToM: r.snapToM ?? 0,
     });
     if (v.problems.length) { bad++; console.log(red(`  ✗ ${job.slug} ${r.km}km — ${v.problems.join("; ")}`)); }
     else console.log(green(`  ✓ ${job.slug} ${r.km}km (양끝 직선 ${v.straight}km, ${v.ratio}배, 점 ${r.coords.length}개)`));
