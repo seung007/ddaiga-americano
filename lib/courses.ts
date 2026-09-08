@@ -273,7 +273,13 @@ export const COURSE_SLUGS = HANGANG_COURSES.map((c) => c.slug);
  */
 type RouteFile = Record<
   string,
-  { coords: number[][]; km: number; source: { label: string; url: string; checkedAt: string } }
+  {
+    coords: number[][];
+    km: number;
+    snapFromM?: number;
+    snapToM?: number;
+    source: { label: string; url: string; checkedAt: string };
+  }
 >;
 
 for (const c of HANGANG_COURSES) {

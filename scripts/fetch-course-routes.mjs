@@ -352,8 +352,21 @@ function verdict(job, r) {
     problems.push(`끝점 사이 직선(${straight.toFixed(2)}km)보다 짧다 — 불가능한 값이다`);
   if (ratio > 2.2) problems.push(`직선의 ${ratio.toFixed(1)}배다 — 엉뚱하게 돌아간 경로다`);
   if (r.coords.length < 4) problems.push(`점이 ${r.coords.length}개뿐이다 — 선이 안 그려진다`);
-  if (Math.max(r.snapFromM, r.snapToM) > 1200)
-    problems.push(`끝점 보정이 ${Math.max(r.snapFromM, r.snapToM)}m다 — 엉뚱한 곳에 붙었다`);
+  /**
+   * 끝점 보정 한계를 1200m -> 700m 로 조였다 (2026-09-08).
+   *
+   * 여의도가 보정 635/939m 로 **통과했다.** 그런데 939m 는 그 코스에서
+   * **선이 U턴 핀에 닿지 않는다**는 뜻이다. 사람이 보면 "선이 왜 중간에서
+   * 끊기지?" 가 된다. 더 나쁜 건 지도 위 칩이 그 짧은 선의 길이를
+   * **"편도 1.0km"** 로 적는다는 것이다 — 코스 거리가 아닌 숫자를 코스 거리로
+   * 내보낸다. **틀린 숫자는 없는 숫자보다 나쁘다.**
+   *
+   * 한강 교량 폭이 300~500m 라 강변까지의 스냅은 그 절반쯤이 정상이다.
+   * 700m 를 넘으면 강변이 아니라 엉뚱한 길(섬 안쪽 산책로 등)에 붙은 것이다.
+   */
+  const snapMax = Math.max(r.snapFromM, r.snapToM);
+  if (snapMax > 700)
+    problems.push(`끝점 보정이 ${snapMax}m다 — 선이 U턴 지점에 닿지 않는다`);
   return {
     straight: +straight.toFixed(2),
     bridgeStraight: +bridgeStraight.toFixed(2),
@@ -383,8 +396,8 @@ if (CHECK_ONLY) {
       ...r,
       snapFrom: r.coords[0],
       snapTo: r.coords.at(-1),
-      snapFromM: 0,
-      snapToM: 0,
+      snapFromM: r.snapFromM ?? 0,
+      snapToM: r.snapToM ?? 0,
     });
     if (v.problems.length) { bad++; console.log(red(`  ✗ ${job.slug} ${r.km}km — ${v.problems.join("; ")}`)); }
     else console.log(green(`  ✓ ${job.slug} ${r.km}km (양끝 직선 ${v.straight}km, ${v.ratio}배, 점 ${r.coords.length}개)`));
@@ -409,12 +422,25 @@ for (const job of JOBS) {
       failed++;
       console.log(red(`✗ ${r.km}km`));
       for (const p of v.problems) console.log(red(`      ${p}`));
-      console.log(dim(`      쓰지 않습니다. 지도는 경로선 없이 그려집니다.`));
+      /**
+       * **떨어지면 기존 항목도 지운다.**
+       * 처음엔 `continue` 만 했다. 그러면 전에 통과해 저장된 값이 그대로 남는다 —
+       * 검사를 조인 뒤에도 옛 데이터로 선이 그려진다. 검사를 고친 의미가 없다.
+       */
+      if (result[job.slug]) {
+        delete result[job.slug];
+        console.log(dim(`      전에 저장된 값도 지웠습니다.`));
+      }
+      console.log(dim(`      지도는 이 코스만 경로선 없이 그려집니다.`));
       continue;
     }
     result[job.slug] = {
       coords: r.coords,
       km: r.km,
+      // 선의 양 끝이 다리에서 얼마나 떨어졌나. **파일에 남겨야 --check 가 본다.**
+      // 처음엔 안 남겨서 --check 가 이 항목을 아예 검사하지 못했다.
+      snapFromM: r.snapFromM,
+      snapToM: r.snapToM,
       source: {
         label: "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
         url: "https://www.openstreetmap.org/copyright",
@@ -432,7 +458,7 @@ for (const job of JOBS) {
   }
 }
 
-if (ok) {
+if (ok || failed) {
   writeFileSync(OUT, JSON.stringify(result, null, 2) + "\n", "utf8");
   console.log(`\n${green(`${ok}개를 ${OUT} 에 썼습니다.`)} ${failed ? red(`${failed}개 실패.`) : ""}`);
   console.log(dim("실패한 것은 서버 혼잡일 수 있습니다 — 시간을 두고 다시 실행하면 채워집니다."));
