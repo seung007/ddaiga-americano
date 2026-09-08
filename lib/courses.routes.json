@@ -70,7 +70,7 @@
     "source": {
       "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
       "url": "https://www.openstreetmap.org/copyright",
-      "checkedAt": "2026-09-07"
+      "checkedAt": "2026-09-08"
     }
   },
   "banpo": {
@@ -152,7 +152,75 @@
     "source": {
       "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
       "url": "https://www.openstreetmap.org/copyright",
-      "checkedAt": "2026-09-07"
+      "checkedAt": "2026-09-08"
+    }
+  },
+  "yeouido": {
+    "coords": [
+      [
+        37.52993,
+        126.9308
+      ],
+      [
+        37.52846,
+        126.93191
+      ],
+      [
+        37.5278,
+        126.9326
+      ],
+      [
+        37.52638,
+        126.93501
+      ],
+      [
+        37.52472,
+        126.93643
+      ],
+      [
+        37.52378,
+        126.93786
+      ],
+      [
+        37.52329,
+        126.93832
+      ]
+    ],
+    "km": 1.01,
+    "source": {
+      "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
+      "url": "https://www.openstreetmap.org/copyright",
+      "checkedAt": "2026-09-08"
+    }
+  },
+  "ttukseom": {
+    "coords": [
+      [
+        37.53974,
+        127.0364
+      ],
+      [
+        37.53778,
+        127.04183
+      ],
+      [
+        37.53693,
+        127.04549
+      ],
+      [
+        37.53386,
+        127.05667
+      ],
+      [
+        37.53224,
+        127.05978
+      ]
+    ],
+    "km": 2.24,
+    "source": {
+      "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
+      "url": "https://www.openstreetmap.org/copyright",
+      "checkedAt": "2026-09-08"
     }
   }
 }
