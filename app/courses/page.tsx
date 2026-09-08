@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import AffiliateNotice from "@/components/AffiliateNotice";
 import CourseFigure from "@/components/CourseFigure";
 import CourseMapLive from "@/components/CourseMapLive";
 import NearestCourse from "@/components/NearestCourse";
@@ -45,8 +44,22 @@ export const metadata: Metadata = {
 export default function CoursesPage() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
-      <AffiliateNotice />
-
+      {/**
+       * 2026-09-08: `<AffiliateNotice />` 를 **뺐다.**
+       *
+       * 이 페이지에는 구매 링크가 **하나도 없다** — 신발 데이터도, `buyLinks` 도,
+       * 쿠팡 링크도 없다. 그런데 제휴 링크가 사이트에 하나라도 등록되면
+       * `hasAnyAffiliate()` 가 참이 되므로 여기에도 고지가 떴다.
+       *
+       * 그러면 화면에 이렇게 나온다:
+       *   "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의
+       *    수수료를 제공받습니다."
+       * 이 페이지는 그렇지 않다. **하지도 않은 제휴를 밝히는 것**이고,
+       * `AffiliateNotice` 자신의 주석이 경계한 바로 그 경우다.
+       *
+       * 고지는 링크가 있는 페이지에만 있어야 정확하다 —
+       * 지금은 `/shoe-finder` 와 `/compare/*` 다.
+       */}
       <h1 className="mb-3 text-3xl font-bold text-gray-900">한강 러닝 코스 4곳</h1>
       {/* 2026-09-07: 인트로 문단과 노란 고지 상자를 걷어냈다.
           사용자 지적 — **"맵 보고 모르면 그냥 나가는 거야. 글은 진짜 간단하게만."**
