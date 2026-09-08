@@ -81,6 +81,11 @@ npm run shot -- --local # localhost:3000 을 대신 찍는다
 npm run routes          # 코스 경로선 (캐시됨, --fresh 로 무시)
 ```
 
+⚠️ **샌드박스에서 `npm i` 를 돌릴 때는 `--ignore-scripts` 를 붙여라.**
+`playwright` 가 devDependency 라서 설치 후 브라우저 바이너리를 내려받는데,
+샌드박스는 그 다운로드가 막혀 있어 `npm i` 전체가 실패한다.
+브라우저는 사람 PC 에만 있으면 된다.
+
 ## 스킬 라우팅 — 고민하지 말고 표를 보고 골라라
 
 스킬이 25개를 넘었다(2026-09-06, SearchFit SEO 17개 설치). **어느 것을 쓸지 매번

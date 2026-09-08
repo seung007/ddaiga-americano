@@ -40,12 +40,32 @@ const green = (s) => `\x1b[32m${s}\x1b[0m`;
 const bold = (s) => `\x1b[1m${s}\x1b[0m`;
 
 const win = process.platform === "win32";
+/**
+ * `trim` 이 아니라 `trimEnd` 다 — 2026-09-08 에 이걸로 한 번 틀렸다.
+ *
+ * `git status --porcelain` 의 각 줄은 **앞 두 칸이 상태 문자**다:
+ *   " M package-lock.json"   (공백 + M + 공백 + 경로)
+ * 여기에 `trim()` 을 걸면 **첫 줄의 선행 공백이 사라지고** 정렬이 한 칸 밀린다.
+ * 그래서 자동 생성 커밋 메시지가 이렇게 나갔다:
+ *   `chore: ackage-lock.json, package.json, ship.mjs`   <- p 가 잘렸다
+ *
+ * 교훈: **정렬이 의미를 갖는 출력에 전역 trim 을 걸지 마라.**
+ * 뒤쪽 개행만 잘라내고, 파싱은 정규식으로 명시한다.
+ */
 function run(cmd, args, { quiet = true } = {}) {
   const r = win
     ? spawnSync([cmd, ...args].join(" "), { encoding: "utf8", shell: true })
     : spawnSync(cmd, args, { encoding: "utf8" });
-  const out = ((r.stdout ?? "") + (r.stderr ?? "")).trim();
+  const out = ((r.stdout ?? "") + (r.stderr ?? "")).replace(/\s+$/, "");
   return { code: r.status ?? 1, out, show: quiet ? "" : out };
+}
+
+/** porcelain 한 줄에서 경로만 뽑는다. 앞 두 칸이 상태 문자다. */
+function porcelainPath(line) {
+  const m = /^(..)\s+(.+)$/.exec(line);
+  const path = m ? m[2] : line;
+  // 이름 변경은 "old -> new" 로 온다. 새 이름을 쓴다.
+  return path.includes(" -> ") ? path.split(" -> ").pop() : path;
 }
 
 const msgArg = process.argv.slice(2).filter((a) => !a.startsWith("-")).join(" ");
@@ -63,7 +83,7 @@ console.log(green("통과"));
 
 // ── 2. 변경 확인 ───────────────────────────────────────────
 const status = run("git", ["status", "--porcelain"]);
-const changed = status.out ? status.out.split("\n").filter(Boolean) : [];
+const changed = status.out ? status.out.split("\n").filter((l) => l.trim()) : [];
 
 if (changed.length) {
   run("git", ["add", "-A"]);
@@ -72,7 +92,7 @@ if (changed.length) {
     // 메시지를 안 주면 바뀐 파일로 사실만 적는다. **내용을 지어내지 않는다.**
     `chore: ${changed
       .slice(0, 3)
-      .map((l) => l.slice(3).split("/").pop())
+      .map((l) => porcelainPath(l).split("/").pop())
       .join(", ")}${changed.length > 3 ? ` 외 ${changed.length - 3}건` : ""}`;
   /**
    * 메시지를 **파일로 넘긴다.** `-m` 에 문자열을 주면 인용 문제가 생긴다 —
@@ -96,8 +116,8 @@ if (changed.length) {
 }
 
 // ── 3. 푸시 — 커밋할 게 없어도 한다 ────────────────────────
-const branch = run("git", ["rev-parse", "--abbrev-ref", "HEAD"]).out;
-const ahead = run("git", ["rev-list", "--count", `origin/${branch}..HEAD`]).out;
+const branch = run("git", ["rev-parse", "--abbrev-ref", "HEAD"]).out.trim();
+const ahead = run("git", ["rev-list", "--count", `origin/${branch}..HEAD`]).out.trim();
 
 if (ahead === "0") {
   console.log(dim("올릴 커밋 없음 — 원격과 같습니다"));
@@ -114,9 +134,9 @@ if (ahead === "0") {
 
 // ── 4. 확인 — 추측하지 않는다 ──────────────────────────────
 run("git", ["fetch", "-q", "origin"]);
-const local = run("git", ["rev-parse", "HEAD"]).out.slice(0, 7);
-const remote = run("git", ["rev-parse", `origin/${branch}`]).out.slice(0, 7);
-const subject = run("git", ["log", "-1", "--pretty=%s"]).out;
+const local = run("git", ["rev-parse", "HEAD"]).out.trim().slice(0, 7);
+const remote = run("git", ["rev-parse", `origin/${branch}`]).out.trim().slice(0, 7);
+const subject = run("git", ["log", "-1", "--pretty=%s"]).out.trim();
 
 console.log("");
 if (local === remote) {
