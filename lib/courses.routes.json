@@ -158,5 +158,37 @@
       "url": "https://www.openstreetmap.org/copyright",
       "checkedAt": "2026-09-08"
     }
+  },
+  "ttukseom": {
+    "coords": [
+      [
+        37.53974,
+        127.0364
+      ],
+      [
+        37.53778,
+        127.04183
+      ],
+      [
+        37.53693,
+        127.04549
+      ],
+      [
+        37.53386,
+        127.05667
+      ],
+      [
+        37.53224,
+        127.05978
+      ]
+    ],
+    "km": 2.24,
+    "snapFromM": 334,
+    "snapToM": 219,
+    "source": {
+      "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
+      "url": "https://www.openstreetmap.org/copyright",
+      "checkedAt": "2026-09-08"
+    }
   }
 }
