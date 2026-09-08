@@ -3,7 +3,7 @@
  * 화면 캡처 — Claude 가 실제 화면을 보게 하는 장치
  *
  *   npm run shot              # 배포된 사이트의 주요 화면을 shots/ 에 저장
- *   npm run shot -- --local   # http://localhost:3000 을 대신 찍는다 (npm run dev 먼저)
+ *   npm run shot:local        # http://localhost:3000 을 찍는다 (다른 창에서 npm run dev 먼저)
  *   npm run shot -- /courses  # 특정 경로만
  *
  * ─────────────────────────────────────────────────────────────
@@ -85,6 +85,31 @@ try {
 }
 
 mkdirSync(OUT_DIR, { recursive: true });
+
+/**
+ * 시작 전에 대상이 살아 있는지 **한 번** 확인한다.
+ *
+ * 2026-09-08: 개발 서버가 꺼진 채로 돌렸더니 **똑같은 ERR_CONNECTION_REFUSED
+ * 8줄**이 나왔다(목표 4개 × 화면 2개). 사람이 해야 할 일은 "dev 를 켜라" 한 줄인데
+ * 화면에는 8줄이 찍히고 그게 대화로 붙여넣어진다.
+ *
+ * **실패 메시지는 사람이 다음에 무엇을 할지 정하는 유일한 입력이다.**
+ * 같은 원인의 실패를 여러 번 반복해 찍는 것은 정보가 아니라 잡음이다.
+ */
+try {
+  await fetch(BASE, { method: "GET", signal: AbortSignal.timeout(LOCAL ? 8_000 : 15_000) });
+} catch {
+  if (LOCAL) {
+    console.log(red("\n개발 서버가 안 켜져 있습니다 (http://localhost:3000).\n"));
+    console.log("  창을 하나 더 열고 거기서 켜 두세요:\n");
+    console.log("    npm run dev\n");
+    console.log(dim("  `npm run dev` 는 끝나지 않는 명령입니다 — 같은 창에서 다음 명령을"));
+    console.log(dim("  이어 실행하면 dev 가 꺼진 뒤에야 돌아갑니다.\n"));
+  } else {
+    console.log(red(`\n${BASE} 에 연결할 수 없습니다. 네트워크나 배포 상태를 확인하세요.\n`));
+  }
+  process.exit(1);
+}
 
 /**
  * 실행 로그를 **항상** 남긴다 — 2026-09-08 에 이걸로 한 번 막혔다.
