@@ -111,8 +111,15 @@ export default function CoursesPage() {
         return (
           <section key={c.slug} id={c.slug} className="mb-14 scroll-mt-20">
             <h2 className="mb-1 text-2xl font-bold text-gray-900">{c.name}</h2>
+            {/* 2026-09-08: 소제목에서 **공식 길이를 뺐다.**
+                화면을 보니 소제목 "공식 길이 4.8km" 와 지도 칩 "편도 3.24km" 가
+                나란히 있었다. **어느 게 코스 거리인지 알 수 없다.**
+                (공식 길이 = 공원 끝에서 끝까지, 칩 = 지도에 그린 구간의 실측.
+                 둘 다 맞는 값인데 나란히 놓으면 둘 다 못 믿게 된다.)
+                지도 칩 하나만 남기고, 공식 길이는 접힌 <details> 와 맨 위 비교표에
+                그대로 있다 — 출처가 붙은 값이라 버리지 않는다. */}
             <p className="mb-4 text-sm text-gray-500">
-              {c.district} · 공식 길이 {c.lengthKm}km · {c.zone}
+              {c.district} · {c.zone}
             </p>
 
             {/* 실제 지도가 먼저 온다.

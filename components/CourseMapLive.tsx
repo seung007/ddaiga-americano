@@ -166,10 +166,39 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
           L.polyline(route.coords, { color: "#059669", weight: 5, opacity: 1 }).addTo(map);
         }
 
+        /**
+         * **U턴 핀을 경로선의 양 끝으로 옮긴다.**
+         *
+         * 2026-09-08: 화면을 보니 U턴 핀이 **강 가운데(다리 위)에 떠 있고
+         * 경로선과 이어지지 않았다.** 다리 좌표가 강 중앙이라 당연한데,
+         * 보는 사람에게는 "선이 왜 핀까지 안 오지?" 로 읽힌다.
+         *
+         * 그리고 **실제로 사람이 돌아서는 곳은 다리 위가 아니라 강변길이다.**
+         * 이름표는 다리 이름을 그대로 쓰고(그게 위치를 알려주는 지명이다),
+         * 핀만 선의 끝으로 옮기는 것이 정확하고 보기에도 맞다.
+         *
+         * 경로선이 없는 코스는 다리 좌표를 그대로 쓴다.
+         */
+        const ends = route?.coords.length
+          ? [route.coords[0], route.coords[route.coords.length - 1]]
+          : null;
+        const km = (a: [number, number], b: [number, number]) => {
+          const r = Math.PI / 180;
+          const dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
+          const h =
+            Math.sin(dLa / 2) ** 2 +
+            Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;
+          return 2 * 6371 * Math.asin(Math.sqrt(h));
+        };
+
         markersRef.current = [];
         for (const p of course.map.points) {
           const k = KINDS[p.kind];
-          const marker = L.marker([p.lat, p.lon], {
+          let at: [number, number] = [p.lat, p.lon];
+          if (ends && p.kind === "turn") {
+            at = km([p.lat, p.lon], ends[0]) <= km([p.lat, p.lon], ends[1]) ? ends[0] : ends[1];
+          }
+          const marker = L.marker(at, {
             icon: L.divIcon({
               className: "",
               html: pinHtml(k, p.name),
@@ -236,7 +265,8 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
     const p = course.map.points[i];
     if (!map || !marker || !p) return;
     setActive(i);
-    map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 16), { duration: 0.6 });
+    // 마커가 옮겨졌을 수 있으니(U턴은 경로선 끝으로 간다) **마커 자기 위치**로 간다.
+    map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), 16), { duration: 0.6 });
     marker.openTooltip();
   };
 
@@ -253,7 +283,10 @@ export default function CourseMapLive({ course }: { course: HangangCourse }) {
             거리를 문단으로 설명하는 대신 지도 위에 숫자만 얹는다.
             z-[800]인 이유: Leaflet 내부 패널이 400~700을 쓴다. 그보다 커야 위에 온다. */}
         {state === "ready" && course.map.route && (
-          <div className="pointer-events-none absolute left-3 top-3 z-[800] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
+          /* 2026-09-08: 왼쪽 위에 뒀더니 **줌 버튼과 겹쳐 "편도" 두 글자가 가려졌다.**
+             화면을 보고서야 알았다(npm run shot). 오른쪽 위로 옮긴다 —
+             네이버·카카오도 정보 칩을 컨트롤 반대편에 둔다. */
+          <div className="pointer-events-none absolute right-3 top-3 z-[800] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
             편도 {course.map.route.km}km
             <span className="mx-1.5 font-normal text-gray-300">|</span>
             <span className="text-emerald-700">왕복 {(course.map.route.km * 2).toFixed(1)}km</span>

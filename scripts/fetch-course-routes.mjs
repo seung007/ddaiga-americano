@@ -75,45 +75,70 @@ const ENDPOINTS = [
 ];
 
 /**
- * 코스별 입력.
+ * 코스별 입력은 **`lib/courses.ts` 에서 파생시킨다.** 손으로 적지 않는다.
  *
- * `hint` = **그 강변 위의 한 점.** 왜 필요한가 — 다리 좌표에서 가장 가까운
- * 길 노드를 찾으면 **반대편 강변**으로 붙을 수 있다. 다리는 강 가운데에 있으니까.
- * hint 가 속한 연결 성분 안에서만 끝점을 찾으면 그 문제가 사라진다.
- * 값은 lib/courses.ts 의 공원 진입 지점(공식 자료 확인분)을 쓴다.
+ * ⚠️ 2026-09-08 — 이 파일에 좌표를 손으로 적어서 사고가 났다.
+ * 뚝섬에는 공원 진입 지점이 없어서 내가 **"두 끝점의 중간을 북쪽으로 400m"**
+ * 라고 계산한 값을 hint 로 넣었다. 그건 **좌표를 지어낸 것**이다
+ * (`AGENTS.md` §1 이 금지하는 바로 그것).
+ *
+ * 결과: 그 hint 가 강 위/엉뚱한 길에 붙어서 **경로선이 한강을 가로질렀다.**
+ * 숫자로는 통과했다 — 점 5개, 비율 1.01배, 보정 334/219m. 전부 정상 범위다.
+ * **화면을 보고서야 알았다**(`npm run shot`).
+ *
+ * 그래서 hint 는 이제 **공식 자료에서 확인된 좌표만** 쓴다:
+ *   ① 공원 진입 지점(kind: "start") 이 있으면 그것
+ *   ② 없으면 지하철 출구(kind: "station") — 공식 '오시는길' 값이다
+ * 둘 다 없으면 그 코스는 **건너뛴다.** 지어내지 않는다.
+ *
+ * bbox 도 두 끝점에서 계산한다(여유 0.012도 ≈ 1.3km).
  */
-const JOBS = [
-  {
-    slug: "jamsil",
-    bbox: "37.5050,127.0500,37.5350,127.1150",
-    hint: [37.51757, 127.08433],
-    from: [37.52381, 127.09208], // 잠실대교
-    to: [37.52561, 127.06397], // 청담대교
-  },
-  {
-    slug: "banpo",
-    bbox: "37.4980,126.9650,37.5250,127.0150",
-    hint: [37.50887, 126.99394],
-    from: [37.51456, 126.99651], // 반포대교·잠수교
-    to: [37.51089, 126.98192], // 동작대교
-  },
-  {
-    slug: "yeouido",
-    bbox: "37.5100,126.9150,37.5450,126.9750",
-    hint: [37.52567, 126.93606],
-    from: [37.53355, 126.93637], // 마포대교
-    to: [37.52787, 126.94726], // 원효대교
-  },
-  {
-    slug: "ttukseom",
-    bbox: "37.5200,127.0200,37.5480,127.0750",
-    // 뚝섬은 lib/courses.ts 에 공원 진입 지점이 없다(공식 자료에서 확인 못 했다).
-    // 그래서 두 끝점의 중간을 **북쪽으로** 400m 옮긴 점을 쓴다 — 뚝섬은 북쪽 강변이다.
-    hint: [37.5375, 127.0464],
-    from: [37.53695, 127.03501], // 성수대교
-    to: [37.53111, 127.05775], // 영동대교
-  },
-];
+const COURSES_TS = readFileSync("lib/courses.ts", "utf8");
+
+function jobsFromCourses() {
+  const jobs = [];
+  /**
+   * 코스 블록을 slug 경계로 잘라서 각 블록 안의 좌표만 읽는다.
+   * 처음엔 `points: [ ... ]` 를 `\n    ]` 로 닫는 정규식을 썼는데,
+   * **들여쓰기에 의존해서 4개 중 2개만 잡혔다.** 경계는 슬러그로 잡는 게 맞다.
+   */
+  const slugs = [...COURSES_TS.matchAll(/^\s*slug: "([a-z]+)",/gm)];
+  for (let i = 0; i < slugs.length; i++) {
+    const slug = slugs[i][1];
+    const from0 = slugs[i].index;
+    const to0 = i + 1 < slugs.length ? slugs[i + 1].index : COURSES_TS.length;
+    const block = COURSES_TS.slice(from0, to0);
+    const pts = [...block.matchAll(/name: "([^"]+)", lat: ([\d.]+), lon: ([\d.]+), kind: "(\w+)"/g)].map(
+      (x) => ({ name: x[1], lat: +x[2], lon: +x[3], kind: x[4] })
+    );
+    const turns = pts.filter((p) => p.kind === "turn");
+    const hintPt = pts.find((p) => p.kind === "start") ?? pts.find((p) => p.kind === "station");
+    if (turns.length < 2 || !hintPt) {
+      jobs.push({ slug, skip: `확인된 ${turns.length < 2 ? "왕복 지점" : "진입 지점"}이 없다` });
+      continue;
+    }
+    const [a, b] = turns;
+    const pad = 0.012;
+    const lats = [a.lat, b.lat, hintPt.lat];
+    const lons = [a.lon, b.lon, hintPt.lon];
+    jobs.push({
+      slug,
+      hintName: hintPt.name,
+      bbox: [
+        (Math.min(...lats) - pad).toFixed(4),
+        (Math.min(...lons) - pad).toFixed(4),
+        (Math.max(...lats) + pad).toFixed(4),
+        (Math.max(...lons) + pad).toFixed(4),
+      ].join(","),
+      hint: [hintPt.lat, hintPt.lon],
+      from: [a.lat, a.lon],
+      to: [b.lat, b.lon],
+    });
+  }
+  return jobs;
+}
+
+const JOBS = jobsFromCourses();
 
 // ── 거리 ────────────────────────────────────────────────────
 const R = 6371;
@@ -403,6 +428,7 @@ if (CHECK_ONLY) {
   const data = JSON.parse(readFileSync(OUT, "utf8"));
   let bad = 0;
   for (const job of JOBS) {
+    if (job.skip) { console.log(dim(`  · ${job.slug} 건너뜀 — ${job.skip}`)); continue; }
     const r = data[job.slug];
     if (!r) { console.log(dim(`  · ${job.slug} 없음 (지도는 경로선 없이 그려집니다)`)); continue; }
     /**
@@ -442,6 +468,11 @@ let ok = 0;
 let failed = 0;
 
 for (const job of JOBS) {
+  if (job.skip) {
+    console.log(dim(`  · ${job.slug} 건너뜀 — ${job.skip} (좌표를 지어내지 않는다)`));
+    if (result[job.slug]) { delete result[job.slug]; failed++; }
+    continue;
+  }
   process.stdout.write(dim(`  ${job.slug} 받는 중… `));
   try {
     let osm;
