@@ -145,6 +145,24 @@ export default function Home() {
               내 신발 찾기 →
             </Link>
           </div>
+          {/**
+           * 2026-09-08: 브랜드 비교를 모델쌍보다 **위에** 둔다.
+           *
+           * 네이버 실측 유입 검색어 1위가 `호카 브룩스 비교` 로 11.36% 였다(2위의 5배).
+           * 사람들이 묻는 단위가 브랜드인데 이 섹션은 모델쌍만 내놓고 있었다.
+           */}
+          <Link
+            href="/compare/hoka-vs-brooks"
+            className="mb-3 flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4 transition-colors hover:border-emerald-400"
+          >
+            <span className="min-w-0 text-sm font-semibold leading-snug text-emerald-900">
+              호카 vs 브룩스
+              <span className="ml-2 font-normal text-emerald-700">
+                브랜드 단위로 스펙 집계
+              </span>
+            </span>
+            <span className="ml-2 shrink-0 text-xs font-semibold text-emerald-600">비교 →</span>
+          </Link>
           <div className="grid gap-3 sm:grid-cols-2">
             {POPULAR_COMPARES.map((c) => (
               <Link

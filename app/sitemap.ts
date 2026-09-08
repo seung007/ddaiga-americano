@@ -44,6 +44,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 2026-09-06: 코스 페이지. 계산기 때 사이트맵 등재를 빠뜨린 실패를 반복하지 않는다.
     { url: `${BASE_URL}/courses`,     lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/injury`,      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
+    // 2026-09-08: 브랜드 비교. 네이버 실측 유입 검색어 1위가 `호카 브룩스 비교`(11.36%)다.
+    // 정적 라우트라 COMPARE_SLUGS 에 안 들어가므로 여기에 직접 적는다.
+    // 브랜드 페어를 더 만들면 이 배열에 한 줄 추가할 것.
+    { url: `${BASE_URL}/compare/hoka-vs-brooks`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/community`,   lastModified: now, changeFrequency: "weekly",  priority: 0.4 },
     { url: `${BASE_URL}/terms`,       lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
     { url: `${BASE_URL}/privacy`,     lastModified: now, changeFrequency: "yearly",  priority: 0.3 },

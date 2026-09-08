@@ -24,6 +24,7 @@
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
+import { stripComments } from "./lib/strip-comments.mjs";
 
 const ROOT = process.cwd();
 const DIRS = ["app", "components", "lib"];
@@ -62,30 +63,8 @@ function walk(dir, out = []) {
 }
 
 
-/**
- * 주석을 지우고 스캔한다 — **줄 수는 유지한다.**
- *
- * 2026-09-08: 이 검사를 만든 직후 오탐 5건이 났다. 내가 방금 쓴 **주석 안의
- * `<title>`** 을 코드로 읽은 것이다. 규칙을 설명하는 문장이 그 규칙을 위반한
- * 것으로 잡히는 꼴이다.
- *
- * 이 저장소의 기존 교훈과 같다 — **범위를 넓히면 오탐부터 잡아라.**
- * 오탐이 남은 검사는 사람이 곧 무시하게 되고, 그러면 검사가 없는 것과 같다.
- *
- * 줄 번호를 살려야 하니 지우는 대신 **같은 길이의 공백으로 바꾼다.**
- */
-function stripComments(src) {
-  let out = src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "));
-  return out
-    .split("\n")
-    .map((line) => {
-      const t = line.trimStart();
-      if (t.startsWith("//") || t.startsWith("*")) return " ".repeat(line.length);
-      const i = line.indexOf("//");
-      return i >= 0 ? line.slice(0, i) : line;
-    })
-    .join("\n");
-}
+// 주석 제거는 `scripts/lib/strip-comments.mjs` 로 뺐다 —
+// `check-internal-links.mjs` 가 2026-09-08 에 똑같은 오탐을 맞았기 때문이다.
 
 const hits = [];
 for (const d of DIRS) {

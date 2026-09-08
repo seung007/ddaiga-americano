@@ -365,7 +365,22 @@ export default async function ComparePage({
                       : "bg-gray-700 hover:bg-gray-800 text-white"
                   }`}
                 >
-                  {link.isOfficial ? "🏪" : "🛒"} {link.label} ↗
+                  {/**
+                   * 2026-09-08: `· 제휴` 표시가 **빠져 있었다.**
+                   *
+                   * `resolveBuyLinks` 는 여기서도 쿠팡 링크를 제휴 링크로 갈아끼우는데,
+                   * 화면에는 그 사실이 안 나왔다. `/shoe-finder` 는 이미 표시하고 있었다 —
+                   * 같은 규칙이 한 페이지에만 적용된 상태였다.
+                   *
+                   * `lib/shoes/affiliate.ts` 가 스스로 적어 둔 요구사항이다:
+                   * "페이지 상단 고지와 별개로, **어느 링크가 제휴인지**를 링크 옆에서도
+                   *  알 수 있어야 읽는 사람이 스스로 판단할 수 있다."
+                   *
+                   * 지금은 등록된 제휴 링크가 0개라 화면에 변화가 없다. 그래서 **지금 고친다** —
+                   * 링크를 붙여넣는 날에는 이 누락이 눈에 안 띈 채로 배포된다.
+                   */}
+                  {link.isOfficial ? "🏪" : "🛒"} {link.label}
+                  {link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
             </div>

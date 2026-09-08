@@ -35,6 +35,7 @@
  * 런타임에 조립되는 링크는 놓친다. **놓치는 쪽으로 틀리지, 있다고 지어내지는 않는다.**
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
+import { stripComments } from "./lib/strip-comments.mjs";
 import { join, relative } from "node:path";
 
 const ROOT = process.cwd();
@@ -97,7 +98,15 @@ const files = [...walk(join(ROOT, "app")), ...walk(join(ROOT, "components")), ..
 for (const f of files) {
   const rel = relative(ROOT, f).replace(/\\/g, "/");
   if (CHROME.includes(rel)) continue;
-  const src = readFileSync(f, "utf8");
+  /**
+   * **주석을 지우고 링크를 모은다.** (2026-09-08)
+   *
+   * `lib/brands.ts` 의 설명 주석에 백틱으로 적은 `/compare/[slug]` 를
+   * 이 검사가 "없는 경로로 거는 링크"로 신고했다. 코드가 아니라 문장이다.
+   * `check-cdn.mjs` 가 이미 같은 오탐을 맞았고 같은 처방을 썼다 —
+   * 그래서 함수를 `scripts/lib/strip-comments.mjs` 로 뺐다.
+   */
+  const src = stripComments(readFileSync(f, "utf8"));
   const self = rel.startsWith("app/") ? "/" + rel.slice(4).replace(/\/?page\.tsx$/, "") : null;
 
   // 1) 문자열로 적힌 경로: href="/injury/knee-pain", href={"/tools"}, { href: "/tools/pace" }

@@ -127,6 +127,14 @@ export default function AchillesPage() {
             동시에 아킬레스건에 가해지는 부하를 늘립니다.
             전환 초기에는 드롭 8~12mm의 신발을 유지하고, 몸이 적응한 뒤 낮은 드롭으로 바꾸는 것을 권장합니다.
           </p>
+          {/* 브랜드에 따라 드롭 범위가 갈린다. 이 글의 결론과 직접 이어지는 자료라 여기서 보낸다. */}
+          <p className="mt-3 text-sm text-gray-600">
+            브랜드마다 드롭 범위가 다릅니다 —{" "}
+            <Link href="/compare/hoka-vs-brooks" className="font-medium text-emerald-600 hover:underline">
+              호카 vs 브룩스 스펙 집계
+            </Link>
+            에서 실제 수치를 비교해 보세요.
+          </p>
         </section>
 
         <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-8 text-sm text-amber-900">
