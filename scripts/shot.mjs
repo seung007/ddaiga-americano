@@ -86,6 +86,20 @@ try {
 
 mkdirSync(OUT_DIR, { recursive: true });
 
+/**
+ * 실행 로그를 **항상** 남긴다 — 2026-09-08 에 이걸로 한 번 막혔다.
+ *
+ * `npm run shot -- --local` 을 돌렸는데 Claude 쪽에서는 **아무 변화가 없었다.**
+ * PNG 도 안 생기고 `console.txt` 도 옛 내용(프로덕션 것) 그대로였다.
+ * 그래서 "실행했는데 왜 결과가 없나"를 알아내는 데 왕복이 또 들었다.
+ *
+ * 원인: 콘솔 오류가 **하나도 없을 때만** 파일을 안 쓰게 돼 있었고,
+ * 모든 목표가 실패하면 오류 배열도 비어서 파일이 안 갱신됐다.
+ * **결과물은 자기 출처를 기록해야 한다** — 언제, 어디를, 몇 장, 성공/실패.
+ */
+const RUN_LOG = join(OUT_DIR, "run.txt");
+const startedAt = new Date().toISOString();
+
 const browser = await chromium.launch();
 const results = [];
 const consoleErrors = [];
@@ -107,7 +121,20 @@ for (const vp of VIEWPORTS) {
   for (const t of targets) {
     const url = BASE + t.path;
     try {
-      await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
+      /**
+       * 로컬(`--local`)은 **먼저 한 번 불러서 컴파일을 깨운다.**
+       * Next 개발 서버는 라우트를 **첫 요청 때 컴파일**하고, 이 저장소에서는
+       * 그게 30~90초 걸린다. 45초 타임아웃으로는 전부 실패한다 — 실제로 그랬다.
+       * fetch 로 워밍업하면 두 번째 요청(브라우저)은 즉시 뜬다.
+       */
+      if (LOCAL) {
+        try {
+          await fetch(url, { signal: AbortSignal.timeout(150_000) });
+        } catch {
+          /* 워밍업 실패는 무시하고 브라우저로 한 번 더 시도한다 */
+        }
+      }
+      await page.goto(url, { waitUntil: "networkidle", timeout: LOCAL ? 120_000 : 45_000 });
 
       /**
        * **끝까지 한 번 내려갔다 온다.**
@@ -145,11 +172,33 @@ for (const r of results) {
   else console.log(red(`  ✗ ${r.url} — ${r.err}`));
 }
 
-if (consoleErrors.length) {
-  const uniq = [...new Set(consoleErrors)];
-  writeFileSync(join(OUT_DIR, "console.txt"), uniq.join("\n") + "\n", "utf8");
-  console.log(red(`\n브라우저 콘솔 오류 ${uniq.length}종 → ${join(OUT_DIR, "console.txt")}`));
+const uniq = [...new Set(consoleErrors)];
+const okCount = results.filter((r) => r.ok).length;
+
+// **항상 쓴다.** 실패해도 쓴다. 그래야 "실행했나"를 파일로 알 수 있다.
+writeFileSync(
+  RUN_LOG,
+  [
+    `# npm run shot`,
+    `base=${BASE}`,
+    `local=${LOCAL}`,
+    `시작=${startedAt}`,
+    `끝=${new Date().toISOString()}`,
+    `성공=${okCount} 실패=${results.length - okCount}`,
+    ``,
+    ...results.map((r) => (r.ok ? `OK   ${r.file}` : `FAIL ${r.url} — ${r.err}`)),
+    ``,
+    `# 브라우저 콘솔 오류 ${uniq.length}종`,
+    ...uniq,
+    ``,
+  ].join("\n"),
+  "utf8"
+);
+
+if (uniq.length) {
+  console.log(red(`\n브라우저 콘솔 오류 ${uniq.length}종`));
   for (const e of uniq.slice(0, 5)) console.log(dim(`  ${e}`));
 }
 
-console.log(dim(`\n캡처가 ${OUT_DIR}/ 에 있습니다. Claude 에게 "shots 폴더 봐" 라고 하면 됩니다.\n`));
+console.log(dim(`\n결과 요약 → ${RUN_LOG}`));
+console.log(dim(`Claude 에게 "shots 봐" 라고 하면 됩니다.\n`));
