@@ -98,6 +98,37 @@ export function affiliateFor(shoeId: string): string | undefined {
  * 페이지 상단 고지(AffiliateNotice)와 별개로, **어느 링크가 제휴인지**를
  * 링크 옆에서도 알 수 있어야 읽는 사람이 스스로 판단할 수 있다.
  */
+/**
+ * 좁은 자리에 **두 개만** 보여줄 때 무엇을 고를지.
+ *
+ * 2026-09-08: 비교 페이지가 `resolveBuyLinks(...).slice(0, 2)` 였다.
+ * `data.ts` 의 쿠팡 항목은 3~4번째라 **제휴 링크가 잘려서 화면에 안 나왔다.**
+ * 링크를 등록하고 배포했는데 **비교 페이지에서는 도달 자체가 불가능**했다.
+ *
+ * 화면으로 확인해서 알았다(`npm run shot`). 코드만 보면
+ * `resolveBuyLinks` 가 제대로 갈아끼우고 있어서 정상으로 보인다 —
+ * 자르는 쪽이 범인인데 자르는 코드에는 제휴라는 단어가 없다.
+ *
+ * 규칙: **① 공식 판매처 하나, ② 제휴 링크 하나.** 둘 중 없는 자리는 순서대로 채운다.
+ * 공식을 먼저 두는 이유는 이 사이트가 "중립 추천"을 주장하기 때문이다 —
+ * 수수료가 붙는 링크를 첫 자리에 두면 그 주장과 어긋난다.
+ */
+export function pickTwoBuyLinks<
+  T extends { label: string; url: string; isOfficial: boolean; isAffiliate?: boolean },
+>(links: readonly T[]): T[] {
+  const official = links.find((l) => l.isOfficial);
+  const affiliate = links.find((l) => l.isAffiliate);
+  const picked: T[] = [];
+  if (official) picked.push(official);
+  if (affiliate && affiliate !== official) picked.push(affiliate);
+  // 남는 자리는 순서대로 — 공식도 제휴도 없는 신발이 대부분이다.
+  for (const l of links) {
+    if (picked.length >= 2) break;
+    if (!picked.includes(l)) picked.push(l);
+  }
+  return picked;
+}
+
 export function resolveBuyLinks<T extends { label: string; url: string; isOfficial: boolean }>(
   shoeId: string,
   links: readonly T[]

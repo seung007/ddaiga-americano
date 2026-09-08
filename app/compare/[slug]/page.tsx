@@ -4,7 +4,7 @@ import { SHOES } from "@/lib/shoes/data";
 import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import AffiliateNotice from "@/components/AffiliateNotice";
-import { resolveBuyLinks } from "@/lib/shoes/affiliate";
+import { resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
 import ShoeImage from "@/components/ShoeImage";
 import { COMPARE_SLUGS } from "@/lib/compares";
 
@@ -353,7 +353,12 @@ export default async function ComparePage({
               <p className="text-xs font-bold text-gray-700">
                 {shoe.brand} {shoe.model}
               </p>
-              {resolveBuyLinks(shoe.id, shoe.buyLinks).slice(0, 2).map((link) => (
+              {/**
+               * `.slice(0, 2)` 였다가 바꿨다 — 쿠팡 항목이 `data.ts` 에서 3~4번째라
+               * **제휴 링크가 잘려 나가서 화면에 안 나왔다.** 자세한 경위는
+               * `lib/shoes/affiliate.ts` 의 `pickTwoBuyLinks` 주석에 있다.
+               */}
+              {pickTwoBuyLinks(resolveBuyLinks(shoe.id, shoe.buyLinks)).map((link) => (
                 <a
                   key={link.label}
                   href={link.url}
@@ -468,7 +473,11 @@ function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe 
               <span className="text-gray-400 mx-2">vs</span>
               {b.brand} {b.model}
             </span>
-            <span className="text-xs text-emerald-600 font-semibold">비교하기 →</span>
+            {/* 390px 에서 "비교하 / 기 →" 로 쪼개졌다. globals.css 의
+                overflow-wrap:anywhere 가 짧은 라벨도 넘긴다 — nowrap 으로 막는다. */}
+            <span className="shrink-0 whitespace-nowrap text-xs font-semibold text-emerald-600">
+              비교하기 →
+            </span>
           </Link>
         ))}
       </div>
