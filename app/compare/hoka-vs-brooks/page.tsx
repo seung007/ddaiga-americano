@@ -213,8 +213,17 @@ export default function HokaVsBrooks() {
                     <div className="font-medium text-gray-900">{r.label}</div>
                     <div className="text-xs text-gray-500">{r.note}</div>
                   </td>
-                  <td className="px-3 py-3 text-right tabular-nums text-gray-900">{r.a}</td>
-                  <td className="px-3 py-3 text-right tabular-nums text-gray-900">{r.b}</td>
+                  {/**
+                   * whitespace-nowrap — 390px 에서 `234,167 원` 이 두 줄로 쪼개졌다.
+                   * `globals.css` 의 `overflow-wrap: anywhere` 가 숫자 뒤 단위를 넘겨 버린다.
+                   * 값 칸은 짧으니 줄바꿈을 아예 막는 편이 낫다.
+                   */}
+                  <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums text-gray-900">
+                    {r.a}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums text-gray-900">
+                    {r.b}
+                  </td>
                 </tr>
               ))}
             </tbody>

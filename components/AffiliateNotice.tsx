@@ -22,18 +22,36 @@ import { hasAnyAffiliate } from "@/lib/shoes/affiliate";
  * 추천 알고리즘은 제휴 여부를 보지 않는다(lib/shoes/recommend.ts 어디에도
  * 제휴 관련 가중치가 없다). 다만 그 문장은 **수수료를 받는다는 사실 자체를
  * 밝히지 않으므로** 고지로는 부족하다. 그래서 둘을 함께 적는다.
+ *
+ * ⚠️ 쿠팡이 요구하는 문구는 **글자 그대로** 넣는다 (2026-09-08 확인)
+ * ───────────────────────────────────────────────────────────────
+ * 파트너스 링크 생성 화면이 "아래 문구를 **반드시** 기재해 주세요"라며 이 문장을 준다:
+ *
+ *   "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+ *
+ * 같은 화면에 **"활동 준수 사항을 지키지 않으면 수익금 지급이 중단될 수 있습니다"**
+ * 라고 적혀 있다. 그래서 의미가 같아도 **바꿔 쓰지 않는다.**
+ *
+ * 원래 이 컴포넌트에는 "일정액의 수수료를 받습니다"라는 **내 표현**만 있었다.
+ * 뜻은 같지만 쿠팡이 요구한 문장은 아니다 — 심사가 문구 일치를 본다면 그건
+ * 지키지 않은 것이 된다. 판정 기준을 내가 정할 수 없는 곳에서는 **원문을 쓴다.**
+ *
+ * "포스팅"이라는 단어가 이 사이트 문맥에 어색해도 그대로 둔다. 어색한 것과
+ * 지급이 중단되는 것 중 무엇이 더 나쁜지는 비교가 안 된다.
  */
+
+/** 쿠팡 파트너스가 요구하는 원문. **수정하지 마세요.** */
+const COUPANG_REQUIRED_NOTICE =
+  "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.";
+
 export default function AffiliateNotice() {
   if (!hasAnyAffiliate()) return null;
 
   return (
     <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
-      <p className="text-sm font-semibold text-amber-900">
-        이 페이지의 일부 구매 링크는 제휴 링크입니다
-      </p>
+      <p className="text-sm font-semibold text-amber-900">{COUPANG_REQUIRED_NOTICE}</p>
       <p className="mt-1 text-xs leading-relaxed text-amber-800">
-        해당 링크를 통해 구매가 일어나면 저희가 <strong>일정액의 수수료</strong>를 받습니다.
-        구매자가 더 내는 금액은 없습니다.
+        구매자가 <strong>더 내는 금액은 없습니다.</strong>
       </p>
       <p className="mt-1.5 text-xs leading-relaxed text-amber-800">
         <strong>추천 순서는 수수료로 바뀌지 않습니다.</strong> 추천 알고리즘은 제휴 여부를
