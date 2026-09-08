@@ -67,6 +67,8 @@
       ]
     ],
     "km": 3.24,
+    "snapFromM": 438,
+    "snapToM": 355,
     "source": {
       "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
       "url": "https://www.openstreetmap.org/copyright",
@@ -149,6 +151,8 @@
       ]
     ],
     "km": 1.91,
+    "snapFromM": 435,
+    "snapToM": 563,
     "source": {
       "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
       "url": "https://www.openstreetmap.org/copyright",
@@ -217,6 +221,8 @@
       ]
     ],
     "km": 2.24,
+    "snapFromM": 334,
+    "snapToM": 219,
     "source": {
       "label": "OpenStreetMap 기여자 — 한강 자전거길·산책로 (Overpass)",
       "url": "https://www.openstreetmap.org/copyright",
