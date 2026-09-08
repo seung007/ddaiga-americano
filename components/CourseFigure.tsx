@@ -11,7 +11,8 @@
  * 2) **텍스트가 크롤링되기 때문에.** 지도 SDK는 JS로 캔버스를 그려서
  *    네이버·구글 크롤러가 아무것도 못 읽는다. 우리 유입은 네이버 76%다.
  *    여기 다리 이름은 전부 진짜 `<text>` 요소라 그대로 색인된다.
- *    `<title>`·`<desc>`도 넣어 스크린리더와 크롤러가 같은 걸 읽게 했다.
+ *    `aria-label`·`<desc>`로 스크린리더와 크롤러가 같은 걸 읽게 했다.
+ *    (`<title>`은 React 19 가 head 로 올려서 하이드레이션을 깨뜨린다 — 아래 주석 참고)
  *
  * 3) 키도 할당량도 없다. 배포 즉시 작동하고 앞으로도 깨질 일이 없다.
  *
@@ -50,10 +51,27 @@ export default function CourseFigure({
       viewBox={`0 0 ${W} ${H}`}
       className="w-full h-auto"
       role="img"
-      aria-labelledby={`cf-${name}-t cf-${name}-d`}
+      /**
+       * ⚠️ `<title>` 을 쓰지 마라. `aria-label` 을 쓴다. (2026-09-08)
+       *
+       * 전에는 `<svg><title id=...>` 였고, 그것이 **사이트 전체 하이드레이션
+       * 오류(React #418)의 원인**이었다. React 19 는 `<title>` 을 문서
+       * 메타데이터로 보고 `<head>` 로 올리는데, **SVG 안이라도 클라이언트
+       * 경로에서 그 구분을 못 한다.** 서버는 SVG 안에 그리고 클라이언트는
+       * 올려버려서 트리가 어긋난다.
+       *
+       * 증상이 컸다 — React 가 **서버 HTML 을 통째로 버리고 다시 그린다.**
+       * 그 과정에서 내가 head 에 꽂은 Leaflet 스크립트가 날아간 적도 있다.
+       * 그런데 화면은 정상으로 보여서 **3주 넘게 아무도 몰랐다.**
+       *
+       * 접근성은 잃지 않는다 — 이름은 `aria-label`, 설명은 `<desc>` +
+       * `aria-describedby` 로 그대로 있다. `<desc>` 는 메타데이터 태그가
+       * 아니어서 올려지지 않는다(크롤되는 텍스트도 그대로 남는다).
+       */
+      aria-label={`${name} 구간 도식`}
+      aria-describedby={`cf-${name}-d`}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <title id={`cf-${name}-t`}>{name} 구간 도식</title>
       <desc id={`cf-${name}-d`}>
         상류에서 하류 순서로 {bridges.join(", ")}가 이어집니다. 공원 공식 길이는{" "}
         {lengthKm}km입니다. 실제 지도가 아니라 다리 순서만 나타낸 개략 도식입니다.

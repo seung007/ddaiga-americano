@@ -30,6 +30,20 @@ const DIRS = ["app", "components", "lib"];
 const CDN = /(cdnjs\.cloudflare\.com|unpkg\.com|cdn\.jsdelivr\.net|ajax\.googleapis\.com)/;
 
 /**
+ * SVG 안의 `<title>` 금지 (2026-09-08 추가)
+ *
+ * `components/CourseFigure.tsx` 의 `<svg><title>` 하나가 **사이트 전체
+ * 하이드레이션 오류(React #418)** 를 만들고 있었다. React 19 는 `<title>` 을
+ * 문서 메타데이터로 보고 `<head>` 로 올리는데, SVG 안이라도 클라이언트
+ * 경로에서 그 구분을 못 한다. 결과적으로 React 가 서버 HTML 을 버리고
+ * 다시 그렸고, 그 과정에서 head 에 꽂은 스크립트가 날아간 적도 있다.
+ *
+ * **화면은 정상으로 보인다.** 그래서 3주 넘게 아무도 몰랐다.
+ * 접근성 이름은 `aria-label` 로 주면 된다.
+ */
+const SVG_TITLE = /<title[\s>]/;
+
+/**
  * 허용 목록 — 파일별로 이유를 적는다.
  * 태그 삽입이 아니라 이미지·폰트처럼 실패해도 화면이 죽지 않는 것만 허용한다.
  */
@@ -47,14 +61,48 @@ function walk(dir, out = []) {
   return out;
 }
 
+
+/**
+ * 주석을 지우고 스캔한다 — **줄 수는 유지한다.**
+ *
+ * 2026-09-08: 이 검사를 만든 직후 오탐 5건이 났다. 내가 방금 쓴 **주석 안의
+ * `<title>`** 을 코드로 읽은 것이다. 규칙을 설명하는 문장이 그 규칙을 위반한
+ * 것으로 잡히는 꼴이다.
+ *
+ * 이 저장소의 기존 교훈과 같다 — **범위를 넓히면 오탐부터 잡아라.**
+ * 오탐이 남은 검사는 사람이 곧 무시하게 되고, 그러면 검사가 없는 것과 같다.
+ *
+ * 줄 번호를 살려야 하니 지우는 대신 **같은 길이의 공백으로 바꾼다.**
+ */
+function stripComments(src) {
+  let out = src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "));
+  return out
+    .split("\n")
+    .map((line) => {
+      const t = line.trimStart();
+      if (t.startsWith("//") || t.startsWith("*")) return " ".repeat(line.length);
+      const i = line.indexOf("//");
+      return i >= 0 ? line.slice(0, i) : line;
+    })
+    .join("\n");
+}
+
 const hits = [];
 for (const d of DIRS) {
   for (const f of walk(join(ROOT, d))) {
     const rel = relative(ROOT, f).replace(/\\/g, "/");
     if (ALLOW[rel]) continue;
-    const src = readFileSync(f, "utf8");
+    const src = stripComments(readFileSync(f, "utf8"));
     src.split("\n").forEach((line, i) => {
-      if (CDN.test(line)) hits.push({ rel, n: i + 1, line: line.trim().slice(0, 100) });
+      if (CDN.test(line))
+        hits.push({ rel, n: i + 1, why: "외부 CDN", line: line.trim().slice(0, 100) });
+      if (SVG_TITLE.test(line))
+        hits.push({
+          rel,
+          n: i + 1,
+          why: "<title> — React 19 가 head 로 올려 하이드레이션을 깨뜨린다. aria-label 을 쓰세요",
+          line: line.trim().slice(0, 100),
+        });
     });
   }
 }
@@ -64,12 +112,13 @@ const green = (s) => `\x1b[32m${s}\x1b[0m`;
 const dim = (s) => `\x1b[2m${s}\x1b[0m`;
 
 if (hits.length) {
-  console.log(red(`\n외부 CDN 참조 ${hits.length}건 — npm 의존성 + await import() 로 바꾸세요\n`));
-  for (const h of hits) console.log(`  ✗ ${h.rel}:${h.n}  ${h.line}`);
-  console.log(
-    dim("\n  요청이 200으로 성공해도 스크립트가 실행되지 않을 수 있습니다.")
-  );
-  console.log(dim("  꼭 필요하면 scripts/check-cdn.mjs 의 ALLOW 에 이유를 적으세요.\n"));
+  console.log(red(`\n금지 패턴 ${hits.length}건\n`));
+  for (const h of hits) console.log(`  ✗ ${h.rel}:${h.n}  [${h.why}]\n      ${h.line}`);
+  if (hits.some((h) => h.why === "외부 CDN")) {
+    console.log(dim("\n  CDN: 요청이 200으로 성공해도 스크립트가 실행되지 않을 수 있습니다."));
+    console.log(dim("       꼭 필요하면 scripts/check-cdn.mjs 의 ALLOW 에 이유를 적으세요."));
+  }
+  console.log("");
   process.exit(1);
 }
-console.log(green("통과 — 손으로 꽂는 외부 CDN 스크립트 없음"));
+console.log(green("통과 — 외부 CDN 주입·SVG <title> 없음"));
