@@ -112,11 +112,23 @@ for (const vp of VIEWPORTS) {
   });
   const page = await ctx.newPage();
 
-  // 콘솔 오류를 같이 모은다. 화면만 보면 하이드레이션 오류 같은 건 안 보인다.
+  /**
+   * 콘솔 오류를 같이 모은다. 화면만 보면 하이드레이션 오류 같은 건 안 보인다.
+   *
+   * ⚠️ 2026-09-08 — 여기서 `.slice(0, 200)` 으로 잘랐다가 **정작 필요한 부분을
+   * 잘라 버렸다.** 개발 모드 하이드레이션 오류는 앞 200자가 일반 설명이고
+   * **뒤에 서버/클라이언트 DOM 차이(어느 요소가 다른가)가 붙는다.**
+   * 토큰을 아끼려고 자른 것이 답을 자른 셈이다.
+   *
+   * 규칙: **파일에는 전문을 넣고, 터미널에만 줄여 찍는다.**
+   * 파일은 Claude 가 필요한 부분만 골라 읽을 수 있다 — 자르는 것은 읽는 쪽의 몫이다.
+   */
   page.on("console", (m) => {
-    if (m.type() === "error") consoleErrors.push(`[${vp.name}] ${m.text().slice(0, 200)}`);
+    if (m.type() === "error") consoleErrors.push(`[${vp.name}] ${m.text()}`);
   });
-  page.on("pageerror", (e) => consoleErrors.push(`[${vp.name}] ${String(e.message).slice(0, 200)}`));
+  page.on("pageerror", (e) =>
+    consoleErrors.push(`[${vp.name}] ${String(e.stack ?? e.message)}`)
+  );
 
   for (const t of targets) {
     const url = BASE + t.path;
@@ -188,8 +200,8 @@ writeFileSync(
     ``,
     ...results.map((r) => (r.ok ? `OK   ${r.file}` : `FAIL ${r.url} — ${r.err}`)),
     ``,
-    `# 브라우저 콘솔 오류 ${uniq.length}종`,
-    ...uniq,
+    `# 브라우저 콘솔 오류 ${uniq.length}종 (전문)`,
+    ...uniq.flatMap((e, i) => [`--- 오류 ${i + 1} ---`, e]),
     ``,
   ].join("\n"),
   "utf8"
@@ -197,7 +209,9 @@ writeFileSync(
 
 if (uniq.length) {
   console.log(red(`\n브라우저 콘솔 오류 ${uniq.length}종`));
-  for (const e of uniq.slice(0, 5)) console.log(dim(`  ${e}`));
+  // 터미널에는 첫 줄만. 전문은 파일에 있다.
+  for (const e of uniq.slice(0, 5))
+    console.log(dim(`  ${e.split("\n")[0].slice(0, 160)}`));
 }
 
 console.log(dim(`\n결과 요약 → ${RUN_LOG}`));
