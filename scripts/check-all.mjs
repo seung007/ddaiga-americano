@@ -59,6 +59,10 @@ const CHECKS = [
   { name: "외부CDN",  cmd: "node", args: ["scripts/check-cdn.mjs"],                  net: false },
   // 경로선이 말이 되는 값인지. 직선거리보다 짧으면 계산이 틀린 것이다.
   { name: "경로선",   cmd: "node", args: ["scripts/fetch-course-routes.mjs", "--check"], net: false },
+  // 제휴 링크는 주소에 상품 정보가 없어서 신발과 뒤바뀌어도 조용히 지나간다.
+  // 이 검사는 **id 가 실재하는지**만 실패로 잡고, 사람 확인이 안 된 항목은 세어서 알린다.
+  // 클릭 확인 자체는 쿠팡 도메인이 차단돼 Claude 가 못 한다 — scripts/affiliate-check.mjs 참고.
+  { name: "제휴링크", cmd: "node", args: ["scripts/affiliate-check.mjs"],              net: false },
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
   { name: "영상(실조회)",   cmd: "node", args: ["scripts/verify-youtube.mjs"],   net: true },

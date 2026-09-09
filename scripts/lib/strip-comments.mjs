@@ -24,12 +24,28 @@
  * 사람이 그 줄을 열었을 때 아무것도 없으면 검사를 신뢰하지 않게 된다.
  * 그래서 문자를 **공백으로 치환**해 좌표를 보존한다.
  *
- * ⚠️ 한계: 문자열 리터럴 안의 `//` 나 `/* *` 는 구분하지 않는다.
- * 정규식 리터럴(`/\/\//`)도 그렇다. 정확히 하려면 파서가 필요하지만,
- * 이 검사들의 목적(금지 패턴·링크 수집)에는 이 정도가 충분하고
- * **오탐을 줄이는 방향으로만 틀린다** — 코드를 주석으로 잘못 보면
- * 검사가 놓치는 쪽(거짓 음성)이지 사람을 괴롭히는 쪽은 아니다.
- * 놓치는 게 문제가 되기 시작하면 그때 파서를 붙인다.
+ * ⚠️⚠️ 2026-09-08 — **이 함수가 URL 을 잘라먹고 있었다.**
+ *
+ * 처음 판은 `line.indexOf("//")` 로 줄 주석을 찾았다. 그런데 `https://` 안에도
+ * `//` 가 있다. 그래서 이런 줄이
+ *
+ *     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.js">
+ *
+ * 이렇게 남았다:
+ *
+ *     <script src="https:
+ *
+ * **호스트명이 지워진 뒤에 검사가 돌았다.** 즉 `check:cdn` 의 CDN 탐지는
+ * 만든 날부터 **한 건도 잡을 수 없는 상태**였고, 매번 "통과"를 찍고 있었다.
+ * `<title>` 탐지만 우연히 살아 있었다 — 거기엔 `//` 가 없기 때문이다.
+ *
+ * **항상 통과하는 검사는 검사가 없는 것보다 나쁘다.** 없으면 사람이 직접 보지만,
+ * 통과하면 확인했다고 믿는다. 이 저장소가 반복해서 당한 종류다(가짜 FALLBACK,
+ * `?? 0`, 청크 해시). 그래서 아래는 **따옴표 상태를 따라가며** 자른다.
+ *
+ * ⚠️ 남은 한계: 정규식 리터럴 안의 `//` 와 템플릿 리터럴 중첩은 구분하지 않는다.
+ * 정확히 하려면 파서가 필요하다. 다만 그 경우 **놓치는 쪽(거짓 음성)이 아니라
+ * 지우지 않는 쪽으로 틀리므로**, 검사가 눈을 감는 일은 생기지 않는다.
  */
 export function stripComments(src) {
   // 블록 주석 — 개행만 남기고 나머지는 공백으로.
@@ -41,8 +57,36 @@ export function stripComments(src) {
       const t = line.trimStart();
       // 줄 주석과, 블록 주석이 지워지고 남은 JSDoc 잇줄(`*`).
       if (t.startsWith("//") || t.startsWith("*")) return " ".repeat(line.length);
-      const i = line.indexOf("//");
+      const i = lineCommentStart(line);
       return i >= 0 ? line.slice(0, i) + " ".repeat(line.length - i) : line;
     })
     .join("\n");
+}
+
+/**
+ * 줄 주석이 시작하는 위치. 없으면 -1.
+ *
+ * 문자열(`'` `"` `` ` ``) 안의 `//` 와, `https://` 처럼 `:` 뒤에 붙은 `//` 는
+ * 주석이 아니다. 앞의 것이 이 함수를 만든 이유다.
+ */
+function lineCommentStart(line) {
+  let quote = null;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (quote) {
+      if (c === "\\") i++; // 이스케이프된 다음 글자는 건너뛴다
+      else if (c === quote) quote = null;
+      continue;
+    }
+    if (c === '"' || c === "'" || c === "`") {
+      quote = c;
+      continue;
+    }
+    if (c === "/" && line[i + 1] === "/") {
+      // `https://` · `file://` — 스킴 뒤의 `//` 는 주석이 아니다.
+      if (line[i - 1] === ":") continue;
+      return i;
+    }
+  }
+  return -1;
 }

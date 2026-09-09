@@ -60,22 +60,77 @@
  */
 
 /**
- * 신발 id → 쿠팡 파트너스 간편 링크
+ * 등록된 제휴 링크 하나의 이력.
+ *
+ * ⚠️ 왜 문자열 하나가 아니라 객체인가 (2026-09-08)
+ * ─────────────────────────────────────────────
+ * 처음에는 `신발id → URL` 문자열 맵이었다. 그런데 **틀려도 아무도 모르는 구조**였다.
+ *
+ * `link.coupang.com/a/gSElJNk9Js` 라는 주소에는 **어느 상품인지가 안 적혀 있다.**
+ * 내가 이 값을 넣은 근거는 "내가 URL 을 이 순서로 줬고 hyun 님이 그 순서로
+ * 링크를 돌려줬다"는 **대화 순서**뿐이었다. 그 근거는 코드에 안 남는다.
+ *
+ * 매핑이 뒤바뀌면 아드레날린 페이지의 쿠팡 버튼이 **본디 검색 결과**로 간다.
+ * 화면은 멀쩡하고, 링크도 200 으로 열리고, 검사기도 통과한다.
+ * **이 저장소가 반복해서 당한 종류의 실패다 — 조용한 실패.**
+ *
+ * 그래서 두 가지를 같이 적는다.
+ *   · `sourceQuery` — 이 링크를 만들 때 넣은 쿠팡 검색어. **확인의 기준**이다.
+ *     클릭해서 이 검색어의 결과가 나오면 맞고, 아니면 틀린 것이다.
+ *   · `verifiedAt` — 사람이 실제로 클릭해서 확인한 날. 확인 전에는 `null`.
+ *
+ * `npm run check:affiliate` 가 확인 안 된 항목을 세어 보여준다.
+ * Claude 는 `coupang.com` 에 접근할 수 없어서(도메인 차단) **이 확인을 대신할 수 없다.**
+ * 그래서 사람이 하는 일이라고 적어 두고, 그 일을 30초로 줄이는 화면을 만든다.
+ */
+export type PartnerLink = {
+  /** 파트너스에서 생성한 단축 링크 */
+  url: string;
+  /** 이 링크를 만들 때 파트너스에 넣은 쿠팡 검색어 — 확인의 기준 */
+  sourceQuery: string;
+  /** 저장소에 넣은 날 */
+  addedAt: string;
+  /** 사람이 클릭해서 맞는 상품이 나오는 것을 확인한 날. 확인 전에는 null */
+  verifiedAt: string | null;
+};
+
+/**
+ * 신발 id → 쿠팡 파트너스 링크
  *
  * 2026-09-08 첫 등록. **현행(후속 미출시) 모델 2개로 시작한다** —
  * 28일 실측이 `buy_link_click` 9건 / 사용자 4명이라 52개를 다 넣을 이유가 없다.
  * 링크 클릭이 파트너스 대시보드에 실제로 잡히는지 확인하는 것이 이번 목표다.
- *
- * ⚠️ 아래 매핑의 근거는 **주고받은 순서**다. 내가 이 순서로 쿠팡 URL 을 줬고
- *    (① 아드레날린 GTS25 ② 본디 9), 같은 순서로 링크 두 개를 받았다.
- *    링크 자체에는 어느 상품인지가 안 적혀 있어서 **확인은 클릭해 보는 것뿐이다.**
- *    화면의 "쿠팡" 버튼을 눌러 다른 신발이 나오면 두 값을 바꾸면 된다.
  */
-export const COUPANG_PARTNER_LINKS: Record<string, string> = {
-  "brooks-adrenaline-gts-25": "https://link.coupang.com/a/gSElJNk9Js",
-  "hoka-bondi-9": "https://link.coupang.com/a/gSEmN7bIFU",
-  // 페가수스 42 는 보류 — 링크 두 개(gSpUMkDHky / gSEc4w0nBc)를 받았는데
-  // 어느 것이 페가수스인지 확인되지 않았다. **추측해서 넣지 않는다.**
+export const COUPANG_PARTNER_LINKS: Record<string, PartnerLink> = {
+  // 2026-09-09 hyun 님이 두 링크를 직접 열어 검색 결과가 맞는 것을 확인했다.
+  // 순서로 추측했던 매핑이 실제로 맞았다 — 다만 그건 결과이지 근거가 아니었다.
+  "brooks-adrenaline-gts-25": {
+    url: "https://link.coupang.com/a/gSElJNk9Js",
+    sourceQuery: "브룩스 아드레날린 gts25",
+    addedAt: "2026-09-08",
+    verifiedAt: "2026-09-09",
+  },
+  "hoka-bondi-9": {
+    url: "https://link.coupang.com/a/gSEmN7bIFU",
+    sourceQuery: "호카 본디9",
+    addedAt: "2026-09-08",
+    verifiedAt: "2026-09-09",
+  },
+  /**
+   * 페가수스 42 — 2026-09-09 새로 생성했다.
+   *
+   * 처음에 받은 링크 두 개(gSpUMkDHky / gSEc4w0nBc)는 **어느 것이 페가수스인지
+   * 확인이 안 돼서 버렸다.** 둘 중 하나를 골라 넣는 것보다 하나 더 만드는 쪽이
+   * 빠르고 확실했다 — 링크 생성은 30초, 잘못 넣으면 방문자가 엉뚱한 상품을 본다.
+   *
+   * **확인 안 된 값을 추측으로 채우느니 다시 만드는 게 싸다.**
+   */
+  "nike-pegasus-42": {
+    url: "https://link.coupang.com/a/gSSb580Szc",
+    sourceQuery: "페가수스 42",
+    addedAt: "2026-09-09",
+    verifiedAt: "2026-09-09",
+  },
 };
 
 /** 제휴 링크가 하나라도 등록돼 있는가 — 공정위 고지 노출 조건 */
@@ -85,7 +140,7 @@ export function hasAnyAffiliate(): boolean {
 
 /** 이 신발에 제휴 링크가 있는가 */
 export function affiliateFor(shoeId: string): string | undefined {
-  return COUPANG_PARTNER_LINKS[shoeId];
+  return COUPANG_PARTNER_LINKS[shoeId]?.url;
 }
 
 /**

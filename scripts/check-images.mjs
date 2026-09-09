@@ -75,7 +75,91 @@ const shoes = [];
   }
 }
 
+/**
+ * 파일명에 모델명이 들어 있는가 — **다른 신발 사진을 걸러낸다** (2026-09-09 추가)
+ *
+ * 왜 만들었나: 아드레날린 GTS 25 의 공식 사진을 찾겠다고 브룩스 제품 URL 을
+ * **조립해서** 열었더니, 그 상품번호(110435)는 아드레날린이 아니라 **Revel 7** 이었다.
+ * 파일명이 이렇게 왔다:
+ *
+ *   110435-072-l-revel-7-mens-fast-running-and-training-shoe.png
+ *
+ * 그대로 넣었으면 아드레날린 페이지에 Revel 7 사진이 걸렸을 것이다.
+ * 화면은 멀쩡하고, 200 으로 열리고, Content-Type 도 이미지다.
+ * **기존 검사 전부를 통과하는 틀린 사진**이다.
+ *
+ * 완벽하진 않다 — CDN 이 숫자만 쓰는 경우(`storage.googleapis.com/.../141501426.webp`)
+ * 는 판정할 수 없다. 그래서 **판정 불가는 실패로 만들지 않고 따로 센다.**
+ * 잡을 수 있는 것만 잡는다. 잡을 수 없는 것을 통과로 위장하지 않는다.
+ *
+ * 지금 걸리는 것: Ultraboost 25 의 사진 파일명이 `adidas-ultraboost-5` 다.
+ * 아디다스가 Ultraboost 24 다음을 "5" 로 개명한 것으로 보이지만 **확인 못 했다.**
+ * 그래서 이 검사는 "틀렸다"가 아니라 **"사람이 봐야 한다"** 로 보고한다.
+ */
+function modelTokens(model) {
+  return model
+    .toLowerCase()
+    .replace(/[()]/g, " ")
+    .split(/[\s\-_/]+/)
+    .filter((t) => t.length >= 3 && !["the", "shoe", "wide"].includes(t));
+}
+
+/**
+ * 모델명 끝의 세대 숫자 — `Ultraboost 25` → `25`, `Pegasus 42` → `42`.
+ *
+ * ⚠️ 이름만 보면 부족하다. `adidas-ultraboost-5-21818110-720.jpg` 는 모델이
+ * **Ultraboost 25** 인데 `ultraboost` 가 들어 있어서 위 검사를 통과한다.
+ * 세대가 다르면 **다른 해에 나온 다른 신발**이므로 스펙도 다르다.
+ *
+ * 파일명을 `-`·`_`·`.` 로 쪼갠 **토큰 전체**와 비교한다. 부분 문자열로 찾으면
+ * `-720.jpg` 의 `2` 나 상품번호 `24827697` 안의 숫자에 걸려 오탐이 난다.
+ */
+function modelVersion(model) {
+  const m = /(?:^|[\s\-v])(\d{1,4})\s*(?:\([^)]*\))?\s*$/.exec(model.trim());
+  return m ? m[1] : null;
+}
+
+const nameCheck = shoes.map((s) => {
+  const file = decodeURIComponent(s.url.split("?")[0].split("/").pop() ?? "").toLowerCase();
+  // 파일명이 숫자·해시뿐이면 판정할 수 없다.
+  const decidable = /[a-z]{3,}/.test(file.replace(/\.(jpg|jpeg|png|webp|avif|gif)$/, ""));
+  const tokens = modelTokens(s.model);
+  const hit = tokens.filter((t) => file.includes(t));
+  const ver = modelVersion(s.model);
+  const fileTokens = file.split(/[-_.]+/);
+  // 세대 판정은 이름이 맞은 경우에만 의미가 있다. 이름부터 틀리면 그게 먼저다.
+  const verMismatch = Boolean(ver) && hit.length > 0 && !fileTokens.includes(ver);
+  return { ...s, file, decidable, tokens, hit, ver, verMismatch, ok: hit.length > 0 };
+});
+
+const nameSuspect = nameCheck.filter((s) => s.decidable && !s.ok);
+const verSuspect = nameCheck.filter((s) => s.verMismatch);
+const nameUnknown = nameCheck.filter((s) => !s.decidable);
+
 console.log(C.bold(`\n신발 이미지 검사 — ${shoes.length}장\n`));
+
+if (nameSuspect.length) {
+  console.log(C.yellow(`  ⚠ 파일명에 모델명이 없는 사진 ${nameSuspect.length}장 — 사람이 봐야 합니다`));
+  for (const s of nameSuspect) {
+    console.log(`     ${C.yellow("?")} ${s.brand} ${s.model}`);
+    console.log(C.dim(`        파일명: ${s.file}`));
+  }
+  console.log(C.dim("     다른 모델 사진일 수 있습니다. 200 으로 열리고 Content-Type 도 정상이라"));
+  console.log(C.dim("     나머지 검사는 전부 통과합니다 — 이 줄이 유일한 신호입니다.\n"));
+}
+if (verSuspect.length) {
+  console.log(C.yellow(`  ⚠ 세대 숫자가 안 맞는 사진 ${verSuspect.length}장 — 사람이 봐야 합니다`));
+  for (const s of verSuspect) {
+    console.log(`     ${C.yellow("?")} ${s.brand} ${s.model}  ${C.dim(`(기대: "${s.ver}")`)}`);
+    console.log(C.dim(`        파일명: ${s.file}`));
+  }
+  console.log(C.dim("     세대가 다르면 다른 해에 나온 다른 신발이고 스펙도 다릅니다.\n"));
+}
+if (nameUnknown.length) {
+  console.log(
+    C.dim(`  판정 불가 ${nameUnknown.length}장 (파일명이 숫자·해시라 모델명을 확인할 수 없음)\n`)
+  );
+}
 
 // ── 출처 분포 (네트워크 불필요) ────────────────────────────
 const byHost = new Map();

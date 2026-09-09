@@ -27,7 +27,9 @@
     "routes": "node scripts/fetch-course-routes.mjs",
     "shot": "node scripts/shot.mjs",
     "shot:local": "node scripts/shot.mjs --local",
-    "ship": "node scripts/ship.mjs"
+    "ship": "node scripts/ship.mjs",
+    "check:affiliate": "node scripts/affiliate-check.mjs",
+    "check:affiliate:sheet": "node scripts/affiliate-check.mjs --sheet"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

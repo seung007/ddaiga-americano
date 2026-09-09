@@ -109,6 +109,37 @@ for (const d of DIRS) {
   }
 }
 
+/**
+ * 스크립트의 윈도우 경로 버그 (2026-09-09 추가)
+ *
+ * `new URL(import.meta.url).pathname` 은 윈도우에서 `/C:/...` 처럼 앞에 슬래시가
+ * 붙는다. `resolve()` 를 걸면 `C:\C:\...` 가 되고 **파일을 못 찾는다.**
+ *
+ * 내 실행 환경은 리눅스라 **절대 재현되지 않는다.** hyun 님은 윈도우에서 돌린다.
+ * 즉 내가 "검사 통과"를 확인하고 넘겨도 상대 화면에서는 멈춘다 —
+ * 실제로 `npm run ship` 이 이걸로 한 번 멈췄다.
+ *
+ * 내가 볼 수 없는 실패는 **검사가 대신 봐야 한다.** `import.meta.dirname` 을 쓰면 된다.
+ */
+const WIN_PATH = /new URL\(import\.meta\.url\)\.pathname/;
+const SCRIPT_DIR = "scripts";
+
+// scripts/*.mjs 는 위 DIRS 스캔 대상이 아니라 따로 훑는다.
+for (const name of readdirSync(join(ROOT, SCRIPT_DIR))) {
+  if (!name.endsWith(".mjs")) continue;
+  const rel = `${SCRIPT_DIR}/${name}`;
+  const src = stripComments(readFileSync(join(ROOT, SCRIPT_DIR, name), "utf8"));
+  src.split("\n").forEach((line, i) => {
+    if (WIN_PATH.test(line))
+      hits.push({
+        rel,
+        n: i + 1,
+        why: "윈도우에서 C:\\C:\\… 가 된다 — import.meta.dirname 을 쓰세요",
+        line: line.trim().slice(0, 100),
+      });
+  });
+}
+
 const red = (s) => `\x1b[31m${s}\x1b[0m`;
 const green = (s) => `\x1b[32m${s}\x1b[0m`;
 const dim = (s) => `\x1b[2m${s}\x1b[0m`;
