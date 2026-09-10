@@ -126,7 +126,13 @@ const nameCheck = shoes.map((s) => {
   const tokens = modelTokens(s.model);
   const hit = tokens.filter((t) => file.includes(t));
   const ver = modelVersion(s.model);
-  const fileTokens = file.split(/[-_.]+/);
+  /**
+   * 구분자에 `+` 와 `%20` 도 넣는다 — 나이키 공식 이미지가 이렇게 온다:
+   *   `AIR+ZOOM+PEGASUS+42.png`
+   * `-`·`_`·`.` 만 쪼개면 통째로 한 토큰이 돼서 `42` 를 못 찾고 **오탐이 난다.**
+   * 검사를 넓힐 때는 오탐부터 잡는다 — 오탐이 남으면 사람이 곧 무시한다.
+   */
+  const fileTokens = file.replace(/%20/g, " ").split(/[-_.+\s]+/);
   // 세대 판정은 이름이 맞은 경우에만 의미가 있다. 이름부터 틀리면 그게 먼저다.
   const verMismatch = Boolean(ver) && hit.length > 0 && !fileTokens.includes(ver);
   return { ...s, file, decidable, tokens, hit, ver, verMismatch, ok: hit.length > 0 };
