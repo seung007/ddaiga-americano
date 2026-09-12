@@ -172,10 +172,22 @@ for (const vp of VIEWPORTS) {
    */
   page.on("requestfailed", (req) => {
     const why = req.failure()?.errorText ?? "(사유 없음)";
-    // 사용자가 취소한 요청(네비게이션 중단)은 잡음이라 뺀다.
-    if (why === "net::ERR_ABORTED") return;
+    /**
+     * ⚠️ 2026-09-12 — **여기서 `net::ERR_ABORTED` 를 버렸다가 한 번 막혔다.**
+     *
+     * "사용자가 취소한 요청은 잡음"이라고 걸렀는데, `page.goto` 가 타임아웃되면
+     * Playwright 가 **대기 중이던 요청을 전부 중단**시킨다. 그 순간 문제의 요청도
+     * ERR_ABORTED 가 된다. 그래서 실패 원인을 잡으려고 넣은 핸들러가
+     * **정작 실패했을 때 아무것도 안 남겼다.** `run.txt` 에 "콘솔 오류 0종".
+     *
+     * 이 저장소의 반복 실패와 같다 — `slice(0, 200)` 이 DOM diff 를 잘라먹었고,
+     * `e.name` 이 원인을 지웠다. **내가 잡음이라고 정한 것이 답이었다.**
+     *
+     * 그래서 버리지 않고 **표시만 한다.** 자르는 것은 읽는 쪽의 몫이다.
+     */
+    const tag = why === "net::ERR_ABORTED" ? "중단됨(타임아웃에 딸려 취소된 것일 수 있음)" : why;
     consoleErrors.push(
-      `[${vp.name}] 요청 실패 ${why}\n    ${req.resourceType()}  ${req.url()}`
+      `[${vp.name}] 요청 실패 ${tag}\n    ${req.resourceType()}  ${req.url()}`
     );
   });
 
@@ -195,7 +207,34 @@ for (const vp of VIEWPORTS) {
           /* 워밍업 실패는 무시하고 브라우저로 한 번 더 시도한다 */
         }
       }
-      await page.goto(url, { waitUntil: "networkidle", timeout: LOCAL ? 120_000 : 45_000 });
+      /**
+       * `networkidle` 을 **필수 조건에서 뺐다** (2026-09-12).
+       *
+       * 전에는 `waitUntil: "networkidle"` 하나였다. 그런데 이미지 한 장이
+       * 응답을 안 주면 **네트워크가 영영 조용해지지 않는다** → 45초를 채우고
+       * 캡처가 통째로 실패한다. 실제로 오늘 홈 모바일이 그렇게 날아갔고,
+       * **사진 한 장 때문에 화면을 아예 못 보는 상태**가 됐다.
+       *
+       * 진단해야 할 대상(깨진 자원)이 진단 도구를 죽이는 구조였다.
+       *
+       * 그래서 두 단계로 나눈다:
+       *   ① `domcontentloaded` — 여기까지는 반드시 기다린다
+       *   ② `networkidle` — **되면 좋고, 안 되면 넘어간다**(지연 로드를 깨우는 용도)
+       * 아래 스크롤 루프가 어차피 한 번 더 기다리므로 ②가 빠져도 지도·띠는 뜬다.
+       */
+      await page.goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: LOCAL ? 120_000 : 45_000,
+      });
+      await page
+        .waitForLoadState("networkidle", { timeout: LOCAL ? 30_000 : 15_000 })
+        .catch(() => {
+          // 조용해지지 않았다 = 어떤 요청이 매달려 있다.
+          // 그게 무엇인지는 위 requestfailed 핸들러와 run.txt 가 말해준다.
+          consoleErrors.push(
+            `[${vp.name}] networkidle 미도달 — 매달린 요청이 있습니다 (${t.path})`
+          );
+        });
 
       /**
        * **끝까지 한 번 내려갔다 온다.**
