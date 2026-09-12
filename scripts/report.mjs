@@ -47,9 +47,27 @@ const dim = (s) => `\x1b[2m${s}\x1b[0m`;
 const green = (s) => `\x1b[32m${s}\x1b[0m`;
 const yellow = (s) => `\x1b[33m${s}\x1b[0m`;
 
+/**
+ * ⚠️ 2026-09-12 — **두 번째로 이 도구가 자기 목적을 어겼다.**
+ *
+ * 첫 실행에서 `벤치마킹_2026-09-12.md` 가 이렇게 나왔다:
+ *   `"\353\262\244\354\271\230\353\247\210\355\202\271_2026-09-12.md"`
+ *
+ * git 은 기본값(`core.quotepath=true`)으로 ASCII 밖의 파일명을 8진수로 이스케이프한다.
+ * 결과가 두 군데서 틀어진다:
+ *   · **사람이 옮겨 적을 수 없다** — "이 표를 그대로 옮기세요"가 이 도구의 전부인데
+ *     옮길 수 없는 글자를 낸다
+ *   · **분류가 틀린다** — 이스케이프된 문자열은 `"` 로 끝나므로 `.endsWith(".md")`
+ *     가 false 가 되어 `문서` 가 아니라 `기타` 로 떨어진다
+ *
+ * 이 저장소는 한국어 문서 파일을 계속 만든다. 한 번 끄면 영구히 해결된다.
+ */
 function git(...args) {
   try {
-    return execFileSync("git", args, { cwd: ROOT, encoding: "utf8" }).replace(/\s+$/, "");
+    return execFileSync("git", ["-c", "core.quotepath=false", ...args], {
+      cwd: ROOT,
+      encoding: "utf8",
+    }).replace(/\s+$/, "");
   } catch {
     return "";
   }
