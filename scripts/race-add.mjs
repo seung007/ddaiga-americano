@@ -51,6 +51,39 @@ if (!url) {
   process.exit(1);
 }
 
+/**
+ * 주소가 **말이 되는지** 먼저 본다. (2026-09-12)
+ *
+ * 사용자가 내 안내문의 자리표시자를 그대로 붙여넣었다:
+ *   npm run race:add -- "https://대회공식주소"
+ * 내가 `https://대회공식주소` 라고 써 놨으니 **진짜 주소처럼 보인 게 당연하다.**
+ * 안내문이 나쁜 거지 사용자가 틀린 게 아니다.
+ *
+ * 그런데 더 나빴던 건 **메시지였다.** `ENOTFOUND` 를 "네트워크 문제입니다"로
+ * 안내해서, 인터넷을 확인하라고 시켰다. 인터넷은 멀쩡했다.
+ *
+ * 이 저장소가 오늘만 세 번째로 밟은 자리다 —
+ * *상태코드를 원인으로 바로 번역하지 마라.* 406 → "서버 혼잡",
+ * ERR_ABORTED → 버림, 그리고 이번엔 ENOTFOUND → "인터넷 확인".
+ * **DNS 가 못 찾은 이유가 여럿인데 하나로 뭉갰다.**
+ */
+try {
+  const host = new URL(url).hostname;
+  // 실재하는 도메인은 점이 있고 ASCII TLD 로 끝난다(한글 도메인도 퓨니코드로 온다).
+  if (!host.includes(".") || /^[가-힣]+$/.test(host)) {
+    console.log(red(`\n"${host}" 은 실제 주소가 아닙니다.`));
+    console.log(dim("  제 안내문의 자리표시자를 그대로 넣으신 것 같습니다. 죄송합니다.\n"));
+    console.log("  대회 공식 홈페이지 주소를 그대로 넣으세요. 예를 들면:\n");
+    console.log('    npm run race:add -- "https://www.mbn-seoulmarathon.com/"\n');
+    console.log(dim("  네이버·구글에서 대회 이름을 검색해 **공식 홈페이지**로 들어간 뒤,"));
+    console.log(dim("  주소창 주소를 복사하시면 됩니다. 블로그 주소가 아니라 대회 주소입니다.\n"));
+    process.exit(1);
+  }
+} catch {
+  console.log(red(`\n주소 형식이 아닙니다: ${url}\n`));
+  process.exit(1);
+}
+
 console.log(dim(`\n${url} 여는 중…`));
 
 let html;
@@ -135,20 +168,42 @@ if (future.length > 1)
 console.log(dim("    어느 게 대회일인지는 페이지를 직접 보고 고르세요.\n"));
 
 const existing = JSON.parse(readFileSync(join(ROOT, "lib", "races.json"), "utf8"));
-const suggestedId = (title ?? "race")
+
+/**
+ * 제목에서 **슬로건을 떼어낸다.** (2026-09-12)
+ *
+ * MBN 에 돌려 보니 이렇게 나왔다:
+ *   "2026 MBN 서울마라톤 — ONE MORE STEP FORWARD"
+ * 뒤쪽은 대회 이름이 아니라 마케팅 문구다. 화면에 그대로 뜨면 목록이 지저분해진다.
+ * `—`, `|`, `:` 뒤는 부제로 보고 자른다. 잘못 잘릴 수 있으니 **원문도 같이 보여준다.**
+ */
+const cleanName = (title ?? "").split(/\s+[—|:·]\s+/)[0].trim();
+
+/**
+ * id 는 **ASCII 로 만든다.**
+ *
+ * 처음엔 한글을 허용해서 `2026-mbn-서울마라톤` 이 나왔다. 지금은 JSON 안에서만
+ * 쓰이니 문제없지만, 나중에 대회별 페이지(`/races/[id]`)를 만들면 **URL 에 들어간다.**
+ * 그러면 퍼센트 인코딩돼서 공유할 때 읽을 수 없는 주소가 된다.
+ * 나중에 바꾸면 이미 색인된 주소가 깨지므로 **지금 ASCII 로 둔다.**
+ */
+const YEAR = /20\d{2}/.exec(cleanName)?.[0] ?? "";
+const asciiWords = cleanName
   .toLowerCase()
-  .replace(/[^a-z0-9가-힣\s]/g, "")
+  .replace(/[^a-z0-9\s]/g, " ")
   .trim()
   .split(/\s+/)
-  .slice(0, 3)
-  .join("-");
+  .filter(Boolean)
+  .filter((w) => w !== YEAR)
+  .slice(0, 3);
+const suggestedId = [...asciiWords, YEAR].filter(Boolean).join("-") || "race";
 
 console.log(bold("lib/races.json 에 넣을 양식 — 값을 확인해서 채우세요\n"));
 console.log(
   JSON.stringify(
     {
       id: existing.some((r) => r.id === suggestedId) ? suggestedId + "-2" : suggestedId,
-      name: title ?? "",
+      name: cleanName || (title ?? ""),
       date: future[0] ?? null,
       region: "",
       distancesKm: [],
@@ -162,7 +217,10 @@ console.log(
   )
 );
 
-console.log(dim("\n  · date 가 대회일이 맞는지 페이지에서 확인하세요. 모르면 null 로 두세요"));
+if (cleanName && title && cleanName !== title)
+  console.log(dim(`\n  (원래 제목: ${title})`));
+console.log(dim("\n  · name 에서 슬로건을 잘랐습니다. 잘못 잘렸으면 원래 제목을 쓰세요"));
+console.log(dim("  · date 가 대회일이 맞는지 페이지에서 확인하세요. 모르면 null 로 두세요"));
 console.log(dim("  · distancesKm 는 숫자 배열입니다. 하프=21.0975, 풀=42.195"));
 console.log(dim("  · status: 접수중 / 접수예정 / 마감 / 예정"));
 console.log(dim("  · 넣고 나서 `npm run check:races` 로 확인하세요\n"));
