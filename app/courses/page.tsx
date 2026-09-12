@@ -61,6 +61,14 @@ export default function CoursesPage() {
        * 지금은 `/shoe-finder` 와 `/compare/*` 다.
        */}
       <h1 className="mb-3 text-3xl font-bold text-gray-900">한강 러닝 코스 4곳</h1>
+      {/* 2026-09-12: 코스 → 대회로 보낸다. 연습할 곳을 본 사람이 다음에 찾는 게 대회다. */}
+      <p className="mb-2 text-sm text-gray-600">
+        연습 코스를 정했으면{" "}
+        <Link href="/races" className="font-medium text-emerald-600 hover:underline">
+          대회 일정
+        </Link>
+        도 같이 보세요.
+      </p>
       {/* 2026-09-07: 인트로 문단과 노란 고지 상자를 걷어냈다.
           사용자 지적 — **"맵 보고 모르면 그냥 나가는 거야. 글은 진짜 간단하게만."**
           맞는 말이다. 지도를 보러 온 사람 앞에 문단 두 개를 세워두면 지도가 아래로 밀린다.

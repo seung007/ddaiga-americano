@@ -54,12 +54,56 @@ const ARTICLES = [
   { href: "/injury/half-marathon-race-day", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 대회 당일 체크리스트", desc: "젤·급수·바세린·페이스. 논문 근거와 직접 뛰어본 경험을 항목마다 구분해 적었습니다.", readTime: "8분" },
 ];
 
+
+/**
+ * 주제 축 — **수준(초심자/중급자/숙련자)과 다른 두 번째 축.**
+ *
+ * 2026-09-12: 경쟁 조사(`벤치마킹_2026-09-12.md`)에서 러닝위키가 5대 분류 ×
+ * 3~6 소분류의 계층 구조를 갖고 있는 것을 확인했다. 우리는 글 20편이 **한 목록**에
+ * 있고 수준 칩 하나로만 걸러졌다. "무릎이 아파서 온 사람"과 "신발 고르러 온 사람"이
+ * 같은 목록을 훑어야 했다.
+ *
+ * 새 URL 을 만들지 않는다 — 9/20 색인 판정 중이라 라우트를 늘리면 §4-4 오염이 커진다.
+ * 대신 **이미 있는 `tag` 값에서 주제를 파생**시킨다. 글마다 새 필드를 손으로 적으면
+ * 곧 어긋난다(이 저장소가 `readTime` 으로 이미 겪는 중이다).
+ *
+ * ⚠️ 어느 주제에도 안 걸리는 태그는 "기타"로 보낸다. **숨기지 않는다** —
+ * 분류가 전부를 덮는 것처럼 보이면 그것도 틀린 정보다.
+ */
+const TOPICS = {
+  "신발 고르기": ["발볼", "평발", "카본화"],
+  "아픈 곳": ["무릎", "정강이", "족저근막", "아킬레스"],
+  "달리는 법": ["착지법", "케이던스", "자세", "준비운동", "쿨다운", "회복"],
+  "대회": ["첫 대회", "대회 실전"],
+  "선수 이야기": ["황영조", "권은주"],
+} as const;
+
+type Topic = keyof typeof TOPICS | "전체" | "기타";
+
+function topicOf(tag: string): Exclude<Topic, "전체"> {
+  for (const [name, tags] of Object.entries(TOPICS)) {
+    if ((tags as readonly string[]).includes(tag)) return name as Exclude<Topic, "전체" | "기타">;
+  }
+  return "기타";
+}
+
 export default function InjuryListPage() {
   const [activeLevel, setActiveLevel] = useState<Level>("전체");
+  const [activeTopic, setActiveTopic] = useState<Topic>("전체");
 
-  const filtered = activeLevel === "전체"
-    ? ARTICLES
-    : ARTICLES.filter(a => a.level === activeLevel);
+  const filtered = ARTICLES.filter(
+    (a) =>
+      (activeLevel === "전체" || a.level === activeLevel) &&
+      (activeTopic === "전체" || topicOf(a.tag) === activeTopic)
+  );
+
+  // 주제 칩은 **개수와 함께** 낸다. 빈 칸을 누르게 하지 않는다.
+  const topicCounts = (["전체", ...Object.keys(TOPICS), "기타"] as Topic[])
+    .map((t) => ({
+      t,
+      n: t === "전체" ? ARTICLES.length : ARTICLES.filter((a) => topicOf(a.tag) === t).length,
+    }))
+    .filter((x) => x.n > 0);
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
@@ -134,6 +178,48 @@ export default function InjuryListPage() {
             );
           })}
         </div>
+
+        {/* 주제 칩 — 수준과 **다른 축**이다. 둘은 AND 로 걸린다.
+            2026-09-12: 글 20편이 한 목록에 있어서 "무릎이 아파서 온 사람"과
+            "신발 고르러 온 사람"이 같은 목록을 훑어야 했다.
+            새 URL 을 안 만든다 — 9/20 색인 판정 중이다(유입_설정_기준선.md §4-4). */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {topicCounts.map(({ t, n }) => (
+            <button
+              key={t}
+              onClick={() => {
+                setActiveTopic(t);
+                const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+                if (typeof g === "function") g("event", "injury_topic", { topic: t, count: n });
+              }}
+              className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors
+                ${activeTopic === t
+                  ? "border-gray-900 bg-gray-900 text-white"
+                  : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"}`}
+            >
+              {t}
+              <span className={activeTopic === t ? "ml-1.5 text-gray-300" : "ml-1.5 text-gray-400"}>
+                {n}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* 둘 다 걸어서 0편이 되는 조합이 있다. 빈 화면만 두면 고장으로 보인다. */}
+        {filtered.length === 0 && (
+          <p className="mt-4 text-sm text-gray-500">
+            이 조합에는 글이 없습니다.{" "}
+            <button
+              onClick={() => {
+                setActiveLevel("전체");
+                setActiveTopic("전체");
+              }}
+              className="font-medium text-emerald-600 underline underline-offset-2"
+            >
+              필터 지우기
+            </button>
+          </p>
+        )}
       </section>
 
       {/* 아티클 목록 */}

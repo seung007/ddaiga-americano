@@ -4,6 +4,7 @@ import { HOKA, BROOKS, dropOverlap, currentShoes, type BrandStats } from "@/lib/
 import type { Shoe } from "@/lib/shoes/types";
 import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
+import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 
 /**
  * 호카 vs 브룩스 — 브랜드 단위 비교.
@@ -171,6 +172,13 @@ export default function HokaVsBrooks() {
   return (
     <main className="min-h-screen bg-white">
       <div className="mx-auto max-w-3xl px-6 py-10">
+        {/* 2026-09-12: 이 페이지에 목록으로 실제 보이는 신발만 넣는다. */}
+        <ShoeJsonLd
+          shoes={[...HOKA.shoes, ...BROOKS.shoes]}
+          name="호카 vs 브룩스 — 스펙 집계"
+          url="https://ddaiga-americano.vercel.app/compare/hoka-vs-brooks"
+        />
+        <BreadcrumbJsonLd trail={[["호카 vs 브룩스", "/compare/hoka-vs-brooks"]]} />
         <h1 className="text-3xl font-bold text-gray-900">호카 vs 브룩스</h1>
         <p className="mt-3 text-gray-600">
           브랜드 인상이 아니라 <strong>이 사이트가 검증한 스펙을 집계</strong>했습니다.
@@ -276,6 +284,14 @@ export default function HokaVsBrooks() {
         </div>
 
         {/* ── 모델쌍 비교로 보내기 ─────────────────────────── */}
+        <p className="mt-8 leading-relaxed text-gray-700">
+          브랜드로 좁혔으면 다음은 <strong>용도</strong>입니다 —{" "}
+          <Link href="/tier-list" className="font-medium text-emerald-600 hover:underline">
+            러닝화 계급도
+          </Link>
+          에서 첫 신발부터 대회용까지 칸별로 나눠 뒀습니다.
+        </p>
+
         <h2 className="mt-10 text-2xl font-bold text-gray-900">모델끼리 붙여보기</h2>
         <ul className="mt-4 space-y-2">
           {[

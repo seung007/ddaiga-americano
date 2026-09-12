@@ -5,6 +5,10 @@ import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
+import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
 import ShoeImage from "@/components/ShoeImage";
 import { COMPARE_SLUGS } from "@/lib/compares";
 
@@ -167,6 +171,22 @@ export default async function ComparePage({
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
+      {/**
+       * 2026-09-12: 구조화 데이터 추가. 이 페이지에 **실제로 보이는 두 신발**만 넣는다.
+       * 화면에 없는 것을 구조화 데이터에 넣으면 구글이 스팸으로 본다.
+       * 평점·재고는 없으므로 넣지 않았다 — `components/ShoeJsonLd.tsx` 주석 참고.
+       */}
+      <ShoeJsonLd
+        shoes={[shoeA, shoeB]}
+        name={`${shoeA.brand} ${shoeA.model} vs ${shoeB.brand} ${shoeB.model}`}
+        url={`${SITE_URL}/compare/${slug}`}
+      />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝화 비교", "/compare/hoka-vs-brooks"],
+          [`${shoeA.model} vs ${shoeB.model}`, `/compare/${slug}`],
+        ]}
+      />
       <AffiliateNotice />
 
       {/* ── 헤더 ── */}

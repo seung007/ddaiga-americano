@@ -29,7 +29,12 @@
     "shot:local": "node scripts/shot.mjs --local",
     "ship": "node scripts/ship.mjs",
     "check:affiliate": "node scripts/affiliate-check.mjs",
-    "check:affiliate:sheet": "node scripts/affiliate-check.mjs --sheet"
+    "check:affiliate:sheet": "node scripts/affiliate-check.mjs --sheet",
+    "check:toc": "node scripts/check-toc.mjs",
+    "check:races": "node scripts/check-races.mjs",
+    "check:races:live": "node scripts/check-races.mjs --live",
+    "races:sweep": "node scripts/races-sweep.mjs",
+    "race:add": "node scripts/race-add.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

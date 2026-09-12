@@ -6,6 +6,8 @@ import InlineAsk from "@/components/InlineAsk";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import TableOfContents from "@/components/TableOfContents";
 
 /**
  * 평발 러닝화 — 검색 수요 2위(발 조건 + 브랜드, 33%)에 답하는 페이지.
@@ -89,6 +91,18 @@ export default function FlatFeetPage() {
         url={PAGE_URL}
         datePublished="2026-09-08"
       />
+      {/* 이 페이지에 목록으로 보이는 신발만. 화면과 구조화 데이터가 같아야 한다. */}
+      <ShoeJsonLd
+        shoes={FLAT_SHOES}
+        name="평발 대응으로 분류한 러닝화"
+        url={PAGE_URL}
+      />
+      <BreadcrumbJsonLd
+        trail={[
+          ["부상 예방", "/injury"],
+          ["평발 러닝화", "/injury/flat-feet"],
+        ]}
+      />
       <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
         <Link href="/injury" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
           ← 부상 예방
@@ -112,7 +126,20 @@ export default function FlatFeetPage() {
           </p>
         </div>
 
-        <h2 className="mt-10 text-xl font-bold text-gray-900">널리 퍼진 말과 실제 근거</h2>
+        {/* 2026-09-12: 목차. 모바일에서 이 글이 7,700px 넘는다 — "그래서 뭘 신어?"만
+            궁금한 사람이 그걸 찾아 내려가야 했다. 러닝위키는 긴 글마다 갖고 있다. */}
+        <TableOfContents
+          items={[
+            { id: "evidence", label: "흔한 말과 실제 근거" },
+            { id: "how-to-choose", label: "그럼 무엇으로 고르나" },
+            { id: "shoe-list", label: `평발 대응으로 분류한 ${FLAT_SHOES.length}개` },
+            { id: "refs", label: "참고 문헌" },
+          ]}
+        />
+
+        <h2 id="evidence" className="mt-10 text-xl font-bold text-gray-900">
+          널리 퍼진 말과 실제 근거
+        </h2>
         <div className="mt-4 overflow-hidden rounded-2xl border border-gray-200">
           <table className="w-full text-sm">
             <tbody className="divide-y divide-gray-100">
@@ -161,7 +188,9 @@ export default function FlatFeetPage() {
           </table>
         </div>
 
-        <h2 className="mt-10 text-xl font-bold text-gray-900">그럼 무엇으로 고르나</h2>
+        <h2 id="how-to-choose" className="mt-10 text-xl font-bold text-gray-900">
+          그럼 무엇으로 고르나
+        </h2>
         <p className="mt-3 leading-relaxed text-gray-700">
           발 타입보다 근거가 분명한 조건이 있습니다.
         </p>
@@ -212,7 +241,7 @@ export default function FlatFeetPage() {
         />
 
         {/* ── 우리 데이터의 상태를 그대로 공개한다 ─────────── */}
-        <h2 className="mt-10 text-xl font-bold text-gray-900">
+        <h2 id="shoe-list" className="mt-10 text-xl font-bold text-gray-900">
           이 사이트가 평발 대응으로 분류한 {FLAT_SHOES.length}개
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-gray-600">
@@ -262,7 +291,9 @@ export default function FlatFeetPage() {
           <FaqSection items={FAQ} />
         </div>
 
-        <h2 className="mt-10 text-xl font-bold text-gray-900">참고 문헌</h2>
+        <h2 id="refs" className="mt-10 text-xl font-bold text-gray-900">
+          참고 문헌
+        </h2>
         <ul className="mt-3 space-y-2 text-sm text-gray-700">
           <li>
             <strong>Richards, Magin &amp; Callister (2009)</strong> — 장거리 러닝화 처방이 근거

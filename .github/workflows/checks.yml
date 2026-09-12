@@ -58,3 +58,42 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check:all
+
+  # ── 대회 일정 자동 정리 ─────────────────────────────────────
+  #
+  # 2026-09-12 신설. 사용자 요청: "대회 일정 허브는 자동화 루프 만들어 놓으면 돼."
+  #
+  # **빼는 쪽만 자동이다.** 대회 날짜가 지나면 목록에서 빠지고 보관 파일로 옮겨진다.
+  # 시간이 지나면 확실히 참이 되는 판정이라 사람 확인이 필요 없다.
+  #
+  # **넣는 쪽은 자동화하지 않는다.** 새 대회를 어디선가 긁어 와 날짜를 채우면
+  # 틀린 날짜가 사람 확인 없이 배포된다. 이 저장소는 그걸로 이미 당했다 —
+  # 지어낸 좌표가 숫자 검사를 전부 통과하고 배포돼 경로선이 한강을 가로질렀다.
+  # 대회는 더 나쁘다. 사람이 참가비를 내고 이동한다.
+  #
+  # 바뀐 게 있을 때만 커밋한다. 매주 빈 커밋을 쌓지 않는다.
+  races-sweep:
+    name: 대회 일정 정리 (지난 대회 보관)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run races:sweep -- --write
+      - name: 바뀐 게 있으면 커밋
+        run: |
+          if [ -n "$(git status --porcelain lib/races.json lib/races.past.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add lib/races.json lib/races.past.json
+            git commit -m "chore(races): 지난 대회 자동 보관"
+            git push
+          else
+            echo "정리할 것 없음"
+          fi

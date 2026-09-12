@@ -44,6 +44,23 @@ const ROOT = process.cwd();
 const CHROME = ["components/SiteHeader.tsx", "components/SiteFooter.tsx"];
 
 /**
+ * **일부러 연결하지 않은 라우트.** 이유를 반드시 적는다.
+ *
+ * 이 검사는 원래 "고아 페이지"와 "사이트맵 누락"을 실패로 잡는다. 옳은 규칙이다.
+ * 다만 **의도적으로 발견 경로를 안 만드는 경우**가 있다 — 그때 검사를 통째로 끄면
+ * 진짜 고아까지 놓치므로, 여기에 **한 줄씩 이유와 함께** 적는다.
+ *
+ * ⚠️ 이유 없이 추가하지 마라. 이 목록이 길어지면 검사가 의미를 잃는다.
+ * 해제할 조건도 같이 적는다 — 안 적으면 영영 남는다.
+ */
+const INTENTIONALLY_UNLINKED = {
+  // 2026-09-12: `/tier-list` 를 여기 넣었다가 **같은 날 뺐다.**
+  // 내가 9/20 판정을 지키려고 혼자 보류했는데, 사용자는 "다 가져오자"고 했고
+  // 나는 그 지시를 내 판단으로 덮었다. 오염은 §4-4 에 기록하고 페이지는 연결한다.
+  // 판정을 지키는 방법은 페이지를 숨기는 게 아니라 **무엇이 바뀌었는지 적는 것**이다.
+};
+
+/**
  * 동적 라우트를 실제 경로로 펴는 규칙.
  * 지금은 /compare/[slug] 하나뿐이다. 늘어나면 여기에 추가한다.
  */
@@ -144,7 +161,29 @@ const notInSitemap = [...routes].filter((r) => {
 });
 
 // ── 보고 ────────────────────────────────────────────────────
-const orphans = [...inbound].filter(([, v]) => v.length === 0).map(([k]) => k);
+/**
+ * 일부러 안 연결한 라우트는 실패에서 빼되 **화면에서 지우지 않는다.**
+ * 아래에서 이유와 함께 따로 찍는다 — 안 보이면 해제를 잊는다.
+ */
+/**
+ * ⚠️ 2026-09-12 — **면제가 낡아서 검사가 거짓말을 했다.**
+ *
+ * `/tier-list` 를 면제해 두고, 같은 날 다른 페이지에서 그 링크를 걸었다.
+ * 그런데 검사는 여전히 "일부러 연결 안 한 라우트"라고 찍었다 —
+ * 면제 목록에 있으면 **인바운드를 아예 안 봤기 때문**이다.
+ *
+ * 면제는 "지금 연결이 없다"는 상태에 붙은 것인데, 상태가 바뀌어도
+ * 딱지가 그대로 남았다. **조용히 틀린 상태** — 이 저장소의 단골 실패다.
+ *
+ * 그래서 **면제도 검사한다.** 링크가 실제로 생겼으면 면제를 지우라고 실패시킨다.
+ */
+const excused = Object.keys(INTENTIONALLY_UNLINKED).filter((r) => routes.has(r));
+const staleExcuses = excused.filter((r) => (inbound.get(r) ?? []).length > 0);
+const isExcused = (r) => Object.hasOwn(INTENTIONALLY_UNLINKED, r) && !staleExcuses.includes(r);
+
+const orphans = [...inbound]
+  .filter(([k, v]) => v.length === 0 && !isExcused(k))
+  .map(([k]) => k);
 const thin = [...inbound].filter(([, v]) => v.length === 1).map(([k, v]) => `${k}  ← ${v[0]}`);
 
 const bold = (s) => `\x1b[1m${s}\x1b[0m`;
@@ -164,9 +203,10 @@ if (broken.length) {
   for (const b of broken) console.log(`  ✗ ${b.to}  (${b.from})`);
   console.log();
 }
-if (notInSitemap.length) {
-  console.log(red(`sitemap 에 빠진 라우트 ${notInSitemap.length}개`));
-  for (const p of notInSitemap) console.log(`  ✗ ${p}`);
+const notInSitemapReal = notInSitemap.filter((p) => !isExcused(p));
+if (notInSitemapReal.length) {
+  console.log(red(`sitemap 에 빠진 라우트 ${notInSitemapReal.length}개`));
+  for (const p of notInSitemapReal) console.log(`  ✗ ${p}`);
   console.log();
 }
 if (thin.length) {
@@ -175,6 +215,29 @@ if (thin.length) {
   console.log();
 }
 
-const fail = orphans.length + broken.length + notInSitemap.length;
+/**
+ * 면제한 것을 **반드시 보여준다.** 조용히 빼면 해제 조건을 아무도 기억 못 한다.
+ * 이 저장소가 반복해서 당한 실패가 정확히 그것이다 — 조용히 지나가는 상태.
+ */
+if (staleExcuses.length) {
+  console.log(red(`낡은 면제 ${staleExcuses.length}개 — 이미 링크가 걸렸습니다`));
+  for (const r of staleExcuses) {
+    console.log(`  ✗ ${r}  ← ${(inbound.get(r) ?? []).join(", ")}`);
+  }
+  console.log(
+    dim("  INTENTIONALLY_UNLINKED 에서 빼고 sitemap 에 넣으세요. 안 그러면 검사가 거짓을 찍습니다.\n")
+  );
+}
+const stillExcused = excused.filter((r) => !staleExcuses.includes(r));
+if (stillExcused.length) {
+  console.log(dim(`일부러 연결 안 한 라우트 ${stillExcused.length}개 (실패 아님)`));
+  for (const r of stillExcused) {
+    console.log(dim(`  · ${r}`));
+    console.log(dim(`    ${INTENTIONALLY_UNLINKED[r]}`));
+  }
+  console.log();
+}
+
+const fail = orphans.length + broken.length + notInSitemapReal.length + staleExcuses.length;
 console.log(fail ? red(`실패 ${fail}건`) : green(`통과 — 고아 없음, 끊긴 링크 없음, sitemap 일치`));
 process.exit(fail ? 1 : 0);

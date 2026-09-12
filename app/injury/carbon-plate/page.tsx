@@ -6,6 +6,8 @@ import InlineAsk from "@/components/InlineAsk";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import TableOfContents from "@/components/TableOfContents";
 
 /**
  * 카본화 — 검색 수요 3위(카본화 관련 20%)에 답하는 페이지.
@@ -85,6 +87,13 @@ export default function CarbonPlatePage() {
         url={PAGE_URL}
         datePublished="2026-09-08"
       />
+      <ShoeJsonLd shoes={CARBON} name="카본 플레이트 러닝화" url={PAGE_URL} />
+      <BreadcrumbJsonLd
+        trail={[
+          ["부상 예방", "/injury"],
+          ["카본화", "/injury/carbon-plate"],
+        ]}
+      />
       <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
         <Link href="/injury" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
           ← 부상 예방
@@ -108,8 +117,19 @@ export default function CarbonPlatePage() {
           </p>
         </div>
 
+        <TableOfContents
+          items={[
+            { id: "evidence", label: "논문이 말한 것과 말하지 않은 것" },
+            { id: "pace", label: "4:17/km 이 어느 정도냐면" },
+            { id: "shoe-list", label: `확인한 카본화 ${CARBON.length}개와 가격` },
+            { id: "refs", label: "참고 문헌" },
+          ]}
+        />
+
         {/* ── 논문이 말한 것 / 말하지 않은 것 ───────────────── */}
-        <h2 className="mt-10 text-xl font-bold text-gray-900">논문이 말한 것과 말하지 않은 것</h2>
+        <h2 id="evidence" className="mt-10 text-xl font-bold text-gray-900">
+          논문이 말한 것과 말하지 않은 것
+        </h2>
         <p className="mt-2 text-sm text-gray-600">
           Hoogkamer et al. (2018) Sports Medicine 48:1009-1019
         </p>
@@ -138,10 +158,19 @@ export default function CarbonPlatePage() {
         </div>
 
         {/* ── 4:17/km 이 어느 정도인가 ──────────────────────── */}
-        <h2 className="mt-10 text-xl font-bold text-gray-900">4:17/km 이 어느 정도냐면</h2>
+        <h2 id="pace" className="mt-10 text-xl font-bold text-gray-900">
+          4:17/km 이 어느 정도냐면
+        </h2>
         <p className="mt-3 leading-relaxed text-gray-700">
           10km를 <strong>43분</strong>, 하프를 <strong>1시간 30분</strong>, 풀코스를{" "}
           <strong>3시간 1분</strong>에 완주하는 속도입니다.
+        </p>
+        <p className="mt-3 leading-relaxed text-gray-700">
+          지금 내가 어느 단계인지 모르겠다면{" "}
+          <Link href="/tier-list" className="font-medium text-emerald-600 hover:underline">
+            러닝화 계급도
+          </Link>
+          에서 칸별로 &ldquo;이런 사람에게&rdquo;를 적어 뒀습니다. 카본화는 마지막 칸입니다.
         </p>
         <p className="mt-3 leading-relaxed text-gray-700">
           이보다 느리게 달린다면 그 연구의 결과가 나에게 적용된다고 말할 근거가 없습니다.
@@ -156,7 +185,7 @@ export default function CarbonPlatePage() {
         />
 
         {/* ── 실제 가격 ────────────────────────────────────── */}
-        <h2 className="mt-10 text-xl font-bold text-gray-900">
+        <h2 id="shoe-list" className="mt-10 text-xl font-bold text-gray-900">
           이 사이트가 확인한 카본화 {CARBON.length}개
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-gray-600">
@@ -220,7 +249,9 @@ export default function CarbonPlatePage() {
           <FaqSection items={FAQ} />
         </div>
 
-        <h2 className="mt-10 text-xl font-bold text-gray-900">참고 문헌</h2>
+        <h2 id="refs" className="mt-10 text-xl font-bold text-gray-900">
+          참고 문헌
+        </h2>
         <ul className="mt-3 space-y-2 text-sm text-gray-700">
           <li>
             <strong>Hoogkamer et al. (2018)</strong> — 마라톤 레이싱화의 러닝 에너지 비용 비교.

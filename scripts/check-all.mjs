@@ -63,11 +63,17 @@ const CHECKS = [
   // 이 검사는 **id 가 실재하는지**만 실패로 잡고, 사람 확인이 안 된 항목은 세어서 알린다.
   // 클릭 확인 자체는 쿠팡 도메인이 차단돼 Claude 가 못 한다 — scripts/affiliate-check.mjs 참고.
   { name: "제휴링크", cmd: "node", args: ["scripts/affiliate-check.mjs"],              net: false },
+  // 앵커는 틀려도 404 도 콘솔 오류도 안 난다 — 눌러야만 안다. 그래서 검사가 본다.
+  { name: "목차앵커", cmd: "node", args: ["scripts/check-toc.mjs"],                    net: false },
+  // 대회 날짜는 사람이 참가비를 내고 이동하는 정보다. 좌표보다 세게 막는다.
+  { name: "대회일정", cmd: "node", args: ["scripts/check-races.mjs"],                  net: false },
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
   { name: "영상(실조회)",   cmd: "node", args: ["scripts/verify-youtube.mjs"],   net: true },
   { name: "구매링크(실조회)", cmd: "node", args: ["scripts/check-links.mjs"],    net: true },
   { name: "사진(실조회)",   cmd: "node", args: ["scripts/check-images.mjs"],     net: true },
+  // 접수처가 죽으면 대회가 끝났거나 주소가 바뀐 것이다. 주간 CI 가 잡는다.
+  { name: "대회접수처(실조회)", cmd: "node", args: ["scripts/check-races.mjs", "--live"], net: true },
 ];
 
 function run(c) {
