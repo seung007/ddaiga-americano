@@ -125,9 +125,18 @@ try {
 const RUN_LOG = join(OUT_DIR, "run.txt");
 const startedAt = new Date().toISOString();
 
+/**
+ * 실패해도 화면에 영향이 없는 요청 — 분석·측정 비콘.
+ * 이들은 fire-and-forget 이라 페이지를 닫을 때 취소되는 것이 **정상 동작**이다.
+ * 오류 목록에 넣으면 매 실행마다 뜨고, 그러면 사람이 목록 전체를 무시하게 된다.
+ */
+const BENIGN_FAIL =
+  /(google-analytics\.com|googletagmanager\.com|analytics\.google\.com|vitals\.vercel-insights\.com|va\.vercel-scripts\.com)/;
+
 const browser = await chromium.launch();
 const results = [];
 const consoleErrors = [];
+const benignFails = [];
 
 for (const vp of VIEWPORTS) {
   const ctx = await browser.newContext({
@@ -185,10 +194,27 @@ for (const vp of VIEWPORTS) {
      *
      * 그래서 버리지 않고 **표시만 한다.** 자르는 것은 읽는 쪽의 몫이다.
      */
-    const tag = why === "net::ERR_ABORTED" ? "중단됨(타임아웃에 딸려 취소된 것일 수 있음)" : why;
-    consoleErrors.push(
-      `[${vp.name}] 요청 실패 ${tag}\n    ${req.resourceType()}  ${req.url()}`
-    );
+    /**
+     * **무해한 실패를 오류로 찍지 않는다** (2026-09-12, 같은 날 두 번째 수정)
+     *
+     * URL 을 남기게 고치자마자 답이 나왔다 — 실패한 건 신발 사진이 아니라
+     * **GA4 의 `page_view` 비콘**이었다(`google-analytics.com/g/collect`).
+     * 분석 비콘은 fire-and-forget 이라 브라우저 컨텍스트를 닫을 때 취소되는 게
+     * 정상이다. 화면에는 아무 영향이 없다.
+     *
+     * 나는 이걸 "나이키 사진이 깨졌다"고 추측했고 **틀렸다.** URL 을 찍게
+     * 만들지 않았으면 멀쩡한 이미지를 되돌릴 뻔했다.
+     *
+     * 그런데 이대로 두면 매 실행마다 "오류 2종"이 뜬다. 그러면 사람이 곧
+     * 무시하게 되고, **진짜 실패가 섞여 들어와도 안 본다.**
+     * 이 저장소의 규칙과 같다 — *범위를 넓히면 오탐부터 잡아라.*
+     *
+     * 그래서 **버리지 않고 자리를 나눈다.** 무해한 것은 run.txt 하단에 개수와
+     * 함께 따로 적고, 오류 목록에는 넣지 않는다.
+     */
+    const line = `[${vp.name}] 요청 실패 ${why}\n    ${req.resourceType()}  ${req.url()}`;
+    if (BENIGN_FAIL.test(req.url())) benignFails.push(line);
+    else consoleErrors.push(line);
   });
 
   for (const t of targets) {
@@ -290,6 +316,11 @@ writeFileSync(
     ``,
     `# 브라우저 콘솔 오류 ${uniq.length}종 (전문)`,
     ...uniq.flatMap((e, i) => [`--- 오류 ${i + 1} ---`, e]),
+    ``,
+    // 무해한 실패는 **지우지 않고 자리를 나눈다.** 지우면 나중에
+    // "정말 아무 일도 없었나"를 확인할 방법이 사라진다.
+    `# 무해한 요청 실패 ${[...new Set(benignFails)].length}종 (분석 비콘 — 화면에 영향 없음)`,
+    ...[...new Set(benignFails)].map((e) => `  ${e.split("\n")[0]}  ${e.split("\n")[1]?.trim() ?? ""}`),
     ``,
   ].join("\n"),
   "utf8"
