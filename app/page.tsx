@@ -2,6 +2,7 @@ import Link from "next/link";
 import HomeCommunitySection from "@/components/HomeCommunitySection";
 import HeroBackdrop from "@/components/HeroBackdrop";
 import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
+import QuickAnswers from "@/components/QuickAnswers";
 import { SHOES } from "@/lib/shoes/data";
 
 /**
@@ -55,7 +56,10 @@ export default function Home() {
           콘텐츠에 relative를 줘야 배경(absolute) 위로 올라온다. */}
       <div className="relative overflow-hidden">
         <HeroBackdrop />
-        <section className="relative max-w-3xl mx-auto px-6 py-20 text-center">
+        {/* 2026-09-12: py-20 → py-12(모바일). 히어로가 80px씩 먹어서 바로 밑에 넣은
+            「답 바로가기」가 첫 화면 밖으로 밀렸다. 방문자의 80%가 390×812 다.
+            데스크톱은 여백이 있어야 읽히므로 sm 이상에서만 py-20 을 유지한다. */}
+        <section className="relative max-w-3xl mx-auto px-6 py-12 sm:py-20 text-center">
         {/* 2026-09-03: "광고비로 순서가 바뀌지 않는 데이터 기반 러닝화 추천"에서 바꿨다.
             그 문장에는 문제가 셋 있었다.
 
@@ -96,7 +100,13 @@ export default function Home() {
         </section>
       </div>
 
-      {/* 신발 띠 — 히어로 바로 밑.
+      {/* 답 바로가기 — 히어로 바로 밑.
+          2026-09-12: 네이버 유입 검색어의 73%가 브랜드 비교, 33%가 발 조건인데
+          홈 첫 화면에 그 입구가 하나도 없었다. 유일한 행동이 **폼 작성**이었다.
+          자세한 경위는 components/QuickAnswers.tsx 주석에. */}
+      <QuickAnswers />
+
+      {/* 신발 띠 — 답 바로가기 밑.
           2026-09-06: 홈에 신발 사진이 한 장도 없었다. 러닝화 추천 사이트에서.
           "어떻게 추천하나요?"(설명)보다 신발(실물)이 먼저 오는 게 맞다 —
           설명은 볼 것을 본 다음에 읽는다. */}
