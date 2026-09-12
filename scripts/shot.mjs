@@ -131,7 +131,20 @@ const startedAt = new Date().toISOString();
  * 오류 목록에 넣으면 매 실행마다 뜨고, 그러면 사람이 목록 전체를 무시하게 된다.
  */
 const BENIGN_FAIL =
-  /(google-analytics\.com|googletagmanager\.com|analytics\.google\.com|vitals\.vercel-insights\.com|va\.vercel-scripts\.com)/;
+  /(google-analytics\.com|googletagmanager\.com|analytics\.google\.com|vitals\.vercel-insights\.com|va\.vercel-scripts\.com|clarity\.ms|c\.bing\.com\/c\.gif)/;
+
+/**
+ * ⚠️ 2026-09-12 — 이 목록을 **한 번 더 늘렸다.** 남는 오류가 또 비콘이었다.
+ *
+ *   image  https://c.bing.com/c.gif?...&RedC=c.clarity.ms
+ *
+ * Microsoft Clarity 가 Bing 과 세션을 맞추는 픽셀이다. 화면과 무관하다.
+ *
+ * 목록을 늘릴 때마다 **진짜 실패를 덮을 위험**이 커진다. 그래서 규칙을 적어 둔다:
+ *   · 여기 넣어도 되는 것 — **실패해도 화면이 그대로인 것**(분석·측정 비콘)
+ *   · 넣으면 안 되는 것 — 이미지·폰트·스크립트처럼 **화면을 바꾸는 것**
+ * 판단이 애매하면 넣지 마라. 시끄러운 편이 조용히 틀린 것보다 낫다.
+ */
 
 const browser = await chromium.launch();
 const results = [];
