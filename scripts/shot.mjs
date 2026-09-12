@@ -155,6 +155,30 @@ for (const vp of VIEWPORTS) {
     consoleErrors.push(`[${vp.name}] ${String(e.stack ?? e.message)}`)
   );
 
+  /**
+   * **어느 자원이 실패했는지를 남긴다.** (2026-09-12 추가)
+   *
+   * 오늘 홈 캡처에서 이 한 줄만 나왔다:
+   *   `Failed to load resource: net::ERR_CONNECTION_RESET`
+   * **어느 URL인지가 없다.** 그러면 사람이 할 수 있는 건 추측뿐이다 —
+   * 내가 방금 바꾼 나이키 사진일 수도, 폰트일 수도, 광고 차단일 수도 있다.
+   *
+   * 브라우저 콘솔의 이 메시지는 원래 URL을 안 담는다. Playwright 의
+   * `requestfailed` 이벤트에는 있다. **묻고 싶은 것을 직접 물어야 한다.**
+   *
+   * 이 저장소의 기존 교훈과 같은 종류다 — `e.name` 만 찍어서 원인을 지웠던 일,
+   * `?? 0` 으로 없는 값을 통과시킨 일. **식별자가 빠진 실패 메시지는
+   * 실패를 알리기만 하고 고칠 수는 없게 만든다.**
+   */
+  page.on("requestfailed", (req) => {
+    const why = req.failure()?.errorText ?? "(사유 없음)";
+    // 사용자가 취소한 요청(네비게이션 중단)은 잡음이라 뺀다.
+    if (why === "net::ERR_ABORTED") return;
+    consoleErrors.push(
+      `[${vp.name}] 요청 실패 ${why}\n    ${req.resourceType()}  ${req.url()}`
+    );
+  });
+
   for (const t of targets) {
     const url = BASE + t.path;
     try {
