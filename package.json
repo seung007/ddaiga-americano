@@ -34,7 +34,8 @@
     "check:races": "node scripts/check-races.mjs",
     "check:races:live": "node scripts/check-races.mjs --live",
     "races:sweep": "node scripts/races-sweep.mjs",
-    "race:add": "node scripts/race-add.mjs"
+    "race:add": "node scripts/race-add.mjs",
+    "report": "node scripts/report.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
