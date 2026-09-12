@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { upcomingRaces, daysUntil, distanceLabel, type Race } from "@/lib/races";
+import { upcomingRaces, daysUntil, distanceLabel, sourceKind, type Race } from "@/lib/races";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import FinderCta from "@/components/FinderCta";
 
@@ -18,9 +18,9 @@ import FinderCta from "@/components/FinderCta";
 const PAGE_URL = "https://ddaiga-americano.vercel.app/races";
 
 export const metadata: Metadata = {
-  title: "마라톤 대회 일정 — 접수처 직접 확인 | 뛰다가 아메리카노",
+  title: "2026 마라톤 대회 일정 — 10·11월 접수중 대회 정리 | 뛰다가 아메리카노",
   description:
-    "전국 마라톤·러닝 대회 일정을 정리합니다. 모든 일정은 접수처 공식 주소를 직접 열어 확인한 날짜와 함께 싣습니다.",
+    "전국 마라톤·러닝 대회 일정을 접수 상태와 함께 정리했습니다. 각 대회의 확인 날짜와 출처를 그대로 표시합니다.",
   alternates: { canonical: "/races" },
 };
 
@@ -69,13 +69,18 @@ function RaceCard({ r }: { r: Race }) {
       {r.note && <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{r.note}</p>}
 
       <div className="mt-3 flex flex-wrap items-center gap-3">
+        {/* 공식이냐 모음이냐를 **버튼 글자에 담는다.** 눌러보고 알게 하지 않는다. */}
         <a
           href={r.sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+          className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+            sourceKind(r.sourceUrl) === "공식"
+              ? "bg-emerald-600 text-white hover:bg-emerald-700"
+              : "border border-gray-300 text-gray-700 hover:border-gray-400"
+          }`}
         >
-          접수처 ↗
+          {sourceKind(r.sourceUrl) === "공식" ? "대회 공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
         </a>
         {/* 언제 확인했는지를 숨기지 않는다 — 이 값이 신뢰의 전부다. */}
         <span className="text-xs text-gray-400">{r.checkedAt} 확인</span>
@@ -93,14 +98,18 @@ export default function RacesPage() {
       <main className="mx-auto max-w-3xl px-6 py-12 text-gray-800">
         <h1 className="text-3xl font-bold leading-tight text-gray-900">마라톤 대회 일정</h1>
         <p className="mt-3 leading-relaxed text-gray-600">
-          모든 일정은 <strong>접수처 공식 주소를 직접 열어 확인</strong>한 뒤 싣습니다.
-          확인한 날짜를 항목마다 적어 뒀습니다.
+          <strong>{races.length}개 대회</strong>를 확인한 날짜와 함께 싣습니다.
+          대부분은 일정 모음 사이트 <strong>KorMarathon</strong> 에서 확인했고, 일부는
+          대회 공식 사이트에서 직접 확인했습니다 — <strong>버튼에 어느 쪽인지 적어
+          뒀습니다.</strong>
         </p>
 
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
-          <strong>접수 전에 접수처에서 한 번 더 확인하세요.</strong> 대회 일정과 접수 기간은
-          주최 측 사정으로 바뀝니다. 저희는 확인한 날짜까지만 보증할 수 있고,{" "}
-          <strong>그 뒤의 변경은 알 수 없습니다.</strong>
+          <strong>접수 전에 대회 공식 사이트에서 한 번 더 확인하세요.</strong> 일정과 접수
+          기간은 주최 측 사정으로 바뀝니다. 저희는 확인한 날짜까지만 보증할 수 있고,{" "}
+          <strong>그 뒤의 변경은 알 수 없습니다.</strong> 실제로 MBN 서울마라톤은 모음
+          사이트에 &ldquo;마감&rdquo;으로 돼 있었지만 공식 사이트에는 추가 접수가 열려
+          있었습니다.
         </div>
 
         {races.length === 0 ? (
