@@ -41,6 +41,37 @@ export default function WideFootPage() {
           <p className="text-gray-500 text-sm">4분 읽기</p>
         </header>
 
+        {/**
+         * 먼저 결론 (2026-09-14 추가)
+         *
+         * 이 페이지가 받는 검색어는 **7개, 노출 373**이다 — 10km 다음으로 큰 덩어리.
+         *   2e 와이드 뜻 255 / 신발 2e 뜻 45 / 신발 와이드 뜻 33 / 런닝화 와이드 뜻 28 /
+         *   2e 4e 5 / 발볼 와이드 기준 5 / 발볼 규격 4 / 발볼 와이드 러닝화 3
+         *
+         * ⚠️ **제목·description 은 안 건드린다.** 「2e 와이드 뜻」이 9/25 판정 대상이다.
+         * 본문은 CTR 에 안 잡히므로 자유롭다.
+         *
+         * 고친 것: 제목이 「내 발볼 재는 법」을 약속하는데 **본문에 재는 법이 없었다.**
+         * 있던 건 "밑창 밖으로 삐져나오나", "물집이 생기나" 같은 간접 확인법이다.
+         * `/injury/midfoot` 과 정확히 같은 결함이었다 — 제목이 약속한 걸 본문이 안 준다.
+         */}
+        <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
+          <p className="mt-2 leading-relaxed text-emerald-900">
+            <strong>2E는 &ldquo;넓음&rdquo;, 4E는 &ldquo;매우 넓음&rdquo;입니다.</strong> 아무것도
+            안 적혀 있으면 D(표준)입니다. 길이가 아니라 <strong>폭</strong> 표시입니다.
+          </p>
+          <p className="mt-2 leading-relaxed text-emerald-900">
+            <strong>&ldquo;몇 mm부터 와이드&rdquo;라는 절대 기준은 없습니다.</strong> 같은 2E라도
+            브랜드마다 실제 너비가 다릅니다. 그래서 재고 나면{" "}
+            <strong>브랜드 사이즈표와 비교</strong>해야 합니다.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-emerald-800">
+            제일 빠른 판정법 — <strong>신발을 벗고 밑창을 보세요.</strong> 밑창 끝보다 발이
+            옆으로 삐져나와 있으면 폭이 좁은 겁니다.
+          </p>
+        </div>
+
         <p className="text-lg leading-relaxed mb-8 text-gray-700">
           달리고 나면 발이 붓고, 발 바깥쪽에 물집이 생기거나, 새끼발가락이 신발에 눌린다면
           발볼 규격이 안 맞는 것입니다. 달리기가 힘들어서가 아니라, 신발이 맞지 않아서 포기하는 경우가 생각보다 많습니다.
@@ -102,6 +133,37 @@ export default function WideFootPage() {
                 <p className="text-gray-700 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/**
+         * 발볼 재는 법 (2026-09-14 추가)
+         *
+         * 검색어 「발볼 와이드 기준」이 들어오는데 본문에 **재는 방법이 없었다.**
+         * 제목은 「내 발볼 재는 법」이라고 적혀 있다.
+         *
+         * ⚠️ **mm 기준 숫자를 쓰지 않았다.** 브랜드마다 같은 2E의 실제 너비가
+         * 다르고, 내가 기억으로 표를 만들면 그건 지어낸 숫자가 된다.
+         * 이 저장소는 브랜드 URL 을 지어냈다가 잡힌 이력이 있다(Revel 7 사고).
+         * 그래서 **재는 법만 주고 기준은 브랜드 사이즈표로 보낸다.** 그게 실제로도 정답이다.
+         */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">발볼을 실제로 재는 법</h2>
+          <p className="leading-relaxed text-gray-700 mb-4">
+            종이 한 장과 자만 있으면 됩니다. <strong>저녁에 재세요</strong> — 발은 하루 동안
+            붓기 때문에 아침에 재면 실제보다 작게 나옵니다.
+          </p>
+          <ol className="space-y-2 list-decimal list-inside leading-relaxed text-gray-700">
+            <li>바닥에 종이를 놓고 그 위에 <strong>서서</strong> 체중을 싣습니다 (앉아서 재면 좁게 나옵니다)</li>
+            <li>발 윤곽을 연필로 그립니다. 연필은 바닥과 <strong>수직</strong>으로 세웁니다</li>
+            <li>발볼이 가장 넓은 곳 — <strong>엄지발가락 아래 튀어나온 뼈에서 새끼발가락 아래 뼈까지</strong> 가로로 잽니다</li>
+            <li>양발 다 재서 <strong>더 넓은 쪽</strong>을 씁니다. 좌우가 다른 게 정상입니다</li>
+          </ol>
+          <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
+            <strong>잰 숫자를 어디에 쓰나</strong> — 절대 기준은 없습니다. 사려는 브랜드의
+            사이즈표(보통 &ldquo;Width Guide&rdquo; 또는 &ldquo;발 너비&rdquo;)에서 내 발 길이에
+            해당하는 줄을 찾아 비교하세요. <strong>같은 2E라도 뉴발란스와 아식스의 실제 너비가
+            다릅니다.</strong>
           </div>
         </section>
 
