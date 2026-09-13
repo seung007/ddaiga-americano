@@ -34,7 +34,29 @@ export default function Page() {
         </section>
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">10분 정적 스트레칭 루틴</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">① 종아리 벽 스트레칭 30초×2 → ② 햄스트링 (서서 앞으로 굽히기) 30초×2 → ③ 고관절 굴근 (런지 자세 유지) 30초×2 → ④ 장경인대 (다리 꼬아 옆으로 기울기) 30초×2 → ⑤ 엉덩이 (누워서 무릎 당기기) 30초×2. 통증이 아닌 당기는 느낌에서 멈추세요.</p>
+          {/**
+           * 2026-09-13 — 문단 하나였던 것을 목록으로 쪼갰다.
+           *
+           * 원문은 `① … → ② … → ③ …` 이 `<p>` 하나에 들어 있었다.
+           * `whitespace-pre-line` 은 붙어 있었지만 **실제 줄바꿈 문자가 없어서**
+           * 화면에서는 그냥 한 덩어리로 흘렀다.
+           *
+           * 초·세트는 원래 다 적혀 있었다. **정보는 있는데 형태가 없었다.**
+           * 스트레칭을 따라 하려고 폰을 든 사람이 지금 몇 번째인지 못 찾는다.
+           * 네이버 유입의 79.55%가 모바일이다.
+           *
+           * 문구는 한 글자도 바꾸지 않았다. `→` 와 `①②③` 을 `<li>` 로 옮겼을 뿐이다.
+           */}
+          <ol className="space-y-2 list-decimal list-inside leading-relaxed text-gray-700">
+            <li>종아리 벽 스트레칭 — <strong>30초 × 2</strong></li>
+            <li>햄스트링 (서서 앞으로 굽히기) — <strong>30초 × 2</strong></li>
+            <li>고관절 굴근 (런지 자세 유지) — <strong>30초 × 2</strong></li>
+            <li>장경인대 (다리 꼬아 옆으로 기울기) — <strong>30초 × 2</strong></li>
+            <li>엉덩이 (누워서 무릎 당기기) — <strong>30초 × 2</strong></li>
+          </ol>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            통증이 아닌 <strong>당기는 느낌</strong>에서 멈추세요.
+          </p>
         </section>
 
         <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다 — 러닝화 수명은 보통 500~800km입니다." />
