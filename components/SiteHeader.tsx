@@ -38,7 +38,7 @@ export default function SiteHeader() {
          */}
         <nav className="flex items-center gap-3 sm:gap-5">
           <Link href="/injury" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
-            부상 예방
+            러닝 가이드
           </Link>
           <Link href="/courses" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
             코스

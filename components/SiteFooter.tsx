@@ -14,7 +14,7 @@ export default function SiteFooter() {
                 푸터에 없으면 작은 화면에서 접근 경로가 아예 사라지므로 여기에 추가한다. */}
             <Link href="/shoe-finder" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">신발 찾기</Link>
             <Link href="/tools"       className="text-xs text-gray-500 hover:text-gray-800 transition-colors">계산기</Link>
-            <Link href="/injury"      className="text-xs text-gray-500 hover:text-gray-800 transition-colors">부상 예방</Link>
+            <Link href="/injury"      className="text-xs text-gray-500 hover:text-gray-800 transition-colors">러닝 가이드</Link>
             <Link href="/courses"     className="text-xs text-gray-500 hover:text-gray-800 transition-colors">한강 코스</Link>
             <Link href="/community"   className="text-xs text-gray-500 hover:text-gray-800 transition-colors">Q&amp;A</Link>
             <a href="https://blog.naver.com/coffee_study_" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">블로그</a>

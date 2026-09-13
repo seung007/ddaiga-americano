@@ -200,7 +200,7 @@ export default function Home() {
             {/* 부상 예방 가이드 */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-gray-900">부상 예방 가이드</h2>
+                <h2 className="text-xl font-bold text-gray-900">러닝 가이드</h2>
                 <Link href="/injury" className="text-sm text-emerald-600 hover:underline">전체 보기 →</Link>
               </div>
               <div className="flex flex-col gap-3">

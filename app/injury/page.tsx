@@ -108,11 +108,23 @@ export default function InjuryListPage() {
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
       <header className="mb-8">
-        <p className="text-sm font-medium text-emerald-600 mb-2">부상 예방 · 스트레칭 · 주법 · 런닝 이야기</p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">달리다가 아프지 않으려면</h1>
+        {/**
+         * 2026-09-13 — 이름을 「부상 예방」에서 「러닝 가이드」로 넓혔다.
+         *
+         * 세어 보니 21개 글 중 **부상 글은 5개(24%)** 였다. 나머지는 훈련·대회 준비(5),
+         * 발·신발(3), 주법·자세(3), 준비운동·회복(3), 인물(2)이다.
+         * 메뉴에 「부상 예방」이라고 적어 놓고 안에 10km 준비와 페이스 전략을 넣어 뒀다.
+         *
+         * ⚠️ **주소(`/injury`)는 그대로 둔다.** 네이버 유입 상위 문서 10개가 전부
+         * 이 경로다. 주소를 바꾸면 쌓인 순위가 날아간다. 보이는 이름만 바꾼다.
+         *
+         * 개별 글 제목도 안 건드린다 — 실제로 부상 글인 것들은 이름이 맞다.
+         * 틀린 건 허브와 메뉴뿐이었다.
+         */}
+        <p className="text-sm font-medium text-emerald-600 mb-2">훈련 · 주법 · 부상 · 회복</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">러닝 가이드</h1>
         <p className="text-gray-600 leading-relaxed">
-          연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent 2007).
-          경력 단계에 맞는 정보를 선택하세요.
+          처음 10km를 준비하는 것부터 무릎이 아플 때 뭘 해야 하는지까지, 경력 단계에 맞춰 모았습니다.
         </p>
         <div className="mt-3 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
           <span className="text-emerald-600">✓</span>

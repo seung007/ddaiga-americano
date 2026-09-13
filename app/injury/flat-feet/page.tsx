@@ -99,13 +99,13 @@ export default function FlatFeetPage() {
       />
       <BreadcrumbJsonLd
         trail={[
-          ["부상 예방", "/injury"],
+          ["러닝 가이드", "/injury"],
           ["평발 러닝화", "/injury/flat-feet"],
         ]}
       />
       <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
         <Link href="/injury" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
-          ← 부상 예방
+          ← 러닝 가이드
         </Link>
 
         <h1 className="text-3xl font-bold leading-tight text-gray-900">

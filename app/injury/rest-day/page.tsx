@@ -13,7 +13,7 @@ export default function Page() {
     <>
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
-          ← 부상 예방 가이드
+          ← 러닝 가이드
         </Link>
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full mb-3">회복</span>
