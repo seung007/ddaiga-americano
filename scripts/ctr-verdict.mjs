@@ -41,6 +41,28 @@
  */
 
 /**
+ * ⚠️ 판정일 방어 (2026-09-13 추가)
+ *
+ * 네이버 공식 가이드 「콘텐츠 노출 및 클릭」:
+ *   *"노출·클릭 정보의 업데이트 기준일은 1주 전의 검색 데이터를 기준으로 산정되며,
+ *     최근 7일치를 조회하면 현재일로부터 2주 전 ~ 3주 전 데이터를 보는 셈"*
+ *   https://searchadvisor.naver.com/guide/report-expose-ctr
+ *
+ * **제목을 8/28 에 바꿨는데 판정일을 9/14 로 잡은 것이 잘못이었다.**
+ * 9/14 에 보이는 가장 최근 데이터는 8/31 언저리다. 제목 변경 후 데이터가
+ * 사흘치뿐이다. 그 숫자로 판정하면 **바꾸기 전 성적을 보고 "제목이 안 먹혔다"** 고
+ * 결론 내게 된다. 실험을 죽이는 가장 조용한 방법이다.
+ *
+ * 이 저장소의 기존 실수와 같은 모양이다 — 프록시를 답으로 썼다.
+ * 알고 싶은 건 "제목 바꾼 뒤의 CTR"인데 "화면에 보이는 CTR"을 물었다.
+ *
+ * 그래서 날짜를 검사한다. 데이터가 덜 찼으면 **판정을 거부한다.**
+ */
+const CHANGE_DATE = "2026-08-28"; // 제목 교체일 (유입_설정_기준선.md §2)
+const LAG_DAYS = 14; // 네이버 시차. 2~3주 중 짧은 쪽을 써서 보수적으로 본다
+const NEED_DAYS = 21; // 최소 3주치는 쌓여야 클릭 수가 의미를 갖는다
+
+/**
  * 기준선 — `유입_설정_기준선.md` §3 (2026-08-28 측정, 30일치)
  * 이 값은 **고치지 않는다.** 고치면 실험이 사라진다.
  */
@@ -74,6 +96,41 @@ function poissonAtLeast(k, lambda) {
 }
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith("-"));
+const force = process.argv.includes("--force");
+
+/** 오늘(KST) 기준으로 제목 변경 후 며칠치가 화면에 보이는가 */
+function visibleDaysSinceChange() {
+  const todayKst = new Date(Date.now() + 9 * 3_600_000);
+  const latestVisible = new Date(todayKst.getTime() - LAG_DAYS * 86_400_000);
+  const change = new Date(CHANGE_DATE + "T00:00:00Z");
+  return Math.floor((latestVisible - change) / 86_400_000);
+}
+
+const visible = visibleDaysSinceChange();
+if (visible < NEED_DAYS) {
+  const readyOn = new Date(
+    new Date(CHANGE_DATE + "T00:00:00Z").getTime() + (NEED_DAYS + LAG_DAYS) * 86_400_000
+  )
+    .toISOString()
+    .slice(0, 10);
+  console.log(`
+${red(bold("판정하지 마세요 — 데이터가 아직 안 찼습니다."))}
+
+  제목 교체일        ${CHANGE_DATE}
+  네이버 데이터 시차   약 ${LAG_DAYS}일 ${dim("(공식 가이드: 2~3주)")}
+  ${bold(`지금 보이는 건 제목 바꾼 뒤 ${visible < 0 ? 0 : visible}일치`)}입니다. ${dim(`최소 ${NEED_DAYS}일 필요`)}
+
+  ${yellow("지금 화면의 숫자는 대부분 '제목 바꾸기 전' 성적입니다.")}
+  ${yellow("그걸로 판정하면 제목이 안 먹혔다는 결론이 자동으로 나옵니다.")}
+
+  ${green(`판정 가능일: ${readyOn} 이후`)}
+
+  ${dim("그래도 지금 숫자를 보고 싶으면 --force 를 붙이세요.")}
+  ${dim("단, 그 출력은 판정이 아니라 참고입니다.")}
+`);
+  if (!force) process.exit(2);
+  console.log(red("  --force 로 진행합니다. 아래는 판정이 아닙니다.\n"));
+}
 
 if (args.length !== 3) {
   console.log(`
@@ -84,7 +141,11 @@ ${bold("9/14 제목 실험 판정")}
   npm run ctr:verdict -- ${green("<미드풋>")} ${green("<2e 와이드 뜻>")} ${green("<초보 러너 뛰는법>")}
   ${dim("각 인수는 노출,클릭 형식입니다.")}
 
-  ${dim("예)")} npm run ctr:verdict -- 340,7 120,2 80,2
+  ${dim("형식)")} npm run ctr:verdict -- ${dim("노출,클릭  노출,클릭  노출,클릭")}
+
+  ${red("⚠ 예시 숫자를 넣지 마세요.")} ${dim("그럴듯한 예시를 적어 두면 그게 그대로")}
+  ${dim("  문서에 붙습니다. 실제로 한 번 그럴 뻔했습니다 (2026-09-13).")}
+  ${dim("  서치어드바이저 화면의 값만 넣으세요.")}
 
 ${bold("기준선 (2026-08-28, 30일)")}
 ${BASELINE.map(
