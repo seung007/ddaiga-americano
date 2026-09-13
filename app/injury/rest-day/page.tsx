@@ -25,17 +25,77 @@ export default function Page() {
           </div>
         </header>
         <p className="text-lg leading-relaxed mb-8 text-gray-700">쉬는 날 아무것도 안 하면 근육이 굳어 다음 훈련이 더 힘들어집니다. 연구에 따르면 저강도 유산소 운동(심박수 최대치의 50~60%)은 완전 휴식보다 회복을 20~30% 빠르게 합니다.</p>
+        {/**
+         * ⚠️ 2026-09-14 — **본문이 자기 인용과 반대로 말하고 있었다.**
+         *
+         * 원문: *"혈류가 유지되면 근육의 젖산이 더 빠르게 제거되고, 염증 반응이 줄어듭니다."*
+         * 그런데 이 페이지가 아래 참고자료에 달아 둔 논문은 정반대다 —
+         * Zouhal et al. (2024) 체계적 고찰은 **능동회복과 수동휴식의 효과 차이를
+         * 확인하지 못했다.**
+         *
+         * 근거를 달아 놓고 그 근거가 부정한 주장을 본문에 쓴 것이다.
+         * 이 저장소는 인용 21건 중 14건이 틀려서 전수 정정한 이력이 있는데,
+         * 이건 **링크는 맞고 문장이 틀린** 경우라 그 검사에 안 걸렸다.
+         *
+         * 새 주장으로 바꾸지 않았다. 근거 없는 문장을 **빼고**, 논문이 실제로
+         * 말한 것을 적었다. 젖산 관련 서술은 대체 주장 없이 삭제했다.
+         */}
+        <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
+          <p className="mt-2 leading-relaxed text-emerald-900">
+            <strong>쉬는 날 꼭 뭘 해야 하는 건 아닙니다.</strong> 가볍게 움직이는 쪽이
+            완전히 눕는 쪽보다 낫다는 증거는 <strong>생각보다 약합니다.</strong>
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-emerald-800">
+            몸이 뻣뻣하면 20~30분 걷는 정도로 충분합니다. <strong>숨이 차면 그건 휴식이 아닙니다.</strong>
+          </p>
+        </div>
+
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">액티브 리커버리란?</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">격렬한 운동 다음 날, 몸을 완전히 쉬는 대신 가벼운 활동으로 혈류를 유지하는 방법입니다. 혈류가 유지되면 근육의 젖산이 더 빠르게 제거되고, 염증 반응이 줄어듭니다.</p>
+          <p className="leading-relaxed text-gray-700 mb-4">
+            격렬한 운동 다음 날, 몸을 완전히 쉬는 대신 가벼운 활동으로 혈류를 유지하는 방법입니다.
+          </p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
+            <strong>다만 효과가 증명된 건 아닙니다.</strong> 3주 이상 인터벌 훈련에서
+            능동회복과 완전휴식을 비교한 체계적 고찰(Zouhal 2024, 아래 참고자료)은{" "}
+            <strong>체력 향상에서 둘의 차이를 확인하지 못했습니다.</strong>
+            <br />
+            <br />
+            그러니 &ldquo;이걸 해야 회복이 빠르다&rdquo;가 아니라{" "}
+            <strong>&ldquo;쉬는 날 몸이 뻣뻣하면 가볍게 움직여도 된다&rdquo;</strong> 정도로
+            보는 게 맞습니다.
+          </div>
         </section>
+
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">휴식일 추천 활동</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">① 20~30분 빠른 걷기 (대화 가능한 속도) → ② 수영 또는 아쿠아 조깅 → ③ 자전거 가볍게 타기 → ④ 요가 또는 필라테스. 핵심은 숨이 차지 않는 강도입니다. 달리기는 하지 않습니다.</p>
+          {/* 2026-09-14: 「① → ② → ③」이 한 문단이던 것을 목록으로. 문구는 유지. */}
+          <ol className="space-y-2 list-decimal list-inside leading-relaxed text-gray-700">
+            <li><strong>빠른 걷기 20~30분</strong> — 대화가 가능한 속도로</li>
+            <li><strong>수영</strong> 또는 아쿠아 조깅</li>
+            <li><strong>자전거</strong> 가볍게 타기</li>
+            <li><strong>요가</strong> 또는 필라테스</li>
+          </ol>
+          <p className="mt-3 leading-relaxed text-gray-700">
+            핵심은 <strong>숨이 차지 않는 강도</strong>입니다. 달리기는 하지 않습니다.
+          </p>
         </section>
+
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">완전 휴식이 필요한 신호</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">극심한 피로, 수면 장애, 안정시 심박수 평소보다 7회 이상 상승, 달리기 의욕 완전 소실 — 이 4가지 중 2개 이상이면 오버트레이닝 신호입니다. 이때는 2~3일 완전 휴식이 필요합니다.</p>
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-5">
+            <p className="text-sm leading-relaxed text-red-900 mb-2">아래 <strong>4가지 중 2개 이상</strong>이면 오버트레이닝 신호입니다.</p>
+            <ul className="space-y-1.5 text-sm leading-relaxed text-red-900">
+              <li>· 극심한 피로</li>
+              <li>· 수면 장애</li>
+              <li>· <strong>안정시 심박수가 평소보다 7회 이상</strong> 높다</li>
+              <li>· 달리기 의욕이 완전히 사라졌다</li>
+            </ul>
+            <p className="mt-2 text-sm leading-relaxed text-red-900">
+              이때는 <strong>2~3일 완전 휴식</strong>이 필요합니다. 가벼운 활동도 하지 마세요.
+            </p>
+          </div>
         </section>
 
         <section className="mb-6">
