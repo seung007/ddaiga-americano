@@ -24,12 +24,47 @@ export default function Page() {
           {/* h1은 <title>과 같은 말을 해야 한다. 검색결과에서 "미드풋 착지란?"을 보고 들어왔는데
               화면에 "무조건 좋은 게 아닌 이유"가 있으면 약속한 답이 아니라 반박부터 만나게 된다. */}
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">미드풋 착지란? 힐스트라이크와 차이</h1>
-          <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
+          {/* 2026-09-13: 「5분 읽기」였는데 본문이 590자였다 — 어떤 속도를 넣어도 1분대다.
+              부풀린 기대는 그 자체가 이탈 사유다. 실측 글자수에 맞춘다. */}
+          <p className="text-gray-500 text-sm mb-4">2분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 공개 연구 및 의학 자료 기반
           </div>
         </header>
+        {/**
+         * 먼저 결론 (2026-09-13 추가)
+         *
+         * 감사에서 나온 것: **이 페이지에 "미드풋이 무엇인가"가 없었다.**
+         * 제목은 「미드풋 착지란?」이라고 정의를 약속하는데, 첫 문단은
+         * "힐스트라이크로 달리면 무릎이 망가진다는 말"로 시작하고
+         * 첫 h2는 "착지법 연구 현황"이었다. 본문 어디에도 정의가 없었다.
+         *
+         * 「미드풋」은 이 사이트 노출 1위 검색어다(30일 351회). 그런데 CTR 0.6%로
+         * 꼴찌다. 제목은 8/28에 이미 한 번 바꿨고 CTR은 0.6% 그대로였다.
+         * **제목은 더 만지지 않는다** — 9/25 판정 전까지 실험을 지켜야 하고,
+         * 두 번 바꿔서 안 움직인 레버를 세 번째 당길 이유도 없다.
+         *
+         * 대신 약속을 지킨다. 검색한 사람이 찾던 한 문장을 맨 위에 둔다.
+         * 이 패턴은 `/injury/flat-feet` 에 이미 있었는데 9개 페이지가 안 쓰고 있었다.
+         */}
+        <div className="mt-6 mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
+          <p className="mt-2 leading-relaxed text-emerald-900">
+            <strong>미드풋 착지는 발바닥 중간이 먼저 땅에 닿는 방식</strong>입니다.
+            뒤꿈치부터 닿으면 힐스트라이크, 앞꿈치부터 닿으면 포어풋입니다.
+          </p>
+          <p className="mt-2 leading-relaxed text-emerald-900">
+            <strong>그리고 초보라면 굳이 바꾸지 않아도 됩니다.</strong> 연구가 말하는
+            핵심은 착지 부위가 아니라 <strong>발이 몸보다 앞에서 닿는지</strong>입니다.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-emerald-800">
+            바꾸고 싶다면 착지법을 직접 건드리지 말고{" "}
+            <strong>케이던스(분당 걸음 수)를 지금보다 5~10% 올리세요.</strong> 보폭이
+            저절로 줄면서 교정됩니다. 억지로 미드풋으로 바꾸면 아킬레스건이 아픕니다.
+          </p>
+        </div>
+
         <p className="text-lg leading-relaxed mb-8 text-gray-700">"힐스트라이크로 달리면 무릎이 망가진다"는 말, 한 번쯤 들어보셨을 겁니다. 하지만 2023년 기준 스포츠의학 연구들은 착지 방식 자체보다 '착지 위치'가 더 중요하다고 말합니다.</p>
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">착지법 연구 현황</h2>

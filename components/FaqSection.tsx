@@ -28,8 +28,26 @@ export default function FaqSection({ items }: { items: FaqItem[] }) {
     <section className="mb-8">
       <h2 className="text-xl font-bold text-gray-900 mb-4">자주 묻는 질문</h2>
       <div className="flex flex-col gap-3">
-        {items.map((i) => (
-          <details key={i.q} className="rounded-xl border border-gray-200 bg-white px-4 py-3">
+        {items.map((i, idx) => (
+          <details
+            key={i.q}
+            /**
+             * 첫 항목만 펼쳐 둔다 (2026-09-13).
+             *
+             * 감사에서 나온 것: **FAQ 답변이 본문보다 구체적인 경우가 많다.**
+             * `/injury/midfoot` 본문에는 없는 실행 지시("케이던스를 5~10% 높이세요")가
+             * FAQ 안에만 있었다. 그런데 이 블록은 논문 목록과 유튜브 아래에,
+             * 그것도 **전부 접힌 채로** 있었다.
+             *
+             * 네이버 유입의 79.55%가 모바일이다. 영상 8개를 지나 접힌 상자를
+             * 열어 볼 사람은 없다. 좋은 답을 써 놓고 안 보이게 둔 것이다.
+             *
+             * 전부 펼치지 않는 이유 — 그러면 목록의 훑어보기 기능이 사라진다.
+             * 하나만 펼쳐 두면 "여기 답이 들어 있다"는 신호가 되면서 목록도 남는다.
+             */
+            open={idx === 0}
+            className="rounded-xl border border-gray-200 bg-white px-4 py-3"
+          >
             <summary className="cursor-pointer font-semibold text-sm text-gray-900 hover:text-emerald-700">
               {i.q}
             </summary>

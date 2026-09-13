@@ -31,7 +31,7 @@ const LEVEL_GUIDES = [
 
 const ARTICLES = [
   { href: "/injury/it-band",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "장경인대염 초기 대처법 3가지",              desc: "달릴 때마다 무릎 바깥쪽이 아프다면? 초기에 잡는 방법.", readTime: "5분" },
-  { href: "/injury/wide-foot",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "발볼",    tagColor: "text-blue-600 bg-blue-50",   title: "발볼 넓은 러너 와이드 규격 총정리",           desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분" },
+  { href: "/injury/wide-foot",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "발볼",    tagColor: "text-blue-600 bg-blue-50",   title: "2E·4E 와이드 뜻과 내 발볼 재는 법",           desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분" },
   // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데
   // 평발을 다루는 페이지가 하나도 없었다 — 가장 많이 묻는 것에 답이 없었다.
   { href: "/injury/flat-feet",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "평발",    tagColor: "text-blue-600 bg-blue-50",   title: "평발 러닝화, 안정화화가 정답일까",            desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "5분" },
@@ -46,7 +46,7 @@ const ARTICLES = [
   { href: "/injury/cooldown",   level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "쿨다운",  tagColor: "text-teal-600 bg-teal-50",   title: "달리기 후 꼭 해야 할 10분 정적 스트레칭",      desc: "종아리·햄스트링·엉덩이까지 풀어주는 쿨다운 루틴.", readTime: "4분" },
   { href: "/injury/rest-day",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "회복",    tagColor: "text-indigo-600 bg-indigo-50","title": "휴식일에 뭘 해야 할까? 액티브 리커버리",     desc: "쉬는 날 완전히 누워 있는 것보다 가벼운 움직임이 회복을 빠르게 합니다.", readTime: "3분" },
   { href: "/injury/cadence",    level: "🔴 숙련자",  levelColor: "bg-red-100 text-red-700",     tag: "케이던스", tagColor: "text-purple-600 bg-purple-50","title": "케이던스 180은 거짓말? 키별 적정 기준값",  desc: "\"180 spm이 정답\"이라는 획일적 조언, 왜 틀렸는지 설명합니다.", readTime: "5분" },
-  { href: "/injury/midfoot",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "착지법",  tagColor: "text-violet-600 bg-violet-50","title": "미드풋 착지, 무조건 좋은 게 아닌 이유",    desc: "힐스트라이크가 나쁜 게 아닙니다. 초보에게 맞는 착지법.", readTime: "5분" },
+  { href: "/injury/midfoot",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "착지법",  tagColor: "text-violet-600 bg-violet-50","title": "미드풋 착지란? 힐스트라이크와 차이",       desc: "발 중간으로 닿는 방식입니다. 초보가 바꿔야 하는지까지.", readTime: "2분" },
   { href: "/injury/posture",    level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "자세",    tagColor: "text-cyan-600 bg-cyan-50",   title: "달리기 자세 체크리스트 — 어깨·팔·시선",       desc: "상체 자세가 하체 부상에 영향을 준다는 사실, 알고 계셨나요?", readTime: "4분" },
   { href: "/injury/hwang-young-jo", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 달리기 철학 — 고통을 읽는 것",       desc: "1992 바르셀로나 금메달리스트의 훈련 철학.", readTime: "6분" },
   { href: "/injury/kwon-eun-ju", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700",    tag: "권은주", tagColor: "text-pink-600 bg-pink-50",   title: "권은주 선수에게 배우는 여성 러너 부상 예방",   desc: "한국 여자 마라톤을 이끌어온 권은주 선수의 훈련 방식.", readTime: "6분" },
