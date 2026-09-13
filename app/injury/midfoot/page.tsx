@@ -25,8 +25,8 @@ export default function Page() {
               화면에 "무조건 좋은 게 아닌 이유"가 있으면 약속한 답이 아니라 반박부터 만나게 된다. */}
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">미드풋 착지란? 힐스트라이크와 차이</h1>
           {/* 2026-09-13: 「5분 읽기」였는데 본문이 590자였다 — 어떤 속도를 넣어도 1분대다.
-              부풀린 기대는 그 자체가 이탈 사유다. 실측 글자수에 맞춘다. */}
-          <p className="text-gray-500 text-sm mb-4">2분 읽기</p>
+              2026-09-14: 비교표·확인법을 넣어 1,604자. 분당 500자로 3분. */}
+          <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 공개 연구 및 의학 자료 기반
@@ -64,6 +64,88 @@ export default function Page() {
             저절로 줄면서 교정됩니다. 억지로 미드풋으로 바꾸면 아킬레스건이 아픕니다.
           </p>
         </div>
+
+        {/**
+         * 세 착지법 비교표 (2026-09-14 추가)
+         *
+         * 벤치마킹에서 나온 것: Google 「2e 와이드 뜻」 상위 문서 중
+         * **본문 최상단이 표인 문서가 검색 스니펫을 표로 가져가고 있었다.**
+         * 그리고 「미드풋」 SERP 최상단은 이미지 팩이고 8건 중 3건이 영상인데,
+         * 이 페이지는 **이미지 0장 · 표 0개**였다.
+         *
+         * ⚠️ 이 표에 **새로운 주장을 넣지 않았다.** 전부 이 페이지와 `/injury/achilles`
+         * 에 이미 인용과 함께 있던 내용을 한 자리에 모은 것이다:
+         *   · 뒤꿈치 착지 → 무릎·슬개대퇴 부하 높음 (Almeida 2015, 아래 참고자료)
+         *   · 미드풋 전환 → 종아리·아킬레스건 부하 증가 (achilles 페이지)
+         * 밑창 닳는 위치는 관찰로 확인 가능한 사실이다.
+         */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">힐스트라이크 · 미드풋 · 포어풋 차이</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-gray-200 text-left">
+                  <th className="py-2 pr-3 font-semibold text-gray-900">착지법</th>
+                  <th className="py-2 pr-3 font-semibold text-gray-900">먼저 닿는 곳</th>
+                  <th className="py-2 pr-3 font-semibold text-gray-900">밑창이 닳는 곳</th>
+                  <th className="py-2 font-semibold text-gray-900">부하가 몰리는 곳</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-700">
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 pr-3 font-medium text-gray-900">힐스트라이크</td>
+                  <td className="py-2 pr-3">뒤꿈치</td>
+                  <td className="py-2 pr-3">뒤꿈치 바깥쪽</td>
+                  <td className="py-2">무릎</td>
+                </tr>
+                <tr className="border-b border-gray-100 bg-violet-50">
+                  <td className="py-2 pr-3 font-medium text-gray-900">미드풋</td>
+                  <td className="py-2 pr-3">발바닥 중간</td>
+                  <td className="py-2 pr-3">중간~앞쪽이 고르게</td>
+                  <td className="py-2">종아리 · 아킬레스건</td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-3 font-medium text-gray-900">포어풋</td>
+                  <td className="py-2 pr-3">앞꿈치</td>
+                  <td className="py-2 pr-3">앞쪽</td>
+                  <td className="py-2">종아리 · 아킬레스건</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            <strong>어느 쪽이 더 좋다는 표가 아닙니다.</strong> 부하가 사라지는 게 아니라
+            <strong> 옮겨 갑니다.</strong> 무릎에서 덜고 아킬레스건에 얹는 것입니다.
+          </p>
+        </section>
+
+        {/* 「미드풋」 검색자가 다음으로 묻는 것 — 그럼 나는 지금 뭘로 뛰고 있나 */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">내가 지금 뭘로 착지하는지 확인하는 법</h2>
+          <div className="space-y-3">
+            <div className="rounded-xl border border-gray-200 p-4">
+              <p className="font-semibold text-gray-900 text-sm mb-1">1. 신발 밑창을 본다 (제일 쉬움)</p>
+              <p className="text-sm leading-relaxed text-gray-700">
+                200km 이상 신은 러닝화를 뒤집어 보세요. <strong>뒤꿈치 바깥쪽만 닳아 있으면
+                힐스트라이크</strong>입니다. 그렇다고 잘못 뛰고 있는 건 아닙니다.
+              </p>
+            </div>
+            <div className="rounded-xl border border-gray-200 p-4">
+              <p className="font-semibold text-gray-900 text-sm mb-1">2. 옆에서 영상을 찍는다</p>
+              <p className="text-sm leading-relaxed text-gray-700">
+                누군가에게 옆에서 슬로우모션으로 찍어 달라고 하세요. 요즘 폰은 대부분 됩니다.
+                발이 <strong>몸보다 앞에서 닿는지</strong>를 보세요 — 그게 착지 부위보다 중요합니다.
+              </p>
+            </div>
+            <div className="rounded-xl border border-gray-200 p-4">
+              <p className="font-semibold text-gray-900 text-sm mb-1">3. 소리를 듣는다</p>
+              <p className="text-sm leading-relaxed text-gray-700">
+                발소리가 <strong>&ldquo;퍽&rdquo; 하고 크게</strong> 난다면 보폭이 길어 발이 몸 앞에서
+                닿고 있을 가능성이 큽니다. 이건 정밀한 방법은 아니고 대략의 신호입니다.
+              </p>
+            </div>
+          </div>
+        </section>
 
         <p className="text-lg leading-relaxed mb-8 text-gray-700">"힐스트라이크로 달리면 무릎이 망가진다"는 말, 한 번쯤 들어보셨을 겁니다. 하지만 2023년 기준 스포츠의학 연구들은 착지 방식 자체보다 '착지 위치'가 더 중요하다고 말합니다.</p>
         <section className="mb-8">
@@ -112,6 +194,34 @@ export default function Page() {
             a: "착지법을 강제로 바꾸기보다 케이던스를 현재보다 5~10% 높이세요. 케이던스가 높아지면 자연스럽게 보폭이 줄어 오버스트라이드가 교정됩니다. 강제적인 미드풋 전환은 아킬레스 부상으로 이어질 수 있습니다.",
           },
         ]} />
+
+        {/* 다음에 읽을 것 — first-10k 에 이어 두 번째 시험. from=midfoot 으로 계측된다. */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-3">다음에 읽을 것</h2>
+          <div className="space-y-2">
+            <Link
+              href="/injury/cadence"
+              className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+            >
+              <p className="font-semibold text-gray-900 text-sm">케이던스 180은 거짓말? 키별 적정 기준값 →</p>
+              <p className="mt-1 text-sm text-gray-600">착지법 대신 먼저 만져야 할 것.</p>
+            </Link>
+            <Link
+              href="/injury/achilles"
+              className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+            >
+              <p className="font-semibold text-gray-900 text-sm">미드풋으로 바꾼 뒤 아킬레스건이 아프다면 →</p>
+              <p className="mt-1 text-sm text-gray-600">전환 속도가 너무 빨랐을 때 생기는 일.</p>
+            </Link>
+            <Link
+              href="/injury/knee-pain"
+              className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+            >
+              <p className="font-semibold text-gray-900 text-sm">달릴 때 무릎이 아프다면 →</p>
+              <p className="mt-1 text-sm text-gray-600">착지법을 의심하기 전에 볼 것들.</p>
+            </Link>
+          </div>
+        </section>
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
