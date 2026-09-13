@@ -142,9 +142,14 @@ export default function Page() {
               </p>
             </div>
           </div>
+          {/* ⚠️ 2026-09-14 — "1번(클램셸)이 가장 중요합니다" 라고 적었다가 고쳤다.
+              이 페이지가 인용한 Collins 2018 국제 합의문은 정확히 반대로
+              **"고관절 운동과 무릎 운동을 함께"** 하는 쪽을 권고한다.
+              내가 순위를 만들어 인용을 넘어섰다. */}
           <p className="mt-3 text-sm leading-relaxed text-gray-600">
-            세 가지 중 <strong>1번(클램셸)이 가장 중요합니다.</strong> 원인 첫 번째가 약한
-            고관절 외전근이기 때문입니다.
+            <strong>셋을 같이 하세요.</strong> 아래 인용한 국제 합의문(Collins 2018)은
+            고관절 운동과 무릎 운동을 <strong>함께</strong> 하는 쪽을 권고합니다 — 하나만
+            골라서 하는 것보다 낫다고 봤습니다.
           </p>
         </section>
 

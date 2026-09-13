@@ -87,35 +87,45 @@ export default function Page() {
                 <tr className="border-b border-gray-200 text-left">
                   <th className="py-2 pr-3 font-semibold text-gray-900">착지법</th>
                   <th className="py-2 pr-3 font-semibold text-gray-900">먼저 닿는 곳</th>
-                  <th className="py-2 pr-3 font-semibold text-gray-900">밑창이 닳는 곳</th>
-                  <th className="py-2 font-semibold text-gray-900">부하가 몰리는 곳</th>
+                  <th className="py-2 font-semibold text-gray-900">밑창이 닳는 곳</th>
                 </tr>
               </thead>
               <tbody className="text-gray-700">
                 <tr className="border-b border-gray-100">
                   <td className="py-2 pr-3 font-medium text-gray-900">힐스트라이크</td>
                   <td className="py-2 pr-3">뒤꿈치</td>
-                  <td className="py-2 pr-3">뒤꿈치 바깥쪽</td>
-                  <td className="py-2">무릎</td>
+                  <td className="py-2">뒤꿈치 바깥쪽</td>
                 </tr>
                 <tr className="border-b border-gray-100 bg-violet-50">
                   <td className="py-2 pr-3 font-medium text-gray-900">미드풋</td>
                   <td className="py-2 pr-3">발바닥 중간</td>
-                  <td className="py-2 pr-3">중간~앞쪽이 고르게</td>
-                  <td className="py-2">종아리 · 아킬레스건</td>
+                  <td className="py-2">중간~앞쪽이 고르게</td>
                 </tr>
                 <tr>
                   <td className="py-2 pr-3 font-medium text-gray-900">포어풋</td>
                   <td className="py-2 pr-3">앞꿈치</td>
-                  <td className="py-2 pr-3">앞쪽</td>
-                  <td className="py-2">종아리 · 아킬레스건</td>
+                  <td className="py-2">앞쪽</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          {/**
+           * ⚠️ 2026-09-14 — **「부하가 몰리는 곳」 열을 뺐다.**
+           *
+           * 어제 이 표를 만들면서 주석에 "이미 인용과 함께 있던 내용을 모았을 뿐"이라고
+           * 적었다. **거짓이었다.** 인용 대조 감사 결과:
+           *   · Almeida 2015 초록이 말한 것은 "rearfoot strikers had higher vertical
+           *     loading rates" — **전신 수직 부하율**이지 "무릎·슬개대퇴 부하"가 아니다
+           *   · 미드풋·포어풋의 "종아리·아킬레스건 부하"는 이 저장소 어디에도 인용이 없다.
+           *     근거로 지목했던 `/injury/achilles` 에도 그 주장을 받치는 논문이 없다
+           *
+           * 표는 사실을 말하는 것처럼 보이기 때문에 근거 없는 열이 더 위험하다.
+           * 대체 주장으로 바꾸지 않고 **뺐다.** 남은 두 열은 관찰로 확인 가능한 것이다.
+           */}
           <p className="mt-3 text-sm leading-relaxed text-gray-600">
-            <strong>어느 쪽이 더 좋다는 표가 아닙니다.</strong> 부하가 사라지는 게 아니라
-            <strong> 옮겨 갑니다.</strong> 무릎에서 덜고 아킬레스건에 얹는 것입니다.
+            <strong>어느 쪽이 더 좋다는 표가 아닙니다.</strong> 착지 부위를 바꾸면 몸이 받는
+            부담의 <strong>위치도 바뀝니다</strong> — 다만 어디로 얼마나 옮겨 가는지는
+            연구마다 달라서, 저희가 숫자로 말할 수 있는 부분이 아닙니다.
           </p>
         </section>
 

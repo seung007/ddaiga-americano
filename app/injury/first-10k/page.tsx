@@ -24,9 +24,13 @@ export default function Page() {
           {/* 2026-09-13: 「7분」이었는데 본문이 1,103자였다 — 2분도 안 됐다.
               키운 뒤 2,104자. 분당 500자로 잡아 4분. 표기를 실측에 맞춘다. */}
           <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
+          {/* ⚠️ 2026-09-14 — 배지가 "공개 연구 및 의학 자료 기반" 이었다.
+              이 페이지의 참고자료는 서울마라톤·대한육상연맹 홈페이지 2건이고 **논문은 0건**이다.
+              아래 훈련 기간·페이스 내용도 전부 경험칙이지 연구 결과가 아니다.
+              배지를 페이지 내용에 맞게 고친다. 다른 페이지의 배지를 그대로 복사한 것이 원인이었다. */}
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 아래 내용은 연구 결과가 아니라 통용되는 경험칙입니다
           </div>
         </header>
         {/**
@@ -73,6 +77,14 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">얼마나 준비해야 하나요</h2>
           <p className="leading-relaxed text-gray-700 mb-4">
             지금 뛸 수 있는 거리에서 시작합니다. 0에서 시작하는 게 아닙니다.
+          </p>
+          {/* ⚠️ 2026-09-14 — 이 표에 출처가 없다는 지적을 받고 고지를 붙였다.
+              아래 10% 문단에는 "경험칙"이라고 적어 뒀으면서 표에는 안 적었다.
+              표는 사실처럼 보이기 때문에 고지가 더 필요한 자리다. */}
+          <p className="mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm leading-relaxed text-gray-600">
+            아래 기간은 <strong>연구로 검증된 수치가 아니라 통용되는 기준</strong>입니다.
+            사람마다 다르고, 정확한 주차보다 &ldquo;지금 뛰는 거리에서 조금씩 늘린다&rdquo;는
+            방향이 요점입니다.
           </p>
 
           <div className="overflow-x-auto">
@@ -282,7 +294,7 @@ export default function Page() {
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://www.kaaf.or.kr" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">대한육상연맹 대회 일정 ↗</a></li>
 
           </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. <strong>이 글에는 논문 인용이 없습니다</strong> — 훈련 기간·페이스·준비물은 러너들 사이에 통용되는 경험칙이고, 연구로 검증된 수치가 아닙니다.</p>
         </section>
 
         <YoutubeSection links={[
@@ -331,7 +343,8 @@ export default function Page() {
         <InlineAsk from="first-10k" tag="기타" placeholder="예) 10km 뛰고 나면 발바닥이 얼얼한데 괜찮은 건가요?" />
 
         <FinderCta from="first-10k" headline="대회 전에 신발부터 확인하세요" sub="새 신발로 대회에 나가면 물집과 발톱 멍으로 직행합니다. 체형과 발 조건을 넣으면 맞는 신발을 추려드립니다." />
-        <ShareButtons from="first-10k" title="첫 10km 완주 가이드" description="10km를 처음 뛸 때 준비할 것들을 논문 근거와 함께 정리했습니다." />
+        {/* 2026-09-14: description 이 "논문 근거와 함께 정리했습니다" 였다 — 논문 0건이다. */}
+        <ShareButtons from="first-10k" title="첫 10km 완주 가이드" description="10km를 처음 뛸 때 얼마나 준비하고 어떤 페이스로 가야 하는지 정리했습니다." />
 
       </article>
     </>

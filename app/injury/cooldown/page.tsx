@@ -49,9 +49,14 @@ export default function Page() {
          */}
         <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
           <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
+          {/* ⚠️ 2026-09-14 — "순서를 바꾸면 둘 다 효과가 줄어듭니다" 라고 적었다가 고쳤다.
+              `/injury/warmup` 이 이미 근거 경계를 그어 뒀다 — *"근거가 있는 쪽은
+              「달리기 전에는 정적보다 동적」이라는 방향까지입니다."* 나는 그 경계를
+              인과 주장으로 넘었고, 이 페이지엔 논문 인용이 0건이다. */}
           <p className="mt-2 leading-relaxed text-emerald-900">
-            <strong>달리기 전에는 동적, 달리고 나서는 정적입니다.</strong> 순서를 바꾸면
-            둘 다 효과가 줄어듭니다.
+            <strong>달리기 전에는 동적, 달리고 나서는 정적</strong>이 일반적인 권고입니다.
+            다만 근거가 단단한 것은 <strong>&ldquo;달리기 전에는 정적보다 동적&rdquo;</strong>이라는
+            방향까지이고, 그 이상은 저희가 말할 수 있는 범위가 아닙니다.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-emerald-800">
             정적 스트레칭은 <strong>한 자세로 멈춰서 30초 버티는 것</strong>입니다.
