@@ -154,9 +154,44 @@ export default function Page() {
         </section>
 
         <FinderCta from="knee-pain" variant="inline" headline="체중 대비 쿠션이 부족하면 무릎이 먼저 받습니다. 지금 신발이 맞는지 확인해보세요." />
+        {/**
+         * ⚠️ 2026-09-14 — **이 절 전체가 저장소 자신과 모순이었다.**
+         *
+         * 원문: *"쿠셔닝이 2 이하인 신발은 착지 시 슬개골에 충격을 직접 전달합니다.
+         *        또한 과회내(평발)가 있다면 안정화를 선택해야 무릎 정렬이 개선됩니다."*
+         *
+         * 두 문장 다 근거가 없다:
+         *   · 안정화 — `/injury/flat-feet:119` 가 이미 못 박았다. *"발 타입에 맞춰 회내
+         *     제어 신발을 처방하는 관행을 검토한 체계적 고찰은, 그 관행을 뒷받침하는
+         *     연구를 한 건도 찾지 못했다"* (Richards 2009). AGENTS.md §5 에 기록된 오용이
+         *     이 페이지에만 살아남아 있었다
+         *   · 쿠셔닝 등급 — 이 페이지의 유일한 인용 Collins 2018 이 권고한 물리 중재는
+         *     **foot orthoses** 이고 신발 쿠셔닝 얘기는 없다. "2 이하"는 우리 사이트의
+         *     자체 등급이지 논문 수치가 아니다
+         *
+         * 대체 주장으로 바꾸지 않고, **무엇이 확인되지 않았는지**를 적었다.
+         */}
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">신발과의 관계</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">쿠셔닝이 2 이하인 신발은 착지 시 슬개골에 충격을 직접 전달합니다. 또한 과회내(평발)가 있다면 안정화를 선택해야 무릎 정렬이 개선됩니다.</p>
+          <p className="leading-relaxed text-gray-700 mb-4">
+            <strong>신발로 무릎 통증을 해결한다는 근거는 약합니다.</strong> 아래 인용한
+            국제 합의문(Collins 2018)이 권고한 것은 <strong>운동</strong>이고, 신발
+            쿠셔닝이나 안정화 기능에 대한 권고는 없습니다.
+          </p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
+            특히 <strong>&ldquo;평발이면 안정화화&rdquo;는 근거가 없습니다.</strong> 발 타입에 맞춰
+            회내 제어 신발을 처방하는 관행을 검토한 체계적 고찰은{" "}
+            <strong>그 관행을 뒷받침하는 연구를 한 건도 찾지 못했다</strong>고 보고했습니다.
+            자세한 내용은{" "}
+            <Link href="/injury/flat-feet" className="font-medium text-emerald-700 underline">
+              평발 러닝화 글
+            </Link>
+            에 있습니다.
+          </div>
+          <p className="mt-4 leading-relaxed text-gray-700">
+            다만 <strong>쿠션이 다 닳은 신발은 바꾸는 게 맞습니다.</strong> 이건 무릎
+            정렬과는 다른 얘기입니다.
+          </p>
         </section>
 
         <section className="mb-6">
@@ -190,7 +225,7 @@ export default function Page() {
           },
           {
             q: "신발이 무릎 통증에 영향을 주나요?",
-            a: "네. 쿠셔닝이 약한 신발(5단계 중 2 이하)은 착지 충격을 슬개골에 직접 전달합니다. 평발로 발이 안쪽으로 쏠리는 과회내가 있다면 안정화 신발을 선택해야 무릎 정렬이 개선됩니다.",
+            a: "생각만큼은 아닙니다. 이 글이 인용한 국제 합의문(Collins 2018)이 권고한 것은 운동이고, 신발 쿠셔닝이나 안정화 기능에 대한 권고는 없습니다. 특히 '평발이면 안정화화'는 근거가 없습니다 — 발 타입에 맞춰 회내 제어 신발을 처방하는 관행을 검토한 체계적 고찰은 그 관행을 뒷받침하는 연구를 한 건도 찾지 못했다고 보고했습니다. 다만 쿠션이 다 닳은 신발은 바꾸는 게 맞습니다.",
           },
         ]} />
 

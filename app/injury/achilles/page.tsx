@@ -185,7 +185,13 @@ export default function AchillesPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-3">과학적 근거 및 참고 논문</h2>
           <ul className="flex flex-col gap-2">
             <li className="text-sm text-gray-700">
-              <strong>Prudêncio et al. (2023, J Hum Kinet)</strong> — 아킬레스건병 치료에서 편심성 운동이 다른 운동보다 효과적임을 확인한 체계적 고찰 및 메타분석. Alfredson 프로토콜(주 7일, 3세트 15회 × 12주) 권고.{" "}
+              {/* ⚠️ 2026-09-14 정정 — 이 설명문이 논문 초록과 어긋났다.
+                  ① 저널명: J Hum Kinet 이 아니라 **BMC Sports Sci Med Rehabil**
+                  ② "효과적임을 확인" → 초록은 정반대로 근거 공백을 명시한다:
+                     "there is still a gap in the evidence for the efficacy of any modality"
+                     (편향 위험도 62.5% some concerns / 37.5% high)
+                  ③ "Alfredson 프로토콜(주 7일, 3세트 15회 × 12주) 권고" — 초록에 없다 */}
+              <strong>Prudêncio et al. (2023, BMC Sports Sci Med Rehabil)</strong> — 아킬레스건병 운동치료 체계적 고찰 및 메타분석. <strong>어떤 방식이 더 낫다고 결론 내리기에는 근거가 부족하다</strong>고 보고했습니다(포함된 연구의 편향 위험이 높음). 즉 아래 운동은 &ldquo;검증된 최선&rdquo;이 아니라 널리 쓰이는 방법입니다.{" "}
               <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC 원문 →</a>
             </li>
             <li className="text-sm text-gray-700">
@@ -206,7 +212,7 @@ export default function AchillesPage() {
           },
           {
             q: "아킬레스건·종아리 통증에 어떤 스트레칭이 효과적인가요?",
-            a: "세 가지를 권장합니다. ① 벽 카프 스트레칭 30초 ② 솔리어스(종아리 깊은 근육) 스트레칭 30초 ③ 편심성 카프 레이즈 — 양발로 올라가 한 발로 3~5초에 걸쳐 천천히 내려오기, 한쪽 15회×3세트 하루 1~2회. 메타분석(Prudêncio 2023)에서 편심성 운동이 아킬레스건병에 가장 효과적인 운동으로 확인됐습니다.",
+            a: "세 가지를 권장합니다. ① 벽 카프 스트레칭 30초 ② 솔리어스(종아리 깊은 근육) 스트레칭 30초 ③ 편심성 카프 레이즈 — 양발로 올라가 한 발로 3~5초에 걸쳐 천천히 내려오기, 한쪽 15회×3세트 하루 1~2회. 다만 어떤 운동이 더 낫다고 말하기에는 근거가 부족합니다 — 메타분석(Prudêncio 2023)은 포함된 연구의 편향 위험이 높아 효과를 단정할 수 없다고 보고했습니다.",
           },
           {
             q: "아킬레스건이 약하면 신발 드롭은 몇 mm가 좋나요?",

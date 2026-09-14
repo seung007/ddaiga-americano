@@ -90,12 +90,40 @@ export default function ITBandPage() {
               </div>
             </div>
 
+            {/**
+             * ⚠️ 2026-09-14 — **인용이 지목한 처방이 본문에 없었다.**
+             *
+             * 이 페이지의 유일한 인용 Sanchez-Alvarado 2024 초록은 이렇게 말한다 —
+             * *"Hip abductor strengthening (HAS) exercise emerged as a common strategy
+             * … effective for mitigating pain."*
+             *
+             * 그런데 본문 3가지 처방(거리 줄이기·폼롤러·신발 쿠셔닝) 중에
+             * **엉덩이 외전근 강화가 하나도 없었다.** 대신 3번이 신발 쿠셔닝이었는데
+             * 그 주장은 인용 어디에도 없다("체중 75kg 이상이면 쿠셔닝 3 이하는 부담").
+             *
+             * 정작 같은 논문을 인용한 `intermediate-guide:50` 은 HAS 를 제대로 적고 있었다.
+             * 전용 페이지가 빠뜨린 것이다.
+             *
+             * 3번을 인용이 실제로 지지하는 것으로 바꾸고, 신발은 근거 표시와 함께 아래로 내렸다.
+             */}
             <div className="border-l-4 border-yellow-200 pl-5">
-              <h3 className="font-bold text-gray-900 mb-2">3. 신발의 쿠셔닝을 확인한다</h3>
-              <p className="text-gray-700 leading-relaxed">
-                장경인대염은 신발 문제와 연결된 경우가 많습니다. 특히 체중 75kg 이상이라면
-                쿠셔닝 3 이하의 신발은 부담이 됩니다. 현재 신발을 500km 이상 신었다면 교체 시기를 먼저 확인하세요.
-                러닝화 수명은 보통 500~800km입니다.
+              <h3 className="font-bold text-gray-900 mb-2">3. 엉덩이 옆 근육(외전근)을 강화한다</h3>
+              <p className="text-gray-700 leading-relaxed mb-3">
+                아래 인용한 고찰에서 <strong>통증 완화에 효과가 확인된 것</strong>이 이것입니다.
+                장경인대에 장력이 걸리는 근본 원인이 엉덩이 옆 근육 약화인 경우가 많습니다.
+              </p>
+              <div className="bg-yellow-50 rounded-xl p-4 text-sm text-gray-700">
+                <p className="font-medium mb-2">방법 — 사이드 레그 레이즈</p>
+                <ol className="space-y-1 list-decimal list-inside">
+                  <li>옆으로 누워 아래쪽 팔로 머리를 받칩니다</li>
+                  <li>위쪽 다리를 곧게 편 채 천천히 들어 올립니다</li>
+                  <li>발끝이 앞을 향하게 유지합니다 — 위로 돌아가면 다른 근육이 일합니다</li>
+                  <li>한쪽 15회 × 3세트 / 양쪽 다</li>
+                </ol>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                신발은 어떨까요 — <strong>장경인대염을 신발로 해결한다는 근거는 이 글의
+                인용에 없습니다.</strong> 다만 500~800km를 넘긴 신발은 그것대로 교체 시기입니다.
               </p>
             </div>
           </div>

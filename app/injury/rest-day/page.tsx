@@ -89,16 +89,37 @@ export default function Page() {
 
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">완전 휴식이 필요한 신호</h2>
+          {/**
+           * ⚠️ 2026-09-14 — **이 박스의 숫자에 출처가 없다.**
+           *
+           * 어제 나는 이 내용을 빨간 박스로 옮겨 더 눈에 띄게 만들었다.
+           * 그런데 인용으로 달린 Meeusen 2013(오버트레이닝 국제 합의문) 초록에는
+           * **bpm·일수·개수 기준이 하나도 없다.** 원문에 있던 숫자를 검증 없이
+           * 강조만 한 것이다. 출처 없는 숫자는 강조할수록 나쁘다.
+           *
+           * 게다가 같은 저장소 안에서 숫자가 서로 다르다 —
+           * 여기는 "7회 이상", `intermediate-guide:91` 은 "+5~10bpm".
+           *
+           * 신호 자체(피로·수면·심박수·의욕)는 합의문이 서술하는 방향과 맞으므로 남기고,
+           * **정밀해 보이는 임계값만 뺐다.** 대신 "평소 내 값과 비교하라"로 바꿨다.
+           */}
           <div className="rounded-2xl border border-red-200 bg-red-50 p-5">
-            <p className="text-sm leading-relaxed text-red-900 mb-2">아래 <strong>4가지 중 2개 이상</strong>이면 오버트레이닝 신호입니다.</p>
+            <p className="text-sm leading-relaxed text-red-900 mb-2">
+              아래가 <strong>여러 개 겹쳐서</strong> 나타나면 오버트레이닝 신호로 봅니다.
+            </p>
             <ul className="space-y-1.5 text-sm leading-relaxed text-red-900">
-              <li>· 극심한 피로</li>
+              <li>· 쉬어도 풀리지 않는 극심한 피로</li>
               <li>· 수면 장애</li>
-              <li>· <strong>안정시 심박수가 평소보다 7회 이상</strong> 높다</li>
+              <li>· <strong>아침 안정시 심박수가 평소 내 값보다 뚜렷하게 높다</strong></li>
               <li>· 달리기 의욕이 완전히 사라졌다</li>
             </ul>
             <p className="mt-2 text-sm leading-relaxed text-red-900">
-              이때는 <strong>2~3일 완전 휴식</strong>이 필요합니다. 가벼운 활동도 하지 마세요.
+              이때는 <strong>며칠 완전히 쉬는 것</strong>이 낫습니다. 가벼운 활동도 하지 마세요.
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-red-800">
+              &ldquo;몇 bpm부터&rdquo;, &ldquo;며칠&rdquo; 같은 숫자 기준은 <strong>아래 인용한
+              합의문에 나오지 않습니다.</strong> 그래서 저희도 적지 않습니다 — 평소 자기 값을
+              알고 있어야 비교가 됩니다.
             </p>
           </div>
         </section>

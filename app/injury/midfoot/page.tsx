@@ -176,7 +176,12 @@ export default function Page() {
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/20111000/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Lieberman et al. 2010 — Foot strike & impact (Nature) ↗</a></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/26304644/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Almeida et al. (2015) JOSPT 45(10):738-755 — 착지 패턴별 생체역학 차이 메타분석. 뒤꿈치 착지는 무릎·슬개대퇴 부하가 높고, 앞발 착지는 부하 위치가 다르다 ↗
+                {/* ⚠️ 2026-09-14 정정 — 설명문이 초록보다 세게 말하고 있었다.
+                    원문: "뒤꿈치 착지는 무릎·슬개대퇴 부하가 높고, 앞발 착지는 부하 위치가 다르다"
+                    초록: "rearfoot strikers had higher vertical loading rates compared to
+                    forefoot strikers" — **전신 수직 부하율**이고, 무릎은 각도·ROM 차이만 보고됐다.
+                    "무릎·슬개대퇴 부하"는 이 논문에 없는 말이다. */}
+                Almeida et al. (2015) JOSPT 45(10):738-755 — 착지 패턴별 생체역학 차이 메타분석. 뒤꿈치 착지는 <strong>수직 부하율</strong>이 앞발 착지보다 높았고, 발목·무릎의 각도와 가동범위에도 차이가 있었다 ↗
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">오버스트라이드 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>

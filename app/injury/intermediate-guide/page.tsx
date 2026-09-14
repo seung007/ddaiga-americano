@@ -45,7 +45,11 @@ export default function IntermediateGuidePage() {
             {[
               {
                 name: "장경인대 증후군 (IT Band Syndrome)",
-                freq: "중급자 러닝 부상 1위, 전체의 22%",
+                // ⚠️ 2026-09-14: "중급자 러닝 부상 1위, 전체의 22%" 였다.
+                // 바로 아래 ref 로 단 Sanchez-Alvarado 2024 초록은 **약 10%** 라고 적는다
+                // ("constituting about 10% of all running-related injuries").
+                // 자기 인용의 숫자를 두 배로 올리고 "1위"까지 붙인 것이다. 인용값으로 되돌린다.
+                freq: "러닝 부상의 약 10%",
                 cause: "고관절 외전근 약화, 갑작스런 주간 거리 증가, 내리막 훈련 과다",
                 fix: "고관절 외전근(중둔근) 강화 운동, 폼롤러, 주간 거리 10% 규칙 유지",
                 color: "border-amber-200 bg-amber-50",
@@ -53,17 +57,32 @@ export default function IntermediateGuidePage() {
               },
               {
                 name: "아킬레스건병증 (Achilles Tendinopathy)",
-                freq: "중급자 이상 부상의 11%",
-                cause: "훈련량 급증, 주법 변경 후 부하 증가, 쿠션 부족 신발",
-                fix: "편심성 힐드롭 운동(Alfredson 프로토콜, 주 7일 3×15회 12주), 로드 감소",
+                // ⚠️ 2026-09-14: freq 가 "중급자 이상 부상의 11%" 였고 근거로 Prudêncio 2023 을
+                // 달아 뒀다. 그 논문은 **편심성 운동 메타분석**이지 역학 조사가 아니다 —
+                // 그 숫자가 초록에 없다. 저장소 자신의 shin-splints:158 은 Nielsen 2014 로
+                // **7%** 를 적는다. 역학 수치는 역학 논문에서 가져온다.
+                freq: "러닝 부상의 약 7%",
+                cause: "훈련량 급증, 주법 변경 후 부하 증가",
+                // ⚠️ 2026-09-14: "Alfredson 프로토콜(주 7일 3×15회 12주)" 이 붙어 있었는데
+                // Prudêncio 2023 초록에 그 프로토콜 수치가 없다. 그리고 그 논문은
+                // *"there is still a gap in the evidence for the efficacy of any modality"*
+                // 라고 근거 공백을 명시한다. 수치를 빼고 방향만 남긴다.
+                fix: "편심성 힐드롭 운동, 훈련량 줄이기 (자세한 방법은 전용 글 참고)",
                 color: "border-orange-200 bg-orange-50",
-                ref: "Prudêncio et al. (2023) J Hum Kinet — PMC9878810"
+                // 저널명도 틀렸다 — 실제는 BMC Sports Sci Med Rehabil 이다.
+                ref: "부상 빈도는 Nielsen et al. (2014) PLOS ONE"
               },
               {
                 name: "족저근막염 (Plantar Fasciitis)",
-                freq: "러닝 부상의 8~10%",
-                cause: "아침 첫 발걸음 통증, 편평족·높은 아치, 딱딱한 신발",
-                fix: "종아리 스트레칭, 발바닥 마사지, 드롭 높은 신발로 교체, 쿠션 인솔",
+                // ⚠️ 2026-09-14: freq 가 "8~10%" 였다. 저장소 자신의 plantar-fasciitis:34 는
+                // Nielsen 2014 기반으로 **약 5%** 라고 적는다. 전용 페이지 값으로 맞춘다.
+                freq: "러닝 부상의 약 5%",
+                cause: "아침 첫 발걸음 통증, 편평족·높은 아치",
+                // ⚠️ 2026-09-14: fix 에 "드롭 높은 신발로 교체, 쿠션 인솔" 이 있었다.
+                // plantar-fasciitis:98 이 이미 못 박았다 — *"특정 드롭이나 쿠셔닝이 족저근막
+                // 통증을 낫게 한다는 좋은 근거는 없습니다"* (Koc 2023 JOSPT 임상진료지침).
+                // 전용 페이지가 근거 없다고 한 처방을 요약 페이지가 권하고 있었다.
+                fix: "종아리·족저근막 스트레칭 (신발 교체는 근거가 약합니다 — 전용 글 참고)",
                 color: "border-red-200 bg-red-50",
                 ref: "Buchbinder (2004) N Engl J Med — 족저근막염 치료 근거"
               }
@@ -88,7 +107,10 @@ export default function IntermediateGuidePage() {
             {[
               ["수행 능력 갑자기 저하", "평소 페이스가 갑자기 느려짐"],
               ["수면 질 저하", "피곤한데 잠이 안 옴"],
-              ["안정 심박수 상승", "평소보다 아침 맥박 +5~10bpm"],
+              // ⚠️ 2026-09-14: "+5~10bpm" 이었다. 근거로 단 Meeusen 2013 합의문 초록에
+              // bpm 기준이 없고, 저장소의 rest-day 는 같은 항목을 "7회"로 적고 있었다.
+              // 출처 없는 숫자가 페이지마다 다른 값으로 퍼져 있었다.
+              ["안정 심박수 상승", "평소 내 아침 맥박보다 뚜렷하게 높음"],
               ["기분 변화·짜증", "훈련에 대한 의욕 저하"],
               ["만성 근육통", "48시간 이상 지속되는 피로감"],
               ["반복 감기·면역 저하", "훈련 후 자주 아픔"],
