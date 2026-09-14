@@ -36,8 +36,10 @@ export default function ITBandPage() {
         </header>
 
         <p className="text-lg leading-relaxed mb-8 text-gray-700">
+          {/* ⚠️ 2026-09-14: "런갤에서 초보 질문 2위가 무릎 통증" — 출처가 없고 확인할 방법도 없다.
+              커뮤니티 순위를 사실처럼 적으면 그것도 지어낸 수치다. 뺀다. */}
           달리기를 시작한 지 한두 달, 무릎 바깥쪽에 날카로운 통증이 온다면 장경인대염(IT Band Syndrome)일 가능성이 높습니다.
-          런갤에서 초보 질문 2위가 무릎 통증인 이유가 여기 있습니다.
+          아래 인용한 고찰은 이것을 <strong>러닝 부상의 약 10%</strong>로 보고합니다.
         </p>
 
         <section className="mb-8">

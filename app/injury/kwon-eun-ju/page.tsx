@@ -36,9 +36,24 @@ export default function KwonEunJuPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">여성 러너에게 특히 중요한 부상 예방 포인트</h2>
+          {/**
+           * ⚠️ 2026-09-14 — 이 절의 의학적 주장 두 개에 인용이 없다.
+           *
+           *   ① "골반 구조 차이로 인해 … 발생률이 높습니다" — 인과까지 단정
+           *   ② "배란 후 황체기에는 인대가 느슨해져 부상 위험이 높아집니다"
+           *
+           * 받치는 자료로 걸려 있던 두 링크가 **루트 도메인**이었다 —
+           * `bjsm.bmj.com` 과 `pubmed.ncbi.nlm.nih.gov`. 특정 문헌이 아니다.
+           * 아래에서 그 링크를 내렸으므로, 링크가 받치던 문장도 같이 손본다.
+           *
+           * 여성 러너 부상 역학과 월경 주기·인대 이완은 실제로 연구가 있는 주제지만,
+           * **이 사이트가 확인한 논문이 없는 상태**에서 기전과 처방을 단정할 수 없다.
+           */}
           <p className="leading-relaxed text-gray-700 mb-4">
-            여성 러너는 골반 구조 차이로 인해 남성보다 슬개대퇴 증후군(러너 무릎)과 장경인대염 발생률이 높습니다.
-            권은주 선수와 같은 엘리트 여성 선수들이 장기간 부상 없이 뛸 수 있는 비결은 고관절과 코어 근력 훈련에 있습니다.
+            여성 러너에게 슬개대퇴 증후군(러너 무릎)과 장경인대염이 흔하다고 이야기되고,
+            그 배경으로 골반 구조 차이가 자주 언급됩니다. 다만{" "}
+            <strong>저희가 확인한 인용이 없어 원인까지 단정하지는 않겠습니다.</strong>{" "}
+            어느 쪽이든 고관절과 코어 근력 훈련은 권은주 선수의 훈련 방식과도 맞닿아 있습니다.
           </p>
           <div className="space-y-4">
             {[
@@ -52,7 +67,9 @@ export default function KwonEunJuPage() {
               },
               {
                 title: "생리 주기에 따른 훈련 조절",
-                desc: "배란 후 황체기에는 인대가 상대적으로 느슨해져 부상 위험이 높아집니다. 이 시기에는 고강도 훈련보다 페이스 런과 회복 훈련을 배치하는 것이 좋습니다.",
+                // ⚠️ 2026-09-14: "황체기에는 인대가 느슨해져 부상 위험이 높아집니다" 라고
+                // 기전과 결론을 단정했는데, 이를 받치던 링크가 PubMed 루트 주소였다.
+                desc: "주기에 따라 컨디션이 달라진다면 훈련 강도를 그에 맞춰 조절하는 편이 낫습니다. 다만 어느 시기에 부상 위험이 얼마나 달라지는지는 저희가 확인한 자료가 없어 단정하지 않겠습니다 — 자기 기록을 남겨 자신의 패턴을 보는 쪽이 확실합니다.",
               },
             ].map((item, i) => (
               <div key={i} className="border border-gray-100 rounded-xl p-5">
@@ -100,16 +117,22 @@ export default function KwonEunJuPage() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
+            {/**
+             * ⚠️ 2026-09-14 — 아래 두 항목이 **루트 도메인**이었다.
+             *   · "여성 러너 부상 역학 — BJSM"   → `bjsm.bmj.com` (학술지 홈)
+             *   · "월경 주기와 부상 위험 — PubMed" → `pubmed.ncbi.nlm.nih.gov` (검색엔진 홈)
+             * 제목은 논문처럼 보이지만 특정 문헌을 가리키지 않으므로 인용이 아니다.
+             * 이 둘이 본문의 의학적 주장 2개를 받치고 있었다 — 그 문장들도 위에서 같이 고쳤다.
+             */}
             {[
               { title: "대한육상연맹 — 권은주 선수 공식 기록", url: "https://www.kaaf.or.kr" },
-              { title: "여성 러너 부상 역학 — BJSM (British Journal of Sports Medicine)", url: "https://bjsm.bmj.com" },
-              { title: "월경 주기와 부상 위험 — NCBI PubMed", url: "https://pubmed.ncbi.nlm.nih.gov" },
             ].map((ref, i) => (
               <li key={i} className="flex gap-2">
                 <span className="text-gray-400 shrink-0">•</span>
                 <a href={ref.url} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">{ref.title} ↗</a>
               </li>
             ))}
+            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span className="text-gray-500">「여성 러너 부상 역학」·「월경 주기와 부상 위험」 항목 — 링크가 특정 논문이 아니라 학술지·검색엔진 홈 주소여서 내렸습니다 (2026-09-14). 해당 본문 문장도 단정을 뺐습니다</span></li>
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
         </section>

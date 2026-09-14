@@ -136,8 +136,11 @@ export default function Page() {
             <div className="rounded-xl border border-gray-200 p-4">
               <p className="font-semibold text-gray-900 text-sm mb-1">1. 신발 밑창을 본다 (제일 쉬움)</p>
               <p className="text-sm leading-relaxed text-gray-700">
+                {/* 2026-09-14: 밑창 마모로 착지법을 판정하는 방법에 인용이 없다는 지적을 받았다.
+                    널리 쓰이는 실용적 방법이지만 정밀한 진단은 아니므로 그렇게 적는다. */}
                 200km 이상 신은 러닝화를 뒤집어 보세요. <strong>뒤꿈치 바깥쪽만 닳아 있으면
-                힐스트라이크</strong>입니다. 그렇다고 잘못 뛰고 있는 건 아닙니다.
+                힐스트라이크에 가깝습니다.</strong> 정밀한 판정은 아니지만 가장 쉬운 단서입니다.
+                그리고 그렇다고 잘못 뛰고 있는 건 아닙니다.
               </p>
             </div>
             <div className="rounded-xl border border-gray-200 p-4">

@@ -87,7 +87,11 @@ export default function BeginnerGuidePage() {
             {[
               {
                 name: "슬개대퇴 증후군 (러너 무릎)",
-                freq: "전체 러닝 부상의 16~25%",
+                // ⚠️ 2026-09-14: "16~25%" 였고 근거로 van Gent 2007 을 달았다.
+                // 그 초록에 있는 건 전체 발생률 19.4~79.3% 와 "무릎이 가장 흔한 부위"뿐이고
+                // 슬개대퇴만의 비율은 없다. 저장소 자신의 shin-splints:158 은
+                // Nielsen 2014 PLOS ONE 으로 **10%** 를 적는다. 그 값으로 맞춘다.
+                freq: "러닝 부상의 약 10%",
                 cause: "약한 대퇴사두근, 과도한 계단 오르기 포함",
                 fix: "대퇴사두근·둔근 강화, 경사 구간 줄이기, 주간 거리 10% 이내 증가",
                 color: "border-red-200 bg-red-50",
@@ -95,19 +99,26 @@ export default function BeginnerGuidePage() {
               },
               {
                 name: "정강이 통증 (신스플린트)",
-                freq: "초심자 부상의 10~15%",
-                cause: "포장도로·딱딱한 노면, 쿠셔닝 부족 신발, 갑작스런 거리 증가",
-                fix: "부드러운 노면으로 전환, 쿠셔닝 신발 선택, 3일 이상 휴식",
+                // ⚠️ 2026-09-14: "초심자 부상의 10~15%" 에 Galbraith & Lavallee (2009) 를 달았는데
+                // 그 논문은 **보존적 치료 옵션 리뷰**이지 역학 조사가 아니다(링크도 없었다).
+                // 저장소 자신의 shin-splints:158 은 Nielsen 2014 로 **15%** 를 적는다.
+                freq: "러닝 부상의 약 15%",
+                cause: "포장도로·딱딱한 노면, 갑작스런 거리 증가",
+                fix: "부드러운 노면으로 전환, 거리 줄이기, 휴식",
                 color: "border-orange-200 bg-orange-50",
-                ref: "Galbraith & Lavallee (2009) Curr Rev MSK"
+                ref: "Nielsen et al. (2014) PLOS ONE"
               },
               {
                 name: "물집·흑색 발톱",
-                freq: "초심자 85%가 경험",
+                // ⚠️ 2026-09-14: "초심자 85%가 경험" + "Lipman & Haddad (2016) Foot Ankle Clin".
+                // Europe PMC 에서 이 저자·저널·연도 조합의 논문을 **찾지 못했다**(0건). 링크도 없었다.
+                // 정밀한 %에 확인 안 되는 서지가 붙은 형태 — AGENTS.md §1 의 작화 패턴과 같다.
+                // 수치와 서지를 둘 다 뺀다. 증상 자체는 흔한 것이 맞으므로 항목은 남긴다.
+                freq: "초보에게 흔함 (정확한 비율은 확인된 자료 없음)",
                 cause: "사이즈 미스매치, 양말 소재 불량, 긴 발톱",
-                fix: "러닝화는 엄지발가락 1cm 여유, 기술성 양말 착용, 발톱 짧게 유지",
+                fix: "러닝화는 엄지발가락 1cm 여유, 기능성 양말 착용, 발톱 짧게 유지",
                 color: "border-yellow-200 bg-yellow-50",
-                ref: "Lipman & Haddad (2016) Foot Ankle Clin"
+                ref: "인용 없음 — 경험칙"
               }
             ].map(item => (
               <div key={item.name} className={`rounded-xl border p-4 ${item.color}`}>

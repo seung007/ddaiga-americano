@@ -190,15 +190,27 @@ export default function Page() {
 
         <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다 — 러닝화 수명은 보통 500~800km입니다." />
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">회복을 빠르게 하는 추가 팁</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">스트레칭 후 차가운 물이나 단백질+탄수화물 음료(초콜릿 밀크 등)를 섭취하면 근육 회복 속도가 빨라집니다. 수면의 질도 회복에 직접 영향을 미칩니다.</p>
+          {/* ⚠️ 2026-09-14: "섭취하면 근육 회복 속도가 빨라집니다" 였다.
+              이 주장을 받치던 인용은 2026-08-31 에 무관한 논문으로 판명돼 이미 내려갔고
+              (아래 참고자료 첫 항목), 그 뒤로 **근거 없이 단정만 남아 있었다.**
+              인용이 내려갔으면 그 인용이 받치던 문장도 같이 손봐야 한다. */}
+          <h2 className="text-xl font-bold text-gray-900 mb-4">회복에 도움이 된다고 이야기되는 것</h2>
+          <p className="leading-relaxed text-gray-700">
+            운동 뒤 단백질과 탄수화물을 같이 먹는 것, 그리고 충분히 자는 것이 흔히 권해집니다.
+            다만 <strong>이 글에는 그 효과를 받치는 인용이 없습니다</strong> — 예전에 달았던 자료가
+            무관한 논문으로 판명돼 내렸고, 아직 대체하지 못했습니다.
+          </p>
         </section>
 
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">운동 후 회복 영양 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://www.nsca.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">Static stretching after exercise — NSCA ↗</a></li>
+            {/* ⚠️ 2026-09-14: 링크가 `https://www.nsca.com` — **단체 홈페이지 루트**였다.
+                특정 문헌을 가리키지 않으므로 인용이 아니다. 이런 형태가 `cadence`·`kwon-eun-ju`
+                에도 남아 있다(warmup 은 2026-09-03 에 같은 이유로 내렸다).
+                링크를 지우고, 인용이 없다는 사실을 적는다. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">정적 스트레칭 관련 자료 — 걸려 있던 링크가 특정 논문이 아니라 단체 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>

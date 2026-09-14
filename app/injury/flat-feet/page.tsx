@@ -66,7 +66,7 @@ const STABILITY_KO: Record<string, string> = {
 const FAQ: FaqItem[] = [
   {
     q: "평발이면 안정화 러닝화를 신어야 하나요?",
-    a: "반드시 그렇지는 않습니다. 발 타입에 맞춰 회내 제어 기능이 있는 신발을 처방하는 관행을 검토한 체계적 고찰(Richards 2009, Br J Sports Med)은 그 관행을 뒷받침하는 연구를 8개 데이터베이스에서 한 건도 찾지 못했다고 보고했습니다. 이후 무작위 대조시험의 2차 분석(Malisoux 2021, JOSPT)에서 모션컨트롤화가 과회내 관련 부상 위험을 낮추는 결과가 나왔지만, 2차 분석이라 근거 등급이 낮고 다른 부상에는 효과가 없었습니다. 정리하면 도움이 될 수는 있으나 '평발이니까 안정화화'라고 단정할 근거는 약합니다.",
+    a: "반드시 그렇지는 않습니다. 발 타입에 맞춰 회내 제어 기능이 있는 신발을 처방하는 관행을 검토한 체계적 고찰(Richards 2009, Br J Sports Med)은 그 관행을 뒷받침하는 연구를 8개 데이터베이스에서 한 건도 찾지 못했다고 보고했습니다. 이후 무작위 대조시험의 2차 분석(Willems 2021, JOSPT)에서 모션컨트롤화가 과회내 관련 부상 위험을 낮추는 결과가 나왔지만, 2차 분석이라 근거 등급이 낮고 다른 부상에는 효과가 없었습니다. 정리하면 도움이 될 수는 있으나 '평발이니까 안정화화'라고 단정할 근거는 약합니다.",
   },
   {
     q: "그럼 평발은 무엇을 기준으로 골라야 하나요?",
@@ -171,7 +171,7 @@ export default function FlatFeetPage() {
                   모션컨트롤화가 <strong>과회내 관련</strong> 부상 위험을 낮췄다. 단
                   무작위 대조시험의 <strong>2차 분석</strong>이고, 다른 부상에는 효과가 없었다.
                   <span className="mt-1 block text-xs text-gray-500">
-                    Malisoux et al. (2021) J Orthop Sports Phys Ther 51(3):135-143
+                    Willems, Ley, Goetghebeur, Theisen, Malisoux (2021) J Orthop Sports Phys Ther 51(3):135-143
                   </span>
                 </td>
               </tr>
@@ -218,8 +218,10 @@ export default function FlatFeetPage() {
           <li className="rounded-xl border border-gray-200 p-4">
             <strong className="text-gray-900">3. 지금 아픈 곳</strong>
             <p className="mt-1 text-sm leading-relaxed text-gray-700">
+              {/* 2026-09-14: "드롭이 높은 쪽이 부담이 적습니다" 에 인용이 없었다.
+                  같은 주장이 achilles 페이지에도 있었고 거기서도 근거를 못 찾았다. 방향만 남긴다. */}
               통증 이력이 있으면 그게 발 타입보다 우선입니다. 예를 들어 아킬레스·종아리
-              이력에는 드롭이 높은 쪽이 부담이 적습니다.{" "}
+              이력이 있다면 드롭이 지금보다 낮은 신발로 갑자기 바꾸지 않는 편이 낫습니다.{" "}
               <Link href="/injury/achilles" className="font-medium text-emerald-600 hover:underline">
                 아킬레스 통증 보기
               </Link>
@@ -308,7 +310,10 @@ export default function FlatFeetPage() {
             </a>
           </li>
           <li>
-            <strong>Malisoux et al. (2021)</strong> — 모션컨트롤화와 과회내 관련 부상, 무작위
+            {/* 2026-09-14 서지 정정: 제1저자가 Malisoux 가 아니라 **Willems TM** 이다.
+                (Willems TM, Ley C, Goetghebeur E, Theisen D, Malisoux L.)
+                권호·쪽·내용은 초록과 일치한다. AGENTS.md 의 "Beyer → 실제 Kim" 과 같은 형태였다. */}
+            <strong>Willems et al. (2021)</strong> — 모션컨트롤화와 과회내 관련 부상, 무작위
             대조시험의 2차 분석. J Orthop Sports Phys Ther 51(3):135-143.{" "}
             <a
               href="https://pubmed.ncbi.nlm.nih.gov/33306927/"

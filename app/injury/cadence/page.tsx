@@ -105,16 +105,22 @@ export default function CadencePage() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
+            {/**
+             * ⚠️ 2026-09-14 — 아래 두 항목이 **루트 도메인**이었다.
+             *   · "Jack Daniels' Running Formula" → `worldathletics.org` (세계육상연맹 홈)
+             *   · "BJSM — Cadence review"        → `bjsm.bmj.com` (학술지 홈)
+             * 둘 다 특정 문헌을 가리키지 않으므로 인용이 아니다. 제목만 논문처럼 보였다.
+             * Heiderscheit 2011 은 실재하고 초록과 본문이 일치한다(확인함). 그것만 남긴다.
+             */}
             {[
               { title: "Heiderscheit et al. (2011) — Step rate & joint mechanics (PubMed)", url: "https://pubmed.ncbi.nlm.nih.gov/20581720/" },
-              { title: "Jack Daniels' Running Formula (3rd Ed.) — 케이던스 관찰 원전", url: "https://www.worldathletics.org" },
-              { title: "British Journal of Sports Medicine — Cadence review", url: "https://bjsm.bmj.com" },
             ].map((ref, i) => (
               <li key={i} className="flex gap-2">
                 <span className="text-gray-400 shrink-0">•</span>
                 <a href={ref.url} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">{ref.title} ↗</a>
               </li>
             ))}
+            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span className="text-gray-500">「Jack Daniels&apos; Running Formula」·「BJSM Cadence review」 항목 — 링크가 특정 문헌이 아니라 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
         </section>

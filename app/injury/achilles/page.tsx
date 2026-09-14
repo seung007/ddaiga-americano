@@ -83,12 +83,17 @@ export default function AchillesPage() {
             이 근육들이 새 자극에 적응하기 전에 너무 많이 쓰면 건증(Tendinopathy)이 생깁니다.
           </p>
           <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 text-sm text-orange-900">
-            <strong>적응 기간 가이드:</strong> 힐스트라이크 → 미드풋 전환은 최소 6~8주에 걸쳐 천천히 해야 합니다.
-            처음 2주는 전체 달리기의 20~30%만 미드풋으로 달리세요.
+            {/* 2026-09-14: "최소 6~8주", "처음 2주는 20~30%" 에 출처가 없다.
+                이 페이지 인용 2건에 전환 기간 프로토콜이 없다. 숫자를 경험칙으로 표시한다. */}
+            <strong>적응 기간 가이드:</strong> 힐스트라이크 → 미드풋 전환은 <strong>몇 주에 걸쳐 천천히</strong> 하고,
+            처음에는 전체 달리기의 일부만 새 주법으로 달리는 것이 흔한 권고입니다.
+            <br />
+            <span className="text-xs">※ 구체적인 주차·비율을 정한 연구는 저희가 확인하지 못했습니다. 아프면 그게 기준입니다.</span>
           </div>
         </section>
 
-        <FinderCta from="achilles" variant="inline" headline="드롭이 낮은 신발은 아킬레스 부하를 늘립니다. 전환 중이라면 드롭 8~12mm를 유지하세요." />
+        {/* 2026-09-14: headline 이 "드롭 8~12mm를 유지하세요" 였다 — 근거 없는 mm 처방이라 뺐다. */}
+        <FinderCta from="achilles" variant="inline" headline="아킬레스건 통증 이력을 넣으면 드롭이 급격히 낮은 신발을 걸러서 보여드립니다." />
 
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-6">전환 중 꼭 해야 할 스트레칭 루틴</h2>
@@ -152,11 +157,27 @@ export default function AchillesPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-3">드롭이 낮은 신발도 영향을 줍니다</h2>
+          {/**
+           * ⚠️ 2026-09-14 — **드롭 주장에 인용이 없다.**
+           *
+           * 이 페이지의 인용 2건(Prudêncio 2023 / Kim 2023)은 둘 다
+           * **편심성·점진적 부하 재활 연구**다. 초록 어디에도 힐-투-토 드롭이 없다.
+           * 그런데 본문은 "4mm 이하는 부하를 늘린다 / 8~12mm를 유지하라"고 mm 단위로 단정했다.
+           * `/injury/flat-feet:221` 에도 같은 주장이 인용 없이 반복돼 있다.
+           *
+           * 기전 자체(드롭이 낮으면 발목 배측굴곡이 커진다)는 널리 이야기되지만,
+           * **이 사이트가 근거를 대지 못하는 상태에서 mm 숫자를 처방으로 쓰면 안 된다.**
+           * 방향만 남기고 처방을 뺐다.
+           */}
+          <h2 className="text-xl font-bold text-gray-900 mb-3">신발 드롭은 어떤가요</h2>
           <p className="leading-relaxed text-gray-700">
-            힐-투-토 드롭이 낮은 신발(4mm 이하)은 미드풋 착지를 유도하지만,
-            동시에 아킬레스건에 가해지는 부하를 늘립니다.
-            전환 초기에는 드롭 8~12mm의 신발을 유지하고, 몸이 적응한 뒤 낮은 드롭으로 바꾸는 것을 권장합니다.
+            드롭(뒤꿈치와 앞발의 높이 차)이 낮은 신발은 아킬레스건이 더 많은 일을 하게 만든다고
+            흔히 이야기됩니다. 다만 <strong>저희가 이 글에서 인용한 자료는 재활 운동 연구이고,
+            드롭에 관한 것이 아닙니다.</strong> 그래서 &ldquo;몇 mm를 신으세요&rdquo;라고는 말하지 않겠습니다.
+          </p>
+          <p className="mt-3 leading-relaxed text-gray-700">
+            실용적인 선은 이렇습니다 — <strong>지금 신던 신발보다 드롭이 낮은 것으로 갑자기
+            바꾸지 마세요.</strong> 바뀐 뒤 아프기 시작했다면 되돌려 보는 것도 방법입니다.
           </p>
           {/* 브랜드에 따라 드롭 범위가 갈린다. 이 글의 결론과 직접 이어지는 자료라 여기서 보낸다. */}
           <p className="mt-3 text-sm text-gray-600">
@@ -216,7 +237,7 @@ export default function AchillesPage() {
           },
           {
             q: "아킬레스건이 약하면 신발 드롭은 몇 mm가 좋나요?",
-            a: "드롭(뒤꿈치와 앞발 높이 차)이 높을수록 아킬레스건 부담이 줄어듭니다. 주법 전환 중이거나 아킬레스건에 통증 이력이 있다면 드롭 8mm 이상을 추천합니다. 드롭 4mm 이하의 낮은 신발은 부담을 키울 수 있습니다.",
+            a: "몇 mm라고 말하지 않겠습니다. 드롭이 낮으면 아킬레스건이 더 많은 일을 한다고 흔히 이야기되지만, 이 글이 인용한 자료는 재활 운동 연구이고 드롭에 관한 것이 아닙니다. 실용적인 선은 '지금 신던 것보다 드롭이 낮은 신발로 갑자기 바꾸지 않는다'입니다. 바꾼 뒤 아프기 시작했다면 되돌려 보세요.",
           },
         ]} />
 

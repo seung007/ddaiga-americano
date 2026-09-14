@@ -19,12 +19,31 @@ export default function Page() {
           <span className="inline-block text-xs font-medium text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded-full mb-3">자세</span>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">달리기 자세 체크리스트 — 어깨·팔·시선</h1>
           <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
+          {/**
+           * ⚠️ 2026-09-14 — **이 페이지에는 논문 인용이 0건이다.**
+           *
+           * 2026-08-31 에 검증기가 두 인용이 무관한 논문을 가리키는 것을 잡아내 링크를
+           * 내렸다(아래 참고자료). 그 뒤로 **인용이 하나도 없는 상태**인데,
+           * 배지와 참고자료 문구는 "공개 연구 및 의학 자료 기반"으로 남아 있었다.
+           *
+           * 링크를 내린 것까지는 정직했는데, **내렸다는 사실을 배지에 반영하지 않았다.**
+           * 그래서 근거가 0인 페이지가 근거 있는 페이지처럼 보였다.
+           *
+           * 본문 내용(어깨·팔·시선)을 지우지는 않았다 — 널리 통용되는 자세 조언이고
+           * 위험한 주장이 아니다. 다만 **무엇에 기반한 것인지를 사실대로** 적는다.
+           */}
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 이 글은 논문 인용 없이 통용되는 자세 조언을 정리한 것입니다
           </div>
         </header>
-        <p className="text-lg leading-relaxed mb-8 text-gray-700">발과 다리에만 집중하기 쉽지만, 상체 자세가 달리기 효율과 부상에 큰 영향을 미칩니다. 어깨가 앞으로 말리면 호흡이 얕아지고, 팔이 흔들리면 불필요한 에너지를 씁니다.</p>
+        <p className="text-lg leading-relaxed mb-8 text-gray-700">발과 다리에만 집중하기 쉽지만, 상체 자세도 달리기에 영향을 줍니다. 어깨가 앞으로 말리면 호흡이 얕아지고, 팔이 크게 흔들리면 골반도 따라 흔들립니다.</p>
+        <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
+          <strong>먼저 밝힙니다 — 이 글에는 논문 인용이 없습니다.</strong> 예전에 달아 뒀던 인용
+          2건이 <strong>실제로는 다른 주제의 논문</strong>이라 2026-08-31에 내렸고, 아직 대체할
+          자료를 찾지 못했습니다. 아래 내용은 러너들 사이에 통용되는 자세 조언이지,
+          연구로 검증된 수치가 아닙니다.
+        </div>
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">어깨</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">어깨는 자연스럽게 뒤로 당겨 귀와 어깨가 수직선을 이루어야 합니다. 달리다 보면 피로로 어깨가 귀 쪽으로 올라가는 경향이 있습니다. 5km마다 한 번씩 어깨를 의식적으로 내리고 뒤로 당겨보세요.</p>
@@ -45,7 +64,7 @@ export default function Page() {
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">상체 역학 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
 
           </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. <strong>이 글에는 현재 인용 가능한 논문이 없습니다</strong> — 위 두 항목은 검증에서 탈락해 내린 자리이고, 대체 자료를 찾으면 채웁니다.</p>
         </section>
 
         <YoutubeSection links={[

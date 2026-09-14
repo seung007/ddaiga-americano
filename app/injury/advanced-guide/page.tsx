@@ -21,8 +21,12 @@ export default function AdvancedGuidePage() {
           <h1 className="text-3xl font-bold mb-3">숙련자 부상 예방 가이드</h1>
           <p className="text-gray-600 leading-relaxed">
             숙련자는 고강도·고볼륨 훈련을 감당할 수 있지만, 피로 축적이 보이지 않게 진행됩니다.
-            Bahr & Mæhlum (2004)에 따르면 엘리트에 가까울수록 <strong>누적 부하(Cumulative Load)</strong>가 
-            부상의 주요 원인이 됩니다.
+            {/* ⚠️ 2026-09-14: "Bahr & Mæhlum (2004)에 따르면" 이었다. 이 문헌은 링크도 없고
+                아래 참고 목록에도 없어 확인할 방법이 없다. 게다가 이걸로 "숙련 러너 정의"까지
+                출처화했는데, `beginner-guide:50` 은 *"러닝 경력·주간 거리로 초심자를 정의하는
+                공인된 분류는 없습니다"* 라고 정반대로 적는다. 확인 불가 인용의 이름을 뺀다. */}
+            훈련량이 늘수록 <strong>누적 부하(Cumulative Load)</strong>가 쌓이고, 그것이 한 번의
+            사고보다 흔한 부상 경로로 알려져 있습니다.
           </p>
         </div>
 
@@ -35,7 +39,8 @@ export default function AdvancedGuidePage() {
             <li>• 1km 페이스 4~5분대</li>
           </ul>
           <p className="text-xs text-red-700 mt-3">
-            출처: Bahr & Mæhlum (2004) — 스포츠 의학 교과서 기준 숙련 러너 정의
+            ※ 아래 구분은 <strong>이 사이트가 편의상 나눈 것</strong>입니다. 러닝 경력이나 주간 거리로
+            숙련도를 나누는 <strong>공인된 분류는 없습니다</strong>.
           </p>
         </section>
 
@@ -49,11 +54,18 @@ export default function AdvancedGuidePage() {
                 cause: "과도한 충격 반복, 뼈 재형성 속도 초과, 낮은 D 비타민·칼슘",
                 fix: "4~8주 러닝 중단, 수영·자전거 대체훈련, 비타민D·칼슘 보충 확인, 쿠셔닝 극대화 신발",
                 color: "border-red-200 bg-red-50",
-                ref: "Fredericson & Jennings (2000) Clin Sports Med"
+                // ⚠️ 2026-09-14 서지 정정: "Fredericson & Jennings (2000) Clin Sports Med" 였는데
+                // 실재하는 것은 Fredericson M, Jennings F, Beaulieu C, Matheson GO.
+                // "Stress fractures in athletes." Top Magn Reson Imaging 2006;17:309-325 —
+                // **연도와 저널이 둘 다 달랐다.** 그리고 "연간 1~7%" 수치는 그 초록에서 확인되지 않는다.
+                ref: "Fredericson et al. (2006) Top Magn Reson Imaging — 발생률 수치는 미확인"
               },
               {
                 name: "비기능적 오버리칭 (Non-Functional Overreaching)",
-                freq: "연간 훈련 목표 달성 실패의 주요 원인",
+                // ⚠️ 2026-09-14: "연간 훈련 목표 달성 실패의 주요 원인" 이었다.
+                // 근거로 단 Meeusen 2013 초록은 정반대로 적는다 —
+                // *"there is no scientific evidence to either confirm or refute this suggestion."*
+                freq: "훈련 목표 달성을 방해한다고 알려져 있으나 근거는 확립되지 않음",
                 cause: "2~3주 이상 지속되는 퍼포먼스 저하, HRV 감소, 코르티솔 상승",
                 fix: "최소 2주 완전 감량훈련(deload), 수면 8시간 확보, HRV 모니터링 도입",
                 color: "border-orange-200 bg-orange-50",
@@ -70,7 +82,7 @@ export default function AdvancedGuidePage() {
                 // 2026-09-01에 대체 근거를 찾아 채운다 — 아래 참고 자료 목록에 링크가 있다.
                 // 다만 그 고찰의 결론은 "이게 최선이다"가 아니라
                 // **"하나를 다른 것보다 권할 근거가 불충분하다"**에 가깝다.
-                ref: "Dizon et al. (2023) IJSPT — 다만 단일 최선 중재를 가릴 근거는 불충분하다"
+                ref: "Dizon et al. (2023) Sports (Basel) — 다만 단일 최선 중재를 가릴 근거는 불충분하다"
               }
             ].map(item => (
               <div key={item.name} className={`rounded-xl border p-4 ${item.color}`}>
@@ -86,9 +98,14 @@ export default function AdvancedGuidePage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">② 주기화 훈련 — 부상 없이 기록을 높이는 구조</h2>
+          {/* ⚠️ 2026-09-14: "Bompa & Haff (2009)의 주기화 이론에 따르면 … 3단계로 구성해야"
+              라고 적혀 있었다. 두 가지가 틀렸다 —
+                ① 이 문헌은 링크도 없고 아래 참고 목록에도 없다. 확인할 방법이 없다
+                ② **바로 아래 자기 표가 4단계다.** 본문이 3단계라고 말하면서 4단계 표를 보여줬다
+              출처를 확인할 수 없는 인용은 이름을 빼고, 단계 수는 표와 맞춘다. */}
           <p className="text-gray-700 mb-3 leading-relaxed">
-            Bompa & Haff (2009)의 주기화 이론에 따르면 훈련은 <strong>준비기→경쟁기→회복기</strong> 3단계로 
-            구성해야 누적 피로 없이 최대 성과를 낼 수 있습니다.
+            주기화(periodization)는 훈련을 <strong>단계로 나눠 강도와 볼륨을 번갈아 배치</strong>하는
+            방식입니다. 아래는 널리 쓰이는 4단계 구성이고, 특정 문헌의 프로토콜은 아닙니다.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
@@ -173,11 +190,11 @@ export default function AdvancedGuidePage() {
         <FaqSection items={[
           {
             q: "숙련 러너의 부상 주원인은 무엇인가요?",
-            a: "보이지 않게 쌓이는 누적 부하(Cumulative Load)입니다. 고강도·고볼륨을 감당할 수 있더라도 피로가 눈에 띄지 않게 축적됩니다. Bahr & Mæhlum(2004)에 따르면 엘리트에 가까울수록 누적 부하가 부상의 주요 원인이 됩니다.",
+            a: "보이지 않게 쌓이는 누적 부하(Cumulative Load)로 알려져 있습니다. 고강도·고볼륨을 감당할 수 있더라도 피로가 눈에 띄지 않게 축적됩니다. 다만 숙련도별 부상 원인을 수치로 제시한 인용은 이 글에 없습니다.",
           },
           {
             q: "HRV(심박변이도)는 어떻게 활용하나요?",
-            a: "매일 아침 기상 직후 1~3분 측정(Elite HRV, HRV4Training 등)해서 평균 대비 5% 이상 떨어지면 그날은 저강도 조깅이나 휴식으로 강도를 낮춥니다. 컨디션을 객관적 수치로 관리하는 방법입니다.",
+            a: "매일 아침 기상 직후 1~3분 측정(Elite HRV, HRV4Training 등)해서 7일 평균 대비 뚜렷하게 떨어진 날은 저강도 조깅이나 휴식으로 강도를 낮춥니다. 다만 이건 본문에 적어 둔 대로 참고용 운영 규칙이지 논문이 검증한 프로토콜이 아닙니다 — 근거로 든 Plews 2013은 러너 10명짜리 상관 연구이고, 개입 효과를 증명한 논문이 아닙니다.",
           },
           {
             q: "기록을 높이면서 부상을 막으려면?",
