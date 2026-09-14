@@ -76,16 +76,57 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-5">
           내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>
-        <p className="text-lg text-gray-600 leading-relaxed mb-8">
+        {/* 2026-09-14: mb-8 → mb-6. 버튼이 두 개가 되면서 한 줄이 더 필요해졌는데,
+            첫 화면 안에 신발 카드를 넣으려면 그만큼을 위에서 줄여야 한다.
+            60%가 스크롤을 안 하므로 fold 안의 픽셀이 제일 비싸다. */}
+        <p className="text-lg text-gray-600 leading-relaxed mb-6">
           키·체중·발볼만 고르면 논문 기반 추천이<br />
           내 체형에 맞는 신발 3개를 골라드려요
         </p>
-        <Link
-          href="/shoe-finder"
-          className="inline-block bg-emerald-600 text-white font-medium px-8 py-4 rounded-xl hover:bg-emerald-700 transition-colors"
-        >
-          내 신발 찾기 시작 →
-        </Link>
+        {/**
+         * 버튼 두 개 (2026-09-14)
+         *
+         * ─ 왜 ─────────────────────────────────────────────
+         * GA4 28일 실측(사용자 115명):
+         *   · recommend_form_complete  12명 (10.4%)  ← 폼은 작동한다
+         *   · home_shoe_click           0명
+         *   · quick_answer_click        0명
+         *   · scroll                   46명 (40%)   ← **60%는 스크롤도 안 한다**
+         *
+         * 처음엔 "8단계 폼이라 아무도 안 할 것"이라고 봤는데 **반증됐다.**
+         * 폼은 이 사이트에서 유일하게 작동하는 경로다.
+         *
+         * 진짜 문제는 **폼 말고 갈 데가 첫 화면에 없다**는 것이었다.
+         * 추천 서비스 14곳을 직접 열어 잰 결과:
+         *   · 첫 화면 주력이 상품·카테고리·검색 — **14곳 중 11곳**
+         *   · 퀴즈를 건너뛰는 경로가 첫 화면에 있음 — **14곳 중 13곳**
+         *   · 러닝화 4곳(RunRepeat·FleetFeet·RoadRunner·Brooks)은 **전부**
+         *     퀴즈를 네비나 2~3번째 화면으로 내렸다
+         *   · 퀴즈를 히어로 단독 CTA로 쓴 곳은 1곳뿐 — Stitch Fix.
+         *     그건 **둘러볼 카탈로그가 아예 없는 모델**이라 그렇다
+         *
+         * 퀴즈를 히어로에 두는 두 곳(Warby Parker·ThirdLove)은 **버튼을 두 개** 둔다.
+         * 그리고 그 둘의 퀴즈도 **정확히 8단계**다 — 길이가 문제가 아니었다.
+         *
+         * ─ 무엇을 포기하나 ────────────────────────────────
+         * 두 번째 버튼은 주 버튼의 시선을 나눈다. 폼 완료율이 떨어질 수 있다.
+         * `recommend_form_complete` 와 `home_shoe_click` 을 같이 봐야 판정된다 —
+         * 폼이 줄고 신발 클릭이 그만큼 안 늘면 되돌린다.
+         */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/shoe-finder"
+            className="inline-block bg-emerald-600 text-white font-medium px-8 py-4 rounded-xl hover:bg-emerald-700 transition-colors"
+          >
+            내 신발 찾기 시작 →
+          </Link>
+          <a
+            href="#shoes"
+            className="inline-block rounded-xl border border-gray-300 bg-white/80 px-8 py-4 font-medium text-gray-700 backdrop-blur-sm transition-colors hover:border-gray-400 hover:bg-white"
+          >
+            그냥 둘러볼게요
+          </a>
+        </div>
         {/* 2026-09-03: "· 추천 순서는 광고비로 바뀌지 않습니다"를 뺐다.
             CTA 밑 마이크로카피의 역할은 **누르기를 망설이게 하는 것을 없애는 것**이고,
             그 자리에서 가장 센 건 "가입 없이 무료"다. 중립성은 신뢰 주장이지 장벽 제거가 아니라
@@ -100,17 +141,29 @@ export default function Home() {
         </section>
       </div>
 
-      {/* 답 바로가기 — 히어로 바로 밑.
+      {/**
+       * 순서를 바꿨다 (2026-09-14): 신발 띠를 「답 바로가기」 **위로** 올렸다.
+       *
+       * 이유 둘.
+       *   ① GA4 28일 — `scroll` 이 115명 중 46명(40%)이다. **60%는 스크롤을 안 한다.**
+       *      그런데 1280×800 실측에서 **첫 화면 안에 신발 카드가 0장**이었다(800px 아래).
+       *      `home_shoe_click` 0건은 "안 눌렀다"가 아니라 **볼 기회가 없었다**일 수 있다.
+       *   ② 추천 서비스 14곳 중 11곳이 상품·카테고리를 퀴즈보다 먼저 보여준다.
+       *
+       * 「답 바로가기」는 9/12에 만들었고 이틀간 `quick_answer_click` **0건**이다.
+       * 표본이 작아 실패로 단정하진 않지만, 신발 띠보다 먼저 놓을 근거는 없다.
+       *
+       * `id="shoes"` 는 히어로의 「그냥 둘러볼게요」 버튼이 내려오는 자리다.
+       */}
+      <div id="shoes" className="scroll-mt-16">
+        <ShoeStrip shoes={STRIP_SHOES} />
+      </div>
+
+      {/* 답 바로가기 — 신발 띠 밑.
           2026-09-12: 네이버 유입 검색어의 73%가 브랜드 비교, 33%가 발 조건인데
           홈 첫 화면에 그 입구가 하나도 없었다. 유일한 행동이 **폼 작성**이었다.
           자세한 경위는 components/QuickAnswers.tsx 주석에. */}
       <QuickAnswers />
-
-      {/* 신발 띠 — 답 바로가기 밑.
-          2026-09-06: 홈에 신발 사진이 한 장도 없었다. 러닝화 추천 사이트에서.
-          "어떻게 추천하나요?"(설명)보다 신발(실물)이 먼저 오는 게 맞다 —
-          설명은 볼 것을 본 다음에 읽는다. */}
-      <ShoeStrip shoes={STRIP_SHOES} />
 
       {/* How it works */}
       <section className="max-w-3xl mx-auto px-6 pb-16">

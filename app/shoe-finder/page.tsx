@@ -90,16 +90,18 @@ const INJURY_OPTIONS: { value: InjuryArea; label: string; desc: string }[] = [
 type SortKey = "score" | "price_asc" | "price_desc";
 
 const TOTAL_STEPS = 8;
-const STEP_LABELS = ["예산", "성별", "키", "체중", "발 특성", "경험·거리", "부상 이력", "용도"];
+// 2026-09-14: 첫 문항을 「예산」 → 「용도」로 바꿨다(마지막과 자리 교환).
+// 관측한 추천 서비스 5곳 중 예산을 첫 문항에 둔 곳은 0곳이었다. 경위는 STEP 0 주석에.
+const STEP_LABELS = ["용도", "성별", "키", "체중", "발 특성", "경험·거리", "부상 이력", "예산"];
 const STEP_MICROCOPY = [
-  "예산이 어느 정도예요?",
+  "어떤 달리기를 하세요?",
   "성별을 알려주시면 발형에 맞게 추천해드려요",
   "키가 어떻게 되세요?",
   "체중도 알려주세요 — 쿠션 두께가 달라져요",
   "내 발 특성이 어때요?",
   "달린 지 얼마나 됐어요?",
   "달리다 다쳐본 적 있어요?",
-  "달리기 목표가 뭔가요?",
+  "마지막 — 예산이 어느 정도예요?",
 ];
 
 // ── 재방문 · 공유: 프로필 저장/복원 ─────────────────────────────
@@ -312,9 +314,23 @@ export default function ShoeFinderPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!heightRange) { setError("키를 먼저 골라주세요!"); return; }
-    if (!weightRange) { setError("체중도 골라주세요!"); return; }
-    if (!use) { setError("달리기 목적을 골라주세요!"); return; }
+    /**
+     * ⚠️ 2026-09-14 — **오류가 해당 단계로 데려가게 했다.**
+     *
+     * 「다음」 버튼은 선택을 강제하지 않아서 어느 단계든 건너뛸 수 있다.
+     * 예전에는 필수 항목(키·체중·용도)이 전부 마지막 화면 근처에 있어서
+     * 오류 문구가 뜨면 그 자리에서 고칠 수 있었다.
+     *
+     * 그런데 오늘 **용도를 1번 문항으로 옮기면서** 상황이 바뀌었다 —
+     * 용도를 건너뛴 사람은 마지막(예산) 화면에서 *"달리기 목적을 골라주세요"* 를
+     * 보게 되고, **그 화면엔 목적을 고를 데가 없다.**
+     * 8단계를 다 온 사람을 막다른 곳에 세우는 것이다.
+     *
+     * `setCurrentStep` 으로 그 단계까지 데려간다. 인덱스는 `STEP_LABELS` 기준이다.
+     */
+    if (!use)         { setCurrentStep(0); setError("어떤 달리기를 하시는지 먼저 골라주세요!"); return; }
+    if (!heightRange) { setCurrentStep(2); setError("키를 먼저 골라주세요!"); return; }
+    if (!weightRange) { setCurrentStep(3); setError("체중도 골라주세요!"); return; }
     setError("");
     setSubmitted(true);
     setExpandedId(null);
@@ -370,9 +386,14 @@ export default function ShoeFinderPage() {
     if (editingStep === 2 && heightRange && !weightRange) setEditingStep(3);
   }, [editingStep, heightRange, weightRange]);
 
-  /** 조건 칩에 띄울 현재 값. null이면 아직 안 고른 것 */
+  /**
+   * 조건 칩에 띄울 현재 값. null이면 아직 안 고른 것.
+   * ⚠️ **이 배열의 순서는 `STEP_LABELS` 와 1:1로 맞아야 한다.**
+   * 2026-09-14 에 0번(예산)과 7번(용도)을 맞바꿨으므로 여기도 같이 바꿨다.
+   * 안 바꾸면 칩에 「용도: 17만원 이하」 같은 값이 뜬다.
+   */
   const stepSummaries: (string | null)[] = [
-    BUDGETS.find(o => o.value === budget)?.label ?? null,
+    USES.find(o => o.value === use)?.label ?? null,
     gender === "male" ? "남성" : gender === "female" ? "여성" : null,
     HEIGHT_OPTIONS.find(o => o.value === heightRange)?.label ?? null,
     (heightRange && WEIGHT_OPTIONS[heightRange].find(o => o.value === weightRange)?.label) || null,
@@ -384,7 +405,7 @@ export default function ShoeFinderPage() {
     injuries.length
       ? injuries.map(v => INJURY_OPTIONS.find(o => o.value === v)?.label).filter(Boolean).join(" · ")
       : null,
-    USES.find(o => o.value === use)?.label ?? null,
+    BUDGETS.find(o => o.value === budget)?.label ?? null,
   ];
 
   const topPick = sortedPrimary[0];
@@ -510,20 +531,42 @@ export default function ShoeFinderPage() {
           </p>
         )}
 
-        {/* ── STEP 0: 예산 ── */}
+        {/**
+         * ── STEP 0: 용도 ──  (2026-09-14: 예산과 자리를 맞바꿈)
+         *
+         * 원래 1번 문항이 **「예산이 어느 정도예요?」** 였다.
+         *
+         * 추천 서비스 5곳의 퀴즈를 직접 열어 첫 문항을 확인한 결과
+         * **예산을 첫 문항에 둔 곳은 0곳**이었다:
+         *   Warby Parker = 제품 종류 / ThirdLove = 현재 사이즈 /
+         *   Brooks = 용도 / Road Runner = 용도·주간거리 / Casper = 이메일
+         *
+         * 처음 온 사람에게 돈부터 묻는 것은 "뭘 파는 곳"이라는 신호가 되고,
+         * 아직 뭘 받을지 모르는 상태에서 답하기도 어렵다.
+         * 용도는 자기가 이미 아는 것이라 진입 장벽이 가장 낮다.
+         *
+         * ⚠️ 단계 수(8)는 그대로 둔다. 벤치마킹에서 **길이가 문제가 아니라는 게 확인**됐다 —
+         * Warby Parker·ThirdLove 둘 다 정확히 8단계이고 둘 다 성공 사례다.
+         *
+         * 제출 버튼은 마지막 단계에 있어야 하므로, 용도에 붙어 있던 제출을
+         * 예산 쪽(이제 STEP 7)으로 같이 옮겼다.
+         */}
         {activeStep === 0 && (
           <div className="flex flex-col gap-2">
-            <div className="grid grid-cols-2 gap-2">
-              {BUDGETS.map(o => (
-                <button key={o.value} type="button"
-                  onClick={() => { setBudget(o.value); handleChange(); }}
-                  className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors text-left
-                    ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
-                  {o.label}
-                </button>
-              ))}
-            </div>
-            <p className="text-xs text-gray-400 mt-1">선택 안 해도 괜찮아요 — 그냥 넘어가도 됩니다.</p>
+            {([
+              { value: "daily" as ShoeUse,   label: "데일리",      desc: "매일 달리기 · 처음 시작이라면 이걸로!" },
+              { value: "long" as ShoeUse,    label: "장거리",      desc: "하프·풀 마라톤 준비 중" },
+              { value: "tempo" as ShoeUse,   label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
+              { value: "racing" as ShoeUse,  label: "레이싱",      desc: "기록 단축이 목표예요" },
+            ]).map(o => (
+              <button key={o.value} type="button"
+                onClick={() => { setUse(o.value); handleChange(); }}
+                className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
+                  ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
+                <span className={`font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                <span className="text-xs text-gray-400">{o.desc}</span>
+              </button>
+            ))}
           </div>
         )}
 
@@ -680,27 +723,26 @@ export default function ShoeFinderPage() {
           </div>
         )}
 
-        {/* ── STEP 7: 용도 + 추천 받기 ── */}
+        {/* ── STEP 7: 예산 + 추천 받기 ──  (2026-09-14: 용도와 자리를 맞바꿈. 경위는 STEP 0 주석에) */}
         {activeStep === 7 && (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              {([
-                { value: "daily" as ShoeUse,   label: "데일리",      desc: "매일 달리기 · 처음 시작이라면 이걸로!" },
-                { value: "long" as ShoeUse,    label: "장거리",      desc: "하프·풀 마라톤 준비 중" },
-                { value: "tempo" as ShoeUse,   label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
-                { value: "racing" as ShoeUse,  label: "레이싱",      desc: "기록 단축이 목표예요" },
-              ]).map(o => (
-                <button key={o.value} type="button"
-                  onClick={() => { setUse(o.value); handleChange(); }}
-                  className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
-                    ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                  <span className={`font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                  <span className="text-xs text-gray-400">{o.desc}</span>
-                </button>
-              ))}
+              <div className="grid grid-cols-2 gap-2">
+                {BUDGETS.map(o => (
+                  <button key={o.value} type="button"
+                    onClick={() => { setBudget(o.value); handleChange(); }}
+                    className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors text-left
+                      ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-gray-400 mt-1">선택 안 해도 괜찮아요 — 그냥 넘어가도 됩니다.</p>
             </div>
 
-            {error && <p className="text-sm text-red-500">{error}</p>}
+            {/* 2026-09-14: 오류 문구를 여기(7단계 안)에서 아래 전역 위치로 옮겼다.
+                제출 검증이 사용자를 0·2·3단계로 데려갈 수 있게 되면서,
+                7단계 안에만 있으면 데려간 화면에서 오류가 안 보인다. */}
 
             {!isEditing && (
             <button type="submit"
@@ -717,6 +759,11 @@ export default function ShoeFinderPage() {
           </div>
         )}
 
+        {/* 제출 검증 오류 — 어느 단계에 있든 보여야 한다 (2026-09-14) */}
+        {error && !submitted && (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600">{error}</p>
+        )}
+
         {/* ── 이전 / 다음 버튼 ── */}
         {!submitted && (
           <div className="flex gap-2 mt-1">
@@ -728,6 +775,10 @@ export default function ShoeFinderPage() {
             )}
             {currentStep < TOTAL_STEPS - 1 && (
               <button type="button" onClick={() => {
+                // 2026-09-14: 용도가 0번이 되면서 관문이 필요해졌다.
+                // 키·체중은 원래 막고 있었는데 용도는 마지막 단계라 막을 일이 없었다.
+                // 여기서 안 막으면 8단계를 다 온 뒤 0번으로 되돌려 보내야 한다.
+                if (currentStep === 0 && !use) { setError("어떤 달리기를 하시는지 먼저 골라주세요!"); return; }
                 if (currentStep === 2 && !heightRange) { setError("키를 먼저 골라주세요!"); return; }
                 if (currentStep === 3 && !weightRange) { setError("체중도 골라주세요!"); return; }
                 setError("");
