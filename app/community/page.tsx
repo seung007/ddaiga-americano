@@ -1,12 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
+import FinderCta from "@/components/FinderCta";
 
-const TAGS = ["전체", "신발추천", "무릎", "발볼", "족저근막", "아킬레스", "기타"] as const;
+/**
+ * 2026-09-15: **Q&A → 자유게시판.** 태그 6개가 전부 증상이었다
+ * (`신발추천 · 무릎 · 발볼 · 족저근막 · 아킬레스 · 기타`).
+ *
+ * 그 자체가 "아픈 사람만, 질문만 쓰는 곳"이라는 신호였다. 글을 읽고 드는 생각은 대개
+ * *"도움 됐어요" · "이건 틀린 것 같은데" · "○○도 다뤄주세요"* 인데 **쓸 자리가 없었다.**
+ *
+ * 왜 지금 바꾸나 — 원인 후보 셋 중 둘이 실측으로 제거됐다.
+ *   · 거리: 입력창을 글 안으로 옮겨 클릭 0회로 만들었는데 `inline_ask_submit` 28일 **0건**
+ *   · 문턱: 로그인 없음, 필수는 textarea 하나뿐 (2026-09-15 배포본 DOM 실측)
+ * 남은 것이 형식이고, 그게 이 태그와 문구다.
+ *
+ * 바꿔도 되는 근거: 2026-09-15 로컬에서 목록을 열어 **글 0건**을 직접 확인했다
+ * (조회 실패가 아니라 실제 0건 — 태그 카운트 전부 0). 마이그레이션할 기존 글이 없다.
+ */
+const TAGS = ["전체", "이런 게 있으면", "좋았던 점", "틀린 것 같아요", "신발 고민", "부상 고민", "기타"] as const;
 type Tag = (typeof TAGS)[number];
 
-/** 질문 폼의 태그 선택지 — 목록 필터의 "전체"는 제외한다. */
+/** 글 폼의 태그 선택지 — 목록 필터의 "전체"는 제외한다. */
 const FORM_TAGS = TAGS.filter((t) => t !== "전체");
 
 const QUESTION_MAX = 300;
@@ -15,12 +32,12 @@ const QUESTION_MAX = 300;
 const DEFAULT_NICKNAME = "런린이";
 
 const TAG_COLORS: Record<string, string> = {
-  신발추천:   "bg-emerald-50 text-emerald-700 border-emerald-200",
-  무릎:       "bg-red-50 text-red-600 border-red-200",
-  발볼:       "bg-blue-50 text-blue-600 border-blue-200",
-  족저근막:   "bg-orange-50 text-orange-600 border-orange-200",
-  아킬레스:   "bg-purple-50 text-purple-600 border-purple-200",
-  기타:       "bg-gray-100 text-gray-600 border-gray-200",
+  "이런 게 있으면":  "bg-blue-50 text-blue-600 border-blue-200",
+  "좋았던 점":       "bg-emerald-50 text-emerald-700 border-emerald-200",
+  "틀린 것 같아요":  "bg-amber-50 text-amber-700 border-amber-200",
+  "신발 고민":       "bg-purple-50 text-purple-600 border-purple-200",
+  "부상 고민":       "bg-red-50 text-red-600 border-red-200",
+  기타:              "bg-gray-100 text-gray-600 border-gray-200",
 };
 
 type Post = {
@@ -38,6 +55,22 @@ type Post = {
   likes: number;
 };
 
+/**
+ * GA4 이벤트.
+ *
+ * ⚠️ 조용히 버리지 않는다. `recommend_form_start` 가 **gtag 로드 전에 발화해 통째로
+ * 유실**된 적이 있다(`유입_설정_기준선.md §4-7` — 그래서 완주율을 계산할 수 없다).
+ * gtag 가 아직 없으면 짧게 기다렸다 다시 시도하고, 5초를 넘기면 포기한다.
+ */
+function sendGa(name: string, params: Record<string, string>, attempt = 0) {
+  const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+  if (typeof g === "function") {
+    g("event", name, params);
+    return;
+  }
+  if (attempt < 10) setTimeout(() => sendGa(name, params, attempt + 1), 500);
+}
+
 function timeAgo(dateStr: string) {
   const diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
   if (diff < 60) return "방금";
@@ -54,12 +87,16 @@ export default function CommunityPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
   const reqSeq = useRef(0);
+  /** `board_write_start` 는 글 하나당 한 번만 보낸다. */
+  const writeStarted = useRef(false);
 
-  // 질문 폼 상태
+  // 글 폼 상태
   const [nickname, setNickname] = useState("");
   const [question, setQuestion] = useState("");
   const [body, setBody] = useState("");
-  const [tag, setTag] = useState("신발추천");
+  // 기본 선택 없음(""). 전에는 "신발추천"이 미리 골라져 있어서 **안 고른 사람도 그 태그로
+  // 저장됐다** — 태그가 신호가 아니라 잡음이 된다. 비워 두고 저장 때만 "기타"로 채운다.
+  const [tag, setTag] = useState("");
   const [heightCm, setHeightCm] = useState("");
   const [weightKg, setWeightKg] = useState("");
   const [budget, setBudget] = useState("");
@@ -115,19 +152,20 @@ export default function CommunityPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // 필수는 질문 하나뿐이다. 닉네임은 비워도 되고, 실패 시 해당 칸으로 포커스를 옮긴다.
+    // 필수는 글 하나뿐이다. 닉네임은 비워도 되고, 실패 시 해당 칸으로 포커스를 옮긴다.
     if (!question.trim()) {
-      setFormError("질문을 입력해주세요.");
+      setFormError("내용을 입력해주세요.");
       questionRef.current?.focus();
       return;
     }
     setFormError("");
     setSubmitting(true);
+    const finalTag = tag || "기타";
     const { error } = await supabase.from("community_posts").insert({
       nickname: nickname.trim() || DEFAULT_NICKNAME,
       question: question.trim(),
       body: body.trim() || null,
-      tag,
+      tag: finalTag,
       height_cm: heightCm ? parseInt(heightCm) : null,
       weight_kg: weightKg ? parseInt(weightKg) : null,
       budget_krw: budget ? parseInt(budget) * 10000 : null,
@@ -135,10 +173,13 @@ export default function CommunityPage() {
     setSubmitting(false);
     if (error) {
       // 폼을 치우지 않는다 — 사용자가 입력한 내용을 잃지 않게 그대로 두고 메시지만 보여준다.
-      console.error("[community] 질문 등록 실패", error);
-      setFormError("질문을 저장하지 못했어요. 잠시 후 다시 시도해주세요.");
+      console.error("[community] 글 등록 실패", error);
+      setFormError("글을 저장하지 못했어요. 잠시 후 다시 시도해주세요.");
       return;
     }
+    // 매개변수는 `from`·`tag` 를 재사용한다 — GA4 맞춤 측정기준에 이미 등록돼 있어서
+    // 새 이름을 쓰면 또 등록해야 하고 소급 적용이 안 된다 (2026-09-13).
+    sendGa("board_write_complete", { from: "community", tag: finalTag });
     setSubmitted(true);
     setNickname(""); setQuestion(""); setBody(""); setHeightCm(""); setWeightKg(""); setBudget("");
     fetchPosts();
@@ -157,21 +198,36 @@ export default function CommunityPage() {
 
       {/* 헤더 */}
       <header className="mb-8">
-        <p className="text-sm font-medium text-emerald-600 mb-1">런린이 Q&A</p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">달리기 질문, 여기서 해결해요</h1>
+        <p className="text-sm font-medium text-emerald-600 mb-1">런린이 이야기방</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">뭐든 남겨주세요</h1>
         <p className="text-gray-500 text-sm leading-relaxed">
-          신발 추천, 부상 고민, 달리기 자세까지 — 질문 한 줄만 쓰면 바로 올라가요. 가입도, 닉네임도 필요 없어요.
+          질문도 좋고, 후기도 좋고, &ldquo;이런 게 있으면 좋겠다&rdquo;도 좋아요. 가입도, 닉네임도 필요 없어요.
         </p>
       </header>
 
-      {/* 질문 폼 */}
+      {/* 글 폼 */}
       <section className="mb-10 border border-gray-200 rounded-2xl p-6 bg-white shadow-sm">
-        <h2 className="text-base font-bold text-gray-900 mb-4">질문 올리기</h2>
+        <h2 className="text-base font-bold text-gray-900 mb-4">글 남기기</h2>
         {submitted ? (
-          <div className="text-center py-6">
+          <div className="py-6 text-center">
             <p className="text-2xl mb-2">🙌</p>
-            <p className="font-semibold text-emerald-700">질문이 등록됐어요!</p>
-            <p className="text-sm text-gray-500 mt-1">운영자가 직접 확인하고 답을 답니다. 기한은 약속드리기 어려워요.</p>
+            <p className="font-semibold text-emerald-700">글이 올라갔어요!</p>
+            <p className="text-sm text-gray-500 mt-1">운영자가 직접 읽습니다. 답이 필요한 글은 답을 달지만 기한은 약속드리기 어려워요.</p>
+            {/* 글을 쓴 사람을 실제 서비스로 보낸다. 여기서 끝나면 재방문할 이유가 없다. */}
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Link
+                href="/shoe-finder"
+                className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+              >
+                내 신발 찾기 →
+              </Link>
+              <Link
+                href="/injury"
+                className="rounded-lg border border-gray-300 px-4 py-2 text-xs font-medium text-gray-700 transition-colors hover:border-gray-400"
+              >
+                러닝 가이드 보기
+              </Link>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -181,27 +237,35 @@ export default function CommunityPage() {
             */}
             {!loading && loadFailed && (
               <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 leading-relaxed" role="status">
-                지금 기존 질문 목록을 불러오지 못하고 있어요. 질문 등록은 시도할 수 있지만,
+                지금 기존 글 목록을 불러오지 못하고 있어요. 글 등록은 시도할 수 있지만,
                 저장에 실패하면 안내 메시지가 뜨고 입력하신 내용은 그대로 남습니다.
               </p>
             )}
-            {/* 질문 — 유일한 필수 항목 */}
+            {/* 글 — 유일한 필수 항목.
+                ⚠️ placeholder 예시는 **질문이 아닌 것을 먼저** 둔다. 예시가 질문뿐이면
+                "질문만 쓰는 곳"으로 읽히고, 그게 지금까지 0건이던 이유로 지목된 형식이다. */}
             <div>
               <label htmlFor="q-question" className="text-sm font-semibold text-gray-800 mb-1.5 block">
-                무엇이 궁금하세요?
+                무슨 얘기든 좋아요
               </label>
               <textarea
                 id="q-question"
                 ref={questionRef}
                 value={question}
-                onChange={e => setQuestion(e.target.value)}
+                onChange={e => {
+                  setQuestion(e.target.value);
+                  if (!writeStarted.current && e.target.value.trim()) {
+                    writeStarted.current = true;
+                    sendGa("board_write_start", { from: "community", tag: tag || "기타" });
+                  }
+                }}
                 required
                 aria-required="true"
                 aria-invalid={formError ? true : undefined}
                 aria-describedby="q-question-help"
                 rows={3}
                 maxLength={QUESTION_MAX}
-                placeholder="예: 평발인데 10km 넘게 뛰면 무릎 바깥쪽이 아파요. 어떤 신발이 좋을까요?"
+                placeholder={"예: 이 글 도움 됐어요\n예: 발볼 넓은 신발도 다뤄주세요\n예: 평발인데 10km 넘게 뛰면 무릎이 아파요"}
                 className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-emerald-300 resize-y"
               />
               <div className="flex items-start justify-between gap-3 mt-1">
@@ -214,9 +278,11 @@ export default function CommunityPage() {
               </div>
             </div>
 
-            {/* 태그 — 클릭 한 번, 기본값 있음 */}
+            {/* 태그 — 클릭 한 번, **안 골라도 등록된다.** 문턱을 낮추려는 작업이라 새 문턱을 만들지 않는다. */}
             <fieldset className="min-w-0">
-              <legend className="text-xs font-medium text-gray-500 mb-2">어떤 주제인가요?</legend>
+              <legend className="text-xs font-medium text-gray-500 mb-2">
+                어떤 글인가요? <span className="text-gray-400">(안 골라도 돼요)</span>
+              </legend>
               <div className="flex flex-wrap gap-2">
                 {FORM_TAGS.map(t => (
                   <label key={t} className="cursor-pointer">
@@ -314,7 +380,7 @@ export default function CommunityPage() {
               type="submit" disabled={submitting}
               className="w-full rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors disabled:bg-gray-200 disabled:text-gray-400"
             >
-              {submitting ? "등록 중…" : "질문 올리기 →"}
+              {submitting ? "올리는 중…" : "남기기 →"}
             </button>
             <p className="text-xs text-gray-400 text-center -mt-1">
               닉네임을 비우면 &lsquo;{DEFAULT_NICKNAME}&rsquo;으로 표시돼요. 개인정보는 입력하지 마세요.
@@ -345,7 +411,7 @@ export default function CommunityPage() {
       ) : loadFailed ? (
         <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-10 text-center" role="alert">
           <p className="text-2xl mb-2">🔌</p>
-          <p className="text-sm font-semibold text-amber-800">질문 목록을 불러오지 못했어요</p>
+          <p className="text-sm font-semibold text-amber-800">글 목록을 불러오지 못했어요</p>
           <p className="text-xs text-amber-700 mt-1 leading-relaxed">
             일시적인 문제일 수 있어요. 새로고침해도 같으면 잠시 뒤에 다시 방문해 주세요.
           </p>
@@ -359,12 +425,12 @@ export default function CommunityPage() {
         </div>
       ) : posts.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-gray-400 text-sm">아직 질문이 없어요. 첫 번째 질문을 올려보세요!</p>
+          <p className="text-gray-400 text-sm">아직 아무도 안 남겼어요. 첫 글을 남겨보세요!</p>
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-gray-400 text-sm">
-            <span className="font-medium text-gray-500">{activeTag}</span> 태그에는 아직 질문이 없어요.
+            <span className="font-medium text-gray-500">{activeTag}</span> 에는 아직 글이 없어요.
           </p>
           <button
             onClick={() => setActiveTag("전체")}
@@ -460,6 +526,13 @@ export default function CommunityPage() {
           ))}
         </ul>
       )}
+
+      {/* 글만 쓰고 끝나면 재방문할 이유가 없다. 목록 밑에서 실제 서비스로 보낸다. */}
+      <FinderCta
+        from="community"
+        headline="글 남기는 김에, 내 발에 맞는 신발도 찾아보세요"
+        sub="키·체중·발볼만 고르면 조건을 통과한 신발 3개를 골라드려요. 가입 없이 1분."
+      />
     </main>
   );
 }
