@@ -61,15 +61,45 @@ export default function Page() {
           <p className="leading-relaxed text-gray-700 mb-4">
             격렬한 운동 다음 날, 몸을 완전히 쉬는 대신 가벼운 활동으로 혈류를 유지하는 방법입니다.
           </p>
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
-            <strong>다만 효과가 증명된 건 아닙니다.</strong> 3주 이상 인터벌 훈련에서
-            능동회복과 완전휴식을 비교한 체계적 고찰(Zouhal 2024, 아래 참고자료)은{" "}
-            <strong>체력 향상에서 둘의 차이를 확인하지 못했습니다.</strong>
-            <br />
-            <br />
-            그러니 &ldquo;이걸 해야 회복이 빠르다&rdquo;가 아니라{" "}
-            <strong>&ldquo;쉬는 날 몸이 뻣뻣하면 가볍게 움직여도 된다&rdquo;</strong> 정도로
-            보는 게 맞습니다.
+          {/**
+           * 2026-09-15 — 어제 비워 둔 자리를 **한국어 메타분석으로 채웠다.**
+           *
+           * 이재엽·노기웅·박석 (2024) 한국체육과학회지 33(1):533-543.
+           * 2003~2023년 8편 체계적 문헌고찰 + 메타분석. 혈중 젖산 감소 효과크기:
+           *   마사지 -4.00 > **동적(능동) 회복 -3.37** > 정적(수동) 회복 -1.60
+           *
+           * ⚠️ **Zouhal 2024 와 모순이 아니다.** 재는 것이 다르다 —
+           *   · 이재엽 2024 = **혈중 젖산 농도** (급성 지표)
+           *   · Zouhal 2024 = **체력 향상** (3주 이상 장기)
+           * 둘을 합치면 "젖산은 더 빨리 빠지는데 체력 향상 차이는 확인 안 됐다"가 된다.
+           * 하나만 인용하고 다른 쪽을 안 쓰면 그게 체리피킹이다. 둘 다 쓴다.
+           *
+           * ⚠️ 이 메타분석의 **지표는 젖산 하나뿐**이고 연구도 8편, I² 69~88%로 이질성이 높다.
+           * "젖산이 빨리 빠진다"를 "회복이 더 낫다"로 옮겨 적으면 과잉 일반화다.
+           */}
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
+            <p>
+              <strong>재는 지표에 따라 답이 갈립니다.</strong>
+            </p>
+            <ul className="mt-2 space-y-1.5">
+              <li>
+                · <strong>혈중 젖산 기준</strong> — 동적 회복이 완전 휴식보다 빠르게 낮췄습니다
+                (이재엽 외 2024, 한국체육과학회지 메타분석)
+              </li>
+              <li>
+                · <strong>체력 향상 기준</strong> — 3주 이상 놓고 보면{" "}
+                <strong>둘의 차이가 확인되지 않았습니다</strong> (Zouhal 외 2024)
+              </li>
+            </ul>
+            <p className="mt-2">
+              그러니 &ldquo;이걸 해야 회복이 빠르다&rdquo;가 아니라{" "}
+              <strong>&ldquo;쉬는 날 몸이 뻣뻣하면 가볍게 움직여도 된다&rdquo;</strong> 정도로
+              보는 게 맞습니다.
+            </p>
+            <p className="mt-2 text-xs text-gray-500">
+              ※ 젖산 메타분석은 포함 연구가 8편이고 연구 간 편차가 큽니다. 젖산이 빨리 빠지는 것과
+              다음 날 잘 뛰는 것은 같은 말이 아닙니다.
+            </p>
           </div>
         </section>
 
@@ -113,8 +143,13 @@ export default function Page() {
               <li>· <strong>아침 안정시 심박수가 평소 내 값보다 뚜렷하게 높다</strong></li>
               <li>· 달리기 의욕이 완전히 사라졌다</li>
             </ul>
+            {/* 2026-09-15: "며칠"이라고만 적었던 자리에 근거가 생겼다.
+                박찬호·곽이섭 (2013) 코칭능력개발지 — 과도한 훈련 후 48~72시간 이상 휴식, 주 1일 이상 휴식.
+                ⚠️ 같은 논문에 **안정시 심박수 기준은 없다.** 검색하면 "분당 5회"가 이 논문에
+                붙어 나오는데 초록에 그런 문장이 없다. 그래서 위 목록에서 숫자를 뺀 채로 둔다. */}
             <p className="mt-2 text-sm leading-relaxed text-red-900">
-              이때는 <strong>며칠 완전히 쉬는 것</strong>이 낫습니다. 가벼운 활동도 하지 마세요.
+              이때는 <strong>48~72시간 이상</strong> 완전히 쉬는 쪽이 낫습니다(아래 인용).
+              가벼운 활동도 하지 마세요. 평소에도 <strong>주 1일 이상</strong>은 쉬는 날로 두세요.
             </p>
             <p className="mt-2 text-xs leading-relaxed text-red-800">
               &ldquo;몇 bpm부터&rdquo;, &ldquo;며칠&rdquo; 같은 숫자 기준은 <strong>아래 인용한
@@ -127,13 +162,25 @@ export default function Page() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">능동회복 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
+            {/* 2026-09-15 추가 — 한국어 메타분석. 8/31에 내린 자리를 이걸로 채웠다. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003059778" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                이재엽·노기웅·박석 (2024) 한국체육과학회지 33(1):533-543 — 회복 방법에 따른 혈중 젖산 감소 체계적 문헌고찰·메타분석(2003~2023, 8편). 효과크기 마사지 −4.00 &gt; 동적 회복 −3.37 &gt; 정적 회복 −1.60. <strong>지표는 젖산 하나이고 연구 간 이질성이 큽니다(I² 69~88%)</strong> ↗
+              </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">능동회복 관련 자료 1건 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://doi.org/10.1186/s40798-024-00673-0" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
                 Zouhal et al. (2024) Sports Med Open 10(1):21 — 장기(3주 이상) 인터벌 훈련에서 능동회복과 수동휴식의 체력 향상 효과 차이가 확인되지 않았다는 체계적 고찰 ↗
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Meeusen et al. (2013) MSSE 45(1):186-205 — 오버트레이닝 증후군 국제 합의문 ↗
+                Meeusen et al. (2013) MSSE 45(1):186-205 — 오버트레이닝 증후군 국제 합의문. <strong>심박수·일수 같은 수치 기준은 이 문헌에 없습니다</strong> ↗
+              </a>
+            </li>
+            {/* 2026-09-15 추가 — 휴식 기간에 처음으로 근거가 붙었다. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001759970" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                박찬호·곽이섭 (2013) 코칭능력개발지 15(1):91-97 — 과도한 훈련 후 48~72시간 이상 휴식, 주 1일 이상 휴식 권고 ↗
               </a>
             </li>
 

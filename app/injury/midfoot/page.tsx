@@ -63,6 +63,13 @@ export default function Page() {
             <strong>케이던스(분당 걸음 수)를 지금보다 5~10% 올리세요.</strong> 보폭이
             저절로 줄면서 교정됩니다. 억지로 미드풋으로 바꾸면 아킬레스건이 아픕니다.
           </p>
+          {/* 2026-09-15: 이 결론이 우리만의 주장이 아니라는 걸 밝힌다.
+              정형외과 전문의 두 분이 같은 말을 한다(아래 참고자료). */}
+          <p className="mt-2 text-xs leading-relaxed text-emerald-700">
+            저희 생각만은 아닙니다 — 정형외과 전문의들도 <strong>&ldquo;착지 방식을 억지로 바꾸기보다
+            훈련량을 점진적으로&rdquo;</strong>, <strong>&ldquo;분당 걸음 수를 5~10% 올리면 아킬레스건
+            장력이 준다&rdquo;</strong>고 말합니다. 아래 참고자료에 넣었습니다.
+          </p>
         </div>
 
         {/**
@@ -185,6 +192,17 @@ export default function Page() {
                     forefoot strikers" — **전신 수직 부하율**이고, 무릎은 각도·ROM 차이만 보고됐다.
                     "무릎·슬개대퇴 부하"는 이 논문에 없는 말이다. */}
                 Almeida et al. (2015) JOSPT 45(10):738-755 — 착지 패턴별 생체역학 차이 메타분석. 뒤꿈치 착지는 <strong>수직 부하율</strong>이 앞발 착지보다 높았고, 발목·무릎의 각도와 가동범위에도 차이가 있었다 ↗
+              </a>
+            </li>
+            {/* 2026-09-15 추가 — 한국어 · 정형외과 전문의. 이 페이지 결론과 같은 말을 한다. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://www.hnews.kr/news/view.php?no=68992" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                안지용 (서울부민병원 정형외과 실장) — <strong>&ldquo;착지 방식을 억지로 바꾸기보다 훈련량을 점진적으로 늘리는 것이 중요&rdquo;</strong>. 현대건강신문 ↗
+              </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=61267" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                선상규 (코끼리정형외과의원 정형외과 전문의) — 분당 걸음 수를 5~10% 올리면(160보 → 168~175보) 아킬레스건 최대 장력이 감소. 하이닥 ↗
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">오버스트라이드 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>

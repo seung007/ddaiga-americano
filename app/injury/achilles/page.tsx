@@ -179,6 +179,32 @@ export default function AchillesPage() {
             실용적인 선은 이렇습니다 — <strong>지금 신던 신발보다 드롭이 낮은 것으로 갑자기
             바꾸지 마세요.</strong> 바뀐 뒤 아프기 시작했다면 되돌려 보는 것도 방법입니다.
           </p>
+
+          {/**
+           * 2026-09-15 — 드롭 자리를 비워 둔 채로 끝내지 않기 위해 찾은 자료.
+           *
+           * 하이닥(2026-04-17) 선상규 — 코끼리정형외과의원 **정형외과 전문의**.
+           * 요지: 아킬레스건 장력은 **드롭이 아니라 케이던스**로 줄인다.
+           * 보폭을 줄이고 분당 걸음 수를 5~10% 올리면 최대 장력이 감소
+           * (예: 160보 → 168~175보).
+           *
+           * 이게 중요한 이유 — 우리가 뺀 것("드롭 8~12mm를 유지하라")을 대체할 뿐 아니라
+           * **`/injury/midfoot` 이 이미 말하는 것과 같다.** 착지법을 직접 건드리지 말고
+           * 케이던스를 올리라는 것. 두 페이지가 처음으로 같은 처방으로 이어진다.
+           */}
+          <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm leading-relaxed text-emerald-900">
+            <strong>드롭 대신 만질 게 있습니다 — 케이던스입니다.</strong>
+            <br />
+            정형외과 전문의(선상규, 아래 인용)는 아킬레스건 장력을 줄이는 방법으로 신발 드롭이
+            아니라 <strong>보폭을 줄이고 분당 걸음 수를 5~10% 올리는 것</strong>을 듭니다.
+            분당 160보로 뛰고 있다면 168~175보 정도입니다.
+            <br />
+            <br />
+            드롭은 신발을 사야 바뀌지만 케이던스는 오늘 바로 바꿀 수 있습니다.{" "}
+            <Link href="/injury/cadence" className="font-medium text-emerald-700 underline">
+              케이던스 올리는 법
+            </Link>
+          </div>
           {/* 브랜드에 따라 드롭 범위가 갈린다. 이 글의 결론과 직접 이어지는 자료라 여기서 보낸다. */}
           <p className="mt-3 text-sm text-gray-600">
             브랜드마다 드롭 범위가 다릅니다 —{" "}
@@ -214,6 +240,11 @@ export default function AchillesPage() {
                   ③ "Alfredson 프로토콜(주 7일, 3세트 15회 × 12주) 권고" — 초록에 없다 */}
               <strong>Prudêncio et al. (2023, BMC Sports Sci Med Rehabil)</strong> — 아킬레스건병 운동치료 체계적 고찰 및 메타분석. <strong>어떤 방식이 더 낫다고 결론 내리기에는 근거가 부족하다</strong>고 보고했습니다(포함된 연구의 편향 위험이 높음). 즉 아래 운동은 &ldquo;검증된 최선&rdquo;이 아니라 널리 쓰이는 방법입니다.{" "}
               <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC 원문 →</a>
+            </li>
+            {/* 2026-09-15 추가 — 드롭 주장을 뺀 자리를 대체한다. 한국어 · 정형외과 전문의. */}
+            <li className="text-sm text-gray-700">
+              <strong>선상규 (코끼리정형외과의원 정형외과 전문의)</strong> — 아킬레스건 장력은 신발 드롭이 아니라 케이던스로 줄인다. 보폭을 줄이고 분당 걸음 수를 5~10% 올리면 최대 장력 감소(160보 → 168~175보).{" "}
+              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=61267" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">하이닥 (2026-04-17) →</a>
             </li>
             <li className="text-sm text-gray-700">
               {/* 2026-08-28 정정: 이 링크의 제1저자는 Beyer가 아니라 Kim이다.

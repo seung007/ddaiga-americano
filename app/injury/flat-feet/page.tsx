@@ -324,6 +324,27 @@ export default function FlatFeetPage() {
               PubMed →
             </a>
           </li>
+          {/**
+           * 2026-09-15 추가 — **한국어 전문의가 같은 말을 한다.**
+           *
+           * 이 페이지는 Richards 2009(영문)만으로 "발 타입 맞춤은 근거가 약하다"를 주장해 왔다.
+           * 읽는 사람 입장에서는 외국 논문 하나에 기댄 소수 의견처럼 보일 수 있다.
+           * 국내 정형외과 전문의가 같은 결론을 말하고, JOSPT 2014 군 기초훈련 연구까지
+           * 짚는다는 것은 **이 입장이 국내 임상에서도 통용된다**는 뜻이다.
+           */}
+          <li>
+            <strong>안지용 (서울부민병원 정형외과 실장)</strong> — 발 모양에 맞춘 러닝화를
+            신어야 부상을 막는다는 근거는 아직 충분하지 않다. 군 기초훈련 연구(아치 유형별
+            맞춤 지급 vs 동일 안정화 지급)에서 부상률 차이가 없었다는 점을 함께 든다.{" "}
+            <a
+              href="https://www.hnews.kr/news/view.php?no=68992"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-600 underline"
+            >
+              현대건강신문 →
+            </a>
+          </li>
         </ul>
 
         <div className="mt-10">

@@ -54,9 +54,13 @@ export default function Page() {
               「달리기 전에는 정적보다 동적」이라는 방향까지입니다."* 나는 그 경계를
               인과 주장으로 넘었고, 이 페이지엔 논문 인용이 0건이다. */}
           <p className="mt-2 leading-relaxed text-emerald-900">
-            <strong>달리기 전에는 동적, 달리고 나서는 정적</strong>이 일반적인 권고입니다.
-            다만 근거가 단단한 것은 <strong>&ldquo;달리기 전에는 정적보다 동적&rdquo;</strong>이라는
-            방향까지이고, 그 이상은 저희가 말할 수 있는 범위가 아닙니다.
+            <strong>달리기 전에는 동적, 달리고 나서는 정적</strong>입니다. 운동전문가(정운경, 아래
+            인용)도 <strong>둘 중 하나를 고르는 게 아니라 병행</strong>하라고 말합니다 — 앞은
+            가동범위를 확보하고 뒤는 근육을 이완시킵니다.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-emerald-800">
+            다만 저희가 근거를 확인한 범위는 <strong>&ldquo;달리기 전에는 정적보다 동적&rdquo;</strong>이라는
+            방향까지입니다. 순서를 바꾸면 얼마나 손해인지까지는 말하지 않겠습니다.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-emerald-800">
             정적 스트레칭은 <strong>한 자세로 멈춰서 30초 버티는 것</strong>입니다.
@@ -207,10 +211,14 @@ export default function Page() {
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">운동 후 회복 영양 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
             {/* ⚠️ 2026-09-14: 링크가 `https://www.nsca.com` — **단체 홈페이지 루트**였다.
-                특정 문헌을 가리키지 않으므로 인용이 아니다. 이런 형태가 `cadence`·`kwon-eun-ju`
-                에도 남아 있다(warmup 은 2026-09-03 에 같은 이유로 내렸다).
-                링크를 지우고, 인용이 없다는 사실을 적는다. */}
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">정적 스트레칭 관련 자료 — 걸려 있던 링크가 특정 논문이 아니라 단체 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
+                특정 문헌을 가리키지 않으므로 인용이 아니다.
+                2026-09-15: 그 자리를 한국어 전문가 자료로 채웠다. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=43866" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                정운경 (힐리언스 코어센터 운동전문가) — <strong>운동 전에는 동적(가동범위 확보), 운동 후에는 정적(근육 이완·회복)</strong>. 둘 중 하나가 아니라 병행. 하이닥 ↗
+              </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">정적 스트레칭 관련 자료 1건 — 걸려 있던 링크가 특정 논문이 아니라 단체 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>

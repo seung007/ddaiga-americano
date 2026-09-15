@@ -165,6 +165,31 @@ export default function WideFootPage() {
             해당하는 줄을 찾아 비교하세요. <strong>같은 2E라도 뉴발란스와 아식스의 실제 너비가
             다릅니다.</strong>
           </div>
+
+          {/**
+           * 2026-09-15 추가 — 한국인 발 형태 실측 데이터.
+           *
+           * 권은순·이하경·이예진 (2024) 한국생활과학회지 33(2):251-264 (KCI 등재).
+           * 8차 사이즈코리아 3D 스캔 — 남 2,000명 · 여 2,503명.
+           * 남 3개 · 여 4개 유형. 남녀 모두 '보통 발'이 최다, '넓고 두꺼운 큰 발'이 최소.
+           * **연령이 오르면 발둘레·발너비가 증가.**
+           *
+           * ⚠️ 이 논문에도 **"몇 mm부터 2E"는 없다.** 유형 분류지 규격 기준이 아니다.
+           * 그래서 위 "절대 기준은 없습니다"는 그대로 둔다.
+           * 다만 "내가 넓은 편인가"를 가늠할 모집단 정보는 된다.
+           */}
+          <div className="mt-3 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
+            <strong>참고 — 한국인 발은 어떻게 생겼나</strong>
+            <br />
+            사이즈코리아 3D 스캔(남 2,000명·여 2,503명)을 분석한 연구에서 남성은 3개, 여성은
+            4개 유형으로 나뉘었고, <strong>남녀 모두 &lsquo;보통 발&rsquo;이 가장 많고
+            &lsquo;넓고 두꺼운 큰 발&rsquo;이 가장 적었습니다.</strong> 그리고{" "}
+            <strong>나이가 들수록 발둘레·발너비가 늘어납니다</strong> — 예전 사이즈를 그대로
+            쓰고 있다면 한 번 재보실 만합니다.
+            <span className="mt-2 block text-xs text-gray-500">
+              ※ 이 연구도 &ldquo;몇 mm부터 2E&rdquo;를 정하지는 않습니다. 유형 분류이지 규격 기준이 아닙니다.
+            </span>
+          </div>
         </section>
 
         <FinderCta from="wide-foot" variant="inline" headline="발볼 조건을 넣으면 2E·4E 옵션이 있는 신발만 골라서 보여드립니다." />
@@ -229,6 +254,25 @@ export default function WideFootPage() {
             /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
             두 달간 질문 0건이 그 증거다. */}
         <InlineAsk from="wide-foot" tag="발볼" placeholder="예) 2E 신어도 새끼발가락이 눌리는데 4E로 가야 하나요?" />
+
+        {/* 2026-09-15: 이 페이지엔 참고자료 절 자체가 없었다. 한국어 자료 2건으로 만든다. */}
+        <section className="mb-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
+          <ul className="space-y-2 text-sm">
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003076956" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                권은순·이하경·이예진 (2024) 한국생활과학회지 33(2):251-264 — 8차 사이즈코리아 3D 스캔(남 2,000·여 2,503명) 기반 한국인 발 유형 분류. 연령 증가에 따른 발둘레·발너비 증가 ↗
+              </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://www.kjfm.or.kr/upload/pdf/Jkafm026-03-01.pdf" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                이우천 (2005) 가정의학회지 26(3):127-137 — 족부 전문의 종설. 무지외반증 보존 치료로 &ldquo;족지 상자가 넓고 굽이 낮은 신&rdquo;을 권고 ↗
+              </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">&ldquo;몇 mm부터 2E&rdquo; 기준 — KS 표준(M 6681 / G 3405)이 존재한다는 언급은 확인했으나 <strong>원문을 열어 확인하지 못했습니다.</strong> 그래서 본문에 수치 기준을 적지 않았습니다</span></li>
+          </ul>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 브랜드별 와이드 옵션 표는 각 브랜드 공식 정보 기준이며, 모델·연식에 따라 달라질 수 있습니다.</p>
+        </section>
 
         <FinderCta from="wide-foot" headline="발볼 넓은 내 발에 맞는 신발 찾기" sub="발볼 조건을 선택하면 2E·4E 옵션이 있는 신발만 필터링해서 추천합니다." />
         <ShareButtons from="wide-foot" title="발볼 넓은 러너 와이드 규격 총정리" description="2E·4E가 필요한지 판단하는 법과 브랜드별 옵션." />
