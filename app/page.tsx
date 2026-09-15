@@ -4,6 +4,7 @@ import HeroBackdrop from "@/components/HeroBackdrop";
 import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
 import QuickAnswers from "@/components/QuickAnswers";
 import { SHOES } from "@/lib/shoes/data";
+import { upcomingRaces, daysUntil, distanceLabel } from "@/lib/races";
 
 /**
  * 띠에 실을 신발 — 서버에서 골라 최소 필드만 넘긴다.
@@ -46,6 +47,10 @@ const LEVEL_GUIDES = [
 ];
 
 export default function Home() {
+  // 대회는 서버에서 센다. 개수를 손으로 적으면 대회가 하나 지날 때마다 틀린 숫자가 된다.
+  const upcoming = upcomingRaces();
+  const nextRaces = upcoming.slice(0, 3);
+
   return (
     <main className="min-h-screen bg-white">
 
@@ -76,64 +81,40 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-5">
           내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>
-        {/* 2026-09-14: mb-8 → mb-6. 버튼이 두 개가 되면서 한 줄이 더 필요해졌는데,
-            첫 화면 안에 신발 카드를 넣으려면 그만큼을 위에서 줄여야 한다.
-            60%가 스크롤을 안 하므로 fold 안의 픽셀이 제일 비싸다. */}
-        <p className="text-lg text-gray-600 leading-relaxed mb-6">
+        <p className="text-lg text-gray-600 leading-relaxed mb-8">
           키·체중·발볼만 고르면 논문 기반 추천이<br />
           내 체형에 맞는 신발 3개를 골라드려요
         </p>
         {/**
-         * 버튼 두 개 (2026-09-14)
+         * 히어로 CTA는 **하나**다 — 2026-09-15에 둘에서 되돌렸다.
          *
-         * ─ 왜 ─────────────────────────────────────────────
-         * GA4 28일 실측(사용자 115명):
-         *   · recommend_form_complete  12명 (10.4%)  ← 폼은 작동한다
-         *   · home_shoe_click           0명
-         *   · quick_answer_click        0명
-         *   · scroll                   46명 (40%)   ← **60%는 스크롤도 안 한다**
+         * 9/14에 「그냥 둘러볼게요」(→ `#shoes`)를 나란히 뒀다. 근거는 벤치마킹이었다 —
+         * 추천 서비스 14곳 중 13곳이 퀴즈를 건너뛰는 경로를 첫 화면에 둔다.
+         * 그 관찰 자체는 지금도 맞다.
          *
-         * 처음엔 "8단계 폼이라 아무도 안 할 것"이라고 봤는데 **반증됐다.**
-         * 폼은 이 사이트에서 유일하게 작동하는 경로다.
+         * **틀린 것은 같은 날 신발 띠를 「답 바로가기」 위로 올린 것과 겹쳤다는 점이다.**
+         * 그래서 버튼이 내려보내는 자리가 바로 200px 아래가 됐다 — 버튼이 스크롤 한
+         * 칸을 대신하는 꼴이었다. 둘 중 하나만 했어야 하는데 둘 다 해서 4일 만에 뺐다.
          *
-         * 진짜 문제는 **폼 말고 갈 데가 첫 화면에 없다**는 것이었다.
-         * 추천 서비스 14곳을 직접 열어 잰 결과:
-         *   · 첫 화면 주력이 상품·카테고리·검색 — **14곳 중 11곳**
-         *   · 퀴즈를 건너뛰는 경로가 첫 화면에 있음 — **14곳 중 13곳**
-         *   · 러닝화 4곳(RunRepeat·FleetFeet·RoadRunner·Brooks)은 **전부**
-         *     퀴즈를 네비나 2~3번째 화면으로 내렸다
-         *   · 퀴즈를 히어로 단독 CTA로 쓴 곳은 1곳뿐 — Stitch Fix.
-         *     그건 **둘러볼 카탈로그가 아예 없는 모델**이라 그렇다
+         * 건너뛰는 경로가 없어진 게 아니다 — **신발 띠가 히어로 바로 밑이고**, 그게 본체다.
          *
-         * 퀴즈를 히어로에 두는 두 곳(Warby Parker·ThirdLove)은 **버튼을 두 개** 둔다.
-         * 그리고 그 둘의 퀴즈도 **정확히 8단계**다 — 길이가 문제가 아니었다.
-         *
-         * ─ 무엇을 포기하나 ────────────────────────────────
-         * 두 번째 버튼은 주 버튼의 시선을 나눈다. 폼 완료율이 떨어질 수 있다.
-         * `recommend_form_complete` 와 `home_shoe_click` 을 같이 봐야 판정된다 —
-         * 폼이 줄고 신발 클릭이 그만큼 안 늘면 되돌린다.
+         * 대가: 9/28 판정에서 「두 번째 버튼이 폼을 갉아먹었는지」는 **판정 불가**가 됐다.
+         * (`유입_설정_기준선.md §4-7`). 남는 건 신발 띠 위치 + 폼 첫 문항의 합산 효과뿐이다.
          */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/shoe-finder"
-            className="inline-block bg-emerald-600 text-white font-medium px-8 py-4 rounded-xl hover:bg-emerald-700 transition-colors"
-          >
-            내 신발 찾기 시작 →
-          </Link>
-          <a
-            href="#shoes"
-            className="inline-block rounded-xl border border-gray-300 bg-white/80 px-8 py-4 font-medium text-gray-700 backdrop-blur-sm transition-colors hover:border-gray-400 hover:bg-white"
-          >
-            그냥 둘러볼게요
-          </a>
-        </div>
+        <Link
+          href="/shoe-finder"
+          className="inline-block bg-emerald-600 text-white font-medium px-8 py-4 rounded-xl hover:bg-emerald-700 transition-colors"
+        >
+          내 신발 찾기 시작 →
+        </Link>
         {/* 2026-09-03: "· 추천 순서는 광고비로 바뀌지 않습니다"를 뺐다.
             CTA 밑 마이크로카피의 역할은 **누르기를 망설이게 하는 것을 없애는 것**이고,
             그 자리에서 가장 센 건 "가입 없이 무료"다. 중립성은 신뢰 주장이지 장벽 제거가 아니라
             둘을 한 줄에 섞으면 양쪽 다 약해진다.
 
-            사이트에서 사라지는 건 아니다 — 아래 3분할 카드에 "광고비로 순서가 안 바뀝니다"가
-            남아 있고, 거기는 **설명하는 자리**라 제자리다.
+            사이트에서 사라지는 건 아니다 — 「어떻게 추천하나요?」 섹션 끝줄에 "광고비로 순서가
+            바뀌지 않습니다"가 남아 있고, 거기는 **설명하는 자리**라 제자리다.
+            (2026-09-15에 3분할 카드를 그 섹션에 합치면서 그 줄도 같이 옮겼다.)
             대신 포기하는 것: 첫 화면만 보고 이탈하는 사람은 이 주장을 못 본다.
             네이버 유입 76%에 평균 참여 19~48초라 그 비중이 작지 않다. */}
         {/* 배경 산책로 띠와 겹치는 자리라 gray-400은 안 읽혔다. 한 단계 진하게. */}
@@ -153,7 +134,9 @@ export default function Home() {
        * 「답 바로가기」는 9/12에 만들었고 이틀간 `quick_answer_click` **0건**이다.
        * 표본이 작아 실패로 단정하진 않지만, 신발 띠보다 먼저 놓을 근거는 없다.
        *
-       * `id="shoes"` 는 히어로의 「그냥 둘러볼게요」 버튼이 내려오는 자리다.
+       * `id="shoes"` 는 히어로의 「그냥 둘러볼게요」가 내려오던 자리다. 그 버튼은
+       * 2026-09-15에 뺐지만(바로 이 띠가 200px 아래라 무의미했다) 앵커는 남겨 둔다 —
+       * 다른 곳에서 쓸 수 있고 해가 없다.
        */}
       <div id="shoes" className="scroll-mt-16">
         <ShoeStrip shoes={STRIP_SHOES} />
@@ -165,6 +148,65 @@ export default function Home() {
           자세한 경위는 components/QuickAnswers.tsx 주석에. */}
       <QuickAnswers />
 
+      {/**
+       * 다가오는 대회 (2026-09-15)
+       *
+       * `lib/races.json` 에 55건이 있고 `/races` 가 완성돼 있었는데 **헤더에도 홈에도
+       * 입구가 없었다.** URL 을 직접 치지 않으면 아무도 볼 수 없는 상태로 3일 있었다.
+       *
+       * 홈에는 **3개만** 싣는다. 이미 섹션이 8개고 60%는 스크롤을 안 한다 —
+       * 목록을 통째로 넣으면 그만큼 아래가 더 안 읽힌다.
+       *
+       * 카드는 외부 접수처가 아니라 `/races` 로 보낸다. 출처가 공식인지 모음(KorMarathon)
+       * 인지는 그 페이지에서 버튼 글자로 구분해 보여주는데, 홈에는 그 표시가 없다.
+       * **출처 구분 없이 밖으로 내보내지 않는다.**
+       *
+       * 0건이면 섹션을 아예 그리지 않는다. 빈 박스는 고장으로 읽힌다.
+       */}
+      {nextRaces.length > 0 && (
+        <section className="max-w-3xl mx-auto px-6 pb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">다가오는 대회</h2>
+            <Link href="/races" className="shrink-0 text-sm text-emerald-600 hover:underline">
+              전체 {upcoming.length}개 보기 →
+            </Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-3">
+            {nextRaces.map((r) => {
+              const d = daysUntil(r.date);
+              return (
+                <li key={r.id}>
+                  <Link
+                    href="/races"
+                    className="block h-full rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-400"
+                  >
+                    <p className="font-bold leading-snug text-gray-900">{r.name}</p>
+                    <p className="mt-1.5 text-sm text-gray-700">
+                      {r.date ? (
+                        <>
+                          <strong>{r.date}</strong>
+                          {d !== null && d >= 0 && (
+                            <span className="ml-1.5 text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>
+                          )}
+                        </>
+                      ) : (
+                        /* 날짜를 모르면 모른다고 쓴다. /races 와 같은 규칙이다. */
+                        <span className="text-amber-700">날짜 미정</span>
+                      )}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-600">
+                      {r.region}
+                      <span className="mx-1.5 text-gray-300">·</span>
+                      {r.distancesKm.map(distanceLabel).join(" / ")}
+                    </p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {/* How it works */}
       <section className="max-w-3xl mx-auto px-6 pb-16">
         <h2 className="text-center text-2xl font-bold text-gray-900 mb-8">어떻게 추천하나요?</h2>
@@ -172,7 +214,7 @@ export default function Home() {
           {[
             { n: "1", t: "내 정보 선택", d: "키·체중·발볼·발 타입을 버튼으로 고르면 끝. 숫자 입력 없이 1분." },
             { n: "2", t: "맞춤 추천 3개", d: "수십 개 모델 중 내 체형 조건을 통과한 신발만 골라드려요." },
-            { n: "3", t: "부상 예방까지", d: "내 발 타입에 맞는 부상 예방 가이드를 함께 연결해드려요." },
+            { n: "3", t: "부상 예방까지", d: "무릎·발목·아킬레스건 — 증상별 대처법을 추천과 함께 연결해드려요." },
           ].map((s) => (
             <div key={s.n} className="border border-gray-100 rounded-xl p-5">
               <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">
@@ -183,27 +225,31 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Feature 3-grid */}
-      <section className="max-w-3xl mx-auto px-6 pb-16 grid gap-4 md:grid-cols-3">
-        {[
-          { t: "논문으로 고른 추천", d: "키·체중·발볼·발 타입·성별까지 반영한 논문 기반 추천. 내 몸이 기준이에요." },
-          { t: "부상 예방까지 함께", d: "무릎·발목·아킬레스건, 증상별 대처법을 추천과 함께 연결해드려요." },
-          { t: "광고비로 순서가 안 바뀝니다", d: "브랜드가 아니라 입력한 내 데이터로만 골라요." },
-        ].map((x, i) => (
-          <div key={i} className="border border-gray-100 rounded-xl p-5">
-            <h3 className="font-semibold text-gray-900 mb-1">{x.t}</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">{x.d}</p>
-          </div>
-        ))}
+        {/**
+         * 2026-09-15: 바로 아래 있던 **Feature 3분할을 이 섹션에 흡수했다.**
+         *
+         * 두 섹션이 같은 말을 하고 있었다:
+         *   · 3분할 ②「부상 예방까지 함께」 = 위 3단계 ③「부상 예방까지」 — 제목까지 거의 같다
+         *   · 3분할 ①「논문으로 고른 추천」의 입력 항목 나열 = 위 ①「내 정보 선택」
+         * GA4 28일로 115명 중 46명(40%)만 스크롤한다. 스크롤한 사람에게 같은 말을 두 번 하는 건 낭비다.
+         *
+         * 겹치지 않는 것은 **「광고비로 순서가 안 바뀝니다」 하나뿐**이라 이 줄로 남긴다.
+         * 히어로 CTA 밑 주석이 *"중립성 주장은 아래 설명 자리에 남아 있다"* 고 이 자리를 가리킨다 —
+         * **여기를 지우면 그 주장이 사이트에서 사라진다.**
+         */}
+        <p className="mt-6 text-center text-sm text-gray-500">
+          <strong className="font-semibold text-gray-700">광고비로 순서가 바뀌지 않습니다.</strong>{" "}
+          브랜드가 아니라 입력한 내 데이터로만 골라요.
+        </p>
       </section>
 
       {/* 인기 러닝화 비교 */}
       <section className="bg-gray-50 py-16">
         <div className="max-w-3xl mx-auto px-6">
+          {/* 위 신발 띠와 목적이 다르다 — 띠는 훑어보기, 여기는 **두 켤레를 붙여 놓고 고르기**다.
+              제목이 그 차이를 말하지 않으면 같은 섹션이 두 번 나오는 것으로 읽힌다(2026-09-15). */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">인기 러닝화 비교</h2>
+            <h2 className="text-2xl font-bold text-gray-900">두 켤레 놓고 비교하기</h2>
             <Link href="/shoe-finder" className="text-sm text-emerald-600 hover:underline">
               내 신발 찾기 →
             </Link>
