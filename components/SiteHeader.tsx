@@ -37,26 +37,39 @@ export default function SiteHeader() {
          * 각각의 섹션 링크가 있다. `npm run check:internal` 이 고아를 감시한다.
          */}
         <nav className="flex items-center gap-3 sm:gap-5">
-          <Link href="/injury" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
+          <Link href="/injury" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
             러닝 가이드
           </Link>
-          <Link href="/courses" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
+          <Link href="/courses" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
             코스
           </Link>
-          <Link href="/tools" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
+          <Link href="/races" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
+            대회 일정
+          </Link>
+          <Link href="/tools" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
             계산기
           </Link>
-          <Link href="/community" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block">
-            Q&amp;A
+          <Link href="/community" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
+            자유게시판
           </Link>
-          <a
-            href="https://blog.naver.com/coffee_study_"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 sm:block"
-          >
-            블로그
-          </a>
+          {/**
+           * 2026-09-15: 「대회 일정」을 넣으면서 **둘을 같이 바꿨다 — 「블로그」 제거 + `sm:` → `md:`**
+           *
+           * 전부 playwright 로 재고 정했다(로컬, 폭별 링크 높이 측정):
+           *   · 대회 일정만 추가 → 640·672px 에서 **링크 6개가 전부 두 줄로 쪼개졌다.**
+           *     2026-09-08 주석이 390px 에서 기록한 그 고장이 640px 로 올라온 것이다
+           *   · 블로그를 빼니 640px 은 살아났는데(간격 21px), 「Q&A」를 「자유게시판」으로
+           *     바꾸자 **640px 이 다시 쪼개졌다**(간격 0px). 「이야기방」(4글자)으로 줄여도 같았다 —
+           *     **병목은 글자 길이가 아니라 항목 수였다**
+           *   · `sm:`(640px) → `md:`(768px) 로 올리니 전 구간 쪼개짐 0개.
+           *     768px 에서 로고와 간격 113px 로 여유가 있다
+           *
+           * 그래서 **640~767px 에서는 메뉴가 안 보인다.** 위 2026-09-08 의 판단을 그대로 따른다 —
+           * *"읽을 수 없는 메뉴는 없는 메뉴보다 나쁘다."* 진입로는 푸터와 홈 섹션에 있다.
+           *
+           * 블로그를 고른 이유: **외부 링크라 이탈이고, 대회 일정은 내부 재방문 축이다.**
+           * 블로그는 `components/SiteFooter.tsx` 에 그대로 있다.
+           */}
           <Link
             href="/shoe-finder"
             className="shrink-0 whitespace-nowrap rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 sm:px-4"

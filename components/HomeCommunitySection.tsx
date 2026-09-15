@@ -15,13 +15,14 @@ type Post = {
 
 type LoadState = "loading" | "ok" | "failed";
 
+/** `app/community/page.tsx` 의 TAGS 와 같은 값이어야 한다. 한쪽만 바꾸면 색이 전부 회색으로 떨어진다. */
 const TAG_COLORS: Record<string, string> = {
-  신발추천: "bg-emerald-50 text-emerald-700",
-  무릎:     "bg-red-50 text-red-600",
-  발볼:     "bg-blue-50 text-blue-600",
-  족저근막: "bg-orange-50 text-orange-600",
-  아킬레스: "bg-purple-50 text-purple-600",
-  기타:     "bg-gray-100 text-gray-600",
+  "이런 게 있으면": "bg-blue-50 text-blue-600",
+  "좋았던 점":      "bg-emerald-50 text-emerald-700",
+  "틀린 것 같아요": "bg-amber-50 text-amber-700",
+  "신발 고민":      "bg-purple-50 text-purple-600",
+  "부상 고민":      "bg-red-50 text-red-600",
+  기타:             "bg-gray-100 text-gray-600",
 };
 
 // 닉네임 첫 글자 아바타
@@ -90,9 +91,9 @@ export default function HomeCommunitySection() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-900">런린이 Q&amp;A</h2>
+        <h2 className="text-xl font-bold text-gray-900">런린이 이야기방</h2>
         <Link href="/community" className="text-sm text-emerald-600 hover:underline">
-          전체 질문 →
+          전체 글 보기 →
         </Link>
       </div>
 
@@ -107,7 +108,7 @@ export default function HomeCommunitySection() {
 
         {state === "failed" && (
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center" role="alert">
-            <p className="text-sm font-medium text-amber-800">질문 목록을 불러오지 못했어요</p>
+            <p className="text-sm font-medium text-amber-800">글 목록을 불러오지 못했어요</p>
             <p className="text-xs text-amber-700 mt-1 leading-relaxed">
               일시적인 문제일 수 있어요.
             </p>
@@ -123,8 +124,8 @@ export default function HomeCommunitySection() {
         {state === "ok" && posts.length === 0 && (
           <div className="rounded-xl border border-dashed border-gray-200 bg-white px-4 py-8 text-center">
             <p className="text-2xl mb-2">💬</p>
-            <p className="text-sm text-gray-500">아직 올라온 질문이 없어요.</p>
-            <p className="text-xs text-gray-400 mt-1">첫 번째 질문을 남겨주시면 직접 답변 드릴게요.</p>
+            <p className="text-sm text-gray-500">아직 올라온 글이 없어요.</p>
+            <p className="text-xs text-gray-400 mt-1">질문도 후기도 좋아요. 운영자가 직접 읽습니다.</p>
           </div>
         )}
 
@@ -159,7 +160,7 @@ export default function HomeCommunitySection() {
         href="/community"
         className="mt-4 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-gray-200 text-sm text-gray-500 hover:border-emerald-300 hover:text-emerald-600 transition-colors bg-white"
       >
-        💬 질문 올리기
+        💬 글 남기기
       </Link>
     </div>
   );

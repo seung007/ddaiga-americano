@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
 
@@ -16,6 +16,20 @@ import { supabase, supabaseConfigured } from "@/lib/supabase";
  * 거기서 Q&A로 가려면 **클릭 한 번**이 필요하다. 그 한 번에서 대부분을 잃는다.
  *
  * 그래서 질문창을 사람이 이미 서 있는 자리로 옮긴다. **클릭 0회로 질문이 된다.**
+ *
+ * ⚠️ 2026-09-15 — **위 「거리」 가설은 반증됐다.**
+ * 거리를 0으로 만든 뒤 GA4 28일 `inline_ask_submit` **0건**이었다.
+ * 거리를 없앴는데도 0이면 거리가 원인이 아니었다는 뜻이다. 그 반증이 데이터에 이미
+ * 있었는데 아무도 그렇게 읽지 않았다.
+ *
+ * 남은 후보는 **형식**이다. 기본 문구가 *"궁금한 게 남았나요?"* + *"예) 평발인데…"* 라
+ * **질문이 있는 사람만 통과시켰다.** 글을 보고 드는 생각은 대개 "도움 됐어요" ·
+ * "이건 틀린 것 같은데" · "○○도 다뤄주세요" 인데 쓸 자리가 없었다.
+ * 그래서 기본값을 자유게시판 문구로 바꿨다 — **이 기본값 하나가 호출하는 18개 페이지를
+ * 한 번에 바꾼다.**
+ *
+ * 소거법으로 남은 것이지 직접 증명된 원인은 아니다. 바꿔도 0건일 수 있다.
+ * 판정은 4주 뒤(10/13) — 3건 이상이면 형식이 원인, 0건이면 게시판을 접는다.
  *
  * 이 저장소가 금지한 것 (반드시 지킬 것)
  * ─────────────────────────────────────
@@ -39,8 +53,8 @@ const DEFAULT_NICKNAME = "런린이";
 export default function InlineAsk({
   from,
   tag,
-  heading = "이 글 읽고 궁금한 게 남았나요?",
-  placeholder = "예) 평발인데 지금 신는 신발 계속 신어도 되나요?",
+  heading = "이 글, 어땠어요?",
+  placeholder = "도움이 됐는지 / 틀린 것 같은 부분 / 다뤄줬으면 하는 주제 — 뭐든 좋아요",
 }: {
   /** 출처 페이지 슬러그. GA에서 어느 글이 질문을 만드는지 가른다 */
   from: string;
@@ -54,6 +68,8 @@ export default function InlineAsk({
   const [open, setOpen] = useState(false);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  /** `board_write_start` 는 한 번만 보낸다. */
+  const started = useRef(false);
 
   // 설정이 안 됐으면 아무것도 그리지 않는다.
   // 눌러도 안 되는 입력창은 없는 것만 못하다.
@@ -85,28 +101,39 @@ export default function InlineAsk({
     setQuestion("");
     setNickname("");
     const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
-    if (typeof g === "function") g("event", "inline_ask_submit", { from, tag });
+    if (typeof g === "function") {
+      // `inline_ask_submit` 은 **그대로 둔다** — §4-7 의 0건 기준선과 이어서 봐야 한다.
+      // `board_write_complete` 는 게시판 두 자리(여기 + /community)를 한 이름으로 합친다.
+      g("event", "inline_ask_submit", { from, tag });
+      g("event", "board_write_complete", { from, tag });
+    }
   }
 
   if (state === "done") {
     return (
       <section className="my-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-        <p className="font-medium text-emerald-900">질문이 올라갔어요.</p>
+        <p className="font-medium text-emerald-900">글이 올라갔어요.</p>
         <p className="mt-1 text-sm leading-relaxed text-emerald-800">
-          답변이 달리면 Q&amp;A 목록에 표시됩니다. 확인은 언제든 가능해요.
+          게시판에 표시됩니다. 답이 필요한 글은 운영자가 직접 답을 달아요.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <Link
-            href="/community"
+            href="/shoe-finder"
             className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
           >
-            내 질문 보러 가기 →
+            내 신발 찾기 →
+          </Link>
+          <Link
+            href="/community"
+            className="rounded-lg border border-emerald-300 px-4 py-2 text-xs font-medium text-emerald-800 transition-colors hover:bg-emerald-100"
+          >
+            게시판 보기
           </Link>
           <button
             onClick={() => setState("idle")}
             className="rounded-lg border border-emerald-300 px-4 py-2 text-xs font-medium text-emerald-800 transition-colors hover:bg-emerald-100"
           >
-            하나 더 묻기
+            하나 더 남기기
           </button>
         </div>
       </section>
@@ -125,10 +152,18 @@ export default function InlineAsk({
           <input
             type="text"
             value={question}
-            onChange={(e) => { setQuestion(e.target.value); if (state === "error") setState("idle"); }}
+            onChange={(e) => {
+              setQuestion(e.target.value);
+              if (state === "error") setState("idle");
+              if (!started.current && e.target.value.trim()) {
+                started.current = true;
+                const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+                if (typeof g === "function") g("event", "board_write_start", { from, tag });
+              }
+            }}
             placeholder={placeholder}
             maxLength={300}
-            aria-label="질문 내용"
+            aria-label="남길 내용"
             className="min-w-0 flex-1 rounded-xl border border-gray-300 px-4 py-3 text-sm focus:border-emerald-500 focus:outline-none"
           />
           <button
@@ -136,7 +171,7 @@ export default function InlineAsk({
             disabled={tooShort || state === "sending"}
             className="shrink-0 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:bg-gray-300"
           >
-            {state === "sending" ? "올리는 중…" : "질문 올리기 →"}
+            {state === "sending" ? "올리는 중…" : "남기기 →"}
           </button>
         </div>
 
