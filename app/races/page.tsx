@@ -68,20 +68,34 @@ function RaceCard({ r }: { r: Race }) {
 
       {r.note && <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{r.note}</p>}
 
+      {/*
+       * 2026-09-16: `hasDetail` 이 있으면 우리 콘텐츠 상세 페이지로, 없으면 여전히
+       * 외부 접수처로 바로 나간다. 콘텐츠가 없는 대회를 내부로 들여보내지 않는다 —
+       * 그건 아무 값도 안 주면서 클릭만 하나 더 시키는 것이다.
+       */}
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        {/* 공식이냐 모음이냐를 **버튼 글자에 담는다.** 눌러보고 알게 하지 않는다. */}
-        <a
-          href={r.sourceUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-            sourceKind(r.sourceUrl) === "공식"
-              ? "bg-emerald-600 text-white hover:bg-emerald-700"
-              : "border border-gray-300 text-gray-700 hover:border-gray-400"
-          }`}
-        >
-          {sourceKind(r.sourceUrl) === "공식" ? "대회 공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
-        </a>
+        {r.hasDetail ? (
+          <Link
+            href={`/races/${r.id}`}
+            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+          >
+            자세히 보기 →
+          </Link>
+        ) : (
+          /* 공식이냐 모음이냐를 **버튼 글자에 담는다.** 눌러보고 알게 하지 않는다. */
+          <a
+            href={r.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+              sourceKind(r.sourceUrl) === "공식"
+                ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                : "border border-gray-300 text-gray-700 hover:border-gray-400"
+            }`}
+          >
+            {sourceKind(r.sourceUrl) === "공식" ? "대회 공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
+          </a>
+        )}
         {/* 언제 확인했는지를 숨기지 않는다 — 이 값이 신뢰의 전부다. */}
         <span className="text-xs text-gray-400">{r.checkedAt} 확인</span>
       </div>

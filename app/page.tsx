@@ -178,35 +178,64 @@ export default function Home() {
               const d = daysUntil(r.date);
               return (
                 <li key={r.id}>
-                  <a
-                    href={r.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block h-full rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-400"
-                  >
-                    <p className="font-bold leading-snug text-gray-900">{r.name}</p>
-                    <p className="mt-1.5 text-sm text-gray-700">
-                      {r.date ? (
-                        <>
-                          <strong>{r.date}</strong>
-                          {d !== null && d >= 0 && (
-                            <span className="ml-1.5 text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>
-                          )}
-                        </>
-                      ) : (
-                        /* 날짜를 모르면 모른다고 쓴다. /races 와 같은 규칙이다. */
-                        <span className="text-amber-700">날짜 미정</span>
-                      )}
-                    </p>
-                    <p className="mt-1 text-sm text-gray-600">
-                      {r.region}
-                      <span className="mx-1.5 text-gray-300">·</span>
-                      {r.distancesKm.map(distanceLabel).join(" / ")}
-                    </p>
-                    <p className="mt-2 text-xs font-semibold text-emerald-600">
-                      {sourceKind(r.sourceUrl) === "공식" ? "공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
-                    </p>
-                  </a>
+                  {/* 2026-09-16: hasDetail 이면 우리 콘텐츠 상세 페이지로, 아니면 여전히
+                      외부 접수처로 바로 나간다 — /races 카드와 같은 원칙. */}
+                  {r.hasDetail ? (
+                    <Link
+                      href={`/races/${r.id}`}
+                      className="block h-full rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-400"
+                    >
+                      <p className="font-bold leading-snug text-gray-900">{r.name}</p>
+                      <p className="mt-1.5 text-sm text-gray-700">
+                        {r.date ? (
+                          <>
+                            <strong>{r.date}</strong>
+                            {d !== null && d >= 0 && (
+                              <span className="ml-1.5 text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>
+                            )}
+                          </>
+                        ) : (
+                          <span className="text-amber-700">날짜 미정</span>
+                        )}
+                      </p>
+                      <p className="mt-1 text-sm text-gray-600">
+                        {r.region}
+                        <span className="mx-1.5 text-gray-300">·</span>
+                        {r.distancesKm.map(distanceLabel).join(" / ")}
+                      </p>
+                      <p className="mt-2 text-xs font-semibold text-emerald-600">자세히 보기 →</p>
+                    </Link>
+                  ) : (
+                    <a
+                      href={r.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block h-full rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-400"
+                    >
+                      <p className="font-bold leading-snug text-gray-900">{r.name}</p>
+                      <p className="mt-1.5 text-sm text-gray-700">
+                        {r.date ? (
+                          <>
+                            <strong>{r.date}</strong>
+                            {d !== null && d >= 0 && (
+                              <span className="ml-1.5 text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>
+                            )}
+                          </>
+                        ) : (
+                          /* 날짜를 모르면 모른다고 쓴다. /races 와 같은 규칙이다. */
+                          <span className="text-amber-700">날짜 미정</span>
+                        )}
+                      </p>
+                      <p className="mt-1 text-sm text-gray-600">
+                        {r.region}
+                        <span className="mx-1.5 text-gray-300">·</span>
+                        {r.distancesKm.map(distanceLabel).join(" / ")}
+                      </p>
+                      <p className="mt-2 text-xs font-semibold text-emerald-600">
+                        {sourceKind(r.sourceUrl) === "공식" ? "공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
+                      </p>
+                    </a>
+                  )}
                 </li>
               );
             })}
