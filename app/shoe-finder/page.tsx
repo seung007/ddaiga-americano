@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
-import { resolveBuyLinks } from "@/lib/shoes/affiliate";
+import { pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
@@ -1147,12 +1147,27 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               </div>
               <CopyModelName name={`${shoe.brand} ${shoe.model}`} />
             </div>
+            {/*
+              ⚠️ 2026-09-16: 여기가 `shoe.buyLinks` 를 **그대로** 쓰고 있었다.
+              결과 카드(위)는 `resolveBuyLinks` 를 거치는데 이 자리만 안 거쳐서,
+              **상세를 펼친 사람 — 구매 의도가 가장 높은 사람 — 의 클릭이**
+              제휴 링크로 안 바뀌고 GA 에도 안 잡혔다. 수수료도 계측도 둘 다 0.
+
+              `pickTwoBuyLinks` 주석(2026-09-08)에 적힌 것과 같은 종류의 실패다 —
+              치환 함수는 맞는데 **그 함수를 안 거치는 렌더 경로가 따로 있었다.**
+              그래서 이번엔 `check:affiliate` 에 검사를 넣어 기계가 잡게 했다.
+            */}
             <div className="flex flex-wrap gap-2 mb-3">
-              {shoe.buyLinks.map(link => (
+              {resolveBuyLinks(shoe.id, shoe.buyLinks).map(link => (
                 <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer"
+                  onClick={() => gtagEvent("buy_link_click", {
+                    shoe: `${shoe.brand} ${shoe.model}`,
+                    store: link.label,
+                    affiliate: link.isAffiliate ? "yes" : "no",
+                  })}
                   className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors
                     ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
-                  {link.isOfficial ? "🏪 공식 구매하기" : "🛒 " + link.label} ↗
+                  {link.isOfficial ? "🏪 공식 구매하기" : "🛒 " + link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
             </div>
@@ -1413,19 +1428,28 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
         </ul>
       </details>
       <div className="mt-4 grid grid-cols-2 gap-2">
-        {[a, b].map((shoe) =>
-          shoe.buyLinks[0] ? (
+        {[a, b].map((shoe) => {
+          // 2026-09-16: 여기도 제휴 치환을 안 거치고 있었다(1151행과 같은 사고).
+          // 공식 우선 규칙은 `pickTwoBuyLinks` 가 이미 갖고 있으므로 그대로 쓰고,
+          // **치환을 먼저 한 뒤에** 고른다 — 순서가 바뀌면 제휴 링크가 안 뽑힌다.
+          const link = pickTwoBuyLinks(resolveBuyLinks(shoe.id, shoe.buyLinks))[0];
+          return link ? (
             <a
               key={shoe.id}
-              href={shoe.buyLinks[0].url}
+              href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => gtagEvent("buy_link_click", {
+                shoe: `${shoe.brand} ${shoe.model}`,
+                store: link.label,
+                affiliate: link.isAffiliate ? "yes" : "no",
+              })}
               className="block text-center text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl transition-colors"
             >
               {shoe.brand} {shoe.model} 구매 ↗
             </a>
-          ) : null
-        )}
+          ) : null;
+        })}
       </div>
     </div>
   );

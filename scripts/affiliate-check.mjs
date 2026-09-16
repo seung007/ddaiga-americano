@@ -26,8 +26,8 @@
  *
  * 확인하면 `lib/shoes/affiliate.ts` 의 `verifiedAt` 에 날짜를 적는다.
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import { join, resolve, relative } from "node:path";
 import { stripComments } from "./lib/strip-comments.mjs";
 
 /**
@@ -124,6 +124,66 @@ if (unverified.length) {
   console.log(dim("\n  npm run check:affiliate:sheet   ← 한 화면에서 확인하기"));
 } else if (entries.length) {
   console.log(green("\n전부 확인됨"));
+}
+
+// ── 치환을 안 거치는 렌더 경로 ──────────────────────────────
+/**
+ * ⚠️ 2026-09-16 — **링크를 등록해도 화면이 안 쓰면 수익은 0이다.**
+ *
+ * `app/shoe-finder/page.tsx` 에 구매 버튼을 그리는 자리가 셋이었는데
+ * `resolveBuyLinks` 를 거치는 건 하나뿐이었다. 나머지 둘(펼친 상세·비교 패널)은
+ * `shoe.buyLinks` 를 그대로 썼다. 그래서:
+ *
+ *   · 쿠팡 링크가 **제휴 링크로 안 바뀐 채** 일반 검색으로 나갔다 — 수수료 0
+ *   · `buy_link_click` 이벤트도 없어서 **GA 에 흔적조차 안 남았다**
+ *
+ * 화면은 멀쩡했다. 타입도 통과했다. `check:affiliate` 도 "링크 3개 전부 확인됨"
+ * 이라고 찍었다 — **등록만 봤지 쓰이는지는 안 봤기 때문이다.**
+ *
+ * 이건 `pickTwoBuyLinks` 주석(2026-09-08)과 **같은 사고의 재발**이다.
+ * 그때도 치환 함수는 맞았고 그 뒤에서 자르는 코드가 범인이었다.
+ * 두 번 당했으면 문서가 아니라 검사로 막는다(AGENTS §4-1).
+ *
+ * 규칙: `X.buyLinks.map` · `X.buyLinks[0]` 처럼 **날것으로 렌더하면 실패.**
+ * 올바른 형태는 `resolveBuyLinks(id, X.buyLinks)` 를 거치는 것이고, 그때
+ * `buyLinks` 뒤에는 `)` 가 오므로 아래 정규식에 걸리지 않는다.
+ */
+{
+  const RENDER_DIRS = ["app", "components"];
+  const RAW_USE = /(\w+(?:\.\w+)*)\.buyLinks\s*(?:\.map\b|\[\s*0\s*\])/g;
+
+  const walk = (dir, out = []) => {
+    for (const name of readdirSync(dir)) {
+      if (name === "node_modules" || name === ".next") continue;
+      const p = join(dir, name);
+      if (statSync(p).isDirectory()) walk(p, out);
+      else if (/\.(tsx?|jsx?)$/.test(name)) out.push(p);
+    }
+    return out;
+  };
+
+  const raw = [];
+  for (const dir of RENDER_DIRS) {
+    for (const file of walk(join(ROOT, dir))) {
+      // 주석 안의 예시 코드를 범인으로 세지 않는다 — 이 저장소가 세 번 당한 오탐이다.
+      const src = stripComments(readFileSync(file, "utf8"));
+      for (const m of src.matchAll(RAW_USE)) {
+        const line = src.slice(0, m.index).split("\n").length;
+        raw.push({ file: relative(ROOT, file), line, code: m[0] });
+      }
+    }
+  }
+
+  if (raw.length) {
+    console.log(red(`\n✗ 제휴 치환을 안 거치는 구매 링크 ${raw.length}곳`));
+    for (const r of raw) console.log(`  ${r.file}:${r.line}  ${dim(r.code)}`);
+    console.log(
+      dim("\n  resolveBuyLinks(shoe.id, shoe.buyLinks) 로 감싸고,") +
+        dim("\n  gtagEvent(\"buy_link_click\", { shoe, store, affiliate }) 를 붙이세요.") +
+        dim("\n  이 경로로 나간 클릭은 수수료도 계측도 남지 않습니다.\n")
+    );
+    process.exit(1);
+  }
 }
 
 // ── 확인용 화면 ─────────────────────────────────────────────
