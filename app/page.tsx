@@ -4,7 +4,7 @@ import HeroBackdrop from "@/components/HeroBackdrop";
 import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
 import QuickAnswers from "@/components/QuickAnswers";
 import { SHOES } from "@/lib/shoes/data";
-import { upcomingRaces, daysUntil, distanceLabel } from "@/lib/races";
+import { upcomingRaces, daysUntil, distanceLabel, sourceKind } from "@/lib/races";
 
 /**
  * 띠에 실을 신발 — 서버에서 골라 최소 필드만 넘긴다.
@@ -157,9 +157,11 @@ export default function Home() {
        * 홈에는 **3개만** 싣는다. 이미 섹션이 8개고 60%는 스크롤을 안 한다 —
        * 목록을 통째로 넣으면 그만큼 아래가 더 안 읽힌다.
        *
-       * 카드는 외부 접수처가 아니라 `/races` 로 보낸다. 출처가 공식인지 모음(KorMarathon)
-       * 인지는 그 페이지에서 버튼 글자로 구분해 보여주는데, 홈에는 그 표시가 없다.
-       * **출처 구분 없이 밖으로 내보내지 않는다.**
+       * 2026-09-16: 카드는 `/races` 를 거치지 않고 `sourceUrl` 로 직접 나간다.
+       * 내부 목록 페이지에 한 번 들렀다 다시 눌러야 접수처로 가는 건 불필요한 한 단계였다
+       * — 우리 사이트에 괜히 유입을 한 번 더 태울 이유가 없다.
+       * 대신 출처 구분(공식/모음)은 카드 안에 짧은 라벨로 남긴다 — `/races` 와 같은 원칙,
+       * 출처 구분 없이 밖으로 내보내지는 않는다.
        *
        * 0건이면 섹션을 아예 그리지 않는다. 빈 박스는 고장으로 읽힌다.
        */}
@@ -176,8 +178,10 @@ export default function Home() {
               const d = daysUntil(r.date);
               return (
                 <li key={r.id}>
-                  <Link
-                    href="/races"
+                  <a
+                    href={r.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="block h-full rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-400"
                   >
                     <p className="font-bold leading-snug text-gray-900">{r.name}</p>
@@ -199,7 +203,10 @@ export default function Home() {
                       <span className="mx-1.5 text-gray-300">·</span>
                       {r.distancesKm.map(distanceLabel).join(" / ")}
                     </p>
-                  </Link>
+                    <p className="mt-2 text-xs font-semibold text-emerald-600">
+                      {sourceKind(r.sourceUrl) === "공식" ? "공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
+                    </p>
+                  </a>
                 </li>
               );
             })}
