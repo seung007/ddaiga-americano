@@ -69,6 +69,14 @@ export type Race = {
   checkedAt: string;
   /** 선택 — 한 줄 메모. 없는 사실을 적지 않는다. */
   note?: string;
+  /**
+   * 이 대회에 우리 사이트 콘텐츠 상세 페이지(`app/races/{id}/page.tsx`)가 있으면 true.
+   *
+   * 2026-09-16: Cowork가 대회 페이지를 쓰면(콘텐츠 구역), 커밋은 Claude Code가 대신 하므로
+   * **그 커밋에서 이 값을 같이 true 로 바꾼다.** 목록·홈 카드는 이 값으로 내부 상세 페이지와
+   * 외부 접수처 직행을 가른다 — 콘텐츠가 없는 대회를 내부로 들여보내지 않는다.
+   */
+  hasDetail?: boolean;
 };
 
 const ALL = RAW as Race[];
