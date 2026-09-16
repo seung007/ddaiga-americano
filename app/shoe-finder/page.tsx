@@ -8,55 +8,13 @@ import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
+import {
+  CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USES, WEIGHT_OPTIONS,
+  type HeightRange, type SavedProfile, type WeightRange,
+} from "@/lib/shoes/profileOptions";
+import { gtagEvent } from "@/lib/gtag";
 
-// ── 범위 선택 옵션 (체형 8분류 — 자체 설계 구간) ──────────
-type HeightRange = "small" | "mid" | "tall";
-type WeightRange = "very_light" | "light" | "mid_w" | "heavy";
-
-const HEIGHT_OPTIONS: { value: HeightRange; label: string; cm: number; desc: string }[] = [
-  { value: "small", label: "163cm 이하", cm: 160, desc: "발이 땅에 닿는 느낌 살리는 신발이 잘 맞아요" },
-  { value: "mid",   label: "164 – 177cm", cm: 171, desc: "균형 잡힌 쿠션과 반응성" },
-  { value: "tall",  label: "178cm 이상", cm: 182, desc: "충격 흡수가 우선인 신발" },
-];
-
-const WEIGHT_OPTIONS: Record<HeightRange, { value: WeightRange; label: string; kg: number; desc: string }[]> = {
-  small: [
-    { value: "very_light", label: "50kg 미만", kg: 45,  desc: "정말 가벼운 쿠션으로도 충분해요" },
-    { value: "light",      label: "50 – 55kg", kg: 52,  desc: "가벼운 쿠션으로 충분해요" },
-    { value: "mid_w",      label: "56 – 75kg", kg: 65,  desc: "중간 쿠션이 딱 맞아요" },
-    { value: "heavy",      label: "76kg 이상", kg: 82,  desc: "두꺼운 쿠션이 무릎을 지켜줘요" },
-  ],
-  mid: [
-    { value: "very_light", label: "50kg 미만", kg: 46,  desc: "정말 가벼운 쿠션으로도 충분해요" },
-    { value: "light",      label: "50 – 60kg", kg: 55,  desc: "가벼운 쿠션으로 충분해요" },
-    { value: "mid_w",      label: "61 – 80kg", kg: 70,  desc: "중간 쿠션이 딱 맞아요" },
-    { value: "heavy",      label: "81kg 이상", kg: 87,  desc: "두꺼운 쿠션이 무릎을 지켜줘요" },
-  ],
-  tall: [
-    { value: "light", label: "85kg 이하", kg: 77,  desc: "두꺼운 쿠션이 필요해요" },
-    { value: "heavy", label: "86kg 이상", kg: 93,  desc: "맥스 쿠션으로 무릎을 보호해요" },
-  ],
-};
-
-const FOOT_OPTIONS: { id: string; category: "width" | "type"; label: string; desc: string; width?: FootWidth; footType?: FootType }[] = [
-  { id: "narrow",     category: "width", label: "좁은 발볼",       desc: "신발이 항상 헐렁한 편",             width: "narrow" },
-  { id: "normal",     category: "width", label: "보통 발볼",       desc: "대부분의 신발이 잘 맞아요",           width: "normal" },
-  { id: "wide",       category: "width", label: "넓은 발볼 2E/4E", desc: "신발 옆이 자주 눌리거나 물집 생겨요", width: "wide" },
-  { id: "flat",       category: "type",  label: "평발",            desc: "발이 안쪽으로 쏠리는 편이에요",       footType: "flat" },
-  { id: "neutral",    category: "type",  label: "중립 아치",       desc: "특별한 지지대 없어도 괜찮아요",       footType: "neutral" },
-  { id: "high_arch",  category: "type",  label: "높은 아치",       desc: "발바닥 가운데가 뜨는 편이에요",       footType: "high_arch" },
-];
-
-const USES: { value: ShoeUse; label: string }[] = [
-  { value: "daily",  label: "데일리 (매일 달리기)" },
-  { value: "long",   label: "장거리 (하프·풀 마라톤)" },
-  { value: "tempo",  label: "템포 / 인터벌" },
-  { value: "racing", label: "레이싱 (기록 단축)" },
-];
-
-const USE_LABEL: Record<ShoeUse, string> = { daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱" };
-const STABILITY_LABEL = { neutral: "중립", stability: "안정화", motion_control: "모션컨트롤" } as const;
-const CUSH_DOTS = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"] as const;
+// 옵션표·저장 프로필·GA 헬퍼는 `/shoes`(내 조건으로 보기)와 같이 쓰려고 lib 로 옮겼다 (2026-09-16).
 
 // ── PRD F-01 추가 문항 옵션 ────────────────────────────────────────
 const BUDGETS: { value: number; label: string }[] = [
@@ -105,64 +63,7 @@ const STEP_MICROCOPY = [
 ];
 
 // ── 재방문 · 공유: 프로필 저장/복원 ─────────────────────────────
-const STORAGE_KEY = "ddaiga:lastProfile";
 
-type SavedProfile = {
-  g: string; h: string; w: string; f: string[]; u: string; b: number;
-  lv: string; d: string; inj: string[]; t: number;
-};
-
-/**
- * GA4 이벤트 헬퍼 — gtag가 아직 없으면 **버리지 말고 큐에 쌓는다.**
- *
- * 2026-09-01에 발견한 문제. 배포 후 나흘 데이터가 이랬다.
- *   recommend_form_complete  3건 / 사용자 2명
- *   recommend_form_start     1건 / 사용자 1명
- * 시작 없이 완주할 수는 없다.
- *
- * 원인으로 보이는 것: 이전 구현이 `if (typeof g === "function")`으로 감싸
- * **gtag가 없으면 조용히 버렸다.** GA는 layout.tsx에서
- * `<Script strategy="afterInteractive">`로 로드되므로 하이드레이션 직후 몇 백 ms 동안
- * window.gtag가 없다. `recommend_form_start`는 첫 「다음」 클릭에 발화하니
- * 그 창에 걸리기 쉽고, `complete`는 8단계를 지난 한참 뒤라 늘 살아남는다.
- * **이른 이벤트만 사라지는 비대칭**이 정확히 이 모양이다.
- *
- * 다만 이건 기제가 코드에 있다는 것이지, 그 순간 gtag가 없었다는 직접 관측은 아니다.
- * 증명은 이 수정 후 3~4일치 데이터가 start ≥ complete로 뒤집히는지로 한다.
- *
- * dataLayer에 직접 넣지 않고 로컬 큐에 담았다가 gtag가 생긴 뒤 흘려보낸다.
- * config보다 먼저 들어간 event가 어떻게 처리되는지 확신할 수 없어서,
- * **gtag가 준비된 뒤에 보내는 쪽**을 택했다.
- */
-const pendingEvents: Array<[string, Record<string, unknown>]> = [];
-let flushTimer: ReturnType<typeof setInterval> | null = null;
-let giveUpTimer: ReturnType<typeof setTimeout> | null = null;
-
-function stopFlushing() {
-  if (flushTimer) { clearInterval(flushTimer); flushTimer = null; }
-  if (giveUpTimer) { clearTimeout(giveUpTimer); giveUpTimer = null; }
-}
-
-function flushPending() {
-  const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
-  if (typeof g !== "function") return;
-  while (pendingEvents.length) {
-    const next = pendingEvents.shift();
-    if (next) g("event", next[0], next[1]);
-  }
-  stopFlushing();
-}
-
-function gtagEvent(name: string, params: Record<string, unknown>) {
-  if (typeof window === "undefined") return;
-  const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
-  if (typeof g === "function") { g("event", name, params); return; }
-
-  pendingEvents.push([name, params]);
-  if (!flushTimer) flushTimer = setInterval(flushPending, 250);
-  // GA가 차단된 환경(광고 차단기 등)에서는 영원히 안 온다. 10초 뒤 포기한다.
-  if (!giveUpTimer) giveUpTimer = setTimeout(() => { pendingEvents.length = 0; stopFlushing(); }, 10_000);
-}
 
 export default function ShoeFinderPage() {
   const [gender,    setGender]    = useState<Gender | "">("");

@@ -3,6 +3,7 @@ import path from "node:path";
 import type { MetadataRoute } from "next";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { upcomingRaces } from "@/lib/races";
+import { SHOES } from "@/lib/shoes/data";
 
 /**
  * 폴백은 실제로 서비스 중인 주소여야 한다.
@@ -54,6 +55,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/tier-list`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     // 2026-09-12: 대회 일정. 내용이 자주 바뀌므로 weekly.
     { url: `${BASE_URL}/races`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    // 2026-09-16: 러닝화 목록
+    { url: `${BASE_URL}/shoes`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/community`,   lastModified: now, changeFrequency: "weekly",  priority: 0.4 },
     { url: `${BASE_URL}/terms`,       lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
     { url: `${BASE_URL}/privacy`,     lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
@@ -81,5 +84,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...core, ...injury, ...compare, ...races];
+  const shoes: MetadataRoute.Sitemap = SHOES.map((s) => ({
+    url: `${BASE_URL}/shoes/${s.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...core, ...injury, ...compare, ...races, ...shoes];
 }

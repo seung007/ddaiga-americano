@@ -465,3 +465,27 @@ function buildEvidenceNote(profile: RunnerProfile): string {
   void profile;
   return "이 추천은 입력한 정보로 계산한 참고 가이드예요. 발 모양과 취향은 사람마다 달라서 100% 정답은 아니니, 마음에 드는 후보를 신어보고 가장 편한 걸 고르면 돼요. 광고·협찬 없이 입력값만으로 계산했어요.";
 }
+
+/**
+ * 전 신발을 이 프로필 기준으로 줄 세운다 — `/shoes` 「내 조건으로 보기」 (2026-09-16)
+ *
+ * `recommendShoes` 는 3개를 고르는 함수라 조건 밖 신발을 버린다. 목록은 **버리지 않고 나눈다** —
+ * 조건에 맞는 것(발볼·용도·예산 통과)을 점수순으로 먼저, 나머지는 뒤에 따로.
+ * 점수와 이유는 `recommendShoes` 와 **같은 `scoreShoe`** 를 쓴다. 두 화면이 다른 순서를 내면 안 된다.
+ */
+export function rankAllShoes(
+  profile: RunnerProfile
+): { id: string; score: number; reason: string | null; fits: boolean }[] {
+  const bodyType = getBodyType(profile.heightCm, profile.weightKg);
+  const budget = profile.budgetKrw && profile.budgetKrw > 0 ? profile.budgetKrw : null;
+  return SHOES.map((shoe) => scoreShoe(shoe, profile, bodyType))
+    .filter((s) => s.eligible)
+    .map((s) => ({
+      id: s.shoe.id,
+      score: s.score,
+      // 모든 카드가 「체형에 최적화」로 같아 보이지 않게, 체형 말고 다른 이유가 있으면 그걸 먼저 낸다
+      reason: s.reasons.find((x) => !x.startsWith("체형(")) ?? s.reasons[0] ?? null,
+      fits: s.widthOk && s.useOk && (!budget || s.shoe.priceKrw <= budget),
+    }))
+    .sort((a, b) => Number(b.fits) - Number(a.fits) || b.score - a.score);
+}

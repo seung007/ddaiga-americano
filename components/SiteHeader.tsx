@@ -37,6 +37,10 @@ export default function SiteHeader() {
          * 각각의 섹션 링크가 있다. `npm run check:internal` 이 고아를 감시한다.
          */}
         <nav className="flex items-center gap-3 sm:gap-5">
+          {/* 2026-09-16: 「계산기」 자리를 「러닝화」로 바꿨다(러닝라이프 메뉴 순서). 같은 3글자라 폭은 그대로 — 계산기는 푸터에 있다 */}
+          <Link href="/shoes" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
+            러닝화
+          </Link>
           <Link href="/injury" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
             러닝 가이드
           </Link>
@@ -45,9 +49,6 @@ export default function SiteHeader() {
           </Link>
           <Link href="/races" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
             대회 일정
-          </Link>
-          <Link href="/tools" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
-            계산기
           </Link>
           <Link href="/community" className="hidden text-sm text-gray-600 transition-colors hover:text-gray-900 md:block">
             자유게시판

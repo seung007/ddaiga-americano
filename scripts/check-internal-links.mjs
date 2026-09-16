@@ -82,6 +82,15 @@ const DYNAMIC = [
       JSON.parse(readFileSync(join(ROOT, "lib/races.json"), "utf8")).map((r) => `/races/${r.id}`),
     templates: [/\/races\/\$\{/],
   },
+  // 2026-09-16: 러닝화 상세 — data.ts 의 id 전부
+  {
+    route: "/shoes/[id]",
+    expand: () => {
+      const src = readFileSync(join(ROOT, "lib/shoes/data.ts"), "utf8");
+      return [...src.matchAll(/^\s{4}id: "([a-z0-9-]+)"/gm)].map((m) => `/shoes/${m[1]}`);
+    },
+    templates: [/\/shoes\/\$\{/],
+  },
 ];
 
 // ── 파일 수집 ───────────────────────────────────────────────
