@@ -103,6 +103,35 @@ for (const [i, r] of races.entries()) {
     errors.push(`${at} — status 가 "접수중" 인데 date 가 없습니다`);
 
   // ⑥ 거리 오타
+  // ── 2026-09-16 추가 필드 ─────────────────────────────────────
+  // 접수 상태를 registrationEnd 로 계산하기 시작했다. 날짜가 틀리면 상태가 조용히 틀린다.
+  for (const k of ["registrationStart", "registrationEnd"])
+    if (r?.[k] !== undefined && !isRealDate(r[k]))
+      errors.push(`${at} — ${k} 가 실재하는 날짜가 아님: ${r[k]}`);
+  if (r?.registrationStart && r?.registrationEnd && r.registrationStart > r.registrationEnd)
+    errors.push(`${at} — 접수 시작(${r.registrationStart})이 마감(${r.registrationEnd})보다 늦습니다`);
+  if (r?.registrationEnd && r?.date && r.registrationEnd > r.date)
+    errors.push(`${at} — 접수 마감(${r.registrationEnd})이 대회일(${r.date}) 뒤입니다`);
+  if (r?.fees !== undefined) {
+    if (!Array.isArray(r.fees)) errors.push(`${at} — fees 는 배열이어야 합니다`);
+    else
+      for (const f of r.fees)
+        if (!f?.label || typeof f.krw !== "number" || f.krw < 0 || f.krw > 1_000_000)
+          errors.push(`${at} — 참가비 값이 이상합니다: ${JSON.stringify(f)}`);
+  }
+  if (r?.officialUrl !== undefined && !/^https?:\/\//.test(r.officialUrl))
+    errors.push(`${at} — officialUrl 은 http(s):// 로 시작해야 합니다. 스킴을 짐작해 붙이지 말고 열어 보고 적으세요`);
+  if (r?.officialKind !== undefined && !["공식", "접수대행", "SNS"].includes(r.officialKind))
+    errors.push(`${at} — officialKind 값이 이상합니다: ${r.officialKind}`);
+  if (r?.officialKind !== undefined && !r?.officialUrl)
+    errors.push(`${at} — officialKind 가 있는데 officialUrl 이 없습니다`);
+  if (r?.factsFrom !== undefined && !["공식", "모음"].includes(r.factsFrom))
+    errors.push(`${at} — factsFrom 값이 이상합니다: ${r.factsFrom}`);
+  if (r?.capacity !== undefined && typeof r.capacity !== "string")
+    errors.push(`${at} — capacity 는 문자열입니다(「하프 20,000 / 10km 10,000」처럼 숫자 하나로 안 떨어지는 대회가 있다)`);
+  if ("hasDetail" in (r ?? {}))
+    errors.push(`${at} — hasDetail 은 2026-09-16 에 없앴습니다. 전 대회가 상세 페이지를 가집니다`);
+
   if (!Array.isArray(r?.distancesKm) || r.distancesKm.length === 0)
     errors.push(`${at} — distancesKm 없음`);
   else

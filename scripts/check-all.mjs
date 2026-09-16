@@ -67,9 +67,7 @@ const CHECKS = [
   { name: "목차앵커", cmd: "node", args: ["scripts/check-toc.mjs"],                    net: false },
   // 대회 날짜는 사람이 참가비를 내고 이동하는 정보다. 좌표보다 세게 막는다.
   { name: "대회일정", cmd: "node", args: ["scripts/check-races.mjs"],                  net: false },
-  // 2026-09-15 추가. 에이전트 두 개가 같은 워킹 트리를 쓰기 시작했다.
-  // `ship` 이 `git add -A` 를 하므로 한쪽이 배포하면 다른 쪽 미완성 작업이 딸려 간다.
-  { name: "담당구역", cmd: "node", args: ["scripts/check-zones.mjs"],                  net: false },
+  // 2026-09-16: Cowork 단독 작업으로 전환해 담당구역 검사를 뺐다 (AGENTS.md 「작업 방식」). 스크립트는 남겨 둠.
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
   { name: "영상(실조회)",   cmd: "node", args: ["scripts/verify-youtube.mjs"],   net: true },

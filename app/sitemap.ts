@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { MetadataRoute } from "next";
 import { COMPARE_SLUGS } from "@/lib/compares";
+import { upcomingRaces } from "@/lib/races";
 
 /**
  * 폴백은 실제로 서비스 중인 주소여야 한다.
@@ -72,5 +73,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...core, ...injury, ...compare];
+  // 2026-09-16: 대회 상세. 지난 대회는 색인 대상에서 뺀다(페이지는 남는다).
+  const races: MetadataRoute.Sitemap = upcomingRaces().map((r) => ({
+    url: `${BASE_URL}/races/${r.id}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.5,
+  }));
+
+  return [...core, ...injury, ...compare, ...races];
 }

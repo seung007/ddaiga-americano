@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { upcomingRaces, daysUntil, distanceLabel, sourceKind, type Race } from "@/lib/races";
+import { upcomingRaces, daysUntil, distanceLabel, currentStatus, regionGroup } from "@/lib/races";
+import RaceFilterList, { type RaceItem } from "@/components/RaceFilterList";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import FinderCta from "@/components/FinderCta";
 
@@ -24,87 +25,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/races" },
 };
 
-const STATUS_STYLE: Record<string, string> = {
-  접수중: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  접수예정: "bg-blue-100 text-blue-800 border-blue-200",
-  마감: "bg-gray-100 text-gray-600 border-gray-200",
-  예정: "bg-amber-100 text-amber-800 border-amber-200",
-};
-
-function RaceCard({ r }: { r: Race }) {
-  const d = daysUntil(r.date);
-  return (
-    <li className="rounded-2xl border border-gray-200 p-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="font-bold text-gray-900">{r.name}</h3>
-        <span
-          className={`shrink-0 rounded-full border px-2 py-0.5 text-xs font-semibold ${
-            STATUS_STYLE[r.status] ?? STATUS_STYLE["예정"]
-          }`}
-        >
-          {r.status}
-        </span>
-      </div>
-
-      <p className="mt-1.5 text-sm text-gray-700">
-        {r.date ? (
-          <>
-            <strong>{r.date}</strong>
-            {d !== null && d >= 0 && (
-              <span className="ml-1.5 text-emerald-700">
-                {d === 0 ? "오늘" : `D-${d}`}
-              </span>
-            )}
-          </>
-        ) : (
-          /* 날짜를 모르면 모른다고 쓴다. 그럴듯한 달을 적지 않는다. */
-          <span className="text-amber-700">날짜 미정</span>
-        )}
-        <span className="mx-1.5 text-gray-300">·</span>
-        {r.region}
-        <span className="mx-1.5 text-gray-300">·</span>
-        {r.distancesKm.map(distanceLabel).join(" / ")}
-      </p>
-
-      {r.note && <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{r.note}</p>}
-
-      {/*
-       * 2026-09-16: `hasDetail` 이 있으면 우리 콘텐츠 상세 페이지로, 없으면 여전히
-       * 외부 접수처로 바로 나간다. 콘텐츠가 없는 대회를 내부로 들여보내지 않는다 —
-       * 그건 아무 값도 안 주면서 클릭만 하나 더 시키는 것이다.
-       */}
-      <div className="mt-3 flex flex-wrap items-center gap-3">
-        {r.hasDetail ? (
-          <Link
-            href={`/races/${r.id}`}
-            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
-          >
-            자세히 보기 →
-          </Link>
-        ) : (
-          /* 공식이냐 모음이냐를 **버튼 글자에 담는다.** 눌러보고 알게 하지 않는다. */
-          <a
-            href={r.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-              sourceKind(r.sourceUrl) === "공식"
-                ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                : "border border-gray-300 text-gray-700 hover:border-gray-400"
-            }`}
-          >
-            {sourceKind(r.sourceUrl) === "공식" ? "대회 공식 사이트 ↗" : "대회 정보 (KorMarathon) ↗"}
-          </a>
-        )}
-        {/* 언제 확인했는지를 숨기지 않는다 — 이 값이 신뢰의 전부다. */}
-        <span className="text-xs text-gray-400">{r.checkedAt} 확인</span>
-      </div>
-    </li>
-  );
-}
+/** 접수 상태를 날짜로 계산하므로, 빌드 때 값에 굳지 않게 하루 네 번 다시 만든다 (2026-09-16) */
+export const revalidate = 21600;
 
 export default function RacesPage() {
   const races = upcomingRaces();
+  const items: RaceItem[] = races.map((r) => ({
+    race: r,
+    status: currentStatus(r),
+    group: regionGroup(r.region),
+    dday: daysUntil(r.date),
+    distances: r.distancesKm.map(distanceLabel).join(" / "),
+  }));
 
   return (
     <>
@@ -114,8 +46,8 @@ export default function RacesPage() {
         <p className="mt-3 leading-relaxed text-gray-600">
           <strong>{races.length}개 대회</strong>를 확인한 날짜와 함께 싣습니다.
           대부분은 일정 모음 사이트 <strong>KorMarathon</strong> 에서 확인했고, 일부는
-          대회 공식 사이트에서 직접 확인했습니다 — <strong>버튼에 어느 쪽인지 적어
-          뒀습니다.</strong>
+          대회 공식 사이트에서 직접 확인했습니다 — <strong>상세 페이지에 어느 쪽인지 적어
+          뒀습니다.</strong> 대회를 누르면 참가비·접수 기간과 접수처 링크가 있습니다.
         </p>
 
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
@@ -154,11 +86,7 @@ export default function RacesPage() {
             </div>
           </div>
         ) : (
-          <ul className="mt-8 space-y-3">
-            {races.map((r) => (
-              <RaceCard key={r.id} r={r} />
-            ))}
-          </ul>
+          <RaceFilterList items={items} />
         )}
 
         <h2 className="mt-12 text-xl font-bold text-gray-900">대회 정하고 나면</h2>

@@ -52,6 +52,9 @@ import RAW from "./races.json";
 
 export type RaceStatus = "접수중" | "접수예정" | "마감" | "예정";
 
+/** 화면에 내는 상태 — 저장값에 없는 「마감임박」을 날짜로 만든다 */
+export type DisplayStatus = RaceStatus | "마감임박";
+
 export type Race = {
   /** URL 에 쓰는 짧은 id */
   id: string;
@@ -69,14 +72,34 @@ export type Race = {
   checkedAt: string;
   /** 선택 — 한 줄 메모. 없는 사실을 적지 않는다. */
   note?: string;
+  /** 출발지 */
+  venue?: string;
+  /** 출발 시간. 종목별로 다르면 그대로 적는다(`"5km 09:00 · 10km 10:00"`). 집결 시간을 출발로 적지 않는다 */
+  startTime?: string;
+  /** 접수 시작일 (ISO). 모르면 비운다 */
+  registrationStart?: string;
   /**
-   * 이 대회에 우리 사이트 콘텐츠 상세 페이지(`app/races/{id}/page.tsx`)가 있으면 true.
+   * 접수 마감일 (ISO). **이 값이 있으면 `status` 대신 날짜로 상태를 계산한다** — `currentStatus()`.
    *
-   * 2026-09-16: Cowork가 대회 페이지를 쓰면(콘텐츠 구역), 커밋은 Claude Code가 대신 하므로
-   * **그 커밋에서 이 값을 같이 true 로 바꾼다.** 목록·홈 카드는 이 값으로 내부 상세 페이지와
-   * 외부 접수처 직행을 가른다 — 콘텐츠가 없는 대회를 내부로 들여보내지 않는다.
+   * 2026-09-16: 손으로 적은 `status` 가 틀려서 마감된 대회 8건이 「접수중」으로 나갔다.
+   * 사람이 매일 바꿔 줄 수 없는 값은 날짜에서 계산한다.
+   * 추가접수처럼 날짜 하나로 안 떨어지는 대회(MBN)는 **비워 두고** `status` 를 손으로 둔다.
    */
-  hasDetail?: boolean;
+  registrationEnd?: string;
+  /** 종목별 참가비. 할인·옵션 요금은 넣지 않는다 */
+  fees?: { label: string; distanceKm: number; krw: number }[];
+  /** 정원. **문자열이다** — 「하프 20,000 / 10km 10,000」처럼 숫자 하나로 안 떨어지는 대회가 있다 */
+  capacity?: string;
+  organizer?: string;
+  /** `sourceUrl` 이 모음 사이트일 때, 그 페이지가 링크한 주최 측 주소. 구글폼만 있으면 비운다(마감 뒤 닫힌다) */
+  officialUrl?: string;
+  /**
+   * `officialUrl` 의 성격. 비우면 「공식」.
+   * 접수 대행 사이트·인스타를 「대회 공식 사이트」라고 부르면 반만 맞는 말이 된다 (2026-09-16).
+   */
+  officialKind?: "공식" | "접수대행" | "SNS";
+  /** 날짜·장소·참가비를 **어디서 확인했나.** 「모음」이면 화면에 「KorMarathon 기준」을 붙인다 */
+  factsFrom?: "공식" | "모음";
 };
 
 const ALL = RAW as Race[];
@@ -129,11 +152,61 @@ export function sourceKind(url: string): "공식" | "모음" {
   }
 }
 
-/** 사람이 읽는 거리 이름. 42.195 → "풀코스" */
+/**
+ * 사람이 읽는 거리 이름. 42.195 → "풀코스"
+ *
+ * 2026-09-16: `toFixed(1)` 이라 여수 「10.19 평화마라톤」의 10.19km 가 **「10.2km」** 로 찍혔다.
+ * 대회 이름과 다른 숫자가 나오면 다른 대회처럼 보인다. 소수는 적힌 자리까지 그대로 낸다.
+ */
 export function distanceLabel(km: number): string {
   if (Math.abs(km - 42.195) < 0.01) return "풀코스";
   if (Math.abs(km - 21.0975) < 0.01) return "하프";
-  return `${km % 1 === 0 ? km : km.toFixed(1)}km`;
+  return `${Number(km.toFixed(2))}km`;
+}
+
+/** 마감 며칠 전부터 「마감임박」인가 */
+const CLOSING_SOON_DAYS = 7;
+
+/**
+ * 지금 접수 상태. `registrationEnd` 가 있으면 날짜로 계산하고, 없으면 저장된 `status`.
+ * 대회 당일이 지난 것은 `upcomingRaces()` 가 이미 거른다.
+ */
+export function currentStatus(r: Race): DisplayStatus {
+  const today = todayKst();
+  if (r.registrationEnd) {
+    if (r.registrationEnd < today) return "마감";
+    if (r.registrationStart && r.registrationStart > today) return "접수예정";
+    const left = daysUntil(r.registrationEnd);
+    if (left !== null && left <= CLOSING_SOON_DAYS) return "마감임박";
+    return "접수중";
+  }
+  if (r.registrationStart && r.registrationStart > today) return "접수예정";
+  return r.status;
+}
+
+/** 버튼이 보낼 곳과 그 성격. 주최 측 주소가 있으면 그쪽을 먼저 */
+export function raceLink(r: Race): { url: string; kind: "공식" | "접수대행" | "SNS" | "모음" } {
+  if (r.officialUrl) return { url: r.officialUrl, kind: r.officialKind ?? "공식" };
+  return { url: r.sourceUrl, kind: sourceKind(r.sourceUrl) };
+}
+
+/** 광역 → 권역. 러닝라이프와 같은 묶음 (2026-09-16 벤치마킹) */
+export const REGION_GROUPS: Record<string, string[]> = {
+  수도권: ["서울", "경기", "인천"],
+  충청권: ["대전", "세종", "충북", "충남"],
+  강원권: ["강원"],
+  전라권: ["광주", "전북", "전남"],
+  경상권: ["부산", "대구", "울산", "경북", "경남"],
+  제주권: ["제주"],
+};
+
+export function regionGroup(region: string): string {
+  for (const [g, list] of Object.entries(REGION_GROUPS)) if (list.includes(region)) return g;
+  return "기타";
+}
+
+export function raceById(id: string): Race | undefined {
+  return ALL.find((r) => r.id === id);
 }
 
 export const ALL_RACES = ALL;

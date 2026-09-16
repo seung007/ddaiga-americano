@@ -75,6 +75,13 @@ const DYNAMIC = [
     // 소스에서 이 형태를 보면 "compare 전체를 가리킨다"고 본다.
     templates: [/\/compare\/\$\{/],
   },
+  // 2026-09-16: 대회 상세 — races.json 의 id 전부
+  {
+    route: "/races/[id]",
+    expand: () =>
+      JSON.parse(readFileSync(join(ROOT, "lib/races.json"), "utf8")).map((r) => `/races/${r.id}`),
+    templates: [/\/races\/\$\{/],
+  },
 ];
 
 // ── 파일 수집 ───────────────────────────────────────────────
