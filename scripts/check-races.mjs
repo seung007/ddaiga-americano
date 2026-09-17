@@ -165,6 +165,12 @@ if (LIVE && races.length) {
   const dead = [];
   const blocked = [];
   const targets = races.filter((r) => r.officialUrl && (!r.date || r.date >= today));
+  /**
+   * Node fetch 로는 실패하지만 **사람 브라우저(Chrome)로는 열리는 것을 확인한** 주소.
+   * 2026-09-17: runwithgo.com 은 Node 에서 `fetch failed`, Chrome 에서는 대회 페이지가 정상으로 떴다.
+   * 확인한 날짜를 같이 적는다 — 오래되면 다시 연다.
+   */
+  const BROWSER_OK = { "https://runwithgo.com/runwithgo/": "2026-09-17" };
   for (const r of targets) {
     try {
       const res = await fetch(r.officialUrl, {
@@ -176,6 +182,11 @@ if (LIVE && races.length) {
       if (res.status === 403 || res.status === 429) blocked.push(`${r.name} — HTTP ${res.status}  ${r.officialUrl}`);
       else if (!res.ok) dead.push(`${r.name} — HTTP ${res.status}  ${r.officialUrl}`);
     } catch (e) {
+      if (BROWSER_OK[r.officialUrl]) {
+        blocked.push(`${r.name} — Node 실패, 브라우저 확인 ${BROWSER_OK[r.officialUrl]}  ${r.officialUrl}`);
+        await new Promise((r2) => setTimeout(r2, 400));
+        continue;
+      }
       // 원인을 남긴다. name 만 찍으면 아무것도 못 고친다(AGENTS.md 사례).
       dead.push(`${r.name} — ${e.message}${e.cause?.code ? ` (${e.cause.code})` : ""}  ${r.officialUrl}`);
     }
