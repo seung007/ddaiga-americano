@@ -9,14 +9,12 @@ import { upcomingRaces, daysUntil, distanceLabel } from "@/lib/races";
 /**
  * 띠에 실을 신발 — 서버에서 골라 최소 필드만 넘긴다.
  *
- * **단종된 것은 뺀다.** 첫 화면에서 "후속작 나옴" 안내를 보여줄 이유가 없다.
- * 그리고 **여성 전용 중복 모델도 뺀다** — 같은 신발이 두 번 지나가면 종류가 적어 보인다.
- * (남녀 모두에게 필요한 정보는 finder가 성별을 받아 처리한다.)
- *
- * 이미지 40장이 경쟁사 CDN이라(`check:images`) 홈에 의존을 무한정 얹지 않는다.
- * 지금은 단종 아닌 것 전부이고, 그게 커지면 여기서 잘라야 한다.
+ * 2026-09-16: **전부 싣는다(52켤레).** 전에는 후속 모델이 나온 것과 여성 모델을 빼서 18켤레만 돌았다.
+ * `/shoes` 목록을 만들고 "52켤레"라고 적었는데 홈에서는 그 1/3만 보여 **숫자가 안 맞는다**는 지적을 받았다(hyun 님).
+ * 후속 모델이 나온 신발은 카드에 표시한다 — 재고 할인으로 싸게 살 수 있는 신발이라 뺄 이유가 없다.
+ * 여성 모델은 이름에 「(여성)」이 붙어 있어 중복으로 읽히지 않는다.
  */
-const STRIP_SHOES: StripShoe[] = SHOES.filter((s) => !s.successor && s.gender !== "female").map(
+const STRIP_SHOES: StripShoe[] = SHOES.map(
   (s) => ({
     id: s.id,
     brand: s.brand,
@@ -29,6 +27,7 @@ const STRIP_SHOES: StripShoe[] = SHOES.filter((s) => !s.successor && s.gender !=
     uses: s.uses,
     widthOptions: s.widthOptions,
     hasCarbon: !!s.hasCarbon,
+    successor: s.successor,
   })
 );
 
@@ -101,8 +100,8 @@ export default function Home() {
          *
          * 건너뛰는 경로가 없어진 게 아니다 — **신발 띠가 히어로 바로 밑이고**, 그게 본체다.
          *
-         * 대가: 9/28 판정에서 「두 번째 버튼이 폼을 갉아먹었는지」는 **판정 불가**가 됐다.
-         * (`유입_설정_기준선.md §4-7`). 남는 건 신발 띠 위치 + 폼 첫 문항의 합산 효과뿐이다.
+         * (당시 9/28 판정을 걸어 뒀는데 2026-09-17 폐기했다. 월 100명대 표본으로 날짜 하나에
+         * 판정하는 구조 자체가 성립하지 않았다 — `유입_설정_기준선.md` §0.)
          */}
         <Link
           href="/shoe-finder"

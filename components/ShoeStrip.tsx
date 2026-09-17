@@ -50,6 +50,8 @@ export interface StripShoe {
   uses: string[];
   widthOptions: string[];
   hasCarbon: boolean;
+  /** 후속 모델 이름 — 있으면 카드에 「후속 출시」 표시 */
+  successor?: string;
 }
 
 type TabKey = "beginner" | "long" | "speed" | "wide";
@@ -164,9 +166,14 @@ export default function ShoeStrip({ shoes }: { shoes: StripShoe[] }) {
           <h2 id="strip-heading" className="text-2xl font-bold text-gray-900">
             지금 볼 수 있는 러닝화
           </h2>
-          <Link href="/shoe-finder" className="shrink-0 text-sm text-emerald-600 hover:underline">
-            내 체형으로 고르기 →
-          </Link>
+          <div className="flex shrink-0 gap-3 text-sm">
+            <Link href="/shoes" className="text-emerald-600 hover:underline">
+              전체 {shoes.length}켤레 →
+            </Link>
+            <Link href="/shoe-finder" className="text-emerald-600 hover:underline">
+              내 체형으로 고르기 →
+            </Link>
+          </div>
         </div>
         <p className="mb-5 text-sm leading-relaxed text-gray-500">
           {tab
@@ -275,8 +282,10 @@ export default function ShoeStrip({ shoes }: { shoes: StripShoe[] }) {
 
 function ShoeCard({ shoe }: { shoe: StripShoe }) {
   return (
+    /* 2026-09-16: 카드는 그 신발 상세(/shoes/[id])로 간다. 전에는 /shoe-finder 로 갔는데,
+       신발을 눌렀더니 설문 첫 화면이 나와 "누른 신발이 안 보인다"는 지적을 받았다(hyun 님). */
     <Link
-      href="/shoe-finder"
+      href={`/shoes/${shoe.id}`}
       onClick={() => ga("home_shoe_click", { shoe: shoe.id })}
       className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:border-emerald-300"
     >
@@ -298,6 +307,9 @@ function ShoeCard({ shoe }: { shoe: StripShoe }) {
       </div>
       <p className="text-xs font-medium text-gray-400">{shoe.brand}</p>
       <p className="mb-1 truncate text-sm font-semibold text-gray-900">{shoe.model}</p>
+      {shoe.successor && (
+        <p className="mb-1 text-[11px] font-medium text-amber-700">후속 모델 출시 · 재고 할인 가능</p>
+      )}
       <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-gray-600">{shoe.tagline}</p>
       <p className="mt-auto text-xs text-gray-500">
         쿠션 {shoe.cushioning}/5 · {shoe.weightGramsM9}g · {shoe.priceKrw.toLocaleString()}원

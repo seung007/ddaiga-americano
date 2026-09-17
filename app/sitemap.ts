@@ -51,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 브랜드 페어를 더 만들면 이 배열에 한 줄 추가할 것.
     { url: `${BASE_URL}/compare/hoka-vs-brooks`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     // 2026-09-12: 러닝화 계급도. 「러닝화 계급도」가 한국 검색의 지배적 형식이다
-    // (벤치마킹_2026-09-12.md). 9/20 색인 판정 오염은 §4-4 에 기록했다.
+    // (벤치마킹_2026-09-12.md). (9/20 색인 판정은 2026-09-17 폐기 — 기준선 §0.)
     { url: `${BASE_URL}/tier-list`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     // 2026-09-12: 대회 일정. 내용이 자주 바뀌므로 weekly.
     { url: `${BASE_URL}/races`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
