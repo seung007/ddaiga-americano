@@ -27,8 +27,9 @@
     "organizer": "MBN · 매일경제",
     "sourceUrl": "https://www.mbn-seoulmarathon.com/",
     "factsFrom": "공식",
-    "checkedAt": "2026-09-16",
-    "note": "본접수는 끝났고 추가접수가 선착순으로 열립니다 — 프로모션 9/18(금) · 10km 9/21(월) · 하프 9/22(화) 각 14:00. 8/31 은 취소·환불 기한입니다."
+    "checkedAt": "2026-09-17",
+    "note": "본접수는 끝났고 추가접수가 선착순으로 열립니다 — 프로모션 9/18(금) · 10km 9/21(월) · 하프 9/22(화) 각 14:00. 8/31 은 취소·환불 기한입니다.",
+    "officialUrl": "https://www.mbn-seoulmarathon.com/"
   },
   {
     "id": "angels-day-2026",
@@ -64,8 +65,8 @@
     "organizer": "(사)희망지킴이 천사운동본부",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-angels-day-angels-marathon",
     "officialUrl": "https://hope1004.org/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "masters-half-2026",
@@ -118,23 +119,12 @@
     "venue": "소노캄 경주",
     "registrationStart": "2026-08-12",
     "registrationEnd": "2026-10-04",
-    "fees": [
-      {
-        "label": "PET RUN 7K",
-        "distanceKm": 7,
-        "krw": 70000
-      },
-      {
-        "label": "MAIN RUN 9K",
-        "distanceKm": 9,
-        "krw": 70000
-      }
-    ],
     "organizer": "(주)소노인터내셔널",
     "sourceUrl": "https://www.kormarathon.com/ko/races/sono-runtrip-180k-in-gyeongju",
     "officialUrl": "https://www.sonohotelsresorts.com/reserve/activity/dtl?salesNo=292686",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17",
+    "note": "공식 예약 페이지 기준 판매가 67,000원부터(옵션별 상이)."
   },
   {
     "id": "eworld-uphill-2026",
@@ -186,8 +176,8 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-run-together",
     "officialUrl": "https://runcop.com/event/hamkkerun",
     "officialKind": "접수대행",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "ulsan-marathon-2026",
@@ -225,8 +215,8 @@
     "organizer": "울산광역시육상연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-ulsan-marathon",
     "officialUrl": "https://run.uaf.co.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "forest-fire-seoul-2026",
@@ -345,8 +335,8 @@
     "organizer": "의정부시체육회",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-uijeongbu-city-waterway-marathon-national-race",
     "officialUrl": "https://uijeongbu.my-race.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "peace-1019-2026",
@@ -378,7 +368,8 @@
     "organizer": "10.19 평화마라톤 조직위원회",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2nd-1019-peace-marathon",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://ys1019.kr/"
   },
   {
     "id": "gyeongcheong-2026",
@@ -415,8 +406,8 @@
     "organizer": "(사)행복한동행",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-gyeongcheong-marathon",
     "officialUrl": "https://storyrun.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "mindrun-2026",
@@ -446,8 +437,8 @@
     "organizer": "KBSN",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-mindrun",
     "officialUrl": "https://www.mindrun.co.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "memorial-run-2026",
@@ -478,8 +469,8 @@
     "organizer": "㈜엘지유플러스",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-memorial-run",
     "officialUrl": "https://119memorial.com/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "jungnang-rose-2026",
@@ -578,7 +569,9 @@
     "organizer": "청주충북환경운동연합",
     "sourceUrl": "https://www.kormarathon.com/ko/races/mussu-run-zero-waste-run",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://forms.gle/ga7gKHnRJB7pfLFY6",
+    "officialKind": "접수폼"
   },
   {
     "id": "sejong-run-2026",
@@ -608,8 +601,9 @@
     "organizer": "세종특별자치시육상연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/sejong-run-26-with-naver-works",
     "officialUrl": "https://sejongrun26.com/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17",
+    "startTime": "09:00 (집결 07:30)"
   },
   {
     "id": "gamseong-run-2026",
@@ -638,7 +632,8 @@
     ],
     "sourceUrl": "https://www.kormarathon.com/ko/races/gamseong-run-2026",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://xn--439a68tboh.kr:9007/index.asp"
   },
   {
     "id": "ulsan-run-festa-2026",
@@ -711,7 +706,9 @@
     "organizer": "참나무프로젝트",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-oak-tree-run",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdLEH2aPgDLwc0CTtcEA2ljxYLr3vISJk4izdf1CPXtLOQsBQ/viewform",
+    "officialKind": "접수폼"
   },
   {
     "id": "cookie-run-seoul-2026",
@@ -736,8 +733,8 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/cookie-run",
     "officialUrl": "https://runable.me/product/20032?comp=19600",
     "officialKind": "접수대행",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "dangjin-one-run-2026",
@@ -795,7 +792,8 @@
     "organizer": "대전광역시",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-daecheongho-obaengni-gil-walking-festival",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://www.kwalk.co.kr/"
   },
   {
     "id": "just-run10-pocheon",
@@ -864,8 +862,8 @@
     "organizer": "중소기업진흥회",
     "sourceUrl": "https://www.kormarathon.com/ko/races/7th-small-and-medium-business-people-energy-boosting-marathon",
     "officialUrl": "https://kasmirun.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "autism-race-2026",
@@ -941,8 +939,8 @@
     "organizer": "(사)한국환경체육청소년연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-seoul-together-marathon",
     "officialUrl": "https://seoulrun.com",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "ulsan-humanrights-2026",
@@ -960,7 +958,8 @@
     "registrationEnd": "2026-09-18",
     "sourceUrl": "https://www.kormarathon.com/ko/races/21st-ulsan-human-rights-marathon-2026",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://www.humanrun.org/"
   },
   {
     "id": "public-interest-run-2026",
@@ -1024,8 +1023,8 @@
     "organizer": "굿피플",
     "sourceUrl": "https://www.kormarathon.com/ko/races/give-run-2026-gumi",
     "officialUrl": "https://giverun.kr/shop/main.ubs",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "defense-daily-2026",
@@ -1038,7 +1037,7 @@
     ],
     "status": "접수중",
     "venue": "임진각 평화누리공원",
-    "startTime": "09:00",
+    "startTime": "08:00",
     "registrationStart": "2026-09-07",
     "registrationEnd": "2026-10-08",
     "fees": [
@@ -1056,8 +1055,8 @@
     "organizer": "국방홍보원",
     "sourceUrl": "https://www.kormarathon.com/ko/races/22nd-defense-daily-comrade-marathon",
     "officialUrl": "https://www.dema.mil.kr/marathon/main.do",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "purme-run-2026",
@@ -1089,8 +1088,8 @@
     "organizer": "푸르메재단",
     "sourceUrl": "https://www.kormarathon.com/ko/races/miracle365-purme-run-1",
     "officialUrl": "https://purmerun.com/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "save-race-2026",
@@ -1113,8 +1112,12 @@
     ],
     "organizer": "카카오뱅크",
     "sourceUrl": "https://www.kormarathon.com/ko/races/save-race-2026",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17",
+    "officialUrl": "https://www.saverace.co.kr/",
+    "startTime": "07:30",
+    "capacity": "7,000명",
+    "note": "카카오뱅크 앱에서 신청하고 추첨으로 참가자를 정합니다. 참가비는 전액 기부됩니다."
   },
   {
     "id": "yeongcheon-dam-2026",
@@ -1135,7 +1138,7 @@
       {
         "label": "5km",
         "distanceKm": 5,
-        "krw": 20000
+        "krw": 25000
       },
       {
         "label": "10km",
@@ -1151,8 +1154,8 @@
     "organizer": "영천시육상연맹, 채널경북",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yeongcheon-dam-marathon",
     "officialUrl": "https://runyc.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "chilgap-2026",
@@ -1217,12 +1220,12 @@
         "krw": 55000
       }
     ],
-    "capacity": "5,000명",
+    "capacity": "5km 2,000명 / 10km 3,000명",
     "organizer": "안성시체육회 · 경인일보 / 안성시육상연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/the-26th-anseong-matchum-national-marathon",
     "officialUrl": "https://asrun.co.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "goodfun-2026",
@@ -1252,7 +1255,8 @@
     ],
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-20th-volunteer-love-good-fun-marathon",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://xn--oi2bo7bn3do4es0j56afy5b.kr/"
   },
   {
     "id": "gangnam-half-2026",
@@ -1282,7 +1286,7 @@
     ],
     "status": "접수중",
     "venue": "춘천 송암스포츠타운 종합경기장",
-    "startTime": "09:00부터 순차 출발",
+    "startTime": "09:00",
     "registrationStart": "2026-08-07",
     "registrationEnd": "2026-09-15",
     "fees": [
@@ -1305,8 +1309,8 @@
     "organizer": "주식회사 강원일보",
     "sourceUrl": "https://www.kormarathon.com/ko/races/roundlab-run",
     "officialUrl": "https://kw-marathon.com",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "busan-heritage-2026",
@@ -1323,8 +1327,23 @@
     "registrationEnd": "2026-10-09",
     "organizer": "아시아경제",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-busan-heritage-run",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17",
+    "officialUrl": "https://heritagerun.co.kr/",
+    "startTime": "08:00",
+    "capacity": "선착순 10,000명",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ]
   },
   {
     "id": "songpa-2026",
@@ -1356,7 +1375,8 @@
     "organizer": "송파구체육회",
     "sourceUrl": "https://www.kormarathon.com/ko/races/11th-songpa-district-mayors-marathon",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://www.songparunsportal.com/"
   },
   {
     "id": "yeongjong-haneulgil-2026",
@@ -1393,7 +1413,8 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yeongjong-haneulgil-marathon",
     "officialUrl": "https://www.leaveit.co.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialKind": "접수대행"
   },
   {
     "id": "anyangcheon-maple-2026",
@@ -1430,8 +1451,8 @@
     "organizer": "(사)대한생활체육연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2nd-anyangcheon-maple-run",
     "officialUrl": "http://maplerun.kr",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "pohang-champ-2026",
@@ -1446,24 +1467,13 @@
     "venue": "영일대해상누각",
     "registrationStart": "2026-04-13",
     "registrationEnd": "2026-09-30",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 30000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 50000
-      }
-    ],
     "capacity": "7,000명",
     "organizer": "KT HCN, 포항시육상연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-pohang-marathon-championship",
     "officialUrl": "https://pohangmarathon.com",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17",
+    "startTime": "09:00 (집결 08:00)"
   },
   {
     "id": "seoul-peace-2026",
@@ -1530,8 +1540,9 @@
     "organizer": "국제신문",
     "sourceUrl": "https://www.kormarathon.com/ko/races/the-28th-busan-kookje-marathon",
     "officialUrl": "https://kjmarathon.com/ko/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17",
+    "startTime": "09:00"
   },
   {
     "id": "jeju-tangerine-2026",
@@ -1619,8 +1630,8 @@
     "organizer": "세계평화사랑연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-peace-forest-marathon",
     "officialUrl": "https://peace-run.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "zeiss-smile-2026",
@@ -1652,8 +1663,8 @@
     "organizer": "ZEISS, 한국실명예방재단",
     "sourceUrl": "https://www.kormarathon.com/ko/races/smile-run-together-for-a-brighter-world",
     "officialUrl": "https://zeiss-smilerace.kr",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
   },
   {
     "id": "wyd-peace-run-2026",
@@ -1802,6 +1813,7 @@
     "organizer": "안중근의사기념사업회, (사)안중근평화연구원, 천안시사랑의열매나눔봉사단",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2nd-cheonan-independence-hall-marathon",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://runwithus.co.kr/"
   }
 ]

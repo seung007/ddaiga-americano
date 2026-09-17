@@ -166,20 +166,15 @@ export default function ShoeStrip({ shoes }: { shoes: StripShoe[] }) {
           <h2 id="strip-heading" className="text-2xl font-bold text-gray-900">
             지금 볼 수 있는 러닝화
           </h2>
-          <div className="flex shrink-0 gap-3 text-sm">
-            <Link href="/shoes" className="text-emerald-600 hover:underline">
-              전체 {shoes.length}켤레 →
-            </Link>
-            <Link href="/shoe-finder" className="text-emerald-600 hover:underline">
-              내 체형으로 고르기 →
-            </Link>
-          </div>
+          {/* 2026-09-17: 「전체 52켤레 →」「내 체형으로 고르기 →」 두 링크를 「전체」 하나로.
+              신발 찾기는 바로 위 히어로 버튼과 겹쳤고, 숫자는 목록에 가면 보인다(hyun 님). */}
+          <Link href="/shoes" className="shrink-0 text-sm text-emerald-600 hover:underline">
+            전체 →
+          </Link>
         </div>
-        <p className="mb-5 text-sm leading-relaxed text-gray-500">
-          {tab
-            ? `${TABS.find((t) => t.key === tab)!.hint} · ${filtered.length}개`
-            : "누르지 않아도 지나갑니다. 종류를 고르면 멈추고 한눈에 보여드려요."}
-        </p>
+        {tab && (
+          <p className="mb-5 text-sm text-gray-500">{TABS.find((t) => t.key === tab)!.hint}</p>
+        )}
 
         {/* ── 탭 ── */}
         <div className="mb-5 flex flex-wrap gap-2" role="group" aria-label="신발 종류 고르기">
@@ -269,11 +264,7 @@ export default function ShoeStrip({ shoes }: { shoes: StripShoe[] }) {
             <span aria-hidden>›</span>
           </button>
 
-          {flowing && (
-            <p className="mt-2 text-center text-xs text-gray-400">
-              천천히 지나갑니다 · 손대면 멈춥니다
-            </p>
-          )}
+          {/* 「천천히 지나갑니다 · 손대면 멈춥니다」 안내 문구는 뺐다 — 움직이는 걸 보면 안다 (2026-09-17) */}
         </div>
       )}
     </section>

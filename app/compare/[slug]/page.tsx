@@ -4,7 +4,7 @@ import { SHOES } from "@/lib/shoes/data";
 import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import AffiliateNotice from "@/components/AffiliateNotice";
-import { resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
+import { affiliateFor, resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 
 const SITE_URL =
@@ -187,7 +187,7 @@ export default async function ComparePage({
           [`${shoeA.model} vs ${shoeB.model}`, `/compare/${slug}`],
         ]}
       />
-      <AffiliateNotice />
+      <AffiliateNotice show={!!(affiliateFor(shoeA.id) || affiliateFor(shoeB.id))} />
 
       {/* ── 헤더 ── */}
       <header className="mb-8">

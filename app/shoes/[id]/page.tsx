@@ -7,6 +7,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
 import { COMPARE_SLUGS } from "@/lib/compares";
+import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
 import { BODY_TYPE_LABEL, GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
@@ -64,8 +65,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
     <>
       <BreadcrumbJsonLd trail={[["러닝화", "/shoes"], [name, `/shoes/${s.id}`]]} />
       <ShoeJsonLd shoes={[s]} name={name} url={PAGE(s.id)} />
-      <AffiliateNotice />
       <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
+        <AffiliateNotice show={!!affiliateFor(s.id)} />
         <Link href="/shoes" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝화 목록
         </Link>

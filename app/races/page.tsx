@@ -21,7 +21,7 @@ const PAGE_URL = "https://ddaiga-americano.vercel.app/races";
 export const metadata: Metadata = {
   title: "2026 마라톤 대회 일정 — 10·11월 접수중 대회 정리 | 뛰다가 아메리카노",
   description:
-    "전국 마라톤·러닝 대회 일정을 접수 상태와 함께 정리했습니다. 각 대회의 확인 날짜와 출처를 그대로 표시합니다.",
+    "전국 마라톤·러닝 대회 일정을 접수 상태·참가비와 함께 정리하고, 대회 공식 홈페이지로 바로 연결합니다.",
   alternates: { canonical: "/races" },
 };
 
@@ -43,20 +43,8 @@ export default function RacesPage() {
       <BreadcrumbJsonLd trail={[["대회 일정", "/races"]]} />
       <main className="mx-auto max-w-3xl px-6 py-12 text-gray-800">
         <h1 className="text-3xl font-bold leading-tight text-gray-900">마라톤 대회 일정</h1>
-        <p className="mt-3 leading-relaxed text-gray-600">
-          <strong>{races.length}개 대회</strong>를 확인한 날짜와 함께 싣습니다.
-          대부분은 일정 모음 사이트 <strong>KorMarathon</strong> 에서 확인했고, 일부는
-          대회 공식 사이트에서 직접 확인했습니다 — <strong>상세 페이지에 어느 쪽인지 적어
-          뒀습니다.</strong> 대회를 누르면 참가비·접수 기간과 접수처 링크가 있습니다.
-        </p>
-
-        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
-          <strong>접수 전에 대회 공식 사이트에서 한 번 더 확인하세요.</strong> 일정과 접수
-          기간은 주최 측 사정으로 바뀝니다. 저희는 확인한 날짜까지만 보증할 수 있고,{" "}
-          <strong>그 뒤의 변경은 알 수 없습니다.</strong> 실제로 MBN 서울마라톤은 모음
-          사이트에 &ldquo;마감&rdquo;으로 돼 있었지만 공식 사이트에는 추가 접수가 열려
-          있었습니다.
-        </div>
+        {/* 2026-09-17: 설명 문단과 노란 경고 상자를 한 줄로. 출처 설명은 화면에서 뺐다(공식 홈페이지만 링크) */}
+        <p className="mt-2 text-sm text-gray-500">접수 상태는 날짜에 맞춰 바뀝니다. 신청 전 공식 홈페이지를 한 번 더 확인하세요.</p>
 
         {races.length === 0 ? (
           /* 빈 상태 — "준비 중"만 띄우면 고장으로 읽힌다. 이유와 대안을 적는다. */
@@ -88,19 +76,6 @@ export default function RacesPage() {
         ) : (
           <RaceFilterList items={items} />
         )}
-
-        <h2 className="mt-12 text-xl font-bold text-gray-900">대회 정하고 나면</h2>
-        <div className="mt-3 flex flex-wrap gap-3 text-sm">
-          <Link href="/tier-list" className="text-emerald-600 hover:underline">
-            내 수준에 맞는 러닝화 칸 →
-          </Link>
-          <Link href="/courses" className="text-emerald-600 hover:underline">
-            한강 러닝 코스 4곳 →
-          </Link>
-          <Link href="/injury" className="text-emerald-600 hover:underline">
-            부상 없이 준비하기 →
-          </Link>
-        </div>
 
         <div className="mt-10">
           <FinderCta

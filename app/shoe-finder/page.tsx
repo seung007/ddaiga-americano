@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
-import { pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
+import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
@@ -369,7 +369,7 @@ export default function ShoeFinderPage() {
         </div>
       )}
 
-      <AffiliateNotice />
+      <AffiliateNotice show={!!result && result.primary.some((r) => !!affiliateFor(r.shoe.id))} />
 
       {/* ── 조건 칩 바 ──────────────────────────────────────────
           이전에는 여기에 「← 조건 다시 고르기」 하나만 있었고, 그게 handleReset()이라

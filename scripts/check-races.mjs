@@ -121,7 +121,7 @@ for (const [i, r] of races.entries()) {
   }
   if (r?.officialUrl !== undefined && !/^https?:\/\//.test(r.officialUrl))
     errors.push(`${at} — officialUrl 은 http(s):// 로 시작해야 합니다. 스킴을 짐작해 붙이지 말고 열어 보고 적으세요`);
-  if (r?.officialKind !== undefined && !["공식", "접수대행", "SNS"].includes(r.officialKind))
+  if (r?.officialKind !== undefined && !["공식", "접수대행", "SNS", "접수폼"].includes(r.officialKind))
     errors.push(`${at} — officialKind 값이 이상합니다: ${r.officialKind}`);
   if (r?.officialKind !== undefined && !r?.officialUrl)
     errors.push(`${at} — officialKind 가 있는데 officialUrl 이 없습니다`);
@@ -159,30 +159,42 @@ if (warns.length) {
 
 // ── 접수처가 살아 있는지 (네트워크) ──────────────────────────
 if (LIVE && races.length) {
-  console.log(dim("접수처 주소 확인 중…"));
+  // 2026-09-17: 화면에 내는 링크는 **officialUrl 뿐**이다. 그걸 연다. 지난 대회는 건너뛴다.
+  // 403 은 봇 차단일 뿐 사람 브라우저로는 열리는 경우가 많아 「확인 필요」로 따로 모은다.
+  console.log(dim("공식 링크 확인 중…"));
   const dead = [];
-  for (const r of races) {
+  const blocked = [];
+  const targets = races.filter((r) => r.officialUrl && (!r.date || r.date >= today));
+  for (const r of targets) {
     try {
-      const res = await fetch(r.sourceUrl, {
+      const res = await fetch(r.officialUrl, {
         method: "GET",
         redirect: "follow",
         signal: AbortSignal.timeout(15_000),
-        headers: { "User-Agent": "ddaiga-americano/1.0 (+https://ddaiga-americano.vercel.app)" },
+        headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36" },
       });
-      if (!res.ok) dead.push(`${r.name} — HTTP ${res.status}  ${r.sourceUrl}`);
+      if (res.status === 403 || res.status === 429) blocked.push(`${r.name} — HTTP ${res.status}  ${r.officialUrl}`);
+      else if (!res.ok) dead.push(`${r.name} — HTTP ${res.status}  ${r.officialUrl}`);
     } catch (e) {
       // 원인을 남긴다. name 만 찍으면 아무것도 못 고친다(AGENTS.md 사례).
-      dead.push(`${r.name} — ${e.message}${e.cause?.code ? ` (${e.cause.code})` : ""}  ${r.sourceUrl}`);
+      dead.push(`${r.name} — ${e.message}${e.cause?.code ? ` (${e.cause.code})` : ""}  ${r.officialUrl}`);
     }
     await new Promise((r2) => setTimeout(r2, 400)); // 예절
   }
+  const noLink = races.filter((r) => !r.officialUrl && (!r.date || r.date >= today));
+  console.log(dim(`\n공식 링크 ${targets.length}건 확인 · 공식 링크 없음 ${noLink.length}건`));
+  for (const r of noLink) console.log(dim(`  · 링크 없음: ${r.name}`));
+  if (blocked.length) {
+    console.log(yellow(`\n봇 차단(403) — 브라우저로 한 번 열어 보세요 ${blocked.length}건`));
+    for (const b of blocked) console.log(dim(`  · ${b}`));
+  }
   if (dead.length) {
-    console.log(red(`\n접수처가 응답하지 않는 대회 ${dead.length}건\n`));
+    console.log(red(`\n열리지 않는 공식 링크 ${dead.length}건\n`));
     for (const d of dead) console.log(`  ✗ ${d}`);
-    console.log(dim("\n  대회가 끝났거나 주소가 바뀐 것입니다. 확인하고 고치세요.\n"));
+    console.log(dim("\n  주소가 바뀌었거나 사이트가 닫혔습니다. 확인하고 고치세요.\n"));
     process.exit(1);
   }
-  console.log(green("접수처 전부 응답함"));
+  console.log(green("공식 링크 전부 응답함"));
 }
 
 console.log(

@@ -1,61 +1,32 @@
-import { currentStatus, raceLink, sourceKind, type Race } from "@/lib/races";
-
-/** 접수가 끝난 대회에 「접수」 버튼을 달지 않는다 */
-const LABEL_CLOSED = {
-  공식: "대회 공식 사이트 ↗",
-  접수대행: "접수 사이트 ↗",
-  SNS: "주최 측 채널 ↗",
-  모음: "대회 정보 (KorMarathon) ↗",
-} as const;
+import { currentStatus, raceLink, type Race } from "@/lib/races";
 
 const LABEL = {
-  공식: "대회 공식 사이트에서 접수 ↗",
-  접수대행: "접수 사이트에서 신청 ↗",
-  SNS: "주최 측 채널에서 확인 ↗",
-  모음: "대회 정보 (KorMarathon)에서 확인 ↗",
+  공식: "공식 홈페이지",
+  접수대행: "접수 페이지",
+  SNS: "주최 측 채널",
+  접수폼: "신청서",
 } as const;
 
 /**
- * 대회 상세 페이지 맨 아래 접수처 링크.
+ * 대회 공식 링크 버튼 (2026-09-17 단순화)
  *
- * 2026-09-16: 주최 측 주소(`officialUrl`)가 있으면 그쪽을 먼저 보낸다.
- * 모음 사이트는 늦게 반영된다 — 마스터즈 하프는 KorMarathon 에 9/21 마감,
- * 공식 사이트에 9/27 연장으로 적혀 있었다.
- *
- * 접수 대행 사이트·인스타를 「공식 사이트」라고 부르지 않는다. 반만 맞는 말이 된다.
- * 주최 측 주소가 따로 있으면 **모음 페이지도 같이** 남긴다 — 둘을 비교할 수 있게.
+ * hyun 님 결정: **공식 홈페이지만.** 일정 모음 사이트(KorMarathon) 링크·출처 라벨을 전부 뺐다.
+ * 버튼은 상세 페이지 **정보표 바로 위**에 한 번만 둔다 — 스크롤해서 찾게 하지 않는다.
+ * 공식 링크를 못 찾은 대회는 버튼을 그리지 않는다(다른 사이트로 대신 보내지 않는다).
  */
 export default function RaceSourceCta({ race }: { race: Race }) {
-  const main = raceLink(race);
-  const showSource = main.url !== race.sourceUrl;
-  const closed = currentStatus(race) === "마감";
+  const link = raceLink(race);
+  if (!link) return null;
+  const open = currentStatus(race) !== "마감";
   return (
-    <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-4">
-      <div className="flex flex-wrap items-center gap-3">
-        <a
-          href={main.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
-            main.kind === "모음"
-              ? "border border-gray-300 bg-white text-gray-700 hover:border-gray-400"
-              : "bg-emerald-600 text-white hover:bg-emerald-700"
-          }`}
-        >
-          {(closed ? LABEL_CLOSED : LABEL)[main.kind]}
-        </a>
-        {showSource && (
-          <a
-            href={race.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-gray-600 underline underline-offset-2 hover:text-gray-900"
-          >
-            {sourceKind(race.sourceUrl) === "모음" ? "KorMarathon 정보 ↗" : "출처 페이지 ↗"}
-          </a>
-        )}
-      </div>
-      <p className="mt-2 text-xs text-gray-400">{race.checkedAt} 확인 · 접수 전 다시 확인하세요</p>
-    </div>
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
+    >
+      {LABEL[link.kind]}
+      {open ? "에서 신청" : ""} ↗
+    </a>
   );
 }

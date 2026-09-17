@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import ShoesBrowser from "@/components/ShoesBrowser";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
-import AffiliateNotice from "@/components/AffiliateNotice";
 import { SHOES } from "@/lib/shoes/data";
 
 /**
@@ -25,25 +23,9 @@ export default function ShoesPage() {
   return (
     <>
       <BreadcrumbJsonLd trail={[["러닝화", "/shoes"]]} />
-      <AffiliateNotice />
       <main className="mx-auto max-w-3xl px-6 py-12 text-gray-800">
         <h1 className="text-3xl font-bold leading-tight text-gray-900">러닝화</h1>
-        <p className="mt-3 leading-relaxed text-gray-600">
-          <strong>{SHOES.length}켤레</strong>의 스펙을 확인한 날짜와 함께 싣습니다(브랜드 공식 자료·RunRepeat 참고). 순서는 광고비로 바뀌지 않습니다.
-        </p>
-
-        <div className="mt-4 flex flex-wrap gap-3 text-sm">
-          <Link href="/tier-list" className="text-emerald-600 hover:underline">
-            내 수준에 맞는 칸 — 러닝화 계급도 →
-          </Link>
-          <Link href="/compare/hoka-vs-brooks" className="text-emerald-600 hover:underline">
-            호카 vs 브룩스 →
-          </Link>
-          <Link href="/injury/wide-foot" className="text-emerald-600 hover:underline">
-            발볼 넓은 사람 →
-          </Link>
-        </div>
-
+        {/* 2026-09-17: 설명 문단·링크 3개를 뺐다. 목록과 필터가 첫 화면에 바로 보이게 */}
         <ShoesBrowser />
       </main>
     </>

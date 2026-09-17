@@ -44,20 +44,23 @@ import { hasAnyAffiliate } from "@/lib/shoes/affiliate";
 const COUPANG_REQUIRED_NOTICE =
   "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.";
 
-export default function AffiliateNotice() {
-  if (!hasAnyAffiliate()) return null;
+/**
+ * 2026-09-17 — **작게, 한 줄로.** hyun 님 지적: *"크게 표시하면 돈 받을 거야 느낌이다."*
+ *
+ * 맞는 지적이라 노란 상자·굵은 글씨·설명 두 문장을 뺐다. 다만 **"맨 아래 잘 안 보이게"는 못 한다.**
+ * 개정 심사지침(2024-12-01 시행)이 문자 매체는 **제목 또는 첫 부분**에, 본문보다 크거나
+ * **글자색을 달리해** 쉽게 인식되게 두라고 한다. 「더보기」·링크 뒤·끝 부분은 인정되지 않는다.
+ * 그래서 **위치는 첫 부분 그대로, 크기만 줄이고 색으로 구별**한다.
+ *
+ * 그리고 **제휴 링크가 실제로 있는 페이지에만** 띄운다(`show`). 전에는 제휴 링크가 3켤레뿐인데
+ * 러닝화 목록·52개 상세 전부에 떴다 — 하지도 않는 제휴를 밝히는 셈이었다.
+ */
+export default function AffiliateNotice({ show = hasAnyAffiliate() }: { show?: boolean }) {
+  if (!show) return null;
 
   return (
-    <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
-      <p className="text-sm font-semibold text-amber-900">{COUPANG_REQUIRED_NOTICE}</p>
-      <p className="mt-1 text-xs leading-relaxed text-amber-800">
-        구매자가 <strong>더 내는 금액은 없습니다.</strong>
-      </p>
-      <p className="mt-1.5 text-xs leading-relaxed text-amber-800">
-        <strong>추천 순서는 수수료로 바뀌지 않습니다.</strong> 추천 알고리즘은 제휴 여부를
-        아예 보지 않습니다 — 체형·발볼·발 타입·부상 이력·예산만 계산합니다.
-        제휴가 없는 신발이 1순위로 나오는 경우가 많고, 그게 정상입니다.
-      </p>
-    </div>
+    <p className="mb-4 text-xs text-amber-700">
+      {COUPANG_REQUIRED_NOTICE} 구매자가 더 내는 금액은 없습니다.
+    </p>
   );
 }

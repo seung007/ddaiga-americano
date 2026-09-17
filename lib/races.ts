@@ -38,6 +38,9 @@ import RAW from "./races.json";
  * 맞는 말이었다. 내가 저작권을 이유로 막았는데 **날짜·장소·종목은 사실이고
  * 저작물이 아니다.** 축을 잘못 잡고 일을 안 한 것이다.
  *
+ * ⚠️ 2026-09-17 — 화면에서 모음 사이트 링크·출처 라벨을 전부 뺐다. **링크 기준은 대회 공식 홈페이지**(`raceLink`).
+ * 아래 문단은 그 전 경위다.
+ *
  * 그래서 지금은 **KorMarathon(일정 모음 사이트)에서 55건을 가져왔다.**
  * 다만 그 사실을 숨기지 않는다:
  *   · 카드 버튼에 **"대회 정보 (KorMarathon)"** 인지 **"대회 공식 사이트"** 인지 적는다
@@ -97,7 +100,7 @@ export type Race = {
    * `officialUrl` 의 성격. 비우면 「공식」.
    * 접수 대행 사이트·인스타를 「대회 공식 사이트」라고 부르면 반만 맞는 말이 된다 (2026-09-16).
    */
-  officialKind?: "공식" | "접수대행" | "SNS";
+  officialKind?: "공식" | "접수대행" | "SNS" | "접수폼";
   /** 날짜·장소·참가비를 **어디서 확인했나.** 「모음」이면 화면에 「KorMarathon 기준」을 붙인다 */
   factsFrom?: "공식" | "모음";
 };
@@ -184,10 +187,15 @@ export function currentStatus(r: Race): DisplayStatus {
   return r.status;
 }
 
-/** 버튼이 보낼 곳과 그 성격. 주최 측 주소가 있으면 그쪽을 먼저 */
-export function raceLink(r: Race): { url: string; kind: "공식" | "접수대행" | "SNS" | "모음" } {
-  if (r.officialUrl) return { url: r.officialUrl, kind: r.officialKind ?? "공식" };
-  return { url: r.sourceUrl, kind: sourceKind(r.sourceUrl) };
+/**
+ * 버튼이 보낼 곳 — **주최 측 주소만.** 없으면 null (버튼을 그리지 않는다).
+ *
+ * 2026-09-17: 일정 모음 사이트(KorMarathon)로 보내는 링크를 화면에서 전부 뺐다(hyun 님 결정).
+ * 기준은 **대회 공식 홈페이지**다. `sourceUrl` 은 우리가 처음 찾은 경로 기록으로만 남기고 화면에 내지 않는다.
+ */
+export function raceLink(r: Race): { url: string; kind: "공식" | "접수대행" | "SNS" | "접수폼" } | null {
+  if (!r.officialUrl) return null;
+  return { url: r.officialUrl, kind: r.officialKind ?? "공식" };
 }
 
 /** 광역 → 권역. 러닝라이프와 같은 묶음 (2026-09-16 벤치마킹) */
