@@ -66,7 +66,7 @@ export default function Home() {
         {/* 2026-09-12: py-20 → py-12(모바일). 히어로가 80px씩 먹어서 바로 밑에 넣은
             「답 바로가기」가 첫 화면 밖으로 밀렸다. 방문자의 80%가 390×812 다.
             데스크톱은 여백이 있어야 읽히므로 sm 이상에서만 py-20 을 유지한다. */}
-        <section className="relative max-w-3xl mx-auto px-6 py-12 sm:py-20 text-center">
+        <section className="relative mx-auto max-w-3xl px-6 py-8 text-center sm:py-16">
         {/* 2026-09-03: "광고비로 순서가 바뀌지 않는 데이터 기반 러닝화 추천"에서 바꿨다.
             그 문장에는 문제가 셋 있었다.
 
@@ -79,48 +79,47 @@ export default function Home() {
             중립성 주장은 **CTA 바로 밑 한 곳에만** 남긴다 — 먼저 외치는 자리가 아니라
             버튼을 누를지 망설일 때 받쳐주는 자리다.
             첫 줄은 이 사이트를 누가 왜 만들었는지로 바꾼다. */}
-        <p className="text-sm font-medium text-emerald-600 mb-4">러닝을 좋아해서, 건강하게 달리려고 만들었습니다</p>
-        <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-5">
+        {/**
+         * 2026-09-18 — 히어로를 줄이고 진입로를 첫 화면에 넣었다. 근거는 Clarity 30일 실측(홈·모바일 132회).
+         *   · 스크롤: 30%까지 91.7% → 35% 71.2% → 40% 63.6%. **히어로가 끝나는 자리에서 3명 중 1명이 나간다**
+         *   · 클릭 1위가 「질문 올리기」(5회), 2·3위는 **누를 수 없는 영역**(히어로 문구·로고) = 데드 클릭
+         *   · 신발 카드 0클릭 — 첫 화면(844px) 밖 625px 에 있었다
+         *   · 모바일에는 헤더 메뉴가 없어 첫 화면에서 갈 수 있는 곳이 이 버튼 하나뿐이었다
+         *
+         * 그래서 아이브로우 한 줄을 없애고 제목·설명을 한 줄씩 줄였다. 버튼은 모바일에서 가로 전체로 —
+         * 버튼 옆을 누르던 데드 클릭을 버튼이 받게 한다.
+         */}
+        <h1 className="mb-3 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
           내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>
-        <p className="text-lg text-gray-600 leading-relaxed mb-8">
-          키·체중·발볼만 고르면 논문 기반 추천이<br />
-          내 체형에 맞는 신발 3개를 골라드려요
+        <p className="mb-6 text-base leading-relaxed text-gray-600 sm:text-lg">
+          키·체중·발볼만 고르면 내 몸에 맞는 신발 3개를 골라드려요
         </p>
-        {/**
-         * 히어로 CTA는 **하나**다 — 2026-09-15에 둘에서 되돌렸다.
-         *
-         * 9/14에 「그냥 둘러볼게요」(→ `#shoes`)를 나란히 뒀다. 근거는 벤치마킹이었다 —
-         * 추천 서비스 14곳 중 13곳이 퀴즈를 건너뛰는 경로를 첫 화면에 둔다.
-         * 그 관찰 자체는 지금도 맞다.
-         *
-         * **틀린 것은 같은 날 신발 띠를 「답 바로가기」 위로 올린 것과 겹쳤다는 점이다.**
-         * 그래서 버튼이 내려보내는 자리가 바로 200px 아래가 됐다 — 버튼이 스크롤 한
-         * 칸을 대신하는 꼴이었다. 둘 중 하나만 했어야 하는데 둘 다 해서 4일 만에 뺐다.
-         *
-         * 건너뛰는 경로가 없어진 게 아니다 — **신발 띠가 히어로 바로 밑이고**, 그게 본체다.
-         *
-         * (당시 9/28 판정을 걸어 뒀는데 2026-09-17 폐기했다. 월 100명대 표본으로 날짜 하나에
-         * 판정하는 구조 자체가 성립하지 않았다 — `유입_설정_기준선.md` §0.)
-         */}
         <Link
           href="/shoe-finder"
-          className="inline-block bg-emerald-600 text-white font-medium px-8 py-4 rounded-xl hover:bg-emerald-700 transition-colors"
+          className="block w-full rounded-xl bg-emerald-600 px-8 py-4 font-medium text-white transition-colors hover:bg-emerald-700 sm:inline-block sm:w-auto"
         >
           내 신발 찾기 시작 →
         </Link>
-        {/* 2026-09-03: "· 추천 순서는 광고비로 바뀌지 않습니다"를 뺐다.
-            CTA 밑 마이크로카피의 역할은 **누르기를 망설이게 하는 것을 없애는 것**이고,
-            그 자리에서 가장 센 건 "가입 없이 무료"다. 중립성은 신뢰 주장이지 장벽 제거가 아니라
-            둘을 한 줄에 섞으면 양쪽 다 약해진다.
+        <p className="mt-3 text-xs font-medium text-gray-500">가입 없이 무료</p>
 
-            사이트에서 사라지는 건 아니다 — 「어떻게 추천하나요?」 섹션 끝줄에 "광고비로 순서가
-            바뀌지 않습니다"가 남아 있고, 거기는 **설명하는 자리**라 제자리다.
-            (2026-09-15에 3분할 카드를 그 섹션에 합치면서 그 줄도 같이 옮겼다.)
-            대신 포기하는 것: 첫 화면만 보고 이탈하는 사람은 이 주장을 못 본다.
-            네이버 유입 76%에 평균 참여 19~48초라 그 비중이 작지 않다. */}
-        {/* 배경 산책로 띠와 겹치는 자리라 gray-400은 안 읽혔다. 한 단계 진하게. */}
-        <p className="mt-4 text-xs font-medium text-gray-500">가입 없이 무료</p>
+        {/* 진입로 — 모바일에는 헤더 메뉴가 없다(SiteHeader 주석). 첫 화면에서 갈 곳을 여기서 준다 */}
+        <nav className="mt-6 flex flex-wrap justify-center gap-2">
+          {[
+            ["/shoes", "러닝화"],
+            ["/races", "대회 일정"],
+            ["/injury", "가이드"],
+            ["/community", "게시판"],
+          ].map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-full border border-gray-300 bg-white/80 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:border-emerald-400 hover:text-emerald-700"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
         </section>
       </div>
 
