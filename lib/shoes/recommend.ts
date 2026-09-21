@@ -34,9 +34,19 @@
 import { SHOES } from "./data";
 import type {
   BodyType, FootType, FootWidth, Gender, Recommendation,
-  RunnerProfile, Shoe, WidthOption,
+  RecommendableShoe, RunnerProfile, Shoe, WidthOption,
 } from "./types";
-import { getBodyType, INJURY_LABEL } from "./types";
+import { getBodyType, INJURY_LABEL, isRecommendable } from "./types";
+
+/**
+ * 추천이 보는 후보 — **`SHOES` 를 직접 쓰지 말 것.**
+ *
+ * 2026-09-21: 러닝화를 늘리면서 판단 필드(발 타입·권장 체중·체형)를 못 채운 신발이
+ * 목록에 들어온다. 그런 신발은 **"당신에게 맞습니다"라고 말할 근거가 없다.**
+ * 여기서 한 번 걸러서 `recommendShoes` 와 `rankAllShoes` 가 같은 후보를 보게 한다.
+ * 두 함수가 다른 배열을 쓰면 폼 결과와 목록 정렬이 어긋난다.
+ */
+const RECOMMENDABLE: RecommendableShoe[] = SHOES.filter(isRecommendable);
 
 const WIDTH_MATCH: Record<FootWidth, WidthOption[]> = {
   narrow: ["B", "D"],
@@ -95,7 +105,7 @@ function hasMatchingWidth(shoe: Shoe, fw: FootWidth): boolean {
 }
 
 interface Scored {
-  shoe: Shoe;
+  shoe: RecommendableShoe;
   score: number;
   reasons: string[];
   widthOk: boolean;
@@ -106,7 +116,8 @@ interface Scored {
   genderFitNote?: string;
 }
 
-function scoreShoe(shoe: Shoe, profile: RunnerProfile, bodyType: BodyType): Scored {
+// 판단 필드가 다 찬 신발만 받는다 — 타입으로 막아 둔다(2026-09-21)
+function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: BodyType): Scored {
   const reasons: string[] = [];
   let score = 0;
 
@@ -366,7 +377,7 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
   const cadenceSpm = getCadenceRange(profile.heightCm);
 
   // 성별 자격(여성 전용 라스트는 여성에게만) 통과한 후보만 사용
-  const scoredAll = SHOES
+  const scoredAll = RECOMMENDABLE
     .map((shoe) => scoreShoe(shoe, profile, bodyType))
     .filter((s) => s.eligible);
 
@@ -478,7 +489,7 @@ export function rankAllShoes(
 ): { id: string; score: number; reason: string | null; fits: boolean }[] {
   const bodyType = getBodyType(profile.heightCm, profile.weightKg);
   const budget = profile.budgetKrw && profile.budgetKrw > 0 ? profile.budgetKrw : null;
-  return SHOES.map((shoe) => scoreShoe(shoe, profile, bodyType))
+  return RECOMMENDABLE.map((shoe) => scoreShoe(shoe, profile, bodyType))
     .filter((s) => s.eligible)
     .map((s) => ({
       id: s.shoe.id,

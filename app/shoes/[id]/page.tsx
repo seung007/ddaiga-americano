@@ -10,7 +10,7 @@ import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
-import { BODY_TYPE_LABEL, GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
+import { BODY_TYPE_LABEL, GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, isRecommendable } from "@/lib/shoes/types";
 
 /**
  * 러닝화 상세 (2026-09-16) — `lib/shoes/data.ts` 한 켤레 = 한 페이지.
@@ -119,20 +119,42 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           </p>
         </section>
 
-        <section className="mt-8">
-          <h2 className="mb-3 text-xl font-bold text-gray-900">이런 사람에게 맞춰 설계됐어요</h2>
-          <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
-            <li>• 발 모양: {s.footTypes.map((f) => FOOT_KO[f]).join(" · ")}</li>
-            <li>
-              • 체중: {s.weightRangeKg[0]}–{s.weightRangeKg[1]}kg
-            </li>
-            <li>• 체형: {s.primaryBodyTypes.map((b) => BODY_TYPE_LABEL[b]).join(" / ")}</li>
-            {s.genderNote && <li>• {s.genderNote}</li>}
-          </ul>
-          <p className="mt-2 text-xs text-gray-400">
-            이 범위는 저희 추천 기준입니다. 브랜드가 정한 제한이 아닙니다.
-          </p>
-        </section>
+        {/**
+          * 2026-09-21: 판단 필드가 비어 있을 수 있게 됐다(`lib/shoes/types.ts` 참고).
+          * 비어 있으면 이 칸을 **빈칸으로 두지 않고 왜 없는지 적는다.**
+          * 「발 모양: 」 뒤가 비어 있으면 고장으로 보이고, 아무 말도 없으면
+          * 판단한 신발과 안 한 신발을 구분할 방법이 사라진다.
+          */}
+        {isRecommendable(s) ? (
+          <section className="mt-8">
+            <h2 className="mb-3 text-xl font-bold text-gray-900">이런 사람에게 맞춰 설계됐어요</h2>
+            <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
+              <li>• 발 모양: {s.footTypes.map((f) => FOOT_KO[f]).join(" · ")}</li>
+              <li>
+                • 체중: {s.weightRangeKg[0]}–{s.weightRangeKg[1]}kg
+              </li>
+              <li>• 체형: {s.primaryBodyTypes.map((b) => BODY_TYPE_LABEL[b]).join(" / ")}</li>
+              {s.genderNote && <li>• {s.genderNote}</li>}
+            </ul>
+            <p className="mt-2 text-xs text-gray-400">
+              이 범위는 저희 추천 기준입니다. 브랜드가 정한 제한이 아닙니다.
+            </p>
+          </section>
+        ) : (
+          <section className="mt-8">
+            <h2 className="mb-3 text-xl font-bold text-gray-900">누구에게 맞는지는 아직 판단하지 않았습니다</h2>
+            <p className="text-sm leading-relaxed text-gray-700">
+              이 신발은 <strong>공개된 스펙(무게·드롭·스택·폭 옵션·가격)만 확인</strong>했습니다.
+              어떤 발 모양이나 체형에 맞는지는 브랜드가 공개하지 않는 값이라 저희가 따로 판단해야 하는데,
+              아직 하지 않았습니다.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-gray-700">
+              그래서 이 신발은 <strong>맞춤 추천 결과에 나오지 않습니다.</strong>{" "}
+              지어내서 채우는 대신 비워 두는 쪽을 택했습니다.
+            </p>
+            {s.genderNote && <p className="mt-2 text-sm text-gray-700">• {s.genderNote}</p>}
+          </section>
+        )}
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">근거</h2>

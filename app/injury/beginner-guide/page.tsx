@@ -16,9 +16,17 @@ export const metadata: Metadata = {
 export default function BeginnerGuidePage() {
   return (
     <>
+      {/**
+        * 2026-09-21: headline 이 폐기된 옛 제목이었다. <title>·h1 은 2026-08 에
+        * 「초보 러너 뛰는 법」으로 바꿨는데 구조화 데이터만 안 따라왔다 —
+        * 구글에 보내는 제목과 사람이 보는 제목이 한 달 넘게 달랐다.
+        *
+        * description 의 「10% 규칙」도 뺐다. 이 페이지 본문이 *"10%라는 숫자를
+        * 뒷받침하는 연구는 없습니다"* 라고 적고 있는데 요약이 그걸 근거처럼 내보내고 있었다.
+        */}
       <ArticleJsonLd
-        headline="초심자 부상 예방 완전 가이드 (0~6개월)"
-        description="러닝 시작 6개월 이내 초보 러너를 위한 부상 예방 완전 가이드. 10% 규칙, 준비운동, 흔한 부상 대처법."
+        headline="초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기"
+        description="러닝을 막 시작했다면. 얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법까지 정리했습니다."
         url={PAGE_URL}
         datePublished="2025-03-01"
       />

@@ -118,7 +118,8 @@ const SPEC_ROWS: SpecRow[] = [
   {
     label: "권장 체중",
     explain: "이 신발의 쿠션 밀도가 최적인 체중 범위",
-    getValue: (s) => `${s.weightRangeKg[0]}~${s.weightRangeKg[1]}kg`,
+    // 2026-09-21: 판단 필드라 비어 있을 수 있다. 「~kg」만 남는 칸을 만들지 않는다
+    getValue: (s) => (s.weightRangeKg ? `${s.weightRangeKg[0]}~${s.weightRangeKg[1]}kg` : "판단 전"),
   },
   {
     label: "용도",
@@ -341,7 +342,8 @@ export default async function ComparePage({
                 {shoe.blurb}
               </p>
               <div className="mt-3 space-y-1">
-                {shoe.footTypes.map((ft) => (
+                {/* 2026-09-21: 판단 필드. 비어 있으면 배지를 아예 안 그린다 */}
+                {(shoe.footTypes ?? []).map((ft) => (
                   <span
                     key={ft}
                     className="inline-block text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full mr-1"

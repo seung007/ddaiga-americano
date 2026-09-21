@@ -52,7 +52,9 @@ export const metadata: Metadata = {
 
 /** `flat` 을 지원하는 신발 — 여성 전용 라스트는 같은 신발의 변형이라 뺀다. */
 const FLAT_SHOES = SHOES.filter(
-  (s) => s.footTypes.includes("flat") && s.gender !== "female"
+  // 2026-09-21: footTypes 가 선택 필드가 됐다. 비어 있으면 「평발에 맞는다」고 판단한 적이
+  // 없는 신발이므로 이 글의 개수 집계에서 빠진다 — 본문 숫자가 판단한 것만 세게 한다.
+  (s) => s.footTypes?.includes("flat") && s.gender !== "female"
 );
 const FLAT_CURRENT = FLAT_SHOES.filter((s) => !s.successor);
 const FLAT_STABILITY = FLAT_SHOES.filter((s) => s.stability !== "neutral").length;

@@ -42,7 +42,9 @@ export const metadata: Metadata = {
 const SHOWCASE: BodyType[] = ["mid_light", "mid_mid", "mid_heavy", "small_mid"];
 
 function pickFor(bt: BodyType) {
-  return SHOES.filter((s) => s.primaryBodyTypes.includes(bt) && !s.successor && !s.hasCarbon)
+  // 2026-09-21: primaryBodyTypes 가 선택 필드가 됐다(스펙만 확인한 신발은 비어 있다).
+  // 이 블록은 "이 체형엔 이 신발"이라고 말하는 자리라 판단 필드 없는 신발은 못 올린다.
+  return SHOES.filter((s) => s.primaryBodyTypes?.includes(bt) && !s.successor && !s.hasCarbon)
     .sort((a, b) => a.priceKrw - b.priceKrw)
     .slice(0, 3);
 }

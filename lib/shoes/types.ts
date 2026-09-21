@@ -123,10 +123,27 @@ export interface Shoe {
   sourceUrl: string;
   cushioning: CushioningLevel;
   stability: StabilityType;
-  footTypes: FootType[];
-  weightRangeKg: [number, number];
-  heightRangeCm: [number, number];
-  primaryBodyTypes: BodyType[];
+  /**
+   * ── 판단 필드 4개 (2026-09-21 부터 선택) ──────────────────────────
+   *
+   * ⚠️ **스펙이 아니라 우리 판단이다.** 브랜드는 무게·드롭·스택·폭 옵션은 공개하지만
+   * "이 신발은 평발에 맞는다" · "체중 60~80kg 용" 은 어디에도 공개하지 않는다.
+   *
+   * 왜 선택으로 바꿨나 — 러닝화를 52 → 100+ 로 늘리기로 했는데, 늘리는 방법이 둘뿐이었다.
+   *   ① 공개 스펙만 확인하고 판단 필드는 **그럴듯하게 채운다** → 추천 결과가 근거 없이 바뀐다.
+   *      이 사이트가 파는 유일한 것이 "광고 아닌 근거 기반"인데 그 근거를 지어내는 셈이다
+   *   ② 판단 필드를 **비운 채로** 목록·비교·상세에만 올리고, **추천에서는 빼 둔다**
+   *
+   * ②를 골랐다. 비어 있으면 `isRecommendable()` 이 false 를 내고 추천 후보에서 빠진다.
+   * **플래그가 아니라 값의 유무로 판정한다** — 플래그는 켜는 걸 잊고, 잊으면 조용히 섞인다.
+   *
+   * 기존 52종은 값이 다 있으므로 동작이 달라지지 않는다.
+   * 새로 넣는 신발에 이 4개를 채우려면 **채운 근거를 같이 남길 것.**
+   */
+  footTypes?: FootType[];
+  weightRangeKg?: [number, number];
+  heightRangeCm?: [number, number];
+  primaryBodyTypes?: BodyType[];
   uses: ShoeUse[];
   /** 카본 플레이트 여부 — true면 초보자 패널티 적용 (근거는 recommend.ts 주석 참조. 논문 아님) */
   hasCarbon?: boolean;
@@ -155,6 +172,26 @@ export interface Shoe {
    * 값이 있으면 추천 결과 카드에 안내가 노출된다.
    */
   successor?: string;
+}
+
+/**
+ * 판단 필드 4개가 다 찬 신발. 추천 로직은 이것만 본다.
+ *
+ * 하나라도 비어 있으면 `/shoes` 목록·상세·비교에는 나오지만 **추천 결과에는 안 나온다.**
+ * 스펙만 확인한 신발을 "당신에게 맞습니다"라고 말하지 않기 위한 장치다.
+ */
+export type RecommendableShoe = Shoe &
+  Required<Pick<Shoe, "footTypes" | "weightRangeKg" | "heightRangeCm" | "primaryBodyTypes">>;
+
+export function isRecommendable(shoe: Shoe): shoe is RecommendableShoe {
+  return (
+    Array.isArray(shoe.footTypes) &&
+    shoe.footTypes.length > 0 &&
+    Array.isArray(shoe.weightRangeKg) &&
+    Array.isArray(shoe.heightRangeCm) &&
+    Array.isArray(shoe.primaryBodyTypes) &&
+    shoe.primaryBodyTypes.length > 0
+  );
 }
 
 export interface Recommendation {

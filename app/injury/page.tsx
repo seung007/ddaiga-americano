@@ -38,7 +38,7 @@ const ARTICLES = [
   // 2026-09-08 추가. 네이버 검색 의도 3위(카본화 20%)인데 사이트에 페이지가 없어서
   // 블로그 글이 /shoe-finder 로만 보내고 있었다.
   { href: "/injury/carbon-plate", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "카본화",  tagColor: "text-purple-600 bg-purple-50", title: "카본화 살까 말까 — 논문이 시험한 속도",       desc: "가장 많이 인용되는 연구는 4:17/km 이상에서만 측정했습니다. 실제 가격도 정리했습니다.", readTime: "5분" },
-  { href: "/injury/achilles",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "미드풋 전환 후 아킬레스건·종아리 통증",        desc: "주법 바꾼 뒤 당긴다면 읽어보세요.", readTime: "4분" },
+  { href: "/injury/achilles",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "달리기 아킬레스건·종아리 통증 스트레칭 3가지", desc: "달린 뒤 당기고 뻐근하다면. 원인과 무관하게 같은 3가지를 합니다.", readTime: "5분" },
   { href: "/injury/shin-splints", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "정강이", tagColor: "text-red-600 bg-red-50",     title: "정강이 통증(신스플린트) — 초보 부상 1위",     desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "5분" },
   { href: "/injury/plantar-fasciitis", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유",       desc: "스트레칭보다 효과가 확인된 방법과, 얼마나 걸리는지.", readTime: "5분" },
   { href: "/injury/knee-pain",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "러너 무릎(슬개대퇴 증후군) 예방법",           desc: "무릎 앞쪽이 계단 오를 때 아프다면 체크해야 할 것들.", readTime: "5분" },

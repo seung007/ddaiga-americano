@@ -990,8 +990,10 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 ["쿠셔닝",   `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}`],
                 ["안정화",   STABILITY_LABEL[shoe.stability]],
                 ["폭 옵션",  shoe.widthOptions.join(" · ")],
-                ["권장 체중", `${shoe.weightRangeKg[0]}~${shoe.weightRangeKg[1]}kg`],
-                ["권장 신장", `${shoe.heightRangeCm[0]}~${shoe.heightRangeCm[1]}cm`],
+                // 2026-09-21: 판단 필드가 선택이 됐다. 추천 결과에는 값이 있는 신발만
+                // 오지만(recommend.ts 의 RECOMMENDABLE), 타입상 없을 수 있어 방어한다
+                ["권장 체중", shoe.weightRangeKg ? `${shoe.weightRangeKg[0]}~${shoe.weightRangeKg[1]}kg` : "—"],
+                ["권장 신장", shoe.heightRangeCm ? `${shoe.heightRangeCm[0]}~${shoe.heightRangeCm[1]}cm` : "—"],
                 ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`],
               ].map(([label, value]) => (
                 <div key={label} className="bg-white rounded-lg border border-gray-200 px-3 py-2">
@@ -1018,7 +1020,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
           <div>
             <p className="text-xs font-semibold text-gray-500 mb-2">이 신발이 최적인 체형</p>
             <div className="flex flex-wrap gap-2">
-              {shoe.primaryBodyTypes.map(bt => (
+              {(shoe.primaryBodyTypes ?? []).map(bt => (
                 <span key={bt} className="text-xs bg-emerald-50 border border-emerald-200 text-emerald-700 px-2.5 py-1 rounded-full">
                   {BODY_TYPE_LABEL[bt]}
                 </span>
@@ -1272,7 +1274,10 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
   const widthKr: Record<string, string> = { narrow: "좁음", normal: "보통", wide: "넓음", B: "좁음", D: "보통", "2E": "넓음", "4E": "매우넓음" };
   const footTypeKr: Record<string, string> = { flat: "평발", neutral: "중립 아치", high_arch: "높은 아치" };
   const toWidthText = (opts: string[]) => opts.map(w => widthKr[w] ?? w).join(" · ");
-  const toFootText = (types: string[]) => types.map(f => footTypeKr[f] ?? f).join(" · ");
+  // 2026-09-21: footTypes 가 선택 필드가 됐다. 비어 있으면 「판단 전」으로 적는다 —
+  // 빈 칸은 "해당 없음"으로 읽히는데 실제로는 "아직 안 정했다"다
+  const toFootText = (types?: string[]) =>
+    types && types.length > 0 ? types.map(f => footTypeKr[f] ?? f).join(" · ") : "판단 전";
 
   void footTypeLabel; void userWidth; void userFootType;
 
