@@ -103,23 +103,16 @@ export default function Home() {
         </Link>
         <p className="mt-3 text-xs font-medium text-gray-500">가입 없이 무료</p>
 
-        {/* 진입로 — 모바일에는 헤더 메뉴가 없다(SiteHeader 주석). 첫 화면에서 갈 곳을 여기서 준다 */}
-        <nav className="mt-6 flex flex-wrap justify-center gap-2">
-          {[
-            ["/shoes", "러닝화"],
-            ["/races", "대회 일정"],
-            ["/injury", "가이드"],
-            ["/community", "게시판"],
-          ].map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              className="rounded-full border border-gray-300 bg-white/80 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:border-emerald-400 hover:text-emerald-700"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+        {/**
+         * 2026-09-22: 여기 있던 진입로 칩 4개를 **`components/MobileNav.tsx` 로 옮겼다.**
+         *
+         * 2026-09-18 에 이 자리에 넣은 이유는 *"모바일에는 헤더 메뉴가 없어 첫 화면에서
+         * 갈 수 있는 곳이 버튼 하나뿐이었다"* 였다. 그 목적은 지금 **더 잘 만족된다** —
+         * 전역 진입로는 헤더 바로 밑이라 이 자리보다 위에 있고, **홈이 아닌 페이지에도 있다.**
+         *
+         * 여기 그대로 두면 홈에서만 칩이 두 번 나온다. 그래서 지운다.
+         * 히어로가 58px 짧아진다(칩 34px + mt-6 24px).
+         */}
         </section>
       </div>
 

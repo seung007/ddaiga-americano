@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import MobileNav from "@/components/MobileNav";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
@@ -97,6 +98,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             같은 날 GSC 가 "참조 페이지: 감지된 페이지 없음"이라고 한 것과 같은 병이다.
             푸터처럼 전역으로 두면 **다음 페이지를 만들 때 기억할 필요가 없다.** */}
         <SiteHeader />
+        {/* 2026-09-22: 모바일(768px 미만)에는 헤더 메뉴가 없다. 진입로를 여기서 준다.
+            페이지마다 붙이면 또 빠뜨린다 — 위 2026-09-06 주석이 그 사고 기록이다. */}
+        <MobileNav />
         {children}
         <SiteFooter />
         <Analytics />
