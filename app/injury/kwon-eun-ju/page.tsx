@@ -21,7 +21,8 @@ export default function KwonEunJuPage() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">
             권은주 선수에게 배우는<br />여성 러너의 부상 예방
           </h1>
-          <p className="text-gray-500 text-sm mb-4">6분 읽기</p>
+          {/* 2026-09-22: 1,463자 ÷ 600. 전에 「6분」이었다. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 공개된 인터뷰·공식 기록 기반

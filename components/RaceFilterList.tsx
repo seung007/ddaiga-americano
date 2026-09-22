@@ -75,14 +75,34 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
   const [group, setGroup] = useState<(typeof GROUPS)[number]>("전체");
   const [dist, setDist] = useState<(typeof DISTANCES)[number]>("전체");
 
-  const shown = items.filter((i) => {
-    if (status === "접수중" && !(i.status === "접수중" || i.status === "마감임박")) return false;
-    if (status !== "전체" && status !== "접수중" && i.status !== status) return false;
-    if (month !== "전체" && !i.race.date?.startsWith(month)) return false;
-    if (group !== "전체" && i.group !== group) return false;
-    if (dist !== "전체" && !i.race.distancesKm.some((k) => distanceClass(k) === dist)) return false;
-    return true;
-  });
+  /**
+   * 정렬 — **마감된 대회는 맨 아래로.** (2026-09-22)
+   *
+   * 전에는 대회 날짜순이라 목록 **첫 카드가 「마감」**이었다(2026-09-22 배포본 실측:
+   * 1위 천사데이 마라톤 = 마감). 55개 중 17개가 이미 마감인데 날짜가 빨라서 위로 올라온다.
+   *
+   * 이 페이지에 오는 사람의 용건은 **"지금 신청할 수 있는 게 뭔가"** 다.
+   * 못 내는 대회를 먼저 보여주면 그 용건을 방해한다.
+   *
+   * **숨기지는 않는다.** 마감된 대회도 정보로서 값이 있고(내년 참고·코스 확인),
+   * 이 저장소는 지난 정보를 지우지 않고 거르는 쪽을 택해 왔다(`lib/races.ts` 주석).
+   * 그래서 순서만 뒤로 민다.
+   *
+   * `sort` 는 안정 정렬이라 **같은 묶음 안에서는 원래의 날짜순이 유지된다.**
+   */
+  const shown = items
+    .filter((i) => {
+      if (status === "접수중" && !(i.status === "접수중" || i.status === "마감임박")) return false;
+      if (status !== "전체" && status !== "접수중" && i.status !== status) return false;
+      if (month !== "전체" && !i.race.date?.startsWith(month)) return false;
+      if (group !== "전체" && i.group !== group) return false;
+      if (dist !== "전체" && !i.race.distancesKm.some((k) => distanceClass(k) === dist)) return false;
+      return true;
+    })
+    .sort((a, b) => (a.status === "마감" ? 1 : 0) - (b.status === "마감" ? 1 : 0));
+
+  /** 마감 7일 이내(`currentStatus` 가 「마감임박」으로 계산한 것) */
+  const closingSoon = items.filter((i) => i.status === "마감임박").length;
 
   return (
     <>
@@ -98,8 +118,33 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
         <Chips label="거리" options={DISTANCES} value={dist} onChange={setDist} />
       </div>
 
+      {/**
+        * 마감 임박 바로가기 (2026-09-22)
+        *
+        * 55개 중 **33개가 9월 안에 접수를 닫는다**(`lib/races.json` 기준: 9월 33 · 10월 19 · 11월 2).
+        * 그런데 목록에서는 「마감임박」 배지가 카드 안에 흩어져 있어, 몇 개가 급한지 세어 봐야 안다.
+        *
+        * 필터를 하나 더 만들지 않고 **이미 있는 상태 필터를 눌러 주는 버튼**으로 둔다.
+        * 0건이면 렌더하지 않는다 — 빈 박스를 만들지 않는다.
+        */}
+      {closingSoon > 0 && status !== "마감임박" && (
+        <button
+          type="button"
+          onClick={() => setStatus("마감임박")}
+          className="mt-4 flex w-full items-center justify-between rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-left transition-colors hover:border-amber-400"
+        >
+          <span className="text-sm font-semibold text-amber-900">
+            일주일 안에 접수가 닫히는 대회 {closingSoon}개
+          </span>
+          <span className="shrink-0 text-sm text-amber-700">먼저 보기 →</span>
+        </button>
+      )}
+
       <p className="mt-4 text-sm text-gray-600">
         <strong>{shown.length}개</strong> 대회
+        {status === "전체" && (
+          <span className="text-gray-400"> · 마감된 대회는 아래쪽에 있습니다</span>
+        )}
       </p>
 
       {shown.length === 0 ? (

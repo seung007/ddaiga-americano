@@ -20,7 +20,8 @@ export default function Page() {
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-red-600 bg-red-50 px-2 py-0.5 rounded-full mb-3">부상 부위</span>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">정강이 통증(신스플린트) — 초보 러너 부상 1위</h1>
-          <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
+          {/* 2026-09-22: 2,198자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 아래 모든 주장에 논문 링크를 답니다

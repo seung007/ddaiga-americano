@@ -21,7 +21,9 @@ export default function HwangYoungJoPage() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">
             황영조의 달리기 철학 —<br />고통을 이기는 것이 아니라 읽는 것
           </h1>
-          <p className="text-gray-500 text-sm">6분 읽기</p>
+          {/* 2026-09-22: 1,363자 ÷ 600. 전에 「6분」이었다 — 이 글보다 두 배 긴 midfoot 이 3분이었다.
+              규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm">3분 읽기</p>
 
           {/* 비광고 표기 */}
           <div className="mt-4 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">

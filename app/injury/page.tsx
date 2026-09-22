@@ -29,29 +29,54 @@ const LEVEL_GUIDES = [
   },
 ];
 
+/**
+ * 읽기시간 규약 (2026-09-22 도입)
+ *
+ * ⚠️ **손으로 적던 값이 서로 모순이었다.** 배포본에서 페이지별 본문 글자 수를 실측하니
+ *   `hwang-young-jo` 1,363자 → **6분**
+ *   `midfoot`        2,109자 → **3분**
+ * 절반 길이의 글이 두 배의 시간을 주장하고 있었다. 둘 다 맞을 수는 없다.
+ * 허브 카드와 페이지 본문의 값이 서로 다른 것도 여럿이었다(`knee-pain` 5분 vs 3분).
+ *
+ * 그래서 규약을 하나 정한다 — **본문 글자 수 ÷ 600, 올림, 최소 2분.**
+ *
+ * 600 은 **측정값이 아니라 우리가 고른 값**이다. 한국어 묵독 속도를 우리가 잰 적이 없다.
+ * 바꾸고 싶으면 이 숫자 하나만 바꾸고 아래 표를 다시 계산하면 된다.
+ * 중요한 건 속도의 정확성이 아니라 **18개 글이 같은 잣대를 쓰는 것**이다.
+ *
+ * 글자 수는 `<article>` 의 텍스트에서 공백과 인라인 스크립트를 뺀 값이다(FAQ·인용 포함).
+ * 2026-09-22 실측 (자수 → 분):
+ *   posture 1346→3 · hwang-young-jo 1363→3 · kwon-eun-ju 1463→3 · rest-day 1664→3
+ *   warmup 1745→3 · it-band 1779→3 · cadence 1868→4 · knee-pain 2028→4 · cooldown 2060→4
+ *   midfoot 2109→4 · intermediate-guide 2180→4 · shin-splints 2198→4 · carbon-plate 2248→4
+ *   beginner-guide 2299→4 · plantar-fasciitis 2468→5 · flat-feet 2480→5 · wide-foot 2579→5
+ *   achilles 2742→5 · first-10k 2846→5 · half-marathon-race-day 7068→12
+ *
+ * **글을 늘렸으면 여기와 그 페이지 본문 둘 다 고칠 것.** 두 곳에 있어서 또 어긋난다.
+ */
 const ARTICLES = [
-  { href: "/injury/it-band",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "장경인대염 초기 대처법 3가지",              desc: "달릴 때마다 무릎 바깥쪽이 아프다면? 초기에 잡는 방법.", readTime: "5분" },
-  { href: "/injury/wide-foot",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "발볼",    tagColor: "text-blue-600 bg-blue-50",   title: "2E·4E 와이드 뜻과 내 발볼 재는 법",           desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분" },
+  { href: "/injury/it-band",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "장경인대염 초기 대처법 3가지",              desc: "달릴 때마다 무릎 바깥쪽이 아프다면? 초기에 잡는 방법.", readTime: "3분" },
+  { href: "/injury/wide-foot",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "발볼",    tagColor: "text-blue-600 bg-blue-50",   title: "2E·4E 와이드 뜻과 내 발볼 재는 법",           desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "5분" },
   // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데
   // 평발을 다루는 페이지가 하나도 없었다 — 가장 많이 묻는 것에 답이 없었다.
   { href: "/injury/flat-feet",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "평발",    tagColor: "text-blue-600 bg-blue-50",   title: "평발 러닝화, 안정화화가 정답일까",            desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "5분" },
   // 2026-09-08 추가. 네이버 검색 의도 3위(카본화 20%)인데 사이트에 페이지가 없어서
   // 블로그 글이 /shoe-finder 로만 보내고 있었다.
-  { href: "/injury/carbon-plate", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "카본화",  tagColor: "text-purple-600 bg-purple-50", title: "카본화 살까 말까 — 논문이 시험한 속도",       desc: "가장 많이 인용되는 연구는 4:17/km 이상에서만 측정했습니다. 실제 가격도 정리했습니다.", readTime: "5분" },
+  { href: "/injury/carbon-plate", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "카본화",  tagColor: "text-purple-600 bg-purple-50", title: "카본화 살까 말까 — 논문이 시험한 속도",       desc: "가장 많이 인용되는 연구는 4:17/km 이상에서만 측정했습니다. 실제 가격도 정리했습니다.", readTime: "4분" },
   { href: "/injury/achilles",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "달리기 아킬레스건·종아리 통증 스트레칭 3가지", desc: "달린 뒤 당기고 뻐근하다면. 원인과 무관하게 같은 3가지를 합니다.", readTime: "5분" },
-  { href: "/injury/shin-splints", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "정강이", tagColor: "text-red-600 bg-red-50",     title: "정강이 통증(신스플린트) — 초보 부상 1위",     desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "5분" },
+  { href: "/injury/shin-splints", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "정강이", tagColor: "text-red-600 bg-red-50",     title: "정강이 통증(신스플린트) — 초보 부상 1위",     desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "4분" },
   { href: "/injury/plantar-fasciitis", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유",       desc: "스트레칭보다 효과가 확인된 방법과, 얼마나 걸리는지.", readTime: "5분" },
-  { href: "/injury/knee-pain",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "러너 무릎(슬개대퇴 증후군) 예방법",           desc: "무릎 앞쪽이 계단 오를 때 아프다면 체크해야 할 것들.", readTime: "5분" },
-  { href: "/injury/warmup",     level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "준비운동", tagColor: "text-green-600 bg-green-50",  title: "달리기 전 5분 동적 스트레칭 루틴",            desc: "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유.", readTime: "4분" },
+  { href: "/injury/knee-pain",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "러너 무릎(슬개대퇴 증후군) 예방법",           desc: "무릎 앞쪽이 계단 오를 때 아프다면 체크해야 할 것들.", readTime: "4분" },
+  { href: "/injury/warmup",     level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "준비운동", tagColor: "text-green-600 bg-green-50",  title: "달리기 전 5분 동적 스트레칭 루틴",            desc: "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유.", readTime: "3분" },
   { href: "/injury/cooldown",   level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "쿨다운",  tagColor: "text-teal-600 bg-teal-50",   title: "달리기 후 꼭 해야 할 10분 정적 스트레칭",      desc: "종아리·햄스트링·엉덩이까지 풀어주는 쿨다운 루틴.", readTime: "4분" },
   { href: "/injury/rest-day",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "회복",    tagColor: "text-indigo-600 bg-indigo-50","title": "휴식일에 뭘 해야 할까? 액티브 리커버리",     desc: "가볍게 움직이는 쪽이 낫다는 증거는 생각보다 약합니다.", readTime: "3분" },
-  { href: "/injury/cadence",    level: "🔴 숙련자",  levelColor: "bg-red-100 text-red-700",     tag: "케이던스", tagColor: "text-purple-600 bg-purple-50","title": "케이던스 180은 거짓말? 키별 적정 기준값",  desc: "\"180 spm이 정답\"이라는 획일적 조언, 왜 틀렸는지 설명합니다.", readTime: "5분" },
-  { href: "/injury/midfoot",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "착지법",  tagColor: "text-violet-600 bg-violet-50","title": "미드풋 착지란? 힐스트라이크와 차이",       desc: "발 중간으로 닿는 방식입니다. 초보가 바꿔야 하는지까지.", readTime: "2분" },
-  { href: "/injury/posture",    level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "자세",    tagColor: "text-cyan-600 bg-cyan-50",   title: "달리기 자세 체크리스트 — 어깨·팔·시선",       desc: "상체 자세가 하체 부상에 영향을 준다는 사실, 알고 계셨나요?", readTime: "4분" },
-  { href: "/injury/hwang-young-jo", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 달리기 철학 — 고통을 읽는 것",       desc: "1992 바르셀로나 금메달리스트의 훈련 철학.", readTime: "6분" },
-  { href: "/injury/kwon-eun-ju", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700",    tag: "권은주", tagColor: "text-pink-600 bg-pink-50",   title: "권은주 선수에게 배우는 여성 러너 부상 예방",   desc: "한국 여자 마라톤을 이끌어온 권은주 선수의 훈련 방식.", readTime: "6분" },
-  { href: "/injury/first-10k",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50","title": "생애 첫 10km 대회 준비물과 페이스 전략",  desc: "출발선에 서기 전에 알아야 할 것들.", readTime: "7분" },
-  { href: "/injury/half-marathon-race-day", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 대회 당일 체크리스트", desc: "젤·급수·바세린·페이스. 논문 근거와 직접 뛰어본 경험을 항목마다 구분해 적었습니다.", readTime: "8분" },
+  { href: "/injury/cadence",    level: "🔴 숙련자",  levelColor: "bg-red-100 text-red-700",     tag: "케이던스", tagColor: "text-purple-600 bg-purple-50","title": "케이던스 180은 거짓말? 키별 적정 기준값",  desc: "\"180 spm이 정답\"이라는 획일적 조언, 왜 틀렸는지 설명합니다.", readTime: "4분" },
+  { href: "/injury/midfoot",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "착지법",  tagColor: "text-violet-600 bg-violet-50","title": "미드풋 착지란? 힐스트라이크와 차이",       desc: "발 중간으로 닿는 방식입니다. 초보가 바꿔야 하는지까지.", readTime: "4분" },
+  { href: "/injury/posture",    level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "자세",    tagColor: "text-cyan-600 bg-cyan-50",   title: "달리기 자세 체크리스트 — 어깨·팔·시선",       desc: "상체 자세가 하체 부상에 영향을 준다는 사실, 알고 계셨나요?", readTime: "3분" },
+  { href: "/injury/hwang-young-jo", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 달리기 철학 — 고통을 읽는 것",       desc: "1992 바르셀로나 금메달리스트의 훈련 철학.", readTime: "3분" },
+  { href: "/injury/kwon-eun-ju", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700",    tag: "권은주", tagColor: "text-pink-600 bg-pink-50",   title: "권은주 선수에게 배우는 여성 러너 부상 예방",   desc: "한국 여자 마라톤을 이끌어온 권은주 선수의 훈련 방식.", readTime: "3분" },
+  { href: "/injury/first-10k",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50","title": "생애 첫 10km 대회 준비물과 페이스 전략",  desc: "출발선에 서기 전에 알아야 할 것들.", readTime: "5분" },
+  { href: "/injury/half-marathon-race-day", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 대회 당일 체크리스트", desc: "젤·급수·바세린·페이스. 논문 근거와 직접 뛰어본 경험을 항목마다 구분해 적었습니다.", readTime: "12분" },
 ];
 
 

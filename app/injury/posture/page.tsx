@@ -18,7 +18,8 @@ export default function Page() {
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded-full mb-3">자세</span>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">달리기 자세 체크리스트 — 어깨·팔·시선</h1>
-          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
+          {/* 2026-09-22: 1,346자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
           {/**
            * ⚠️ 2026-09-14 — **이 페이지에는 논문 인용이 0건이다.**
            *

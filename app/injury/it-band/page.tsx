@@ -32,7 +32,8 @@ export default function ITBandPage() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
             장경인대염 초기 대처법 3가지
           </h1>
-          <p className="text-gray-500 text-sm">5분 읽기</p>
+          {/* 2026-09-22: 1,779자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm">3분 읽기</p>
         </header>
 
         <p className="text-lg leading-relaxed mb-8 text-gray-700">

@@ -21,7 +21,8 @@ export default function CadencePage() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">
             케이던스 180은 거짓말?<br />키별 적정 기준값
           </h1>
-          <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
+          {/* 2026-09-22: 1,868자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 스포츠의학 연구 및 공개 데이터 기반

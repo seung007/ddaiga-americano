@@ -38,7 +38,8 @@ export default function WideFootPage() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
             2E·4E 와이드 뜻과<br />내 발볼 재는 법
           </h1>
-          <p className="text-gray-500 text-sm">4분 읽기</p>
+          {/* 2026-09-22: 2,579자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm">5분 읽기</p>
         </header>
 
         {/**

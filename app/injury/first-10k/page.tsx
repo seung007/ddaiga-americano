@@ -23,7 +23,8 @@ export default function Page() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">생애 첫 10km 대회 준비물과 페이스 전략</h1>
           {/* 2026-09-13: 「7분」이었는데 본문이 1,103자였다 — 2분도 안 됐다.
               키운 뒤 2,104자. 분당 500자로 잡아 4분. 표기를 실측에 맞춘다. */}
-          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
+          {/* 2026-09-22: 2,846자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
           {/* ⚠️ 2026-09-14 — 배지가 "공개 연구 및 의학 자료 기반" 이었다.
               이 페이지의 참고자료는 서울마라톤·대한육상연맹 홈페이지 2건이고 **논문은 0건**이다.
               아래 훈련 기간·페이스 내용도 전부 경험칙이지 연구 결과가 아니다.

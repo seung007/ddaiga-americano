@@ -84,7 +84,9 @@ export default function Page() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">
             하프마라톤 대회 당일 체크리스트
           </h1>
-          <p className="text-gray-500 text-sm mb-4">8분 읽기 · 21.1km 기준</p>
+          {/* 2026-09-22: 7,068자 ÷ 600 = 12분. 사이트에서 가장 긴 글이다.
+              규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">12분 읽기 · 21.1km 기준</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 논문 근거와 직접 경험을 항목마다 구분해 표시합니다

@@ -22,7 +22,8 @@ export default function Page() {
           <span className="inline-block text-xs font-medium text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full mb-3">쿨다운</span>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">달리기 후 꼭 해야 할 10분 정적 스트레칭</h1>
           {/* 2026-09-14: 동적/정적 구분 + 자세 설명을 넣어 985 → 1,556자. 분당 500자로 3분. */}
-          <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
+          {/* 2026-09-22: 2,060자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 공개 연구 및 의학 자료 기반

@@ -26,7 +26,8 @@ export default function Page() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">미드풋 착지란? 힐스트라이크와 차이</h1>
           {/* 2026-09-13: 「5분 읽기」였는데 본문이 590자였다 — 어떤 속도를 넣어도 1분대다.
               2026-09-14: 비교표·확인법을 넣어 1,604자. 분당 500자로 3분. */}
-          <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
+          {/* 2026-09-22: 2,109자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 공개 연구 및 의학 자료 기반
