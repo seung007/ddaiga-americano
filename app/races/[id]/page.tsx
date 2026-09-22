@@ -16,6 +16,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import RaceSourceCta from "@/components/RaceSourceCta";
 import RaceStatusBadge from "@/components/RaceStatusBadge";
 import FinderCta from "@/components/FinderCta";
+import RaceReactions from "@/components/RaceReactions";
 
 /**
  * 대회 상세 — **템플릿 하나로 전 대회** (2026-09-16)
@@ -149,6 +150,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
           {r.organizer && <Row label="주최">{r.organizer}</Row>}
         </dl>
         <p className="mb-10 text-xs text-gray-400">{r.checkedAt} 확인 · 코스·제한시간은 공식 홈페이지에서 확인하세요</p>
+
+        {/* 2026-09-23 — 나가요 / 다녀왔어요. 근거·경위는 components/RaceReactions.tsx 주석 */}
+        <RaceReactions raceId={r.id} ended={ended} distances={r.distancesKm.map(distanceLabel)} />
 
         {others.length > 0 && (
           <section className="mb-10">

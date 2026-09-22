@@ -91,6 +91,14 @@ const DYNAMIC = [
     },
     templates: [/\/shoes\/\$\{/],
   },
+  // 2026-09-23: 게시판 글 상세 — **DB 에서 생기는 주소라 펼칠 정적 경로가 없다.**
+  // noindex 이고 sitemap 대상도 아니다(app/community/[id]/page.tsx). 그래서 빈 목록으로 펴서
+  // 고아·sitemap 검사에서 빠지게 한다. 정적 경로를 만들게 되면 여기를 고친다.
+  {
+    route: "/community/[id]",
+    expand: () => [],
+    templates: [/\/community\/\$\{/],
+  },
 ];
 
 // ── 파일 수집 ───────────────────────────────────────────────

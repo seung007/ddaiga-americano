@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
+import { insertPost, rememberMyPost } from "@/lib/community";
 
 /**
  * 글 안에서 바로 질문하는 입력창 — 2026-09-06
@@ -85,7 +86,8 @@ export default function InlineAsk({
     setState("sending");
     setErrorMsg("");
 
-    const { error } = await supabase.from("community_posts").insert({
+    // 2026-09-23: author_hash — 이 브라우저에서 쓴 글이면 댓글에 「글쓴이」 표시 + 새 댓글 배지 (lib/community.ts)
+    const { id: createdId, error } = await insertPost(supabase, {
       nickname: nickname.trim() || DEFAULT_NICKNAME,
       question: question.trim(),
       body: null,
@@ -99,6 +101,7 @@ export default function InlineAsk({
       return;
     }
 
+    if (createdId) rememberMyPost(createdId);
     setState("done");
     setQuestion("");
     setNickname("");

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import RaceSourceCta from "@/components/RaceSourceCta";
-import { ALL_RACES, distanceLabel } from "@/lib/races";
+import { ALL_RACES, daysUntil, distanceLabel } from "@/lib/races";
+import RaceReactions from "@/components/RaceReactions";
 
 /**
  * 2026 마스터즈 하프 마라톤 — 글로 더한 상세 페이지 (정적 경로가 `[id]` 템플릿보다 우선)
@@ -11,6 +12,9 @@ import { ALL_RACES, distanceLabel } from "@/lib/races";
  */
 const race = ALL_RACES.find((r) => r.id === "masters-half-2026")!;
 
+
+/** 대회 전/후로 「나가요」→「다녀왔어요」가 바뀌므로 [id] 템플릿과 같은 주기로 다시 만든다 */
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: `${race.name} — 뛰다가 아메리카노`,
@@ -88,7 +92,12 @@ export default function RacePage() {
         </p>
       </section>
 
-
+      {/* 2026-09-23 — 나가요 / 다녀왔어요. `ended` 가 날짜로 바뀌어야 해서 아래 revalidate 를 같이 넣음 */}
+      <RaceReactions
+        raceId={race.id}
+        ended={(daysUntil(race.date) ?? 0) < 0}
+        distances={race.distancesKm.map(distanceLabel)}
+      />
     </article>
   );
 }

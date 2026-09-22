@@ -6,6 +6,7 @@ import BuyLinkButtons from "@/components/BuyLinkButtons";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
+import ShoeReactions from "@/components/ShoeReactions";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
@@ -201,6 +202,9 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </div>
           </section>
         )}
+
+        {/* 2026-09-23 — 신어본 사람 반응. 근거·경위는 components/ShoeReactions.tsx 주석 */}
+        <ShoeReactions shoeId={s.id} shoeName={name} />
 
         <div className="mt-10">
           <FinderCta

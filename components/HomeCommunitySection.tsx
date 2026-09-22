@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
+import RecentReactions from "@/components/RecentReactions";
+import type { ReactionNames } from "@/lib/reaction-names";
 
 type Post = {
   id: string;
@@ -46,7 +48,7 @@ function SkeletonRow() {
   );
 }
 
-export default function HomeCommunitySection() {
+export default function HomeCommunitySection({ names }: { names: ReactionNames }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [state, setState] = useState<LoadState>("loading");
   const reqSeq = useRef(0);
@@ -134,7 +136,7 @@ export default function HomeCommunitySection() {
             {posts.map((post) => (
               <Link
                 key={post.id}
-                href="/community"
+                href={`/community/${post.id}`}
                 className="flex items-start gap-3 bg-white border border-gray-100 rounded-xl px-4 py-3 hover:border-emerald-300 transition-colors group"
               >
                 <Avatar name={post.nickname} />
@@ -155,6 +157,10 @@ export default function HomeCommunitySection() {
           </div>
         )}
       </div>
+
+      {/* 2026-09-23 최근 한 줄 후기 — 게시판 글이 없어도 신발·대회 반응이 먼저 쌓일 수 있어서 같이 보여줌 */}
+      <h3 className="mt-6 mb-2 text-sm font-bold text-gray-800">최근 한 줄 후기</h3>
+      <RecentReactions names={names} kind="all" limit={5} />
 
       <Link
         href="/community"

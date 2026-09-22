@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HomeCommunitySection from "@/components/HomeCommunitySection";
+import { reactionNames } from "@/lib/reaction-names";
 import HeroBackdrop from "@/components/HeroBackdrop";
 import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
 import QuickAnswers from "@/components/QuickAnswers";
@@ -397,7 +398,7 @@ export default function Home() {
             </div>
 
             {/* 커뮤니티 */}
-            <HomeCommunitySection />
+            <HomeCommunitySection names={reactionNames()} />
 
           </div>
         </div>
