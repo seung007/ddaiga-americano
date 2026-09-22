@@ -1,5 +1,6 @@
 -- 뛰다가 아메리카노 — 운영자 알림 (2026-09-23)
 -- **2026-09-23_community.sql 을 먼저 실행한 뒤** SQL Editor 에서 실행.
+-- ✅ 2026-09-23 두 파일 모두 실DB 실행 완료. anon 역할로 글·댓글(글쓴이 판정)·공감·후기·신고·update 차단을 트랜잭션 안에서 확인 후 롤백
 --
 -- 왜: 글·댓글·후기·신고가 들어와도 운영자가 알 경로가 없었음(2026-08 기록부터).
 --     마라톤온라인 최다 댓글 글은 글쓴이가 하루 안에 답례 — 답이 늦으면 대화가 끊김.
@@ -18,6 +19,9 @@ create table if not exists private.notify_config (
   id   int  primary key default 1 check (id = 1),
   url  text not null
 );
+-- 2026-09-23 실행 시 대시보드가 RLS 없는 테이블이라고 경고 → 켬. 정책은 안 둠(= anon·authenticated 접근 불가).
+-- 트리거 함수는 security definer(소유자 postgres)라 RLS 를 우회해서 읽음
+alter table private.notify_config enable row level security;
 
 create or replace function private.notify_discord()
 returns trigger
