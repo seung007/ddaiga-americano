@@ -101,6 +101,32 @@ export default function ShoeFinderPage() {
   const startFiredRef = useRef(false);
   const completeFiredRef = useRef(false);
 
+  /**
+   * ⚠️ 2026-09-22 — **`start` 가 `complete` 보다 적은 진짜 이유를 찾았다.**
+   *
+   * GA4 28일(8/25~9/21) 실측:
+   *   recommend_form_complete  13건 / 사용자 11명
+   *   recommend_form_start     12건 / 사용자 10명
+   * 시작 없이 완주할 수는 없다. 2026-09-01 에는 이걸 **gtag 로드 타이밍** 탓으로 보고
+   * `lib/gtag.ts` 에 큐를 넣었다. 큐는 들어갔는데 **역전이 그대로다.** 원인이 딴 데 있었다.
+   *
+   * 실제 경로:
+   *   ① 공유 URL(`?h=..&w=..`)이나 「지난 추천 다시보기」로 들어오면
+   *      `applyProfile(p, true)` 가 `setSubmitted(true)` 를 바로 때린다 — **결과 화면부터 시작한다**
+   *   ② `goNext()` 를 한 번도 안 거쳤으므로 `recommend_form_start` 는 **발화하지 않는다**
+   *   ③ 그 상태에서 인라인 편집하고 다시 제출하면 `handleSubmit` → **`complete` 만 찍힌다**
+   *
+   * 같은 기간 `recommend_inline_edit` 이 2건 / 사용자 1명으로 관측된다. 차이도 사용자 1명이다.
+   *
+   * 고치는 방법으로 「`handleSubmit` 에서도 `start` 를 쏜다」는 **안 된다** —
+   * 그러면 start ≈ complete 가 돼서 완주율이 항상 100% 가 되고 지표가 죽는다.
+   * 대신 **완주가 어느 경로로 들어왔는지**를 붙인다. 분모를 `entry=form` 으로 좁혀서 계산한다.
+   *
+   * `from` 을 쓰는 이유: GA4 맞춤 측정기준에 **이미 등록돼 있다**(2026-09-13).
+   * 새 매개변수 이름을 쓰면 또 등록해야 하고 **소급 적용이 안 된다.**
+   */
+  const restoredRef = useRef(false);
+
   function goNext() {
     // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
     if (!startFiredRef.current) {
@@ -126,7 +152,11 @@ export default function ShoeFinderPage() {
     setLevel(LEVEL_OPTIONS.some(o => o.value === p.lv) ? (p.lv as RunnerLevel) : "");
     setDistance(DISTANCE_OPTIONS.some(o => o.value === p.d) ? (p.d as RunDistance) : "");
     setInjuries((p.inj ?? []).filter((i): i is InjuryArea => INJURY_OPTIONS.some(o => o.value === i)));
-    if (submit) setSubmitted(true);
+    // 2026-09-22: 결과 화면부터 시작한 사람이다. 이후 완주가 찍히면 「복원 경로」로 표시한다
+    if (submit) {
+      restoredRef.current = true;
+      setSubmitted(true);
+    }
   }
 
   // 마운트 시: ① 공유 URL 파라미터 복원 ② localStorage 지난 추천 확인
@@ -245,7 +275,14 @@ export default function ShoeFinderPage() {
     // 이벤트 20건 / 사용자 15명(1.33배)으로 그 중복이 실제로 관측됐다.
     if (!completeFiredRef.current) {
       completeFiredRef.current = true;
-      gtagEvent("recommend_form_complete", { gender: gender || "unset", level: level || "unset" });
+      // from=form  → 1단계부터 8단계를 밟은 진짜 완주 (완주율의 분자)
+      // from=restore → 공유 링크·지난 추천으로 결과 화면부터 시작한 뒤 재제출
+      //                start 가 없으므로 분자에서 빼야 한다
+      gtagEvent("recommend_form_complete", {
+        gender: gender || "unset",
+        level: level || "unset",
+        from: restoredRef.current ? "restore" : "form",
+      });
     }
   }
 
