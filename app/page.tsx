@@ -4,7 +4,7 @@ import HeroBackdrop from "@/components/HeroBackdrop";
 import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
 import QuickAnswers from "@/components/QuickAnswers";
 import { SHOES } from "@/lib/shoes/data";
-import { upcomingRaces, daysUntil, distanceLabel } from "@/lib/races";
+import { upcomingRaces, daysUntil, distanceLabel, currentStatus } from "@/lib/races";
 
 /**
  * 띠에 실을 신발 — 서버에서 골라 최소 필드만 넘긴다.
@@ -52,6 +52,26 @@ export default function Home() {
   // 대회는 서버에서 센다. 개수를 손으로 적으면 대회가 하나 지날 때마다 틀린 숫자가 된다.
   const upcoming = upcomingRaces();
   const nextRaces = upcoming.slice(0, 3);
+
+  /**
+   * 접수 마감 임박 (2026-09-23)
+   *
+   * 러닝라이프 홈을 375px 로 직접 열어 보니 첫 화면 다음이 **「접수가 얼마 남지 않은 대회」** 였다.
+   * 러닝위키 홈은 아예 **대회 목록 그 자체**다(월별 탭 → 바로 리스트, 21화면).
+   * **두 곳 다 홈에서 설명을 하지 않는다. 데이터를 바로 깐다.**
+   *
+   * 우리 실측(`lib/races.json`): 55건 중 **33건이 9월 안에 접수 마감.** 10월 19건, 11월 2건.
+   * 그런데 홈에는 「다가오는 대회」밖에 없었다. 그건 **대회 날짜** 기준이라
+   * 이미 접수가 끝난 대회도 올라온다 — 지금 신청할 수 있는지는 알 수 없다.
+   *
+   * 마감일은 사람이 놓치면 되돌릴 수 없는 정보라 **대회 날짜보다 먼저** 보여준다.
+   * 정렬은 `registrationEnd` 순 — 급한 것부터.
+   */
+  const closingSoon = upcoming
+    .filter((r) => currentStatus(r) === "마감임박")
+    .sort((a, b) => (a.registrationEnd ?? "").localeCompare(b.registrationEnd ?? ""))
+    .slice(0, 3);
+  const closingSoonTotal = upcoming.filter((r) => currentStatus(r) === "마감임박").length;
 
   return (
     <main className="min-h-screen bg-white">
@@ -143,6 +163,55 @@ export default function Home() {
       <QuickAnswers />
 
       {/**
+       * 접수 마감 임박 — **「다가오는 대회」보다 위에 둔다.**
+       *
+       * 두 섹션은 축이 다르다.
+       *   · 마감 임박 = **접수 마감일** 기준. 놓치면 끝이다
+       *   · 다가오는 대회 = **대회 날짜** 기준. 계획용이고, 접수가 끝난 것도 섞인다
+       *
+       * 급한 쪽을 위에 놓는다. 0건이면 그리지 않는다.
+       * 계산 근거는 이 파일 위쪽 `closingSoon` 주석.
+       */}
+      {closingSoon.length > 0 && (
+        <section className="mx-auto max-w-3xl px-6 pb-16">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-900">접수 마감 임박</h2>
+            <Link href="/races" className="shrink-0 text-sm text-amber-700 hover:underline">
+              {closingSoonTotal}개 전체 보기 →
+            </Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-3">
+            {closingSoon.map((r) => {
+              const left = daysUntil(r.registrationEnd ?? null);
+              return (
+                <li key={r.id}>
+                  <Link
+                    href={`/races/${r.id}`}
+                    className="block h-full rounded-xl border border-amber-300 bg-amber-50 p-4 transition-colors hover:border-amber-500"
+                  >
+                    <p className="text-xs font-bold text-amber-800">
+                      {left !== null && left >= 0
+                        ? left === 0
+                          ? "오늘 접수 마감"
+                          : `접수 마감 D-${left}`
+                        : "접수 마감 임박"}
+                    </p>
+                    <p className="mt-1.5 font-bold leading-snug text-gray-900">{r.name}</p>
+                    <p className="mt-1.5 text-sm text-gray-700">
+                      {r.date} 대회 · {r.region}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-600">
+                      {r.distancesKm.map(distanceLabel).join(" / ")}
+                    </p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {/**
        * 다가오는 대회 (2026-09-15)
        *
        * `lib/races.json` 에 55건이 있고 `/races` 가 완성돼 있었는데 **헤더에도 홈에도
@@ -201,41 +270,20 @@ export default function Home() {
         </section>
       )}
 
-      {/* How it works */}
-      <section className="max-w-3xl mx-auto px-6 pb-16">
-        <h2 className="text-center text-2xl font-bold text-gray-900 mb-8">어떻게 추천하나요?</h2>
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            { n: "1", t: "내 정보 선택", d: "키·체중·발볼·발 타입을 버튼으로 고르면 끝. 숫자 입력 없이 1분." },
-            { n: "2", t: "맞춤 추천 3개", d: "수십 개 모델 중 내 체형 조건을 통과한 신발만 골라드려요." },
-            { n: "3", t: "부상 예방까지", d: "무릎·발목·아킬레스건 — 증상별 대처법을 추천과 함께 연결해드려요." },
-          ].map((s) => (
-            <div key={s.n} className="border border-gray-100 rounded-xl p-5">
-              <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">
-                {s.n}
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-1">{s.t}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{s.d}</p>
-            </div>
-          ))}
-        </div>
-        {/**
-         * 2026-09-15: 바로 아래 있던 **Feature 3분할을 이 섹션에 흡수했다.**
-         *
-         * 두 섹션이 같은 말을 하고 있었다:
-         *   · 3분할 ②「부상 예방까지 함께」 = 위 3단계 ③「부상 예방까지」 — 제목까지 거의 같다
-         *   · 3분할 ①「논문으로 고른 추천」의 입력 항목 나열 = 위 ①「내 정보 선택」
-         * GA4 28일로 115명 중 46명(40%)만 스크롤한다. 스크롤한 사람에게 같은 말을 두 번 하는 건 낭비다.
-         *
-         * 겹치지 않는 것은 **「광고비로 순서가 안 바뀝니다」 하나뿐**이라 이 줄로 남긴다.
-         * 히어로 CTA 밑 주석이 *"중립성 주장은 아래 설명 자리에 남아 있다"* 고 이 자리를 가리킨다 —
-         * **여기를 지우면 그 주장이 사이트에서 사라진다.**
-         */}
-        <p className="mt-6 text-center text-sm text-gray-500">
-          <strong className="font-semibold text-gray-700">광고비로 순서가 바뀌지 않습니다.</strong>{" "}
-          브랜드가 아니라 입력한 내 데이터로만 골라요.
-        </p>
-      </section>
+      {/**
+       * 「어떻게 추천하나요?」가 여기 있었다 → **맨 아래로 옮겼다** (2026-09-23).
+       *
+       * 근거는 경쟁 사이트 실측(375px 로 직접 열어 봄):
+       *   · 러닝라이프 — 검색 → 실시간 인기 대회 → 접수 얼마 안 남은 대회 → 최근 평가 → 상품
+       *   · 러닝위키   — 월별 탭 → 대회 목록 (21화면)
+       *   **둘 다 홈에서 자기 서비스를 설명하지 않는다. 데이터를 바로 깐다.**
+       *
+       * 우리 홈은 콘텐츠 사이에 설명이 끼어 있었다. 사용자 지적이 정확했다 —
+       * *"메인인데 내용이 잘 정리되어 담겨 있지 않아 들어왔을 때 뭐지 할 것 같다."*
+       *
+       * 지우지 않고 **CTA 바로 앞으로** 옮긴다. 「광고비로 순서가 바뀌지 않습니다」는
+       * 이 사이트의 유일한 주장이라 사라지면 안 되고, 버튼을 누를지 망설이는 자리에서 받쳐 주는 게 맞다.
+       */}
 
       {/* 인기 러닝화 비교 */}
       <section className="bg-gray-50 py-16">
@@ -305,16 +353,18 @@ export default function Home() {
                     desc: "달릴 때마다 무릎 바깥쪽이 아프다면.",
                   },
                   {
-                    href: "/injury/knee-pain",
-                    tag: "무릎",
-                    title: "한쪽 무릎만 아픈 이유",
-                    desc: "비대칭 통증의 원인과 엉덩이 근육 강화법.",
+                    href: "/injury/first-10k",
+                    tag: "첫 대회",
+                    title: "생애 첫 10km 준비물과 페이스",
+                    desc: "출발선에 서기 전에 알아야 할 것들.",
                   },
                   {
+                    // 2026-09-23: 제목이 「미드풋 전환 후 아킬레스건 스트레칭」이었다.
+                    // 그 제목은 9/21에 페이지에서 뺐는데 홈 카드만 남아 있었다.
                     href: "/injury/achilles",
                     tag: "아킬레스",
-                    title: "미드풋 전환 후 아킬레스건 스트레칭",
-                    desc: "주법 바꾼 뒤 종아리·아킬레스가 당긴다면.",
+                    title: "달리기 아킬레스건·종아리 통증 스트레칭",
+                    desc: "달린 뒤 당기고 뻐근하다면. 원인과 무관하게 같은 3가지.",
                   },
                 ].map((item) => (
                   <Link
@@ -351,6 +401,45 @@ export default function Home() {
 
           </div>
         </div>
+      </section>
+
+      {/**
+       * 어떻게 추천하나요 — **콘텐츠를 다 보여준 뒤 맨 마지막에.** (2026-09-23 이동)
+       * 원래 자리와 이동 근거는 「인기 러닝화 비교」 위 주석에 있다.
+       */}
+      <section className="mx-auto max-w-3xl px-6 pb-16">
+        <h2 className="mb-8 text-center text-2xl font-bold text-gray-900">어떻게 추천하나요?</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            { n: "1", t: "내 정보 선택", d: "키·체중·발볼·발 타입을 버튼으로 고르면 끝. 숫자 입력 없이 1분." },
+            { n: "2", t: "맞춤 추천 3개", d: "수십 개 모델 중 내 체형 조건을 통과한 신발만 골라드려요." },
+            { n: "3", t: "부상 예방까지", d: "무릎·발목·아킬레스건 — 증상별 대처법을 추천과 함께 연결해드려요." },
+          ].map((s) => (
+            <div key={s.n} className="rounded-xl border border-gray-100 p-5">
+              <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 font-bold text-emerald-700">
+                {s.n}
+              </div>
+              <h3 className="mb-1 font-semibold text-gray-900">{s.t}</h3>
+              <p className="text-sm leading-relaxed text-gray-600">{s.d}</p>
+            </div>
+          ))}
+        </div>
+        {/**
+         * 2026-09-15: 바로 아래 있던 **Feature 3분할을 이 섹션에 흡수했다.**
+         *
+         * 두 섹션이 같은 말을 하고 있었다:
+         *   · 3분할 ②「부상 예방까지 함께」 = 위 3단계 ③「부상 예방까지」 — 제목까지 거의 같다
+         *   · 3분할 ①「논문으로 고른 추천」의 입력 항목 나열 = 위 ①「내 정보 선택」
+         * GA4 28일로 115명 중 46명(40%)만 스크롤한다. 스크롤한 사람에게 같은 말을 두 번 하는 건 낭비다.
+         *
+         * 겹치지 않는 것은 **「광고비로 순서가 안 바뀝니다」 하나뿐**이라 이 줄로 남긴다.
+         * 히어로 CTA 밑 주석이 *"중립성 주장은 아래 설명 자리에 남아 있다"* 고 이 자리를 가리킨다 —
+         * **여기를 지우면 그 주장이 사이트에서 사라진다.**
+         */}
+        <p className="mt-6 text-center text-sm text-gray-500">
+          <strong className="font-semibold text-gray-700">광고비로 순서가 바뀌지 않습니다.</strong>{" "}
+          브랜드가 아니라 입력한 내 데이터로만 골라요.
+        </p>
       </section>
 
       {/* 마무리 CTA */}
