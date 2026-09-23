@@ -93,7 +93,7 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-900">런린이 이야기방</h2>
+        <h2 className="text-xl font-bold text-gray-900">러닝 게시판</h2>
         <Link href="/community" className="text-sm text-emerald-600 hover:underline">
           전체 글 보기 →
         </Link>

@@ -235,8 +235,8 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
 
       {/* 헤더 */}
       <header className="mb-8">
-        <p className="text-sm font-medium text-emerald-600 mb-1">런린이 이야기방</p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">뭐든 남겨주세요</h1>
+        {/* 2026-09-23 사이트 주인 판단: 「런린이 이야기방 / 뭐든 남겨주세요」보다 「러닝 게시판」이 낫다 — 무엇을 하는 곳인지 바로 읽힘 */}
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">러닝 게시판</h1>
         <p className="text-gray-500 text-sm leading-relaxed">
           질문도 좋고, 후기도 좋고, &ldquo;이런 게 있으면 좋겠다&rdquo;도 좋아요. 가입도, 닉네임도 필요 없어요.
         </p>
