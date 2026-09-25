@@ -2168,7 +2168,9 @@ export const SHOES: Shoe[] = [
   //     `npm run check:images` 가 CI 에서 확인. 깨지면 ShoeThumb 가 자리표시자로 대체)
   //   · colorways: 한국 컬러명을 확인하지 못해 비움
   //   · 공식몰 링크: 상품 페이지 URL 을 확인했지만 `check:links` 가 검증한 **검색형** 형태로 맞춤(상품 URL 은 컬러마다 바뀜)
-  // 슈퍼블라스트 3 은 한국 공식가를 확인하지 못해 **보류**(24회 언급).
+  // 슈퍼블라스트 3(24회 언급)은 처음엔 한국 공식가를 못 읽어 보류했다가, 같은 날 hyun 님이 아식스 공식몰
+  // 목록 화면을 캡처해 줘서 추가함 — 259,000원, 3개 컬러 모두 SOLD OUT·멤버스 전용(2026-09-26 화면 기준).
+  // 쿠팡 가격은 쓰지 않았다: 판매자별 할인·병행수입·재고가라 나머지 신발의 「공식 정가」 기준과 섞인다.
   // ─────────────────────────────────────────────────────────────
   {
     id: "asics-novablast-6",
@@ -2304,6 +2306,40 @@ export const SHOES: Shoe[] = [
       { label: "Vomero 18 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+vomero+18+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+보메로+18+리뷰" },
       { label: "보메로 18 vs 페가수스 비교 검색", url: "https://www.youtube.com/results?search_query=vomero+18+vs+pegasus+42" },
+    ],
+  },
+  {
+    id: "asics-superblast-3",
+    brand: "Asics",
+    model: "Superblast 3",
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/41200/asics-superblast-3-24636359-main.jpg",
+    colorways: [],
+    widthOptions: ["D"],
+    heelDropMm: 8,
+    stackHeightMm: 46,
+    weightGramsM9: 235,
+    priceUsd: 200,
+    priceKrw: 259000,
+    krAvailability: "kr_official",
+    buyLinks: [
+      { label: "아식스 공식몰 — 슈퍼블라스트", url: "https://www.asics.co.kr/goods/search?search_text=Superblast", isOfficial: true },
+      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4+%EC%8A%88%ED%8D%BC%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8+3", isOfficial: false },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Superblast%203", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Superblast%203", isOfficial: false },
+    ],
+    gender: "male",
+    sourceUrl: "https://runrepeat.com/asics-superblast-3",
+    cushioning: 5,
+    stability: "neutral",
+    uses: ["daily", "long", "racing"],
+    hasCarbon: false,
+    blurb: "슈퍼블라스트 2의 후속. 카본 없는 두꺼운 쿠션화. 아식스 공식몰은 멤버스 전용 판매이고 2026-09-26 확인 때 전 컬러 품절.",
+    scienceBasis: "공개 스펙만 확인: RunRepeat 실측 무게 235g(브랜드 표기 249g)·뒤꿈치 스택 45.8mm, 브랜드 표기 드롭 8mm. 플레이트 없음, 폭은 일반(D)만. 누구에게 맞는지는 아직 판단하지 않았습니다.",
+    youtubeReviews: [
+      { label: "Superblast 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+superblast+3+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+슈퍼블라스트+3+리뷰" },
+      { label: "슈블 2 vs 3 비교 검색", url: "https://www.youtube.com/results?search_query=superblast+2+vs+superblast+3" },
     ],
   },
 ];
