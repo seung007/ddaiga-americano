@@ -7,6 +7,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
 import ShoeReactions from "@/components/ShoeReactions";
+import { nicknamesOf } from "@/lib/shoes/aliases";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
@@ -36,6 +37,26 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     description: `${s.brand} ${s.model}: ${s.blurb}`.slice(0, 155),
     alternates: { canonical: `/shoes/${s.id}` },
   };
+}
+
+/**
+ * 「처음 러닝화로?」 한 줄 (2026-09-26)
+ *
+ * 왜: 오픈채팅 전수 분석에서 초보가 카본화(프로4·알파3·줌플라이6)를 사고 나서야 "초보한테는 아니다"를
+ * 듣고 되팔지 고민하는 일이 반복됐고, 카본 로드가 든 보스턴을 입문화로 착각한 질문도 있었음.
+ * 새 판단을 만들지 않는다 — 이미 있는 `hasCarbon`·`uses` 와 카본화 가이드·계급도의 문장을 그대로 쓴다.
+ */
+function beginnerLine(s: { hasCarbon?: boolean; uses: string[] }): { tone: "warn" | "ok" | "info"; text: string } {
+  if (s.hasCarbon)
+    return {
+      tone: "warn",
+      text: "첫 러닝화로는 권하지 않아요. 카본 플레이트가 든 신발은 밑창이 단단하고 불안정한 편이고 값도 비싸요. 이 사이트 추천은 입문자에게 카본화 점수를 낮춥니다(위험하다고 단정할 근거는 부족해요).",
+    };
+  if (s.uses.includes("racing"))
+    return { tone: "info", text: "대회용으로 분류한 신발이에요. 계급도 기준으로는 뒤쪽 칸이라, 처음이라면 데일리 칸부터 보는 편이 맞아요." };
+  if (s.uses.includes("daily"))
+    return { tone: "ok", text: "매일 신는 데일리 용도로 분류한 신발이에요. 계급도 앞쪽 칸이라 첫 러닝화 후보 범주예요. 내 몸에 맞는지는 신발 찾기로 확인해 보세요." };
+  return { tone: "info", text: "특정 훈련(빠르게·오래 뛰는 날)용으로 분류한 신발이에요. 첫 신발이라면 데일리 칸과 같이 비교해 보세요." };
 }
 
 const FOOT_KO = { flat: "평발", neutral: "중립 아치", high_arch: "높은 아치" } as const;
@@ -77,6 +98,12 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           <div>
             <p className="text-sm text-gray-500">{s.brand}</p>
             <h1 className="text-3xl font-bold leading-tight text-gray-900">{s.model}</h1>
+            {nicknamesOf(s.model).length > 0 && (
+              // 2026-09-26 — 러닝 오픈채팅에서 실제로 쓰인 애칭만 (lib/shoes/aliases.ts)
+              <p className="mt-1 text-sm text-gray-500">
+                러너들 사이에서는 {nicknamesOf(s.model).map((n) => `「${n}」`).join(" ")}라고도 불러요
+              </p>
+            )}
             <p className="mt-2 text-lg text-gray-800">약 {won(s.priceKrw)}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {s.uses.map((u) => (
@@ -95,6 +122,35 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             후속 모델 <strong>{s.successor}</strong>이(가) 나왔습니다. 재고 할인으로 싸게 살 수 있지만, 사이즈가 빨리 빠집니다.
           </p>
         )}
+
+        {(() => {
+          const b = beginnerLine(s);
+          const cls =
+            b.tone === "warn"
+              ? "border-red-200 bg-red-50 text-red-900"
+              : b.tone === "ok"
+                ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                : "border-gray-200 bg-gray-50 text-gray-700";
+          return (
+            <div className={`mt-6 rounded-2xl border p-4 text-sm leading-relaxed ${cls}`}>
+              <p className="mb-1 font-semibold">처음 러닝화로?</p>
+              <p>{b.text}</p>
+              <p className="mt-2 flex flex-wrap gap-x-3 text-xs">
+                <Link href="/tier-list" className="underline">
+                  러닝화 계급도에서 칸 보기
+                </Link>
+                {s.hasCarbon && (
+                  <Link href="/injury/carbon-plate" className="underline">
+                    카본화 근거 정리
+                  </Link>
+                )}
+                <Link href="/shoe-finder" className="underline">
+                  내 몸에 맞는 신발 찾기
+                </Link>
+              </p>
+            </div>
+          );
+        })()}
 
         <p className="mt-6 text-lg leading-relaxed text-gray-700">{s.blurb}</p>
 

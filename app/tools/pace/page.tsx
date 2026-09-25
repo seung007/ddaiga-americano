@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import FinderCta from "@/components/FinderCta";
+import RacePredictor from "@/components/RacePredictor";
 
 /**
  * 러닝 페이스 계산기 — 2026-09-02
@@ -243,6 +244,9 @@ export default function PacePage() {
           </p>
         </>
       )}
+
+      {/* 2026-09-26 기록 예측 — 나눗셈이 아니라 모델 추정이라 별도 컴포넌트로 분리. 근거·한계는 components/RacePredictor.tsx */}
+      <RacePredictor />
 
       <FinderCta
         from="tools-pace"

@@ -31,13 +31,42 @@ const VERDICTS: [Verdict, string][] = [
 const LABEL: Record<Verdict, string> = { good: "잘 맞았어요", meh: "그저 그래요", bad: "안 맞았어요" };
 const NOTE_MAX = 200;
 
-type Row = { id: string; verdict: Verdict; note: string | null; created_at: string };
+/**
+ * 2026-09-26 사이즈감·발볼 — 러닝 오픈채팅 2곳 전수 분석에서 사이즈·발볼 질문이 8구간 전부에 나왔고
+ * 답은 매번 "매장 가서 신어봐"였음. 브랜드 간 환산표 같은 수치를 우리가 만들면 지어내는 것이 되므로
+ * 신어본 사람의 체감만 모음. 둘 다 선택이고, 응답이 적을 땐 숫자를 그대로 보여줄 뿐 결론을 내리지 않음.
+ */
+type SizeFit = "small" | "true" | "large";
+type WidthFit = "narrow" | "normal" | "wide";
+const SIZE_FITS: [SizeFit, string][] = [
+  ["small", "작게 나옴"],
+  ["true", "정사이즈"],
+  ["large", "크게 나옴"],
+];
+const WIDTH_FITS: [WidthFit, string][] = [
+  ["narrow", "발볼 좁게 느껴짐"],
+  ["normal", "발볼 보통"],
+  ["wide", "발볼 넉넉함"],
+];
+const SIZE_LABEL = Object.fromEntries(SIZE_FITS) as Record<SizeFit, string>;
+const WIDTH_LABEL = Object.fromEntries(WIDTH_FITS) as Record<WidthFit, string>;
+
+type Row = {
+  id: string;
+  verdict: Verdict;
+  note: string | null;
+  size_fit: SizeFit | null;
+  width_fit: WidthFit | null;
+  created_at: string;
+};
 
 export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; shoeName: string }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [status, setStatus] = useState<"loading" | "failed" | "ok">("loading");
   const [picked, setPicked] = useState<Verdict | null>(null);
   const [note, setNote] = useState("");
+  const [sizeFit, setSizeFit] = useState<SizeFit | null>(null);
+  const [widthFit, setWidthFit] = useState<WidthFit | null>(null);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
@@ -50,7 +79,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
     try {
       const { data, error } = await supabase
         .from("shoe_reactions")
-        .select("id, verdict, note, created_at")
+        .select("id, verdict, note, size_fit, width_fit, created_at")
         .eq("shoe_id", shoeId)
         .order("created_at", { ascending: false })
         .limit(500);
@@ -86,7 +115,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
     const trimmed = note.trim();
     const { error } = await supabase
       .from("shoe_reactions")
-      .insert({ shoe_id: shoeId, verdict: picked, note: trimmed || null });
+      .insert({ shoe_id: shoeId, verdict: picked, note: trimmed || null, size_fit: sizeFit, width_fit: widthFit });
     setSending(false);
     if (error) {
       console.error("[shoe_reactions] 등록 실패", error);
@@ -95,15 +124,20 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
     }
     gtagEvent("shoe_reaction", { from: "shoe-detail", tag: picked });
     if (trimmed) gtagEvent("shoe_reaction_note", { from: "shoe-detail", tag: picked });
+    if (sizeFit || widthFit) gtagEvent("shoe_fit", { from: "shoe-detail", tag: `${sizeFit ?? "-"}/${widthFit ?? "-"}` });
     rememberReaction(key);
     setDone(true);
     setPicked(null);
     setNote("");
+    setSizeFit(null);
+    setWidthFit(null);
     load();
   }
 
   const count = (v: Verdict) => rows.filter((r) => r.verdict === v).length;
   const notes = rows.filter((r) => r.note);
+  const sized = rows.filter((r) => r.size_fit);
+  const widthed = rows.filter((r) => r.width_fit);
 
   return (
     <section className="mt-10 rounded-2xl border border-gray-200 p-5" aria-labelledby="shoe-react-h">
@@ -129,6 +163,29 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
               ? "아직 반응 0개 — 첫 번째로 남겨주세요."
               : VERDICTS.map(([v, l]) => `${l} ${count(v)}`).join(" · ")}
         </p>
+      )}
+
+      {status === "ok" && (sized.length > 0 || widthed.length > 0) && (
+        <dl className="mt-2 space-y-1 text-sm text-gray-700">
+          {sized.length > 0 && (
+            <div className="flex flex-wrap gap-x-2">
+              <dt className="font-medium text-gray-500">사이즈감</dt>
+              <dd>
+                {SIZE_FITS.map(([v, l]) => `${l} ${sized.filter((r) => r.size_fit === v).length}`).join(" · ")}
+                <span className="text-gray-400"> ({sized.length}명)</span>
+              </dd>
+            </div>
+          )}
+          {widthed.length > 0 && (
+            <div className="flex flex-wrap gap-x-2">
+              <dt className="font-medium text-gray-500">발볼</dt>
+              <dd>
+                {WIDTH_FITS.map(([v, l]) => `${l.replace("발볼 ", "")} ${widthed.filter((r) => r.width_fit === v).length}`).join(" · ")}
+                <span className="text-gray-400"> ({widthed.length}명)</span>
+              </dd>
+            </div>
+          )}
+        </dl>
       )}
 
       {done ? (
@@ -157,6 +214,33 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
           </div>
           {picked && (
             <div className="mt-3">
+              {(
+                [
+                  ["사이즈감", SIZE_FITS, sizeFit, setSizeFit],
+                  ["발볼", WIDTH_FITS, widthFit, setWidthFit],
+                ] as const
+              ).map(([legend, opts, value, set]) => (
+                <fieldset key={legend} className="mb-3">
+                  <legend className="mb-1.5 text-xs font-medium text-gray-500">
+                    {legend} <span className="text-gray-400">(평소 신는 사이즈 기준 · 안 골라도 돼요)</span>
+                  </legend>
+                  <div className="flex flex-wrap gap-2">
+                    {opts.map(([v, l]) => (
+                      <button
+                        key={v}
+                        type="button"
+                        aria-pressed={value === v}
+                        onClick={() => (set as (x: string | null) => void)(value === v ? null : v)}
+                        className={`rounded-full border px-3 py-1 text-sm ${
+                          value === v ? "border-emerald-600 bg-emerald-600 text-white" : "border-gray-300 text-gray-700"
+                        }`}
+                      >
+                        {l}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+              ))}
               <label htmlFor={`shoe-note-${shoeId}`} className="mb-1 block text-xs font-medium text-gray-500">
                 한 줄 덧붙이기 <span className="text-gray-400">(안 써도 돼요)</span>
               </label>
@@ -166,7 +250,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
                 onChange={(e) => setNote(e.target.value)}
                 maxLength={NOTE_MAX}
                 rows={2}
-                placeholder="예: 발볼 넓은 편인데 반 치수 크게 샀어요"
+                placeholder="예: 평소 265인데 270으로 샀어요"
                 className="w-full resize-y rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300"
               />
               <p className="mt-1 text-xs text-gray-400">개인정보는 적지 마세요.</p>
@@ -194,7 +278,9 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
             <li key={r.id} className="py-3">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs font-medium text-gray-500">
-                  {LABEL[r.verdict]} · {timeAgo(r.created_at)}
+                  {LABEL[r.verdict]}
+                  {r.size_fit ? ` · ${SIZE_LABEL[r.size_fit]}` : ""}
+                  {r.width_fit ? ` · ${WIDTH_LABEL[r.width_fit]}` : ""} · {timeAgo(r.created_at)}
                 </span>
                 <ReportButton targetType="shoe_reaction" targetId={r.id} />
               </div>

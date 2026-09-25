@@ -9,6 +9,10 @@ import { cushionKo, hasWide, USE_KO, won } from "@/lib/shoes/labels";
 import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from "@/lib/shoes/profileOptions";
 import { rankAllShoes } from "@/lib/shoes/recommend";
 import type { Shoe, ShoeUse } from "@/lib/shoes/types";
+import { matchesQuery, searchKeyOf } from "@/lib/shoes/aliases";
+
+/** 검색 키는 한 번만 만든다 — 52켤레라 싸지만 매 입력마다 다시 만들 이유가 없다 */
+const SEARCH_KEY = new Map(SHOES.map((s) => [s.id, searchKeyOf(s.brand, s.model)]));
 
 const LIKE_KEY = "ddaiga:likedShoes";
 
@@ -83,6 +87,8 @@ function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; c
  * 찜은 로그인 없이 이 브라우저에만 저장한다. 문턱을 만들지 않는다(자유게시판 교훈).
  */
 export default function ShoesBrowser() {
+  /** 2026-09-26 검색 — 「슈블」「노블」처럼 애칭으로도 찾게. 근거는 lib/shoes/aliases.ts */
+  const [query, setQuery] = useState("");
   const [brand, setBrand] = useState("전체");
   const [use, setUse] = useState<(typeof USES)[number]>("전체");
   const [cush, setCush] = useState<(typeof CUSH)[number]>("전체");
@@ -130,6 +136,7 @@ export default function ShoesBrowser() {
 
   const shown = useMemo(() => {
     const list = SHOES.filter((s: Shoe) => {
+      if (query.trim() && !matchesQuery(SEARCH_KEY.get(s.id) ?? "", query)) return false;
       if (brand !== "전체" && s.brand !== brand) return false;
       if (use !== "전체" && !s.uses.includes(use as ShoeUse)) return false;
       if (cush !== "전체" && cushionKo(s.cushioning) !== cush) return false;
@@ -149,7 +156,7 @@ export default function ShoesBrowser() {
     if (sort === "price_desc") return list.sort((a, b) => b.priceKrw - a.priceKrw);
     if (sort === "light") return list.sort((a, b) => a.weightGramsM9 - b.weightGramsM9);
     return list;
-  }, [brand, use, cush, price, wide, stability, carbon, hideOld, likedOnly, liked, ranking, sort]);
+  }, [query, brand, use, cush, price, wide, stability, carbon, hideOld, likedOnly, liked, ranking, sort]);
 
   const firstMisfit = ranking && sort === "default" ? shown.findIndex((s) => !ranking.get(s.id)?.fits) : -1;
 
@@ -193,6 +200,17 @@ export default function ShoesBrowser() {
       </div>
 
       <div className="mt-4 space-y-2 rounded-2xl border border-gray-200 p-4">
+        <label htmlFor="shoe-q" className="sr-only">
+          러닝화 검색
+        </label>
+        <input
+          id="shoe-q"
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="모델명·애칭으로 찾기 (예: 슈블, 노블, 프로4, 카야노)"
+          className="mb-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300"
+        />
         <Chips label="브랜드" options={BRANDS} value={brand} onChange={setBrand} />
         <Chips label="용도" options={USES} value={use} onChange={setUse} render={(o) => (o === "전체" ? o : USE_KO[o])} />
         <Chips label="쿠셔닝" options={CUSH} value={cush} onChange={setCush} />
