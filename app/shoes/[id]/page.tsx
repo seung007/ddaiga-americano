@@ -8,6 +8,8 @@ import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
 import ShoeReactions from "@/components/ShoeReactions";
 import { nicknamesOf } from "@/lib/shoes/aliases";
+import { rungOf } from "@/lib/shoes/tiers";
+import type { Shoe } from "@/lib/shoes/types";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
@@ -44,19 +46,34 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
  *
  * 왜: 오픈채팅 전수 분석에서 초보가 카본화(프로4·알파3·줌플라이6)를 사고 나서야 "초보한테는 아니다"를
  * 듣고 되팔지 고민하는 일이 반복됐고, 카본 로드가 든 보스턴을 입문화로 착각한 질문도 있었음.
- * 새 판단을 만들지 않는다 — 이미 있는 `hasCarbon`·`uses` 와 카본화 가이드·계급도의 문장을 그대로 쓴다.
+ *
+ * 새 판단을 만들지 않는다 — **계급도와 같은 칸 규칙**(`lib/shoes/tiers.ts` 의 `rungOf`)을 쓰고
+ * 칸 설명(`forWho`)을 그대로 옮긴다. 카본화 문장은 카본화 가이드 FAQ 와 같은 내용.
+ *
+ * ⚠️ 2026-09-26 첫 배포본은 여기서 따로 판정해서 슈퍼블라스트 3을 「대회용」이라고 적었다
+ * (계급도에선 「오래 뛰는 날」). 기준을 한 곳으로 합쳐 고쳤다.
  */
-function beginnerLine(s: { hasCarbon?: boolean; uses: string[] }): { tone: "warn" | "ok" | "info"; text: string } {
+function beginnerLine(s: Shoe): { tone: "warn" | "ok" | "info"; text: string } {
+  const r = rungOf(s);
   if (s.hasCarbon)
     return {
       tone: "warn",
       text: "첫 러닝화로는 권하지 않아요. 카본 플레이트가 든 신발은 밑창이 단단하고 불안정한 편이고 값도 비싸요. 이 사이트 추천은 입문자에게 카본화 점수를 낮춥니다(위험하다고 단정할 근거는 부족해요).",
     };
-  if (s.uses.includes("racing"))
-    return { tone: "info", text: "대회용으로 분류한 신발이에요. 계급도 기준으로는 뒤쪽 칸이라, 처음이라면 데일리 칸부터 보는 편이 맞아요." };
-  if (s.uses.includes("daily"))
-    return { tone: "ok", text: "매일 신는 데일리 용도로 분류한 신발이에요. 계급도 앞쪽 칸이라 첫 러닝화 후보 범주예요. 내 몸에 맞는지는 신발 찾기로 확인해 보세요." };
-  return { tone: "info", text: "특정 훈련(빠르게·오래 뛰는 날)용으로 분류한 신발이에요. 첫 신발이라면 데일리 칸과 같이 비교해 보세요." };
+  if (!r) return { tone: "info", text: "계급도 칸에 분류되지 않은 신발이에요." };
+  const head = `계급도 「${r.label}」 칸이에요 — ${r.forWho}.`;
+  if (r.id === "first" || r.id === "everyday")
+    return { tone: "ok", text: `${head} 첫 러닝화 후보가 모인 칸이에요. 내 몸에 맞는지는 신발 찾기로 확인해 보세요.` };
+  return { tone: "info", text: `${head} 처음이라면 앞 칸(첫 신발·매일 신는 날)과 같이 비교해 보세요.` };
+}
+
+/** 한국어 조사 — 받침 있으면 「이라고도」, 없으면 「라고도」. 숫자는 읽는 소리로 판정(4=사, 6=육 …) */
+function rago(word: string): string {
+  const last = word.at(-1) ?? "";
+  if (/\d/.test(last)) return "013678".includes(last) ? "이라고도" : "라고도";
+  const code = last.charCodeAt(0) - 0xac00;
+  if (code >= 0 && code <= 11171) return code % 28 ? "이라고도" : "라고도";
+  return "라고도";
 }
 
 const FOOT_KO = { flat: "평발", neutral: "중립 아치", high_arch: "높은 아치" } as const;
@@ -101,7 +118,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             {nicknamesOf(s.model).length > 0 && (
               // 2026-09-26 — 러닝 오픈채팅에서 실제로 쓰인 애칭만 (lib/shoes/aliases.ts)
               <p className="mt-1 text-sm text-gray-500">
-                러너들 사이에서는 {nicknamesOf(s.model).map((n) => `「${n}」`).join(" ")}라고도 불러요
+                러너들 사이에서는 {nicknamesOf(s.model).map((n) => `「${n}」`).join(" ")}
+                {rago(nicknamesOf(s.model).at(-1) ?? "")} 불러요
               </p>
             )}
             <p className="mt-2 text-lg text-gray-800">약 {won(s.priceKrw)}</p>
