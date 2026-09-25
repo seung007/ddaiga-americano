@@ -91,6 +91,13 @@ export type Race = {
   registrationEnd?: string;
   /** 종목별 참가비. 할인·옵션 요금은 넣지 않는다 */
   fees?: { label: string; distanceKm: number; krw: number }[];
+  /**
+   * 종목별 제한시간(완주 인정 시간). **문자열** — 「하프 2시간 30분 · 10km 1시간 30분」.
+   *
+   * 2026-09-26: 러닝 오픈채팅 전수 분석에서 「10km 1시간 30분 이내 조건이 다 그래요?」 같은 질문이
+   * 반복됐는데 답은 추측이었음. **대회 요강에서 확인한 것만** 적고, 모르면 비운다(비우면 화면에 안 나옴).
+   */
+  cutoff?: string;
   /** 정원. **문자열이다** — 「하프 20,000 / 10km 10,000」처럼 숫자 하나로 안 떨어지는 대회가 있다 */
   capacity?: string;
   organizer?: string;

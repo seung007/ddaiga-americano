@@ -8,7 +8,7 @@
       21.0975,
       10
     ],
-    "status": "접수예정",
+    "status": "마감",
     "venue": "광화문광장(하프) / 잠실종합운동장(10km)",
     "startTime": "07:30",
     "fees": [
@@ -27,9 +27,10 @@
     "organizer": "MBN · 매일경제",
     "sourceUrl": "https://www.mbn-seoulmarathon.com/",
     "factsFrom": "공식",
-    "checkedAt": "2026-09-17",
-    "note": "본접수는 끝났고 추가접수가 선착순으로 열립니다 — 프로모션 9/18(금) · 10km 9/21(월) · 하프 9/22(화) 각 14:00. 8/31 은 취소·환불 기한입니다.",
-    "officialUrl": "https://www.mbn-seoulmarathon.com/"
+    "checkedAt": "2026-09-26",
+    "note": "본접수와 추가접수(9/18~9/22 선착순)가 모두 끝났습니다. 취소·환불 기한은 8/31이었습니다.",
+    "officialUrl": "https://www.mbn-seoulmarathon.com/",
+    "cutoff": "하프 2시간 30분 · 10km 1시간 30분"
   },
   {
     "id": "angels-day-2026",

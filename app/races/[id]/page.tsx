@@ -146,6 +146,8 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
               {r.registrationStart ?? ""} ~ {r.registrationEnd ?? ""}
             </Row>
           )}
+          {/* 2026-09-26 제한시간 — 요강에서 확인한 대회만. 비어 있으면 줄 자체를 안 그린다 */}
+          {r.cutoff && <Row label="제한시간">{r.cutoff}</Row>}
           {r.capacity && <Row label="정원">{r.capacity}</Row>}
           {r.organizer && <Row label="주최">{r.organizer}</Row>}
         </dl>
