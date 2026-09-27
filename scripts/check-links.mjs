@@ -108,6 +108,9 @@ const VERIFIED = {
   "kor.mizuno.com":       { date: "2026-09-06", shape: /\/product\/search\.html\?keyword=/, nature: "남아있음", note: "웨이브라이더 29 8건+, 30% 할인. 영문 검색어도 먹는다" },
   "fleetrunner.co.kr":    { date: "2026-09-06", shape: /\/goods\/goods_search\.php\?keyword=/, nature: "일부0건", note: "Guide 18·Kinvara 16은 0건이라 세대번호를 뺐다(9건·1건)" },
   "29cm.co.kr":           { date: "2026-09-06", shape: /\/store\/search\?keyword=/,        nature: "일부0건", note: "영문 검색어가 0건. 한글로 바꾸고 킨바라·엔돌핀은 링크를 내렸다" },
+  // 2026-09-27 추가. 써코니 한국 공식몰(운영 주식회사 조이웍스). WebFetch 로 검색 결과가 나오는 것을 확인한 검색어:
+  //   가이드·라이드·킨바라·엔돌핀·스피드·트라이엄프·허리케인·엘리트·아주라. 「가이드 18」을 검색하면 가이드 19만 나온다.
+  "saucony.co.kr":        { date: "2026-09-27", shape: /\/product\/search\.html\?keyword=/, nature: "대체됨",   note: "가이드 18 → 결과가 전부 가이드 19. 트라이엄프 23 은 아직 남아 있음" },
 };
 
 /**

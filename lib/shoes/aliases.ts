@@ -59,6 +59,29 @@ const ALIASES: Alias[] = [
   { match: /Cloudmonster/, ko: ["클라우드몬스터"] },
   { match: /Cloudrunner/, ko: ["클라우드러너"] },
   { match: /KIPRUN/, ko: ["킵런"] },
+  // 2026-09-27 신모델 33종 — 한글 표기만(검색용). 애칭은 채팅에서 확인된 것만 넣는 규칙이라 에보 SL 하나만 붙였다
+  //   (「에보슬」 68회는 이 파일 머리 주석의 같은 집계). 나머지는 확인된 애칭이 없어 비움
+  { match: /Evo SL/, ko: ["에보 SL"], nick: ["에보슬(68)"] },
+  { match: /Vomero/, ko: ["보메로"] },
+  { match: /MetaSpeed Edge/, ko: ["메타스피드 엣지"] },
+  { match: /Tokyo/, ko: ["도쿄"] },
+  { match: /Magic Speed/, ko: ["매직스피드", "매직 스피드"] },
+  { match: /Endorphin Elite/, ko: ["엔돌핀 엘리트"] },
+  { match: /Endorphin Azura/, ko: ["엔돌핀 아주라", "아주라"] },
+  { match: /Hurricane/, ko: ["허리케인"] },
+  { match: /Neo Vista/, ko: ["네오 비스타", "네오비스타"] },
+  { match: /Neo Zen/, ko: ["네오 젠", "네오젠"] },
+  { match: /Wave Rebellion/, ko: ["웨이브 리벨리온", "리벨리온"] },
+  { match: /Zoom Fly/, ko: ["줌플라이", "줌 플라이"] },
+  { match: /Streakfly/, ko: ["스트릭플라이"] },
+  { match: /Structure/, ko: ["스트럭처"] },
+  { match: /Winflo/, ko: ["윈플로"] },
+  { match: /Downshifter/, ko: ["다운시프터"] },
+  { match: /Journey Run/, ko: ["저니 런", "저니런"] },
+  { match: /Premium/, ko: ["프리미엄"] },
+  { match: / Plus$/, ko: ["플러스"] },
+  { match: / Max /, ko: ["맥스"] },
+  { match: /Flex/, ko: ["플렉스"] },
 ];
 
 const BRAND_KO: Record<string, string[]> = {
