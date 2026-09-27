@@ -57,6 +57,10 @@ function brandShoes(brand: string): Shoe[] {
  * 카본화는 용도·무게·가격이 다른 제품군이라 브랜드의 "보통 신발"을 대표하지 않는다.
  *
  * 카본화 자체가 궁금한 사람도 있으니 개수는 따로 내보낸다(`carbonCount`).
+ *
+ * 2026-09-27 추가 정정: 위 셋 중 **Pegasus Plus 는 카본이 아니었다**(RunRepeat 「no plate」, DB 설명도 원래
+ * 「플레이트 없이」). Adizero Boston 12 도 유리섬유 로드라 카본이 아니다. 둘 다 hasCarbon 을 false 로 고쳐서
+ * 이제 데일리 평균에 들어간다 — 위 숫자(240.7g 등)는 당시 기록이라 그대로 둔다.
  */
 function dailyShoes(shoes: Shoe[]): Shoe[] {
   return shoes.filter((s) => !s.hasCarbon);

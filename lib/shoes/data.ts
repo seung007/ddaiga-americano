@@ -49,6 +49,14 @@ import type { Shoe } from "./types";
  * 새 모델을 추가하거나 후속작을 확인했으면 이 주석과 `successor`를 같이 갱신할 것.
  *
  * priceKrw: 2026년 6월 기준 한국 공식가
+ *   2026-09-27 신모델을 넣다가 공식몰 정가가 바뀐 기존 모델을 발견해 고쳤다(화면에 보인 정가, 할인가 아님):
+ *     Kinvara 16 185,000→159,000 · Endorphin Speed 5 229,000→219,000 · Triumph 23 225,000→199,000 (saucony.co.kr)
+ *     Wave Inspire 22 195,000→169,000 · Wave Sky 9 209,000→189,000 · Wave Rider 29 195,000→169,000 (kor.mizuno.com)
+ *     Pegasus 42(남·여) 159,000→169,000 · Pegasus Plus 209,000→219,000 · Alphafly 3 380,000→339,000 ·
+ *     Vaporfly 4 369,000→319,000 (nike.com/kr)
+ *   **나머지는 이날 다시 보지 않았다** — 호카·온·뉴발란스·푸마·아디다스·아식스는 이 환경에서 공식몰을 못 읽었다.
+ *   6월 값이 그대로 남아 있을 수 있으니 전수 재확인이 필요하다.
+ *   같은 날 카본 표기도 둘 고쳤다: Pegasus Plus(플레이트 없음), Adizero Boston 12(유리섬유 EnergyRods) → hasCarbon false.
  * primaryBodyTypes: 각 신발이 최적인 체형 (1~3개)
  *
  * 체형 분류:
@@ -74,7 +82,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 28,
     weightGramsM9: 207,
     priceUsd: 140,
-    priceKrw: 185000,
+    priceKrw: 159000,
     krAvailability: "kr_parallel",
     buyLinks: [
       { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Kinvara", isOfficial: false },
@@ -340,7 +348,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 37,
     weightGramsM9: 220,
     priceUsd: 175,
-    priceKrw: 229000,
+    priceKrw: 219000,
     krAvailability: "kr_parallel",
     buyLinks: [
       { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Endorphin+Speed+5", isOfficial: false },
@@ -377,7 +385,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 37,
     weightGramsM9: 286,
     priceUsd: 135,
-    priceKrw: 159000,
+    priceKrw: 169000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식 — 페가수스", url: "https://www.nike.com/kr/w/pegasus-shoes-8nexhzy7ok", isOfficial: true },
@@ -492,7 +500,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 42,
     weightGramsM9: 270,
     priceUsd: 165,
-    priceKrw: 225000,
+    priceKrw: 199000,
     krAvailability: "kr_parallel",
     buyLinks: [
       { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Triumph+23", isOfficial: false },
@@ -646,7 +654,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 34,
     weightGramsM9: 258,
     priceUsd: 140,
-    priceKrw: 195000,
+    priceKrw: 169000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+rider+29", isOfficial: true },
@@ -722,10 +730,10 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 42,
     weightGramsM9: 166,
     priceUsd: 265,
-    priceKrw: 369000,
+    priceKrw: 319000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "나이키 공식몰", url: "https://www.nike.com/kr/w/vaporfly-shoes-1gdj0z", isOfficial: true },
+      { label: "나이키 공식몰", url: "https://www.nike.com/kr/w?q=vaporfly+4", isOfficial: true },
       { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20ZoomX%20Vaporfly%204", isOfficial: false },
@@ -791,10 +799,11 @@ export const SHOES: Shoe[] = [
     brand: "Brooks",
     model: "Beast 24",
     successor: "Beast GTS 26",
-    // ⚠️ 2026-09-06: 이 이미지는 **죽었다**(브라우저 확인, onError 발생 → 회색 폴백).
-    //   브룩스 한국몰에서 대체본을 찾으려 했으나 페이지가 응답하지 않아 못 찾았다.
-    //   Beast 24는 단종(→ Beast GTS 26)이라 우선순위가 낮다. **추측한 URL로 바꾸지 않는다.**
-    imageUrl: "https://brooks-res.cloudinary.com/image/upload/b_white,c_pad,dpr_2.0,f_auto,h_490,q_auto,w_490/v1/eComm/110418_1D.jpg",
+    // ⚠️ 2026-09-06: 옛 브룩스 cloudinary 이미지가 **죽었다**(브라우저 확인, onError → 회색 폴백).
+    // 2026-09-26: RunRepeat 에서는 이 신발이 「Beast GTS 24」라는 이름으로 있다(/brooks-beast-24 는 404,
+    //   /brooks-beast-gts-24 는 존재). 그 페이지의 대표 이미지를 **브라우저에서 실제 로드된 주소 그대로** 옮김.
+    //   sourceUrl 도 같이 고침. 모델명은 기존 표기를 유지(스펙은 이번에 다시 대조하지 않음).
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40513/brooks-beast-gts-24-22195093-1440.jpg",
     colorways: ["블루/화이트", "블랙/실버"],
     widthOptions: ["2E", "4E"],
     heelDropMm: 12,
@@ -811,7 +820,7 @@ export const SHOES: Shoe[] = [
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Beast%2024", isOfficial: false },
     ],
     gender: "male",
-    sourceUrl: "https://runrepeat.com/brooks-beast-24",
+    sourceUrl: "https://runrepeat.com/brooks-beast-gts-24",
     cushioning: 4,
     stability: "motion_control",
     footTypes: ["flat"],
@@ -839,7 +848,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 38,
     weightGramsM9: 280,
     priceUsd: 150,
-    priceKrw: 209000,
+    priceKrw: 189000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+sky+9", isOfficial: true },
@@ -1060,15 +1069,12 @@ export const SHOES: Shoe[] = [
     id: "nike-infinity-run-4",
     brand: "Nike",
     model: "InfinityRN 4",
-    // ⚠️ 2026-09-06: 이 URL은 **200으로 400×400 이미지를 주는데 내용이 나이키의
-    //   "IMAGE UNAVAILABLE" 플레이스홀더**다.
-    //   같은 날 `nike.com/kr/w/infinity-run-shoes-56j6z` 카테고리도 사라져
-    //   전체 제품 페이지로 튕겼다. **단종 가능성이 있으나 확인하지 못했다** —
-    //   확인 전에는 successor 를 적지 않는다. 정상 로드되므로 onError 폴백도 안 걸리고
-    //   check:images 의 Content-Type 검사도 통과한다 — 기계가 원리상 못 잡는 종류다.
-    //   대체 URL을 찾으려 했으나 나이키 검색 페이지에서 추출하지 못했다.
-    //   **추측한 URL로 바꾸지 않는다.** 찾으면 그때 교체할 것. `npm run check:images:sheet` 참고.
-    imageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7e01e069-9b9f-47fc-ad9e-4d5a0d1c2285/infinity-run-4-road-running-shoes-XxRvxG.png",
+    // 2026-09-06: 나이키 이미지 URL이 200으로 "IMAGE UNAVAILABLE" 플레이스홀더를 주고 있었다
+    //   (check:images·onError 둘 다 통과하는 종류). 카테고리 링크(`/kr/w/infinity-run-shoes-56j6z`)도 사라졌다.
+    // 2026-09-27: 사진을 RunRepeat 대표 이미지로 교체(WebFetch 가 이미지 응답을 돌려줌을 확인),
+    //   공식몰 링크는 검색형으로 바꿨다. 나이키 코리아 검색에 InfinityRN 4 가 안 나온다 — 단종 여부는 여전히 미확인이라
+    //   successor 는 비워 둔다.
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40120/nike-infinity-rn-4-21212249-main.jpg",
     colorways: ["블랙/앤스라사이트", "화이트/퓨어플래티넘"],
     widthOptions: ["D", "2E"],
     heelDropMm: 9,
@@ -1078,7 +1084,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "나이키 공식몰", url: "https://www.nike.com/kr/w/infinity-run-shoes-56j6z", isOfficial: true },
+      { label: "나이키 공식몰", url: "https://www.nike.com/kr/w?q=infinity+run+4", isOfficial: true },
       { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%9D%B8%ED%94%BC%EB%8B%88%ED%8B%B0%EB%9F%B0%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20InfinityRN%204", isOfficial: false },
@@ -1113,7 +1119,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 38,
     weightGramsM9: 285,
     priceUsd: 140,
-    priceKrw: 195000,
+    priceKrw: 169000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+inspire+22", isOfficial: true },
@@ -1303,18 +1309,17 @@ export const SHOES: Shoe[] = [
     // **신제품 배지를 달고** 올라와 있다(nike.com/kr/w/pegasus-shoes-8nexhzy7ok).
     // 이 신발이 나빠진 건 아니지만 구형임을 숨기면 이 사이트의 주장이 무너진다.
     successor: "Pegasus Plus 2",
-    // ⚠️ 이 이미지는 **200으로 "IMAGE UNAVAILABLE" 나이키 플레이스홀더**를 준다.
-    //   `check:images`(Content-Type)도 `onError` 폴백도 통과하는 종류다 — 픽셀을 봐야 안다.
-    //   나이키 코리아에는 **2세대 이미지만** 있어서 그걸 붙이면 잘못된 사진이 된다.
-    //   1세대 이미지를 찾을 때까지 그대로 둔다. **추측한 URL로 바꾸지 않는다.**
-    imageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e447a700-9a18-4a16-8d68-b955ca35d9f7/pegasus-plus-road-running-shoes-HB4KlG.png",
+    // 2026-09-27: 나이키 이미지가 "IMAGE UNAVAILABLE" 플레이스홀더였던 것을 RunRepeat 1세대 대표 이미지로 교체
+    //   (WebFetch 가 이미지 응답을 돌려줌을 확인). 같은 날 hasCarbon 을 true → false 로 정정 —
+    //   RunRepeat 「no plate」, 이 항목의 scienceBasis 도 원래 「플레이트 없이」라고 적혀 있었다. 정가도 209,000 → 219,000.
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40527/nike-pegasus-plus-22083897-main.jpg",
     colorways: ["화이트/볼트", "블랙/앤스라사이트"],
     widthOptions: ["D"],
     heelDropMm: 10,
     stackHeightMm: 35,
     weightGramsM9: 244,
     priceUsd: 160,
-    priceKrw: 209000,
+    priceKrw: 219000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 페가수스 플러스", url: "https://www.nike.com/kr/w/pegasus-shoes-8nexhzy7ok", isOfficial: true },
@@ -1332,7 +1337,7 @@ export const SHOES: Shoe[] = [
     heightRangeCm: [150, 185],
     primaryBodyTypes: ["mid_light", "small_light", "small_mid"],
     uses: ["tempo", "daily", "racing"],
-    hasCarbon: true,
+    hasCarbon: false,
     blurb: "풀렝스 ZoomX 244g. 경량 러너 페가수스 라인 최고 반발력 템포화.",
     scienceBasis: "ZoomX 폼(발포 PEBA) — 플레이트 없이 85%+ 에너지 반환. 드롭 10mm 경량 러너 힐스트라이크 충격 분산 최적.",
     youtubeReviews: [
@@ -1571,7 +1576,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 37,
     weightGramsM9: 238,
     priceUsd: 140,
-    priceKrw: 159000,
+    priceKrw: 169000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 페가수스 42 여성", url: "https://www.nike.com/kr/w?q=%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4+42", isOfficial: true },
@@ -1921,7 +1926,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 40,
     weightGramsM9: 198,
     priceUsd: 285,
-    priceKrw: 380000,
+    priceKrw: 339000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 알파플라이 3", url: "https://www.nike.com/kr/w?q=alphafly+3", isOfficial: true },
@@ -2020,15 +2025,15 @@ export const SHOES: Shoe[] = [
     heightRangeCm: [158, 185],
     primaryBodyTypes: ["mid_mid", "mid_light", "tall_mid"],
     uses: ["daily", "tempo"],
-    hasCarbon: true,
-    blurb: "261g 카본 로드 템포화. EnergyRods+Lightstrike Pro로 일상 훈련부터 대회까지.",
-    scienceBasis: "EnergyRods 2.0(5개 카본 파이버 로드) + Lightstrike Pro 폼 — 플레이트형보다 유연한 카본 추진. 중급 러너 훈련화 중 카본 요소 탑재.",
+    hasCarbon: false,
+    blurb: "261g 로드 템포화. 유리섬유 EnergyRods + Lightstrike Pro 폼. 카본 플레이트는 없다.",
+    scienceBasis: "EnergyRods(전장 유리섬유 로드 — RunRepeat 표기 「full-length fiberglass Energyrods」, 플레이트 항목 ✗) + Lightstrike Pro 폼. 2026-09-27 전까지 이 칸에 「카본 파이버 로드」라고 잘못 적혀 있어 hasCarbon 도 true 였다.",
     forefootFit: "standard",
     instepVolume: "standard",
     youtubeReviews: [
       { label: "Boston 12 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+adizero+boston+12+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아디다스+보스턴+12+리뷰" },
-      { label: "카본 훈련화 비교 검색", url: "https://www.youtube.com/results?search_query=adizero+boston+12+vs+endorphin+speed" },
+      { label: "보스턴 12 vs 엔돌핀 스피드 비교 검색", url: "https://www.youtube.com/results?search_query=adizero+boston+12+vs+endorphin+speed" },
     ],
   },
   {
