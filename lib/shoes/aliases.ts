@@ -82,6 +82,17 @@ const ALIASES: Alias[] = [
   { match: / Plus$/, ko: ["플러스"] },
   { match: / Max /, ko: ["맥스"] },
   { match: /Flex/, ko: ["플렉스"] },
+  // 2026-09-27 2차 16종 — 한글 표기만
+  { match: /Cloudsurfer/, ko: ["클라우드서퍼"] },
+  { match: /Cloudboom/, ko: ["클라우드붐"] },
+  { match: /Hyper/, ko: ["하이퍼"] },
+  { match: /More v/, ko: ["모어"] },
+  { match: /880/, ko: ["880"] },
+  { match: /MagMax/, ko: ["맥맥스"] },
+  { match: /Supernova/, ko: ["슈퍼노바"] },
+  { match: /Rise/, ko: ["라이즈"] },
+  { match: /Prima/, ko: ["프리마"] },
+  { match: /MetaSpeed Ray/, ko: ["메타스피드 레이"] },
 ];
 
 const BRAND_KO: Record<string, string[]> = {
