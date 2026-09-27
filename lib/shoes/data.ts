@@ -54,7 +54,9 @@ import type { Shoe } from "./types";
  *     Wave Inspire 22 195,000→169,000 · Wave Sky 9 209,000→189,000 · Wave Rider 29 195,000→169,000 (kor.mizuno.com)
  *     Pegasus 42(남·여) 159,000→169,000 · Pegasus Plus 209,000→219,000 · Alphafly 3 380,000→339,000 ·
  *     Vaporfly 4 369,000→319,000 (nike.com/kr)
- *   **나머지는 이날 다시 보지 않았다** — 호카·온·뉴발란스·푸마·아디다스·아식스는 이 환경에서 공식몰을 못 읽었다.
+ *     (2차, 크롬) 1080 v15 239,000→229,000 · 860 v15 179,000→189,000 (nbkorea.com) · Adizero Boston 12 220,000→179,000 (adidas.co.kr)
+ *   **나머지는 이날 다시 보지 않았다** — 호카는 공식몰 인증서 오류로 못 보고, 온·뉴발란스·푸마·아디다스·아식스의
+ *   기존 모델은 위에 적은 것 말고는 대조하지 않았다.
  *   6월 값이 그대로 남아 있을 수 있으니 전수 재확인이 필요하다.
  *   같은 날 카본 표기도 둘 고쳤다: Pegasus Plus(플레이트 없음), Adizero Boston 12(유리섬유 EnergyRods) → hasCarbon false.
  * primaryBodyTypes: 각 신발이 최적인 체형 (1~3개)
@@ -462,7 +464,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 40,
     weightGramsM9: 261,
     priceUsd: 175,
-    priceKrw: 239000,
+    priceKrw: 229000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
@@ -925,7 +927,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 41,
     weightGramsM9: 295,
     priceUsd: 135,
-    priceKrw: 179000,
+    priceKrw: 189000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
@@ -2007,7 +2009,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 37,
     weightGramsM9: 261,
     priceUsd: 160,
-    priceKrw: 220000,
+    priceKrw: 179000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰 — Adizero Boston 12", url: "https://www.adidas.co.kr/search?q=Adizero+Boston+12", isOfficial: true },
@@ -2514,7 +2516,7 @@ export const SHOES: Shoe[] = [
     model: "Magic Speed 5",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/41099/asics-magic-speed-5-24415656-main.jpg",
     colorways: [],
-    widthOptions: ["D"],
+    widthOptions: ["D", "2E"],
     heelDropMm: 7,
     stackHeightMm: 35,
     weightGramsM9: 201,
@@ -2535,7 +2537,7 @@ export const SHOES: Shoe[] = [
     uses: ["tempo", "racing"],
     hasCarbon: true,
     blurb: "RunRepeat 분류 페이스: 템포·대회. 카본 플레이트.",
-    scienceBasis: "공개 스펙만 확인: RunRepeat 실측 무게 201g(브랜드 표기 196g)·뒤꿈치 스택 35.3mm, 브랜드 표기 드롭 7mm. 플레이트: 카본 플레이트. 폭 옵션 D(RunRepeat 남성 기준). 누구에게 맞는지는 아직 판단하지 않았습니다.",
+    scienceBasis: "공개 스펙만 확인: RunRepeat 실측 무게 201g(브랜드 표기 196g)·뒤꿈치 스택 35.3mm, 브랜드 표기 드롭 7mm. 플레이트: 카본 플레이트. 폭 옵션 D·2E(RunRepeat 는 D 만, 아식스 한국몰에 「매직 스피드 5(2E)」 209,000 이 따로 있음 — 2026-09-27 hyun 님 캡처). 누구에게 맞는지는 아직 판단하지 않았습니다.",
     youtubeReviews: [
       { label: "Magic Speed 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+magic+speed+5+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+매직스피드+5+리뷰" },
@@ -3081,7 +3083,7 @@ export const SHOES: Shoe[] = [
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40868/mizuno-wave-rebellion-flash-3-main-picture-24201775-main.jpg",
     colorways: [],
     widthOptions: ["D", "2E"],
-    heelDropMm: 3,
+    heelDropMm: 8,
     stackHeightMm: 40,
     weightGramsM9: 244,
     priceUsd: 180,
@@ -3101,7 +3103,7 @@ export const SHOES: Shoe[] = [
     uses: ["tempo"],
     hasCarbon: false,
     blurb: "RunRepeat 분류 페이스: 템포. 유리섬유 플레이트(카본 아님).",
-    scienceBasis: "공개 스펙만 확인: RunRepeat 실측 무게 244g·뒤꿈치 스택 40.0mm, 브랜드 표기 드롭 3mm. 플레이트: 유리섬유 플레이트(카본 아님). 폭 옵션 D·2E(RunRepeat 남성 기준). 누구에게 맞는지는 아직 판단하지 않았습니다.",
+    scienceBasis: "공개 스펙만 확인: RunRepeat 실측 무게 244g·뒤꿈치 스택 40.0mm, 드롭 8mm(미즈노 공식 필리핀몰 표기 — RunRepeat 스펙표의 브랜드 값 3mm 는 실측 7.5mm 와도 안 맞아 오기로 보고 쓰지 않음). 플레이트: 유리섬유 플레이트(카본 아님). 폭 옵션 D·2E(RunRepeat 남성 기준). 누구에게 맞는지는 아직 판단하지 않았습니다.",
     youtubeReviews: [
       { label: "Wave Rebellion Flash 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+rebellion+flash+3+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=미즈노+웨이브+리벨리온+플래시+3+리뷰" },

@@ -111,6 +111,9 @@ const VERIFIED = {
   // 2026-09-27 추가. 써코니 한국 공식몰(운영 주식회사 조이웍스). WebFetch 로 검색 결과가 나오는 것을 확인한 검색어:
   //   가이드·라이드·킨바라·엔돌핀·스피드·트라이엄프·허리케인·엘리트·아주라. 「가이드 18」을 검색하면 가이드 19만 나온다.
   "saucony.co.kr":        { date: "2026-09-27", shape: /\/product\/search\.html\?keyword=/, nature: "대체됨",   note: "가이드 18 → 결과가 전부 가이드 19. 트라이엄프 23 은 아직 남아 있음" },
+  // 2026-09-27 추가(크롬으로 직접 열어 봄). 뉴발란스 한국몰은 WebFetch 로는 403 이라 크롬에서만 확인된다.
+  "nbkorea.com":          { date: "2026-09-27", shape: /\/product\/searchResult\.action\?schWord=/, nature: "남아있음", note: "1080·860·모어·레벨·SC 검색 결과에 정가 표시. 1080 은 v15 가 폭(D·2E·4E)마다 값이 다르게 걸려 있다" },
+  "on.com":               { date: "2026-09-27", shape: /\/ko-kr\/shop\/mens\/shoes/,   nature: "해당없음", note: "검색 URL 형태는 여전히 못 찾았다. 남성 신발 전체 목록(59개)으로 건다 — 모델과 무관" },
 };
 
 /**
@@ -128,8 +131,8 @@ const DEAD_DOMAINS = {
     "도메인이 존재하지 않는다 (DNS_PROBE_FINISHED_NXDOMAIN). 2026-09-06 확인",
   "hoka.com":
     "한국 경로가 전부 404다. /ko-kr/ 도, /ko/kr/ 도 미국 사이트의 오류 페이지로 간다. 2026-09-06 확인",
-  "on.com":
-    "/ko-kr/cloudrunner 등 제품 경로가 404다. /ko-kr/shop 은 살아 있으나 검색 URL 형태를 찾지 못했다. 2026-09-06 확인",
+  // "on.com" 은 2026-09-27 에 뺐다 — 크롬으로 /ko-kr/shop/mens/shoes 를 열어 가격이 붙은 목록 59개를 확인했다.
+  //   (09-06 에 404 였던 건 /ko-kr/cloudrunner 같은 짐작 경로. 실제 상품 경로는 /ko-kr/products/… 이고 컬러마다 바뀐다)
 };
 
 /** 검색 결과 페이지인가 — 이런 링크는 200이어도 빈 결과일 수 있다 */
