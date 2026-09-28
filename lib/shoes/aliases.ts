@@ -18,6 +18,9 @@ type Alias = { match: RegExp; ko: string[]; nick?: string[] };
 const ALIASES: Alias[] = [
   { match: /Novablast/, ko: ["노바블라스트"], nick: ["노블(110)", "노바(68)"] },
   { match: /Superblast/, ko: ["슈퍼블라스트"], nick: ["슈블(91)"] },
+  // 2026-09-28 세대 애칭 — 같은 채팅 2곳, 메시지 본문에서 「노블 6」「슈블 3」처럼 띄어 쓴 것도 셈
+  { match: /Novablast 6/, ko: [], nick: ["노블6(32)", "노바6(12)"] },
+  { match: /Superblast 3/, ko: [], nick: ["슈블3(44)"] },
   { match: /Adios Pro 4/, ko: ["아디오스 프로 4"], nick: ["프로4(42)", "아프4(6)", "아디프로4(4)"] },
   { match: /Alphafly 3/, ko: ["알파플라이 3"], nick: ["알파플(14)", "알파3(7)"] },
   { match: /Vaporfly/, ko: ["베이퍼플라이"], nick: ["베이퍼(18)"] },
@@ -72,7 +75,7 @@ const ALIASES: Alias[] = [
   { match: /Neo Vista/, ko: ["네오 비스타", "네오비스타"] },
   { match: /Neo Zen/, ko: ["네오 젠", "네오젠"] },
   { match: /Wave Rebellion/, ko: ["웨이브 리벨리온", "리벨리온"] },
-  { match: /Zoom Fly/, ko: ["줌플라이", "줌 플라이"] },
+  { match: /Zoom Fly/, ko: ["줌플라이", "줌 플라이"], nick: ["줌플(5)"] },
   { match: /Streakfly/, ko: ["스트릭플라이"] },
   { match: /Structure/, ko: ["스트럭처"] },
   { match: /Winflo/, ko: ["윈플로"] },
