@@ -281,6 +281,8 @@ npm run check:shoes           # 신발: 어느 모델을 언제 확인했는지 
 npm run check:figures         # 동작 그림: 관절 각도를 계산해 발이 바닥을 뚫는지
 npm run check:links           # 구매 링크 406개: 상태코드
 npm run check:links:plan      # 확인할 쇼핑몰 큐 (오프라인)
+npm run check:links:kr        # 한국 PC 전용: 진짜 Chrome 으로 열어 「모델이 보이나·0건·후속작만·마감 문구·가격 후보」 판정
+                              #   → outputs/link-check-kr.json (Claude 가 읽음) · .html (사람이 봄). 쿠팡은 열지 않는다
 npm run check:images          # 신발 사진 52장: 실제로 뜨는지 + 출처가 어디인지
 npm run check:images:plan     # 출처 분포만 (오프라인)
 npm run check:internal        # 내부 링크: 고아 페이지·끊긴 경로·sitemap 누락 (오프라인)

@@ -1,0 +1,37 @@
+# 브라우저 링크 검사 — **한국 PC(self-hosted runner)** 에서 돈다
+#
+# 왜 따로 두나 (2026-09-28)
+# ───────────────────────
+# checks.yml 의 network 잡은 GitHub 러너(미국)라서 두 가지를 못 본다.
+#   · 해외 IP 를 막는 한국 대회 사이트(김대중·과천·한강시민 — 한국 Chrome 에선 정상)
+#   · 상태코드 200 인데 **찾던 모델이 없는** 검색 결과 (JS 로 그리는 온·뉴발란스 공식몰 포함)
+# scripts/check-links-browser.mjs 가 둘 다 본다. 이 파일은 그걸 매주 사람 없이 돌리는 자리다.
+#
+# 켜는 법 (한 번만, hyun 님 PC 에서)
+#   1) GitHub 저장소 → Settings → Actions → Runners → New self-hosted runner → Windows
+#      화면의 명령을 PowerShell 에 붙여넣고, 라벨을 물으면 `kr` 을 넣는다
+#   2) Settings → Secrets and variables → Actions → Variables 에 `KR_RUNNER` = `on`
+# 러너를 등록하기 전에는 **돌지 않는다**(아래 if) — 받을 러너가 없는 잡이 매주 대기하다 실패하는 것을 막는다.
+# 러너 없이도 PC 에서 `npm run check:links:kr` 한 줄이면 같은 검사가 된다.
+
+name: links-kr
+
+on:
+  schedule:
+    - cron: "30 0 * * 1" # 매주 월요일 09:30 KST
+  workflow_dispatch:
+
+jobs:
+  browser:
+    name: 브라우저 링크 검사 (한국 Chrome)
+    if: vars.KR_RUNNER == 'on'
+    runs-on: [self-hosted, kr]
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm run check:links:kr
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: link-check-kr
+          path: outputs/link-check-kr.*
