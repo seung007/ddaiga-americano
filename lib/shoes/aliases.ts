@@ -30,7 +30,7 @@ const ALIASES: Alias[] = [
   { match: /Velocity NITRO/, ko: ["벨로시티 나이트로"], nick: ["벨나(1)"] },
   { match: /Adrenaline/, ko: ["아드레날린"], nick: ["아드"] },
   { match: /Gel-Nimbus/, ko: ["젤님버스", "님버스"] },
-  { match: /Gel-Cumulus/, ko: ["젤큐뮬러스", "큐뮬러스"] },
+  { match: /Gel-Cumulus/, ko: ["젤큐뮬러스", "큐뮬러스", "큐물러스"] }, // 「큐물러스」는 아식스 한국몰·KREAM 표기
   { match: /GT-2000/, ko: ["GT2000"] },
   { match: /MetaSpeed Sky/, ko: ["메타스피드 스카이"] },
   { match: /Jolt/, ko: ["졸트"] },

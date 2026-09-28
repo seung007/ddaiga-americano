@@ -85,7 +85,14 @@ if (flag("selftest")) {
   if (refusal.verdict !== "차단") { bad++; console.log(C.red(`✗ 거절을 ${refusal.verdict} 로 읽음`)); }
   const bounce = judgeShoePage({ ok: true, status: 200, url: "https://saucony.co.kr/product/search.html?keyword=%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%97%84%ED%94%84", finalUrl: "https://saucony.co.kr/", text: `남성 트라이엄프 24 209,000원 ${"여백 ".repeat(150)}` }, { model: "Triumph 24" }, aliases);
   if (bounce.verdict !== "죽음") { bad++; console.log(C.red(`✗ 홈으로 튕긴 검색을 ${bounce.verdict} 로 읽음`)); }
-  console.log(bad ? C.red(`\n자체 시험 ${bad}건 실패`) : C.green(`자체 시험 통과 (${cases.length + 6}건)`));
+  // 두 번째 실행에서 나온 것 — 알림창 0건, 세 글자 한글 이름, 상품명이 검색어와 같은 KREAM
+  const alertZero = judgeShoePage({ ok: true, status: 200, url: "https://brooksrunning.co.kr/product/search.html?keyword=x", finalUrl: "about:blank", text: "", dialog: "검색결과가 없습니다." }, { model: "Beast 24" }, aliases);
+  if (alertZero.verdict !== "0건") { bad++; console.log(C.red(`✗ 알림창 0건 → ${alertZero.verdict}`)); }
+  const journey = judgeShoePage({ ok: true, status: 200, url: "https://www.nike.com/kr/w?q=%EC%A0%80%EB%8B%88%20%EB%9F%B0", title: "제품. 나이키 코리아", text: `검색결과: 저니 런 (6) 나이키 저니 런 남성 로드 러닝화 119,000 원 ${"여백 ".repeat(150)}` }, { model: "Journey Run" }, aliases);
+  if (journey.verdict !== "ok") { bad++; console.log(C.red(`✗ 저니 런 → ${journey.verdict}`)); }
+  const kream = judgeShoePage({ ok: true, status: 200, url: "https://kream.co.kr/search?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203", title: "아디다스 슈퍼노바 프리마 3 추천 상품 시세 확인 | KREAM", text: `Adidas 아디다스 슈퍼노바 프리마 3 코어 블랙 클라우드 화이트 159,000원 ${"여백 ".repeat(150)}` }, { model: "Supernova Prima 3" }, aliases);
+  if (kream.verdict !== "ok") { bad++; console.log(C.red(`✗ KREAM 상품명=검색어 → ${kream.verdict}`)); }
+  console.log(bad ? C.red(`\n자체 시험 ${bad}건 실패`) : C.green(`자체 시험 통과 (${cases.length + 9}건)`));
   process.exit(bad ? 1 : 0);
 }
 
@@ -123,7 +130,13 @@ function displayStatus(r, today) {
 }
 
 const domainOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return "?"; } };
-const SKIP = { "coupang.com": "봇 차단 — 우회하지 않음. check:affiliate:sheet 로 사람이 본다", "link.coupang.com": "쿠팡 제휴 링크 — 위와 같음" };
+const SKIP = {
+  "coupang.com": "봇 차단 — 우회하지 않음. check:affiliate:sheet 로 사람이 본다",
+  "link.coupang.com": "쿠팡 제휴 링크 — 위와 같음",
+  // 2026-09-28: 헤드리스는 403, 창 모드도 자동화 브라우저라 빈 화면(55자). 사람 Chrome 으로는 열린다(같은 날 확인).
+  // 자동화 흔적을 숨기는 건 우회라서 하지 않는다 — 아디다스는 사람이 본다
+  "adidas.co.kr": "자동화 브라우저 차단 — 사람 Chrome 으로는 열림. 우회하지 않음",
+};
 /** 가격 후보를 뽑을 곳 — 한국 공식몰(+ 공식몰이 없는 호카의 무신사) */
 const PRICE_DOMAINS = new Set(["asics.co.kr", "nike.com", "adidas.co.kr", "nbkorea.com", "kr.puma.com", "on.com",
   "saucony.co.kr", "kor.mizuno.com", "brooksrunning.co.kr", "decathlon.co.kr", "musinsa.com"]);
@@ -182,6 +195,9 @@ const context = await browser.newContext({
 /** 한 주소를 연다. 실패 메시지는 첫 줄만 남기되 원인(코드)은 지우지 않는다 (AGENTS.md: e.name 만 찍지 마라) */
 async function visit(url) {
   const page = await context.newPage();
+  // 카페24 쇼핑몰은 검색 결과가 없으면 alert() 를 띄운다 — 닫고 문구를 판정에 넘긴다 (브룩스 비스트 24, 2026-09-28)
+  let dialog = null;
+  page.on("dialog", (d) => { dialog = d.message(); d.dismiss().catch(() => {}); });
   try {
     const res = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
     await page.waitForLoadState("networkidle", { timeout: 8_000 }).catch(() => {});
@@ -196,8 +212,9 @@ async function visit(url) {
       await page.waitForTimeout(3000);
       text = await page.evaluate(() => document.body?.innerText ?? "").catch(() => "");
     }
-    return { ok: true, status: res?.status() ?? 0, url, finalUrl: page.url(), title: await page.title().catch(() => ""), text };
+    return { ok: true, status: res?.status() ?? 0, url, finalUrl: page.url(), title: await page.title().catch(() => ""), text, dialog };
   } catch (e) {
+    if (dialog) return { ok: true, status: 200, url, finalUrl: url, title: "", text: "", dialog };
     return { ok: false, url, error: String(e.message ?? e).split("\n")[0].slice(0, 200) };
   } finally {
     await page.close().catch(() => {});
@@ -258,12 +275,14 @@ if (refused.length && !flag("no-retry") && !flag("headed") && !process.env.CI) {
   let fixed = 0;
   for (const url of refused) {
     const pg = await c2.newPage();
+    let dialog = null;
+    pg.on("dialog", (d) => { dialog = d.message(); d.dismiss().catch(() => {}); });
     try {
       const res = await pg.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
       await pg.waitForLoadState("networkidle", { timeout: 8_000 }).catch(() => {});
       await pg.waitForTimeout(800);
       const text = await pg.evaluate(() => document.body?.innerText ?? "").catch(() => "");
-      const p = { ok: true, status: res?.status() ?? 0, url, finalUrl: pg.url(), title: await pg.title().catch(() => ""), text, retried: "headed" };
+      const p = { ok: true, status: res?.status() ?? 0, url, finalUrl: pg.url(), title: await pg.title().catch(() => ""), text, dialog, retried: "headed" };
       if (!isRefusal(p)) { pages.set(url, p); fixed++; }
     } catch (e) {
       /* 그대로 차단으로 둔다 */

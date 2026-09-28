@@ -23,11 +23,11 @@ export function compact(s) {
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /** 별칭 파일에 없는 수식어의 한글 표기. 한글 쇼핑몰은 「리벨리온 프로」「클라우드서퍼 맥스」처럼 쓴다 */
-const MODIFIER_KO = [["Pro", "프로"], ["Flash", "플래시"], ["Max", "맥스"], ["Next", "넥스트"], ["Plus", "플러스"],
+const MODIFIER_KO = [["Pro", "프로"], ["Flash", "플래시"], ["Flash", "플래쉬"], ["Max", "맥스"], ["Next", "넥스트"], ["Plus", "플러스"],
   ["Elite", "엘리트"], ["Speed", "스피드"], ["Hyper", "하이퍼"], ["Sky", "스카이"], ["Edge", "엣지"], ["NITRO", "나이트로"], ["SL", "SL"]];
 
 /** 라인·기술 이름 접두어 — 이걸 뗀 꼬리도 키로 쓴다 ("Gel-Kayano" → "kayano", "Fresh Foam X 1080" → "1080") */
-const PREFIXES = ["gel", "freshfoamx", "fuelcell", "zoomx", "adizero", "nike", "hoka"];
+const PREFIXES = ["gel", "freshfoamx", "fuelcell", "zoomx", "adizero", "nike", "hoka", "kiprun", "킵런"];
 
 /**
  * aliases.ts 원문에서 `{ match: /…/, ko: [...] }` 를 뽑는다. TS 를 실행하지 않으려고 정규식으로 읽는다.
@@ -57,7 +57,8 @@ function splitGen(name) {
 export function modelSpec(model, aliases) {
   const base = model.replace(/\s*\((여성|Wide|와이드)\)\s*/gi, " ").replace(/\s+/g, " ").trim();
   // 한글 조합: 별칭을 긴 것부터 차례로 치환 ("Pegasus Plus" → "페가수스 플러스")
-  let variants = [base];
+  // 「Sky+」는 쇼핑몰마다 「스카이+」「스카이 플러스」「Sky Plus」로 쓴다
+  let variants = /\+$/.test(base) ? [base, base.replace(/\+$/, " Plus")] : [base];
   const sorted = [...aliases].sort((a, b) => b.re.source.length - a.re.source.length);
   for (const a of sorted) {
     if (!a.re.test(base)) continue;
@@ -71,9 +72,16 @@ export function modelSpec(model, aliases) {
   // 별칭이 안 덮은 영문 수식어도 한글로 ("웨이브 리벨리온 Pro 3" → "웨이브 리벨리온 프로 3")
   variants = variants.flatMap((v) => {
     if (!/[가-힣]/.test(v)) return [v];
-    let w = v;
-    for (const [en, ko] of MODIFIER_KO) w = w.replace(new RegExp(`\\b${en}\\b`, "gi"), ko);
-    return w === v ? [v] : [v, w];
+    // 같은 영문에 표기가 둘이면(Flash → 플래시·플래쉬) 둘 다 만든다 — KREAM 이 「플래쉬」라서 두 번째 실행에서 놓쳤다
+    const alts = new Map();
+    for (const [en, ko] of MODIFIER_KO) alts.set(en, [...(alts.get(en) ?? []), ko]);
+    const outs = [v];
+    for (const pick of [0, 1]) {
+      let w = v;
+      for (const [en, kos] of alts) w = w.replace(new RegExp(`\\b${en}\\b`, "gi"), kos[Math.min(pick, kos.length - 1)]);
+      if (!outs.includes(w)) outs.push(w);
+    }
+    return outs;
   });
   // 한글이 섞였으면 앞에 남은 영문 단어를 뗀다 ("Fresh Foam X 프레시폼 1080" → "프레시폼 1080")
   variants = variants.flatMap((v) => (/[가-힣]/.test(v) ? [v, v.replace(/^[A-Za-z0-9+\s-]+?(?=[가-힣])/, "")] : [v]));
@@ -93,7 +101,7 @@ export function modelSpec(model, aliases) {
 export function countModel(ctext, spec) {
   let best = 0;
   for (const k of spec.keys) {
-    if (!spec.gen && k.length < 4) continue;
+    if (!spec.gen && k.length < (/[가-힣]/.test(k) ? 3 : 4)) continue;
     const re = spec.gen ? new RegExp(`${esc(k)}[^0-9]{0,6}?v?${spec.gen}(?![0-9])`, "g") : new RegExp(esc(k), "g");
     best = Math.max(best, [...ctext.matchAll(re)].length);
   }
@@ -112,11 +120,23 @@ export function queryOf(url) {
   return null;
 }
 
+/**
+ * 페이지가 검색어를 **되풀이한 횟수** — 제목 안, 그리고 「…에 대한 검색결과」「검색결과: …」 자리만.
+ * 2026-09-28 두 번째 실행: KREAM 은 상품명이 검색어와 글자까지 같아서(「아디다스 슈퍼노바 프리마 3 …」)
+ * 단순히 검색어 등장 횟수를 세면 **상품까지 되풀이로 쳐서** 있는 모델을 「모델없음」으로 읽었다.
+ */
+export function echoCount(ctitle, ctext, cq) {
+  let n = ctitle.includes(cq) ? 1 : 0;
+  const re = new RegExp(`${esc(cq)}(?=에대한|의검색결과|검색결과)|(?:검색결과|검색어)[:：]?${esc(cq)}`, "g");
+  n += [...ctext.matchAll(re)].length;
+  return Math.min(n, 2);
+}
+
 /** 페이지 글자(compact 된 것)에 모델이 있는가. 세대가 있으면 키 **바로 뒤**(6자 이내)에 그 번호가 와야 한다 */
 export function hasModel(ctext, spec) {
   for (const k of spec.keys) {
     if (!spec.gen) {
-      if (k.length >= 4 && ctext.includes(k)) return true;
+      if (k.length >= (/[가-힣]/.test(k) ? 3 : 4) && ctext.includes(k)) return true;
       continue;
     }
     const re = new RegExp(`${esc(k)}[^0-9]{0,6}?v?${spec.gen}(?![0-9])`);
@@ -198,16 +218,17 @@ export function judgeShoePage(page, shoe, aliases, { wantPrice = false } = {}) {
   const ctext = compact(`${page.title ?? ""} ${page.text ?? ""}`);
   if (BLOCKED.some((b) => ctext.includes(b))) return { verdict: "차단", note: `HTTP ${page.status} · 차단 안내문` };
   if (page.status >= 400) return { verdict: "죽음", note: `HTTP ${page.status}` };
-  if (ctext.length < 200) return { verdict: "모델없음", note: `본문 ${ctext.length}자 — 페이지가 비었거나 아직 안 그려짐` };
+  if (ctext.length < 200 && !page.dialog) return { verdict: "모델없음", note: `본문 ${ctext.length}자 — 페이지가 비었거나 아직 안 그려짐` };
   if (isGenericLink(page.url ?? "")) return { verdict: "목록형" };
 
+  if (page.dialog && /없습니다|결과가 없|찾을 수 없/.test(page.dialog)) return { verdict: "0건", note: `알림창: ${page.dialog.slice(0, 60)}` };
   // 0건 문구를 먼저 본다 — 「"큐뮬러스28"에 대한 검색결과 0개」는 검색어 자체가 모델명이라 아래에서 ok 로 읽힌다
   const spec = modelSpec(shoe.model, aliases);
   if (ZERO.some((z) => ctext.includes(z))) return { verdict: "0건", seen: seenLines(page.text, spec) };
   // 검색어에 모델이 들어 있으면 페이지가 제목·머리글로 검색어를 되풀이한다. 그 되풀이 횟수(최대 2)보다 많아야 상품이 있는 것
   const q = queryOf(page.url ?? "");
   const cq = q ? compact(q) : "";
-  const echo = cq && hasModel(cq, spec) ? Math.min(ctext.split(cq).length - 1, 2) : 0;
+  const echo = cq && hasModel(cq, spec) ? echoCount(compact(page.title ?? ""), ctext, cq) : 0;
   const need = echo + 1;
   if (countModel(ctext, spec) >= need) {
     const prices = wantPrice ? priceCandidates(ctext, spec) : undefined;
