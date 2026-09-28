@@ -1844,5 +1844,177 @@
     "officialUrl": "https://runwithus.co.kr/",
     "startTime": "10km 09:00~09:06 (A~C그룹) · 5km 09:10·09:13 (A·B그룹) · 걷기 3.65km 09:30",
     "note": "공식 접수 사이트(runwithus.co.kr)에는 「2026 천안희망나눔 마라톤」으로 적혀 있습니다. 날짜·장소·종목은 같습니다."
+  },
+  {
+    "id": "jtbc-seoul-2026",
+    "name": "2026 JTBC 서울마라톤",
+    "date": "2026-11-01",
+    "region": "서울",
+    "distancesKm": [
+      42.195,
+      10
+    ],
+    "status": "접수중",
+    "venue": "상암월드컵공원 출발 · 풀코스 올림픽공원 · 10km 여의도공원",
+    "startTime": "풀코스 07:30",
+    "fees": [
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 150000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 100000
+      }
+    ],
+    "capacity": "30,000명",
+    "organizer": "JTBC · 대한육상연맹 · 러너블",
+    "sourceUrl": "https://marathon.jtbc.com/index",
+    "officialUrl": "https://marathon.jtbc.com/index",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "본접수(추첨)는 4월에 끝났고, 9/8(화) 14시부터 미등록분 선착순 추가 접수가 열렸습니다(러너블). 9/28 기준 공식 공지에 마감 안내는 없습니다. 풀코스는 만 18세 이상·5시간 이내 완주 가능자만 참가할 수 있습니다. 9/18 17시 이후 취소·환불 불가."
+  },
+  {
+    "id": "chuncheon-2026",
+    "name": "2026 춘천마라톤",
+    "date": "2026-10-25",
+    "region": "강원",
+    "distancesKm": [
+      42.195,
+      10
+    ],
+    "status": "마감",
+    "venue": "춘천 공지천교 (집결 공지천 인조잔디구장)",
+    "startTime": "09:00",
+    "organizer": "조선일보 · 춘천시 · 스포츠조선 · 대한육상연맹",
+    "sourceUrl": "https://www.chuncheonmarathon.com/",
+    "officialUrl": "https://www.chuncheonmarathon.com/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "공식 신청 페이지에 「참가신청이 마감되었습니다」 표시."
+  },
+  {
+    "id": "gyeongju-2026",
+    "name": "2026 경주마라톤",
+    "date": "2026-10-17",
+    "region": "경북",
+    "distancesKm": [
+      42.195,
+      21.0975,
+      10
+    ],
+    "status": "마감",
+    "venue": "경주시민운동장",
+    "startTime": "08:00",
+    "fees": [
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 70000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 60000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "capacity": "일반 9,000명 / 매니아 7,000명",
+    "cutoff": "풀코스 5시간 · 하프 2시간 30분 · 10km 1시간 30분",
+    "sourceUrl": "https://www.gyeongjumarathon.com/",
+    "officialUrl": "https://www.gyeongjumarathon.com/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "본접수가 5/26 19시에 열려 같은 날 마감 공지가 올라왔습니다. 매니아(기념 티셔츠 없음)는 참가비가 1만 원씩 낮습니다."
+  },
+  {
+    "id": "seoul-marathon-2027",
+    "name": "2027 서울마라톤 겸 제97회 동아마라톤",
+    "date": "2027-03-21",
+    "region": "서울",
+    "distancesKm": [
+      42.195,
+      10
+    ],
+    "status": "마감",
+    "venue": "풀코스 광화문광장(예정) · 10km 잠실종합운동장(예정)",
+    "sourceUrl": "https://seoul-marathon.com/",
+    "officialUrl": "https://seoul-marathon.com/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "국내 참가권은 6/4에 모두 매진됐습니다(공식 공지). 11/30 14시까지 취소하면 전액 환불. 해외 참가자 접수는 추후 안내."
+  },
+  {
+    "id": "daegu-2027",
+    "name": "2027 대구마라톤",
+    "date": "2027-02-28",
+    "region": "대구",
+    "distancesKm": [
+      42.195,
+      10
+    ],
+    "status": "접수예정",
+    "venue": "국채보상공원 및 시내 일원",
+    "startTime": "08:00",
+    "registrationStart": "2026-10-12",
+    "registrationEnd": "2026-11-01",
+    "organizer": "대구광역시 · 대한육상연맹",
+    "sourceUrl": "https://daegumarathon.daegu.go.kr/kor/index.do",
+    "officialUrl": "https://daegumarathon.daegu.go.kr/kor/index.do",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "풀코스 신청 10/12~10/18(결제 10/19~25), 10km·건강달리기 신청 10/26~11/1(결제 11/2~8). WMAC 사전접수 10/5~11, 단체접수 11/16~19. 참가비·건강달리기 거리는 공식 참가안내 페이지를 열지 못해 비워 뒀습니다."
+  },
+  {
+    "id": "jinju-2026",
+    "name": "제36회 진주마라톤대회",
+    "date": "2026-12-13",
+    "region": "경남",
+    "distancesKm": [
+      42.195,
+      21.0975,
+      10,
+      5
+    ],
+    "status": "마감",
+    "venue": "진주노을공원(남강댐 물문화관)",
+    "startTime": "풀코스 09:30 · 하프 09:40 · 10km 09:50 · 5km 10:00",
+    "fees": [
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 45000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 45000
+      },
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 25000
+      }
+    ],
+    "capacity": "5,000명 (선착순)",
+    "organizer": "진주시육상연맹",
+    "registrationStart": "2026-09-14",
+    "sourceUrl": "https://www.jinma.co.kr/",
+    "officialUrl": "https://www.jinma.co.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "9/14 10시 선착순 접수가 열렸고, 공식 신청 페이지에 「참가신청 접수가 종료되었습니다」 표시. 매니아(기념품 없음)·학생 참가비는 따로 있습니다."
   }
 ]
