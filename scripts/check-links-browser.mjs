@@ -33,7 +33,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { compact, modelSpec, hasModel, parseAliases, judgeShoePage, judgeRacePage } from "./lib/link-judge.mjs";
+import { compact, modelSpec, hasModel, parseAliases, judgeShoePage, judgeRacePage, isRefusal } from "./lib/link-judge.mjs";
 
 const ROOT = process.cwd();
 const OUT_DIR = join(ROOT, "outputs");
@@ -80,7 +80,12 @@ if (flag("selftest")) {
   if (rule.verdict !== "ok") { bad++; console.log(C.red(`✗ 규정 문장을 마감으로 읽음 → ${rule.verdict}`)); }
   const closed = judgeRacePage({ ok: true, status: 200, text: "2026 대청호 오백리길 걷기대회 모집 마감되었습니다" }, { name: "2026 대청호 오백리길 걷기대회", date: "2026-10-31" }, "접수중");
   if (closed.verdict !== "마감문구") { bad++; console.log(C.red(`✗ 마감 문구 놓침 → ${closed.verdict}`)); }
-  console.log(bad ? C.red(`\n자체 시험 ${bad}건 실패`) : C.green(`자체 시험 통과 (${cases.length + 4}건)`));
+  // 2026-09-28 첫 실행에서 나온 두 가지 — 헤드리스 거절을 「죽음」으로, 홈으로 튕긴 검색을 「ok」로 읽으면 안 된다
+  const refusal = judgeShoePage({ ok: false, url: "https://kream.co.kr/search?keyword=x", error: "page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://kream.co.kr/" }, { model: "Clifton 10" }, aliases);
+  if (refusal.verdict !== "차단") { bad++; console.log(C.red(`✗ 거절을 ${refusal.verdict} 로 읽음`)); }
+  const bounce = judgeShoePage({ ok: true, status: 200, url: "https://saucony.co.kr/product/search.html?keyword=%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%97%84%ED%94%84", finalUrl: "https://saucony.co.kr/", text: `남성 트라이엄프 24 209,000원 ${"여백 ".repeat(150)}` }, { model: "Triumph 24" }, aliases);
+  if (bounce.verdict !== "죽음") { bad++; console.log(C.red(`✗ 홈으로 튕긴 검색을 ${bounce.verdict} 로 읽음`)); }
+  console.log(bad ? C.red(`\n자체 시험 ${bad}건 실패`) : C.green(`자체 시험 통과 (${cases.length + 6}건)`));
   process.exit(bad ? 1 : 0);
 }
 
@@ -185,10 +190,15 @@ async function visit(url) {
       await page.mouse.wheel(0, 2500).catch(() => {});
       await page.waitForTimeout(600);
     }
-    const text = await page.evaluate(() => document.body?.innerText ?? "").catch(() => "");
-    return { ok: true, status: res?.status() ?? 0, url: page.url(), title: await page.title().catch(() => ""), text };
+    let text = await page.evaluate(() => document.body?.innerText ?? "").catch(() => "");
+    // 본문이 거의 비었으면 한 번 더 기다린다 — 첫 실행에서 브룩스 한 곳이 about:blank 0자로 잡혔다
+    if (text.trim().length < 200) {
+      await page.waitForTimeout(3000);
+      text = await page.evaluate(() => document.body?.innerText ?? "").catch(() => "");
+    }
+    return { ok: true, status: res?.status() ?? 0, url, finalUrl: page.url(), title: await page.title().catch(() => ""), text };
   } catch (e) {
-    return { ok: false, error: String(e.message ?? e).split("\n")[0].slice(0, 200) };
+    return { ok: false, url, error: String(e.message ?? e).split("\n")[0].slice(0, 200) };
   } finally {
     await page.close().catch(() => {});
   }
@@ -234,6 +244,38 @@ async function worker() {
 await Promise.all(Array.from({ length: Math.min(4, queues.length) }, worker));
 await browser.close();
 
+/**
+ * 거절당한 주소는 **창을 띄운 Chrome** 으로 한 번 더 연다 — 사람이 여는 것과 같은 조건.
+ * 첫 실행(2026-09-28)에서 KREAM 101개·아디다스 7개가 헤드리스에서만 거절됐다. 사람 Chrome 에서는 열렸다.
+ * 이건 우회가 아니다: 사용자 PC 의 보통 브라우저로, 한 곳씩 1.5초 간격으로 연다. 여기서도 거절되면 진짜 차단으로 둔다.
+ * CI(러너 서비스)에는 화면이 없어서 건너뛴다. `--no-retry` 로 끌 수 있다.
+ */
+const refused = [...pages.entries()].filter(([, p]) => isRefusal(p)).map(([u]) => u);
+if (refused.length && !flag("no-retry") && !flag("headed") && !process.env.CI) {
+  console.log(C.dim(`\n거절된 ${refused.length}개를 창을 띄운 Chrome 으로 다시 엽니다 (창이 잠깐 뜹니다)…`));
+  const b2 = await chromium.launch({ channel: "chrome", headless: false }).catch(() => chromium.launch({ headless: false }));
+  const c2 = await b2.newContext({ locale: "ko-KR", timezoneId: "Asia/Seoul", viewport: { width: 1280, height: 900 } });
+  let fixed = 0;
+  for (const url of refused) {
+    const pg = await c2.newPage();
+    try {
+      const res = await pg.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
+      await pg.waitForLoadState("networkidle", { timeout: 8_000 }).catch(() => {});
+      await pg.waitForTimeout(800);
+      const text = await pg.evaluate(() => document.body?.innerText ?? "").catch(() => "");
+      const p = { ok: true, status: res?.status() ?? 0, url, finalUrl: pg.url(), title: await pg.title().catch(() => ""), text, retried: "headed" };
+      if (!isRefusal(p)) { pages.set(url, p); fixed++; }
+    } catch (e) {
+      /* 그대로 차단으로 둔다 */
+    } finally {
+      await pg.close().catch(() => {});
+    }
+    await new Promise((r) => setTimeout(r, 1500));
+  }
+  await b2.close();
+  console.log(C.dim(`  → ${fixed}/${refused.length}개가 창 모드에서 열림`));
+}
+
 // ── 판정 ─────────────────────────────────────────────────
 const results = [];
 for (const t of todo) {
@@ -241,9 +283,9 @@ for (const t of todo) {
   if (SKIP[d]) { results.push({ ...slim(t), verdict: "건너뜀", note: SKIP[d] }); continue; }
   const p = pages.get(t.url);
   const j = t.kind === "shoe"
-    ? judgeShoePage({ ...p, url: t.url }, t.shoe, aliases, { wantPrice: PRICE_DOMAINS.has(d) })
+    ? judgeShoePage(p, t.shoe, aliases, { wantPrice: PRICE_DOMAINS.has(d) })
     : judgeRacePage(p, t.race, t.status);
-  const r = { ...slim(t), ...j, httpStatus: p.status ?? null, finalUrl: p.url && p.url !== t.url ? p.url : undefined };
+  const r = { ...slim(t), ...j, httpStatus: p.status ?? null, finalUrl: p.finalUrl && p.finalUrl !== t.url ? p.finalUrl : undefined, retried: p.retried };
   if (t.kind === "shoe" && j.prices?.length && t.shoe.priceKrw && !j.prices.includes(t.shoe.priceKrw)) {
     r.priceFlag = `DB ${t.shoe.priceKrw.toLocaleString()} · 페이지 후보 ${j.prices.map((n) => n.toLocaleString()).join(" / ")}`;
   }
@@ -271,6 +313,7 @@ const problems = results.filter((r) => PROBLEM.includes(r.verdict) || r.priceFla
 for (const r of problems.slice(0, 40)) {
   const tag = r.priceFlag && r.verdict === "ok" ? C.yellow("가격?") : ["죽음", "0건"].includes(r.verdict) ? C.red(r.verdict) : C.yellow(r.verdict);
   console.log(`  ${tag} ${r.name} — ${r.label} ${C.dim(r.note ?? r.priceFlag ?? "")}`);
+  if (r.seen?.length) console.log(C.dim(`      보인 것: ${r.seen.slice(0, 3).join(" · ")}`));
 }
 if (problems.length > 40) console.log(C.dim(`  … ${problems.length - 40}건 더 — outputs/link-check-kr.html`));
 console.log(C.dim(`\noutputs/link-check-kr.json · outputs/link-check-kr.html\n`));
@@ -280,7 +323,7 @@ function html(rows, sum) {
   const e = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const order = (r) => (PROBLEM.includes(r.verdict) ? PROBLEM.indexOf(r.verdict) : r.priceFlag ? 50 : 99);
   const body = [...rows].sort((a, b) => order(a) - order(b)).map((r) => `<tr class="${PROBLEM.includes(r.verdict) ? "bad" : r.priceFlag ? "warn" : ""}">
-<td>${e(r.verdict)}</td><td>${e(r.name)}</td><td><a href="${e(r.url)}" target="_blank" rel="noopener">${e(r.label)}</a></td><td>${e(r.note ?? "")}${r.priceFlag ? `<br><b>${e(r.priceFlag)}</b>` : ""}</td></tr>`).join("\n");
+<td>${e(r.verdict)}</td><td>${e(r.name)}</td><td><a href="${e(r.url)}" target="_blank" rel="noopener">${e(r.label)}</a></td><td>${e(r.note ?? "")}${r.priceFlag ? `<br><b>${e(r.priceFlag)}</b>` : ""}${r.seen?.length ? `<br><small>보인 것: ${e(r.seen.join(" · "))}</small>` : ""}</td></tr>`).join("\n");
   return `<!doctype html><meta charset="utf-8"><title>링크 검사 (한국 Chrome)</title>
 <style>body{font:14px system-ui,sans-serif;margin:24px;color:#111}table{border-collapse:collapse;width:100%}td{border-bottom:1px solid #ddd;padding:6px 8px;vertical-align:top}
 tr.bad td:first-child{color:#b91c1c;font-weight:700}tr.warn td:first-child{color:#b45309;font-weight:700}a{color:#1d4ed8}</style>

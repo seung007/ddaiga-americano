@@ -94,7 +94,8 @@ const VERIFIED = {
   // 그러니 링크를 내리지 마라. 아래 nature 를 "미확인"에서 "확인불가"로 바꾼 이유가 그것이다.
   "coupang.com":          { date: "2026-09-06", shape: /\/np\/search\?q=/,                 nature: "확인불가", note: "Akamai가 봇을 차단한다. 200 + 'Access Denied' 본문 — 상태코드로는 통과한다" },
   "asics.co.kr":          { date: "2026-09-06", shape: /\/(goods\/search\?search_text=|c\/)/, nature: "남아있음", note: "젤 카야노 79건, 사이즈까지 노출. 카테고리형(/c/…)도 정상" },
-  "decathlon.co.kr":      { date: "2026-09-06", shape: /\/search\?q=/,                     nature: "주의",    note: "검색은 되지만 결과 수가 전체(7,741)로 표시되고 상단에 의류가 온다" },
+  // 2026-09-28: 「결과 수가 전체로 표시」된 원인은 파라미터였다 — 검색창이 만드는 주소는 `?query=`. `?q=` 는 무시된다
+  "decathlon.co.kr":      { date: "2026-09-28", shape: /\/search\?query=/,                 nature: "주의",    note: "q= 는 무시되고 전체 7,795개가 뜬다. query= 로 바꿈" },
   "kr.puma.com":          { date: "2026-09-06", shape: /\/kr\/ko\/search\?q=/,             nature: "남아있음", note: "검색어가 반영된다. 다만 한글 검색어는 의류까지 같이 잡힌다" },
   "search.danawa.com":    { date: "2026-09-06", shape: /\/dsearch\.php\?query=/,           nature: "남아있음", note: "가격비교 55건, 단종품이 오히려 최저가로 남는다" },
   "kream.co.kr":          { date: "2026-09-06", shape: /\/search\?keyword=/,               nature: "남아있음", note: "리셀이라 단종품이 더 잘 잡힌다. 한글 오타도 보정된다" },
@@ -112,7 +113,8 @@ const VERIFIED = {
   "29cm.co.kr":           { date: "2026-09-06", shape: /\/store\/search\?keyword=/,        nature: "일부0건", note: "영문 검색어가 0건. 한글로 바꾸고 킨바라·엔돌핀은 링크를 내렸다" },
   // 2026-09-27 추가. 써코니 한국 공식몰(운영 주식회사 조이웍스). WebFetch 로 검색 결과가 나오는 것을 확인한 검색어:
   //   가이드·라이드·킨바라·엔돌핀·스피드·트라이엄프·허리케인·엘리트·아주라. 「가이드 18」을 검색하면 가이드 19만 나온다.
-  "saucony.co.kr":        { date: "2026-09-27", shape: /\/product\/search\.html\?keyword=/, nature: "대체됨",   note: "가이드 18 → 결과가 전부 가이드 19. 트라이엄프 23 은 아직 남아 있음" },
+  // 2026-09-28: `?keyword=` 만 주면 **홈으로 튕긴다**(크롬 확인). 검색창이 만드는 주소처럼 category_no=42 를 붙여야 결과가 나온다
+  "saucony.co.kr":        { date: "2026-09-28", shape: /\/product\/search\.html\?category_no=42&keyword=/, nature: "대체됨",   note: "가이드 18 → 결과가 전부 가이드 19. 트라이엄프 23 은 아직 남아 있음" },
   // 2026-09-27 추가(크롬으로 직접 열어 봄). 뉴발란스 한국몰은 WebFetch 로는 403 이라 크롬에서만 확인된다.
   "nbkorea.com":          { date: "2026-09-27", shape: /\/product\/searchResult\.action\?schWord=/, nature: "남아있음", note: "1080·860·모어·레벨·SC 검색 결과에 정가 표시. 1080 은 v15 가 폭(D·2E·4E)마다 값이 다르게 걸려 있다" },
   "on.com":               { date: "2026-09-27", shape: /\/ko-kr\/shop\/mens\/shoes/,   nature: "해당없음", note: "검색 URL 형태는 여전히 못 찾았다. 남성 신발 전체 목록(59개)으로 건다 — 모델과 무관" },

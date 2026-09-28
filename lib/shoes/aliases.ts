@@ -51,7 +51,7 @@ const ALIASES: Alias[] = [
   { match: /860/, ko: ["860"] },
   { match: /520/, ko: ["520"] },
   { match: /Rebel/, ko: ["레벨"] },
-  { match: /SuperComp Elite/, ko: ["슈퍼컴프 엘리트"] },
+  { match: /SuperComp Elite/, ko: ["슈퍼컴프 엘리트", "SC 엘리트", "SC Elite"] }, // 뉴발란스 한국몰 표기가 「SC 엘리트」(2026-09-28)
   { match: /Adizero Boston/, ko: ["보스턴"] },
   { match: /Ultraboost/, ko: ["울트라부스트"] },
   { match: /InfinityRN/, ko: ["인피니티런"] },

@@ -160,18 +160,50 @@ export function isGenericLink(url) {
  * @returns {{ verdict: string, note?: string, prices?: number[] }}
  *   verdict: ok · 후속작만 · 0건 · 모델없음 · 차단 · 죽음 · 목록형
  */
+/**
+ * 서버가 **브라우저를 거절**한 것인가. 링크가 죽은 것과 다르다.
+ * 2026-09-28 첫 실행: KREAM 101개가 전부 `ERR_HTTP_RESPONSE_CODE_FAILURE` — 사람 Chrome 으로는 같은 주소가 열렸다.
+ * 그걸 「죽음」으로 찍으면 링크 101개를 지우게 된다. 「차단」으로 두고 창을 띄운 브라우저로 한 번 더 본다.
+ */
+export function isRefusal(page) {
+  return page.blocked === true || page.status === 403 || page.status === 429 || /ERR_HTTP_RESPONSE_CODE_FAILURE/.test(page.error ?? "");
+}
+
+/** 검색 주소가 **홈으로 튕겼나** — 써코니가 그랬다(2026-09-28). 홈 화면에 우연히 그 모델이 있으면 ok 로 읽히므로 먼저 본다 */
+export function bouncedHome(originalUrl, finalUrl) {
+  if (!queryOf(originalUrl) || !finalUrl) return false;
+  try {
+    const f = new URL(finalUrl);
+    return (f.pathname === "/" || f.pathname === "") && !f.search;
+  } catch { return false; }
+}
+
+/** 사람이 볼 증거 — 페이지에서 그 계열 이름이 들어간 줄 몇 개 (「뭐가 대신 떴나」를 다시 안 열어 봐도 되게) */
+export function seenLines(text, spec, max = 6) {
+  const out = [];
+  for (const line of String(text ?? "").split("\n")) {
+    const l = line.trim();
+    if (!l || l.length > 90) continue;
+    const c = compact(l);
+    if (spec.keys.some((k) => c.includes(k)) && !out.includes(l)) out.push(l);
+    if (out.length >= max) break;
+  }
+  return out;
+}
+
 export function judgeShoePage(page, shoe, aliases, { wantPrice = false } = {}) {
+  if (isRefusal(page)) return { verdict: "차단", note: page.error ?? `HTTP ${page.status}` };
   if (!page.ok) return { verdict: "죽음", note: page.error ?? `HTTP ${page.status}` };
+  if (bouncedHome(page.url, page.finalUrl)) return { verdict: "죽음", note: `검색이 홈(${page.finalUrl})으로 튕김 — 주소 형태가 바뀌었다` };
   const ctext = compact(`${page.title ?? ""} ${page.text ?? ""}`);
-  if (page.status === 403 || page.status === 429 || BLOCKED.some((b) => ctext.includes(b)))
-    return { verdict: "차단", note: `HTTP ${page.status}` };
+  if (BLOCKED.some((b) => ctext.includes(b))) return { verdict: "차단", note: `HTTP ${page.status} · 차단 안내문` };
   if (page.status >= 400) return { verdict: "죽음", note: `HTTP ${page.status}` };
   if (ctext.length < 200) return { verdict: "모델없음", note: `본문 ${ctext.length}자 — 페이지가 비었거나 아직 안 그려짐` };
   if (isGenericLink(page.url ?? "")) return { verdict: "목록형" };
 
   // 0건 문구를 먼저 본다 — 「"큐뮬러스28"에 대한 검색결과 0개」는 검색어 자체가 모델명이라 아래에서 ok 로 읽힌다
-  if (ZERO.some((z) => ctext.includes(z))) return { verdict: "0건" };
   const spec = modelSpec(shoe.model, aliases);
+  if (ZERO.some((z) => ctext.includes(z))) return { verdict: "0건", seen: seenLines(page.text, spec) };
   // 검색어에 모델이 들어 있으면 페이지가 제목·머리글로 검색어를 되풀이한다. 그 되풀이 횟수(최대 2)보다 많아야 상품이 있는 것
   const q = queryOf(page.url ?? "");
   const cq = q ? compact(q) : "";
@@ -182,8 +214,8 @@ export function judgeShoePage(page, shoe, aliases, { wantPrice = false } = {}) {
     return { verdict: "ok", prices };
   }
   if (shoe.successor && hasModel(ctext, modelSpec(shoe.successor, aliases)))
-    return { verdict: "후속작만", note: shoe.successor };
-  return { verdict: "모델없음", note: `찾은 키: ${spec.keys.slice(0, 4).join(", ")}${spec.gen ? ` + ${spec.gen}` : ""}` };
+    return { verdict: "후속작만", note: shoe.successor, seen: seenLines(page.text, spec) };
+  return { verdict: "모델없음", note: `찾은 키: ${spec.keys.slice(0, 4).join(", ")}${spec.gen ? ` + ${spec.gen}` : ""}`, seen: seenLines(page.text, spec) };
 }
 
 /**
@@ -200,10 +232,10 @@ const GENERIC_NAME = /^(제?\d+회|\d{4}|마라톤|대회|전국|국제|기념|�
  *   verdict: ok · 마감문구 · 대회명없음 · 연도없음 · 차단 · 죽음
  */
 export function judgeRacePage(page, race, displayStatus) {
+  if (isRefusal(page)) return { verdict: "차단", note: page.error ?? `HTTP ${page.status}` };
   if (!page.ok) return { verdict: "죽음", note: page.error ?? `HTTP ${page.status}` };
   const ctext = compact(`${page.title ?? ""} ${page.text ?? ""}`);
-  if (page.status === 403 || page.status === 429 || BLOCKED.some((b) => ctext.includes(b)))
-    return { verdict: "차단", note: `HTTP ${page.status}` };
+  if (BLOCKED.some((b) => ctext.includes(b))) return { verdict: "차단", note: `HTTP ${page.status} · 차단 안내문` };
   if (page.status >= 400) return { verdict: "죽음", note: `HTTP ${page.status}` };
 
   const tokens = race.name

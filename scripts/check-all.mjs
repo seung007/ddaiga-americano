@@ -67,7 +67,7 @@ const CHECKS = [
   { name: "목차앵커", cmd: "node", args: ["scripts/check-toc.mjs"],                    net: false },
   // 대회 날짜는 사람이 참가비를 내고 이동하는 정보다. 좌표보다 세게 막는다.
   { name: "대회일정", cmd: "node", args: ["scripts/check-races.mjs"],                  net: false },
-  // 2026-09-28: 브라우저 링크 검사기의 판정 함수. 브라우저 없이 18건을 시험한다 — 판정이 망가진 채 PC 에서 8분 돌리는 일을 막는다
+  // 2026-09-28: 브라우저 링크 검사기의 판정 함수. 브라우저 없이 20건을 시험한다 — 판정이 망가진 채 PC 에서 8분 돌리는 일을 막는다
   { name: "링크판정", cmd: "node", args: ["scripts/check-links-browser.mjs", "--selftest"], net: false },
   // 2026-09-16: Cowork 단독 작업으로 전환해 담당구역 검사를 뺐다 (AGENTS.md 「작업 방식」). 스크립트는 남겨 둠.
 
