@@ -170,7 +170,18 @@ if (LIVE && races.length) {
    * 2026-09-17: runwithgo.com 은 Node 에서 `fetch failed`, Chrome 에서는 대회 페이지가 정상으로 떴다.
    * 확인한 날짜를 같이 적는다 — 오래되면 다시 연다.
    */
-  const BROWSER_OK = { "https://runwithgo.com/runwithgo/": "2026-09-17" };
+  /*
+   * 2026-09-28: djrun 부터 아래 5곳은 해외(클라우드)에서 접속 시간초과·자체서명 인증서로 막히고,
+   * 국내 Chrome 에서는 대회 요강이 정상으로 떴다. GitHub Actions(미국)도 같은 이유로 실패할 것.
+   */
+  const BROWSER_OK = {
+    "https://runwithgo.com/runwithgo/": "2026-09-28",
+    "http://www.djrun.kr/": "2026-09-28",
+    "https://gcrun.co.kr/gcrun/": "2026-09-28",
+    "http://haenammarathon.co.kr/home/main.ubs": "2026-09-28",
+    "http://www.hangangmarathon.kr/": "2026-09-28",
+    "http://icnr.kr/": "2026-09-28",
+  };
   for (const r of targets) {
     try {
       const res = await fetch(r.officialUrl, {

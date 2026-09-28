@@ -2075,5 +2075,470 @@
     "factsFrom": "공식",
     "checkedAt": "2026-09-28",
     "note": "9/14 10시 선착순 접수가 열렸고, 공식 신청 페이지에 「참가신청 접수가 종료되었습니다」 표시. 매니아(기념품 없음)·학생 참가비는 따로 있습니다."
+  },
+  {
+    "id": "asia-open-2026",
+    "name": "2026 아시아 오픈 마라톤대회",
+    "date": "2026-10-18",
+    "region": "서울",
+    "distancesKm": [
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "광화문광장",
+    "startTime": "07:30",
+    "registrationStart": "2026-04-27",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 80000
+      }
+    ],
+    "capacity": "선착순 15,000명",
+    "sourceUrl": "https://asiarun.kr/",
+    "officialUrl": "https://asiarun.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "제2회 대회. 4/27부터 개인 선착순 접수였고, 공식 신청 페이지에 「참가 접수마감되었습니다」 표시. 07:00 집결."
+  },
+  {
+    "id": "incheon-night-2026",
+    "name": "2026 INCHEON NIGHT RACE",
+    "date": "2026-10-31",
+    "region": "인천",
+    "distancesKm": [
+      5,
+      8.15,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "영종 씨사이드파크 하늘구름광장 일원",
+    "startTime": "16:00",
+    "registrationStart": "2026-09-01",
+    "registrationEnd": "2026-10-20",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 60000
+      },
+      {
+        "label": "8.15km",
+        "distanceKm": 8.15,
+        "krw": 60000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 60000
+      }
+    ],
+    "organizer": "인천광역시걷기협회 · 국민건강진흥원",
+    "sourceUrl": "http://icnr.kr/",
+    "officialUrl": "http://icnr.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "오후 4시에 출발하는 야간 레이스입니다. 10/20 18시 이후 신청자는 배번에 이름이 안 들어갑니다(공식 대회안내)."
+  },
+  {
+    "id": "buyeo-goodtrae-2026",
+    "name": "제15회 부여 굿뜨래 마라톤 대회",
+    "date": "2026-11-07",
+    "region": "충남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975,
+      42.195
+    ],
+    "status": "마감",
+    "venue": "부여 구드래 나루터 선착장",
+    "startTime": "08:30",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 45000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 45000
+      },
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 50000
+      }
+    ],
+    "cutoff": "풀코스 5시간 · 하프 3시간 · 10km 2시간 · 5km 1시간",
+    "organizer": "부여군마라톤연합회 · 전국마라톤협회",
+    "sourceUrl": "https://mara1080.com/event/ffc023fc-7a54-4610-bdd6-2bb9a1028122",
+    "officialUrl": "https://mara1080.com/event/ffc023fc-7a54-4610-bdd6-2bb9a1028122",
+    "officialKind": "접수대행",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "접수가 마감됐습니다(공식 공지 9/1). 07:30 집결. 5km 부여군민은 20,000원."
+  },
+  {
+    "id": "haenam-ttangkkeut-2026",
+    "name": "2026 해남땅끝 전국마라톤대회",
+    "date": "2026-11-08",
+    "region": "전남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975,
+      42.195
+    ],
+    "status": "접수중",
+    "venue": "대흥사쉼터 일원",
+    "startTime": "08:00",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      },
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 50000
+      }
+    ],
+    "cutoff": "풀코스 5시간",
+    "organizer": "해남군육상연맹",
+    "sourceUrl": "http://haenammarathon.co.kr/home/main.ubs",
+    "officialUrl": "http://haenammarathon.co.kr/home/main.ubs",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "공식 요강에는 접수 일정을 공지로 안내한다고만 적혀 있고, 9/28 기준 공지에 접수 기간은 없습니다. 풀코스 제한시간은 8/21 공지로 4시간 → 5시간 정정. 07:00 집결."
+  },
+  {
+    "id": "gwacheon-2026",
+    "name": "2026 과천마라톤대회",
+    "date": "2026-11-08",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "과천 관문체육공원",
+    "startTime": "08:00",
+    "registrationStart": "2026-07-20",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 45000
+      }
+    ],
+    "capacity": "선착순 3,000명",
+    "organizer": "과천시체육회 · 경기일보",
+    "sourceUrl": "https://gcrun.co.kr/gcrun/",
+    "officialUrl": "https://gcrun.co.kr/gcrun/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "공식 사이트에 「전 코스 종목 신청이 마감되었습니다」 표시(입금 마감 8/17). 5km 과천시민은 25,000원. 하프는 19세 이상, 10km는 14세 이상."
+  },
+  {
+    "id": "suncheon-namseungryong-2026",
+    "name": "제26회 순천 남승룡마라톤대회",
+    "date": "2026-11-14",
+    "region": "전남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975,
+      42.195
+    ],
+    "status": "접수중",
+    "venue": "순천팔마종합운동장",
+    "startTime": "풀코스 08:20 · 하프 08:30 · 10km 08:40 · 5km 09:00",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 20000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 40000
+      },
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 50000
+      }
+    ],
+    "capacity": "총 7,000명 (풀 500 · 하프 900 · 10km 2,600 · 5km 3,000)",
+    "organizer": "순천시체육회 (순천남승룡마라톤 조직위원회)",
+    "sourceUrl": "http://sc-marathon.kr/",
+    "officialUrl": "http://sc-marathon.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "접수 마감일 없이 종목별 선착순 마감입니다. 환불·종목 변경은 10/16까지(공식 대회요강)."
+  },
+  {
+    "id": "garmin-run-korea-2026",
+    "name": "2026 가민런 코리아 (GARMIN RUN KOREA)",
+    "date": "2026-11-15",
+    "region": "경기",
+    "distancesKm": [
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "고양종합운동장",
+    "registrationEnd": "2026-09-30",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 80000
+      }
+    ],
+    "organizer": "가민코리아 · 러너블",
+    "sourceUrl": "https://discover.garmin.com/ko-KR/event/2026/garmin-run/",
+    "officialUrl": "https://discover.garmin.com/ko-KR/event/2026/garmin-run/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "러너블 단독 접수. 본접수는 7/1부터, 선착순 추가접수는 9/3 14시~9/30 17시입니다. 취소분 티켓은 수시로 다시 연다고 합니다. 하프는 18세 이상, 10km는 14세 이상."
+  },
+  {
+    "id": "kimdaejung-mokpo-2026",
+    "name": "2026 김대중마라톤대회",
+    "date": "2026-11-22",
+    "region": "전남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "목포종합경기장",
+    "startTime": "09:00",
+    "registrationStart": "2026-09-01",
+    "registrationEnd": "2026-10-15",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 20000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 40000
+      }
+    ],
+    "cutoff": "하프 3시간",
+    "capacity": "총 6,000명 선착순 (하프 1,000 · 10km 2,500 · 5km 2,500)",
+    "organizer": "김대중마라톤대회 조직위원회 · 전남광주통합특별시교육청",
+    "sourceUrl": "http://www.djrun.kr/",
+    "officialUrl": "http://www.djrun.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "선착순 6,000명이 차면 10/15 전에 마감될 수 있습니다. 하프는 대한육상연맹 공인코스(공식 대회안내)."
+  },
+  {
+    "id": "hangang-citizens-2026",
+    "name": "제23회 한강시민 마라톤대회",
+    "date": "2026-12-05",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "여의도 한강공원 너른들판 (물빛무대 앞 광장)",
+    "startTime": "09:00",
+    "registrationEnd": "2026-10-28",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "cutoff": "하프 3시간 · 10km 2시간 · 5km 1시간",
+    "organizer": "(사)대한생활체육회 · (사)대한생활체육마라톤협회",
+    "sourceUrl": "http://www.hangangmarathon.kr/",
+    "officialUrl": "http://www.hangangmarathon.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "접수는 10/28(수) 12시까지 — 종목별 선착순으로 먼저 마감될 수 있습니다. 환불도 10/28 12시까지, 제반비용 5% 제외(공식 대회안내)."
+  },
+  {
+    "id": "busan-bridge-2026",
+    "name": "2026 부산브릿지마라톤",
+    "date": "2026-12-06",
+    "region": "부산",
+    "distancesKm": [
+      10,
+      42.195
+    ],
+    "status": "마감",
+    "venue": "부산 벡스코 제1전시장",
+    "registrationStart": "2026-08-24",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 80000
+      }
+    ],
+    "cutoff": "풀코스 5시간 · 10km 1시간 30분",
+    "capacity": "총 12,000명 (풀코스 5,000 · 10km 7,000)",
+    "organizer": "부산광역시 · KNN · 대한육상연맹",
+    "sourceUrl": "https://busanmarathon.com/",
+    "officialUrl": "https://busanmarathon.com/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "8/24 10시 선착순 접수가 열렸고 같은 날 「선착순 조기 마감 안내」 공지가 올라왔습니다. 두 종목 모두 만 18세 이상, 풀코스는 4시간 30분 이내 완주 기록 증빙이 필요했습니다."
+  },
+  {
+    "id": "hwangyoungjo-road-2026",
+    "name": "2026 황영조 로드레이스",
+    "date": "2026-12-06",
+    "region": "인천",
+    "distancesKm": [
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "경인아라뱃길 여객터미널 아라타워 일원",
+    "startTime": "09:00",
+    "registrationEnd": "2026-10-30",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "cutoff": "하프 3시간 · 10km 2시간",
+    "capacity": "선착순 5,000명",
+    "organizer": "인천광역시 육상연맹",
+    "sourceUrl": "https://roadracing.co.kr/outline.php",
+    "officialUrl": "https://roadracing.co.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "접수는 10/30(금) 17시까지, 5,000명이 차면 먼저 마감됩니다. 하프는 만 18세 이상. 08:00 집결."
+  },
+  {
+    "id": "bamseom-2026",
+    "name": "제5회 밤섬 마라톤",
+    "date": "2026-12-13",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "상암 월드컵공원 평화광장",
+    "startTime": "08:00",
+    "registrationEnd": "2026-12-06",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 60000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 60000
+      }
+    ],
+    "organizer": "(사)대한생활체육연맹",
+    "sourceUrl": "https://bamseom.com/",
+    "officialUrl": "https://bamseom.com/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "매니아 참가비는 45,000원입니다. 환불 신청은 11/22까지(공식 참가비 안내)."
   }
 ]
