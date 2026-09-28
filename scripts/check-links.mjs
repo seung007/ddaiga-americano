@@ -98,7 +98,9 @@ const VERIFIED = {
   "kr.puma.com":          { date: "2026-09-06", shape: /\/kr\/ko\/search\?q=/,             nature: "남아있음", note: "검색어가 반영된다. 다만 한글 검색어는 의류까지 같이 잡힌다" },
   "search.danawa.com":    { date: "2026-09-06", shape: /\/dsearch\.php\?query=/,           nature: "남아있음", note: "가격비교 55건, 단종품이 오히려 최저가로 남는다" },
   "kream.co.kr":          { date: "2026-09-06", shape: /\/search\?keyword=/,               nature: "남아있음", note: "리셀이라 단종품이 더 잘 잡힌다. 한글 오타도 보정된다" },
-  "musinsa.com":          { date: "2026-09-06", shape: /\/brand\//,                        nature: "해당없음", note: "브랜드 페이지라 모델과 무관하다 — 41개가 여기 속한다" },
+  // 2026-09-28: 호카는 한국 공식몰이 없어서 무신사를 모델별로 건다. 크롬으로 열어 가격이 뜨는 것까지 확인한 형태:
+  //   /search/goods?keyword=호카 클리프톤 10 · 아라히 8 · 마하 6 (품절 상품은 검색에서 빠진다 → 본디 9 는 상품 페이지로)
+  "musinsa.com":          { date: "2026-09-28", shape: /\/(brand\/|search\/goods\?keyword=|products\/\d+)/, nature: "해당없음", note: "브랜드 페이지는 모델과 무관. 호카 7개만 모델 검색·상품 페이지로 바꿨다" },
   // 나이키는 두 형태를 쓴다. 처음에 `?q=`만 적었다가 카테고리 링크 4개를 오탐했다.
   // (`/kr/w/pegasus-shoes-8nexhzy7ok` — 눌러보니 정상 카테고리 페이지였다.)
   // 오히려 이쪽이 검색보다 낫다. **범위를 넓히면 오탐부터 잡아라** — AGENTS.md §3.

@@ -66,6 +66,11 @@ import type { Shoe } from "./types";
  *   **나머지는 이날 다시 보지 않았다** — 호카는 공식몰 인증서 오류로 못 보고, 온·뉴발란스·푸마·아디다스·아식스의
  *   기존 모델은 위에 적은 것 말고는 대조하지 않았다.
  *   6월 값이 그대로 남아 있을 수 있으니 전수 재확인이 필요하다.
+ *   (09-28, hyun 님 캡처 + 크롬) 호카 — 한국 공식몰이 없다(hoka.co.kr 인증서가 다른 도메인 것, hokaoneone.co.kr 도메인 없음,
+ *   hoka.com 에 한국 페이지 없음). 그래서 **무신사 호카 판매가(할인 표시 없는 값)** 로 대조했다:
+ *     Bondi 9·Bondi 9 Wide 239,000→229,000 · Mach 6 189,000→185,000 · Clifton 10(남·여)·Arahi 8 199,000 그대로 맞음.
+ *     참고로 KREAM 「발매가」는 본디 9 와이드 219,000(25/01/15 발매) — 발매 뒤 1만 원 오른 것으로 보인다.
+ *     Rocket X 2 는 무신사에 없고 KREAM 발매가가 $250(약 338,000원) 환산값이라 한국 정가가 아니다 — 340,000 그대로, 병행수입 표기 유지.
  *   같은 날 카본 표기도 둘 고쳤다: Pegasus Plus(플레이트 없음), Adizero Boston 12(유리섬유 EnergyRods) → hasCarbon false.
  * primaryBodyTypes: 각 신발이 최적인 체형 (1~3개)
  *
@@ -209,7 +214,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
+      { label: "무신사 — 호카 클리프톤 10", url: "https://www.musinsa.com/search/goods?keyword=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Clifton%2010", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Clifton%2010", isOfficial: false },
@@ -282,11 +287,11 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 40,
     weightGramsM9: 298,
     priceUsd: 175,
-    priceKrw: 239000,
+    priceKrw: 229000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
-      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%B3%B8%EB%94%94", isOfficial: false },
+      { label: "무신사 — 호카 본디 9", url: "https://www.musinsa.com/products/5868741", isOfficial: false },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%B3%B8%EB%94%94%209", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Bondi%209", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Bondi%209", isOfficial: false },
     ],
@@ -552,7 +557,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
+      { label: "무신사 — 호카 아라히 8", url: "https://www.musinsa.com/search/goods?keyword=%ED%98%B8%EC%B9%B4%20%EC%95%84%EB%9D%BC%ED%9E%88%208", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EC%95%84%EB%9D%BC%ED%9E%88%208", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Arahi%208", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Arahi%208", isOfficial: false },
@@ -778,13 +783,13 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 40,
     weightGramsM9: 320,
     priceUsd: 175,
-    priceKrw: 239000,
+    priceKrw: 229000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
-      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%B3%B8%EB%94%94%20%EC%99%80%EC%9D%B4%EB%93%9C", isOfficial: false },
-      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Bondi%209%20%28Wide%29", isOfficial: false },
-      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Bondi%209%20%28Wide%29", isOfficial: false },
+      { label: "무신사 — 호카 본디 9 와이드", url: "https://www.musinsa.com/products/4703343", isOfficial: false },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%B3%B8%EB%94%94%209%20%EC%99%80%EC%9D%B4%EB%93%9C", isOfficial: false },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Bondi%209%20Wide", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Bondi%209%20Wide", isOfficial: false },
     ],
     gender: "male",
     sourceUrl: "https://runrepeat.com/hoka-bondi-9",
@@ -1247,10 +1252,10 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 37,
     weightGramsM9: 232,
     priceUsd: 145,
-    priceKrw: 189000,
+    priceKrw: 185000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
+      { label: "무신사 — 호카 마하 6", url: "https://www.musinsa.com/search/goods?keyword=%ED%98%B8%EC%B9%B4%20%EB%A7%88%ED%95%98%206", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4+%EB%A7%88%ED%95%98+6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Mach%206", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Mach%206", isOfficial: false },
@@ -1678,9 +1683,10 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
-      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Clifton%2010%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
-      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Clifton%2010%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
+      { label: "무신사 — 호카 클리프톤 10", url: "https://www.musinsa.com/search/goods?keyword=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010", isOfficial: false },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010%20W", isOfficial: false },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010%20%EC%97%AC%EC%84%B1", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=%ED%98%B8%EC%B9%B4%20%ED%81%B4%EB%A6%AC%ED%94%84%ED%86%A4%2010%20%EC%97%AC%EC%84%B1", isOfficial: false },
     ],
     gender: "female",
     sourceUrl: "https://runrepeat.com/hoka-clifton-10",
@@ -2102,8 +2108,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 340000,
     krAvailability: "kr_parallel",
     buyLinks: [
-      { label: "무신사 — Hoka", url: "https://www.musinsa.com/brand/hoka", isOfficial: false },
-      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=호카+로켓+X+2", isOfficial: false },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4%20%EB%A1%9C%EC%BC%93%20X%202", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka+Rocket+X+2", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka+Rocket+X+2", isOfficial: false },
     ],
