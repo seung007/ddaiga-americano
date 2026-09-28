@@ -60,6 +60,9 @@ import type { Shoe } from "./types";
  *     Pegasus 42(남·여) 159,000→169,000 · Pegasus Plus 209,000→219,000 · Alphafly 3 380,000→339,000 ·
  *     Vaporfly 4 369,000→319,000 (nike.com/kr)
  *     (2차, 크롬) 1080 v15 239,000→229,000 · 860 v15 179,000→189,000 (nbkorea.com) · Adizero Boston 12 220,000→179,000 (adidas.co.kr)
+ *     (09-28, 크롬) Adizero Adios Pro 4 360,000→299,000 (adidas.co.kr 「Price」 표기, 할인가 아님 — 후속 Adios Pro 5 는 339,000)
+ *   09-28 에 아식스 기존 모델도 찾아봤다 — 카야노 32·님버스 27·GT-2000 14·노바블라스트 5 는 한국몰 검색에 **안 나온다**(내려감).
+ *   가격을 대조할 수 없어 6월 값 그대로 둔다. 뉴발란스 레벨 v4·SC 엘리트 v4, 아디다스 울트라부스트 25 도 같은 이유로 그대로.
  *   **나머지는 이날 다시 보지 않았다** — 호카는 공식몰 인증서 오류로 못 보고, 온·뉴발란스·푸마·아디다스·아식스의
  *   기존 모델은 위에 적은 것 말고는 대조하지 않았다.
  *   6월 값이 그대로 남아 있을 수 있으니 전수 재확인이 필요하다.
@@ -164,7 +167,7 @@ export const SHOES: Shoe[] = [
     stackHeightMm: 40,
     weightGramsM9: 200,
     priceUsd: 260,
-    priceKrw: 360000,
+    priceKrw: 299000,
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰", url: "https://www.adidas.co.kr/search?q=Adizero+Adios+Pro", isOfficial: true },
