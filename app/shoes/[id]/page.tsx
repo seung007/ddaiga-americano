@@ -9,6 +9,7 @@ import FinderCta from "@/components/FinderCta";
 import ShoeReactions from "@/components/ShoeReactions";
 import { nicknamesOf } from "@/lib/shoes/aliases";
 import { rungOf } from "@/lib/shoes/tiers";
+import { predecessorOf, successorOf } from "@/lib/shoes/lineage";
 import type { Shoe } from "@/lib/shoes/types";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
@@ -135,11 +136,37 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           </div>
         </header>
 
-        {s.successor && (
-          <p className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-            후속 모델 <strong>{s.successor}</strong>이(가) 나왔습니다. 재고 할인으로 싸게 살 수 있지만, 사이즈가 빨리 빠집니다.
-          </p>
-        )}
+        {s.successor && (() => {
+          const next = successorOf(s);
+          return (
+            <p className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              후속 모델{" "}
+              {next ? (
+                <Link href={`/shoes/${next.id}`} className="font-bold underline underline-offset-2">
+                  {s.successor}
+                </Link>
+              ) : (
+                <strong>{s.successor}</strong>
+              )}
+              이(가) 나왔습니다. 재고 할인으로 싸게 살 수 있지만, 사이즈가 빨리 빠집니다.
+              {next && <> 후속작 스펙은 이름을 누르면 볼 수 있습니다.</>}
+            </p>
+          );
+        })()}
+
+        {(() => {
+          const prev = predecessorOf(s);
+          if (!prev) return null;
+          return (
+            <p className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+              이전 세대{" "}
+              <Link href={`/shoes/${prev.id}`} className="font-semibold underline underline-offset-2">
+                {prev.model}
+              </Link>
+              도 목록에 있습니다. 구형은 재고 할인이 붙는 경우가 많으니 같이 비교해 보세요.
+            </p>
+          );
+        })()}
 
         {(() => {
           const b = beginnerLine(s);
