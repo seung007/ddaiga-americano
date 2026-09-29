@@ -42,30 +42,121 @@ import type { CSSProperties } from "react";
  * 방향이 읽힌다. 왼쪽을 향하게 하려면 `flip`으로 뒤집는다.
  */
 /**
- * 뛰는 사람의 팔다리 — 관절마다 `<g>` 하나. (2026-09-29)
+ * 달리기 동작 — 발 궤적을 정하고 역기구학(IK)으로 관절 각도를 계산한다. (2026-09-30)
  *
- * 전에는 다리가 한 자세로 굳은 채 몸만 옆으로 미끄러졌다. 지금은
- *   엉덩이(0,-10.2) 기준으로 허벅지가 앞뒤로 흔들리고, 무릎에서 정강이가 따로 굽는다.
- *   팔은 어깨 기준으로 같은 쪽 다리와 반대로 흔든다.
- *   먼 쪽 팔다리는 반 주기 늦게(-stride/2) 돌고 조금 옅게 그린다.
+ * 1차(09-29)는 허벅지·정강이 각도를 눈대중 키프레임으로 흔들었다. 다리는 움직였지만
+ * **디딘 발이 땅에서 미끄러지고, 몸이 뜨는 시점이 다리와 따로 놀았다.**
+ * 그래서 순서를 뒤집었다 — 각도가 아니라 **발목이 어디 있어야 하는가**를 먼저 정한다.
  *
- * 회전 중심 — `translate(관절)` 로 감싼 `<g>` 안에서 CSS rotate 를 건다.
- *   SVG 요소의 CSS transform 은 기본 transform-origin 0 0 = 그 요소의 로컬 원점이라
- *   감싼 translate 가 곧 관절 위치가 된다. `transform-box: fill-box` 는 쓰지 않는다 —
- *   정강이가 굽을 때마다 허벅지 그룹의 bbox 가 바뀌어 회전 중심이 흔들린다.
+ *   지지기(stance) — 착지 → 몸 아래 → 밀어내기. 발은 땅에 붙어 있고, 몸이 앞으로 가는 만큼
+ *                    정확히 뒤로 밀린다(몸 속도 = 발이 쓸리는 속도). 끝에서 뒤꿈치가 들린다
+ *   유각기(swing)  — 밀어낸 발의 뒤꿈치가 엉덩이 쪽으로 올라오고(heel recovery),
+ *                    무릎이 앞으로 나온 뒤(knee drive) 정강이가 펴지며 몸 바로 앞에 착지
+ *   두 발이 다 뜨는 구간 — 한 발이 땅에 있는 비율(DS)을 0.5 보다 작게 둬서 생긴다. 걷기와 달리기의 차이
+ *   상하 움직임 — 한 걸음에 한 번. 지지기 가운데서 가장 낮고, 두 발이 뜬 구간 가운데서 가장 높다
+ *   팔 — 같은 쪽 다리와 반대로
  *
- * `transform` 속성(rotate(-24) 등)은 **움직임 줄이기 설정일 때 보이는 정지 자세**다.
- *   애니메이션이 돌면 CSS 가 속성을 덮고, 꺼지면(prefers-reduced-motion) 속성이 남는다.
+ * 발목 위치 → 두 마디(허벅지 L1, 정강이 L2) 역기구학 → 허벅지·정강이 각도, 무릎은 항상 앞으로 굽는다.
+ * 발 각도는 따로 준다(착지 때 발끝 살짝 위, 지지기 평평, 밀어낼 때 발끝으로).
  *
- * 발이 미끄러지지 않게 — 한 주기(두 걸음) 동안 발이 쓸고 가는 거리 ≈ 2 × 2 × 10.6 × sin34° ≈ 24,
- *   이동 속도(1440 ÷ 이동 시간)와 비슷하게 stride 와 이동 시간을 맞췄다. 정확한 값이 아니라 눈대중이다.
+ * 수치는 실측이 아니라 그림이 자연스러워 보이도록 잡은 값이다. 단위는 이 그림의 좌표(사람 키 약 24).
+ * 모든 러너가 같은 키프레임을 쓰므로 **이동 속도 × stride(로컬 좌표) 가 같아야** 발이 안 미끄러진다
+ * — 아래 RUN_TRAVEL 과 .m1/.m2 이동 시간·scale 이 그 관계다.
  */
+const L1 = 5.6;              // 엉덩이 → 무릎
+const L2 = 5.1;              // 무릎 → 발목
+const HIP = 10.2;            // 엉덩이 높이. 다리(L1+L2=10.7)가 이보다 길어서 디딘 무릎은 늘 조금 굽는다
+const ANK = 0.6;             // 발을 평평하게 디뎠을 때 발목 높이
+const DS = 0.34;             // 한 다리가 땅에 닿아 있는 비율(주기 대비)
+const X_ON = 2.4;            // 착지 때 발목 x (엉덩이 기준, +가 앞) — 몸 바로 앞
+const X_OFF = -5.2;          // 밀어낼 때 발목 x
+const BOB = 1.0;             // 상하 움직임 폭
+/** 한 주기(두 걸음) 동안 몸이 가야 하는 거리 = 지지기에 발이 쓸리는 거리 ÷ DS */
+export const RUN_TRAVEL = (X_ON - X_OFF) / DS;
+
+const rad = (d: number) => (d * Math.PI) / 180;
+const deg = (r: number) => (r * 180) / Math.PI;
+const smooth = (t: number) => { const c = Math.min(1, Math.max(0, t)); return c * c * (3 - 2 * c); };
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+/** 몸의 높이(위로 +). 한 걸음(주기의 절반)에 한 번 — 두 발이 뜬 구간 가운데서 가장 높다 */
+function bob(u: number) {
+  const p = (u * 2) % 1;
+  const flightMid = (DS / 0.5 + 1) / 2;
+  return BOB * (0.5 + 0.5 * Math.cos(2 * Math.PI * (p - flightMid)));
+}
+
+/** 점 몇 개를 부드럽게 잇는 곡선(3차 Hermite, 접선은 이웃 점에서) */
+function curve(ts: number[], vs: number[], t: number) {
+  let i = 0;
+  while (i < ts.length - 2 && t > ts[i + 1]) i++;
+  const tan = (k: number) => {
+    const a = Math.max(0, k - 1), b = Math.min(ts.length - 1, k + 1);
+    return (vs[b] - vs[a]) / (ts[b] - ts[a]);
+  };
+  const h = ts[i + 1] - ts[i], s = (t - ts[i]) / h;
+  const s2 = s * s, s3 = s2 * s;
+  return (2 * s3 - 3 * s2 + 1) * vs[i] + (s3 - 2 * s2 + s) * h * tan(i)
+       + (-2 * s3 + 3 * s2) * vs[i + 1] + (s3 - s2) * h * tan(i + 1);
+}
+
+/** 주기 u(0~1)에서 가까운 쪽 다리의 발목 위치(엉덩이 기준, 아래로 +)와 발 각도 */
+function ankle(u: number) {
+  const ground = HIP + bob(u);             // 몸이 뜨면 땅은 엉덩이에서 멀어진다
+  if (u < DS) {
+    const s = u / DS;
+    const lift = 1.2 * smooth((s - 0.6) / 0.4);          // 뒤꿈치 들림
+    const foot = s < 0.15 ? lerp(-8, 0, s / 0.15) : s < 0.6 ? 0 : lerp(0, 39, smooth((s - 0.6) / 0.4));
+    return { x: lerp(X_ON, X_OFF, s), y: ground - ANK - lift, foot };
+  }
+  const s = (u - DS) / (1 - DS);
+  const ts = [0, 0.3, 0.62, 0.86, 1];
+  const xs = [X_OFF, -4.9, 0.6, 3.6, X_ON];
+  const ys = [HIP + bob(DS) - ANK - 1.2, 4.4, 7.2, 8.8, HIP + bob(1) - ANK];
+  const fs = [39, 30, 15, 0, -8];
+  return { x: curve(ts, xs, s), y: curve(ts, ys, s), foot: curve(ts, fs, s) };
+}
+
+/** 두 마디 역기구학. 각도는 CSS rotate 기준(아래를 0°, 양수 = 발이 뒤로) */
+function legAngles(u: number) {
+  const a = ankle(u);
+  const d = Math.min(Math.hypot(a.x, a.y), L1 + L2 - 1e-3);
+  const aim = deg(Math.atan2(-a.x, a.y));
+  const bend = deg(Math.acos((L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)));
+  const thigh = aim - bend;                               // 무릎이 앞으로
+  const kx = -L1 * Math.sin(rad(thigh)), ky = L1 * Math.cos(rad(thigh));
+  const shinAbs = deg(Math.atan2(-(a.x - kx), a.y - ky));
+  return { thigh, shin: shinAbs - thigh, foot: a.foot - shinAbs };
+}
+
+const FRAMES = 24;
+const r1 = (n: number) => Math.round(n * 10) / 10;
+function keyframes(name: string, value: (u: number) => string) {
+  const rows = [];
+  for (let i = 0; i <= FRAMES; i++) {
+    const u = (i % FRAMES) / FRAMES;
+    rows.push(`${r1((i / FRAMES) * 100)}%{transform:${value(u)}}`);
+  }
+  return `@keyframes ${name}{${rows.join("")}}`;
+}
+const GAIT_CSS = [
+  keyframes("hb-thigh", (u) => `rotate(${r1(legAngles(u).thigh)}deg)`),
+  keyframes("hb-shin", (u) => `rotate(${r1(legAngles(u).shin)}deg)`),
+  keyframes("hb-foot", (u) => `rotate(${r1(legAngles(u).foot)}deg)`),
+  keyframes("hb-arm", (u) => `rotate(${r1(-0.8 * legAngles(u).thigh - 4)}deg)`),
+  keyframes("hb-runbob", (u) => `translateY(${(-bob(u)).toFixed(2)}px)`),
+].join("\n");
+
+/** 움직임 줄이기 설정일 때 보이는 정지 자세 — 가까운 다리는 지지기 가운데, 먼 다리는 유각기 */
+const REST_NEAR = legAngles(0.17);
+const REST_FAR = legAngles(0.67);
+
 function RunnerLimb({ far = false, arm = false }: { far?: boolean; arm?: boolean }) {
-  const cls = `${arm ? "arm" : "thigh"}${far ? " far" : ""}`;
+  const rest = far ? REST_FAR : REST_NEAR;
   if (arm) {
     return (
       <g transform="translate(1.2,-18)" opacity={far ? 0.7 : 1}>
-        <g className={cls} transform={`rotate(${far ? -26 : 28})`}>
+        <g className={`arm${far ? " far" : ""}`} transform={`rotate(${r1(-0.8 * rest.thigh - 4)})`}>
           <path d="M-0.6,0 L0.6,0 L0.5,4.2 L-0.5,4.2 Z" />
           {/* 팔꿈치 — 앞으로 굽힌 채 고정 */}
           <path transform="translate(0,4.0) rotate(-80)" d="M-0.5,0 L0.5,0 L0.4,3.6 L-0.4,3.6 Z" />
@@ -75,13 +166,17 @@ function RunnerLimb({ far = false, arm = false }: { far?: boolean; arm?: boolean
   }
   return (
     <g transform="translate(0,-10.2)" opacity={far ? 0.7 : 1}>
-      <g className={cls} transform={`rotate(${far ? 22 : -24})`}>
-        <path d="M-0.95,0 L0.95,0 L0.8,5.5 L-0.8,5.5 Z" />
-        <g transform="translate(0,5.3)">
-          <g className="shin" transform={`rotate(${far ? 60 : 12})`}>
-            <path d="M-0.8,0 L0.8,0 L0.6,5.1 L-0.6,5.1 Z" />
-            {/* 발 — 앞(+x)으로 */}
-            <path d="M-0.6,4.3 L1.9,4.5 L1.9,5.3 L-0.6,5.3 Z" />
+      <g className={`thigh${far ? " far" : ""}`} transform={`rotate(${r1(rest.thigh)})`}>
+        <path d={`M-0.95,0 L0.95,0 L0.8,${L1 + 0.1} L-0.8,${L1 + 0.1} Z`} />
+        <g transform={`translate(0,${L1})`}>
+          <g className="shin" transform={`rotate(${r1(rest.shin)})`}>
+            <path d={`M-0.8,0 L0.8,0 L0.55,${L2} L-0.55,${L2} Z`} />
+            <g transform={`translate(0,${L2})`}>
+              {/* 발 — 발목 기준, 앞(+x)으로. 발바닥이 발목보다 ANK 아래 */}
+              <g className="foot" transform={`rotate(${r1(rest.foot)})`}>
+                <path d={`M-0.6,-0.5 L1.9,-0.1 L1.9,${ANK} L-0.6,${ANK} Z`} />
+              </g>
+            </g>
           </g>
         </g>
       </g>
@@ -90,16 +185,13 @@ function RunnerLimb({ far = false, arm = false }: { far?: boolean; arm?: boolean
 }
 
 function Person({
-  x, s = 1, color, flip = false, run = false, stride,
-}: { x: number; s?: number; color: string; flip?: boolean; run?: boolean; stride?: string }) {
+  x, s = 1, color, flip = false, run = false,
+}: { x: number; s?: number; color: string; flip?: boolean; run?: boolean }) {
   return (
-    <g
-      transform={`translate(${x},346) scale(${flip ? -s : s},${s})`}
-      fill={color}
-      style={stride ? ({ "--stride": stride } as CSSProperties) : undefined}
-    >
+    <g transform={`translate(${x},346) scale(${flip ? -s : s},${s})`} fill={color}>
       {run ? (
-        <>
+        // 달릴 때는 엉덩이를 HIP 높이로 낮춘다(무릎을 조금 굽힌 자세) — 그만큼 그림 전체를 내린다
+        <g transform={`translate(0,${r1(10.2 - HIP)})`}>
           {/* 먼 쪽 팔·다리 — 몸통보다 먼저 그린다 */}
           <RunnerLimb far arm />
           <RunnerLimb far />
@@ -110,7 +202,7 @@ function Person({
           {/* 가까운 쪽 다리·팔 */}
           <RunnerLimb />
           <RunnerLimb arm />
-        </>
+        </g>
       ) : (
         <>
           {/* 뒷다리 */}
@@ -158,25 +250,21 @@ export default function HeroBackdrop() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <style>{`
         @keyframes hb-move { from { transform: translateX(-120px) } to { transform: translateX(1320px) } }
-        @keyframes hb-bob  { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-1px) } }
         @keyframes hb-flow { from { transform: translateX(0) } to { transform: translateX(-120px) } }
         @keyframes hb-boat { from { transform: translateX(-80px) } to { transform: translateX(1280px) } }
-        @keyframes hb-thigh { 0%,100% { transform: rotate(-34deg) } 50% { transform: rotate(30deg) } }
-        @keyframes hb-shin  { 0%,100% { transform: rotate(8deg) } 45% { transform: rotate(20deg) }
-                              65% { transform: rotate(100deg) } 85% { transform: rotate(45deg) } }
-        @keyframes hb-arm   { 0%,100% { transform: rotate(32deg) } 50% { transform: rotate(-36deg) } }
-        .hb .m1 { animation: hb-move 40s linear infinite; }
-        .hb .m2 { animation: hb-move 44s linear infinite; animation-delay: -18s; }
+        .hb .m1 { animation: hb-move 42s linear infinite; }
+        .hb .m2 { animation: hb-move 48s linear infinite; animation-delay: -18s; }
         .hb .m3 { animation: hb-move 20s linear infinite; animation-delay: -7s; }
-        /* 걸음마다 한 번 튄다 — bob 주기 = stride ÷ 2 */
-        .hb .bob1 { animation: hb-bob .33s ease-in-out infinite; }
-        .hb .bob2 { animation: hb-bob .36s ease-in-out infinite; }
-        .hb .thigh { animation: hb-thigh var(--stride, .66s) ease-in-out infinite; }
-        .hb .shin  { animation: hb-shin  var(--stride, .66s) linear infinite; }
-        .hb .arm   { animation: hb-arm   var(--stride, .66s) ease-in-out infinite; }
-        .hb .far, .hb .far .shin { animation-delay: calc(var(--stride, .66s) / -2); }
+        /* 팔다리·상하 움직임 — 전부 같은 주기(--stride), 키프레임은 GAIT_CSS 가 계산 */
+        .hb .runbob { animation: hb-runbob var(--stride) linear infinite; }
+        .hb .thigh { animation: hb-thigh var(--stride) linear infinite; }
+        .hb .shin  { animation: hb-shin  var(--stride) linear infinite; }
+        .hb .foot  { animation: hb-foot  var(--stride) linear infinite; }
+        .hb .arm   { animation: hb-arm   var(--stride) linear infinite; }
+        .hb .far, .hb .far .shin, .hb .far .foot { animation-delay: calc(var(--stride) / -2); }
         .hb .flow { animation: hb-flow 20s linear infinite; }
         .hb .boat { animation: hb-boat 110s linear infinite; }
+        ${GAIT_CSS}
         @media (prefers-reduced-motion: reduce) { .hb * { animation: none !important; } }
       `}</style>
 
@@ -280,8 +368,14 @@ export default function HeroBackdrop() {
         </g>
 
         {/* ── 지나가는 사람들 ── */}
-        <g className="m1"><g className="bob1"><Person x={0} s={1} color="#34d399" run stride=".66s" /></g></g>
-        <g className="m2"><g className="bob2"><Person x={0} s={0.94} color="#6ee7b7" run stride=".72s" /></g></g>
+        {/* 발이 안 미끄러지는 조건: (1440 ÷ 이동 시간) ÷ scale × stride = RUN_TRAVEL(약 22.4)
+            m1: 34.3 ÷ 1 × .65 = 22.3 · m2: 30 ÷ .94 × .70 = 22.3 */}
+        <g className="m1"><g className="runbob" style={{ "--stride": ".65s" } as CSSProperties}>
+          <Person x={0} s={1} color="#34d399" run />
+        </g></g>
+        <g className="m2"><g className="runbob" style={{ "--stride": ".70s" } as CSSProperties}>
+          <Person x={0} s={0.94} color="#6ee7b7" run />
+        </g></g>
         <g className="m3"><Cyclist x={0} s={1} color="#5eead4" /></g>
 
         {/* ── 흰색 페이드 ──
