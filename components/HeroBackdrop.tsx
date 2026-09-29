@@ -27,6 +27,8 @@
  * 2차에서는 이게 2배였다.
  */
 
+import type { CSSProperties } from "react";
+
 /**
  * 걷거나 뛰는 사람. **모든 자세는 오른쪽(+x)을 향한다.**
  *
@@ -39,24 +41,75 @@
  * 앞다리는 무릎을 굽혀 앞으로·뒷다리는 뒤로 뻗는다.** 이 셋이 있으면 대칭이 깨져
  * 방향이 읽힌다. 왼쪽을 향하게 하려면 `flip`으로 뒤집는다.
  */
-function Person({
-  x, s = 1, color, flip = false, run = false,
-}: { x: number; s?: number; color: string; flip?: boolean; run?: boolean }) {
+/**
+ * 뛰는 사람의 팔다리 — 관절마다 `<g>` 하나. (2026-09-29)
+ *
+ * 전에는 다리가 한 자세로 굳은 채 몸만 옆으로 미끄러졌다. 지금은
+ *   엉덩이(0,-10.2) 기준으로 허벅지가 앞뒤로 흔들리고, 무릎에서 정강이가 따로 굽는다.
+ *   팔은 어깨 기준으로 같은 쪽 다리와 반대로 흔든다.
+ *   먼 쪽 팔다리는 반 주기 늦게(-stride/2) 돌고 조금 옅게 그린다.
+ *
+ * 회전 중심 — `translate(관절)` 로 감싼 `<g>` 안에서 CSS rotate 를 건다.
+ *   SVG 요소의 CSS transform 은 기본 transform-origin 0 0 = 그 요소의 로컬 원점이라
+ *   감싼 translate 가 곧 관절 위치가 된다. `transform-box: fill-box` 는 쓰지 않는다 —
+ *   정강이가 굽을 때마다 허벅지 그룹의 bbox 가 바뀌어 회전 중심이 흔들린다.
+ *
+ * `transform` 속성(rotate(-24) 등)은 **움직임 줄이기 설정일 때 보이는 정지 자세**다.
+ *   애니메이션이 돌면 CSS 가 속성을 덮고, 꺼지면(prefers-reduced-motion) 속성이 남는다.
+ *
+ * 발이 미끄러지지 않게 — 한 주기(두 걸음) 동안 발이 쓸고 가는 거리 ≈ 2 × 2 × 10.6 × sin34° ≈ 24,
+ *   이동 속도(1440 ÷ 이동 시간)와 비슷하게 stride 와 이동 시간을 맞췄다. 정확한 값이 아니라 눈대중이다.
+ */
+function RunnerLimb({ far = false, arm = false }: { far?: boolean; arm?: boolean }) {
+  const cls = `${arm ? "arm" : "thigh"}${far ? " far" : ""}`;
+  if (arm) {
+    return (
+      <g transform="translate(1.2,-18)" opacity={far ? 0.7 : 1}>
+        <g className={cls} transform={`rotate(${far ? -26 : 28})`}>
+          <path d="M-0.6,0 L0.6,0 L0.5,4.2 L-0.5,4.2 Z" />
+          {/* 팔꿈치 — 앞으로 굽힌 채 고정 */}
+          <path transform="translate(0,4.0) rotate(-80)" d="M-0.5,0 L0.5,0 L0.4,3.6 L-0.4,3.6 Z" />
+        </g>
+      </g>
+    );
+  }
   return (
-    <g transform={`translate(${x},346) scale(${flip ? -s : s},${s})`} fill={color}>
+    <g transform="translate(0,-10.2)" opacity={far ? 0.7 : 1}>
+      <g className={cls} transform={`rotate(${far ? 22 : -24})`}>
+        <path d="M-0.95,0 L0.95,0 L0.8,5.5 L-0.8,5.5 Z" />
+        <g transform="translate(0,5.3)">
+          <g className="shin" transform={`rotate(${far ? 60 : 12})`}>
+            <path d="M-0.8,0 L0.8,0 L0.6,5.1 L-0.6,5.1 Z" />
+            {/* 발 — 앞(+x)으로 */}
+            <path d="M-0.6,4.3 L1.9,4.5 L1.9,5.3 L-0.6,5.3 Z" />
+          </g>
+        </g>
+      </g>
+    </g>
+  );
+}
+
+function Person({
+  x, s = 1, color, flip = false, run = false, stride,
+}: { x: number; s?: number; color: string; flip?: boolean; run?: boolean; stride?: string }) {
+  return (
+    <g
+      transform={`translate(${x},346) scale(${flip ? -s : s},${s})`}
+      fill={color}
+      style={stride ? ({ "--stride": stride } as CSSProperties) : undefined}
+    >
       {run ? (
         <>
-          {/* 뒷다리 — 뒤로 뻗는다 (몸통보다 뒤에 그린다) */}
-          <path d="M-1.4,-10.2 L0.6,-10.2 L-3.4,-1.0 L-5.0,-1.6 Z" />
+          {/* 먼 쪽 팔·다리 — 몸통보다 먼저 그린다 */}
+          <RunnerLimb far arm />
+          <RunnerLimb far />
           {/* 머리 — 앞으로 살짝 내밀어 방향을 만든다 */}
           <circle cx="1.4" cy="-21.4" r="2.6" />
           {/* 상체 — 진행 방향으로 기울인다 */}
           <path d="M-0.6,-19.0 L2.8,-18.6 L1.6,-10.0 L-1.6,-10.0 Z" />
-          {/* 앞다리 — 무릎을 굽혀 앞으로 */}
-          <path d="M-0.4,-10.4 L1.8,-10.4 L4.8,-6.0 L3.2,-4.8 Z" />
-          <path d="M3.0,-5.6 L4.8,-6.2 L4.2,-0.6 L2.8,-0.6 Z" />
-          {/* 팔 — 뒤로 스윙(앞다리와 반대) */}
-          <path d="M1.4,-18.2 L2.6,-17.4 L-1.4,-13.4 L-2.4,-14.4 Z" />
+          {/* 가까운 쪽 다리·팔 */}
+          <RunnerLimb />
+          <RunnerLimb arm />
         </>
       ) : (
         <>
@@ -108,11 +161,20 @@ export default function HeroBackdrop() {
         @keyframes hb-bob  { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-1px) } }
         @keyframes hb-flow { from { transform: translateX(0) } to { transform: translateX(-120px) } }
         @keyframes hb-boat { from { transform: translateX(-80px) } to { transform: translateX(1280px) } }
-        .hb .m1 { animation: hb-move 27s linear infinite; }
-        .hb .m2 { animation: hb-move 36s linear infinite; animation-delay: -14s; }
+        @keyframes hb-thigh { 0%,100% { transform: rotate(-34deg) } 50% { transform: rotate(30deg) } }
+        @keyframes hb-shin  { 0%,100% { transform: rotate(8deg) } 45% { transform: rotate(20deg) }
+                              65% { transform: rotate(100deg) } 85% { transform: rotate(45deg) } }
+        @keyframes hb-arm   { 0%,100% { transform: rotate(32deg) } 50% { transform: rotate(-36deg) } }
+        .hb .m1 { animation: hb-move 40s linear infinite; }
+        .hb .m2 { animation: hb-move 44s linear infinite; animation-delay: -18s; }
         .hb .m3 { animation: hb-move 20s linear infinite; animation-delay: -7s; }
-        .hb .bob1 { animation: hb-bob .44s ease-in-out infinite; }
-        .hb .bob2 { animation: hb-bob .5s ease-in-out infinite; }
+        /* 걸음마다 한 번 튄다 — bob 주기 = stride ÷ 2 */
+        .hb .bob1 { animation: hb-bob .33s ease-in-out infinite; }
+        .hb .bob2 { animation: hb-bob .36s ease-in-out infinite; }
+        .hb .thigh { animation: hb-thigh var(--stride, .66s) ease-in-out infinite; }
+        .hb .shin  { animation: hb-shin  var(--stride, .66s) linear infinite; }
+        .hb .arm   { animation: hb-arm   var(--stride, .66s) ease-in-out infinite; }
+        .hb .far, .hb .far .shin { animation-delay: calc(var(--stride, .66s) / -2); }
         .hb .flow { animation: hb-flow 20s linear infinite; }
         .hb .boat { animation: hb-boat 110s linear infinite; }
         @media (prefers-reduced-motion: reduce) { .hb * { animation: none !important; } }
@@ -218,8 +280,8 @@ export default function HeroBackdrop() {
         </g>
 
         {/* ── 지나가는 사람들 ── */}
-        <g className="m1"><g className="bob1"><Person x={0} s={1} color="#34d399" run /></g></g>
-        <g className="m2"><g className="bob2"><Person x={0} s={0.94} color="#6ee7b7" run /></g></g>
+        <g className="m1"><g className="bob1"><Person x={0} s={1} color="#34d399" run stride=".66s" /></g></g>
+        <g className="m2"><g className="bob2"><Person x={0} s={0.94} color="#6ee7b7" run stride=".72s" /></g></g>
         <g className="m3"><Cyclist x={0} s={1} color="#5eead4" /></g>
 
         {/* ── 흰색 페이드 ──
