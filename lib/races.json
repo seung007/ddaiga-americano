@@ -758,7 +758,6 @@
     "status": "접수중",
     "venue": "포천시종합운동장",
     "registrationStart": "2026-08-01",
-    "registrationEnd": "2026-09-15",
     "fees": [
       {
         "label": "5km",
@@ -775,8 +774,9 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/just-run10-pocheon",
     "officialUrl": "https://runten.co.kr/competitions/46e731b4-252b-4dce-9634-44369aceea25",
     "officialKind": "접수대행",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "factsFrom": "공식",
+    "checkedAt": "2026-10-05",
+    "note": "공식 접수처(런텐)에 10월 5일 기준 「접수 중」으로 떠 있습니다. 마감일은 공식 페이지에 안 나와 있어서, 예전에 적어 둔 9/15 마감을 뺐습니다."
   },
   {
     "id": "sme-energy-2026",
@@ -1169,8 +1169,8 @@
     "organizer": "청양군육상연맹",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-cheongyang-gun-sports-council-presidents-cup-chilgap-marathon",
     "officialUrl": "https://cymarathon.imweb.me",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-28",
+    "factsFrom": "공식",
+    "checkedAt": "2026-10-05",
     "cutoff": "하프 3시간 · 14km 2시간 · 7km 1시간",
     "startTime": "전 종목 09:30 (종목별 시차 출발)"
   },
@@ -1255,7 +1255,8 @@
     "registrationEnd": "2026-10-23",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-gangnam-half-marathon",
     "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
+    "checkedAt": "2026-10-05",
+    "note": "10월 5일 기준 공식 접수처·주최·참가비가 아직 공개되지 않았습니다. 5월 30일 같은 장소에서 열린 「2026 강남하프레이스」와는 다른 일정입니다."
   },
   {
     "id": "roundlab-run-2026",
@@ -1394,12 +1395,13 @@
         "krw": 55000
       }
     ],
-    "organizer": "리빗",
+    "organizer": "(주)리액트 (리빗 운영사)",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yeongjong-haneulgil-marathon",
     "officialUrl": "https://www.leaveit.co.kr/",
     "factsFrom": "모음",
     "checkedAt": "2026-09-16",
-    "officialKind": "접수대행"
+    "officialKind": "접수대행",
+    "capacity": "하프 1,500명 · 5km·10km 3,500명 (선착순)"
   },
   {
     "id": "anyangcheon-maple-2026",
@@ -1489,8 +1491,8 @@
     "organizer": "서울자주통일평화연대",
     "sourceUrl": "https://www.kormarathon.com/ko/races/9th-seoul-peace-marathon",
     "officialUrl": "https://seoultongilrun.imweb.me/25",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-28",
+    "factsFrom": "공식",
+    "checkedAt": "2026-10-05",
     "startTime": "10km 09:30 · 5km 09:40 (집결 08:00)"
   },
   {
@@ -1792,7 +1794,7 @@
   },
   {
     "id": "cheonan-independence-2026",
-    "name": "제2회 천안독립기념관 마라톤",
+    "name": "2026 천안희망나눔 마라톤",
     "date": "2026-11-29",
     "region": "충남",
     "distancesKm": [
@@ -1821,13 +1823,13 @@
         "krw": 39000
       }
     ],
-    "organizer": "안중근의사기념사업회, (사)안중근평화연구원, 천안시사랑의열매나눔봉사단",
+    "organizer": "충남 사랑의열매, 천안시사랑의열매나눔봉사단",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2nd-cheonan-independence-hall-marathon",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-28",
+    "factsFrom": "공식",
+    "checkedAt": "2026-10-05",
     "officialUrl": "https://runwithus.co.kr/",
     "startTime": "10km 09:00~09:06 (A~C그룹) · 5km 09:10·09:13 (A·B그룹) · 걷기 3.65km 09:30",
-    "note": "공식 접수 사이트(runwithus.co.kr)에는 「2026 천안희망나눔 마라톤」으로 적혀 있습니다. 날짜·장소·종목은 같습니다."
+    "note": "일정 모음 사이트에는 「제2회 천안독립기념관 마라톤」으로 올라와 있습니다. 공식 사이트 이름은 「2026 천안희망나눔 마라톤」(이봉주와 함께하는 대회)이고 날짜·장소·종목·참가비는 같습니다. 접수 마감일은 공식 사이트에 안 나와 있습니다."
   },
   {
     "id": "jtbc-seoul-2026",
