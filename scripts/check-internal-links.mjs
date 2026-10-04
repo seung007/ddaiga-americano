@@ -203,7 +203,21 @@ const notInSitemap = [...routes].filter((r) => {
  */
 const excused = Object.keys(INTENTIONALLY_UNLINKED).filter((r) => routes.has(r));
 const staleExcuses = excused.filter((r) => (inbound.get(r) ?? []).length > 0);
-const isExcused = (r) => Object.hasOwn(INTENTIONALLY_UNLINKED, r) && !staleExcuses.includes(r);
+/**
+ * 지난 대회 페이지 — `lib/races.past.json` 으로 옮겨진 대회. (2026-10-04)
+ * 목록·sitemap 은 다가오는 대회만 싣는 게 설계(`upcomingRaces()`)라 링크가 끊기는 게 정상이다.
+ * 페이지는 남긴다(「다녀왔어요」 반응, 이미 색인된 주소). 손으로 면제 목록에 적지 않아도 되게 데이터에서 읽는다.
+ */
+let PAST_RACE_PAGES = new Set();
+try {
+  PAST_RACE_PAGES = new Set(
+    JSON.parse(readFileSync(join(ROOT, "lib/races.past.json"), "utf8")).map((r) => `/races/${r.id}`)
+  );
+} catch {
+  /* 보관 파일이 없으면 지난 대회도 없다 */
+}
+const isExcused = (r) =>
+  (Object.hasOwn(INTENTIONALLY_UNLINKED, r) && !staleExcuses.includes(r)) || PAST_RACE_PAGES.has(r);
 
 const orphans = [...inbound]
   .filter(([k, v]) => v.length === 0 && !isExcused(k))
@@ -261,6 +275,9 @@ if (stillExcused.length) {
   }
   console.log();
 }
+
+const pastShown = [...routes].filter((r) => PAST_RACE_PAGES.has(r));
+if (pastShown.length) console.log(dim(`지난 대회 페이지 ${pastShown.length}개 — 목록·sitemap 에서 빠지는 게 정상 (실패 아님)\n`));
 
 const fail = orphans.length + broken.length + notInSitemapReal.length + staleExcuses.length;
 console.log(fail ? red(`실패 ${fail}건`) : green(`통과 — 고아 없음, 끊긴 링크 없음, sitemap 일치`));

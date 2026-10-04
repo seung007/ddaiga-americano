@@ -1,4 +1,5 @@
 import RAW from "./races.json";
+import PAST from "./races.past.json";
 
 /**
  * 마라톤 대회 일정 — **재방문을 만드는 유일한 축.**
@@ -112,7 +113,21 @@ export type Race = {
   factsFrom?: "공식" | "모음";
 };
 
-const ALL = RAW as Race[];
+/**
+ * 다가오는 대회(`races.json`) + 지난 대회(`races.past.json`).
+ *
+ * 2026-10-04: 주간 워크플로(`races:sweep --write`)가 10/3 대회 2건을 `races.past.json` 으로 옮기자
+ * **배포가 전부 멈췄다.** `app/races/masters-half-2026/page.tsx` 가 이 목록에서 자기 대회를 찾는데
+ * 못 찾아서 빌드가 `Cannot read properties of undefined (reading 'name')` 로 실패했다.
+ * Vercel 은 실패한 빌드를 조용히 버리고 예전 배포를 계속 띄우므로 사이트는 멀쩡해 보였다.
+ *
+ * 이 파일의 원래 설계는 「지난 대회는 화면에서 거른다(지우지 않는다)」였다 — 목록은 `upcomingRaces()` 가
+ * 날짜로 거르고, 상세 페이지(「다녀왔어요」)와 반응 이름은 지난 대회도 본다. 보관 파일을 합쳐서 그 설계를 되살린다.
+ * 같은 id 가 양쪽에 있으면 `races.json` 쪽을 쓴다.
+ */
+const ACTIVE = RAW as Race[];
+const ACTIVE_IDS = new Set(ACTIVE.map((r) => r.id));
+const ALL: Race[] = [...ACTIVE, ...(PAST as Race[]).filter((r) => !ACTIVE_IDS.has(r.id))];
 
 /** 오늘(KST) 자정 기준. 대회 당일은 아직 "다가오는" 것으로 본다. */
 function todayKst(): string {

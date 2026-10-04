@@ -86,6 +86,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run races:sweep -- --write
+      # 옮긴 결과가 사이트를 깨지 않는지 커밋 전에 본다 (2026-10-04: 보관 커밋이 빌드를 깨서 배포가 멈췄다)
+      - run: npm run check
       - name: 바뀐 게 있으면 커밋
         run: |
           if [ -n "$(git status --porcelain lib/races.json lib/races.past.json)" ]; then

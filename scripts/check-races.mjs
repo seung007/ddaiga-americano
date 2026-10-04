@@ -23,6 +23,8 @@
  * ④ `status: "접수중"` 인데 날짜가 없음 — 접수 중인데 언제 뛰는지 모를 수 없다
  * ⑤ id 중복
  * ⑥ 거리 값이 0 이하이거나 100km 초과 — 오타 방지
+ * ⑦ `app/races/<id>/page.tsx` 처럼 글로 쓴 대회 페이지의 id 가 races.json · races.past.json 어디에도 없음
+ *    — 2026-10-04 자동 보관이 이 페이지의 대회를 빼서 빌드가 실패했고, 배포가 조용히 멈췄다
  *
  * 경고만 하는 것 (실패 아님)
  * ────────────────────────
@@ -32,7 +34,7 @@
  * ⚠️ **날짜가 비어 있는 것은 실패가 아니다.** "아직 모른다"를 표현할 방법이
  * 없으면 사람이 그럴듯한 값을 채워 넣게 된다. 그게 이 검사가 막으려는 바로 그 일이다.
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = process.cwd();
@@ -141,6 +143,23 @@ for (const [i, r] of races.entries()) {
 }
 
 console.log(`\n대회 일정 ${races.length}건`);
+
+// ⑦ 글로 쓴 대회 페이지 — 데이터에서 자기 대회를 찾는다. 없으면 빌드가 깨진다
+{
+  let pastIds = new Set();
+  try {
+    pastIds = new Set(JSON.parse(readFileSync(join(ROOT, "lib", "races.past.json"), "utf8")).map((r) => r.id));
+  } catch {
+    /* 보관 파일이 아직 없으면 races.json 만 본다 */
+  }
+  const dir = join(ROOT, "app", "races");
+  for (const d of readdirSync(dir, { withFileTypes: true })) {
+    if (!d.isDirectory() || d.name.startsWith("[")) continue;
+    if (!existsSync(join(dir, d.name, "page.tsx"))) continue;
+    if (!seen.has(d.name) && !pastIds.has(d.name))
+      errors.push(`app/races/${d.name}/page.tsx — 대회 id "${d.name}" 가 races.json · races.past.json 에 없음 (빌드 실패)`);
+  }
+}
 
 if (errors.length) {
   console.log(red(`\n실패 ${errors.length}건\n`));

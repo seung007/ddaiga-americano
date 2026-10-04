@@ -10,7 +10,10 @@ import RaceReactions from "@/components/RaceReactions";
  * 2026-09-16 공식 사이트(mastershalf.kr) 확인. 공식 공지로 접수 마감이 9/27 로 연장됐다.
  * 2026-09-17: 일정 모음 사이트와 비교하던 문단·「확인 못 한 것」 목록을 뺐다(공식 홈페이지만 기준 — hyun 님).
  */
-const race = ALL_RACES.find((r) => r.id === "masters-half-2026")!;
+const found = ALL_RACES.find((r) => r.id === "masters-half-2026");
+// 못 찾으면 빌드를 멈추되 **이유를 적는다** — 2026-10-04 에 `undefined.name` 한 줄로만 실패해 원인을 찾는 데 시간이 걸렸다
+if (!found) throw new Error("masters-half-2026 이 lib/races.json · lib/races.past.json 어디에도 없음 — 이 정적 페이지를 지우거나 데이터를 되돌릴 것");
+const race = found;
 
 
 /** 대회 전/후로 「나가요」→「다녀왔어요」가 바뀌므로 [id] 템플릿과 같은 주기로 다시 만든다 */
