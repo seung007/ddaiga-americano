@@ -250,7 +250,11 @@ const GENERIC_NAME = /^(제?\d+회|\d{4}|마라톤|대회|전국|국제|기념|�
 /**
  * 대회 공식 링크 한 개 판정.
  * @returns {{ verdict: string, note?: string }}
- *   verdict: ok · 마감문구 · 대회명없음 · 연도없음 · 차단 · 죽음
+ *   verdict: ok · 마감문구 · 대회명없음 · 연도없음 · 확인불가 · 차단 · 죽음
+ *
+ * 2026-10-04 세 번째 실행에서 나온 오탐 두 가지:
+ *   · SNS(인스타그램) — 로그인 벽이라 본문에 대회명이 안 나온다. 「없다」가 아니라 「볼 수 없다」 → 확인불가
+ *   · 구글폼 신청서 — 「제1회 쓰레기 없는 마라톤 무쓰런」처럼 연도를 안 쓴다. 대회명이 보이면 연도는 묻지 않는다
  */
 export function judgeRacePage(page, race, displayStatus) {
   if (isRefusal(page)) return { verdict: "차단", note: page.error ?? `HTTP ${page.status}` };
@@ -258,6 +262,7 @@ export function judgeRacePage(page, race, displayStatus) {
   const ctext = compact(`${page.title ?? ""} ${page.text ?? ""}`);
   if (BLOCKED.some((b) => ctext.includes(b))) return { verdict: "차단", note: `HTTP ${page.status} · 차단 안내문` };
   if (page.status >= 400) return { verdict: "죽음", note: `HTTP ${page.status}` };
+  if (race.officialKind === "SNS") return { verdict: "확인불가", note: "SNS — 로그인 벽이라 대회명·연도를 판정하지 않음(사람이 확인)" };
 
   const tokens = race.name
     .replace(/[()·,&]/g, " ")
@@ -269,7 +274,8 @@ export function judgeRacePage(page, race, displayStatus) {
   const year = race.date ? race.date.slice(0, 4) : null;
   const notes = [];
   if (!nameHit) notes.push(`대회명 단어(${tokens.slice(0, 3).join("·")})가 안 보임`);
-  if (year && !ctext.includes(year)) notes.push(`${year} 가 안 보임 — 작년 페이지일 수 있음`);
+  if (year && !ctext.includes(year) && !(race.officialKind === "접수폼" && nameHit))
+    notes.push(`${year} 가 안 보임 — 작년 페이지일 수 있음`);
 
   const open = displayStatus === "접수중" || displayStatus === "마감임박" || displayStatus === "접수예정";
   const closedWord = CLOSED.find((c) => ctext.includes(c));

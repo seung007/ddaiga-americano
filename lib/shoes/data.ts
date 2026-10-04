@@ -1721,7 +1721,8 @@ export const SHOES: Shoe[] = [
     id: "puma-velocity-nitro-3",
     brand: "Puma",
     model: "Velocity NITRO 3",
-    successor: "Velocity NITRO 5",
+    // 2026-10-04: 「NITRO 5」였는데 푸마 공식몰 검색에 **NITRO 4**(「벨로시티 나이트로 4 우먼스」)가 있다 — 바로 다음 세대는 4
+    successor: "Velocity NITRO 4",
     imageUrl: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/377748/01/sv01/fnd/PNA/fmt/png/Velocity-NITRO-3-Mens-Running-Shoes",
     colorways: ["블랙/화이트", "쿨 블루"],
     widthOptions: ["D"],
@@ -1732,7 +1733,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 139000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "푸마 공식몰", url: "https://kr.puma.com/kr/ko/search?q=nitro", isOfficial: true },
+      { label: "푸마 공식몰 — 지금은 벨로시티 나이트로 4·5", url: "https://kr.puma.com/kr/ko/search?q=nitro", isOfficial: true },
       { label: "무신사 — Puma", url: "https://www.musinsa.com/brand/puma", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Puma%20Velocity%20NITRO%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Puma%20Velocity%20NITRO%203", isOfficial: false },
@@ -3854,7 +3855,7 @@ export const SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "Velocity NITRO 3의 후속.",
+    blurb: "Velocity NITRO 4의 다음 세대(3 → 4 → 5).", // 2026-10-04: 「3의 후속」은 틀림 — 푸마 공식몰에 4가 있다
     scienceBasis: "공개 스펙만 확인: RunRepeat 실측 무게 238g(브랜드 표기 244g)·뒤꿈치 스택 31.3mm, 브랜드 표기 드롭 8mm. 폭 옵션 D·2E(RunRepeat 남성 기준). 누구에게 맞는지는 아직 판단하지 않았습니다.",
     youtubeReviews: [
       { label: "Velocity NITRO 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=puma+velocity+nitro+5+review" },

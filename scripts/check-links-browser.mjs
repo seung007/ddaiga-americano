@@ -92,7 +92,14 @@ if (flag("selftest")) {
   if (journey.verdict !== "ok") { bad++; console.log(C.red(`✗ 저니 런 → ${journey.verdict}`)); }
   const kream = judgeShoePage({ ok: true, status: 200, url: "https://kream.co.kr/search?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203", title: "아디다스 슈퍼노바 프리마 3 추천 상품 시세 확인 | KREAM", text: `Adidas 아디다스 슈퍼노바 프리마 3 코어 블랙 클라우드 화이트 159,000원 ${"여백 ".repeat(150)}` }, { model: "Supernova Prima 3" }, aliases);
   if (kream.verdict !== "ok") { bad++; console.log(C.red(`✗ KREAM 상품명=검색어 → ${kream.verdict}`)); }
-  console.log(bad ? C.red(`\n자체 시험 ${bad}건 실패`) : C.green(`자체 시험 통과 (${cases.length + 9}건)`));
+  // 세 번째 실행에서 나온 것 — 사진 alt 의 상품명, 인스타그램 로그인 벽, 연도 없는 구글폼
+  const alt = judgeShoePage({ ok: true, status: 200, url: "https://www.decathlon.co.kr/search?query=KIPRUN%20KS500", title: "데카트론", text: `KIPRUN KS500 23 결과 ${"여백 ".repeat(150)}\n남성 러닝화 KS500.2\n여성 러닝화 KS500` }, { model: "KIPRUN KS500 2" }, aliases);
+  if (alt.verdict !== "ok") { bad++; console.log(C.red(`✗ alt 상품명 → ${alt.verdict}`)); }
+  const sns = judgeRacePage({ ok: true, status: 200, text: "Instagram 로그인 가입하기" }, { name: "2026 당진원런 마라톤", date: "2026-10-31", officialKind: "SNS" }, "마감");
+  if (sns.verdict !== "확인불가") { bad++; console.log(C.red(`✗ SNS → ${sns.verdict}`)); }
+  const form = judgeRacePage({ ok: true, status: 200, text: "'무쓰런' 참가신청서 제1회 쓰레기 없는 마라톤" }, { name: "무쓰런", date: "2026-10-24", officialKind: "접수폼" }, "마감");
+  if (form.verdict !== "ok") { bad++; console.log(C.red(`✗ 연도 없는 신청서 → ${form.verdict}`)); }
+  console.log(bad ? C.red(`\n자체 시험 ${bad}건 실패`) : C.green(`자체 시험 통과 (${cases.length + 12}건)`));
   process.exit(bad ? 1 : 0);
 }
 
@@ -192,6 +199,17 @@ const context = await browser.newContext({
   locale: "ko-KR", timezoneId: "Asia/Seoul", viewport: { width: 1280, height: 900 },
 });
 
+/**
+ * 페이지 글자 = 본문 + **이미지 alt**. (2026-10-04)
+ * 데카트론은 상품명을 사진 alt 에만 둔다(「남성 러닝화 KS500.2」) — 본문만 읽으면 머리글
+ * 「KIPRUN KS500 23 결과」만 보여서 「모델없음」으로 읽었다. alt 는 중복을 빼고 뒤에 붙인다.
+ */
+const PAGE_TEXT = () => {
+  const body = document.body?.innerText ?? "";
+  const alts = [...new Set([...document.images].map((i) => (i.alt ?? "").trim()).filter((a) => a.length > 3))];
+  return alts.length ? `${body}\n${alts.join("\n")}` : body;
+};
+
 /** 한 주소를 연다. 실패 메시지는 첫 줄만 남기되 원인(코드)은 지우지 않는다 (AGENTS.md: e.name 만 찍지 마라) */
 async function visit(url) {
   const page = await context.newPage();
@@ -206,11 +224,11 @@ async function visit(url) {
       await page.mouse.wheel(0, 2500).catch(() => {});
       await page.waitForTimeout(600);
     }
-    let text = await page.evaluate(() => document.body?.innerText ?? "").catch(() => "");
+    let text = await page.evaluate(PAGE_TEXT).catch(() => "");
     // 본문이 거의 비었으면 한 번 더 기다린다 — 첫 실행에서 브룩스 한 곳이 about:blank 0자로 잡혔다
     if (text.trim().length < 200) {
       await page.waitForTimeout(3000);
-      text = await page.evaluate(() => document.body?.innerText ?? "").catch(() => "");
+      text = await page.evaluate(PAGE_TEXT).catch(() => "");
     }
     return { ok: true, status: res?.status() ?? 0, url, finalUrl: page.url(), title: await page.title().catch(() => ""), text, dialog };
   } catch (e) {
@@ -281,7 +299,7 @@ if (refused.length && !flag("no-retry") && !flag("headed") && !process.env.CI) {
       const res = await pg.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
       await pg.waitForLoadState("networkidle", { timeout: 8_000 }).catch(() => {});
       await pg.waitForTimeout(800);
-      const text = await pg.evaluate(() => document.body?.innerText ?? "").catch(() => "");
+      const text = await pg.evaluate(PAGE_TEXT).catch(() => "");
       const p = { ok: true, status: res?.status() ?? 0, url, finalUrl: pg.url(), title: await pg.title().catch(() => ""), text, dialog, retried: "headed" };
       if (!isRefusal(p)) { pages.set(url, p); fixed++; }
     } catch (e) {
@@ -304,6 +322,8 @@ for (const t of todo) {
   const j = t.kind === "shoe"
     ? judgeShoePage(p, t.shoe, aliases, { wantPrice: PRICE_DOMAINS.has(d) })
     : judgeRacePage(p, t.race, t.status);
+  // 라벨이 이미 「지금은 ○○」으로 후속작을 알리면 문제 아님 — 사용자는 무엇이 뜨는지 알고 누른다 (2026-10-04)
+  if (j.verdict === "후속작만" && /지금은/.test(t.label)) j.verdict = "후속작안내";
   const r = { ...slim(t), ...j, httpStatus: p.status ?? null, finalUrl: p.finalUrl && p.finalUrl !== t.url ? p.finalUrl : undefined, retried: p.retried };
   if (t.kind === "shoe" && j.prices?.length && t.shoe.priceKrw && !j.prices.includes(t.shoe.priceKrw)) {
     r.priceFlag = `DB ${t.shoe.priceKrw.toLocaleString()} · 페이지 후보 ${j.prices.map((n) => n.toLocaleString()).join(" / ")}`;
@@ -318,7 +338,7 @@ function slim(t) {
 
 const PROBLEM = ["죽음", "0건", "모델없음", "후속작만", "차단", "마감문구", "대회명없음", "연도없음"];
 const count = (v) => results.filter((r) => r.verdict === v).length;
-const summary = Object.fromEntries(["ok", "목록형", ...PROBLEM, "건너뜀"].map((v) => [v, count(v)]));
+const summary = Object.fromEntries(["ok", "목록형", "후속작안내", ...PROBLEM, "확인불가", "건너뜀"].map((v) => [v, count(v)]));
 summary["가격다름"] = results.filter((r) => r.priceFlag).length;
 
 mkdirSync(OUT_DIR, { recursive: true });
