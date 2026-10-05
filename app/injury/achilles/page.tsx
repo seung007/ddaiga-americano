@@ -289,8 +289,15 @@ export default function AchillesPage() {
                   ② "효과적임을 확인" → 초록은 정반대로 근거 공백을 명시한다:
                      "there is still a gap in the evidence for the efficacy of any modality"
                      (편향 위험도 62.5% some concerns / 37.5% high)
-                  ③ "Alfredson 프로토콜(주 7일, 3세트 15회 × 12주) 권고" — 초록에 없다 */}
-              <strong>Prudêncio et al. (2023, BMC Sports Sci Med Rehabil)</strong> — 아킬레스건병 운동치료 체계적 고찰 및 메타분석. <strong>어떤 방식이 더 낫다고 결론 내리기에는 근거가 부족하다</strong>고 보고했습니다(포함된 연구의 편향 위험이 높음). 즉 아래 운동은 &ldquo;검증된 최선&rdquo;이 아니라 널리 쓰이는 방법입니다.{" "}
+                  ③ "Alfredson 프로토콜(주 7일, 3세트 15회 × 12주) 권고" — 초록에 없다
+
+                  ⚠️ 2026-10-06 재정정 — 위 ②가 **방향을 거꾸로** 읽었다.
+                  "gap in the evidence" 문장은 초록 첫머리의 **배경**이고, 이 논문의 **결론**은
+                  "EE is effective in the management of AT" 다(제목도 "Eccentric exercise is more
+                  effective than other exercises…"). 9/14 정정은 과장을 고치려다 결론을 뒤집었다.
+                  지금 문장은 결론 + 한계(통증만 메타분석 5편, 편향 우려 62.5%·높음 37.5%)를 같이 적는다.
+                  PubMed 초록(PMID 36698184) 2026-10-06 직접 확인. */}
+              <strong>Prudêncio et al. (2023) BMC Sports Sci Med Rehabil 15(1):9</strong> — 메타분석(8편). <strong>편심 운동(아래 ③)이 다른 운동보다 통증 개선에 효과적</strong>이라는 결론. 다만 메타분석은 통증 하나(5편)뿐이고 포함 연구 전부 편향 우려·높음이라 저자들도 더 나은 시험이 필요하다고 적었습니다.{" "}
               <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC 원문 →</a>
             </li>
             {/* 2026-09-15 추가 — 드롭 주장을 뺀 자리를 대체한다. 한국어 · 정형외과 전문의. */}
@@ -319,7 +326,7 @@ export default function AchillesPage() {
           },
           {
             q: "아킬레스건·종아리 통증에 어떤 스트레칭이 효과적인가요?",
-            a: "세 가지를 권장합니다. ① 벽 카프 스트레칭 30초 ② 솔리어스(종아리 깊은 근육) 스트레칭 30초 ③ 편심성 카프 레이즈 — 양발로 올라가 한 발로 3~5초에 걸쳐 천천히 내려오기, 한쪽 15회×3세트 하루 1~2회. 다만 어떤 운동이 더 낫다고 말하기에는 근거가 부족합니다 — 메타분석(Prudêncio 2023)은 포함된 연구의 편향 위험이 높아 효과를 단정할 수 없다고 보고했습니다.",
+            a: "세 가지를 권장합니다. ① 벽 카프 스트레칭 30초 ② 솔리어스(종아리 깊은 근육) 스트레칭 30초 ③ 편심성 카프 레이즈 — 양발로 올라가 한 발로 3~5초에 걸쳐 천천히 내려오기, 한쪽 15회×3세트 하루 1~2회. 메타분석(Prudêncio 2023)은 ③ 편심 운동이 다른 운동보다 통증 개선에 효과적이라고 결론 내렸습니다. 다만 포함 연구의 편향 위험이 높은 편이라 확정적인 근거는 아닙니다. ①② 스트레칭 단독의 효과는 이 연구가 따로 보지 않았습니다.",
           },
           {
             q: "아킬레스건이 약하면 신발 드롭은 몇 mm가 좋나요?",

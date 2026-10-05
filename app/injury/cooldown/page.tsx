@@ -69,7 +69,7 @@ export default function Page() {
           </p>
         </div>
 
-        <p className="text-lg leading-relaxed mb-8 text-gray-700">달리기를 마치고 바로 앉거나 눕는 것은 혈액이 다리에 몰린 상태를 유지시킵니다. 5분의 걷기와 10분의 정적 스트레칭은 심박수를 서서히 내리고 다음 날의 근육통을 줄입니다.</p>
+        <p className="text-lg leading-relaxed mb-8 text-gray-700">달리기를 마치고 바로 앉거나 눕는 것은 혈액이 다리에 몰린 상태를 유지시킵니다. 5분의 걷기와 10분의 정적 스트레칭으로 심박수를 서서히 내리세요. 다만 스트레칭이 다음 날 근육통을 줄인다는 근거는 약합니다 — 코크란 리뷰(Herbert 2011)는 의미 있는 감소를 찾지 못했습니다.</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">동적 스트레칭과 정적 스트레칭, 뭐가 다른가요</h2>
@@ -220,9 +220,16 @@ export default function Page() {
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">정적 스트레칭 관련 자료 1건 — 걸려 있던 링크가 특정 논문이 아니라 단체 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
+            {/* 2026-10-06: 본문이 「다음 날의 근육통을 줄입니다」라고 단정했는데, 이 주제의 코크란 리뷰는
+                반대 결론이다. PubMed 초록(PMID 21735398) 직접 확인. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://pubmed.ncbi.nlm.nih.gov/21735398/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                Herbert, de Noronha &amp; Kamper (2011) Cochrane Database Syst Rev (7):CD004577 — 운동 전·후 스트레칭은 지연성 근육통을 임상적으로 의미 있게 줄이지 않음(운동 후 스트레칭: 다음 날 100점 척도에서 평균 약 1점 차이) ↗
+              </a>
+            </li>
 
           </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 논문 1건(코크란 리뷰)과 전문가 기사 1건을 참고했습니다.</p>
         </section>
 
         <YoutubeSection links={[
@@ -242,7 +249,7 @@ export default function Page() {
           },
           {
             q: "회복을 더 빠르게 하려면 뭘 하면 되나요?",
-            a: "스트레칭 후 단백질+탄수화물 음료(초콜릿 밀크 등)를 섭취하면 근육 회복 속도가 빨라집니다. 수면의 질도 회복에 직접 영향을 줍니다.",
+            a: "운동 뒤 단백질과 탄수화물을 같이 먹고 충분히 자는 것이 흔히 권해집니다. 다만 이 글에는 그 효과를 받치는 인용이 없습니다 — 예전에 달았던 자료가 무관한 논문으로 판명돼 내렸습니다.",
           },
         ]} />
 

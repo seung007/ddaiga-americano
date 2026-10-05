@@ -3,14 +3,14 @@ export default function TermsPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-6 py-12 text-gray-800">
       <h1 className="text-2xl font-bold text-gray-900 mb-2">이용약관 및 면책 고지</h1>
-      <p className="text-sm text-gray-400 mb-10">최종 업데이트: 2026년 6월</p>
+      <p className="text-sm text-gray-400 mb-10">최종 업데이트: 2026년 10월</p>
 
       <section className="mb-10">
         <h2 className="text-base font-semibold text-gray-900 mb-3">1. 서비스 목적</h2>
         <p className="text-sm leading-relaxed text-gray-700">
           뛰다가아메리카노(이하 "본 서비스")는 러닝화 선택에 도움을 드리기 위한 <strong>정보 제공 목적</strong>의
-          웹사이트입니다. 본 서비스의 추천 결과는 스포츠의학 논문 및 공개된 연구 자료를 기반으로 한
-          알고리즘이 생성하며, 어떠한 경우에도 <strong>의료적 조언, 전문 처방, 또는 개인 진단을 대체하지 않습니다.</strong>
+          웹사이트입니다. 본 서비스의 추천 결과는 일부 연구 자료를 참고하되 상당 부분은 이 사이트가 정한
+          기준으로 점수를 매기는 알고리즘이 생성하며(아래 3항), 어떠한 경우에도 <strong>의료적 조언, 전문 처방, 또는 개인 진단을 대체하지 않습니다.</strong>
         </p>
       </section>
 
@@ -42,7 +42,7 @@ export default function TermsPage() {
           <li>Malisoux et al. (2020) — 쿠셔닝 경도와 체중, Am J Sports Med (848명 RCT)</li>
           <li>Heiderscheit et al. (2011) — 스텝빈도 조작이 관절역학에 미치는 영향, Med Sci Sports Exerc</li>
           <li>Richards et al. (2009) — 발 타입 기반 러닝화 처방에 근거가 없다는 체계적 고찰, Br J Sports Med</li>
-          <li>Malisoux et al. (2021) — 모션컨트롤화와 과회내 관련 부상, JOSPT (2차 분석)</li>
+          <li>Willems et al. (2021) — 모션컨트롤화와 과회내 관련 부상, JOSPT (RCT 2차 분석)</li>
           <li>van Gent et al. (2007) — 러닝 부상 발생률·결정요인 체계적 고찰, Br J Sports Med</li>
           <li>Ferber et al. (2003) — 성별에 따른 러닝 생체역학 차이</li>
           <li>Taunton et al. (2002) — 러닝 부상 2,002건 후향적 분석, Br J Sports Med</li>
@@ -58,10 +58,12 @@ export default function TermsPage() {
           특정 브랜드를 우대하거나 배제하지 않습니다.
         </p>
         <p className="text-sm leading-relaxed text-gray-700 mt-3">
-          현재 이 사이트는 신발 브랜드·판매자·광고주로부터 어떠한 금전적 대가도 받지 않습니다.
-          향후 제휴 링크 등으로 수익이 발생하는 구조를 도입할 경우, 관련 법령에 따라
-          해당 사실을 각 페이지 본문 첫 부분에 명시하고 이 조항을 함께 갱신합니다.
-          그 경우에도 <strong>추천 순서 산정에는 영향을 주지 않습니다.</strong>
+          {/* 2026-10-06: 「어떠한 금전적 대가도 받지 않습니다」였다. 2026-09-08 부터 쿠팡 파트너스 링크를
+              운영 중이라(lib/shoes/affiliate.ts) 이 조항 스스로 약속한 「도입하면 갱신」을 지키지 않고 있었다. */}
+          2026년 9월부터 일부 신발의 쿠팡 링크를 <strong>쿠팡 파트너스 제휴 링크</strong>로 운영합니다.
+          이 링크를 통해 구매가 이뤄지면 일정액의 수수료를 받을 수 있으며, 해당 페이지 상단에 그 사실을 고지합니다.
+          브랜드·판매자로부터 받는 협찬이나 광고비는 없습니다.
+          제휴 여부는 <strong>추천 점수 계산에 들어가지 않습니다.</strong>
         </p>
       </section>
 

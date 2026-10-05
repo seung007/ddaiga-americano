@@ -176,7 +176,7 @@ export function PaceCurve() {
       <Caption basis="experience">
         세로축에 눈금을 넣지 않았습니다 — 절대 페이스는 사람마다 달라서
         <strong className="text-gray-700"> 없는 정밀도를 만들지 않으려고</strong> 상대 관계만 그렸습니다.
-        초반에 번 30초가 후반에 3분으로 돌아온다는 건 제 경험입니다.
+        초반에 번 시간이 후반에 더 크게 돌아온다는 건 제 경험입니다.
       </Caption>
     </figure>
   );

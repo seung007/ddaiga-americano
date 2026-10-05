@@ -23,7 +23,7 @@ import FinderCta from "@/components/FinderCta";
  * **"당신 신발은 몇 km에서 죽습니다"라고 말하지 않는다.**
  * 흔한 러닝화 수명 계산기들은 체중·노면·주법으로 곱해서 "당신은 412km"처럼
  * 소수점 단위 숫자를 뱉는데, 그 계수는 근거가 없다. 이 연구는 n=15에
- * 뒤꿈치 착지자만, 힐 영역만, 신발 한 종류만 봤다. 거기서 체중 계수를 뽑을 수 없다.
+ * 뒤꿈치 착지자만, 힐 영역만 봤다(신발 모델 구성은 전문을 못 봐 미확인 — 2026-10-06 「한 종류」 삭제). 거기서 체중 계수를 뽑을 수 없다.
  *
  * 그래서 여기서는 **연구가 실제로 측정한 지점(160/320/480/640km)에 내 누적 거리를
  * 얹어서 보여주기만 한다.** 없는 정밀도를 지어내지 않는 게 이 사이트의 유일한 자산이다.
@@ -233,8 +233,8 @@ export default function ShoeLifePage() {
         <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
           <p className="mb-3 text-sm leading-relaxed text-gray-700">
             <strong className="text-gray-900">체중·노면·주법을 반영하지 않습니다.</strong> 넣고
-            싶었지만 넣을 근거가 없었습니다. 이 연구는 참가자 15명, 뒤꿈치 착지자만, 뒤꿈치 영역만,
-            신발 한 종류를 봤습니다. 거기서 &ldquo;체중 80kg이면 ×0.8&rdquo; 같은 계수를 뽑을 수 없습니다.
+            싶었지만 넣을 근거가 없었습니다. 이 연구는 참가자 15명, 뒤꿈치 착지자만, 뒤꿈치 영역만
+            봤습니다. 거기서 &ldquo;체중 80kg이면 ×0.8&rdquo; 같은 계수를 뽑을 수 없습니다.
           </p>
           <p className="mb-3 text-sm leading-relaxed text-gray-700">
             다른 계산기들이 &ldquo;당신의 신발 수명은 412km&rdquo;처럼 정밀한 숫자를 주는 걸 보셨을 겁니다.

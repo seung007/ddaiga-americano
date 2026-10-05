@@ -21,7 +21,7 @@ export default function IntermediateGuidePage() {
           <h1 className="text-3xl font-bold mb-3">중급자 부상 예방 가이드</h1>
           <p className="text-gray-600 leading-relaxed">
             중급자는 "이제 좀 달릴 만하다"는 자신감이 부상의 씨앗이 됩니다.
-            러닝 부상의 60~70%가 훈련 오류(too much, too soon)에서 온다는 추정이 널리 인용되는데, 그 출처는 Clement·Taunton·Smart (1981)의 초기 조사입니다. 
+            러닝 부상의 60~70%가 훈련 오류(too much, too soon)에서 온다는 수치가 널리 돌아다닙니다. 흔히 원출처로 꼽히는 Clement 외(1981) 조사의 초록에서는 그 수치를 확인하지 못했으니 정확한 값보다 경향으로 읽으세요.
             적절한 부하 관리와 회복이 부상 예방의 핵심입니다.
           </p>
         </div>
@@ -34,8 +34,12 @@ export default function IntermediateGuidePage() {
             <li>• 5km 완주 경험 있음, 10km 준비 중 또는 완주</li>
             <li>• 1km 페이스 5~7분대</li>
           </ul>
+          {/* 2026-10-06: 여기 있던 「출처: Clement 1981 — 60~70% 수치의 원출처」는 두 가지가 틀렸다.
+              ① 위 구간(경력·거리·페이스)의 출처처럼 읽혔는데 그 논문은 구간을 정하지 않는다.
+              ② PubMed 초록(PMID 27453020)에 60~70% 가 없다 — 원출처라는 단정도 확인되지 않았다.
+              초심자·숙련자 가이드처럼 「사이트가 정한 기준」으로 바꾸고, 논문은 아래 참고 목록으로 옮겼다. */}
           <p className="text-xs text-amber-700 mt-3">
-            출처: Clement DB, Taunton JE, Smart GW (1981) <em>A survey of overuse running injuries</em>, Phys Sportsmed — 60~70% 수치의 원출처. 1981년 조사이므로 최신 추정치로 보기는 어렵습니다
+            위 구간은 이 사이트가 정한 기준입니다. 러닝 경력·주간 거리로 중급자를 정의하는 공인된 분류는 없습니다.
           </p>
         </section>
 
@@ -155,9 +159,10 @@ export default function IntermediateGuidePage() {
           <h2 className="text-xl font-bold mb-3">과학적 근거 논문</h2>
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>Taunton et al. (2002)</strong> — 러닝 부상 2,002건 후향적 환자-대조군 분석. BJSM 36(2):95-101. <a href="https://pubmed.ncbi.nlm.nih.gov/11916889/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Sanchez-Alvarado et al. (2024)</strong> — IT밴드 증후군 보존적 치료 체계적 고찰. Frontiers in Sports. <a href="https://pubmed.ncbi.nlm.nih.gov/39247485/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Prudêncio et al. (2023)</strong> — 아킬레스건병증 편심성 운동 메타분석. J Hum Kinet. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC →</a></li>
+            <li><strong>Sanchez-Alvarado et al. (2024)</strong> — IT밴드 증후군 보존적 치료 체계적 고찰. Front Sports Act Living 6:1386456. <a href="https://pubmed.ncbi.nlm.nih.gov/39247485/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Prudêncio et al. (2023)</strong> — 아킬레스건병증 편심성 운동 메타분석. 편심 운동이 다른 운동보다 통증 개선에 효과적이라는 결론(포함 연구의 편향 위험은 높은 편). BMC Sports Sci Med Rehabil 15(1):9. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC →</a></li>
             <li><strong>Meeusen et al. (2013)</strong> — 오버트레이닝 증후군 합의문. MSSE 45(1):186-205. <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Clement, Taunton, Smart &amp; McNicol (1981)</strong> — 과사용 러닝 부상 1,650명 기록 조사(무릎·슬개대퇴 통증이 가장 많음). Phys Sportsmed 9(5):47-58. 「훈련 오류 60~70%」는 초록에서 확인하지 못했습니다. <a href="https://pubmed.ncbi.nlm.nih.gov/27453020/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>
         </section>
@@ -169,7 +174,7 @@ export default function IntermediateGuidePage() {
           },
           {
             q: "중급자가 부상당하는 가장 흔한 원인은?",
-            a: "훈련 오류(too much, too soon)입니다. 60~70%라는 추정이 널리 인용되지만 원출처는 1981년 조사(Clement et al.)이므로 정확한 값으로 받아들이기보다 경향으로 보세요. 즉 신체 능력보다 부하 관리와 회복이 부상 예방의 핵심입니다.",
+            a: "훈련 오류(too much, too soon)입니다. 60~70%라는 수치가 널리 인용되지만 흔히 원출처로 꼽히는 1981년 조사(Clement et al.) 초록에서는 그 수치를 확인하지 못했습니다. 정확한 값보다 경향으로 보세요. 즉 신체 능력보다 부하 관리와 회복이 부상 예방의 핵심입니다.",
           },
           {
             q: "언제 쉬어야 하는지 어떻게 아나요?",

@@ -40,8 +40,10 @@ export default function BeginnerGuidePage() {
           </div>
           <h1 className="text-3xl font-bold mb-3">초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기</h1>
           <p className="text-gray-600 leading-relaxed">
-            연구마다 편차가 크지만, 러너의 연간 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent et al., 2007).
-            처음 6개월이 가장 위험하고, 가장 예방하기 쉬운 시기이기도 합니다.
+            {/* 2026-10-06: 「연간」을 뺐다 — van Gent 2007 이 모은 연구들은 추적 기간이 제각각이다(초록에 '연간' 없음).
+                「처음 6개월이 가장 위험」도 뺐다 — 같은 고찰에서 경력과 부상의 관계는 연구마다 갈린다. */}
+            연구마다 편차가 크지만, 러너의 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent et al., 2007).
+            경력이 짧을수록 더 위험한지는 연구마다 갈립니다. 그래도 처음엔 거리를 천천히 늘리는 것이 보수적인 기본입니다.
           </p>
         </div>
 
@@ -99,18 +101,18 @@ export default function BeginnerGuidePage() {
                 // 그 초록에 있는 건 전체 발생률 19.4~79.3% 와 "무릎이 가장 흔한 부위"뿐이고
                 // 슬개대퇴만의 비율은 없다. 저장소 자신의 shin-splints:158 은
                 // Nielsen 2014 PLOS ONE 으로 **10%** 를 적는다. 그 값으로 맞춘다.
-                freq: "러닝 부상의 약 10%",
+                freq: "부상당한 초보 러너의 약 10%",
                 cause: "약한 대퇴사두근, 과도한 계단 오르기 포함",
                 fix: "대퇴사두근·둔근 강화, 경사 구간 줄이기, 주간 거리 10% 이내 증가",
                 color: "border-red-200 bg-red-50",
-                ref: "van Gent et al. (2007) BJSM"
+                ref: "Nielsen et al. (2014) PLOS ONE"
               },
               {
                 name: "정강이 통증 (신스플린트)",
                 // ⚠️ 2026-09-14: "초심자 부상의 10~15%" 에 Galbraith & Lavallee (2009) 를 달았는데
                 // 그 논문은 **보존적 치료 옵션 리뷰**이지 역학 조사가 아니다(링크도 없었다).
                 // 저장소 자신의 shin-splints:158 은 Nielsen 2014 로 **15%** 를 적는다.
-                freq: "러닝 부상의 약 15%",
+                freq: "부상당한 초보 러너의 약 15%",
                 cause: "포장도로·딱딱한 노면, 갑작스런 거리 증가",
                 fix: "부드러운 노면으로 전환, 거리 줄이기, 휴식",
                 color: "border-orange-200 bg-orange-50",
@@ -221,6 +223,7 @@ export default function BeginnerGuidePage() {
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>van Gent et al. (2007)</strong> — 러닝 부상 발생률 및 결정요인 체계적 고찰. 하지 부상 발생률 19.4~79.3%. BJSM 41(8):469-480. <a href="https://pubmed.ncbi.nlm.nih.gov/17473005/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Nielsen RØ et al. (2014)</strong> — 주간 거리 증가폭과 부상. 초보 러너 874명 1년 추적. 전체 부상률에서 유의차 없음. JOSPT 44(10):739-747. <a href="https://doi.org/10.2519/jospt.2014.5164" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
+            <li><strong>Nielsen RO et al. (2014)</strong> — 부상당한 초보 러너 254명의 회복 기간 전향 연구. 부상 종류별 비율(정강이 통증 15%, 슬개대퇴 통증 10% 등). PLoS One 9(6):e99877. <a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
             <li><strong>Behm & Chaouachi (2011)</strong> — 정적·동적 스트레칭이 수행능력에 미치는 즉각적 효과 리뷰. 동적 스트레칭은 수행능력을 떨어뜨리지 않거나 오히려 높였다. Eur J Appl Physiol 111:2633-2651. <a href="https://pubmed.ncbi.nlm.nih.gov/21373870/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
@@ -237,7 +240,7 @@ export default function BeginnerGuidePage() {
           },
           {
             q: "달리기 시작 후 언제가 가장 부상 위험이 큰가요?",
-            a: "처음 6개월입니다. 가장 위험한 시기이자 가장 예방하기 쉬운 시기이기도 합니다. 10% 규칙을 지키고 워밍업·쿨다운을 챙기면 대부분의 초기 부상을 막을 수 있습니다.",
+            a: "특정 시기가 가장 위험하다고 말할 근거는 저희가 확인하지 못했습니다. 경력이 짧을수록 위험한지는 연구마다 갈립니다(van Gent 2007). 워밍업·쿨다운이 부상을 막는다는 근거도 약합니다. 그래도 거리를 한꺼번에 늘리지 않는 것은 보수적인 기본이니 처음 몇 달은 천천히 늘리세요.",
           },
         ]} />
 

@@ -6,7 +6,7 @@ import { BODY_TYPE_LABEL, type BodyType } from "@/lib/shoes/types";
 export const metadata: Metadata = {
   title: "러닝화 추천기 — 뛰다가 아메리카노",
   description:
-    "키·체중·성별·발볼·발 타입을 선택하면 스포츠의학 논문 기반으로 내 몸에 맞는 러닝화를 추천해드립니다. 광고·협찬 없이 데이터로만.",
+    "발볼·발 타입·체형을 고르면 러닝화 3개를 골라드립니다. 연구로 확인된 것과 사이트가 정한 기준을 나눠 보여드리고, 광고비로 순위를 바꾸지 않습니다.",
   // 2026-09-06: 저장소 전체에 canonical 이 하나도 없었다.
   // 이 페이지는 공유 URL로 `?h=&w=&g=` 파라미터 조합이 무한히 생기므로
   // canonical 이 없으면 변형들이 서로 색인 경쟁을 한다.

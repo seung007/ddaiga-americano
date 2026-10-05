@@ -50,15 +50,17 @@ export default function AdvancedGuidePage() {
             {[
               {
                 name: "피로 골절 (Stress Fracture)",
-                freq: "장거리 러너 연간 1~7%",
+                freq: "스포츠의학 클리닉 부상 중 0.7~20%",
                 cause: "과도한 충격 반복, 뼈 재형성 속도 초과, 낮은 D 비타민·칼슘",
-                fix: "4~8주 러닝 중단, 수영·자전거 대체훈련, 비타민D·칼슘 보충 확인, 쿠셔닝 극대화 신발",
+                // 2026-10-06: 「쿠셔닝 극대화 신발」을 뺐다. 출처가 없고, 쿠션 RCT(Malisoux 2020)는 피로골절이 아니라
+                // 전체 부상을, 「극대화」가 아니라 두 경도 비교를 봤다. 「연간 1~7%」는 초록 값(클리닉 부상 중 0.7~20%)으로 교체.
+                fix: "진단부터 받기(엑스레이는 초기에 안 보일 수 있음), 러닝 중단 후 의사와 상의해 단계적 복귀, 수영·자전거 대체훈련, 비타민D·칼슘 확인",
                 color: "border-red-200 bg-red-50",
                 // ⚠️ 2026-09-14 서지 정정: "Fredericson & Jennings (2000) Clin Sports Med" 였는데
                 // 실재하는 것은 Fredericson M, Jennings F, Beaulieu C, Matheson GO.
                 // "Stress fractures in athletes." Top Magn Reson Imaging 2006;17:309-325 —
                 // **연도와 저널이 둘 다 달랐다.** 그리고 "연간 1~7%" 수치는 그 초록에서 확인되지 않는다.
-                ref: "Fredericson et al. (2006) Top Magn Reson Imaging — 발생률 수치는 미확인"
+                ref: "Fredericson et al. (2006) Top Magn Reson Imaging 17(5):309-325"
               },
               {
                 name: "비기능적 오버리칭 (Non-Functional Overreaching)",
@@ -181,7 +183,7 @@ export default function AdvancedGuidePage() {
           <ul className="flex flex-col gap-2 text-sm text-gray-700">
             <li><strong>Meeusen et al. (2013)</strong> — 오버트레이닝 증후군 합의문. MSSE 45(1):186-205. <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Plews et al. (2013)</strong> — 훈련 적응을 HR·HRV로 평가하는 방법 비교(러너 10명). IJSPP 8(6):688-691. <a href="https://doi.org/10.1123/ijspp.8.6.688" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
-            <li><strong>Dizon et al. (2023)</strong> — 근위 햄스트링 건병증 보존적 중재 비교 체계적 고찰. Int J Sports Phys Ther. <a href="https://pubmed.ncbi.nlm.nih.gov/36976939/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed →</a></li>
+            <li><strong>Dizon et al. (2023)</strong> — 근위 햄스트링 건병증 보존적 중재 비교 체계적 고찰. Sports (Basel) 11(3):53. <a href="https://pubmed.ncbi.nlm.nih.gov/36976939/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed →</a></li>
             <li><strong>Lauersen et al. (2014)</strong> — 근력 훈련의 스포츠 부상 예방 효과 메타분석. BJSM 48(11):871-877. <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>

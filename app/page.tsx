@@ -447,7 +447,7 @@ export default function Home() {
       <section className="bg-emerald-600">
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
           <h2 className="text-2xl font-bold text-white mb-2">어떤 신발이 맞는지 모르겠다면</h2>
-          <p className="text-emerald-50 mb-6">키·체중·발 타입만 고르면 논문 기반 추천이 1분 안에 신발 3개를 골라드려요.</p>
+          <p className="text-emerald-50 mb-6">발볼·발 타입·체형만 고르면 1분 안에 신발 3개를 골라드려요. 근거가 있는 것과 사이트 기준인 것은 결과에서 나눠 보여드려요.</p>
           <Link
             href="/shoe-finder"
             className="inline-block bg-white text-emerald-700 font-semibold px-8 py-4 rounded-xl hover:bg-emerald-50 transition-colors"

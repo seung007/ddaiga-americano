@@ -57,7 +57,7 @@ export default function Image() {
           }}
         >
           <span style={{ color: "#6ee7b7", fontSize: "22px", fontWeight: 600 }}>
-            🏃 논문 기반 러닝화 추천
+            🏃 근거를 밝히는 러닝화 추천
           </span>
         </div>
 

@@ -101,7 +101,7 @@ export default function Page() {
           </p>
         </div>
 
-        <p className="text-lg leading-relaxed mb-8 text-gray-700">달리기를 시작한 지 한두 달, 계단을 내려가거나 오래 앉아 있다가 일어날 때 무릎 앞쪽이 뻐근하게 아프다면 슬개대퇴 증후군(Patellofemoral Pain Syndrome)을 의심해야 합니다. 러너 무릎이라고도 불리며, 장경인대염과 함께 초보 러너에게 가장 흔한 부상입니다.</p>
+        <p className="text-lg leading-relaxed mb-8 text-gray-700">달리기를 시작한 지 한두 달, 계단을 내려가거나 오래 앉아 있다가 일어날 때 무릎 앞쪽이 뻐근하게 아프다면 슬개대퇴 증후군(Patellofemoral Pain Syndrome)을 의심해야 합니다. 러너 무릎이라고도 불리며, 초보 러너 부상 가운데 정강이 통증(신스플린트) 다음으로 흔한 편입니다(부상당한 초보 254명 중 약 10%, Nielsen 2014).</p>
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">원인</h2>
           <p className="leading-relaxed text-gray-700 whitespace-pre-line">슬개골(무릎 앞 뼈)이 대퇴골 위에서 정렬이 어긋날 때 통증이 생깁니다. 초보 러너에게 많은 이유는 세 가지입니다: ① 약한 고관절 외전근 — 무릎이 안쪽으로 쏠림 ② 갑작스러운 거리 증가 ③ 딱딱한 신발 또는 마모된 쿠션</p>
@@ -148,13 +148,16 @@ export default function Page() {
               **"고관절 운동과 무릎 운동을 함께"** 하는 쪽을 권고한다.
               내가 순위를 만들어 인용을 넘어섰다. */}
           <p className="mt-3 text-sm leading-relaxed text-gray-600">
-            <strong>셋을 같이 하세요.</strong> 아래 인용한 국제 합의문(Collins 2018)은
+            {/* 2026-10-06: 「셋을 같이」 → 1·2번. 합의문 권고는 고관절·무릎 운동이고, 폼롤러 같은
+                연부조직 기법은 「불확실」로 분류된다. 그리고 합의문은 **치료** 권고다(예방 아님). */}
+            <strong>1·2번을 같이 하세요.</strong> 아래 인용한 국제 합의문(Collins 2018)은
             고관절 운동과 무릎 운동을 <strong>함께</strong> 하는 쪽을 권고합니다 — 하나만
-            골라서 하는 것보다 낫다고 봤습니다.
+            골라서 하는 것보다 낫다고 봤습니다. 다만 이건 이미 아픈 사람을 위한 치료 권고이고,
+            3번 폼롤러는 권고 대상이 아니라 편한 대로 하면 됩니다.
           </p>
         </section>
 
-        <FinderCta from="knee-pain" variant="inline" headline="체중 대비 쿠션이 부족하면 무릎이 먼저 받습니다. 지금 신발이 맞는지 확인해보세요." />
+        <FinderCta from="knee-pain" variant="inline" headline="신발로 무릎 통증이 낫는다는 근거는 약합니다. 다만 발볼·사이즈가 안 맞는 신발은 바꾸는 게 맞습니다." />
         {/**
          * ⚠️ 2026-09-14 — **이 절 전체가 저장소 자신과 모순이었다.**
          *
@@ -203,6 +206,10 @@ export default function Page() {
                 Collins et al. (2018) BJSM 52(18):1170-1178 — 슬개대퇴 통증 운동치료 국제 합의문. 고관절·무릎 운동을 함께 하는 쪽을 권고 ↗
               </a>
             </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                Nielsen et al. (2014) PLoS One 9(6):e99877 — 부상당한 초보 러너 254명 추적. 정강이 통증 15%, 슬개대퇴 통증 10% ↗
+              </a>
+            </li>
 
           </ul>
           <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
@@ -218,11 +225,11 @@ export default function Page() {
         <FaqSection items={[
           {
             q: "계단을 내려갈 때 무릎 앞쪽이 아픈 건 무슨 부상인가요?",
-            a: "계단을 내려가거나 오래 앉았다 일어날 때 무릎 앞쪽이 뻐근하다면 슬개대퇴 증후군(러너 무릎)을 의심해야 합니다. 슬개골이 대퇴골 위에서 정렬이 어긋날 때 통증이 생기며, 장경인대염과 함께 초보 러너에게 가장 흔한 부상입니다.",
+            a: "계단을 내려가거나 오래 앉았다 일어날 때 무릎 앞쪽이 뻐근하다면 슬개대퇴 증후군(러너 무릎)을 의심해야 합니다. 초보 러너 부상 가운데 정강이 통증(신스플린트) 다음으로 흔한 편입니다(부상당한 초보 254명 중 약 10%, Nielsen 2014).",
           },
           {
             q: "러너 무릎을 예방하는 운동은 뭐가 있나요?",
-            a: "세 가지가 효과적입니다. ① 클램셸 — 옆으로 누워 위쪽 다리를 벌리기, 15회×3세트 ② 스텝다운 — 계단 끝에서 한 다리로 천천히 내려오기, 10회×3세트 ③ 폼롤러로 허벅지 앞쪽 2~3분 이완. 약한 고관절 외전근이 주요 원인이라 이를 강화하는 운동이 핵심입니다.",
+            a: "국제 합의문(Collins 2018)은 고관절 운동과 무릎 운동을 함께 하는 쪽을 권고합니다. 이 페이지에서는 ① 클램셸(고관절) ② 스텝다운(무릎)을 같이 합니다. 이 합의문은 이미 아픈 사람의 치료 권고이고, 예방 효과나 폼롤러는 다루지 않았습니다. 통증이 계속되면 진료를 먼저 받으세요.",
           },
           {
             q: "신발이 무릎 통증에 영향을 주나요?",

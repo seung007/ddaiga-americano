@@ -1170,16 +1170,16 @@ type GuideItem = { href: string; tag: string; title: string; desc: string };
 
 const GUIDE_MAP: Record<string, GuideItem[]> = {
   flat: [
-    { href: "/injury/wide-foot",  tag: "발볼",    title: "발볼 넓은 러너 와이드 규격 총정리",       desc: "평발은 발볼이 넓어지는 경향. 2E·4E 규격 판단법." },
-    { href: "/injury/knee-pain",  tag: "무릎",    title: "무릎 통증 없이 달리는 법",                desc: "평발 러너의 과내전이 무릎 통증으로 이어지는 이유." },
-    { href: "/injury/it-band",    tag: "무릎",    title: "장경인대염 초기 대처법 3가지",             desc: "평발에서 자주 오는 무릎 바깥쪽 통증 대처법." },
+    { href: "/injury/wide-foot",  tag: "발볼",    title: "2E·4E 와이드 뜻과 내 발볼 재는 법",       desc: "와이드 규격이 필요한지 판단하는 법." },
+    { href: "/injury/knee-pain",  tag: "무릎",    title: "러너 무릎(슬개대퇴 증후군)",              desc: "무릎 앞쪽이 아플 때 — 병원 갈 신호와 운동 2가지." },
+    { href: "/injury/it-band",    tag: "무릎",    title: "장경인대염 초기 대처법 3가지",             desc: "달릴 때 무릎 바깥쪽이 아플 때." },
   ],
   high_arch: [
-    { href: "/injury/achilles",   tag: "아킬레스", title: "미드풋 전환 후 아킬레스건 스트레칭",      desc: "높은 아치는 아킬레스건 부담이 큼. 필수 스트레칭." },
-    { href: "/injury/midfoot",    tag: "착지",    title: "미드풋 착지 완전 가이드",                 desc: "높은 아치 러너에게 맞는 착지법 전환 방법." },
+    { href: "/injury/achilles",   tag: "아킬레스", title: "아킬레스건·종아리 통증 스트레칭 3가지",   desc: "달린 뒤 종아리·아킬레스가 당길 때." },
+    { href: "/injury/midfoot",    tag: "착지",    title: "미드풋 착지란? 힐스트라이크와 차이",       desc: "초보가 착지법을 바꿔야 하는지." },
   ],
   neutral: [
-    { href: "/injury/cadence",    tag: "케이던스", title: "케이던스 맞추는 법",                     desc: "중립 아치 러너의 무릎 부하를 줄이는 보폭 조정." },
+    { href: "/injury/cadence",    tag: "케이던스", title: "케이던스 180은 정답일까",                 desc: "지금보다 5~10% 올리면 무릎 부하가 줄었다는 연구(Heiderscheit 2011)." },
     { href: "/injury/beginner-guide", tag: "입문", title: "초보 러너 완전 가이드",                  desc: "처음 달리기 시작할 때 꼭 알아야 할 것들." },
   ],
 };
@@ -1299,8 +1299,10 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
   const cushDots = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"];
   const stabLabel: Record<string, string> = {
     neutral: "중립 (보통 발)",
-    stability: "안정화 (평발용)",
-    motion_control: "모션컨트롤 (심한 평발)",
+    // 2026-10-06: 「(평발용)」「(심한 평발)」을 뺐다. 라벨이 처방이 되면 안 된다 — 발 타입별 처방 근거는
+    // 갈린다(Richards 2009 지지 연구 없음 / Malisoux 2016 회내 발에서 모션컨트롤화 이득).
+    stability: "안정화",
+    motion_control: "모션컨트롤",
   };
   const footTypeLabel: Record<string, string> = {
     flat: "평발", neutral: "중립", high_arch: "높은 아치",
@@ -1363,9 +1365,9 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
       <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
         <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">📖 용어 설명 보기</summary>
         <ul className="mt-2 space-y-1 leading-relaxed">
-          <li><strong>쿠셔닝</strong> — 충격 흡수 정도. 많을수록 무릎·관절이 편하지만 무거워짐.</li>
-          <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 잡아주는 기능. 평발이면 안정화·모션컨트롤 권장.</li>
-          <li><strong>힐드롭</strong> — 뒤꿈치와 앞발의 높이 차이. 낮을수록(0–4mm) 자연스러운 발착지에 가깝고, 높을수록(8mm+) 뒤꿈치 착지에 유리.</li>
+          <li><strong>쿠셔닝</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
+          <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이도록 만든 구조. 평발에 도움이 되는지는 연구가 갈림(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>
+          <li><strong>힐드롭</strong> — 뒤꿈치와 앞발의 높이 차이(mm). 낮은 쪽(0–4mm)과 높은 쪽(8mm+) 중 부상에 유리한 쪽이 있다는 근거는 확인하지 못함.</li>
           <li><strong>스택높이</strong> — 밑창 두께. 높을수록 쿠션이 많고, 낮을수록 지면 감각이 살아있음.</li>
           <li><strong>발볼</strong> — D=표준, 2E=넓음(와이드), 4E=매우 넓음. 발이 넓으면 2E 이상 권장.</li>
         </ul>

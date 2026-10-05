@@ -180,7 +180,7 @@ export default function ITBandPage() {
         <FaqSection items={[
           {
             q: "달릴 때 무릎 바깥쪽이 아픈 이유는 뭔가요?",
-            a: "무릎 바깥쪽의 날카로운 통증은 장경인대염(IT Band Syndrome)일 가능성이 높습니다. 장경인대가 무릎을 굽혔다 펼 때 허벅지 뼈 돌출부와 반복해서 마찰하며 염증이 생깁니다. 주 10% 이상의 갑작스러운 거리 증가와 체중 대비 쿠셔닝이 부족한 신발이 주요 원인입니다.",
+            a: "무릎 바깥쪽 통증은 장경인대염(IT Band Syndrome)일 수 있습니다 — 확정은 진료로 합니다. 달리는 거리를 갑자기 늘린 것과 관련 있다는 보고가 있습니다(Sanchez-Alvarado 2024). 신발로 해결된다는 근거는 이 글의 인용에 없습니다.",
           },
           {
             q: "장경인대염이 생기면 달리기를 완전히 쉬어야 하나요?",
@@ -193,9 +193,10 @@ export default function ITBandPage() {
         ]} />
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">내 체중에 맞는 쿠셔닝 신발이 필요하다면</p>
+          {/* 2026-10-06: 「장경인대염 예방에 적합한 신발」은 같은 글 본문(신발로 해결한다는 근거 없음)과 반대였다. */}
+          <p className="font-medium text-emerald-900 mb-2">지금 신발이 발에 맞는지 확인해 보세요</p>
           <p className="text-sm text-emerald-800 mb-4">
-            체중·발볼을 입력하면 장경인대염 예방에 적합한 신발을 추천해드립니다.
+            장경인대염을 신발로 고친다는 근거는 없습니다. 다만 발볼·사이즈가 안 맞는 신발은 바꾸는 게 맞습니다.
           </p>
           <Link
             href="/shoe-finder"
