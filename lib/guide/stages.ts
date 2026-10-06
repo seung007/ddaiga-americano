@@ -143,6 +143,14 @@ export const STAGES: Stage[] = [
     who: "10km는 완주했고, 주간 거리를 늘려 하프를 준비한다.",
     bottlenecks: [
       {
+        title: "얼마나 준비해야 하는지 모른다",
+        fact: "하프 참가자 556명의 준비량 중앙값은 주 26km, 주 3회, 가장 긴 달리기 18.5km였습니다. 주 32km 초과·최장 21km 초과 그룹이 더 빨랐고 후반 감속이 적었으며, 훈련량과 부상의 관련은 없었습니다(관찰 연구).",
+        cite: "Fokkema et al. (2020) Scand J Med Sci Sports 30(9):1692-1704",
+        href: "https://pubmed.ncbi.nlm.nih.gov/32421886/",
+        todo: "완주가 목표면 주 26km·최장 18km 안팎을 기준점으로, 기록이 목표면 주 32km·최장 21km 이상을 목표로 천천히 늘립니다.",
+        basis: "rule",
+      },
+      {
         title: "준비 초반에 주간 거리를 확 늘린다",
         fact: "하프를 준비하는 러너 261명을 14주 추적한 연구에서 21일 시점, 주간 거리를 20~60% 늘린 사람이 20% 미만으로 늘린 사람보다 부상 위험이 22.6%p 높았습니다(56·98일 시점에는 차이 없음). 같은 지표가 다른 대규모 연구(Frandsen 2025)에서는 관계가 없었습니다.",
         cite: "Damsted et al. (2019) J Orthop Sports Phys Ther 49(4):230-238",
@@ -168,8 +176,9 @@ export const STAGES: Stage[] = [
       },
     ],
     guides: [
-      { href: "/injury/intermediate-guide", label: "중급자 가이드" },
+      { href: "/injury/half-marathon-training", label: "하프마라톤 준비" },
       { href: "/injury/half-marathon-race-day", label: "하프 대회 당일 체크리스트" },
+      { href: "/injury/intermediate-guide", label: "중급자 가이드" },
       { href: "/injury/it-band", label: "무릎 바깥 통증(장경인대)" },
       { href: "/injury/achilles", label: "아킬레스·종아리 통증" },
     ],
@@ -183,6 +192,14 @@ export const STAGES: Stage[] = [
     short: "→풀",
     who: "하프를 완주했고 풀코스를 준비한다. 주간 거리가 가장 크게 늘어나는 구간.",
     bottlenecks: [
+      {
+        title: "얼마나 준비해야 하는지 모른다",
+        fact: "풀코스 참가자 441명의 준비량 중앙값은 주 40km, 주 3회, 가장 긴 달리기 32km였습니다. 주 40km 미만과 최장 25km 미만은 더 느린 완주와 관련 있었고, 훈련량과 부상의 관련은 없었습니다(관찰 연구).",
+        cite: "Fokkema et al. (2020) Scand J Med Sci Sports 30(9):1692-1704",
+        href: "https://pubmed.ncbi.nlm.nih.gov/32421886/",
+        todo: "주 40km·최장 25~32km를 기준점으로, 긴 달리기는 최근 30일 최장 거리의 110% 안에서 늘립니다.",
+        basis: "rule",
+      },
       {
         title: "준비 기간에 다친다",
         fact: "뉴욕마라톤 참가자 735명을 16주 추적했더니 40.0%가 훈련 중 다쳤습니다. 최근 7일과 28일 거리로 계산한 급성:만성 비율(ACWR)이 1.5 이상인 날이 많을수록 부상이 많았습니다(하루당 OR 1.06). 다만 다른 대규모 연구(Frandsen 2025)에서는 이 지표가 반대 방향으로 나왔습니다.",

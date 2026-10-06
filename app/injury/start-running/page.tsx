@@ -5,6 +5,7 @@ import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
+import { Up } from "@/components/guide/Up";
 
 /**
  * 1단계 — 처음 → 30분 연속 (2026-10-06)
@@ -32,20 +33,6 @@ export const metadata: Metadata = {
   description: DESC,
   alternates: { canonical: "/injury/start-running" },
 };
-
-/**
- * 본문 안 짧은 출처의 ↗ 링크.
- * 「저자 (연도)」는 이 컴포넌트 **앞에 평문으로** 적는다 — 인용 검사기가 링크 앞에서 주장을 찾는데,
- * 주장을 prop 으로 넘기면 컴포넌트 이름(대문자)이 성으로 잡힌다(첫 시도에서 「Src 2019」로 잡혔다).
- * URL 도 문자열 그대로 — 함수로 조립하면 검사기 정규식에 안 걸려 검사망 밖으로 빠진다.
- */
-function Up({ h }: { h: string }) {
-  return (
-    <a href={h} target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
-      ↗
-    </a>
-  );
-}
 
 const WALK_RUN: [string, string, string][] = [
   ["A", "달리기 1분 + 걷기 2분 × 8", "24분"],

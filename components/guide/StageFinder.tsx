@@ -250,7 +250,8 @@ export default function StageFinder() {
               <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer" className="underline">
                 ↗
               </a>
-              . 다 나은 뒤 돌아오고, 복귀 첫 몇 주는 거리를 낮게 잡으세요(경험칙).
+              . 다 나은 뒤 돌아오고, 복귀 첫 몇 주는 거리를 낮게 잡으세요(경험칙) →{" "}
+              <Link href="/injury/return-to-running" className="font-medium underline">부상 후 복귀</Link>
             </p>
           )}
 

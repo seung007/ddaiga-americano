@@ -28,6 +28,7 @@ import type { StageId } from "./stages";
  * 2026-10-06 실측 (빌드 HTML 의 <article>):
  *   start-running 5176→9 · beginner-guide 3314→6 · intermediate-guide 2484→5 · advanced-guide 2505→5
  *   (같은 방법으로 잰 first-10k 2764·shin-splints 2197 이 9/22 값과 거의 같아 방법은 이어진다)
+ *   return-to-running 4566→8 · it-band 4343→8(개편, 1779→3 에서) · half-marathon-training 4000→7
  *
  * **글을 늘렸으면 여기와 그 페이지 본문 둘 다 고칠 것.** 두 곳에 있어서 또 어긋난다.
  */
@@ -45,11 +46,14 @@ export const ARTICLES: GuideArticle[] = [
   // ── 단계 가이드 ─────────────────────────────────────
   { href: "/injury/start-running", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "처음 달리기 — 30분 연속까지 막히는 곳과 대처", desc: "초보 프로그램 참가자 거의 3명 중 1명이 반년 안에 그만둡니다. 이유 1위는 부상. 속도·진도·긴 날·멈출 신호.", readTime: "9분", stages: ["start"] },
   { href: "/injury/beginner-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "초보 러너 뛰는 법", desc: "얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법.", readTime: "6분", stages: ["start", "to10k"] },
+  { href: "/injury/half-marathon-training", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 준비 — 10km에서 21km로", desc: "하프 참가자 556명의 실제 준비량(주 26km·최장 18.5km)과, 주간 거리·긴 달리기를 늘리는 속도.", readTime: "7분", stages: ["to-half"] },
   { href: "/injury/intermediate-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "중급자 부상 예방 가이드", desc: "장경인대·아킬레스·족저근막, 그리고 오버트레이닝 징후.", readTime: "5분", stages: ["to-half"] },
   { href: "/injury/advanced-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "숙련자 부상 예방 가이드", desc: "피로골절·비기능적 오버리칭·주기화.", readTime: "5분", stages: ["to-full", "faster"] },
 
   // ── 나머지 (2026-09-22 순서 유지) ─────────────────────
-  { href: "/injury/it-band", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "장경인대염 초기 대처법 3가지", desc: "달릴 때마다 무릎 바깥쪽이 아프다면? 초기에 잡는 방법.", readTime: "3분", stages: ["to-half", "to-full"] },
+  // 2026-10-06: 커뮤니티 부상 글 1위 부위라 전면 개편(3분 → 아래 실측). 복귀 글 신설.
+  { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 다시 달리기 — 언제, 얼마나, 어떻게", desc: "회복 기간 중앙값 71일. 완전히 쉬어야 하는지, 통증 몇 점까지 괜찮은지, 어떻게 다시 늘리는지.", readTime: "8분", stages: "all" },
+  { href: "/injury/it-band", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "장경인대 증후군 — 무릎 바깥 통증, 무엇이 효과 있나", desc: "마찰이 아니라 압박. 스트레칭보다 엉덩이 외전근 강화. 내리막을 피하는 이유까지.", readTime: "8분", stages: ["to-half", "to-full"] },
   { href: "/injury/wide-foot", tag: "발볼", tagColor: "text-blue-600 bg-blue-50", title: "2E·4E 와이드 뜻과 내 발볼 재는 법", desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "5분", stages: "all" },
   // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데 평발 페이지가 없었다.
   { href: "/injury/flat-feet", tag: "평발", tagColor: "text-blue-600 bg-blue-50", title: "평발 러닝화, 안정화화가 정답일까", desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "5분", stages: "all" },
@@ -78,7 +82,7 @@ export const ARTICLES: GuideArticle[] = [
 export const TOPICS = {
   "단계 가이드": ["단계 가이드"],
   "신발 고르기": ["발볼", "평발", "카본화"],
-  "아픈 곳": ["무릎", "정강이", "족저근막", "아킬레스"],
+  "아픈 곳": ["무릎", "정강이", "족저근막", "아킬레스", "복귀"],
   "달리는 법": ["착지법", "케이던스", "자세", "준비운동", "쿨다운", "회복"],
   "대회": ["첫 대회", "대회 실전"],
   "선수 이야기": ["황영조", "권은주"],
