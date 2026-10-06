@@ -1,295 +1,179 @@
-"use client";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { useState } from "react";
-
-const LEVELS = ["전체", "🟢 초심자", "🟡 중급자", "🔴 숙련자"] as const;
-type Level = typeof LEVELS[number];
-
-const LEVEL_GUIDES = [
-  {
-    href: "/injury/beginner-guide",
-    level: "🟢 초심자",
-    levelColor: "bg-green-100 text-green-700 border-green-200",
-    title: "초심자 완전 가이드",
-    desc: "0~6개월 · 주 15km 이하 · 10% 규칙·흔한 부상·기본 루틴",
-  },
-  {
-    href: "/injury/intermediate-guide",
-    level: "🟡 중급자",
-    levelColor: "bg-amber-100 text-amber-700 border-amber-200",
-    title: "중급자 가이드",
-    desc: "6~24개월 · 주 15~40km · IT밴드·아킬레스·오버트레이닝",
-  },
-  {
-    href: "/injury/advanced-guide",
-    level: "🔴 숙련자",
-    levelColor: "bg-red-100 text-red-700 border-red-200",
-    title: "숙련자 가이드",
-    desc: "2년+ · 주 40km+ · 피로골절·HRV·주기화 훈련",
-  },
-];
+import { STAGES, HONERT_CITE, HONERT_HREF, HONERT_ROWS, LEVEL_LABEL } from "@/lib/guide/stages";
+import StageFinder from "@/components/guide/StageFinder";
+import GuideArticleList from "@/components/guide/GuideArticleList";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 
 /**
- * 읽기시간 규약 (2026-09-22 도입)
+ * 러닝 가이드 허브 — **넘으려는 단계** 기준 (2026-10-06 개편)
  *
- * ⚠️ **손으로 적던 값이 서로 모순이었다.** 배포본에서 페이지별 본문 글자 수를 실측하니
- *   `hwang-young-jo` 1,363자 → **6분**
- *   `midfoot`        2,109자 → **3분**
- * 절반 길이의 글이 두 배의 시간을 주장하고 있었다. 둘 다 맞을 수는 없다.
- * 허브 카드와 페이지 본문의 값이 서로 다른 것도 여럿이었다(`knee-pain` 5분 vs 3분).
+ * 전에는 "use client" 한 파일이었고 **메타데이터가 아예 없었다** — 네이버 유입 상위 문서가
+ * 몰린 경로의 허브인데 제목이 사이트 기본값이었다. 서버 페이지로 바꾸고, 상호작용(단계 찾기·글 필터)만
+ * 클라이언트 컴포넌트로 뺐다.
  *
- * 그래서 규약을 하나 정한다 — **본문 글자 수 ÷ 600, 올림, 최소 2분.**
+ * 구조를 바꾼 이유는 `lib/guide/stages.ts` 머리말. 요약:
+ *   · 초심자/중급자/숙련자 경계(개월·km)는 사이트가 정한 값이었고 근거가 없었다
+ *   · 사람이 막히는 지점은 경력이 아니라 **지금 넘으려는 거리**에서 갈린다
+ *   · 경력·빈도·주간 거리(Honert 2020)는 「내 단계 찾기」와 맨 아래 표에서 **참고로만**
  *
- * 600 은 **측정값이 아니라 우리가 고른 값**이다. 한국어 묵독 속도를 우리가 잰 적이 없다.
- * 바꾸고 싶으면 이 숫자 하나만 바꾸고 아래 표를 다시 계산하면 된다.
- * 중요한 건 속도의 정확성이 아니라 **18개 글이 같은 잣대를 쓰는 것**이다.
- *
- * 글자 수는 `<article>` 의 텍스트에서 공백과 인라인 스크립트를 뺀 값이다(FAQ·인용 포함).
- * 2026-09-22 실측 (자수 → 분):
- *   posture 1346→3 · hwang-young-jo 1363→3 · kwon-eun-ju 1463→3 · rest-day 1664→3
- *   warmup 1745→3 · it-band 1779→3 · cadence 1868→4 · knee-pain 2028→4 · cooldown 2060→4
- *   midfoot 2109→4 · intermediate-guide 2180→4 · shin-splints 2198→4 · carbon-plate 2248→4
- *   beginner-guide 2299→4 · plantar-fasciitis 2468→5 · flat-feet 2480→5 · wide-foot 2579→5
- *   achilles 2742→5 · first-10k 2846→5 · half-marathon-race-day 7068→12
- *
- * **글을 늘렸으면 여기와 그 페이지 본문 둘 다 고칠 것.** 두 곳에 있어서 또 어긋난다.
+ * ⚠️ 주소(`/injury`)는 그대로 둔다(2026-09-13 결정 — 네이버 유입 상위 문서 10개가 이 경로).
  */
-const ARTICLES = [
-  { href: "/injury/it-band",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "장경인대염 초기 대처법 3가지",              desc: "달릴 때마다 무릎 바깥쪽이 아프다면? 초기에 잡는 방법.", readTime: "3분" },
-  { href: "/injury/wide-foot",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "발볼",    tagColor: "text-blue-600 bg-blue-50",   title: "2E·4E 와이드 뜻과 내 발볼 재는 법",           desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "5분" },
-  // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데
-  // 평발을 다루는 페이지가 하나도 없었다 — 가장 많이 묻는 것에 답이 없었다.
-  { href: "/injury/flat-feet",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "평발",    tagColor: "text-blue-600 bg-blue-50",   title: "평발 러닝화, 안정화화가 정답일까",            desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "5분" },
-  // 2026-09-08 추가. 네이버 검색 의도 3위(카본화 20%)인데 사이트에 페이지가 없어서
-  // 블로그 글이 /shoe-finder 로만 보내고 있었다.
-  { href: "/injury/carbon-plate", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "카본화",  tagColor: "text-purple-600 bg-purple-50", title: "카본화 살까 말까 — 논문이 시험한 속도",       desc: "가장 많이 인용되는 연구는 4:17/km 이상에서만 측정했습니다. 실제 가격도 정리했습니다.", readTime: "4분" },
-  { href: "/injury/achilles",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "달리기 아킬레스건·종아리 통증 스트레칭 3가지", desc: "달린 뒤 당기고 뻐근하다면. 원인과 무관하게 같은 3가지를 합니다.", readTime: "5분" },
-  { href: "/injury/shin-splints", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "정강이", tagColor: "text-red-600 bg-red-50",     title: "정강이 통증(신스플린트) — 초보 부상 1위",     desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "4분" },
-  { href: "/injury/plantar-fasciitis", level: "🟢 초심자", levelColor: "bg-green-100 text-green-700", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유",       desc: "스트레칭보다 효과가 확인된 방법과, 얼마나 걸리는지.", readTime: "5분" },
-  { href: "/injury/knee-pain",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "무릎",    tagColor: "text-red-600 bg-red-50",     title: "러너 무릎(슬개대퇴 증후군) 예방법",           desc: "무릎 앞쪽이 계단 오를 때 아프다면 체크해야 할 것들.", readTime: "4분" },
-  { href: "/injury/warmup",     level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "준비운동", tagColor: "text-green-600 bg-green-50",  title: "달리기 전 5분 동적 스트레칭 루틴",            desc: "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유.", readTime: "3분" },
-  { href: "/injury/cooldown",   level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "쿨다운",  tagColor: "text-teal-600 bg-teal-50",   title: "달리기 후 꼭 해야 할 10분 정적 스트레칭",      desc: "종아리·햄스트링·엉덩이까지 풀어주는 쿨다운 루틴.", readTime: "4분" },
-  { href: "/injury/rest-day",   level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "회복",    tagColor: "text-indigo-600 bg-indigo-50","title": "휴식일에 뭘 해야 할까? 액티브 리커버리",     desc: "가볍게 움직이는 쪽이 낫다는 증거는 생각보다 약합니다.", readTime: "3분" },
-  { href: "/injury/cadence",    level: "🔴 숙련자",  levelColor: "bg-red-100 text-red-700",     tag: "케이던스", tagColor: "text-purple-600 bg-purple-50","title": "케이던스 180은 거짓말? 키별 적정 기준값",  desc: "\"180 spm이 정답\"이라는 획일적 조언, 왜 틀렸는지 설명합니다.", readTime: "4분" },
-  { href: "/injury/midfoot",    level: "🟡 중급자",  levelColor: "bg-amber-100 text-amber-700", tag: "착지법",  tagColor: "text-violet-600 bg-violet-50","title": "미드풋 착지란? 힐스트라이크와 차이",       desc: "발 중간으로 닿는 방식입니다. 초보가 바꿔야 하는지까지.", readTime: "4분" },
-  { href: "/injury/posture",    level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "자세",    tagColor: "text-cyan-600 bg-cyan-50",   title: "달리기 자세 체크리스트 — 어깨·팔·시선",       desc: "상체 자세가 하체 부상에 영향을 준다는 사실, 알고 계셨나요?", readTime: "3분" },
-  { href: "/injury/hwang-young-jo", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 달리기 철학 — 고통을 읽는 것",       desc: "1992 바르셀로나 금메달리스트의 훈련 철학.", readTime: "3분" },
-  { href: "/injury/kwon-eun-ju", level: "🔴 숙련자", levelColor: "bg-red-100 text-red-700",    tag: "권은주", tagColor: "text-pink-600 bg-pink-50",   title: "권은주 선수에게 배우는 여성 러너 부상 예방",   desc: "한국 여자 마라톤을 이끌어온 권은주 선수의 훈련 방식.", readTime: "3분" },
-  { href: "/injury/first-10k",  level: "🟢 초심자",  levelColor: "bg-green-100 text-green-700", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50","title": "생애 첫 10km 대회 준비물과 페이스 전략",  desc: "출발선에 서기 전에 알아야 할 것들.", readTime: "5분" },
-  { href: "/injury/half-marathon-race-day", level: "🟡 중급자", levelColor: "bg-amber-100 text-amber-700", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 대회 당일 체크리스트", desc: "젤·급수·바세린·페이스. 논문 근거와 직접 뛰어본 경험을 항목마다 구분해 적었습니다.", readTime: "12분" },
-];
 
+export const metadata: Metadata = {
+  title: "러닝 가이드 — 처음 30분부터 풀코스까지, 단계마다 막히는 곳 | 뛰다가 아메리카노",
+  description:
+    "달리기를 처음 시작해 30분을 뛰기까지, 그리고 10km·하프·풀코스로 넘어갈 때 사람들이 실제로 막히는 지점과 할 일을 논문 수치로 정리했습니다. 내 단계 찾기 포함.",
+  alternates: { canonical: "/injury" },
+};
 
-/**
- * 주제 축 — **수준(초심자/중급자/숙련자)과 다른 두 번째 축.**
- *
- * 2026-09-12: 경쟁 조사(`벤치마킹_2026-09-12.md`)에서 러닝위키가 5대 분류 ×
- * 3~6 소분류의 계층 구조를 갖고 있는 것을 확인했다. 우리는 글 20편이 **한 목록**에
- * 있고 수준 칩 하나로만 걸러졌다. "무릎이 아파서 온 사람"과 "신발 고르러 온 사람"이
- * 같은 목록을 훑어야 했다.
- *
- * 새 URL 을 만들지 않았다 — 당시 9/20 색인 판정 중이었다. (2026-09-17 그 판정은 폐기했다 — 기준선 §0.
- *  주제별 URL 이 필요해지면 이 제약 때문에 막지 않는다.)
- * 대신 **이미 있는 `tag` 값에서 주제를 파생**시킨다. 글마다 새 필드를 손으로 적으면
- * 곧 어긋난다(이 저장소가 `readTime` 으로 이미 겪는 중이다).
- *
- * ⚠️ 어느 주제에도 안 걸리는 태그는 "기타"로 보낸다. **숨기지 않는다** —
- * 분류가 전부를 덮는 것처럼 보이면 그것도 틀린 정보다.
- */
-const TOPICS = {
-  "신발 고르기": ["발볼", "평발", "카본화"],
-  "아픈 곳": ["무릎", "정강이", "족저근막", "아킬레스"],
-  "달리는 법": ["착지법", "케이던스", "자세", "준비운동", "쿨다운", "회복"],
-  "대회": ["첫 대회", "대회 실전"],
-  "선수 이야기": ["황영조", "권은주"],
-} as const;
-
-type Topic = keyof typeof TOPICS | "전체" | "기타";
-
-function topicOf(tag: string): Exclude<Topic, "전체"> {
-  for (const [name, tags] of Object.entries(TOPICS)) {
-    if ((tags as readonly string[]).includes(tag)) return name as Exclude<Topic, "전체" | "기타">;
-  }
-  return "기타";
-}
-
-export default function InjuryListPage() {
-  const [activeLevel, setActiveLevel] = useState<Level>("전체");
-  const [activeTopic, setActiveTopic] = useState<Topic>("전체");
-
-  const filtered = ARTICLES.filter(
-    (a) =>
-      (activeLevel === "전체" || a.level === activeLevel) &&
-      (activeTopic === "전체" || topicOf(a.tag) === activeTopic)
-  );
-
-  // 주제 칩은 **개수와 함께** 낸다. 빈 칸을 누르게 하지 않는다.
-  const topicCounts = (["전체", ...Object.keys(TOPICS), "기타"] as Topic[])
-    .map((t) => ({
-      t,
-      n: t === "전체" ? ARTICLES.length : ARTICLES.filter((a) => topicOf(a.tag) === t).length,
-    }))
-    .filter((x) => x.n > 0);
-
+export default function InjuryHubPage() {
   return (
-    <main className="max-w-3xl mx-auto px-6 py-12">
+    <main className="mx-auto max-w-3xl px-6 py-12">
+      <BreadcrumbJsonLd trail={[["러닝 가이드", "/injury"]]} />
+
       <header className="mb-8">
-        {/**
-         * 2026-09-13 — 이름을 「부상 예방」에서 「러닝 가이드」로 넓혔다.
-         *
-         * 세어 보니 21개 글 중 **부상 글은 5개(24%)** 였다. 나머지는 훈련·대회 준비(5),
-         * 발·신발(3), 주법·자세(3), 준비운동·회복(3), 인물(2)이다.
-         * 메뉴에 「부상 예방」이라고 적어 놓고 안에 10km 준비와 페이스 전략을 넣어 뒀다.
-         *
-         * ⚠️ **주소(`/injury`)는 그대로 둔다.** 네이버 유입 상위 문서 10개가 전부
-         * 이 경로다. 주소를 바꾸면 쌓인 순위가 날아간다. 보이는 이름만 바꾼다.
-         *
-         * 개별 글 제목도 안 건드린다 — 실제로 부상 글인 것들은 이름이 맞다.
-         * 틀린 건 허브와 메뉴뿐이었다.
-         */}
-        <p className="text-sm font-medium text-emerald-600 mb-2">훈련 · 주법 · 부상 · 회복</p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">러닝 가이드</h1>
-        <p className="text-gray-600 leading-relaxed">
-          처음 10km를 준비하는 것부터 무릎이 아플 때 뭘 해야 하는지까지, 경력 단계에 맞춰 모았습니다.
+        <p className="mb-2 text-sm font-medium text-emerald-600">훈련 · 주법 · 부상 · 회복</p>
+        <h1 className="mb-3 text-3xl font-bold text-gray-900">러닝 가이드</h1>
+        <p className="leading-relaxed text-gray-600">
+          달리기는 체력보다 <strong>부상과 진도</strong>에서 더 자주 멈춥니다. 처음 30분을 뛰기까지, 그리고 10km·하프·풀코스로
+          넘어갈 때마다 사람들이 실제로 막히는 지점과 할 일을 단계별로 모았습니다.
         </p>
-        <div className="mt-3 inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
+        <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-500">
           <span className="text-emerald-600">✓</span>
           추천 순서는 광고비로 바뀌지 않습니다
         </div>
       </header>
 
-      {/* 레벨별 가이드 카드 */}
-      <section className="mb-8">
-        <h2 className="text-base font-bold text-gray-700 mb-3">내 레벨 가이드 바로가기</h2>
-        <div className="grid grid-cols-3 gap-3">
-          {LEVEL_GUIDES.map(g => (
-            <Link key={g.href} href={g.href}
-              className="flex flex-col gap-1.5 p-4 rounded-2xl border hover:shadow-md transition-all bg-white">
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full self-start border ${g.levelColor}`}>
-                {g.level}
-              </span>
-              <p className="font-semibold text-sm text-gray-900">{g.title}</p>
-              <p className="text-xs text-gray-500 leading-relaxed">{g.desc}</p>
-            </Link>
-          ))}
-        </div>
+      <section id="finder" className="mb-10 scroll-mt-20">
+        <h2 className="mb-3 text-lg font-bold text-gray-900">내 단계 찾기</h2>
+        <StageFinder />
       </section>
 
-      {/* 레벨 필터
-          2026-09-03: "전체 칩이 굳이 필요한가"라는 질문에서 출발했다.
-          빼지 않기로 했다 — **빼면 되돌아올 길이 막힌다.** 중급자를 누른 뒤 전부 보려면
-          같은 칩을 다시 눌러 해제해야 하는데, 그 동작은 발견 가능성이 낮아 사용자가 갇힌다.
-          대신 **개수를 붙여 정보가 되게** 했다. "전체 N"은 중복이 아니라
-          글이 몇 편인지와 난이도 분포를 알려주는 값이다.
+      <section id="stages" className="mb-10 scroll-mt-20">
+        <h2 className="text-lg font-bold text-gray-900">단계마다 막히는 곳</h2>
+        <p className="mt-1 text-sm leading-relaxed text-gray-500">
+          숫자는 전부 링크한 논문의 초록 값입니다. 할 일 옆 <span className="font-medium text-gray-700">논문 결론</span>은
+          논문이 직접 내린 결론, <span className="font-medium text-gray-700">경험칙</span>은 그 결과에서 이 사이트가 끌어낸 것입니다.
+        </p>
 
-          붙이자마자 값을 했다 — 나는 이 페이지의 글이 19편이라고 보고했는데
-          **실제 ARTICLES는 16편**(초심자 8·중급자 5·숙련자 3)이었다.
-          파일 전체를 grep해서 상단 "내 레벨 가이드" 카드 3개까지 세었던 것이다.
-          **숫자는 세는 코드가 세게 하고, 사람은 grep 결과를 결론으로 삼지 마라.**
-          개수를 화면에 띄우는 것 자체가 검사기 역할을 한다.
-
-          그리고 이 페이지에는 **GA 이벤트가 하나도 없었다.** 필터를 쓰는 사람이
-          있는지조차 모르는 채로 UI를 손보고 있었다. 재는 것부터 붙인다 —
-          2주 뒤에도 `injury_filter`가 0건이면 필터 자체를 없애는 게 맞다. */}
-      <section className="mb-6">
-        <div className="flex gap-2 flex-wrap">
-          {LEVELS.map(lv => {
-            const count = lv === "전체"
-              ? ARTICLES.length
-              : ARTICLES.filter(a => a.level === lv).length;
-            return (
-              <button key={lv}
-                onClick={() => {
-                  setActiveLevel(lv);
-                  const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
-                  if (typeof g === "function") g("event", "injury_filter", { level: lv, count });
-                }}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
-                  ${activeLevel === lv
-                    ? "bg-emerald-600 text-white border-emerald-600"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
-                {lv}
-                <span className={activeLevel === lv ? "ml-1.5 text-emerald-100" : "ml-1.5 text-gray-400"}>
-                  {count}
+        <ol className="mt-5 space-y-5">
+          {STAGES.map((s) => (
+            <li key={s.id} id={`stage-${s.id}`} className="scroll-mt-20 rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="flex items-center gap-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">
+                  {s.step}
                 </span>
-              </button>
-            );
-          })}
-        </div>
+                <h3 className="text-lg font-bold text-gray-900">
+                  {s.from} → {s.to}
+                </h3>
+              </div>
+              <p className="mt-2 text-sm text-gray-500">{s.who}</p>
 
-        {/* 주제 칩 — 수준과 **다른 축**이다. 둘은 AND 로 걸린다.
-            2026-09-12: 글 20편이 한 목록에 있어서 "무릎이 아파서 온 사람"과
-            "신발 고르러 온 사람"이 같은 목록을 훑어야 했다.
-            새 URL 을 안 만들었다 — 당시 9/20 색인 판정 중이었다(2026-09-17 폐기, 기준선 §0). */}
-        <div className="mt-3 flex flex-wrap gap-2">
-          {topicCounts.map(({ t, n }) => (
-            <button
-              key={t}
-              onClick={() => {
-                setActiveTopic(t);
-                const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
-                if (typeof g === "function") g("event", "injury_topic", { topic: t, count: n });
-              }}
-              className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors
-                ${activeTopic === t
-                  ? "border-gray-900 bg-gray-900 text-white"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"}`}
-            >
-              {t}
-              <span className={activeTopic === t ? "ml-1.5 text-gray-300" : "ml-1.5 text-gray-400"}>
-                {n}
-              </span>
-            </button>
-          ))}
-        </div>
+              <ul className="mt-4 space-y-4">
+                {s.bottlenecks.map((b) => (
+                  <li key={b.title} className="border-l-2 border-gray-200 pl-3">
+                    <p className="font-semibold text-gray-900">{b.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-gray-600">
+                      {b.fact}{" "}
+                      <a
+                        href={b.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-emerald-700 underline"
+                      >
+                        {b.cite} ↗
+                      </a>
+                    </p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-gray-900">
+                      <span className="mr-1 font-semibold text-emerald-700">할 일</span>
+                      {b.todo}{" "}
+                      <span className="ml-1 whitespace-nowrap rounded bg-gray-100 px-1.5 py-0.5 text-[11px] text-gray-500">
+                        {b.basis === "paper" ? "논문 결론" : "경험칙"}
+                      </span>
+                    </p>
+                  </li>
+                ))}
+              </ul>
 
-        {/* 둘 다 걸어서 0편이 되는 조합이 있다. 빈 화면만 두면 고장으로 보인다. */}
-        {filtered.length === 0 && (
-          <p className="mt-4 text-sm text-gray-500">
-            이 조합에는 글이 없습니다.{" "}
-            <button
-              onClick={() => {
-                setActiveLevel("전체");
-                setActiveTopic("전체");
-              }}
-              className="font-medium text-emerald-600 underline underline-offset-2"
-            >
-              필터 지우기
-            </button>
-          </p>
-        )}
-      </section>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {s.guides.map((g, i) => (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className={
+                      i === 0
+                        ? "rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700"
+                        : "rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-gray-300"
+                    }
+                  >
+                    {g.label}
+                  </Link>
+                ))}
+              </div>
 
-      {/* 아티클 목록 */}
-      <section className="mb-10">
-        <ul className="flex flex-col gap-3">
-          {filtered.map(a => (
-            <li key={a.href}>
-              <Link href={a.href}
-                className="flex items-start justify-between gap-4 bg-white border border-gray-100 rounded-xl p-5 hover:border-emerald-300 hover:shadow-sm transition-all">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.tagColor}`}>
-                      {a.tag}
-                    </span>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.levelColor}`}>
-                      {a.level}
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-gray-900 leading-snug mb-1">{a.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{a.desc}</p>
-                </div>
-                <span className="shrink-0 text-xs text-gray-400 mt-1 whitespace-nowrap">{a.readTime}</span>
-              </Link>
+              {s.next && (
+                <p className="mt-3 text-xs text-gray-500">
+                  다음 단계로 넘어갈 신호 <span className="text-gray-400">(사이트 기준)</span>: {s.next}
+                </p>
+              )}
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
 
-      <div className="p-6 bg-emerald-50 rounded-2xl text-center">
-        <p className="text-sm text-emerald-800 mb-3 font-medium">신발로 부상을 막는다는 근거는 약합니다. 다만 발볼·사이즈는 맞춰야 합니다</p>
-        <Link href="/shoe-finder"
-          className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+      <section id="articles" className="mb-10 scroll-mt-20">
+        <h2 className="mb-3 text-lg font-bold text-gray-900">전체 글</h2>
+        <GuideArticleList />
+      </section>
+
+      {/* 초심자/중급자/숙련자라는 말을 계속 쓰는 글이 있어서, 그 말이 무엇을 뜻하는지 한곳에 적는다. */}
+      <section id="levels" className="mb-10 scroll-mt-20 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+        <h2 className="text-base font-bold text-gray-900">초보·중급·숙련은 무엇으로 나누나</h2>
+        <p className="mt-2 text-sm leading-relaxed text-gray-600">
+          러닝 경력이나 거리로 수준을 나누는 <strong>공인된 분류는 없습니다.</strong> 가장 가까운 것은 신발 연구 전문가들이
+          합의 과정에서 쓴 정의로, 거리 하나가 아니라 <strong>경력·빈도·주간 거리 세 축</strong>을 함께 봅니다. 범위가
+          서로 겹치는 것도 그대로 옮겼습니다.
+        </p>
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="text-left text-gray-500">
+                <th className="py-2 pr-3 font-medium">수준</th>
+                <th className="py-2 pr-3 font-medium">꾸준히 달린 기간</th>
+                <th className="py-2 pr-3 font-medium">주 횟수</th>
+                <th className="py-2 font-medium">주간 거리</th>
+              </tr>
+            </thead>
+            <tbody>
+              {HONERT_ROWS.map((r) => (
+                <tr key={r.level} className="border-t border-gray-200 text-gray-800">
+                  <td className="whitespace-nowrap py-2 pr-3 font-semibold">{LEVEL_LABEL[r.level]}</td>
+                  <td className="py-2 pr-3">{r.years}</td>
+                  <td className="whitespace-nowrap py-2 pr-3">{r.sessions}</td>
+                  <td className="whitespace-nowrap py-2">{r.km}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-2 text-xs text-gray-500">
+          「꾸준히」 = 주 1회 이상. 이 사이트의 초심자·중급자·숙련자 가이드는 각각 입문·레크리에이션·고수준 정의를 따릅니다.
+          출처: {HONERT_CITE}{" "}
+          <a href={HONERT_HREF} target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
+            PubMed ↗
+          </a>
+        </p>
+      </section>
+
+      <div className="rounded-2xl bg-emerald-50 p-6 text-center">
+        <p className="mb-3 text-sm font-medium text-emerald-800">
+          신발로 부상을 막는다는 근거는 약합니다. 다만 발볼·사이즈는 맞춰야 합니다
+        </p>
+        <Link
+          href="/shoe-finder"
+          className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+        >
           내 러닝화 찾기 →
         </Link>
       </div>

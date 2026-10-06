@@ -4,8 +4,8 @@ import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "숙련자 부상 예방 가이드 (2년+) — 뛰다가 아메리카노",
-  description: "러닝 2년 이상 숙련 러너를 위한 부상 예방 가이드. 피로 골절, 건병증, 주기화 훈련.",
+  title: "숙련자 부상 예방 가이드 (3년+·주 50km+) — 뛰다가 아메리카노",
+  description: "꾸준히 3년 넘게, 주 50km 넘게 달리며 풀코스·기록을 준비하는 러너를 위한 부상 예방 가이드. 피로 골절, 건병증, 주기화 훈련.",
 };
 
 export default function AdvancedGuidePage() {
@@ -16,7 +16,7 @@ export default function AdvancedGuidePage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-red-100 text-red-700">🔴 숙련자</span>
-            <span className="text-xs text-gray-400">러닝 2년+ · 주간거리 40km 이상</span>
+            <span className="text-xs text-gray-400">꾸준히 3년+ · 주 5회+ · 주 50km+</span>
           </div>
           <h1 className="text-3xl font-bold mb-3">숙련자 부상 예방 가이드</h1>
           <p className="text-gray-600 leading-relaxed">
@@ -30,17 +30,21 @@ export default function AdvancedGuidePage() {
           </p>
         </div>
 
+        {/* 2026-10-06: 경력 개월·주간 km·페이스로 적던 구간은 사이트가 정한 값이었고 근거가 없었다.
+            공인 분류는 여전히 없어서, 가장 가까운 정의(Honert 2020 델파이, 본문 Table 3)의 세 축으로 바꿨다.
+            페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mb-8 p-5 bg-red-50 rounded-2xl border border-red-100">
-          <h2 className="text-base font-bold text-red-900 mb-3">숙련자 기준</h2>
+          <h2 className="text-base font-bold text-red-900 mb-3">숙련자 기준 — 고수준(high caliber) 정의</h2>
           <ul className="text-sm text-red-800 space-y-1.5">
-            <li>• 러닝 경력 <strong>2년 이상</strong></li>
-            <li>• 주간 달리기 거리 <strong>40km 이상</strong></li>
-            <li>• 하프마라톤 완주 경험, 풀마라톤 준비 or 완주</li>
-            <li>• 1km 페이스 4~5분대</li>
+            <li>• 주 1회 이상 꾸준히 달린 기간 <strong>3년 초과</strong></li>
+            <li>• 일주일에 <strong>5회 이상</strong></li>
+            <li>• 주간 거리 <strong>50km 초과</strong></li>
           </ul>
           <p className="text-xs text-red-700 mt-3">
-            ※ 아래 구분은 <strong>이 사이트가 편의상 나눈 것</strong>입니다. 러닝 경력이나 주간 거리로
-            숙련도를 나누는 <strong>공인된 분류는 없습니다</strong>.
+            공인된 분류는 없습니다. 신발 연구 전문가 합의에서 쓴 정의를 옮겼고(출처: Honert et al. (2020) PLOS ONE 15(7):e0236047{" "}
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32673375/" target="_blank" rel="noopener noreferrer" className="underline">↗</a>),
+            범위가 다른 수준과 겹칩니다.
+            세 축이 모두 맞아야 이 수준으로 봅니다. 지금 넘으려는 거리로 보면 이 글은 4~5단계(하프 → 풀, 기록 단축)에 맞습니다.{" · "}<Link href="/injury#levels" className="underline">세 수준 비교 표</Link>
           </p>
         </section>
 

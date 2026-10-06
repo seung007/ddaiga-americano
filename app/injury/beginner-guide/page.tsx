@@ -36,50 +36,71 @@ export default function BeginnerGuidePage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-700">🟢 초심자</span>
-            <span className="text-xs text-gray-400">러닝 0~6개월 · 주간거리 ≤15km</span>
+            <span className="text-xs text-gray-400">꾸준히 1년 미만 · 주 0~3회 · 주 5~20km</span>
           </div>
           <h1 className="text-3xl font-bold mb-3">초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기</h1>
           <p className="text-gray-600 leading-relaxed">
             {/* 2026-10-06: 「연간」을 뺐다 — van Gent 2007 이 모은 연구들은 추적 기간이 제각각이다(초록에 '연간' 없음).
                 「처음 6개월이 가장 위험」도 뺐다 — 같은 고찰에서 경력과 부상의 관계는 연구마다 갈린다. */}
             연구마다 편차가 크지만, 러너의 하지 부상 발생률은 19.4~79.3%로 보고됩니다(van Gent et al., 2007).
-            경력이 짧을수록 더 위험한지는 연구마다 갈립니다. 그래도 처음엔 거리를 천천히 늘리는 것이 보수적인 기본입니다.
+            경력과 부상의 관계는 연구마다 갈리지만, 달린 시간당으로 모아 비교한 메타분석에서는 초보가 더 자주 다쳤습니다
+            (1,000시간당 17.8건 대 레크리에이션 러너 7.7건, Videbæk et al., 2015). 그래서 처음엔 몸 신호를 보며 늘리는 것이 기본입니다.
           </p>
         </div>
 
-        {/* 레벨 기준 */}
+        {/* 2026-10-06: 경력 개월·주간 km·페이스로 적던 구간은 사이트가 정한 값이었고 근거가 없었다.
+            공인 분류는 여전히 없어서, 가장 가까운 정의(Honert 2020 델파이, 본문 Table 3)의 세 축으로 바꿨다.
+            페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mb-8 p-5 bg-green-50 rounded-2xl border border-green-100">
-          <h2 className="text-base font-bold text-green-900 mb-3">초심자 기준</h2>
+          <h2 className="text-base font-bold text-green-900 mb-3">초심자 기준 — 입문(novice) 정의</h2>
           <ul className="text-sm text-green-800 space-y-1.5">
-            <li>• 러닝 경력 <strong>0~6개월</strong></li>
-            <li>• 주간 달리기 거리 <strong>15km 이하</strong></li>
-            <li>• 5km 완주 경험 없거나 최근 6개월 이내</li>
-            <li>• 1km 페이스 7~9분대</li>
+            <li>• 주 1회 이상 꾸준히 달린 기간 <strong>1년 미만</strong></li>
+            <li>• 일주일에 <strong>0~3회</strong></li>
+            <li>• 주간 거리 <strong>5~20km</strong></li>
           </ul>
           <p className="text-xs text-green-700 mt-3">
-            위 구간은 이 사이트가 정한 기준입니다. 러닝 경력·주간 거리로 초심자를 정의하는 공인된 분류는 없습니다.
+            공인된 분류는 없습니다. 신발 연구 전문가 합의에서 쓴 정의를 옮겼고(출처: Honert et al. (2020) PLOS ONE 15(7):e0236047{" "}
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32673375/" target="_blank" rel="noopener noreferrer" className="underline">↗</a>),
+            범위가 다른 수준과 겹칩니다.
+            지금 넘으려는 거리로 보면 이 글은 1~2단계(처음 → 10km)에 맞습니다. 30분을 아직 못 뛴다면 <Link href="/injury/start-running" className="underline">처음 달리기</Link>부터.{" · "}<Link href="/injury#levels" className="underline">세 수준 비교 표</Link>
           </p>
         </section>
 
-        {/* 10% 규칙 */}
+        {/* 10% 규칙
+            2026-10-06: 제목이 「10% 규칙 — 가장 중요한 한 가지」였다. 본문이 스스로 「뒷받침하는 연구는 없다」고 적으면서
+            제목은 가장 중요하다고 했다. 그 규칙을 직접 시험한 무작위 시험(Buist 2008)은 효과가 없었고,
+            더 근거가 있는 기준(Frandsen 2025, 한 번의 긴 달리기)이 있어서 그쪽을 앞에 둔다. /injury/start-running 과 같은 결론. */}
         <section className="mb-8">
-          <h2 className="text-xl font-bold mb-3">① 10% 규칙 — 가장 중요한 한 가지</h2>
+          <h2 className="text-xl font-bold mb-3">① 거리 늘리기 — 10% 규칙보다 &lsquo;긴 날 110%&rsquo;</h2>
           <p className="text-gray-700 mb-3 leading-relaxed">
-            주간 달리기 거리는 <strong>전주 대비 10% 이상 늘리지 않아야</strong> 합니다.
-            예: 이번 주 10km였다면 다음 주 최대 11km.
+            흔히 주간 거리를 <strong>전주 대비 10% 넘게 늘리지 말라</strong>고 합니다. 그런데 이 규칙을 직접 시험한 무작위 시험에서
+            초보 532명의 부상률은 10% 규칙 13주 프로그램 20.8%, 일반 8주 프로그램 20.3%로 차이가 없었습니다.
+          </p>
+          <p className="text-xs text-gray-400 mb-3">
+            출처: Buist et al. (2008){" "}
+            <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
+              Am J Sports Med 36(1):33-9
+            </a>
+          </p>
+          <p className="text-gray-700 mb-3 leading-relaxed">
+            더 근거가 있는 기준은 <strong>한 번에 달리는 거리</strong>입니다. 성인 러너 5,205명을 18개월 추적한 연구에서 한 번 달린 거리가
+            지난 30일 최장 거리보다 10% 넘게 길면 과사용 부상 비율이 1.52~2.28배였고, 전주 대비 주간 거리 비율은 관계가 없었습니다.
+            예: 지난 한 달 가장 길게 뛴 날이 5km였다면 다음 긴 날은 5.5km까지.
+          </p>
+          <p className="text-xs text-gray-400 mb-3">
+            출처: Frandsen et al. (2025){" "}
+            <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
+              Br J Sports Med 59(17):1203-1210
+            </a>{" "}
+            — 초보만 모은 연구는 아닙니다(평균 45.8세).
           </p>
           <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 border border-gray-200">
-            <p className="font-semibold mb-1">왜 10%인가?</p>
+            <p className="font-semibold mb-1">주간 거리를 30% 넘게 늘리면?</p>
             <p>
-              솔직히 말하면 <strong>10%라는 숫자 자체를 뒷받침하는 연구는 없습니다.</strong> 초보 러너 874명을
-              1년간 추적한 연구에서 주간 거리를 30% 넘게 늘린 그룹과 10% 미만으로 늘린 그룹의 전체 부상률은
+              초보 러너 874명을 1년간 추적한 연구에서 주간 거리를 30% 넘게 늘린 그룹과 10% 미만으로 늘린 그룹의 전체 부상률은
               통계적으로 유의한 차이가 없었습니다. 거리와 관련된 부상만 따로 보면 위험이 1.59배로 나왔지만
               이것도 통계적 유의성에는 못 미쳤습니다(HR 1.59, 95% CI 0.96–2.66, P=.07).
-            </p>
-            <p className="mt-2">
-              그래도 10% 규칙을 권하는 이유는, 뼈·힘줄·연골이 심폐 능력보다 적응이 느리다는 점과
-              위 연구가 <em>안전하다고 증명한 것이 아니라 차이를 찾지 못한 것</em>이기 때문입니다.
-              확실한 근거가 있는 규칙이 아니라 <strong>보수적인 경험칙</strong>으로 받아들이세요.
+              <em>안전하다고 증명한 것이 아니라 차이를 찾지 못한 것</em>이므로, 주간 거리를 한꺼번에 크게 늘리는 것은 여전히 피하세요.
             </p>
           </div>
           <p className="text-xs text-gray-400 mt-2">
@@ -103,7 +124,7 @@ export default function BeginnerGuidePage() {
                 // Nielsen 2014 PLOS ONE 으로 **10%** 를 적는다. 그 값으로 맞춘다.
                 freq: "부상당한 초보 러너의 약 10%",
                 cause: "약한 대퇴사두근, 과도한 계단 오르기 포함",
-                fix: "대퇴사두근·둔근 강화, 경사 구간 줄이기, 주간 거리 10% 이내 증가",
+                fix: "대퇴사두근·둔근 강화, 경사 구간 줄이기, 긴 날을 한꺼번에 늘리지 않기",
                 color: "border-red-200 bg-red-50",
                 ref: "Nielsen et al. (2014) PLOS ONE"
               },
@@ -224,6 +245,10 @@ export default function BeginnerGuidePage() {
             <li><strong>van Gent et al. (2007)</strong> — 러닝 부상 발생률 및 결정요인 체계적 고찰. 하지 부상 발생률 19.4~79.3%. BJSM 41(8):469-480. <a href="https://pubmed.ncbi.nlm.nih.gov/17473005/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Nielsen RØ et al. (2014)</strong> — 주간 거리 증가폭과 부상. 초보 러너 874명 1년 추적. 전체 부상률에서 유의차 없음. JOSPT 44(10):739-747. <a href="https://doi.org/10.2519/jospt.2014.5164" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
             <li><strong>Nielsen RO et al. (2014)</strong> — 부상당한 초보 러너 254명의 회복 기간 전향 연구. 부상 종류별 비율(정강이 통증 15%, 슬개대퇴 통증 10% 등). PLoS One 9(6):e99877. <a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a></li>
+            <li><strong>Buist et al. (2008)</strong> — 초보 532명 무작위 시험. 10% 규칙 13주 프로그램과 일반 8주 프로그램의 부상률 20.8% 대 20.3%. Am J Sports Med 36(1):33-9. <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Frandsen et al. (2025)</strong> — 성인 러너 5,205명 18개월 추적. 한 번 달린 거리가 30일 최장 거리의 110%를 넘으면 과사용 부상 증가. Br J Sports Med 59(17):1203-1210. <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Videbæk et al. (2015)</strong> — 1,000시간당 부상 메타분석(13편). 초보 17.8건, 레크리에이션 러너 7.7건. Sports Med 45(7):1017-26. <a href="https://pubmed.ncbi.nlm.nih.gov/25951917/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Honert et al. (2020)</strong> — 러닝 수준별 신발 특성 델파이 연구. 이 글의 초심자 기준(입문 정의)의 출처. PLOS ONE 15(7):e0236047. <a href="https://pubmed.ncbi.nlm.nih.gov/32673375/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Behm & Chaouachi (2011)</strong> — 정적·동적 스트레칭이 수행능력에 미치는 즉각적 효과 리뷰. 동적 스트레칭은 수행능력을 떨어뜨리지 않거나 오히려 높였다. Eur J Appl Physiol 111:2633-2651. <a href="https://pubmed.ncbi.nlm.nih.gov/21373870/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
@@ -232,7 +257,7 @@ export default function BeginnerGuidePage() {
         <FaqSection items={[
           {
             q: "초보 러너가 가장 먼저 지켜야 할 한 가지는?",
-            a: "거리를 천천히 늘리는 것입니다. 흔히 '10% 규칙'(주간 거리를 전주 대비 10% 넘게 늘리지 않기)이라고 부르는데, 이 숫자 자체를 입증한 연구는 없습니다. 뼈·힘줄·연골이 심폐 능력보다 적응이 느리다는 점에 근거한 보수적인 경험칙으로 받아들이세요.",
+            a: "한 번에 길게 뛰는 날을 조심하는 것입니다. 5,205명을 18개월 추적한 연구에서 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 부상이 늘었습니다(Frandsen 2025). 흔히 말하는 '10% 규칙'(주간 거리를 전주 대비 10% 넘게 늘리지 않기)은 무작위 시험에서 부상을 줄이지 못했습니다(Buist 2008).",
           },
           {
             q: "거리를 급하게 늘리면 정말 위험한가요?",
@@ -240,14 +265,16 @@ export default function BeginnerGuidePage() {
           },
           {
             q: "달리기 시작 후 언제가 가장 부상 위험이 큰가요?",
-            a: "특정 시기가 가장 위험하다고 말할 근거는 저희가 확인하지 못했습니다. 경력이 짧을수록 위험한지는 연구마다 갈립니다(van Gent 2007). 워밍업·쿨다운이 부상을 막는다는 근거도 약합니다. 그래도 거리를 한꺼번에 늘리지 않는 것은 보수적인 기본이니 처음 몇 달은 천천히 늘리세요.",
+            a: "특정 시기가 가장 위험하다고 말할 근거는 저희가 확인하지 못했습니다. 다만 달린 시간당으로 보면 초보가 레크리에이션 러너보다 더 자주 다쳤습니다(Videbæk 2015 메타분석). 워밍업·쿨다운이 부상을 막는다는 근거는 약합니다. 긴 날을 지난 30일 최장 거리의 110% 안에서 늘리고, 다음 날 통증을 확인하세요.",
           },
         ]} />
 
         <div className="p-6 bg-emerald-50 rounded-2xl text-center">
-          <p className="font-medium text-emerald-900 mb-2">초심자에게 맞는 신발이 부상 위험을 줄입니다</p>
+          {/* 2026-10-06: 「초심자에게 맞는 신발이 부상 위험을 줄입니다」였다 — 이 사이트의 다른 글(평발·허브)이
+              적는 결론과 반대다. 엔진 v4 에서 체형 축도 뺐으므로 「체형」 문구도 뺀다. */}
+          <p className="font-medium text-emerald-900 mb-2">신발로 부상을 막는다는 근거는 약합니다. 다만 발볼·사이즈는 맞춰야 합니다</p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 체형·발볼 맞춤 신발 추천 →
+            발볼·발 타입으로 신발 찾기 →
           </Link>
         </div>
 

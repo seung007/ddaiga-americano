@@ -40,10 +40,15 @@ const POPULAR_COMPARES = [
   { slug: "brooks-adrenaline-gts-25-vs-nb-860-v15", label: "브룩스 아드레날린 25", vs: "뉴발란스 860 v15" },
 ];
 
+/**
+ * 2026-10-06: 경력 구간(0~6개월·6~24개월·2년+) 대신 **넘으려는 단계**로 바꿨다.
+ * 그 구간은 사이트가 정한 값이었고 근거가 없었다. 이유는 lib/guide/stages.ts 머리말.
+ */
 const LEVEL_GUIDES = [
-  { href: "/injury/beginner-guide", label: "입문 (0~6개월)" },
-  { href: "/injury/intermediate-guide", label: "중급 (6~24개월)" },
-  { href: "/injury/advanced-guide", label: "숙련 (2년+)" },
+  { href: "/injury/start-running", label: "처음 → 30분" },
+  { href: "/injury/first-10k", label: "첫 10km" },
+  { href: "/injury/intermediate-guide", label: "하프 준비" },
+  { href: "/injury/advanced-guide", label: "풀·기록" },
 ];
 
 /** 「다가오는 대회」가 날짜로 걸러지므로 빌드 때 값에 굳지 않게 한다 (2026-09-16) */
@@ -384,7 +389,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="text-xs text-gray-400">경력별:</span>
+                <span className="text-xs text-gray-400">단계별:</span>
                 {LEVEL_GUIDES.map((g) => (
                   <Link
                     key={g.href}

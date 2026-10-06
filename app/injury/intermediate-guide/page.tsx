@@ -4,8 +4,8 @@ import FaqSection from "@/components/FaqSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "중급자 부상 예방 가이드 (6~24개월) — 뛰다가 아메리카노",
-  description: "러닝 6개월~2년 차 러너를 위한 부상 예방 가이드. IT밴드, 아킬레스건, 오버트레이닝 징후.",
+  title: "중급자 부상 예방 가이드 (꾸준히 1년+) — 뛰다가 아메리카노",
+  description: "꾸준히 달린 지 1년이 넘었고 하프를 준비하는 러너를 위한 부상 예방 가이드. IT밴드, 아킬레스건, 오버트레이닝 징후.",
 };
 
 export default function IntermediateGuidePage() {
@@ -16,7 +16,7 @@ export default function IntermediateGuidePage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700">🟡 중급자</span>
-            <span className="text-xs text-gray-400">러닝 6~24개월 · 주간거리 15~40km</span>
+            <span className="text-xs text-gray-400">꾸준히 1년+ · 주 1~5회 · 주 15~50km</span>
           </div>
           <h1 className="text-3xl font-bold mb-3">중급자 부상 예방 가이드</h1>
           <p className="text-gray-600 leading-relaxed">
@@ -26,20 +26,21 @@ export default function IntermediateGuidePage() {
           </p>
         </div>
 
+        {/* 2026-10-06: 경력 개월·주간 km·페이스로 적던 구간은 사이트가 정한 값이었고 근거가 없었다.
+            공인 분류는 여전히 없어서, 가장 가까운 정의(Honert 2020 델파이, 본문 Table 3)의 세 축으로 바꿨다.
+            페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mb-8 p-5 bg-amber-50 rounded-2xl border border-amber-100">
-          <h2 className="text-base font-bold text-amber-900 mb-3">중급자 기준</h2>
+          <h2 className="text-base font-bold text-amber-900 mb-3">중급자 기준 — 레크리에이션 정의</h2>
           <ul className="text-sm text-amber-800 space-y-1.5">
-            <li>• 러닝 경력 <strong>6~24개월</strong></li>
-            <li>• 주간 달리기 거리 <strong>15~40km</strong></li>
-            <li>• 5km 완주 경험 있음, 10km 준비 중 또는 완주</li>
-            <li>• 1km 페이스 5~7분대</li>
+            <li>• 주 1회 이상 꾸준히 달린 기간 <strong>1년 초과</strong></li>
+            <li>• 일주일에 <strong>1~5회</strong></li>
+            <li>• 주간 거리 <strong>15~50km</strong></li>
           </ul>
-          {/* 2026-10-06: 여기 있던 「출처: Clement 1981 — 60~70% 수치의 원출처」는 두 가지가 틀렸다.
-              ① 위 구간(경력·거리·페이스)의 출처처럼 읽혔는데 그 논문은 구간을 정하지 않는다.
-              ② PubMed 초록(PMID 27453020)에 60~70% 가 없다 — 원출처라는 단정도 확인되지 않았다.
-              초심자·숙련자 가이드처럼 「사이트가 정한 기준」으로 바꾸고, 논문은 아래 참고 목록으로 옮겼다. */}
           <p className="text-xs text-amber-700 mt-3">
-            위 구간은 이 사이트가 정한 기준입니다. 러닝 경력·주간 거리로 중급자를 정의하는 공인된 분류는 없습니다.
+            공인된 분류는 없습니다. 신발 연구 전문가 합의에서 쓴 정의를 옮겼고(출처: Honert et al. (2020) PLOS ONE 15(7):e0236047{" "}
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32673375/" target="_blank" rel="noopener noreferrer" className="underline">↗</a>),
+            범위가 다른 수준과 겹칩니다.
+            지금 넘으려는 거리로 보면 이 글은 3단계(10km → 하프)에 맞습니다.{" · "}<Link href="/injury#levels" className="underline">세 수준 비교 표</Link>
           </p>
         </section>
 
@@ -55,7 +56,7 @@ export default function IntermediateGuidePage() {
                 // 자기 인용의 숫자를 두 배로 올리고 "1위"까지 붙인 것이다. 인용값으로 되돌린다.
                 freq: "러닝 부상의 약 10%",
                 cause: "고관절 외전근 약화, 갑작스런 주간 거리 증가, 내리막 훈련 과다",
-                fix: "고관절 외전근(중둔근) 강화 운동, 폼롤러, 주간 거리 10% 규칙 유지",
+                fix: "고관절 외전근(중둔근) 강화 운동, 폼롤러, 긴 달리기를 한꺼번에 늘리지 않기",
                 color: "border-amber-200 bg-amber-50",
                 ref: "Sanchez-Alvarado et al. (2024) Frontiers in Sports"
               },
@@ -170,7 +171,7 @@ export default function IntermediateGuidePage() {
         <FaqSection items={[
           {
             q: "중급자는 어느 단계의 러너를 말하나요?",
-            a: "보통 러닝 경험 6~24개월 구간의 러너입니다. '이제 좀 달릴 만하다'는 자신감이 생기는 시기인데, 이 자신감이 부상의 씨앗이 되곤 합니다.",
+            a: "공인된 정의는 없습니다. 이 사이트는 신발 연구 전문가 합의(Honert 2020)의 레크리에이션 정의 — 꾸준히 1년 넘게, 주 1~5회, 주 15~50km — 를 따릅니다. 범위가 초심자·숙련자와 겹치므로, 지금 넘으려는 거리(10km → 하프)로 보는 편이 더 정확합니다.",
           },
           {
             q: "중급자가 부상당하는 가장 흔한 원인은?",
