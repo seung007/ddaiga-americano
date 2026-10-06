@@ -5,23 +5,43 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import TableOfContents from "@/components/TableOfContents";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
 
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/knee-pain";
 
+/**
+ * 2026-10-07 재검증 — 「원인」 절이 전향 연구 메타분석과 반대였다.
+ *
+ *   본문: 「① 약한 고관절 외전근 ② 갑작스러운 거리 증가 ③ 딱딱한 신발 또는 마모된 쿠션」, 근거 표시 없음.
+ *   Neal 2019(BJSM, 전향 연구 18편·4,818명): 고관절 근력 약화는 **위험 요인이 아니었다**(중간 근거).
+ *   나이·키·체중·BMI·체지방·Q각도 아니었다. 군인에서 대퇴사두근 약화만 위험 요인. ③ 은 같은 글 아래 「신발과의 관계」와도 모순.
+ *   「달리기를 시작한 지 한두 달」도 근거가 없어 뺐다(장경인대 글에서 같은 문장을 뺀 것과 같은 이유).
+ *
+ *   러너 대상 무작위 시험(Esculier 2018)에서 교육만 받은 그룹과 운동·주법 교정을 더한 그룹의 회복이 같았다 — 이 글의 중심으로 올린다.
+ *   맨 아래 CTA 의 「체중과 부상 이력을 넣으면 쿠션이 충분한 신발을 우선 추천」은 엔진 v4(체중→쿠션 경로 제거)와 맞지 않아 고쳤다.
+ */
+const TITLE = "러너 무릎(슬개대퇴 통증) — 무릎 앞 통증, 무엇이 효과 있나";
+const DESC =
+  "계단을 내려갈 때 무릎 앞이 아프다면. 흔히 말하는 원인 상당수가 전향 연구에서 예측 요인이 아니었고, 러너 69명 시험에서는 부하 관리 교육만으로도 운동을 더한 것과 같은 회복을 보였습니다.";
+
 export const metadata: Metadata = {
-  title: "러너 무릎(슬개대퇴 증후군) 예방법 — 뛰다가 아메리카노",
-  description: "무릎 앞쪽이 계단 오를 때 아프다면? 슬개대퇴 증후군의 원인과 예방 운동을 알아봅니다.",
+  title: "러너 무릎(슬개대퇴 증후군) 대처법 — 무릎 앞 통증, 논문으로 확인한 것 | 뛰다가 아메리카노",
+  description: DESC,
+  alternates: { canonical: "/injury/knee-pain" },
 };
 
 export default function Page() {
   return (
     <>
-      <ArticleJsonLd
-        headline="러너 무릎(슬개대퇴 증후군) 예방법"
-        description="무릎 앞쪽이 계단 오를 때 아프다면? 슬개대퇴 증후군의 원인과 예방 운동을 알아봅니다."
-        url={PAGE_URL}
-        datePublished="2025-03-01"
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} datePublished="2025-03-01" />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["러너 무릎", "/injury/knee-pain"],
+        ]}
       />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
@@ -29,11 +49,11 @@ export default function Page() {
         </Link>
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-red-600 bg-red-50 px-2 py-0.5 rounded-full mb-3">무릎</span>
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">러너 무릎(슬개대퇴 증후군) 예방법</h1>
+          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">{TITLE}</h1>
           {/* 2026-09-14: 「5분」인데 본문이 383자였다. 위치별 분기·감별 신호를 넣어 1,472자.
               분당 500자로 3분. */}
           {/* 2026-09-22: 2,028자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
-          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
+          <p className="text-gray-500 text-sm mb-4">7분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 공개 연구 및 의학 자료 기반
@@ -101,118 +121,188 @@ export default function Page() {
           </p>
         </div>
 
-        <p className="text-lg leading-relaxed mb-8 text-gray-700">달리기를 시작한 지 한두 달, 계단을 내려가거나 오래 앉아 있다가 일어날 때 무릎 앞쪽이 뻐근하게 아프다면 슬개대퇴 증후군(Patellofemoral Pain Syndrome)을 의심해야 합니다. 러너 무릎이라고도 불리며, 초보 러너 부상 가운데 정강이 통증(신스플린트) 다음으로 흔한 편입니다(부상당한 초보 254명 중 약 10%, Nielsen 2014).</p>
+        <div className="mb-8 rounded-2xl border border-emerald-200 bg-white p-5">
+          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
+          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-gray-800">
+            <li>계단을 내려가거나 오래 앉았다 일어날 때 무릎 앞이 아프면 의심합니다. 부상당한 초보 러너의 약 10%.</li>
+            <li>
+              흔히 말하는 원인 상당수는 <strong>예측 요인이 아니었습니다</strong> — 체중·BMI·Q각, 그리고 엉덩이 근력 약화까지.
+            </li>
+            <li>
+              러너 69명 시험에서 <strong>증상·훈련량 관리 교육만 받은 그룹</strong>이 운동이나 주법 교정을 더한 그룹과 똑같이 좋아졌습니다.
+            </li>
+            <li>이미 아프면 엉덩이 운동과 무릎 운동을 <strong>함께</strong>, 필요하면 발 보조기. 테이핑·주법 교정은 효과가 불확실합니다.</li>
+            <li>오래 갈 수 있습니다. 증상이 12개월 넘게 이어진 사람은 예후가 나빴습니다.</li>
+          </ol>
+        </div>
+
+        <TableOfContents
+          items={[
+            { id: "cause", label: "원인 — 확인된 것과 아닌 것" },
+            { id: "what-works", label: "무엇이 효과 있나" },
+            { id: "how-long", label: "얼마나 걸리나" },
+            { id: "shoes", label: "신발과의 관계" },
+            { id: "refs", label: "참고 자료" },
+          ]}
+        />
+
+        <p className="text-lg leading-relaxed mb-8 text-gray-700">
+          슬개대퇴 통증(러너 무릎)은 부상당한 초보 러너 254명 중 약 10%로, 정강이 통증(15%) 다음으로 많았습니다.{" "}
+          <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>{" "}
+          네덜란드 러너 4,621명 조사에서도 초보·경력자 모두 부상 부위 1위가 무릎(30.5%)이었습니다.{" "}
+          <S>(Kemler et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/30071170/" />)</S>
+        </p>
+
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">원인</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">슬개골(무릎 앞 뼈)이 대퇴골 위에서 정렬이 어긋날 때 통증이 생깁니다. 초보 러너에게 많은 이유는 세 가지입니다: ① 약한 고관절 외전근 — 무릎이 안쪽으로 쏠림 ② 갑작스러운 거리 증가 ③ 딱딱한 신발 또는 마모된 쿠션</p>
+          <h2 id="cause" className="text-xl font-bold text-gray-900 mb-4">원인 — 확인된 것과 아닌 것</h2>
+          <p className="leading-relaxed text-gray-700">
+            나중에 슬개대퇴 통증이 생기는지를 미리 추적한 전향 연구 18편(4,818명)을 모은 메타분석입니다.{" "}
+            <S>(Neal et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30242107/" />)</S>
+          </p>
+          <ul className="mt-3 space-y-2 text-[15px] leading-relaxed text-gray-700">
+            <li>
+              <strong>위험 요인이 아니었던 것</strong> — 나이, 키, 체중, BMI, 체지방, Q각(강~중간 근거). <strong>엉덩이 근력 약화</strong>도
+              위험 요인이 아니었습니다(중간 근거).
+            </li>
+            <li>
+              <strong>위험 요인이었던 것</strong> — 군인에서 대퇴사두근(허벅지 앞) 약화. 청소년에서는 오히려 엉덩이 외전 근력이 높을수록 위험했습니다.
+            </li>
+            <li>
+              <strong>러너만 따로 본 결론은 약합니다.</strong> 레크리에이션 러너는 세 하위 그룹 중 하나였고, 저자들은 바꿀 수 있는 위험 요인을 찾는
+              것이 시급하다고 했습니다.
+            </li>
+          </ul>
+          <p className="mt-3 text-sm text-gray-600">
+            &lsquo;엉덩이가 약해서 무릎이 안으로 쏠려 아프다&rsquo;는 설명은 아픈 사람을 치료할 때 쓰는 논리이지, 미리 예측된 원인은 아닙니다.
+            거리를 한꺼번에 늘리는 것은 슬개대퇴만 따로 본 근거는 아니지만 과사용 부상 전반의 위험 신호입니다 →{" "}
+            <Link href="/injury/start-running#long-day" className="text-emerald-700 underline">한 번에 길게 뛰는 날</Link>
+          </p>
         </section>
+
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">예방 운동 3가지</h2>
-          {/* 2026-09-14: 한 문단에 뭉쳐 있던 걸 카드로. 문구는 그대로 두고 형태만 바꿨다.
-              폰을 보면서 따라 하는 사람이 지금 몇 번째인지 찾을 수 있어야 한다. */}
-          <div className="space-y-3">
+          <h2 id="what-works" className="text-xl font-bold text-gray-900 mb-4">무엇이 효과 있나</h2>
+
+          <h3 className="mt-2 font-bold text-gray-900">1. 증상·훈련량 관리 — 기본</h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-gray-700">
+            슬개대퇴 통증이 있는 러너 69명을 8주 동안 ① 증상 관리·훈련 조절 교육만 ② 교육 + 운동 ③ 교육 + 주법 교정으로 나눴습니다. 4·8·20주에
+            <strong> 세 그룹 모두 비슷하게 좋아졌고</strong>, 운동 그룹은 무릎 펴는 근력이, 주법 교정 그룹은 케이던스(+7.0%)가 늘었지만 증상에는
+            추가 이득이 없었습니다. 저자들은 증상과 훈련량 관리 교육을 치료의 중심에 두라고 결론 냈습니다.{" "}
+            <S>(Esculier et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/28476901/" />)</S>
+          </p>
+          <p className="mt-2 text-sm text-gray-600">
+            실천: 통증 점수를 기준으로 거리·속도·내리막을 조절합니다 →{" "}
+            <Link href="/injury/return-to-running#rest-or-run" className="text-emerald-700 underline">통증 모니터링 모델</Link>(경험칙 적용)
+          </p>
+
+          <h3 className="mt-6 font-bold text-gray-900">2. 운동 — 엉덩이와 무릎을 함께</h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-gray-700">
+            41명 전문가 국제 합의문은 운동치료, 특히 <strong>엉덩이 운동과 무릎 운동의 조합</strong>, 여러 중재의 병행, 그리고 <strong>발
+            보조기</strong>를 통증·기능 개선에 권고했습니다. 무릎·허리 도수 가동술 단독과 전기치료는 권고하지 않았고, 테이핑·보조기(브레이스)·침·
+            연부조직 기법·혈류제한 훈련·주법 교정은 불확실로 분류했습니다. 이미 아픈 사람의 치료 권고이고 예방 권고는 아닙니다.{" "}
+            <S>(Collins et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29925502/" />)</S>
+          </p>
+          <div className="mt-3 space-y-3">
             <div className="rounded-xl border border-gray-200 p-4">
               <div className="flex items-baseline gap-2">
                 <span className="font-bold text-gray-400">1</span>
-                <h3 className="font-bold text-gray-900">클램셸</h3>
+                <h4 className="font-bold text-gray-900">클램셸 (엉덩이)</h4>
                 <span className="ml-auto text-sm font-semibold text-emerald-700">15회 × 3세트</span>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-gray-700">
-                옆으로 누워 무릎을 굽힌 채 위쪽 다리를 조개껍데기처럼 벌립니다.
-              </p>
+              <p className="mt-2 text-sm leading-relaxed text-gray-700">옆으로 누워 무릎을 굽힌 채 위쪽 다리를 조개껍데기처럼 벌립니다.</p>
             </div>
             <div className="rounded-xl border border-gray-200 p-4">
               <div className="flex items-baseline gap-2">
                 <span className="font-bold text-gray-400">2</span>
-                <h3 className="font-bold text-gray-900">스텝다운</h3>
+                <h4 className="font-bold text-gray-900">스텝다운 (무릎)</h4>
                 <span className="ml-auto text-sm font-semibold text-emerald-700">10회 × 3세트</span>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-gray-700">
-                계단 끝에 서서 한쪽 다리로 천천히 내려옵니다.{" "}
-                <strong>무릎이 발가락 방향을 유지하도록</strong> 하세요 — 안쪽으로 쏠리면 의미가 없습니다.
+                계단 끝에 서서 한쪽 다리로 천천히 내려옵니다. 무릎이 발가락 방향을 유지하도록 합니다.
               </p>
             </div>
             <div className="rounded-xl border border-gray-200 p-4">
               <div className="flex items-baseline gap-2">
                 <span className="font-bold text-gray-400">3</span>
-                <h3 className="font-bold text-gray-900">폼롤러 대퇴사두근 이완</h3>
-                <span className="ml-auto text-sm font-semibold text-emerald-700">2~3분</span>
+                <h4 className="font-bold text-gray-900">벽 기대 반 스쿼트 (허벅지 앞)</h4>
+                <span className="ml-auto text-sm font-semibold text-emerald-700">30초 × 3회</span>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-gray-700">
-                엎드려 허벅지 앞쪽을 롤링합니다.
+                벽에 등을 대고 무릎을 아프지 않은 각도까지만 굽혀 버팁니다. 통증 점수가 5를 넘으면 각도를 줄입니다.
               </p>
             </div>
           </div>
-          {/* ⚠️ 2026-09-14 — "1번(클램셸)이 가장 중요합니다" 라고 적었다가 고쳤다.
-              이 페이지가 인용한 Collins 2018 국제 합의문은 정확히 반대로
-              **"고관절 운동과 무릎 운동을 함께"** 하는 쪽을 권고한다.
-              내가 순위를 만들어 인용을 넘어섰다. */}
-          <p className="mt-3 text-sm leading-relaxed text-gray-600">
-            {/* 2026-10-06: 「셋을 같이」 → 1·2번. 합의문 권고는 고관절·무릎 운동이고, 폼롤러 같은
-                연부조직 기법은 「불확실」로 분류된다. 그리고 합의문은 **치료** 권고다(예방 아님). */}
-            <strong>1·2번을 같이 하세요.</strong> 아래 인용한 국제 합의문(Collins 2018)은
-            고관절 운동과 무릎 운동을 <strong>함께</strong> 하는 쪽을 권고합니다 — 하나만
-            골라서 하는 것보다 낫다고 봤습니다. 다만 이건 이미 아픈 사람을 위한 치료 권고이고,
-            3번 폼롤러는 권고 대상이 아니라 편한 대로 하면 됩니다.
+          <p className="mt-2 text-xs text-gray-400">
+            위 세 가지는 이 사이트의 예시입니다. 합의문은 운동 종류를 엉덩이·무릎 운동의 조합으로 권고했을 뿐 특정 동작을 정하지 않았습니다. 폼롤러
+            같은 연부조직 기법은 「불확실」입니다.
           </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 id="how-long" className="text-xl font-bold text-gray-900 mb-4">얼마나 걸리나</h2>
+          <p className="text-[15px] leading-relaxed text-gray-700">
+            슬개대퇴 통증은 저절로 낫는다고 여겨져 왔지만, 무작위 시험 두 개의 참가자를 5~8년 뒤 다시 조사했더니 응답한 60명 중{" "}
+            <strong>57%가 회복이 충분하지 않다</strong>고 답했습니다. 다만 무릎 관절염 소견은 50명 중 48명(98%)에게 없었고, 처음 증상이 12개월 넘게
+            이어졌던 사람의 예후가 나빴습니다. 응답률이 19.3%로 낮다는 한계가 있습니다.{" "}
+            <S>(Lankhorst et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26463119/" />)</S>
+          </p>
+          <p className="mt-2 text-sm text-gray-600">오래 끌수록 불리하니, 몇 주 지나도 나아지지 않으면 진료를 받으세요(경험칙).</p>
         </section>
 
         <FinderCta from="knee-pain" variant="inline" headline="신발로 무릎 통증이 낫는다는 근거는 약합니다. 다만 발볼·사이즈가 안 맞는 신발은 바꾸는 게 맞습니다." />
         {/**
-         * ⚠️ 2026-09-14 — **이 절 전체가 저장소 자신과 모순이었다.**
-         *
-         * 원문: *"쿠셔닝이 2 이하인 신발은 착지 시 슬개골에 충격을 직접 전달합니다.
-         *        또한 과회내(평발)가 있다면 안정화를 선택해야 무릎 정렬이 개선됩니다."*
-         *
-         * 두 문장 다 근거가 없다:
-         *   · 안정화 — `/injury/flat-feet:119` 가 이미 못 박았다. *"발 타입에 맞춰 회내
-         *     제어 신발을 처방하는 관행을 검토한 체계적 고찰은, 그 관행을 뒷받침하는
-         *     연구를 한 건도 찾지 못했다"* (Richards 2009). AGENTS.md §5 에 기록된 오용이
-         *     이 페이지에만 살아남아 있었다
-         *   · 쿠셔닝 등급 — 이 페이지의 유일한 인용 Collins 2018 이 권고한 물리 중재는
-         *     **foot orthoses** 이고 신발 쿠셔닝 얘기는 없다. "2 이하"는 우리 사이트의
-         *     자체 등급이지 논문 수치가 아니다
-         *
-         * 대체 주장으로 바꾸지 않고, **무엇이 확인되지 않았는지**를 적었다.
+         * ⚠️ 2026-09-14 — 이 절은 원래 「쿠셔닝 2 이하는 슬개골에 충격」「과회내면 안정화」였다. 둘 다 근거 없음.
+         * 2026-10-07: 합의문이 **발 보조기(foot orthoses)** 는 권고한다는 사실을 덧붙였다 — 「신발 권고 없음」만 적으면
+         * 보조기까지 근거가 없는 것처럼 읽힌다. 보조기는 신발의 쿠션·안정화 등급과 다른 물건이다.
          */}
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">신발과의 관계</h2>
+          <h2 id="shoes" className="text-xl font-bold text-gray-900 mb-4">신발과의 관계</h2>
           <p className="leading-relaxed text-gray-700 mb-4">
-            <strong>신발로 무릎 통증을 해결한다는 근거는 약합니다.</strong> 아래 인용한
-            국제 합의문(Collins 2018)이 권고한 것은 <strong>운동</strong>이고, 신발
-            쿠셔닝이나 안정화 기능에 대한 권고는 없습니다.
+            <strong>신발로 무릎 통증을 해결한다는 근거는 약합니다.</strong> 위 합의문은 신발의 쿠셔닝이나 안정화 기능에 대한 권고를 하지 않았습니다.
+            권고한 것은 운동과 <strong>발 보조기(깔창형 교정구)</strong>입니다 — 신발 등급과는 다른 물건입니다.
           </p>
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
-            특히 <strong>&ldquo;평발이면 안정화화&rdquo;는 근거가 없습니다.</strong> 발 타입에 맞춰
-            회내 제어 신발을 처방하는 관행을 검토한 체계적 고찰은{" "}
-            <strong>그 관행을 뒷받침하는 연구를 한 건도 찾지 못했다</strong>고 보고했습니다.
-            자세한 내용은{" "}
+            특히 <strong>&ldquo;평발이면 안정화화&rdquo;</strong>를 무릎 통증 해법으로 볼 근거는 없습니다. 발 타입에 맞춰 회내 제어 신발을 처방하는
+            관행을 검토한 체계적 고찰은 그 관행을 뒷받침하는 연구를 찾지 못했습니다. 자세한 내용은{" "}
             <Link href="/injury/flat-feet" className="font-medium text-emerald-700 underline">
               평발 러닝화 글
             </Link>
             에 있습니다.
           </div>
           <p className="mt-4 leading-relaxed text-gray-700">
-            다만 <strong>쿠션이 다 닳은 신발은 바꾸는 게 맞습니다.</strong> 이건 무릎
-            정렬과는 다른 얘기입니다.
+            다만 <strong>쿠션이 다 닳은 신발은 바꾸는 게 맞습니다.</strong> 이건 무릎 정렬과는 다른 얘기입니다.
           </p>
         </section>
 
         <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
-          <ul className="space-y-2 text-sm">
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">슬개대퇴 통증 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/29925502/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Collins et al. (2018) BJSM 52(18):1170-1178 — 슬개대퇴 통증 운동치료 국제 합의문. 고관절·무릎 운동을 함께 하는 쪽을 권고 ↗
-              </a>
+          <h2 id="refs" className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
+          <p className="mb-2 text-xs text-gray-400">2026-10-07 PubMed 초록과 대조했습니다.</p>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li>
+              <strong>Neal et al. (2019)</strong> — 슬개대퇴 통증 위험 요인 메타분석(전향 연구 18편). Br J Sports Med 53(5):270-281.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/30242107/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Nielsen et al. (2014) PLoS One 9(6):e99877 — 부상당한 초보 러너 254명 추적. 정강이 통증 15%, 슬개대퇴 통증 10% ↗
-              </a>
+            <li>
+              <strong>Esculier et al. (2018)</strong> — 러너 69명, 교육 단독 대 교육+운동 대 교육+주법 교정 무작위 시험. Br J Sports Med 52(10):659-666.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/28476901/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
             </li>
-
+            <li>
+              <strong>Collins et al. (2018)</strong> — 슬개대퇴 통증 운동치료·물리 중재 국제 합의문. Br J Sports Med 52(18):1170-1178.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/29925502/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
+            <li>
+              <strong>Lankhorst et al. (2016)</strong> — 진단 5~8년 뒤 예후 예측 요인. Br J Sports Med 50(14):881-6.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/26463119/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
+            <li>
+              <strong>Nielsen et al. (2014)</strong> — 부상당한 초보 러너 254명, 정강이 15%·슬개대퇴 10%. PLOS ONE 9(6):e99877.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
+            <li>
+              <strong>Kemler et al. (2018)</strong> — 초보·경력 러너 4,621명 부상 부위 비교. Phys Sportsmed 46(4):485-491.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/30071170/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
           </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다.</p>
         </section>
 
         <YoutubeSection links={[
@@ -225,15 +315,19 @@ export default function Page() {
         <FaqSection items={[
           {
             q: "계단을 내려갈 때 무릎 앞쪽이 아픈 건 무슨 부상인가요?",
-            a: "계단을 내려가거나 오래 앉았다 일어날 때 무릎 앞쪽이 뻐근하다면 슬개대퇴 증후군(러너 무릎)을 의심해야 합니다. 초보 러너 부상 가운데 정강이 통증(신스플린트) 다음으로 흔한 편입니다(부상당한 초보 254명 중 약 10%, Nielsen 2014).",
+            a: "계단을 내려가거나 오래 앉았다 일어날 때 무릎 앞이 아프다면 슬개대퇴 통증(러너 무릎)을 의심합니다. 부상당한 초보 러너의 약 10%로 정강이 통증 다음으로 많았습니다(Nielsen 2014). 붓거나, 힘이 빠지거나, 걸리는 느낌이 있으면 다른 원인일 수 있어 진료를 받으세요.",
           },
           {
-            q: "러너 무릎을 예방하는 운동은 뭐가 있나요?",
-            a: "국제 합의문(Collins 2018)은 고관절 운동과 무릎 운동을 함께 하는 쪽을 권고합니다. 이 페이지에서는 ① 클램셸(고관절) ② 스텝다운(무릎)을 같이 합니다. 이 합의문은 이미 아픈 사람의 치료 권고이고, 예방 효과나 폼롤러는 다루지 않았습니다. 통증이 계속되면 진료를 먼저 받으세요.",
+            q: "엉덩이 근육이 약해서 무릎이 아픈 건가요?",
+            a: "미리 추적한 전향 연구 18편을 모은 메타분석에서 엉덩이 근력 약화는 위험 요인이 아니었습니다. 체중·BMI·Q각도 아니었고, 군인에서 대퇴사두근 약화만 위험 요인이었습니다(Neal 2019). 다만 이미 아픈 사람에게는 엉덩이·무릎 운동을 함께 하는 것이 권고됩니다(Collins 2018).",
+          },
+          {
+            q: "운동을 꼭 해야 낫나요?",
+            a: "러너 69명 무작위 시험에서 증상·훈련량 관리 교육만 받은 그룹이 교육에 운동이나 주법 교정을 더한 그룹과 똑같이 좋아졌습니다(Esculier 2018). 통증을 기준으로 거리·속도·내리막을 조절하는 것이 기본이고, 운동은 근력을 늘리는 데 도움이 됩니다.",
           },
           {
             q: "신발이 무릎 통증에 영향을 주나요?",
-            a: "생각만큼은 아닙니다. 이 글이 인용한 국제 합의문(Collins 2018)이 권고한 것은 운동이고, 신발 쿠셔닝이나 안정화 기능에 대한 권고는 없습니다. 특히 '평발이면 안정화화'는 근거가 없습니다 — 발 타입에 맞춰 회내 제어 신발을 처방하는 관행을 검토한 체계적 고찰은 그 관행을 뒷받침하는 연구를 한 건도 찾지 못했다고 보고했습니다. 다만 쿠션이 다 닳은 신발은 바꾸는 게 맞습니다.",
+            a: "신발의 쿠셔닝이나 안정화 기능으로 무릎 통증이 낫는다는 권고는 없습니다. 국제 합의문이 권고한 것은 운동과 발 보조기(깔창형 교정구)입니다(Collins 2018). 쿠션이 다 닳은 신발은 바꾸는 게 맞습니다.",
           },
         ]} />
 
@@ -244,8 +338,9 @@ export default function Page() {
             두 달간 질문 0건이 그 증거다. */}
         <InlineAsk from="knee-pain" tag="무릎" placeholder="예) 계단 내려갈 때만 무릎 앞이 아픈데 신발 문제일까요?" />
 
-        <FinderCta from="knee-pain" headline="무릎에 부담이 덜한 신발 찾기" sub="체중과 부상 이력을 넣으면 쿠션이 충분한 신발을 우선 추천합니다." />
-        <ShareButtons from="knee-pain" title="러너 무릎 예방법" description="무릎 앞쪽이 아플 때 확인할 것들을 논문 근거로 정리했습니다." />
+        {/* 2026-10-07: sub 가 「체중과 부상 이력을 넣으면 쿠션이 충분한 신발을 우선 추천」이었다 — 엔진 v4 에서 그 경로를 뺐다. */}
+        <FinderCta from="knee-pain" headline="발볼·사이즈부터 맞는 신발 찾기" sub="신발로 무릎 통증이 낫는다는 근거는 약합니다. 발에 맞는지가 먼저입니다." />
+        <ShareButtons from="knee-pain" title="러너 무릎 — 무릎 앞 통증" description="무릎 앞쪽이 아플 때 확인할 것들을 논문 근거로 정리했습니다." />
 
       </article>
     </>

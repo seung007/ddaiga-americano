@@ -134,14 +134,12 @@ export default function RacePredictor() {
           </dl>
           <p className="mt-3 rounded-xl bg-red-50 p-3 text-xs leading-relaxed text-red-900">
             ⚠ <strong>풀코스는 이 값보다 느리게 나올 가능성이 커요.</strong> 레크리에이션 러너 2,303명의 기록을 분석한 연구에서
-            이 공식이 풀코스 기록을 실제보다 빠르게 예측했어요. 얼마나 느려지는지는 훈련량에 따라 달라서 여기서 숫자로 보정하지 않았어요.{" "}
-            <a
-              href="https://pubmed.ncbi.nlm.nih.gov/27570626/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              Vickers &amp; Vertosick (2016) BMC Sports Sci Med Rehabil 8:26 — 레크리에이션 러너 기록 예측 ↗
+            이 공식은 하프까지는 잘 맞았지만, 풀코스는 <strong>러너 절반에게서 실제보다 10분 이상 빠르게</strong> 예측했어요.
+            얼마나 느려지는지는 훈련량에 따라 달라서 여기서 숫자로 보정하지 않았어요. 출처: Vickers &amp; Vertosick (2016) BMC Sports
+            Sci Med Rehabil 8:26{" "}
+            {/* 2026-10-07: 저자·연도를 링크 **앞**으로 옮겼다. 링크 안에 두면 인용 검사기가 앞쪽 className 의 「Name」을 성으로 잡았다. */}
+            <a href="https://pubmed.ncbi.nlm.nih.gov/27570626/" target="_blank" rel="noopener noreferrer" className="underline">
+              ↗
             </a>
           </p>
         </>

@@ -204,6 +204,13 @@ export default function StageFinder() {
               막히는 곳과 할 일 보기 ↓
             </a>
           </div>
+          {s.id !== "start" && (
+            <p className="mt-2 text-xs text-gray-500">
+              목표 기록이 궁금하면{" "}
+              <Link href="/tools/pace#predict-h" className="text-emerald-700 underline">기록 예측</Link> — 풀코스 예측은 실제보다 빠르게 나오는
+              경향이 있습니다.
+            </p>
+          )}
 
           {(yq || sq || kq) && (
             <div className="mt-4 border-t border-gray-100 pt-3">

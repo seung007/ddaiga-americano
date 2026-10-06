@@ -24,7 +24,10 @@ type Props = {
   headline: string;
   description: string;
   url: string;
-  /** 페이지 최초 발행일 (ISO 8601). 생략 시 현재 날짜 사용 */
+  /**
+   * 페이지 최초 발행일 (ISO 8601). 모르면 생략 — 생략하면 필드를 아예 내보내지 않는다.
+   * 2026-10-07: 주석은 「생략 시 현재 날짜」였는데 코드는 "2025-01-01" 을 넣고 있었다. 둘 다 지어낸 값이라 뺐다.
+   */
   datePublished?: string;
   /** 이미지 URL (절대 경로). 생략 시 OG 이미지 사용 */
   image?: string;
@@ -47,7 +50,7 @@ export default function ArticleJsonLd({
     image: image ?? `${SITE_URL}/opengraph-image`,
     publisher: PUBLISHER,
     author: PUBLISHER,
-    datePublished: datePublished ?? "2025-01-01",
+    ...(datePublished ? { datePublished } : {}),
     dateModified: new Date().toISOString().split("T")[0],
   };
 

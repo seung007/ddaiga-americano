@@ -3,17 +3,47 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import InlineAsk from "@/components/InlineAsk";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import TableOfContents from "@/components/TableOfContents";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
+
+/**
+ * 2026-10-07 재검증 — 고친 것
+ *   · 「스테로이드 주사 … 지방패드 위축 위험이 보고」: 174명 코호트(Hansen 2018)에서 초음파 유도 주사군의 지방패드 두께는
+ *     주사 안 맞은 군과 차이가 없었다. Cochrane(David 2017)은 1개월까지 통증을 약간 줄이고 그 뒤로는 차이가 없었다고 정리한다.
+ *   · 「대부분 좋아지지만」: 병원 진단 174명 코호트에서 1년 뒤에도 80.5%, 10년 뒤에도 45.6%가 증상이 있었다. 「대부분」을 뺐다.
+ *   · 「2주 해보고 갈아타는 것이 가장 흔한 실수」: 근거 없음. 뺐다.
+ *   · 「임상진료지침에서 스트레칭 권고」: 지침(Koc 2023) 초록에 권고 내용이 없고 본문은 열람이 막혀 대조하지 못했다. 단정을 뺐다.
+ *   · 「BMI 관련성은 운동하는 사람에게서 약해진다고 알려져」: 출처가 없었다 → van Leeuwen 2016 메타분석으로 출처를 달았다.
+ *   · 「훈련량을 갑자기 늘린 경우」: 위험 요인 연구(Riddle 2003)에 없는 항목이라 따로 떼어 표시.
+ *   · Nielsen 2014 링크가 journals.plos.org 형식이라 인용 검사기에 안 잡혔다 → PubMed 링크로.
+ *   · 메타데이터 canonical·구조화 데이터·목차가 없었다 → 추가.
+ *   · Koc 2023 은 DOI 링크로 둔다 — PubMed 저자 표기가 「Koc TA Jr」라 검사기가 「Jr」를 성으로 읽는다.
+ */
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/plantar-fasciitis";
+const TITLE = "족저근막염 — 아침 첫발이 아픈 이유와 근거 있는 대처";
+const DESC =
+  "아침 첫 걸음에 발뒤꿈치가 아프다면. 스트레칭보다 3개월 시점 효과가 컸던 고부하 근력 운동, 주사의 실제 효과, 그리고 생각보다 긴 회복 기간까지 논문 수치로 정리했습니다.";
 
 export const metadata: Metadata = {
   title: "족저근막염 — 아침 첫발이 아픈 이유와 근거 있는 대처 | 뛰다가 아메리카노",
-  description:
-    "아침 첫 걸음에 발뒤꿈치가 아프다면 족저근막염일 수 있습니다. 스트레칭보다 효과가 확인된 고부하 근력 운동, 회복 기간, 병원에 가야 할 신호를 논문 링크와 함께 정리했습니다.",
+  description: DESC,
+  alternates: { canonical: "/injury/plantar-fasciitis" },
 };
 
 export default function Page() {
   return (
     <>
+      {/* 최초 게시일은 저장소 기록으로 확인되지 않아 비워 둔다(지어내지 않는다). */}
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["족저근막염", "/injury/plantar-fasciitis"],
+        ]}
+      />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
           ← 러닝 가이드
@@ -21,31 +51,59 @@ export default function Page() {
 
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full mb-3">부상 부위</span>
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">족저근막염 — 아침 첫발이 아픈 이유</h1>
-          <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
+          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">{TITLE}</h1>
+          <p className="text-gray-500 text-sm mb-4">7분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            협찬 없이 작성 — 아래 모든 주장에 논문 링크를 답니다
+            협찬 없이 작성 — 논문 근거와 경험칙을 구분해 적었습니다
           </div>
         </header>
 
         <p className="text-lg leading-relaxed mb-8 text-gray-700">
           <strong>아침에 일어나 딛는 첫 몇 걸음이 가장 아프고, 걷다 보면 좀 나아졌다가, 오래 서 있거나 많이 걸으면 다시 아파진다</strong> —
-          이게 족저근막 통증의 전형적인 패턴입니다. 초보 러너 부상 중 약 5%를 차지합니다.
+          이게 족저근막 통증의 전형적인 패턴입니다. 부상당한 초보 러너 254명 중 약 5%였습니다.{" "}
+          <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>
         </p>
+
+        <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
+          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-emerald-900">
+            <li>오래된 족저근막 통증은 염증보다 <strong>퇴행</strong>에 가깝습니다.</li>
+            <li>
+              <strong>고부하 근력 운동</strong>(수건 위 한 발 뒤꿈치 들기)이 3개월 시점에 스트레칭보다 기능 점수가 29점 좋았고, 12개월에는 같았습니다.
+            </li>
+            <li>스테로이드 주사는 1개월까지 통증을 약간 줄였고, 그 뒤로는 차이가 없었습니다.</li>
+            <li>
+              <strong>오래 갑니다.</strong> 병원에서 진단받은 174명 중 1년 뒤에도 80.5%, 10년 뒤에도 45.6%가 증상이 있었습니다.
+            </li>
+          </ol>
+        </div>
+
+        <TableOfContents
+          items={[
+            { id: "red-flags", label: "병원에 가야 할 신호" },
+            { id: "risk", label: "위험 요인" },
+            { id: "what-works", label: "뭘 하면 되나" },
+            { id: "injection", label: "주사" },
+            { id: "how-long", label: "얼마나 걸리나" },
+            { id: "refs", label: "참고 자료" },
+          ]}
+        />
 
         <section className="mb-8 p-5 bg-gray-50 rounded-2xl border border-gray-200">
           <h2 className="text-base font-bold text-gray-900 mb-2">이름부터 — &lsquo;염&rsquo;이 아닙니다</h2>
           <p className="text-sm text-gray-700 leading-relaxed">
-            흔히 &lsquo;족저근막<strong>염</strong>&rsquo;이라고 부르지만, 조직을 실제로 들여다보면 염증보다 <strong>퇴행성 변화</strong>가
-            주로 관찰됩니다. 그래서 최근 문헌은 <em>plantar fasciopathy</em>(족저근막병증) 또는 <em>plantar heel pain</em>(발뒤꿈치 통증)이라는
-            이름을 씁니다. 이게 중요한 이유는 실질적입니다 — <strong>소염제를 먹는 것으로 해결되지 않는 이유</strong>가 여기 있습니다.
+            흔히 &lsquo;족저근막<strong>염</strong>&rsquo;이라고 부르지만, 만성 족저근막염으로 수술한 50례의 조직을 본 연구에서는 염증 없이
+            근막이 조각나고 퇴행한 변화가 관찰됐습니다.{" "}
+            <S>(Lemont et al. (2003) <Up h="https://pubmed.ncbi.nlm.nih.gov/12756315/" />)</S>{" "}
+            수술까지 간 만성 사례라는 점은 감안해야 합니다. 그래서 최근 문헌은 <em>plantar fasciopathy</em>(족저근막병증) 또는 <em>plantar heel pain</em>(발뒤꿈치 통증)이라는
+            이름을 씁니다. 소염 치료만으로 해결되지 않는 경우가 많은 이유를 설명해 줍니다.
           </p>
         </section>
 
         {/* 안전 정보를 위쪽에 둔다 */}
         <section className="mb-8 p-5 bg-red-50 rounded-2xl border border-red-200">
-          <h2 className="text-lg font-bold text-red-900 mb-3">병원에 가야 할 신호</h2>
+          <h2 id="red-flags" className="text-lg font-bold text-red-900 mb-3">병원에 가야 할 신호</h2>
           <p className="text-sm text-red-900 leading-relaxed mb-3">
             발뒤꿈치 통증이 전부 족저근막 문제는 아닙니다. 아래는 다른 원인을 의심해야 하는 경우입니다.
           </p>
@@ -56,84 +114,121 @@ export default function Page() {
             <li>• 다치고 나서 갑자기 시작됐다, 또는 &lsquo;퍽&rsquo; 하는 느낌 뒤에 시작됐다</li>
             <li>• 발열, 발적, 부종이 같이 있다</li>
           </ul>
-          <p className="text-xs text-red-700 mt-3 leading-relaxed">
-            스테로이드 주사는 단기 통증에 효과가 있지만 <strong>족저근막 파열과 발뒤꿈치 지방패드 위축</strong> 위험이 보고돼 있습니다.
-            맞을지 여부는 반드시 의사와 상의하세요.
-          </p>
+          <p className="text-xs text-red-700 mt-3 leading-relaxed">위 신호는 이 사이트가 정리한 것이며 진단이 아닙니다. 주사에 대해서는 아래 「주사」 절을 보세요.</p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">근거가 있는 위험 요인</h2>
-          <ul className="text-sm text-gray-700 space-y-2">
+          <h2 id="risk" className="text-xl font-bold text-gray-900 mb-4">위험 요인</h2>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            일반 환자 50명과 대조군을 비교한 연구에서 나온 수치입니다.{" "}
+            <S>(Riddle et al. (2003) <Up h="https://pubmed.ncbi.nlm.nih.gov/12728038/" />)</S>
+          </p>
+          <ul className="mt-2 text-sm text-gray-700 space-y-2">
             <li>
-              • <strong>발목이 잘 안 꺾임(발등쪽 굽힘 제한)</strong> — 가장 강한 요인입니다. 무릎을 편 상태에서 발목 배측굴곡이
-              0도 이하인 사람은 10도 넘는 사람 대비 오즈비 <strong>23.3</strong> (95% CI 4.3~124.4). 신뢰구간이 매우 넓다는 점은
-              같이 봐야 합니다
+              • <strong>발목이 잘 안 꺾임(발등쪽 굽힘 제한)</strong> — 무릎을 편 상태에서 0도 이하인 사람은 10도 넘는 사람 대비 오즈비{" "}
+              <strong>23.3</strong>(95% CI 4.3~124.4). 신뢰구간이 매우 넓습니다
             </li>
-            <li>• <strong>BMI 30 이상</strong> — 25 미만 대비 오즈비 5.6 (95% CI 1.9~16.6)</li>
+            <li>• <strong>BMI 30 초과</strong> — 25 이하 대비 오즈비 5.6 (95% CI 1.9~16.6)</li>
             <li>• <strong>하루 대부분을 서서 일함</strong> — 오즈비 3.6 (95% CI 1.3~10.1)</li>
-            <li>• 훈련량을 갑자기 늘린 경우</li>
           </ul>
-          <p className="text-sm text-gray-500 mt-3 leading-relaxed">
-            위 수치는 일반 인구 대상 환자-대조군 연구에서 나온 것이라, 러너에게 그대로 적용된다고 보기는 어렵습니다.
-            특히 BMI는 운동하는 사람에게서는 관련성이 약해진다고 알려져 있습니다.
+          <p className="text-sm text-gray-600 mt-3 leading-relaxed">
+            51개 연구 메타분석에서 일관되게 확인된 임상 요인은 <strong>높은 BMI(27 초과, 오즈비 3.7)</strong>뿐이었고, 그 관련은 운동하지 않는 사람에게서
+            가장 강했습니다. 발·발목 기능 측정치가 원인이라는 통념에 대한 근거는 부족했습니다.{" "}
+            <S>(van Leeuwen et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26644427/" />)</S>
+          </p>
+          <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+            훈련량을 갑자기 늘리는 것은 족저근막만 따로 본 근거는 없지만, 과사용 부상 전반의 위험 신호입니다 →{" "}
+            <Link href="/injury/start-running#long-day" className="text-emerald-700 underline">한 번에 길게 뛰는 날</Link>
           </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">뭘 하면 되나 — 효과가 확인된 것부터</h2>
+          <h2 id="what-works" className="text-xl font-bold text-gray-900 mb-4">뭘 하면 되나</h2>
           <p className="leading-relaxed text-gray-700 mb-3">
-            <strong>고부하 근력 운동.</strong> 48명을 무작위 배정한 연구에서, 깔창 + 매일 스트레칭을 한 그룹보다
-            깔창 + <strong>이틀에 한 번 고부하 근력 운동</strong>을 한 그룹이 3개월 시점 발 기능 지수(FFI)가 29점 더 좋았습니다.
-            방법은 단순합니다 — <strong>발가락 밑에 수건을 말아 넣고 한 발로 뒤꿈치 들기</strong>를 천천히 반복합니다.
-            다만 12개월 시점에는 두 그룹 차이가 사라졌습니다. 즉 <strong>회복을 앞당기지만 최종 결과를 바꾸지는 않았습니다.</strong>
+            <strong>고부하 근력 운동.</strong> 초음파로 확인된 족저근막염 환자 48명을 무작위로 나눠, 깔창 + 매일 족저근막 스트레칭 그룹과 깔창 +{" "}
+            <strong>이틀에 한 번 고부하 근력 운동</strong> 그룹을 비교했습니다. 3개월 시점 발 기능 지수(FFI)가 근력 그룹에서 29점 더 좋았고, 1·6·12개월
+            시점에는 차이가 없었습니다.{" "}
+            <S>(Rathleff et al. (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/25145882/" />)</S>{" "}
+            방법은 <strong>발가락 밑에 수건을 말아 넣고 한 발로 뒤꿈치 들기</strong>를 천천히 반복하는 것입니다. 회복을 앞당길 수 있지만 최종
+            결과를 바꾸지는 않았습니다.
           </p>
           <p className="leading-relaxed text-gray-700 mb-3">
-            <strong>스트레칭.</strong> 족저근막 전용 스트레칭과 종아리(비복근·가자미근) 스트레칭은 임상진료지침에서
-            단기·장기 통증 감소와 기능 개선에 권고됩니다.
+            <strong>스트레칭.</strong> 족저근막·종아리 스트레칭은 흔히 권고되고, 위 연구에서도 스트레칭 그룹이 12개월에는 근력 그룹과 같은 수준으로
+            좋아졌습니다. 미국 물리치료학회 임상진료지침(2023 개정)이 있지만 권고 등급 본문은 열람이 막혀 이 사이트가 대조하지 못했습니다.
           </p>
           <p className="leading-relaxed text-gray-700">
-            <strong>계속 뛰어도 되나?</strong> 완전히 쉬는 것보다 통증이 견딜 만한 범위로 <strong>부하를 줄여 유지</strong>하는 쪽이
-            일반적으로 권장됩니다. 다만 &ldquo;족저근막염에 좋은 신발&rdquo;에 대해서는 정직하게 말하겠습니다 —
-            특정 드롭이나 쿠셔닝이 족저근막 통증을 낫게 한다는 <strong>좋은 근거는 없습니다.</strong>
-            편한 신발이 도움이 될 수는 있지만, 그건 치료가 아니라 통증 관리입니다.
+            <strong>계속 뛰어도 되나?</strong> 족저근막만 따로 시험한 연구는 찾지 못했습니다. 통증 점수를 기준으로 거리를 조절하는 방법은{" "}
+            <Link href="/injury/return-to-running#rest-or-run" className="text-emerald-700 underline">부상 후 복귀 글</Link>에 있습니다(힘줄 연구에서 온
+            모델). &ldquo;족저근막염에 좋은 신발&rdquo;에 대해서는 — 특정 드롭이나 쿠셔닝이 족저근막 통증을 낫게 한다는 <strong>좋은 근거는
+            없습니다.</strong> 편한 신발이 통증 관리에 도움이 될 수는 있지만 치료는 아닙니다.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 id="injection" className="text-xl font-bold text-gray-900 mb-4">주사</h2>
+          <p className="leading-relaxed text-gray-700">
+            무작위 시험 39편(2,492명)을 모은 코크런 리뷰에서 스테로이드 주사는 위약·무치료보다 <strong>1개월까지 통증을 약간</strong> 줄였고(낮은
+            근거 수준), 1~6개월에는 차이가 없었습니다. 주사군 699명 중 족저근막 파열 2건, 감염 3건이 보고됐고, 부작용 보고가 부실해 더 높은 위험을
+            배제할 수 없다고 했습니다.{" "}
+            <S>(David et al. (2017) <Up h="https://pubmed.ncbi.nlm.nih.gov/28602048/" />)</S>{" "}
+            174명 장기 추적에서는 초음파 유도 주사를 맞은 사람과 안 맞은 사람의 뒤꿈치 지방패드 두께가 다르지 않았습니다(9.0 대 9.4mm).{" "}
+            <S>(Hansen et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29536022/" />)</S>{" "}
+            맞을지 여부는 의사와 상의하세요.
           </p>
         </section>
 
         <section className="mb-8 p-5 bg-emerald-50 rounded-2xl border border-emerald-100">
-          <h2 className="text-base font-bold text-emerald-900 mb-2">기대치 — 이게 가장 중요합니다</h2>
+          <h2 id="how-long" className="text-base font-bold text-emerald-900 mb-2">얼마나 걸리나 — 가장 중요한 기대치</h2>
           <p className="text-sm text-emerald-900 leading-relaxed">
-            족저근막 통증은 <strong>대부분 좋아지지만 오래 걸립니다.</strong> 수개월 단위이고, 1년이 지나도 증상이 남는 사람이
-            적지 않습니다. 2주 해보고 &ldquo;효과 없다&rdquo;며 다른 치료로 갈아타는 것이 가장 흔한 실수입니다.
-            어떤 치료든 <strong>최소 3개월</strong>은 꾸준히 해보고 판단하세요.
+            초음파로 진단받은 174명을 평균 약 9년 추적한 연구에서, 증상이 남아 있을 위험은 <strong>1년 뒤 80.5%, 5년 뒤 50.0%, 10년 뒤 45.6%</strong>
+            였습니다. 증상이 사라진 사람도 평균 725일이 걸렸고, 여성과 양쪽 발이 아픈 사람의 예후가 나빴습니다. 근막 두께나 뒤꿈치 뼈돌기(골극)는
+            예후와 관계가 없었습니다.{" "}
+            <S>(Hansen et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29536022/" />)</S>
+          </p>
+          <p className="mt-2 text-sm text-emerald-900 leading-relaxed">
+            병원까지 온 사람들의 자료라 가벼운 사례보다는 길게 나왔을 수 있습니다. 그래도 몇 주 만에 판단하지 말고, 한 가지 방법을 최소 3개월은 꾸준히
+            해 보세요(경험칙 — 위 근력 운동 연구의 1차 평가 시점이 3개월).
           </p>
         </section>
 
         <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
-          <ul className="space-y-2 text-sm">
-            <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://doi.org/10.1111/sms.12313" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Rathleff et al. (2015) Scand J Med Sci Sports 25(3):e292-300 — 고부하 근력 운동 RCT, 12개월 추적 ↗
-              </a>
+          <h2 id="refs" className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
+          <p className="mb-2 text-xs text-gray-400">2026-10-07 PubMed 초록과 대조했습니다.</p>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li>
+              <strong>Rathleff et al. (2015)</strong> — 고부하 근력 운동 대 스트레칭 무작위 시험 48명, 12개월 추적. Scand J Med Sci Sports 25(3):e292-300.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/25145882/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://www.jospt.org/doi/10.2519/jospt.2023.0303" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Koc et al. (2023) JOSPT 임상진료지침 — Heel Pain / Plantar Fasciitis: Revision 2023 ↗
-              </a>
+            <li>
+              <strong>Hansen et al. (2018)</strong> — 족저근막염 174명 5~15년 추적, 장기 예후. Orthop J Sports Med 6(3):2325967118757983.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/29536022/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://pubmed.ncbi.nlm.nih.gov/12728038/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Riddle et al. (2003) JBJS 85(5):872-77 — 위험 요인 환자-대조군 연구 ↗
-              </a>
+            <li>
+              <strong>David et al. (2017)</strong> — 스테로이드 주사 코크런 리뷰(39편). Cochrane Database Syst Rev 6:CD009348.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/28602048/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Nielsen et al. (2014) PLOS ONE — 초보 러너 부상 분포, 족저근막염 5% ↗
-              </a>
+            <li>
+              <strong>Lemont et al. (2003)</strong> — 만성 족저근막염 수술 50례 조직 소견, 염증 없는 퇴행. J Am Podiatr Med Assoc 93(3):234-7.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/12756315/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
+            <li>
+              <strong>Riddle et al. (2003)</strong> — 위험 요인 환자-대조군 연구. J Bone Joint Surg Am 85(5):872-7.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/12728038/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
+            <li>
+              <strong>van Leeuwen et al. (2016)</strong> — 위험 요인 메타분석(51편), 높은 BMI. Br J Sports Med 50(16):972-81.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/26644427/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
+            </li>
+            <li>
+              <strong>Koc et al. (2023)</strong> — 미국 물리치료학회 발뒤꿈치 통증 임상진료지침 2023 개정(본문 미대조). J Orthop Sports Phys Ther 53(12).{" "}
+              <a href="https://doi.org/10.2519/jospt.2023.0303" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">DOI →</a>
+            </li>
+            <li>
+              <strong>Nielsen et al. (2014)</strong> — 부상당한 초보 러너 254명, 족저근막염 5%. PLOS ONE 9(6):e99877.{" "}
+              <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
             </li>
           </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 공개된 연구 자료를 근거로 작성했습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다.</p>
         </section>
 
         <YoutubeSection links={[
@@ -152,7 +247,7 @@ export default function Page() {
           },
           {
             q: "스트레칭과 근력 운동 중 뭐가 더 효과적인가요?",
-            a: "48명 무작위 배정 연구(Rathleff 2015)에서 이틀에 한 번 고부하 근력 운동을 한 그룹이 매일 스트레칭한 그룹보다 3개월 시점 발 기능 지수가 29점 더 좋았습니다. 방법은 발가락 밑에 수건을 말아 넣고 한 발로 뒤꿈치를 천천히 드는 것입니다. 다만 12개월 시점에는 차이가 사라졌으므로, 회복을 앞당기지만 최종 결과를 바꾸지는 않는다고 보는 편이 정확합니다.",
+            a: "48명 무작위 배정 연구(Rathleff 2015)에서 이틀에 한 번 고부하 근력 운동을 한 그룹이 매일 스트레칭한 그룹보다 3개월 시점 발 기능 지수가 29점 더 좋았습니다. 방법은 발가락 밑에 수건을 말아 넣고 한 발로 뒤꿈치를 천천히 드는 것입니다. 1·6·12개월 시점에는 차이가 없었으므로, 회복을 앞당길 수 있지만 최종 결과를 바꾸지는 않는다고 보는 편이 정확합니다.",
           },
           {
             q: "족저근막염에 좋은 러닝화가 따로 있나요?",
@@ -160,7 +255,7 @@ export default function Page() {
           },
           {
             q: "얼마나 지나야 낫나요?",
-            a: "대부분 좋아지지만 수개월 단위로 오래 걸리고, 1년이 지나도 증상이 남는 사람이 적지 않습니다. 2주 해보고 효과 없다며 다른 치료로 갈아타는 것이 가장 흔한 실수입니다. 어떤 치료든 최소 3개월은 꾸준히 해보고 판단하세요.",
+            a: "생각보다 오래 걸립니다. 병원에서 진단받은 174명 연구에서 증상이 남아 있을 위험은 1년 뒤 80.5%, 10년 뒤 45.6%였고, 증상이 사라진 사람도 평균 725일이 걸렸습니다(Hansen 2018). 병원 자료라 가벼운 사례보다 길 수 있습니다. 한 가지 방법을 최소 3개월은 꾸준히 해 보고 판단하세요.",
           },
         ]} />
 
@@ -169,7 +264,7 @@ export default function Page() {
         </p>
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 러닝화를 찾으세요</p>
+          <p className="font-medium text-emerald-900 mb-2">신발로 족저근막염이 낫는다는 근거는 없습니다. 발볼·사이즈가 맞는지는 확인하세요</p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
             내 러닝화 찾기 →
           </Link>

@@ -29,6 +29,7 @@ import type { StageId } from "./stages";
  *   start-running 5176→9 · beginner-guide 3314→6 · intermediate-guide 2484→5 · advanced-guide 2505→5
  *   (같은 방법으로 잰 first-10k 2764·shin-splints 2197 이 9/22 값과 거의 같아 방법은 이어진다)
  *   return-to-running 4566→8 · it-band 4343→8(개편, 1779→3 에서) · half-marathon-training 4000→7
+ * 2026-10-07 실측: marathon-training 4222→8 · get-faster 3691→7 · knee-pain 3637→7(개편) · plantar-fasciitis 3699→7(개편)
  *
  * **글을 늘렸으면 여기와 그 페이지 본문 둘 다 고칠 것.** 두 곳에 있어서 또 어긋난다.
  */
@@ -47,6 +48,8 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/start-running", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "처음 달리기 — 30분 연속까지 막히는 곳과 대처", desc: "초보 프로그램 참가자 거의 3명 중 1명이 반년 안에 그만둡니다. 이유 1위는 부상. 속도·진도·긴 날·멈출 신호.", readTime: "9분", stages: ["start"] },
   { href: "/injury/beginner-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "초보 러너 뛰는 법", desc: "얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법.", readTime: "6분", stages: ["start", "to10k"] },
   { href: "/injury/half-marathon-training", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 준비 — 10km에서 21km로", desc: "하프 참가자 556명의 실제 준비량(주 26km·최장 18.5km)과, 주간 거리·긴 달리기를 늘리는 속도.", readTime: "7분", stages: ["to-half"] },
+  { href: "/injury/marathon-training", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "풀코스 준비 — 하프에서 42.195km로", desc: "풀 참가자 441명의 실제 준비량(주 40km·최장 32km), 준비 중 부상, 후반 붕괴, 테이퍼·보급.", readTime: "8분", stages: ["to-full"] },
+  { href: "/injury/get-faster", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "기록 단축 — 완주 다음에 막히는 곳", desc: "주간 거리·강도 배분·인터벌·근력·테이퍼가 실제로 얼마나 효과 있었는지, 기록 예측은 얼마나 믿을지.", readTime: "7분", stages: ["faster"] },
   { href: "/injury/intermediate-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "중급자 부상 예방 가이드", desc: "장경인대·아킬레스·족저근막, 그리고 오버트레이닝 징후.", readTime: "5분", stages: ["to-half"] },
   { href: "/injury/advanced-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "숙련자 부상 예방 가이드", desc: "피로골절·비기능적 오버리칭·주기화.", readTime: "5분", stages: ["to-full", "faster"] },
 
@@ -61,8 +64,8 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/carbon-plate", tag: "카본화", tagColor: "text-purple-600 bg-purple-50", title: "카본화 살까 말까 — 논문이 시험한 속도", desc: "가장 많이 인용되는 연구는 4:17/km 이상에서만 측정했습니다. 실제 가격도 정리했습니다.", readTime: "4분", stages: ["to-full", "faster"] },
   { href: "/injury/achilles", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "달리기 아킬레스건·종아리 통증 스트레칭 3가지", desc: "달린 뒤 당기고 뻐근하다면. 원인과 무관하게 같은 3가지를 합니다.", readTime: "5분", stages: ["to-half", "to-full"] },
   { href: "/injury/shin-splints", tag: "정강이", tagColor: "text-red-600 bg-red-50", title: "정강이 통증(신스플린트) — 초보 부상 1위", desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "4분", stages: ["start", "to10k"] },
-  { href: "/injury/plantar-fasciitis", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유", desc: "스트레칭보다 효과가 확인된 방법과, 얼마나 걸리는지.", readTime: "5분", stages: ["to10k", "to-half"] },
-  { href: "/injury/knee-pain", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "러너 무릎(슬개대퇴 증후군) 예방법", desc: "무릎 앞쪽이 계단 오를 때 아프다면 체크해야 할 것들.", readTime: "4분", stages: ["start", "to10k"] },
+  { href: "/injury/plantar-fasciitis", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유", desc: "3개월 시점 스트레칭보다 효과가 컸던 근력 운동, 주사의 실제 효과, 생각보다 긴 회복 기간.", readTime: "7분", stages: ["to10k", "to-half"] },
+  { href: "/injury/knee-pain", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "러너 무릎(슬개대퇴 통증) — 무엇이 효과 있나", desc: "흔히 말하는 원인 상당수는 예측 요인이 아니었다. 부하 관리 교육만으로도 운동을 더한 것과 같은 회복.", readTime: "7분", stages: ["start", "to10k"] },
   { href: "/injury/warmup", tag: "준비운동", tagColor: "text-green-600 bg-green-50", title: "달리기 전 5분 동적 스트레칭 루틴", desc: "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유.", readTime: "3분", stages: ["start", "to10k"] },
   { href: "/injury/cooldown", tag: "쿨다운", tagColor: "text-teal-600 bg-teal-50", title: "달리기 후 꼭 해야 할 10분 정적 스트레칭", desc: "종아리·햄스트링·엉덩이까지 풀어주는 쿨다운 루틴.", readTime: "4분", stages: ["start", "to10k"] },
   { href: "/injury/rest-day", tag: "회복", tagColor: "text-indigo-600 bg-indigo-50", title: "휴식일에 뭘 해야 할까? 액티브 리커버리", desc: "가볍게 움직이는 쪽이 낫다는 증거는 생각보다 약합니다.", readTime: "3분", stages: "all" },

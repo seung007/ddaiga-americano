@@ -131,6 +131,7 @@ export const STAGES: Stage[] = [
       { href: "/injury/first-10k", label: "생애 첫 10km 대회" },
       { href: "/injury/shin-splints", label: "정강이 통증" },
       { href: "/injury/knee-pain", label: "러너 무릎" },
+      { href: "/tools/pace", label: "페이스 계산기" },
     ],
     next: "10km를 걷지 않고 완주했을 때",
   },
@@ -218,8 +219,10 @@ export const STAGES: Stage[] = [
       },
     ],
     guides: [
-      { href: "/injury/advanced-guide", label: "숙련자 가이드" },
+      { href: "/injury/marathon-training", label: "풀코스 준비" },
       { href: "/injury/half-marathon-race-day", label: "젤·급수·페이스 (하프 기준)" },
+      { href: "/injury/return-to-running", label: "부상 후 복귀" },
+      { href: "/injury/advanced-guide", label: "숙련자 가이드" },
     ],
     next: "풀코스를 완주했을 때",
   },
@@ -231,6 +234,14 @@ export const STAGES: Stage[] = [
     short: "기록",
     who: "완주는 했고 기록을 줄이고 싶다.",
     bottlenecks: [
+      {
+        title: "예측 기록을 그대로 믿는다",
+        fact: "레크리에이션 러너 2,303명 분석에서 널리 쓰이는 리겔 공식은 하프까지는 잘 맞았지만, 풀코스는 러너 절반에게서 실제보다 10분 이상 빠르게 예측했습니다.",
+        cite: "Vickers & Vertosick (2016) BMC Sports Sci Med Rehabil 8(1):26",
+        href: "https://pubmed.ncbi.nlm.nih.gov/27570626/",
+        todo: "풀코스 목표 페이스는 공식 값보다 보수적으로 잡고, 전반을 목표보다 빠르게 달리지 않습니다.",
+        basis: "rule",
+      },
       {
         title: "강도 배분을 공식으로만 찾는다",
         fact: "13개 연구 348명의 개별 자료를 모은 메타분석에서 양극화형과 피라미드형 강도 배분은 전체로는 최대산소섭취량·기록 차이가 없었습니다. 최대산소섭취량만 따로 보면 레크리에이션 선수는 피라미드형에서 더 좋아졌을 가능성이 있었습니다.",
@@ -249,9 +260,10 @@ export const STAGES: Stage[] = [
       },
     ],
     guides: [
-      { href: "/injury/advanced-guide", label: "숙련자 가이드" },
+      { href: "/injury/get-faster", label: "기록 단축" },
+      { href: "/tools/pace#predict-h", label: "기록 예측 계산기" },
       { href: "/injury/carbon-plate", label: "카본화 살까 말까" },
-      { href: "/injury/cadence", label: "케이던스 기준값" },
+      { href: "/injury/advanced-guide", label: "숙련자 가이드" },
     ],
     next: null,
   },
