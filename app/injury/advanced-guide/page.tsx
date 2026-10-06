@@ -205,9 +205,9 @@ export default function AdvancedGuidePage() {
         ]} />
 
         <div className="p-6 bg-emerald-50 rounded-2xl text-center">
-          <p className="font-medium text-emerald-900 mb-2">고볼륨 훈련엔 체중에 정확히 맞는 쿠셔닝이 필요합니다</p>
+          <p className="font-medium text-emerald-900 mb-2">신발이 부상을 막는다는 근거는 약합니다. 발볼·사이즈가 맞는지는 확인해 보세요</p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 체형 맞춤 신발 찾기 →
+            내 발에 맞는 신발 찾기 →
           </Link>
         </div>
 

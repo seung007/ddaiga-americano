@@ -85,7 +85,7 @@ export default function Image() {
             maxWidth: "800px",
           }}
         >
-          키·체중·발볼·발 타입으로 찾는<br />
+          발볼·발 타입으로 찾는<br />
           내 몸에 맞는 러닝화 — 순서는 데이터로만
         </div>
 

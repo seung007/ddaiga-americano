@@ -68,11 +68,11 @@ const STABILITY_KO: Record<string, string> = {
 const FAQ: FaqItem[] = [
   {
     q: "평발이면 안정화 러닝화를 신어야 하나요?",
-    a: "반드시 그렇지는 않습니다. 발 타입에 맞춰 회내 제어 기능이 있는 신발을 처방하는 관행을 검토한 체계적 고찰(Richards 2009, Br J Sports Med)은 그 관행을 뒷받침하는 연구를 8개 데이터베이스에서 한 건도 찾지 못했다고 보고했습니다. 이후 무작위 대조시험의 2차 분석(Willems 2021, JOSPT)에서 모션컨트롤화가 과회내 관련 부상 위험을 낮추는 결과가 나왔지만, 2차 분석이라 근거 등급이 낮고 다른 부상에는 효과가 없었습니다. 정리하면 도움이 될 수는 있으나 '평발이니까 안정화화'라고 단정할 근거는 약합니다.",
+    a: "반드시 그렇지는 않습니다. 2009년 체계적 고찰(Richards 2009, Br J Sports Med)은 발 타입에 맞춘 신발 처방을 뒷받침하는 연구를 찾지 못했습니다. 그 뒤 나온 무작위 대조시험(Malisoux 2016, Br J Sports Med, 372명)에서는 모션컨트롤화를 받은 쪽의 부상 위험이 낮았고, 그 효과는 발이 안쪽으로 쏠리는(회내) 러너에서만 나타났습니다. 같은 시험의 2차 분석(Willems 2021)도 과회내 관련 부상이 줄었다고 보고했습니다. 다만 회내는 측정 도구로 판정했고 연구가 1건이라, 스스로 평발이라고 느끼는 것만으로 '안정화화가 정답'이라고 하기엔 이릅니다.",
   },
   {
     q: "그럼 평발은 무엇을 기준으로 골라야 하나요?",
-    a: "발 타입보다 근거가 분명한 조건들이 있습니다. 체중에 맞는 쿠셔닝 경도(Malisoux 2020, 848명 무작위 대조시험), 발볼에 맞는 폭 규격, 그리고 지금 아픈 곳이 있다면 그 부위입니다. 무엇보다 신어보고 편한 신발이 낫습니다.",
+    a: "발볼에 맞는 폭 규격, 너무 딱딱하지 않은 신발(848명 무작위 대조시험에서 딱딱한 신발이 부상 위험이 높았음, Malisoux 2020), 그리고 지금 아픈 곳이 있다면 그 부위입니다. 무엇보다 신어보고 편한 신발이 낫습니다.",
   },
   {
     q: "안정화 러닝화를 신으면 해로운가요?",
@@ -80,7 +80,8 @@ const FAQ: FaqItem[] = [
   },
   {
     q: "이 사이트는 평발에 안정화화를 추천하나요?",
-    a: `추천 로직은 평발에 안정화 구조가 있으면 소폭 가점을 주지만, 그 가점에 "연구가 갈리는 사항"이라고 함께 표시합니다. 그리고 이 사이트가 평발 대응으로 분류한 신발 ${FLAT_SHOES.length}개 중 ${FLAT_STABILITY}개가 안정화 또는 모션컨트롤입니다 — 업계 분류를 그대로 받아 적은 결과이며, 그 자체가 근거는 아닙니다.`,
+    // 2026-10-06: 「소폭 가점」이라고 적었는데 실제는 평발 분류 +12, 안정화 +3, 중립화 −2 였다(측정).
+    a: `네, 기울어 있습니다. 평발을 고르면 이 사이트가 평발로 분류한 신발에 +12, 안정화 구조에 +3, 중립화에 −2를 줍니다. 다만 근거가 약한 만큼 추천 3개 중 1개는 항상 중립 신발로 채웁니다. 평발로 분류한 신발 ${FLAT_SHOES.length}개 중 ${FLAT_STABILITY}개가 안정화 또는 모션컨트롤입니다. 근거는 회내 발에서 모션컨트롤화가 부상 위험을 낮춘 무작위 대조시험 1건(Malisoux 2016)과 그 2차 분석(Willems 2021)이고, 스스로 고른 '평발'과 연구의 측정 기준은 같지 않다는 점을 추천 결과에도 함께 적습니다.`,
   },
 ];
 
@@ -119,8 +120,10 @@ export default function FlatFeetPage() {
           <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
           <p className="mt-2 leading-relaxed text-emerald-900">
             <strong>평발이라는 이유만으로 신발을 정할 수는 없습니다.</strong> 발 타입에 맞춰
-            회내 제어 신발을 처방하는 관행을 검토한 체계적 고찰은, 그 관행을 뒷받침하는
-            연구를 <strong>한 건도 찾지 못했다</strong>고 보고했습니다.
+            회내 제어 신발을 처방하는 관행을 검토한 2009년 체계적 고찰은 그 관행을 뒷받침하는
+            연구를 <strong>한 건도 찾지 못했다</strong>고 보고했습니다. 그 뒤 나온 무작위 대조시험
+            1건에서는 발이 안쪽으로 쏠리는 러너에게 모션컨트롤화가 <strong>도움이 됐습니다</strong> —
+            다만 연구가 1건이고, 스스로 평발이라고 느끼는 것과 연구의 측정 기준은 다릅니다.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-emerald-800">
             안정화화가 해롭다는 뜻은 아닙니다. 편하면 신어도 됩니다. 다만 그것 때문에
@@ -159,7 +162,7 @@ export default function FlatFeetPage() {
                 </td>
                 <td className="px-4 py-3 text-gray-800">
                   발 타입 기반 신발 처방이 <strong>근거 기반이 아니다</strong>. 8개 데이터베이스를
-                  검색해 지지 연구를 찾지 못했다.
+                  검색해 지지 연구를 찾지 못했다(2009년 기준).
                   <span className="mt-1 block text-xs text-gray-500">
                     Richards, Magin &amp; Callister (2009) Br J Sports Med 43(3):159-162
                   </span>
@@ -170,10 +173,14 @@ export default function FlatFeetPage() {
                   반대쪽 신호
                 </td>
                 <td className="px-4 py-3 text-gray-800">
-                  모션컨트롤화가 <strong>과회내 관련</strong> 부상 위험을 낮췄다. 단
-                  무작위 대조시험의 <strong>2차 분석</strong>이고, 다른 부상에는 효과가 없었다.
+                  {/* 2026-10-06: 1차 RCT(Malisoux 2016)가 이 페이지에 없었다 — 2차 분석만 있었다.
+                      PubMed 초록(PMID 26746907) 직접 확인. */}
+                  372명 무작위 대조시험에서 모션컨트롤화를 받은 쪽의 부상 위험이 낮았고(HR 0.55),
+                  그 효과는 <strong>발이 안쪽으로 쏠리는(회내) 러너</strong>에서만 나타났다(HR 0.34).
+                  같은 시험의 2차 분석도 과회내 관련 부상이 줄었다고 보고했다. 회내는 측정 도구(Foot
+                  Posture Index)로 판정했다.
                   <span className="mt-1 block text-xs text-gray-500">
-                    Willems, Ley, Goetghebeur, Theisen, Malisoux (2021) J Orthop Sports Phys Ther 51(3):135-143
+                    Malisoux et al. (2016) Br J Sports Med 50(8):481-487 · Willems, Ley, Goetghebeur, Theisen, Malisoux (2021) J Orthop Sports Phys Ther 51(3):135-143
                   </span>
                 </td>
               </tr>
@@ -182,8 +189,8 @@ export default function FlatFeetPage() {
                   남는 결론
                 </td>
                 <td className="px-4 py-3 text-gray-800">
-                  <strong>도움이 될 수는 있지만 단정할 근거는 약하다.</strong> 평발을 이유로
-                  중립화를 배제할 근거는 더 약하다.
+                  <strong>회내 발에는 도움이 될 수 있다 — 다만 연구 1건이다.</strong> 스스로 느끼는
+                  평발이 연구의 회내 발과 같은지는 모르고, 평발을 이유로 중립화를 배제할 근거는 더 약하다.
                 </td>
               </tr>
             </tbody>
@@ -198,10 +205,13 @@ export default function FlatFeetPage() {
         </p>
         <ol className="mt-4 space-y-3">
           <li className="rounded-xl border border-gray-200 p-4">
-            <strong className="text-gray-900">1. 체중에 맞는 쿠셔닝</strong>
+            {/* 2026-10-06: 「체중에 맞는 쿠셔닝 — 근거 등급이 높다」였다. 논문 결론은 보호 효과가
+                가벼운 러너에서만 나왔다는 것이고, 「무거우면 쿠션을 더」는 저자가 시험해 지지하지 않은 통념이다. */}
+            <strong className="text-gray-900">1. 너무 딱딱하지 않은 신발</strong>
             <p className="mt-1 text-sm leading-relaxed text-gray-700">
-              848명 무작위 대조시험에서 쿠셔닝 경도와 체중의 조합이 부상 위험과 관련이 있었습니다.
-              발 타입 연구보다 근거 등급이 높습니다.
+              848명 무작위 대조시험에서 딱딱한 신발을 신은 쪽의 부상 위험이 높았습니다. 보호 효과는
+              가벼운 러너에서 뚜렷했고 무거운 러너에서는 확인되지 않았습니다 — 「체중이 무거우면 쿠션을
+              더」라는 통념은 이 연구에서 지지되지 않았습니다.
               <span className="mt-1 block text-xs text-gray-500">
                 Malisoux et al. (2020) Am J Sports Med
               </span>
@@ -241,7 +251,7 @@ export default function FlatFeetPage() {
         <FinderCta
           from="flat-feet"
           variant="inline"
-          headline="체중·발볼·부상 이력을 넣으면 평발 여부만이 아니라 네 조건을 함께 계산합니다."
+          headline="발볼·부상 이력·용도를 넣으면 평발 여부만이 아니라 여러 조건을 함께 계산합니다."
         />
 
         {/* ── 우리 데이터의 상태를 그대로 공개한다 ─────────── */}
@@ -312,6 +322,30 @@ export default function FlatFeetPage() {
             </a>
           </li>
           <li>
+            <strong>Malisoux et al. (2016)</strong> — 일반 러닝화 대 모션컨트롤화 무작위 대조시험(372명, 6개월).
+            전체 부상 위험 HR 0.55, 회내 발에서 HR 0.34. Br J Sports Med 50(8):481-487.{" "}
+            <a
+              href="https://pubmed.ncbi.nlm.nih.gov/26746907/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-600 underline"
+            >
+              PubMed →
+            </a>
+          </li>
+          <li>
+            <strong>Malisoux et al. (2020)</strong> — 쿠셔닝 경도 무작위 대조시험(848명). 딱딱한 신발에서 부상 위험이
+            높았고(SHR 1.52), 보호 효과는 가벼운 러너에서만 유의했다. Am J Sports Med 48(2):473-480.{" "}
+            <a
+              href="https://pubmed.ncbi.nlm.nih.gov/31877062/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-600 underline"
+            >
+              PubMed →
+            </a>
+          </li>
+          <li>
             {/* 2026-09-14 서지 정정: 제1저자가 Malisoux 가 아니라 **Willems TM** 이다.
                 (Willems TM, Ley C, Goetghebeur E, Theisen D, Malisoux L.)
                 권호·쪽·내용은 초록과 일치한다. AGENTS.md 의 "Beyer → 실제 Kim" 과 같은 형태였다. */}
@@ -365,7 +399,7 @@ export default function FlatFeetPage() {
           <FinderCta
             from="flat-feet"
             headline="평발 여부만으로 고르지 마세요"
-            sub="체중·발볼·부상 이력·예산을 함께 계산해서 3개를 골라드려요."
+            sub="발볼·부상 이력·예산을 함께 계산해서 3개를 골라드려요."
           />
         </div>
       </article>

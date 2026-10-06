@@ -13,6 +13,8 @@
     "check:all": "node scripts/check-all.mjs --full",
     "hooks:on": "git config core.hooksPath .githooks",
     "check:citations": "node scripts/verify-citations.mjs",
+    "check:engine": "node scripts/check-engine.mjs",
+    "engine:snapshot": "node scripts/check-engine.mjs --write",
     "check:citations:dry": "node scripts/verify-citations.mjs --dry",
     "check:youtube": "node scripts/verify-youtube.mjs",
     "check:youtube:todo": "node scripts/verify-youtube.mjs --todo",

@@ -102,7 +102,7 @@ const SPEC_ROWS: SpecRow[] = [
   },
   {
     label: "쿠셔닝",
-    explain: "1(미니멀) ~ 5(맥시멀). 체중이 많이 나갈수록 높은 숫자 권장",
+    explain: "1(미니멀) ~ 5(맥시멀). 뒤꿈치 스택 높이로 나눈 사이트 분류",
     getValue: (s) => `${s.cushioning}/5`,
   },
   {
@@ -115,12 +115,8 @@ const SPEC_ROWS: SpecRow[] = [
     explain: "D=보통, 2E=넓음, 4E=아주 넓음",
     getValue: (s) => s.widthOptions.join(" · "),
   },
-  {
-    label: "권장 체중",
-    explain: "이 신발의 쿠션 밀도가 최적인 체중 범위",
-    // 2026-09-21: 판단 필드라 비어 있을 수 있다. 「~kg」만 남는 칸을 만들지 않는다
-    getValue: (s) => (s.weightRangeKg ? `${s.weightRangeKg[0]}~${s.weightRangeKg[1]}kg` : "판단 전"),
-  },
+  // 2026-10-06: 「권장 체중 — 쿠션 밀도가 최적인 체중 범위」 행을 뺐다. 출처 없는 사이트 분류였고
+  // 체중별 쿠션 처방은 근거와 반대 방향이었다(recommend.ts v4).
   {
     label: "용도",
     explain: "daily=매일 달리기, long=장거리, tempo=속도훈련, racing=레이싱",
@@ -418,13 +414,13 @@ export default async function ComparePage({
       {/* ── CTA ── */}
       <section className="rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center">
         <p className="text-xs font-medium text-emerald-600 mb-1">
-          어떤 신발이 내 체형에 맞는지 모르겠다면?
+          어떤 신발이 내 발에 맞는지 모르겠다면?
         </p>
         <h3 className="text-base font-bold text-gray-900 mb-2">
-          키·체중·발 타입만 입력하면 1분 안에 알려드려요
+          발볼·발 타입만 고르면 1분 안에 3개를 골라드려요
         </h3>
         <p className="text-sm text-gray-500 mb-4">
-          수십 개 데이터베이스에서 내 체형에 맞는 신발만 골라줘요.
+          근거가 있는 항목과 사이트 기준인 항목을 나눠 보여드려요.
         </p>
         <Link
           href="/shoe-finder"

@@ -35,18 +35,26 @@ export default function TermsPage() {
       <section className="mb-10">
         <h2 className="text-base font-semibold text-gray-900 mb-3">3. 추천 알고리즘 근거</h2>
         <p className="text-sm leading-relaxed text-gray-700 mb-3">
-          본 서비스의 추천 알고리즘은 다음 학술 논문을 참고하여 설계되었습니다.
-          단, 논문의 연구 조건과 개인의 실제 상황은 다를 수 있으므로 추천 결과를 절대적 기준으로 삼지 마세요.
+          {/* 2026-10-06: 「다음 학술 논문을 참고하여 설계」 → 논문마다 알고리즘에서 맡는 역할이 달라 나눠 적었다.
+              Malisoux 2020 을 「쿠셔닝 경도와 체중」 근거로 걸어 두고 반대 방향으로 쓰고 있었다(recommend.ts v4). */}
+          추천 알고리즘의 항목은 근거가 있는 것과 이 사이트가 정한 기준으로 나뉩니다.
+          결과 화면의 각 이유 옆에도 어느 쪽인지 적습니다. 추천 결과를 절대적 기준으로 삼지 마세요.
         </p>
+        <p className="text-sm font-medium text-gray-700 mb-1">점수에 쓰는 연구</p>
+        <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside mb-3">
+          <li>Malisoux et al. (2016) Br J Sports Med — 모션컨트롤화 RCT. 회내 발에서 부상 위험이 낮았음 → 평발 선택 시 안정화 가점(약한 근거)</li>
+          <li>Willems et al. (2021) J Orthop Sports Phys Ther — 같은 계열 RCT의 2차 분석</li>
+          <li>Wunderlich &amp; Cavanagh (2001) Med Sci Sports Exerc — 여성 발은 남성 발의 축소판이 아님 → 여성 전용 라스트 가점</li>
+        </ul>
+        <p className="text-sm font-medium text-gray-700 mb-1">점수에 쓰지 않는 이유가 된 연구</p>
+        <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside mb-3">
+          <li>Malisoux et al. (2020) Am J Sports Med — 848명 RCT. 딱딱한 신발은 체중과 무관하게 위험했고, 무거운 러너에서 쿠션의 추가 이득은 확인되지 않음 → 체중은 순위에 쓰지 않음</li>
+          <li>Richards et al. (2009) Br J Sports Med — 발 타입별 처방을 지지하는 연구를 찾지 못한 고찰(2009년 기준)</li>
+        </ul>
+        <p className="text-sm font-medium text-gray-700 mb-1">사이트 기준(근거 논문 없음)</p>
         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-          <li>Malisoux et al. (2020) — 쿠셔닝 경도와 체중, Am J Sports Med (848명 RCT)</li>
-          <li>Heiderscheit et al. (2011) — 스텝빈도 조작이 관절역학에 미치는 영향, Med Sci Sports Exerc</li>
-          <li>Richards et al. (2009) — 발 타입 기반 러닝화 처방에 근거가 없다는 체계적 고찰, Br J Sports Med</li>
-          <li>Willems et al. (2021) — 모션컨트롤화와 과회내 관련 부상, JOSPT (RCT 2차 분석)</li>
-          <li>van Gent et al. (2007) — 러닝 부상 발생률·결정요인 체계적 고찰, Br J Sports Med</li>
-          <li>Ferber et al. (2003) — 성별에 따른 러닝 생체역학 차이</li>
-          <li>Taunton et al. (2002) — 러닝 부상 2,002건 후향적 분석, Br J Sports Med</li>
-          
+          <li>키별 드롭 범위, 부상 이력별 드롭·쿠션 가점, 초심자 카본화 감점, 발볼·발등 핏 가점</li>
+          <li>고르는 규칙: 점수 → 같으면 정가 낮은 순, 상위 3개는 브랜드가 겹치지 않게, 평발이면 안정화 최대 2개 + 중립 1개</li>
         </ul>
       </section>
 

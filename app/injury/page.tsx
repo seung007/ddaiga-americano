@@ -287,7 +287,7 @@ export default function InjuryListPage() {
       </section>
 
       <div className="p-6 bg-emerald-50 rounded-2xl text-center">
-        <p className="text-sm text-emerald-800 mb-3 font-medium">부상 예방의 절반은 내 발에 맞는 신발입니다</p>
+        <p className="text-sm text-emerald-800 mb-3 font-medium">신발로 부상을 막는다는 근거는 약합니다. 다만 발볼·사이즈는 맞춰야 합니다</p>
         <Link href="/shoe-finder"
           className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
           내 러닝화 찾기 →

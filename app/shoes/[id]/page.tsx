@@ -15,7 +15,7 @@ import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
-import { BODY_TYPE_LABEL, GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, isRecommendable } from "@/lib/shoes/types";
+import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, isRecommendable } from "@/lib/shoes/types";
 
 /**
  * 러닝화 상세 (2026-09-16) — `lib/shoes/data.ts` 한 켤레 = 한 페이지.
@@ -229,17 +229,15 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           */}
         {isRecommendable(s) ? (
           <section className="mt-8">
-            <h2 className="mb-3 text-xl font-bold text-gray-900">이런 사람에게 맞춰 설계됐어요</h2>
+            {/* 2026-10-06: 제목 「이런 사람에게 맞춰 설계됐어요」는 브랜드 설계처럼 읽혔다. 체중·체형 줄은 뺐다
+                — 출처 없는 분류이고 추천 엔진이 더 이상 쓰지 않는다(recommend.ts v4). */}
+            <h2 className="mb-3 text-xl font-bold text-gray-900">이 사이트의 분류</h2>
             <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
               <li>• 발 모양: {s.footTypes.map((f) => FOOT_KO[f]).join(" · ")}</li>
-              <li>
-                • 체중: {s.weightRangeKg[0]}–{s.weightRangeKg[1]}kg
-              </li>
-              <li>• 체형: {s.primaryBodyTypes.map((b) => BODY_TYPE_LABEL[b]).join(" / ")}</li>
               {s.genderNote && <li>• {s.genderNote}</li>}
             </ul>
             <p className="mt-2 text-xs text-gray-400">
-              이 범위는 저희 추천 기준입니다. 브랜드가 정한 제한이 아닙니다.
+              저희가 정한 분류입니다. 브랜드가 정한 제한이 아니고, 발 모양별 신발 처방은 연구가 갈립니다.
             </p>
           </section>
         ) : (
@@ -311,7 +309,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           <FinderCta
             from="shoe-detail"
             headline="이 신발이 내 몸에 맞는지 확인해 보세요"
-            sub={`키·체중·발 모양을 넣으면 ${SHOES.length}켤레를 내 조건 순서로 줄 세웁니다.`}
+            sub={`발 모양·발볼을 넣으면 ${SHOES.length}켤레를 내 조건 순서로 줄 세웁니다.`}
           />
         </div>
       </article>

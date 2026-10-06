@@ -114,7 +114,7 @@ export default function Home() {
           내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>
         <p className="mb-6 text-base leading-relaxed text-gray-600 sm:text-lg">
-          키·체중·발볼만 고르면 내 몸에 맞는 신발 3개를 골라드려요
+          발볼·발 타입만 고르면 내 발에 맞는 신발 3개를 골라드려요
         </p>
         <Link
           href="/shoe-finder"

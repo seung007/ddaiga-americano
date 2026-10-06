@@ -283,7 +283,7 @@ export default function CarbonPlatePage() {
           <FinderCta
             from="carbon-plate"
             headline="지금 수준에 맞는 신발부터 보시는 게 낫습니다"
-            sub="키·체중·발볼·부상 이력·목표를 넣으면 3개를 골라드려요."
+            sub="발볼·발 타입·부상 이력·목표를 넣으면 3개를 골라드려요."
           />
         </div>
       </article>

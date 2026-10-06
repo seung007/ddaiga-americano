@@ -69,6 +69,9 @@ const CHECKS = [
   { name: "대회일정", cmd: "node", args: ["scripts/check-races.mjs"],                  net: false },
   // 2026-09-28: 브라우저 링크 검사기의 판정 함수. 브라우저 없이 20건을 시험한다 — 판정이 망가진 채 PC 에서 8분 돌리는 일을 막는다
   { name: "링크판정", cmd: "node", args: ["scripts/check-links-browser.mjs", "--selftest"], net: false },
+  // 2026-10-06: 추천 엔진 출력 회귀 검사. 「가중치를 줄였다」는 주석과 실제 순위가 달랐던 사건에서 나왔다.
+  // 체중 독립 불변식 + 대표 프로필 648개 상위 3개 스냅샷. 의도한 변경이면 npm run engine:snapshot.
+  { name: "추천엔진", cmd: "node", args: ["scripts/check-engine.mjs"],                  net: false },
   // 2026-09-16: Cowork 단독 작업으로 전환해 담당구역 검사를 뺐다 (AGENTS.md 「작업 방식」). 스크립트는 남겨 둠.
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },

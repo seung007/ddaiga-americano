@@ -15,22 +15,24 @@ export const HEIGHT_OPTIONS: { value: HeightRange; label: string; cm: number; de
   { value: "tall",  label: "178cm 이상", cm: 182, desc: "충격 흡수가 우선인 신발" },
 ];
 
+// 2026-10-06: 체중별 쿠션 문구(「두꺼운 쿠션이 무릎을 지켜줘요」 등)를 비웠다. 체중은 순위에 쓰지 않는다
+// (recommend.ts v4). 체형 표시에만 쓰인다.
 export const WEIGHT_OPTIONS: Record<HeightRange, { value: WeightRange; label: string; kg: number; desc: string }[]> = {
   small: [
-    { value: "very_light", label: "50kg 미만", kg: 45,  desc: "정말 가벼운 쿠션으로도 충분해요" },
-    { value: "light",      label: "50 – 55kg", kg: 52,  desc: "가벼운 쿠션으로 충분해요" },
-    { value: "mid_w",      label: "56 – 75kg", kg: 65,  desc: "중간 쿠션이 딱 맞아요" },
-    { value: "heavy",      label: "76kg 이상", kg: 82,  desc: "두꺼운 쿠션이 무릎을 지켜줘요" },
+    { value: "very_light", label: "50kg 미만", kg: 45,  desc: "" },
+    { value: "light",      label: "50 – 55kg", kg: 52,  desc: "" },
+    { value: "mid_w",      label: "56 – 75kg", kg: 65,  desc: "" },
+    { value: "heavy",      label: "76kg 이상", kg: 82,  desc: "" },
   ],
   mid: [
-    { value: "very_light", label: "50kg 미만", kg: 46,  desc: "정말 가벼운 쿠션으로도 충분해요" },
-    { value: "light",      label: "50 – 60kg", kg: 55,  desc: "가벼운 쿠션으로 충분해요" },
-    { value: "mid_w",      label: "61 – 80kg", kg: 70,  desc: "중간 쿠션이 딱 맞아요" },
-    { value: "heavy",      label: "81kg 이상", kg: 87,  desc: "두꺼운 쿠션이 무릎을 지켜줘요" },
+    { value: "very_light", label: "50kg 미만", kg: 46,  desc: "" },
+    { value: "light",      label: "50 – 60kg", kg: 55,  desc: "" },
+    { value: "mid_w",      label: "61 – 80kg", kg: 70,  desc: "" },
+    { value: "heavy",      label: "81kg 이상", kg: 87,  desc: "" },
   ],
   tall: [
-    { value: "light", label: "85kg 이하", kg: 77,  desc: "두꺼운 쿠션이 필요해요" },
-    { value: "heavy", label: "86kg 이상", kg: 93,  desc: "맥스 쿠션으로 무릎을 보호해요" },
+    { value: "light", label: "85kg 이하", kg: 77,  desc: "" },
+    { value: "heavy", label: "86kg 이상", kg: 93,  desc: "" },
   ],
 };
 

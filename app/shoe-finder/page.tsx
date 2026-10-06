@@ -5,7 +5,7 @@ import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
-import { recommendShoes, getMinCushioning } from "@/lib/shoes/recommend";
+import { recommendShoes } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
@@ -365,7 +365,7 @@ export default function ShoeFinderPage() {
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
         <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-          내 체형에 맞는 신발, 1분이면 찾아드려요.
+          내 발에 맞는 신발, 1분이면 찾아드려요.
         </p>
       </header>
 
@@ -563,11 +563,14 @@ export default function ShoeFinderPage() {
                     className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
                       ${weightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
                     <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
+                    {o.desc && <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>}
                   </button>
                 ))}
               </div>
             )}
+            <p className="text-xs text-gray-500 leading-relaxed">
+              체중은 「내 체형」 표시에만 쓰고 신발 순위에는 넣지 않아요 — 체중별로 쿠션을 달리해야 한다는 근거가 확인되지 않았어요.
+            </p>
           </div>
         )}
 
@@ -690,7 +693,7 @@ export default function ShoeFinderPage() {
             )}
 
             <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
-              키·체중·발 정보는 <strong className="font-medium text-gray-500">추천 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
+              키·체중·발 정보는 <strong className="font-medium text-gray-500">이 화면 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
               「내 러닝화 찾기」를 누르면{" "}
               <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
             </p>
@@ -772,15 +775,17 @@ export default function ShoeFinderPage() {
                 내 체형 · {BODY_TYPE_LABEL[result.bodyType]}
               </span>
               <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                추천 쿠션 · 5단계 중 {getMinCushioning(weightKg)}단계 이상
+                체중 · 순위에 반영 안 함
               </span>
               <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                권장 케이던스 · {result.cadenceSpm[0]}~{result.cadenceSpm[1]} spm
+                참고 케이던스 · {result.cadenceSpm[0]}~{result.cadenceSpm[1]} spm
               </span>
             </div>
 
             <p className="text-[11px] text-blue-600/80 leading-relaxed mb-2.5">
-              케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 분당 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음 리듬이 무릎 충격을 줄여줘요.{" "}
+              {/* 2026-10-06: 「키 기준 X~Y걸음 리듬이 무릎 충격을 줄여줘요」 → 키별 값은 사이트 기준(cadence 가이드가 밝힘).
+                  연구(Heiderscheit 2011)는 지금보다 5~10% 올렸을 때를 봤다. */}
+              케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음은 사이트 참고값이에요. 연구는 키별 값이 아니라 지금보다 5~10% 올렸을 때 무릎 부하가 줄었다는 결과예요(Heiderscheit 2011).{" "}
               <a href="/injury/cadence" className="underline hover:text-blue-800">케이던스 맞추는 법 →</a>
             </p>
 
@@ -804,7 +809,7 @@ export default function ShoeFinderPage() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
-              <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 내 키·체중·발볼 조건을 통과한 결과예요.</p>
+              <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 발볼·용도 조건을 통과한 결과예요.</p>
             </div>
             <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
               {([
@@ -896,7 +901,6 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
                   <span className="text-xs font-bold text-gray-400">#{rank}</span>
-                  {rec.bodyTypeMatch && <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">내 체형 최적</span>}
                   {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">👟 여성 전용 라스트</span>}
                   {rec.isFallback && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">근접 추천</span>}
                 </div>
@@ -1029,8 +1033,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 ["폭 옵션",  shoe.widthOptions.join(" · ")],
                 // 2026-09-21: 판단 필드가 선택이 됐다. 추천 결과에는 값이 있는 신발만
                 // 오지만(recommend.ts 의 RECOMMENDABLE), 타입상 없을 수 있어 방어한다
-                ["권장 체중", shoe.weightRangeKg ? `${shoe.weightRangeKg[0]}~${shoe.weightRangeKg[1]}kg` : "—"],
-                ["권장 신장", shoe.heightRangeCm ? `${shoe.heightRangeCm[0]}~${shoe.heightRangeCm[1]}cm` : "—"],
+                // 2026-10-06: 「권장 체중」「권장 신장」 행을 뺐다 — 출처 없는 사이트 분류이고 체중은 추천에 안 쓴다.
                 ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`],
               ].map(([label, value]) => (
                 <div key={label} className="bg-white rounded-lg border border-gray-200 px-3 py-2">
@@ -1054,16 +1057,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
             </p>
           </div>
 
-          <div>
-            <p className="text-xs font-semibold text-gray-500 mb-2">이 신발이 최적인 체형</p>
-            <div className="flex flex-wrap gap-2">
-              {(shoe.primaryBodyTypes ?? []).map(bt => (
-                <span key={bt} className="text-xs bg-emerald-50 border border-emerald-200 text-emerald-700 px-2.5 py-1 rounded-full">
-                  {BODY_TYPE_LABEL[bt]}
-                </span>
-              ))}
-            </div>
-          </div>
+          {/* 2026-10-06: 「이 신발이 최적인 체형」 칩을 뺐다 — 체형 분류는 출처가 없고 추천에 안 쓴다. */}
 
           <div>
             <p className="text-xs font-semibold text-gray-500 mb-2">유튜브 리뷰 채널별 검색</p>

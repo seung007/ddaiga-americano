@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
-import { BODY_TYPE_LABEL, type BodyType } from "@/lib/shoes/types";
 
 export const metadata: Metadata = {
   title: "러닝화 추천기 — 뛰다가 아메리카노",
@@ -38,54 +37,47 @@ export const metadata: Metadata = {
  * ⚠️ 이 블록은 폼 **아래**에 온다. 사람에게는 부차적이고 크롤러에게는 본문이다.
  */
 
-/** 체형 8분류 중 대표 4개 — 실제 사용자 분포를 모르므로 극단을 피해 중간대를 고른다 */
-const SHOWCASE: BodyType[] = ["mid_light", "mid_mid", "mid_heavy", "small_mid"];
-
-function pickFor(bt: BodyType) {
-  // 2026-09-21: primaryBodyTypes 가 선택 필드가 됐다(스펙만 확인한 신발은 비어 있다).
-  // 이 블록은 "이 체형엔 이 신발"이라고 말하는 자리라 판단 필드 없는 신발은 못 올린다.
-  return SHOES.filter((s) => s.primaryBodyTypes?.includes(bt) && !s.successor && !s.hasCarbon)
-    .sort((a, b) => a.priceKrw - b.priceKrw)
-    .slice(0, 3);
+/**
+ * 2026-10-06: 「체형별 추천 예시(키·체중만 반영한 맛보기)」를 걷어냈다. 체형 태그는 출처가 없고,
+ * 체중은 더 이상 추천에 쓰지 않는다(recommend.ts v4). 대신 입력 없이 볼 수 있는 기준 하나 —
+ * 카본 없는 현행 데일리화를 정가 낮은 순 — 으로 바꿨다. 기준을 화면에 그대로 적는다.
+ */
+function dailyExamples() {
+  return SHOES.filter((s) => s.uses.includes("daily") && !s.successor && !s.hasCarbon)
+    .sort((a, b) => a.priceKrw - b.priceKrw || a.id.localeCompare(b.id))
+    .slice(0, 6);
 }
 
 export default function ShoeFinderLayout({ children }: { children: React.ReactNode }) {
-  const rows = SHOWCASE.map((bt) => ({ bt, shoes: pickFor(bt) })).filter((r) => r.shoes.length > 0);
+  const examples = dailyExamples();
 
   return (
     <>
       {children}
 
       <section className="mx-auto max-w-3xl px-6 pb-16">
-        <h2 className="mb-2 text-xl font-bold text-gray-900">체형별 추천 예시</h2>
+        <h2 className="mb-2 text-xl font-bold text-gray-900">데일리 러닝화 예시 — 정가 낮은 순</h2>
         <p className="mb-6 text-sm leading-relaxed text-gray-600">
-          위에서 8단계를 입력하면 <strong className="text-gray-900">발볼·발 타입·부상 이력·예산까지</strong>{" "}
-          반영해 정확히 골라 드립니다. 아래는 <strong className="text-gray-900">키·체중만</strong> 반영한
-          맛보기예요 — 실제 추천과 다를 수 있습니다.
+          위에서 단계를 입력하면 <strong className="text-gray-900">발볼·발 타입·용도·부상 이력·예산</strong>을
+          반영해 골라 드립니다. 아래는 입력 없이 <strong className="text-gray-900">카본 없는 현행 데일리화를
+          정가 낮은 순</strong>으로 고른 것뿐이에요. 체중·체형은 기준에 넣지 않았습니다.
         </p>
 
-        <div className="space-y-6">
-          {rows.map(({ bt, shoes }) => (
-            <div key={bt} className="rounded-2xl border border-gray-200 p-5">
-              <h3 className="mb-3 text-sm font-semibold text-gray-900">{BODY_TYPE_LABEL[bt]}</h3>
-              <ul className="space-y-2.5">
-                {shoes.map((s) => (
-                  <li key={s.id} className="text-sm leading-relaxed text-gray-700">
-                    <strong className="text-gray-900">
-                      {s.brand} {s.model}
-                    </strong>{" "}
-                    <span className="text-gray-500">
-                      · 쿠셔닝 {s.cushioning}/5 · {s.weightGramsM9}g · 힐드롭 {s.heelDropMm}mm ·{" "}
-                      {s.priceKrw.toLocaleString()}원
-                    </span>
-                    <br />
-                    <span className="text-gray-600">{s.blurb}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <ul className="space-y-2.5 rounded-2xl border border-gray-200 p-5">
+          {examples.map((s) => (
+            <li key={s.id} className="text-sm leading-relaxed text-gray-700">
+              <strong className="text-gray-900">
+                {s.brand} {s.model}
+              </strong>{" "}
+              <span className="text-gray-500">
+                · 쿠셔닝 {s.cushioning}/5 · {s.weightGramsM9}g · 힐드롭 {s.heelDropMm}mm ·{" "}
+                {s.priceKrw.toLocaleString()}원
+              </span>
+              <br />
+              <span className="text-gray-600">{s.blurb}</span>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <p className="mt-6 text-sm leading-relaxed text-gray-600">
           전체 {SHOES.length}종을 다룹니다. 두 켤레를 직접 견주고 싶다면{" "}

@@ -254,7 +254,7 @@ export default function HokaVsBrooks() {
         <FinderCta
           from="hoka-vs-brooks"
           variant="inline"
-          headline="키·체중·발볼을 넣으면 두 브랜드를 섞어 조건에 맞는 3개를 골라드려요."
+          headline="발볼·발 타입을 넣으면 두 브랜드를 섞어 조건에 맞는 3개를 골라드려요."
         />
 
         {/* ── 브랜드별 모델 ────────────────────────────────── */}
@@ -343,7 +343,7 @@ export default function HokaVsBrooks() {
           <FinderCta
             from="hoka-vs-brooks"
             headline="브랜드로 못 고르겠으면 조건으로 고르세요"
-            sub="키·체중·발볼·부상 이력을 넣으면 두 브랜드를 섞어 3개를 골라드려요."
+            sub="발볼·발 타입·부상 이력을 넣으면 두 브랜드를 섞어 3개를 골라드려요."
           />
         </div>
       </div>

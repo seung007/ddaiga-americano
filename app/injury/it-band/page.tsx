@@ -52,9 +52,9 @@ export default function ITBandPage() {
           </p>
           <ul className="space-y-2 pl-4">
             {[
-              "갑작스러운 거리 증가 — 주 10% 이상 늘리면 인대가 적응 못 함",
-              "쿠셔닝 부족한 신발 — 착지 충격이 그대로 무릎으로 전달됨",
-              "체중 대비 쿠션이 부족한 신발 — 특히 체중 75kg 이상에서 두드러짐",
+              // 2026-10-06: 「주 10% 이상이면 적응 못 함」「쿠셔닝 부족」「체중 75kg 이상」을 뺐다 —
+              // 인용(Sanchez-Alvarado 2024)에 그 수치·조건이 없고, 같은 글 아래는 「신발로 해결한다는 근거 없음」이다.
+              "갑작스러운 거리 증가",
             ].map((item, i) => (
               <li key={i} className="flex gap-2 text-gray-700">
                 <span className="text-red-400 shrink-0 mt-0.5">•</span>
