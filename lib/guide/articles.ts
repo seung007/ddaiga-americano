@@ -30,6 +30,7 @@ import type { StageId } from "./stages";
  *   (같은 방법으로 잰 first-10k 2764·shin-splints 2197 이 9/22 값과 거의 같아 방법은 이어진다)
  *   return-to-running 4566→8 · it-band 4343→8(개편, 1779→3 에서) · half-marathon-training 4000→7
  * 2026-10-07 실측: marathon-training 4222→8 · get-faster 3691→7 · knee-pain 3637→7(개편) · plantar-fasciitis 3699→7(개편)
+ * 2026-10-07 실측(2차): training-types 6156→11(신규) · first-10k 3673→7 · shin-splints 3470→6 · achilles 4162→7(셋 다 재검증 개편)
  *
  * **글을 늘렸으면 여기와 그 페이지 본문 둘 다 고칠 것.** 두 곳에 있어서 또 어긋난다.
  */
@@ -53,6 +54,9 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/intermediate-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "중급자 부상 예방 가이드", desc: "장경인대·아킬레스·족저근막, 그리고 오버트레이닝 징후.", readTime: "5분", stages: ["to-half"] },
   { href: "/injury/advanced-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "숙련자 부상 예방 가이드", desc: "피로골절·비기능적 오버리칭·주기화.", readTime: "5분", stages: ["to-full", "faster"] },
 
+  // ── 훈련 방법 (2026-10-07) ─────────────────────────
+  { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "러닝 훈련 종류 — 쉬었다 다시 달리기부터 인터벌까지", desc: "걷기-달리기·쉬운 달리기·장거리·템포·인터벌·언덕·크로스·근력. 무엇인지, 연구가 확인한 것, 하는 법, 몇 단계부터.", readTime: "11분", stages: "all" },
+
   // ── 나머지 (2026-09-22 순서 유지) ─────────────────────
   // 2026-10-06: 커뮤니티 부상 글 1위 부위라 전면 개편(3분 → 아래 실측). 복귀 글 신설.
   { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 다시 달리기 — 언제, 얼마나, 어떻게", desc: "회복 기간 중앙값 71일. 완전히 쉬어야 하는지, 통증 몇 점까지 괜찮은지, 어떻게 다시 늘리는지.", readTime: "8분", stages: "all" },
@@ -62,8 +66,8 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/flat-feet", tag: "평발", tagColor: "text-blue-600 bg-blue-50", title: "평발 러닝화, 안정화화가 정답일까", desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "5분", stages: "all" },
   // 2026-09-08 추가. 네이버 검색 의도 3위(카본화 20%).
   { href: "/injury/carbon-plate", tag: "카본화", tagColor: "text-purple-600 bg-purple-50", title: "카본화 살까 말까 — 논문이 시험한 속도", desc: "가장 많이 인용되는 연구는 4:17/km 이상에서만 측정했습니다. 실제 가격도 정리했습니다.", readTime: "4분", stages: ["to-full", "faster"] },
-  { href: "/injury/achilles", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "달리기 아킬레스건·종아리 통증 스트레칭 3가지", desc: "달린 뒤 당기고 뻐근하다면. 원인과 무관하게 같은 3가지를 합니다.", readTime: "5분", stages: ["to-half", "to-full"] },
-  { href: "/injury/shin-splints", tag: "정강이", tagColor: "text-red-600 bg-red-50", title: "정강이 통증(신스플린트) — 초보 부상 1위", desc: "초보 러너 부상의 15%로 가장 흔합니다. 피로골절과 구별하는 법부터.", readTime: "4분", stages: ["start", "to10k"] },
+  { href: "/injury/achilles", tag: "아킬레스", tagColor: "text-orange-600 bg-orange-50", title: "달리기 아킬레스건·종아리 통증 스트레칭 3가지", desc: "달린 뒤 당기고 뻐근하다면. 근거가 가장 많은 편심 운동과, 쉬지 않고 통증을 보며 달리는 법.", readTime: "7분", stages: ["to-half", "to-full"] },
+  { href: "/injury/shin-splints", tag: "정강이", tagColor: "text-red-600 bg-red-50", title: "정강이 통증(신스플린트) — 초보 러너에게 흔한 부상", desc: "부상당한 초보 254명 중 15%로 가장 많았습니다. 피로골절과 구별하는 법부터.", readTime: "6분", stages: ["start", "to10k"] },
   { href: "/injury/plantar-fasciitis", tag: "족저근막", tagColor: "text-orange-600 bg-orange-50", title: "족저근막염 — 아침 첫발이 아픈 이유", desc: "3개월 시점 스트레칭보다 효과가 컸던 근력 운동, 주사의 실제 효과, 생각보다 긴 회복 기간.", readTime: "7분", stages: ["to10k", "to-half"] },
   { href: "/injury/knee-pain", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "러너 무릎(슬개대퇴 통증) — 무엇이 효과 있나", desc: "흔히 말하는 원인 상당수는 예측 요인이 아니었다. 부하 관리 교육만으로도 운동을 더한 것과 같은 회복.", readTime: "7분", stages: ["start", "to10k"] },
   { href: "/injury/warmup", tag: "준비운동", tagColor: "text-green-600 bg-green-50", title: "달리기 전 5분 동적 스트레칭 루틴", desc: "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유.", readTime: "3분", stages: ["start", "to10k"] },
@@ -74,7 +78,7 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/posture", tag: "자세", tagColor: "text-cyan-600 bg-cyan-50", title: "달리기 자세 체크리스트 — 어깨·팔·시선", desc: "상체 자세가 하체 부상에 영향을 준다는 사실, 알고 계셨나요?", readTime: "3분", stages: ["start", "to10k"] },
   { href: "/injury/hwang-young-jo", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 달리기 철학 — 고통을 읽는 것", desc: "1992 바르셀로나 금메달리스트의 훈련 철학.", readTime: "3분", stages: [] },
   { href: "/injury/kwon-eun-ju", tag: "권은주", tagColor: "text-pink-600 bg-pink-50", title: "권은주 선수에게 배우는 여성 러너 부상 예방", desc: "한국 여자 마라톤을 이끌어온 권은주 선수의 훈련 방식.", readTime: "3분", stages: [] },
-  { href: "/injury/first-10k", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50", title: "생애 첫 10km 대회 준비물과 페이스 전략", desc: "출발선에 서기 전에 알아야 할 것들.", readTime: "5분", stages: ["to10k"] },
+  { href: "/injury/first-10k", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50", title: "생애 첫 10km 대회 준비물과 페이스 전략", desc: "얼마나 준비하고 어떻게 늘릴지, 준비물과 페이스까지.", readTime: "7분", stages: ["to10k"] },
   { href: "/injury/half-marathon-race-day", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 대회 당일 체크리스트", desc: "젤·급수·바세린·페이스. 논문 근거와 직접 뛰어본 경험을 항목마다 구분해 적었습니다.", readTime: "12분", stages: ["to-half", "to-full"] },
 ];
 
@@ -84,6 +88,7 @@ export const ARTICLES: GuideArticle[] = [
  */
 export const TOPICS = {
   "단계 가이드": ["단계 가이드"],
+  "훈련 방법": ["훈련 방법"],
   "신발 고르기": ["발볼", "평발", "카본화"],
   "아픈 곳": ["무릎", "정강이", "족저근막", "아킬레스", "복귀"],
   "달리는 법": ["착지법", "케이던스", "자세", "준비운동", "쿨다운", "회복"],

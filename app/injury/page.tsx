@@ -122,6 +122,21 @@ export default function InjuryHubPage() {
         </ol>
       </section>
 
+      {/* 2026-10-07: 단계 카드가 「언제 무엇이 막히나」라면 이건 「도구 상자」. 사용자 요청으로 따로 분류했다. */}
+      <section id="training" className="mb-10 scroll-mt-20">
+        <h2 className="text-lg font-bold text-gray-900">훈련 방법</h2>
+        <Link
+          href="/injury/training-types"
+          className="mt-3 block rounded-2xl border border-indigo-200 bg-indigo-50 p-5 transition-colors hover:border-indigo-300"
+        >
+          <p className="font-semibold text-gray-900">러닝 훈련 종류 한눈에 →</p>
+          <p className="mt-1 text-sm leading-relaxed text-gray-600">
+            쉬었다 다시 달리기 · 걷기-달리기 · 쉬운 달리기 · 장거리 · 템포 · 인터벌 · 언덕 · 스트라이드 · 파틀렉 · 크로스 트레이닝 · 근력운동
+          </p>
+          <p className="mt-2 text-xs text-gray-500">훈련마다 무엇인지, 연구가 확인한 것, 하는 법, 몇 단계부터인지. 연구를 못 찾은 것도 그렇다고 적었습니다.</p>
+        </Link>
+      </section>
+
       <section id="articles" className="mb-10 scroll-mt-20">
         <h2 className="mb-3 text-lg font-bold text-gray-900">전체 글</h2>
         <GuideArticleList />
