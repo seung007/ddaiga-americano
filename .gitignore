@@ -42,6 +42,8 @@ next-env.d.ts
 
 # 내부 작업 문서 (PRD, 블로그 초안 등) — 웹 배포 대상 아님
 Claude/
+# Claude 가 PC 로 넘기는 패치(.patch) 보관함 — `npm run ship` 의 git add -A 에 섞이지 않게
+Claude outputs/
 *.docx
 네이버블로그_*.md
 홍보글_*.md
