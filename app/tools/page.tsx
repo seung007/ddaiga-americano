@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools" },
   title: "러닝 계산기 — 뛰다가 아메리카노",
   description: "러닝화 수명, 교체 시기 등을 논문 근거로 계산합니다. 근거가 없는 항목은 계산하지 않고 없다고 적습니다.",
 };
@@ -28,7 +29,7 @@ const TOOLS = [
     href: "/tools/shoe-side",
     title: "러닝화 두께 비교",
     desc: "최대 3개를 골라 뒤꿈치·앞꿈치 두께와 드롭, 무게를 같은 축척으로 겹쳐 봅니다. 착용감처럼 숫자로 공개되지 않는 것은 그리지 않습니다.",
-    basis: "브랜드 공개 스펙 — 논문 근거 아님",
+    basis: "RunRepeat 공개 스펙 — 논문 근거 아님",
   },
   {
     href: "/tools/pace",

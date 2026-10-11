@@ -83,14 +83,14 @@ const SPEC_ROWS: SpecRow[] = [
   },
   {
     label: "무게 (M9)",
-    explain: "남성 9사이즈 기준 한 짝 무게(브랜드 공개값)",
+    explain: "남성 9사이즈 기준 한 짝 무게(RunRepeat 공개값)",
     getValue: (s) => s.weightGramsM9,
     unit: "g",
     lowerIsBetter: true,
   },
   {
     label: "힐 드롭",
-    explain: "뒤꿈치 두께 − 앞꿈치 두께(브랜드 공개값)",
+    explain: "뒤꿈치 두께 − 앞꿈치 두께(RunRepeat 공개값)",
     getValue: (s) => s.heelDropMm,
     unit: "mm",
   },
@@ -98,7 +98,7 @@ const SPEC_ROWS: SpecRow[] = [
     label: "스택 높이",
     // 2026-10-12: 「높을수록 충격 흡수 좋음」과 ✓(higherIsBetter)를 뺐다. 두께와 부상·충격의 관계를
     // 이 사이트는 확인하지 못했다. 드롭의 「힐스트라이커 친화·미드풋 유도」도 같은 이유로 뺐다.
-    explain: "뒤꿈치 쪽 미드솔 두께(브랜드 공개값)",
+    explain: "뒤꿈치 쪽 미드솔 두께(RunRepeat 공개값)",
     getValue: (s) => s.stackHeightMm,
     unit: "mm",
   },

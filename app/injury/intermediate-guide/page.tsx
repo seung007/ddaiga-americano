@@ -120,7 +120,7 @@ export default function IntermediateGuidePage() {
                 cause: (
                   <>
                     러너 2,378명을 추적한 연구에서 가장 강한 위험 요인은 지난 1년 안의 아킬레스건병증 이력이었고(오즈비 6.3),
-                    인구학·생활습관·훈련 관련 요인은 관계가 없었습니다{" "}
+                    인구학·생활습관 요인은 관계가 없었습니다. 훈련 쪽에서는 훈련 계획표 사용(오즈비 1.8)만 유의하게 나왔는데, 같은 초록이 「훈련 관련 요인은 관련 없음」이라고도 적어 해석이 엇갈립니다{" "}
                     <S>(Lagas et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31892510/" />)</S>
                   </>
                 ),
@@ -225,8 +225,8 @@ export default function IntermediateGuidePage() {
               <p className="text-sm text-gray-600">
                 여러 종목 무작위 시험을 모은 메타분석에서 근력 훈련군의 부상 위험비는 0.32였고, 스트레칭은 효과가 확인되지 않았습니다{" "}
                 <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>.
-                다만 첫 마라톤 러너 720명 무작위 시험에서는 12주 자가 근력 프로그램(주 3회 10분)이 과사용 부상을 줄이지 못했습니다
-                (7.1% 대 7.3%){" "}
+                다만 첫 마라톤 러너 720명 무작위 시험에서는 12주 자가 근력 프로그램(주 3회 10분)이 <strong>마라톤을 완주하지 못하게 만든</strong>{" "}
+                과사용 부상을 줄이지 못했습니다(7.1% 대 7.3%){" "}
                 <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
               </p>
             </div>
@@ -264,11 +264,11 @@ export default function IntermediateGuidePage() {
             <li><strong>Kemler et al. (2018)</strong> — 초보와 경력 러너 부상 비교(4,621명). 1,000시간당 8.78건 대 4.24건. <a href="https://pubmed.ncbi.nlm.nih.gov/30071170/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Nielsen et al. (2014)</strong> — 부상당한 초보 러너 254명의 진단·회복 기간. 아킬레스건병증 7%, 족저근막염 5%. <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Aderem &amp; Louw (2015)</strong> — 장경인대 증후군 생체역학 위험 요인 체계적 고찰(13편). 여성 러너의 고관절 내전·무릎 내회전 증가. <a href="https://pubmed.ncbi.nlm.nih.gov/26573859/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Lagas et al. (2020)</strong> — 레크리에이션 러너 아킬레스건병증 코호트(2,378명). 이전 아킬레스건병증 오즈비 6.3, 훈련 관련 요인 무관. <a href="https://pubmed.ncbi.nlm.nih.gov/31892510/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Lagas et al. (2020)</strong> — 레크리에이션 러너 아킬레스건병증 코호트(2,378명). 이전 아킬레스건병증 오즈비 6.3, 훈련 계획표 사용 오즈비 1.8. <a href="https://pubmed.ncbi.nlm.nih.gov/31892510/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Silbernagel et al. (2007)</strong> — 아킬레스건병증 환자 38명 무작위 시험. 통증을 지켜보며 달리기를 계속해도 회복에 불리하지 않음. <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>van Leeuwen et al. (2016)</strong> — 족저근막염 위험 요인 메타분석(51편). 일관된 임상 요인은 높은 BMI뿐. <a href="https://pubmed.ncbi.nlm.nih.gov/26644427/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Lauersen et al. (2014)</strong> — 운동 중재의 스포츠 부상 예방 메타분석(무작위 시험 25편, 26,610명). 근력 훈련 위험비 0.32, 스트레칭 효과 없음. <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
-            <li><strong>Toresdahl et al. (2020)</strong> — 첫 마라톤 러너 720명 근력 훈련 무작위 시험. 과사용 부상 7.1% 대 7.3%, 차이 없음. <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Toresdahl et al. (2020)</strong> — 첫 마라톤 러너 720명 근력 훈련 무작위 시험. 완주를 못 하게 만든 과사용 부상 7.1% 대 7.3%, 차이 없음. <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Frandsen et al. (2025)</strong> — 성인 러너 5,205명 18개월 추적. 한 번 달린 거리가 30일 최장 거리의 110%를 넘으면 과사용 부상 증가. <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>

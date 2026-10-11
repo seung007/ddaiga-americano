@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "개인정보 처리방침 — 뛰다가 아메리카노",
   description:
     "뛰다가 아메리카노가 수집·처리하는 정보와 그 목적, 보관 방식, 이용자 권리를 안내합니다. 키·체중 등 신체 정보는 서버에 저장하지 않습니다.",
@@ -10,7 +11,7 @@ export default function PrivacyPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-6 py-12 text-gray-800">
       <h1 className="text-2xl font-bold text-gray-900 mb-2">개인정보 처리방침</h1>
-      <p className="text-sm text-gray-400 mb-10">최종 업데이트: 2026년 6월</p>
+      <p className="text-sm text-gray-400 mb-10">최종 업데이트: 2026년 10월</p>
 
       <section className="mb-10">
         <p className="text-sm leading-relaxed text-gray-700">
@@ -26,12 +27,17 @@ export default function PrivacyPage() {
           <p className="text-sm font-semibold text-emerald-800 mb-1">신체 입력값은 서버에 저장되지 않습니다</p>
           <p className="text-sm leading-relaxed text-emerald-700">
             추천기에 입력하는 <strong>키·체중·발볼·발 타입·예산</strong> 등의 정보는
-            이용자의 <strong>브라우저 안에서만</strong> 추천 계산에 사용되며, 본 서비스 서버나
-            외부로 전송·저장되지 않습니다. 페이지를 닫으면 입력값은 사라집니다.
+            이용자의 <strong>브라우저 안에서만</strong> 추천 계산에 사용되며, 본 서비스 서버로
+            전송·저장되지 않습니다. 「지난 추천 다시 보기」를 위해 입력값이 <strong>이 브라우저의 저장소(localStorage)</strong>에
+            남을 수 있고, 브라우저의 사이트 데이터를 지우면 사라집니다.
           </p>
         </div>
         <ul className="text-sm leading-relaxed text-gray-700 space-y-2 list-disc list-inside">
-          <li><strong>추천기 입력값</strong>(키·체중·발볼·발 타입·용도·예산·성별): 브라우저 내 일시 처리, 미저장</li>
+          {/* 2026-10-12 (council Steward·Dev): 「페이지를 닫으면 사라짐」「외부 전송 없음」이 코드와 달랐다 —
+              shoe-finder 는 입력을 localStorage 에 남기고, 완료 이벤트에 성별·러닝 수준을 GA 로 보낸다. 사실대로 고쳤다. */}
+          <li><strong>추천기 입력값</strong>(키·체중·발볼·발 타입·용도·예산·성별): 서버 미저장. 이 브라우저 저장소에만 보관(지난 추천 다시 보기). 통계 이벤트에는 <strong>성별·러닝 수준 선택값만</strong> 포함되고 키·체중 등 수치는 보내지 않습니다</li>
+          <li><strong>러닝화 기록장</strong>(신발 이름·달린 거리·날짜): 이 브라우저 저장소에만 보관, 서버 미저장. 파일로 내보내기·전부 지우기 가능</li>
+          <li><strong>도구 사용 통계</strong>: 가상 달리기의 목표 거리·페이스, 기록장에 더한 거리(숫자만), 두께 비교에서 고른 신발(목록 id) 등. 직접 입력한 신발 이름은 보내지 않습니다</li>
           <li><strong>이용 통계</strong>(방문 페이지, 체류 시간, 기기·브라우저 종류, 대략적 지역, 유입 경로): 아래 3항의 분석 도구를 통해 자동 수집</li>
         </ul>
       </section>

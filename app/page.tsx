@@ -1,4 +1,23 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+// 2026-10-12 SEO 점검: 홈만 canonical 이 없었다(제목·설명은 layout 기본값을 쓴다)
+const HOME_TITLE = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
+const HOME_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 1분 만에 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
+// og 의 홈 값은 layout 이 아니라 여기 둔다(layout 에 두면 모든 하위 페이지가 홈 값을 물려받는다 — app/layout.tsx 주석)
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESC,
+    url: "/",
+    siteName: "뛰다가 아메리카노",
+    locale: "ko_KR",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: HOME_TITLE }],
+  },
+  twitter: { card: "summary_large_image", title: HOME_TITLE, description: HOME_DESC, images: ["/opengraph-image"] },
+};
 import HomeCommunitySection from "@/components/HomeCommunitySection";
 import { reactionNames } from "@/lib/reaction-names";
 import HeroBackdrop from "@/components/HeroBackdrop";
@@ -395,6 +414,23 @@ export default function Home() {
                     key={g.href}
                     href={g.href}
                     className="text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full hover:bg-emerald-100 transition-colors"
+                  >
+                    {g.label}
+                  </Link>
+                ))}
+              </div>
+              {/* 2026-10-12: 홈에서 도구·코스로 가는 길이 없었다(council Product 렌즈). 홈 체류 16초 */}
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <span className="text-xs text-gray-400">해 보기:</span>
+                {[
+                  { href: "/courses#jamsil", label: "한강 코스 가상 달리기" },
+                  { href: "/tools/shoe-side", label: "러닝화 두께 비교" },
+                  { href: "/tools/shoe-life#log", label: "러닝화 기록장" },
+                ].map((g) => (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className="text-xs font-medium text-gray-700 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-full hover:bg-gray-100 transition-colors"
                   >
                     {g.label}
                   </Link>

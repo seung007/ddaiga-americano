@@ -30,10 +30,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
   description: SITE_DESC,
+  /**
+   * 2026-10-12 (council Dev 렌즈): 여기 title·description·url 을 두면 openGraph 를 따로 안 쓴 하위 페이지가
+   * 전부 **홈 제목과 홈 주소**를 og 값으로 물려받는다(Next 메타데이터는 openGraph 를 통째로 상속).
+   * 실측: /injury/shin-splints 의 og:url 이 홈 주소였다. 공통값(사이트명·이미지)만 두고 홈 값은 app/page.tsx 로 옮겼다.
+   * og:title 이 없는 페이지는 공유 시 <title> 로 대체된다.
+   */
   openGraph: {
-    title: SITE_TITLE,
-    description: SITE_DESC,
-    url: SITE_URL,
     siteName: "뛰다가 아메리카노",
     locale: "ko_KR",
     type: "website",
@@ -48,8 +51,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_TITLE,
-    description: SITE_DESC,
     images: ["/opengraph-image"],
   },
   /**

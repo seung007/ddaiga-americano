@@ -1,7 +1,23 @@
 import type { Shoe } from "@/lib/shoes/types";
 
+/** 그림에 필요한 필드만. 클라이언트 페이지가 신발 원장 전체(gzip ~23KB)를 받지 않도록 서버에서 이것만 넘긴다 */
+export type ProfileShoe = Pick<Shoe, "id" | "brand" | "model" | "stackHeightMm" | "heelDropMm" | "weightGramsM9" | "weightGramsW8" | "gender">;
+
+export function toProfileShoe(s: Shoe): ProfileShoe {
+  return {
+    id: s.id,
+    brand: s.brand,
+    model: s.model,
+    stackHeightMm: s.stackHeightMm,
+    heelDropMm: s.heelDropMm,
+    weightGramsM9: s.weightGramsM9,
+    weightGramsW8: s.weightGramsW8,
+    gender: s.gender,
+  };
+}
+
 /**
- * 러닝화 단면 비교 — 브랜드 공개 스펙(뒤꿈치 두께·드롭·무게)만으로 그린 개략도 (2026-10-12)
+ * 러닝화 단면 비교 — 공개 스펙(뒤꿈치 두께·드롭·무게)만으로 그린 개략도 (2026-10-12)
  *
  * 왜 「착용감 체험」이 아니라 이것인가
  * ─────────────────────────────────
@@ -35,18 +51,19 @@ const PX_PER_MM = (GROUND - 20) / MAX_MM;
 const HEEL_X = PAD_L + 30;
 const TOE_X = W - PAD_R - 30;
 
-function forefootMm(s: Shoe) {
+function forefootMm(s: ProfileShoe) {
   return Math.max(0, s.stackHeightMm - s.heelDropMm);
 }
 
 /** 여성 전용 모델은 W8 무게가 원장에 있으면 그걸 쓴다. 사이즈 기준이 다르면 같이 비교하지 않는다고 적는다. */
-export function weightOf(s: Shoe): { g: number; basis: "M9" | "W8" } {
+export function weightOf(s: ProfileShoe): { g: number; basis: "M9" | "W8" } {
   if (s.gender === "female" && s.weightGramsW8) return { g: s.weightGramsW8, basis: "W8" };
   return { g: s.weightGramsM9, basis: "M9" };
 }
 
-export default function ShoeSideProfile({ shoes }: { shoes: Shoe[] }) {
-  const list = shoes.slice(0, 3);
+export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
+  // 같은 신발이 두 번 오면(예: /compare/x-vs-x) 하나만 그린다 — key 충돌 방지
+  const list = shoes.filter((s, i, arr) => arr.findIndex((x) => x.id === s.id) === i).slice(0, 3);
   const y = (mm: number) => GROUND - mm * PX_PER_MM;
   const weights = list.map(weightOf);
   const maxG = Math.max(...weights.map((w) => w.g), 1);
@@ -90,9 +107,10 @@ export default function ShoeSideProfile({ shoes }: { shoes: Shoe[] }) {
           ].join(" ");
           return (
             <g key={s.id}>
-              <path d={d} fill={c.fill} stroke={c.stroke} strokeWidth={2} strokeLinejoin="round" />
-              <circle cx={HEEL_X} cy={heel} r={3.5} fill={c.stroke} />
-              <circle cx={TOE_X} cy={fore} r={3.5} fill={c.stroke} />
+              <path d={d} fill={c.fill} stroke={c.stroke} strokeWidth={2} strokeLinejoin="round" role="img" aria-label={`${s.brand} ${s.model} — 뒤꿈치 ${s.stackHeightMm}mm · 앞꿈치 ${forefootMm(s)}mm · 드롭 ${s.heelDropMm}mm`} />
+              {/* 겹친 점끼리 구분되도록 흰 테두리(2px) */}
+              <circle cx={HEEL_X} cy={heel} r={4.5} fill={c.stroke} stroke="#fff" strokeWidth={2} />
+              <circle cx={TOE_X} cy={fore} r={4.5} fill={c.stroke} stroke="#fff" strokeWidth={2} />
             </g>
           );
         })}
@@ -122,7 +140,7 @@ export default function ShoeSideProfile({ shoes }: { shoes: Shoe[] }) {
           })}
         </ul>
         <p className="text-xs leading-relaxed text-gray-500">
-          세로(두께)만 실제 비율이고, 길이와 모양은 임의로 그렸습니다. 수치는 브랜드 공개 스펙이며 신발 상세 페이지에 출처가 있습니다.
+          세로(두께)만 실제 비율이고, 길이와 모양은 임의로 그렸습니다. 수치는 RunRepeat 에 공개된 값이고(신발 상세 페이지의 「스펙 출처」), 브랜드 공식 표기와 다를 수 있습니다. 두께를 재는 지점은 출처마다 다를 수 있습니다.
           두께나 드롭이 클수록 좋다·나쁘다는 표시는 하지 않았습니다 — 그 관계를 저희가 확인하지 못했습니다.
           {mixedBasis && " 무게는 사이즈 기준(M9·W8)이 달라 직접 비교할 수 없습니다."}
         </p>

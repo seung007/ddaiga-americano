@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import type { HangangCourse } from "@/lib/courses";
 
 /**
@@ -107,7 +108,8 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
     if (!running) return;
     const step = (now: number) => {
       if (last.current != null) {
-        const dt = ((now - last.current) / 1000) * speed;
+        // 탭이 백그라운드였다가 돌아오면 rAF 가 멈춘 시간이 한 번에 들어온다 → 한 프레임 최대 0.25초로 자른다
+        const dt = (Math.min(now - last.current, 250) / 1000) * speed;
         setT((prev) => {
           const n = prev + dt;
           if (n >= endSec) {
@@ -121,7 +123,13 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
       raf.current = requestAnimationFrame(step);
     };
     raf.current = requestAnimationFrame(step);
+    // 탭을 숨기면 멈춘다(돌아와서 다시 누르면 이어 달린다)
+    const onHide = () => {
+      if (document.visibilityState === "hidden") setRunning(false);
+    };
+    document.addEventListener("visibilitychange", onHide);
     return () => {
+      document.removeEventListener("visibilitychange", onHide);
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = null;
       last.current = null;
@@ -199,6 +207,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
               <button
                 key={d}
                 onClick={() => { setDistKm(d); setT(0); setRunning(false); }}
+                aria-pressed={distKm === d}
                 className={`flex-1 rounded-lg border px-2 py-1.5 text-sm ${distKm === d ? "border-emerald-600 bg-emerald-50 font-semibold text-emerald-800" : "border-gray-300 text-gray-700"}`}
               >
                 {d}km
@@ -211,7 +220,6 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
           <input
             value={paceIn}
             onChange={(e) => { setPaceIn(e.target.value); setT(0); setRunning(false); }}
-            inputMode="numeric"
             className={`w-full rounded-lg border px-3 py-1.5 text-sm focus:outline-none ${pace ? "border-gray-300 focus:border-emerald-500" : "border-red-400"}`}
             placeholder="6:30"
           />
@@ -225,12 +233,18 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
             value={ghostIn}
             disabled={!ghostOn}
             onChange={(e) => { setGhostIn(e.target.value); setT(0); setRunning(false); }}
-            inputMode="numeric"
+            aria-label="같이 달릴 러너 페이스 (분:초/km)"
             className="w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-indigo-500 focus:outline-none disabled:bg-gray-50 disabled:text-gray-400"
             placeholder="6:00"
           />
         </div>
       </div>
+
+      {pace && (
+        <p className="mb-3 rounded-lg bg-emerald-50 px-3 py-2 text-sm leading-relaxed text-emerald-900">
+          {distKm}km는 {startName} 쪽에서 출발해 <strong>{howFar}</strong>입니다. 이 페이스로 약 <strong>{fmt(finishSec)}</strong>.
+        </p>
+      )}
 
       <svg viewBox={`0 0 ${VW} ${VH}`} className="h-auto w-full rounded-xl bg-sky-50" role="img" aria-label={`${course.name} 가상 달리기 경로`}>
         <path d={pathD} fill="none" stroke="#94a3b8" strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" />
@@ -238,8 +252,12 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
         <circle cx={geo.proj[geo.proj.length - 1][0]} cy={geo.proj[geo.proj.length - 1][1]} r={5} fill="#334155" />
         <text x={P0[0]} y={labelY(P0[1])} textAnchor={anchor(P0[0])} fontSize="16" fill="#334155">{startName} 쪽 (출발)</text>
         <text x={P1[0]} y={labelY(P1[1])} textAnchor={anchor(P1[0])} fontSize="16" fill="#334155">{endName} 쪽</text>
-        {ghost && <circle cx={gh[0]} cy={gh[1]} r={9} fill="#4f46e5" stroke="#fff" strokeWidth={2} opacity={0.85} />}
-        {pace && <circle cx={me[0]} cy={me[1]} r={9} fill="#059669" stroke="#fff" strokeWidth={2} />}
+        {ghost && (
+          <circle cx={gh[0]} cy={gh[1]} r={9} fill="#4f46e5" stroke="#fff" strokeWidth={2} opacity={0.85} role="img" aria-label={`같이 달린 러너 ${(ghostM / 1000).toFixed(2)}km`} />
+        )}
+        {pace && (
+          <circle cx={me[0]} cy={me[1]} r={9} fill="#059669" stroke="#fff" strokeWidth={2} role="img" aria-label={`나 ${(myM / 1000).toFixed(2)}km`} />
+        )}
       </svg>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -266,34 +284,38 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
           <dd className="font-mono text-sm font-semibold text-gray-900">{fmt(t)}</dd>
         </div>
         <div className="rounded-lg bg-gray-50 p-2">
-          <dt className="text-[11px] text-gray-500">내 거리</dt>
-          <dd className="font-mono text-sm font-semibold text-emerald-700">{(myM / 1000).toFixed(2)}km</dd>
+          <dt className="flex items-center justify-center gap-1 text-[11px] text-gray-500"><span className="inline-block h-2 w-2 rounded-full bg-emerald-600" />내 거리</dt>
+          <dd className="font-mono text-sm font-semibold text-gray-900">{(myM / 1000).toFixed(2)}km</dd>
         </div>
         <div className="rounded-lg bg-gray-50 p-2">
-          <dt className="text-[11px] text-gray-500">{ghost ? "같이 달린 러너" : "완주 예상"}</dt>
-          <dd className="font-mono text-sm font-semibold text-indigo-700">{ghost ? `${(ghostM / 1000).toFixed(2)}km` : pace ? fmt(finishSec) : "—"}</dd>
+          <dt className="flex items-center justify-center gap-1 text-[11px] text-gray-500">{ghost && <span className="inline-block h-2 w-2 rounded-full bg-indigo-600" />}{ghost ? "같이 달린 러너" : "완주 예상"}</dt>
+          <dd className="font-mono text-sm font-semibold text-gray-900">{ghost ? `${(ghostM / 1000).toFixed(2)}km` : pace ? fmt(finishSec) : "—"}</dd>
         </div>
       </dl>
 
-      {pace && (
+      {ghost && done && gapM > 0 && (
         <p className="mt-3 text-sm leading-relaxed text-gray-700">
-          {distKm}km는 {startName} 쪽에서 출발해 <strong>{howFar}</strong>입니다. 이 페이스로 약 <strong>{fmt(finishSec)}</strong>.
-          {ghost && done && gapM > 0 && (
-            <>
-              {" "}
-              {finishSec <= ghostFinish ? (
-                <>내가 먼저 들어오고, 그때 같이 달린 러너는 약 <strong>{gapM.toLocaleString()}m</strong> 남아 있습니다.</>
-              ) : (
-                <>같이 달린 러너가 먼저 들어오고, 그때 나는 약 <strong>{gapM.toLocaleString()}m</strong> 남아 있습니다.</>
-              )}
-            </>
+          {finishSec <= ghostFinish ? (
+            <>내가 먼저 들어오고, 그때 같이 달린 러너는 약 <strong>{gapM.toLocaleString()}m</strong> 남아 있습니다.</>
+          ) : (
+            <>같이 달린 러너가 먼저 들어오고, 그때 나는 약 <strong>{gapM.toLocaleString()}m</strong> 남아 있습니다.</>
           )}
         </p>
       )}
 
+      <p className="mt-3 text-sm">
+        <Link href="/tools/pace" className="text-emerald-700 underline">목표 기록으로 km별 통과 시간 만들기</Link>
+        <span className="mx-1.5 text-gray-300">·</span>
+        <Link href="/injury/first-10k" className="text-emerald-700 underline">첫 10km 준비</Link>
+      </p>
+
       <p className="mt-3 text-[11px] leading-relaxed text-gray-400">
-        페이스는 끝까지 일정하다고 가정했습니다. 반환점·사람·신호 때문에 실제로는 조금 더 걸립니다. 한강 둔치는 평탄해 오르막 보정은 하지 않았습니다(고도 자료 없음).
-        경로선: {route.source.label} ({route.source.checkedAt} 기준).
+        페이스는 끝까지 일정하다고 가정했습니다. 반환점·사람·신호 때문에 실제로는 조금 더 걸립니다. 고도 자료가 없어 오르막 보정은 하지 않았습니다.
+        경로선:{" "}
+        <a href={route.source.url} target="_blank" rel="noopener noreferrer" className="underline">
+          {route.source.label}
+        </a>{" "}
+        ({route.source.checkedAt} 기준).
       </p>
     </div>
   );

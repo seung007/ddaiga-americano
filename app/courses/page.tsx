@@ -10,6 +10,7 @@ import ShareButtons from "@/components/ShareButtons";
 import { HANGANG_COURSES } from "@/lib/courses";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/courses" },
   title: "한강 러닝 코스 4곳 — 여의도·반포·뚝섬·잠실 거리와 가는 길 | 뛰다가 아메리카노",
   description:
     "여의도 8.4km, 반포 7.2km, 뚝섬 11.5km, 잠실 4.8km. 서울시 미래한강본부가 고시한 공식 길이와 지하철 안내를 출처와 함께 정리했습니다. 블로그에서 옮겨 적은 거리가 아닙니다.",

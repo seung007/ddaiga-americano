@@ -160,7 +160,7 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
                 className="block rounded-2xl border border-gray-200 p-5 transition-colors hover:border-emerald-400"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="font-bold text-gray-900">{r.name}</h3>
+                  <h2 className="text-base font-bold text-gray-900">{r.name}</h2>
                   <RaceStatusBadge status={s} />
                 </div>
                 <p className="mt-1.5 text-sm text-gray-700">

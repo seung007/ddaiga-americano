@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SHOES } from "@/lib/shoes/data";
+import Link from "next/link";
 
 /**
  * 내 러닝화 기록장 (2026-10-12)
@@ -29,16 +29,45 @@ function today() {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+/**
+ * 저장된 값은 믿지 않는다 — 다른 버전·손으로 고친 값·깨진 값이 들어올 수 있다.
+ * (council 2026-10-12: baseKm 이 문자열 "10" 이면 "10"+0 = "100" 으로 이어 붙는 버그가 있었다)
+ */
+function sanitize(raw: unknown): LogShoe[] {
+  if (!Array.isArray(raw)) return [];
+  const out: LogShoe[] = [];
+  const seen = new Set<string>();
+  for (const x of raw) {
+    if (!x || typeof x !== "object") continue;
+    const o = x as Record<string, unknown>;
+    const name = typeof o.name === "string" ? o.name.slice(0, 60) : "";
+    if (!name) continue;
+    let id = typeof o.id === "string" && o.id ? o.id : `${Date.now()}-${out.length}`;
+    if (seen.has(id)) id = `${id}-${out.length}`;
+    seen.add(id);
+    const baseKm = Math.max(0, Number(o.baseKm) || 0);
+    const runs = Array.isArray(o.runs)
+      ? o.runs
+          .map((r) => ({ d: typeof (r as Run)?.d === "string" ? (r as Run).d : "", km: Number((r as Run)?.km) }))
+          .filter((r) => Number.isFinite(r.km) && r.km > 0 && r.km <= 200)
+      : [];
+    out.push({ id, name, baseKm, runs, created: typeof o.created === "string" ? o.created : "" });
+  }
+  return out;
+}
+
 function totalOf(s: LogShoe) {
   return Math.round((s.baseKm + s.runs.reduce((a, r) => a + r.km, 0)) * 10) / 10;
 }
 
-const CATALOG = [...SHOES].sort((a, b) => (a.brand + a.model).localeCompare(b.brand + b.model));
+export type CatalogItem = { id: string; brand: string; model: string };
 
-export default function ShoeLog() {
+export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
+  const CATALOG = catalog;
   const [shoes, setShoes] = useState<LogShoe[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [storageOk, setStorageOk] = useState(true);
+  const [notice, setNotice] = useState("");
   const [pick, setPick] = useState("");
   const [custom, setCustom] = useState("");
   const [base, setBase] = useState("");
@@ -47,16 +76,29 @@ export default function ShoeLog() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as LogShoe[];
-        if (Array.isArray(parsed)) setShoes(parsed.filter((s) => s && typeof s.name === "string" && Array.isArray(s.runs)));
+    const read = () => {
+      let raw: string | null = null;
+      try {
+        raw = window.localStorage.getItem(KEY);
+      } catch {
+        setStorageOk(false);
+        return;
       }
-    } catch {
-      setStorageOk(false);
-    }
+      if (!raw) return;
+      try {
+        setShoes(sanitize(JSON.parse(raw)));
+      } catch {
+        setNotice("저장된 기록을 읽지 못했습니다(형식이 깨짐). 새로 등록하면 덮어씁니다.");
+      }
+    };
+    read();
     setLoaded(true);
+    // 다른 탭에서 고치면 이 탭도 따라간다 — 오래된 탭이 새 기록을 덮어쓰지 않게
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === KEY) read();
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   function save(next: LogShoe[]) {
@@ -66,6 +108,45 @@ export default function ShoeLog() {
     } catch {
       setStorageOk(false);
     }
+  }
+
+  function exportFile() {
+    try {
+      const blob = new Blob([JSON.stringify({ app: "ddaiga-shoe-log", v: 1, shoes }, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `running-shoe-log-${today()}.json`;
+      document.body.appendChild(a); // 문서에 붙어 있어야 파일 이름이 적용되는 브라우저가 있다
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    } catch {
+      setNotice("이 브라우저에서는 파일로 내보낼 수 없습니다.");
+    }
+  }
+
+  function importFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    if (f.size > 1_000_000) {
+      setNotice("파일이 너무 큽니다.");
+      return;
+    }
+    f.text()
+      .then((txt) => {
+        const j = JSON.parse(txt) as { shoes?: unknown } | unknown[];
+        const list = sanitize(Array.isArray(j) ? j : (j as { shoes?: unknown }).shoes);
+        if (!list.length) {
+          setNotice("불러올 기록이 없습니다.");
+          return;
+        }
+        // 같은 id 는 파일 쪽으로 바꾸고, 나머지는 그대로 둔다
+        const ids = new Set(list.map((x) => x.id));
+        save([...list, ...shoes.filter((x) => !ids.has(x.id))]);
+        setNotice(`신발 ${list.length}개를 불러왔습니다.`);
+      })
+      .catch(() => setNotice("이 파일은 기록장 파일이 아닙니다."));
   }
 
   function track(name: string, params: Record<string, unknown>) {
@@ -104,7 +185,7 @@ export default function ShoeLog() {
   }
 
   return (
-    <section className="mb-10 rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
+    <section id="log" className="mb-10 scroll-mt-20 rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
       <h2 className="mb-1 text-xl font-bold text-gray-900">내 러닝화 기록장</h2>
       <p className="mb-4 text-sm leading-relaxed text-gray-600">
         신발을 등록하고 달릴 때마다 거리를 더하세요. 누적 거리를 위 연구의 측정 지점(160·320·480·640km)에 얹어 보여줍니다.
@@ -115,6 +196,7 @@ export default function ShoeLog() {
         <p className="mb-2 text-sm font-medium text-gray-900">신발 등록</p>
         <div className="grid gap-2 sm:grid-cols-[1fr_1fr_110px_auto]">
           <select
+            aria-label="목록에서 신발 고르기"
             value={pick}
             onChange={(e) => { setPick(e.target.value); if (e.target.value) setCustom(""); }}
             className="w-full min-w-0 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm"
@@ -128,6 +210,7 @@ export default function ShoeLog() {
             value={custom}
             onChange={(e) => { setCustom(e.target.value); if (e.target.value) setPick(""); }}
             placeholder="또는 직접 입력"
+            aria-label="신발 이름 직접 입력"
             maxLength={60}
             className="w-full min-w-0 rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
@@ -136,6 +219,7 @@ export default function ShoeLog() {
             onChange={(e) => setBase(e.target.value)}
             type="number" min="0" inputMode="decimal"
             placeholder="이미 뛴 km"
+            aria-label="등록 전에 이미 뛴 거리(km)"
             className="w-full min-w-0 rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
           <button
@@ -168,15 +252,23 @@ export default function ShoeLog() {
               <div className="relative mb-1 h-2.5 w-full rounded-full bg-gray-200">
                 <div className={`h-2.5 rounded-full ${total >= KEY_KM ? "bg-amber-500" : "bg-emerald-500"}`} style={{ width: `${pct}%` }} />
               </div>
-              <div className="mb-3 flex justify-between text-[11px] text-gray-400">
+              {/* 눈금은 0~640km 선형 축 위 실제 위치에 둔다(justify-between 이면 160 이 왼쪽 끝에 붙는다) */}
+              <div className="relative mb-3 h-4 text-[11px] text-gray-400">
                 {MARKS.map((m) => (
-                  <span key={m} className={total >= m ? "font-semibold text-gray-700" : ""}>{m}</span>
+                  <span
+                    key={m}
+                    className={`absolute ${m === 640 ? "-translate-x-full" : "-translate-x-1/2"} ${total >= m ? "font-semibold text-gray-700" : ""}`}
+                    style={{ left: `${(m / 640) * 100}%` }}
+                  >
+                    {m}
+                  </span>
                 ))}
               </div>
               {total >= KEY_KM && (
                 <p className="mb-3 rounded-lg bg-amber-50 p-2 text-xs leading-relaxed text-amber-900">
                   480km를 넘었습니다. 위 연구에서 이 시점의 뒤꿈치 쿠셔닝은 16~33% 줄어 있었고, 참가자들은 그 변화를 느끼지 못했습니다.
-                  교체 여부는 직접 판단하세요 — 쿠셔닝 감소가 부상으로 이어지는지는 그 연구가 보지 않았습니다.
+                  교체 여부는 직접 판단하세요 — 쿠셔닝 감소가 부상으로 이어지는지는 그 연구가 보지 않았습니다.{" "}
+                  <Link href="/shoe-finder" className="underline">다음 신발 후보 보기 →</Link>
                 </p>
               )}
 
@@ -191,6 +283,7 @@ export default function ShoeLog() {
                   onChange={(e) => setRunKm((p) => ({ ...p, [s.id]: e.target.value }))}
                   type="number" min="0" step="0.1" inputMode="decimal"
                   placeholder="km"
+                  aria-label={`${s.name}에 더할 거리(km)`}
                   className="w-20 rounded-lg border border-gray-300 px-2 py-1.5 text-sm"
                 />
                 <button onClick={() => addRun(s.id, Number(runKm[s.id]))} className="rounded-lg bg-gray-800 px-3 py-1.5 text-sm text-white">
@@ -237,8 +330,37 @@ export default function ShoeLog() {
         })}
       </ul>
 
+      {shoes.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+          <button onClick={exportFile} className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-700">
+            기록 파일로 내보내기
+          </button>
+          <label className="cursor-pointer rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-700">
+            파일에서 불러오기
+            <input type="file" accept="application/json,.json" onChange={importFile} className="hidden" />
+          </label>
+          {confirmDel === "__all" ? (
+            <span>
+              <span className="mr-2 text-gray-600">모든 신발과 기록을 지울까요?</span>
+              <button onClick={() => { save([]); setConfirmDel(null); }} className="mr-2 font-medium text-red-600">전부 지우기</button>
+              <button onClick={() => setConfirmDel(null)} className="text-gray-500">취소</button>
+            </span>
+          ) : (
+            <button onClick={() => setConfirmDel("__all")} className="text-gray-400 hover:text-red-600">전부 지우기</button>
+          )}
+        </div>
+      )}
+      {shoes.length === 0 && (
+        <label className="mt-4 inline-block cursor-pointer text-xs text-gray-500 underline">
+          내보낸 기록 파일 불러오기
+          <input type="file" accept="application/json,.json" onChange={importFile} className="hidden" />
+        </label>
+      )}
+      {notice && <p className="mt-2 text-xs text-amber-800">{notice}</p>}
+
       <p className="mt-4 text-[11px] leading-relaxed text-gray-500">
-        기록은 이 기기의 이 브라우저에만 저장됩니다. 다른 기기에서는 보이지 않고, 브라우저의 사이트 데이터를 지우면 사라집니다.
+        기록은 이 기기의 이 브라우저에만 저장되고 서버로 보내지 않습니다. 다른 기기에서는 보이지 않고, 브라우저의 사이트 데이터를 지우면
+        사라집니다 — 옮기거나 보관하려면 파일로 내보내세요. 여러 사람이 쓰는 PC라면 다 쓴 뒤 「전부 지우기」를 누르세요.
         {!storageOk && " 지금 브라우저에서는 저장이 막혀 있어 새로고침하면 기록이 사라집니다(사생활 보호 모드 등)."}
       </p>
     </section>
