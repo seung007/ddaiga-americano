@@ -3,12 +3,32 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import { CourseMap, ChafingMap, PaceCurve } from "@/components/RaceGraphics";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
+
+/**
+ * 2026-10-08 재검증 — PubMed 초록(일부 PMC 전문)과 대조
+ *   · 저나트륨혈증: 「90분 이내 러너는 과음이 더 흔한 문제」 삭제 — Almond 2005 는 4시간 넘는 완주자가 위험군(OR 7.4).
+ *     「7~15%」 출처 못 찾음 → Almond 2005 의 13% / 0.6%. 위험군을 Almond 대로(체중 증가·긴 완주 시간·BMI 양극단, NSAID 무관).
+ *     기전은 Altieri 2026(과음 + 항이뇨호르몬, 땀 나트륨은 작은 요인). 2015 합의문은 초록·PMC 전문이 없어 내용 대조 불가 → 본문 인용은 Hew-Butler 2017 로.
+ *   · 카보로딩 「글리코겐 75~90분 분량」 출처 없음 → Hawley 1997(60~90분은 이득 없음, 90분 초과 시 피로 약 20% 지연).
+ *   · 레이스 중 탄수화물 → Jeukendrup 2014(2~3시간 약 60g/h, 초장거리 약 90g/h). 「2시간 이상이면 60g 이상」은 과장이라 낮춤.
+ *   · 카페인 9mg/kg → Guest 2021 문구대로(「필요하지 않은 것으로 보임」).
+ *   · 배지 상향: 새 음식 금지(Burke 2019), 면 양말(Herring 1990, 별도 카드로 분리), 완주 후 쓰러짐(Asplund 2011).
+ *     물 붓기 카드는 「붓는 방식」이 경험이라 배지는 그대로 두고 냉각 문장에만 Burke 2019 를 붙였다.
+ *   · 근거 못 찾은 단정(고용량 로딩은 몸만 무거움·대기 중 체온과 오버페이스·15~18km·5~10분·물집의 가장 흔한 원인) → 경험칙으로 낮춤.
+ */
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/half-marathon-race-day";
+const TITLE = "하프마라톤 대회 당일 체크리스트";
+const DESC =
+  "하프마라톤 당일에 실제로 필요한 것만. 탄수화물 로딩이 하프에 필요한지, 젤은 언제 몇 개, 물은 얼마나, 바세린은 어디에. 논문 근거와 직접 뛰어본 경험을 구분해서 적었습니다.";
 
 export const metadata: Metadata = {
   title: "하프마라톤 대회 당일 체크리스트 — 페이스·급수·젤·바세린 총정리 | 뛰다가 아메리카노",
-  description:
-    "하프마라톤 당일에 실제로 필요한 것만. 탄수화물 로딩이 하프에 필요한지, 젤은 언제 몇 개, 물은 얼마나, 바세린은 어디에. 논문 근거와 직접 뛰어본 경험을 구분해서 적었습니다.",
+  description: DESC,
+  alternates: { canonical: "/injury/half-marathon-race-day" },
 };
 
 /**
@@ -74,6 +94,13 @@ function Item({
 export default function Page() {
   return (
     <>
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["하프 대회 당일", "/injury/half-marathon-race-day"],
+        ]}
+      />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
           ← 러닝 가이드
@@ -84,9 +111,8 @@ export default function Page() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">
             하프마라톤 대회 당일 체크리스트
           </h1>
-          {/* 2026-09-22: 7,068자 ÷ 600 = 12분. 사이트에서 가장 긴 글이다.
-              규약은 app/injury/page.tsx 상단 주석 */}
-          <p className="text-gray-500 text-sm mb-4">12분 읽기 · 21.1km 기준</p>
+          {/* 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">16분 읽기 · 21.1km 기준</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 논문 근거와 직접 경험을 항목마다 구분해 표시합니다
@@ -98,7 +124,7 @@ export default function Page() {
           <h2 className="text-base font-bold text-gray-900 mb-3">이 페이지 읽는 법</h2>
           <p className="text-sm text-gray-700 leading-relaxed mb-3">
             대회 요령은 논문이 있는 것과 없는 것이 섞여 있습니다.
-            <strong> 바세린을 어디에 바르는지 임상시험을 한 사람은 없습니다.</strong> 그렇다고 빼면
+            <strong> 바세린을 어디에 바르는지 시험한 임상연구는 찾지 못했습니다.</strong> 그렇다고 빼면
             정작 필요한 내용이 사라지고, 논문인 척하면 거짓이 됩니다. 그래서 두 가지를 따로 답니다.
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -141,21 +167,30 @@ export default function Page() {
             <strong>&ldquo;갈증을 느끼면 이미 탈수다. 목마르지 않아도 급수대마다 규칙적으로 마셔라.&rdquo;</strong>
           </p>
           <p className="text-sm text-red-900 leading-relaxed mb-3">
-            <strong>2015년 국제 합의문은 이 조언을 폐기했습니다.</strong> 현재 권고는
-            <strong> &ldquo;목마른 만큼 마셔라, 그 이상도 이하도 아니다&rdquo;</strong>입니다.
-            갈증에 맞춰 마시게 했더니 저나트륨혈증이 거의 사라졌고, 완주 기록에도 손해가 없었다는 것이 근거입니다.
+            <strong>최근 전문가 리뷰들은 이 조언을 &ldquo;목마를 때 마셔라&rdquo;로 바꾸라고 권합니다.</strong>
+            갈증대로 마시는 방식은 안전하고 효과적인 것으로 보이며, 코스 급수를 줄인 대회에서
+            저나트륨혈증 발생이 줄었다는 보고가 있습니다.{" "}
+            <S>(Hew-Butler et al. (2017) <Up h="https://pubmed.ncbi.nlm.nih.gov/28316971/" />)</S>{" "}
+            <S>(Altieri et al. (2026) <Up h="https://pubmed.ncbi.nlm.nih.gov/40913680/" />)</S>
           </p>
           <p className="text-sm text-red-900 leading-relaxed mb-3">
-            이유는 이렇습니다. 땀으로 나트륨이 빠진 상태에서 물을 필요 이상으로 마시면
-            혈중 나트륨이 묽어집니다. 이게 <strong>운동유발 저나트륨혈증</strong>이고,
-            심하면 의식 저하와 경련까지 갑니다.
-            마라톤 완주자를 검사하면 <strong>7~15%</strong>에서 관찰된다는 보고가 있습니다
-            (증상 없는 경우 포함).
+            이유는 이렇습니다. 필요 이상으로 마신 물이, 운동 중 분비되는 항이뇨호르몬 때문에
+            잘 빠져나가지 못하면 혈중 나트륨이 묽어집니다. 땀으로 잃는 나트륨은 상대적으로 작은 요인으로 봅니다.
+            이게 <strong>운동유발 저나트륨혈증</strong>이고, 증상은 메스꺼움·구토·두통·혼란에서
+            심하면 혼수까지 갑니다.{" "}
+            <S>(Altieri et al. (2026) <Up h="https://pubmed.ncbi.nlm.nih.gov/40913680/" />)</S>
           </p>
           <p className="text-sm text-red-900 leading-relaxed mb-3">
-            <strong>이게 특히 위험한 이유는 증상이 열탈진과 겹치기 때문입니다.</strong>
-            메스꺼움·두통·어지럼은 양쪽에 다 나타납니다. 그런데 대처가 정반대예요 —
-            <b>탈수인 줄 알고 물이나 수액을 더 넣으면 저나트륨혈증 환자는 더 나빠집니다.</b>
+            2002년 보스턴 마라톤에서 완주 직후 혈액을 검사한 일반 참가자 488명 중{" "}
+            <strong>13%</strong>가 저나트륨혈증(혈중 나트륨 135 이하)이었고,{" "}
+            <strong>0.6%</strong>는 위험 수준(120 이하)이었습니다.{" "}
+            <S>(Almond et al. (2005) <Up h="https://pubmed.ncbi.nlm.nih.gov/15829535/" />)</S>
+          </p>
+          <p className="text-sm text-red-900 leading-relaxed mb-3">
+            <strong>이게 특히 위험한 이유는 증상이 다른 응급 상황과 겹치기 때문입니다.</strong>
+            열사병·저혈당·기립성 저혈압과 구별해야 하는데, 처치 방향이 다릅니다 —
+            가벼운 저나트륨혈증의 처치가 <b>수분 제한</b>일 만큼, 탈수인 줄 알고 물을 더 넣는 것은 반대 방향입니다.{" "}
+            <S>(Altieri et al. (2026) <Up h="https://pubmed.ncbi.nlm.nih.gov/40913680/" />)</S>{" "}
             그래서 스스로 판단하지 말고 의료진에게 가야 합니다.
           </p>
           <p className="text-xs text-red-700 leading-relaxed mb-3">
@@ -174,6 +209,12 @@ export default function Page() {
               <li>• 21km를 뛰고 왔는데 <strong>체중이 오히려 늘었다</strong></li>
             </ul>
             <p className="text-[11px] text-red-700 mt-2 leading-relaxed">
+              레이스 중 체중 증가는 보스턴 연구에서 저나트륨혈증과 가장 강하게 연관된 요인 중 하나였습니다(OR 4.2).{" "}
+              <S>(Almond et al. (2005) <Up h="https://pubmed.ncbi.nlm.nih.gov/15829535/" />)</S>{" "}
+              손발 부기는 초장거리 사이클 선수 919명 설문에서 &lsquo;최대한 많이 마시기&rsquo;와 함께 늘었습니다.{" "}
+              <S>(Gauckler et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34863204/" />)</S>
+            </p>
+            <p className="text-[11px] text-red-700 mt-2 leading-relaxed">
               체중은 코스에서 잴 수 없습니다. 달리는 중에는 위의 세 가지로 판단하고,
               하나라도 있으면 <b>물을 더 마시지 말고 의료진에게</b> 가세요.
               코스 의료진 위치는 대회 안내문에 표시돼 있으니 출발 전에 확인해두면 좋습니다.
@@ -181,20 +222,24 @@ export default function Page() {
           </div>
           <div className="rounded-xl bg-white/70 border border-red-200 p-3 mb-3">
             <p className="text-xs font-bold text-red-900 mb-1.5">
-              여기서 갈립니다 — 2시간 넘게 뛰는 더운 날이라면 위험의 무게가 반대입니다
+              더운 날에는 반대쪽 위험도 있습니다
             </p>
             <p className="text-xs text-red-900 leading-relaxed">
-              90분 안에 들어오는 러너에게는 물을 필요 이상 마시는 쪽이 더 흔한 문제입니다.
-              <strong>반대로 기온이 높고 완주에 2시간 이상 걸린다면 탈수·열탈진 위험이 더 크게 걸립니다.</strong>
-              그 조건이면 갈증은 확실히 오고, <b>오면 참지 말고 마셔야 합니다.</b>
+              덥고 습한 날 열린 하프마라톤(콜롬비아 칼리, 81명 분석)에서는 저나트륨혈증이 한 건도 없었고,
+              <strong> 7.4%에서 고나트륨혈증</strong>이 나왔는데 적게·드물게 마신 것과 연관이 있었습니다.{" "}
+              <S>(Martinez-Cano et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29955376/" />)</S>{" "}
+              그래서 더운 날 갈증이 오면 <b>참지 말고 마셔야 합니다.</b>
               이 절의 요점은 &ldquo;마시지 말라&rdquo;가 아니라
               <b>목이 마르지도 않은데 급수대 개수를 채우려 들이키지 말라</b>는 것입니다.
             </p>
           </div>
           <p className="text-xs text-red-700 leading-relaxed">
-            <strong>위험군은 따로 있습니다.</strong> 신장 질환이 있거나, 이뇨제·일부 진통제를 복용 중이거나,
-            체중이 가벼운 참가자는 저나트륨혈증 위험이 더 높다고 알려져 있습니다.
-            해당된다면 <b>대회 전에 의사와 상의하세요.</b> 이 페이지의 일반 원칙으로 갈음하지 마세요.
+            <strong>위험이 높았던 사람.</strong> 보스턴 연구에서는 레이스 중 체중이 늘 만큼 마신 경우,
+            완주 시간이 긴 경우(4시간 초과는 3시간 30분 미만보다 OR 7.4), 체질량지수가 아주 낮거나 높은 경우
+            위험이 높았습니다. 같은 연구에서 소염진통제(NSAID) 복용과 성별은 관련이 없었습니다.{" "}
+            <S>(Almond et al. (2005) <Up h="https://pubmed.ncbi.nlm.nih.gov/15829535/" />)</S>{" "}
+            신장 질환이 있거나 이뇨제를 복용 중이라면 — 이 페이지에서 근거를 확인하지는 못했지만 —{" "}
+            <b>대회 전에 의사와 상의하세요.</b> 이 페이지의 일반 원칙으로 갈음하지 마세요.
           </p>
         </section>
 
@@ -204,19 +249,27 @@ export default function Page() {
           <div className="space-y-3">
             <Item weight="optional" basis="paper" title="하프에는 풀 카보로딩이 대체로 필요 없습니다">
               <p>
-                몸에 저장된 글리코겐은 <strong>중강도 달리기 75~90분 분량</strong>입니다.
-                하프를 90분 안에 끝낸다면 평소대로 먹어도 탱크는 이미 차 있습니다.
-                <strong> 90분을 훌쩍 넘긴다면</strong> 대회 1~2일 전 탄수화물 비중을 올리는 정도가 현실적입니다.
+                연구를 모은 리뷰에 따르면 <strong>60~90분 중강도 달리기·사이클</strong>에서는 근글리코겐을
+                평소 이상 채워도 이득이 없었습니다. 끝날 때도 근육에 글리코겐이 상당량 남아 있었기 때문입니다.
+                반대로 <strong>90분을 넘는 종목</strong>에서는 피로가 약 20% 늦게 왔습니다.{" "}
+                <S>(Hawley et al. (1997) <Up h="https://pubmed.ncbi.nlm.nih.gov/9291549/" />)</S>
+              </p>
+              <p>
+                하프를 90분 안팎에 끝낸다면 평소대로 먹어도 됩니다. <strong>90분을 훌쩍 넘긴다면</strong>{" "}
+                대회 전에 탄수화물 위주로 먹어 글리코겐을 채우는 것이 장거리 육상 영양 리뷰의 권고 방향입니다.{" "}
+                <S>(Burke et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30747558/" />)</S>
               </p>
               <p className="text-gray-500">
-                풀코스용 고용량 로딩을 하프에 그대로 적용하면 몸만 무겁습니다.
+                풀코스용 고용량 로딩까지 하프에 가져오면 몸이 무겁게 느껴진다는 건 경험칙입니다 — 확인한 자료는 없습니다.
                 (구체적인 g/kg 수치는 원문에서 확인하지 못해 적지 않습니다.)
               </p>
             </Item>
 
-            <Item weight="must" basis="practice" title="새로운 음식·젤·보충제를 대회 주간에 처음 쓰지 마세요">
+            <Item weight="must" basis="paper" title="새로운 음식·젤·보충제를 대회 주간에 처음 쓰지 마세요">
               <p>
-                이건 논문보다 사고 사례가 말해줍니다. <strong>대회 당일 처음 먹는 것은 전부 도박</strong>입니다.
+                장거리 육상 영양 리뷰는 대회 영양 계획을 <strong>개인에 맞춰 미리 연습해 둔 것</strong>으로 하라고 권합니다.{" "}
+                <S>(Burke et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30747558/" />)</S>{" "}
+                대회 당일 처음 먹는 것은 위험 부담이 큽니다.
                 젤 브랜드, 스포츠음료, 카페인 양까지 <strong>연습 롱런에서 똑같이</strong> 해보세요.
               </p>
               <p className="text-gray-500">
@@ -233,13 +286,19 @@ export default function Page() {
           <div className="space-y-3">
             <Item weight="must" basis="paper" title="섬유질·지방·단백질을 줄이세요">
               <p>
-                달리는 중 배탈은 지구성 종목 참가자의 <strong>30~50%</strong>가 겪습니다.
-                <strong>섬유질, 지방, 단백질, 그리고 농도가 진한 당 용액</strong>이 위험을 높이는 것으로 보고됩니다.
+                운동 중 위장 증상은 연구를 모아 보면 지구성 종목 선수의 <strong>30~50%</strong>가 겪습니다.
+                철인3종 레이스 중 섭취를 본 연구들에서 <strong>섬유질, 지방, 단백질, 그리고 농도가 진한 당 용액</strong>이
+                증상과 연관돼 있었습니다(상관관계이고 인과는 확인되지 않았습니다).{" "}
+                <S>(de Oliveira et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24791919/" />)</S>
               </p>
               <p>
                 실전으로 옮기면 — 대회 전날 저녁의 <strong>현미·잡곡·나물·샐러드·튀김·삼겹살</strong>,
                 당일 아침의 <strong>우유·요거트·계란·견과류</strong>가 흔한 지뢰입니다.
                 흰쌀밥, 흰빵, 바나나처럼 <strong>단순하고 소화 빠른 탄수화물</strong>이 무난합니다.
+              </p>
+              <p className="text-gray-500">
+                같은 리뷰도 &ldquo;대회 전날 고섬유 음식 피하기&rdquo;는 일화적으로 효과가 있어 보이는 지침으로 소개합니다.
+                위 음식 목록은 그 지침을 한국 식단에 옮긴 것입니다.
               </p>
             </Item>
 
@@ -257,12 +316,15 @@ export default function Page() {
 
             <Item weight="optional" basis="paper" title="카페인은 쓴다면 출발 60분 전, 체중 1kg당 3~6mg">
               <p>
-                지구성 운동에서 카페인은 효과가 비교적 일관되게 보고되는 몇 안 되는 보조제입니다.
-                권장 범위는 <strong>체중 1kg당 3~6mg</strong>이고, 60kg이면 180~360mg입니다.
-                <strong>9mg/kg 같은 고용량은 부작용만 늘고 추가 이득이 없습니다.</strong>
+                국제스포츠영양학회 포지션 스탠드는 유산소 지구력을 카페인 효과가 가장 일관되게 나타나는 운동으로 꼽습니다.
+                효과가 일관되게 확인된 양은 <strong>체중 1kg당 3~6mg</strong>이고(60kg이면 180~360mg),
+                가장 흔히 쓰는 시점은 운동 60분 전입니다.
+                <strong>9mg/kg 같은 고용량은 부작용이 잦고, 효과를 얻는 데 필요하지 않은 것으로 보입니다.</strong>{" "}
+                <S>(Guest et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/33388079/" />)</S>
               </p>
               <p className="text-gray-500">
-                평소 커피를 안 마신다면 대회 당일에 처음 시도하지 마세요 — 손 떨림과 속쓰림이 옵니다.
+                평소 커피를 안 마신다면 대회 당일에 처음 시도하지 마세요 — 손 떨림이나 속쓰림이 올 수 있습니다(경험칙).
+                평소 섭취량에 따라 반응이 다를 수 있다는 점은 위 포지션 스탠드도 짚습니다.
               </p>
             </Item>
           </div>
@@ -273,18 +335,23 @@ export default function Page() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">레이스 중 — 젤과 급수</h2>
           <CourseMap />
           <div className="space-y-3">
-            <Item weight="should" basis="paper" title="90분을 넘긴다면 시간당 탄수화물 30~60g">
+            <Item weight="should" basis="paper" title="90분을 넘긴다면 시간당 탄수화물 최대 60g 안팎">
               <p>
-                지구성 경기 중 권장되는 섭취량은 <strong>시간당 30~60g</strong>입니다.
+                운동 시간별 권고를 정리한 리뷰에 따르면 <strong>2~3시간 운동은 시간당 약 60g까지</strong>입니다.{" "}
+                <S>(Jeukendrup (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24791914/" />)</S>{" "}
                 에너지젤 하나가 보통 20~30g이니 <strong>시간당 1~2개</strong> 꼴입니다.
               </p>
               <p>
-                2시간 이상 걸리는 러너라면 <strong>포도당+과당을 섞은 제품</strong>으로 시간당 60g 이상까지
-                올릴 수 있다는 보고가 있지만, 위장이 견디는지는 사람마다 다릅니다.
-                <strong>연습에서 검증되지 않은 증량은 배탈로 끝납니다.</strong>
+                <strong>포도당+과당을 섞어 시간당 약 90g</strong>까지 올리는 권고는 초장거리 경기용이고,
+                장거리 육상 리뷰도 75~90g은 가장 긴 경기에 해당한다고 적습니다.{" "}
+                <S>(Burke et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30747558/" />)</S>{" "}
+                하프에 그대로 가져올 숫자는 아닙니다. 위장이 견디는지도 사람마다 다르니
+                <strong> 연습에서 검증되지 않은 증량은 하지 마세요.</strong>
               </p>
               <p className="text-gray-500">
-                90분 안에 끝나는 러너는 젤이 없어도 됩니다. 저장 글리코겐으로 충분합니다.
+                90분 안팎에 끝나는 러너는 젤이 없어도 완주에 지장이 없습니다 — 60~90분 달리기는 끝날 때도
+                근글리코겐이 남아 있었습니다(Hawley 1997, 위 카보로딩 항목). 다만 1시간 안팎 운동에서도
+                입 헹굼이나 소량 섭취가 기록에 도움이 됐다는 보고는 있습니다(Jeukendrup 2014).
               </p>
             </Item>
 
@@ -342,15 +409,23 @@ export default function Page() {
             <Item weight="must" basis="experience" title="새 옷·새 신발로 대회에 나가지 마세요">
               <p>
                 대회 기념 티셔츠를 그날 처음 입고 뛰었다가 <strong>봉제선에 겨드랑이가 까진 적</strong>이 있습니다.
-                신발은 더 심각합니다 — 길들이지 않은 러닝화는 물집과 발톱 멍으로 직행합니다.
-              </p>
-              <p>
-                양말도 마찬가지입니다. <strong>면 양말은 젖으면 마찰이 확 커져서</strong> 물집이 잘 잡힙니다.
-                러닝용 기능성 양말로, 그것도 새것 말고 <strong>이미 신어본 것</strong>으로 가세요.
+                신발은 더 신경 쓰입니다 — 길들이지 않은 러닝화로는 물집과 발톱 멍이 생기기 쉬웠습니다.
               </p>
               <p className="text-gray-500">
-                최소 두세 번의 롱런을 같이 뛴 옷·신발·양말로 나가는 게 원칙입니다.
+                최소 두세 번의 롱런을 같이 뛴 옷·신발·양말로 나가는 게 제 원칙입니다.
                 대회 당일은 새 장비를 시험하는 날이 아닙니다.
+              </p>
+            </Item>
+
+            <Item weight="should" basis="paper" title="양말은 면 말고 합성섬유로, 이미 신어본 것으로">
+              <p>
+                장거리 러너 35명을 대상으로 한 이중맹검 연구에서 <strong>아크릴 100% 양말</strong>이
+                면 100% 양말보다 물집이 덜 생기고 크기도 작았습니다.{" "}
+                <S>(Herring & Richie (1990) <Up h="https://pubmed.ncbi.nlm.nih.gov/2304016/" />)</S>
+              </p>
+              <p className="text-gray-500">
+                &ldquo;면이 젖으면 마찰이 커져서&rdquo;라는 이유는 흔히 하는 설명이지만 초록에서 확인하지는 못했습니다.
+                새것 말고 <strong>이미 신어본 것</strong>으로 가는 건 경험칙입니다.
               </p>
             </Item>
 
@@ -365,15 +440,17 @@ export default function Page() {
                 가슴으로 흘리면 결국 반바지와 신발까지 젖습니다.
               </p>
               <p className="text-gray-500">
-                냉각 자체는 더운 환경에서 도움이 된다고 알려져 있지만,
-                <strong>제가 쓰는 이 붓는 방식이 낫다는 비교 연구는 확인하지 못했습니다.</strong>
+                더운 환경에서는 경기 전 냉각 같은 전략이 작지만 쓸모 있는 도움이 될 수 있다고 장거리 육상 영양 리뷰는 적습니다.{" "}
+                <S>(Burke et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30747558/" />)</S>{" "}
+                다만 그건 경기 전 냉각 이야기이고,
+                <strong> 제가 쓰는 이 붓는 방식이 낫다는 비교 연구는 확인하지 못했습니다.</strong>
+                그래서 이 카드는 &lsquo;직접 경험&rsquo;으로 둡니다.
               </p>
             </Item>
 
             <Item weight="should" basis="practice" title="추운 날 출발 전 체온 — 버릴 옷 한 겹">
               <p>
-                <strong>출발선에서 대기하는 20~30분이 제일 춥습니다.</strong> 이때 체온을 뺏기면
-                초반에 근육이 굳어서 오히려 오버페이스가 나옵니다.
+                <strong>달리지 않고 출발선에서 기다리는 시간이 가장 춥게 느껴지기 쉽습니다.</strong>
                 안 입는 헌 옷이나 비닐 우의를 걸치고 출발 직전에 벗는 게 흔한 방법이라
                 &lsquo;버리는 옷&rsquo;이라고 부릅니다.
               </p>
@@ -399,7 +476,7 @@ export default function Page() {
             <Item weight="should" basis="practice" title="1시간~1시간 30분 전 도착, 도착하면 화장실부터">
               <p>
                 워밍업보다 <strong>화장실·물품보관소·출발선 위치 파악이 먼저</strong>입니다.
-                <strong>출발 30분 전이 화장실 줄이 가장 깁니다.</strong> 그 전에 한 번 다녀오세요.
+                <strong>출발이 가까워질수록 화장실 줄이 길어지기 쉽습니다.</strong> 일찍 한 번 다녀오세요.
               </p>
               <p className="text-gray-500">
                 물품보관 가방은 맡기기 전에 <strong>번호표와 가방을 사진으로</strong> 찍어두면
@@ -450,9 +527,9 @@ export default function Page() {
               </p>
             </Item>
 
-            <Item weight="should" basis="experience" title="15~18km에서 무너지는 건 정상입니다">
+            <Item weight="should" basis="experience" title="15~18km 고비를 미리 알아두세요">
               <p>
-                하프에서 가장 힘든 구간은 마지막이 아니라 <strong>15~18km</strong>입니다.
+                제 경우 하프에서 가장 힘든 구간은 마지막이 아니라 <strong>15~18km</strong>였습니다.
                 다리가 무거워지고 페이스가 퍼지기 시작하는데,
                 <strong>여기서 &ldquo;내가 뭘 잘못했나&rdquo; 싶어 패닉하면 그대로 걷기로 넘어갑니다.</strong>
               </p>
@@ -530,16 +607,20 @@ export default function Page() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">완주 후 30분 — 여기서 끝이 아닙니다</h2>
           <div className="space-y-3">
-            <Item weight="must" basis="practice" title="바로 주저앉지 말고 걸으세요">
+            <Item weight="must" basis="paper" title="바로 멈춰 서지 말고 걸으세요 — 어지러우면 누워서 다리를 올리세요">
               <p>
-                결승선을 통과하자마자 멈춰 서거나 주저앉으면 어지럼이 오는 경우가 있습니다.
-                다리 근육이 펌프 역할을 하다가 갑자기 멈추기 때문이라고 설명됩니다.
-                <strong> 최소 5~10분은 천천히 걸으세요.</strong>
+                완주 직후 쓰러지는 일은 장거리 달리기 대회 결승선에서 흔하고,
+                지금은 주로 <strong>달리기를 멈춘 순간 다리에 피가 고여 혈압이 일시적으로 떨어지는 것</strong>(운동 관련 허탈)으로 봅니다.
+                처치도 <strong>누워서 다리를 올린 자세</strong>와 입으로 마시는 수분이 중심입니다.{" "}
+                <S>(Asplund et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21948122/" />)</S>
+              </p>
+              <p>
+                그래서 결승선을 지나자마자 멈춰 서지 말고 몇 분은 천천히 걸으세요(걷는 시간은 경험칙입니다).
+                <strong> 어지러워서 서 있기 힘들면 억지로 걷지 말고 누워서 다리를 올리세요.</strong>
               </p>
               <p className="text-gray-500">
-                기전에 대한 설명은 널리 통용되지만 <strong>이 페이지에서 논문으로 확인하지는
-                않았습니다.</strong> 다만 &ldquo;바로 앉지 말고 걸어라&rdquo;는 대회 안내방송에서도
-                반복되는 권고입니다.
+                같은 리뷰는 의료진이 먼저 심정지·열사병·저나트륨혈증 같은 위험한 원인을 배제해야 한다고 강조합니다.
+                <strong> 의식이 흐리거나 말이 어눌하면 단순 어지럼으로 넘기지 말고 바로 의료진을 부르세요.</strong>
               </p>
             </Item>
 
@@ -570,8 +651,9 @@ export default function Page() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <p className="text-sm text-gray-500 mb-3 leading-relaxed">
-            위에서 <strong>&lsquo;논문 근거&rsquo;</strong>로 표시한 항목의 출처입니다.
-            &lsquo;통용 관행&rsquo;과 &lsquo;직접 경험&rsquo; 항목에는 대응하는 논문이 없습니다.
+            위에서 <strong>&lsquo;논문 근거&rsquo;</strong>로 표시한 항목과 본문 옆 ↗ 표시의 출처입니다.
+            &lsquo;통용 관행&rsquo;과 &lsquo;직접 경험&rsquo; 항목은 이 페이지에서 논문으로 확인하지 못한 것들이고,
+            그 카드 안에 출처가 붙은 문장은 그 문장에만 해당합니다.
           </p>
           <ul className="space-y-2 text-sm">
             <li className="flex gap-2"><span className="text-gray-400">•</span>
@@ -581,8 +663,38 @@ export default function Page() {
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span>
               <a href="https://pubmed.ncbi.nlm.nih.gov/26102445/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Hew-Butler et al. (2015) Clin J Sport Med 25(4):303-20 — 제3차 운동유발 저나트륨혈증 국제 합의문 ↗
+                Hew-Butler et al. (2015) Clin J Sport Med 25(4):303-20 — 제3차 운동유발 저나트륨혈증 국제 합의문. PubMed에 초록이 없어 내용은 대조하지 못했습니다 ↗
               </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Hew-Butler et al. (2017)</strong> — 운동유발 저나트륨혈증 리뷰. 갈증대로 마시기 권고, 코스 급수 축소 후 발생 감소 보고. <a href="https://pubmed.ncbi.nlm.nih.gov/28316971/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Altieri et al. (2026)</strong> — 운동유발 저나트륨혈증의 기전(과음·항이뇨호르몬)과 처치. <a href="https://pubmed.ncbi.nlm.nih.gov/40913680/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Almond et al. (2005)</strong> — 2002 보스턴 마라톤 참가자 488명 혈액검사. 저나트륨혈증 13%, 위험 수준 0.6%, 위험 요인. <a href="https://pubmed.ncbi.nlm.nih.gov/15829535/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Martinez-Cano et al. (2018)</strong> — 덥고 습한 날 하프마라톤 81명. 저나트륨혈증 0건, 고나트륨혈증 7.4%. <a href="https://pubmed.ncbi.nlm.nih.gov/29955376/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Gauckler et al. (2021)</strong> — 초장거리 사이클 선수 919명 설문. 부기 증상과 음수 전략·진통제의 연관. <a href="https://pubmed.ncbi.nlm.nih.gov/34863204/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Hawley et al. (1997)</strong> — 카보로딩 리뷰. 60~90분 운동은 이득 없음, 90분 초과 시 피로 약 20% 지연. <a href="https://pubmed.ncbi.nlm.nih.gov/9291549/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Jeukendrup (2014)</strong> — 운동 시간별 탄수화물 섭취 권고(2~3시간 약 60g/h, 초장거리 약 90g/h). <a href="https://pubmed.ncbi.nlm.nih.gov/24791914/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Burke et al. (2019)</strong> — 장거리 육상·경보 선수 영양 전략 리뷰. <a href="https://pubmed.ncbi.nlm.nih.gov/30747558/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Asplund et al. (2011)</strong> — 완주 후 쓰러짐(운동 관련 허탈) 근거 리뷰. <a href="https://pubmed.ncbi.nlm.nih.gov/21948122/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Herring & Richie (1990)</strong> — 장거리 러너 35명 이중맹검. 아크릴 양말이 면 양말보다 물집이 적고 작음. <a href="https://pubmed.ncbi.nlm.nih.gov/2304016/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span>
               <a href="https://pubmed.ncbi.nlm.nih.gov/24791919/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
@@ -608,11 +720,11 @@ export default function Page() {
         <FaqSection items={[
           {
             q: "하프마라톤도 탄수화물 로딩을 해야 하나요?",
-            a: "완주에 90분 이내가 걸린다면 대체로 필요 없습니다. 몸에 저장된 글리코겐이 중강도 달리기 75~90분 분량이라 평소 식사로 이미 채워져 있습니다. 90분을 넘긴다면 대회 1~2일 전 탄수화물 비중을 올리는 정도가 현실적이고, 풀코스용 고용량 로딩을 그대로 적용하면 몸만 무거워집니다.",
+            a: "완주에 90분 안팎이 걸린다면 대체로 필요 없습니다. 연구를 모은 리뷰에서 60~90분 중강도 달리기는 근글리코겐을 평소 이상 채워도 이득이 없었고, 90분을 넘는 종목에서는 피로가 약 20% 늦게 왔습니다(Hawley 1997). 90분을 넘긴다면 대회 전 탄수화물 위주로 먹어 글리코겐을 채우는 것이 권고 방향입니다. 풀코스용 고용량 로딩까지는 필요 없다고 보지만, 이건 경험칙입니다.",
           },
           {
             q: "하프마라톤에서 에너지젤은 몇 개 먹어야 하나요?",
-            a: "90분 이내로 들어온다면 없어도 됩니다. 그 이상 걸린다면 시간당 탄수화물 30~60g이 권장 범위이고, 젤 하나가 보통 20~30g이라 시간당 1~2개 꼴입니다. 중요한 건 개수보다 연습 롱런에서 같은 제품으로 미리 시험해보는 것입니다 — 대회 당일 처음 먹는 젤은 배탈 위험이 큽니다.",
+            a: "90분 안팎에 들어온다면 없어도 완주에 지장이 없습니다. 그 이상 걸린다면 2~3시간 운동 기준 시간당 약 60g까지가 권고 범위이고(Jeukendrup 2014), 젤 하나가 보통 20~30g이라 시간당 1~2개 꼴입니다. 시간당 90g 같은 고용량은 초장거리 경기용입니다. 중요한 건 개수보다 연습 롱런에서 같은 제품으로 미리 시험해보는 것입니다.",
           },
           {
             // 2026-09-03 정정: 본문에서 이미 철회한 문장이 **FAQ에는 그대로 살아 있었다.**
@@ -622,7 +734,7 @@ export default function Page() {
             // 같은 유형이 warmup 페이지에서도 나왔다(본문은 카드로 바꾸고 FAQ는 옛 요약 유지).
             // 본문을 고치면 **FAQ와 metadata도 같이 훑을 것.**
             q: "대회 중에 물은 얼마나 마셔야 하나요?",
-            a: "목마른 만큼만 마시는 것이 현재 국제 합의 권고입니다(Hew-Butler 2015). 급수대마다 무조건 마실 필요는 없습니다. 물을 과하게 마시면 혈중 나트륨이 희석되는 운동유발 저나트륨혈증 위험이 있습니다. 다만 탈수와 저나트륨혈증 중 어느 쪽이 더 흔한지는 이 페이지에서 근거를 확인하지 못했으니, 어느 한쪽을 더 겁내기보다 신호를 보고 판단하세요. 달리는 중 메스꺼움·두통·손발 부기가 있거나 완주 후 체중이 늘었다면 물을 더 마시지 말고 즉시 의료진에게 가세요. 반대로 기온이 높고 2시간 이상 걸린다면 갈증은 확실히 오고, 오면 참지 말고 마셔야 합니다.",
+            a: "목마를 때 마시는 것이 현재 전문가 리뷰의 권고입니다(Hew-Butler 2017). 급수대마다 무조건 마실 필요는 없습니다. 물을 과하게 마시면 혈중 나트륨이 희석되는 운동유발 저나트륨혈증 위험이 있고, 보스턴 마라톤 연구에서는 레이스 중 체중이 늘 만큼 마신 사람, 완주 시간이 긴 사람의 위험이 높았습니다(Almond 2005). 다만 탈수와 저나트륨혈증 중 어느 쪽이 더 흔한지는 이 페이지에서 근거를 확인하지 못했으니, 신호를 보고 판단하세요. 달리는 중 메스꺼움·두통·손발 부기가 있거나 완주 후 체중이 늘었다면 물을 더 마시지 말고 즉시 의료진에게 가세요. 반대로 덥고 습한 날 하프 대회에서는 적게 마신 쪽의 문제가 관찰됐으니(Martinez-Cano 2018), 갈증이 오면 참지 말고 마셔야 합니다.",
           },
           {
             q: "대회 전날 저녁과 당일 아침에 피해야 할 음식은 뭔가요?",
@@ -638,7 +750,7 @@ export default function Page() {
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">대회용 신발은 정하셨나요?</p>
           <p className="text-sm text-emerald-800 mb-4">
-            길들이지 않은 신발로 대회에 나가는 것이 물집의 가장 흔한 원인입니다.
+            길들이지 않은 신발은 물집 위험을 키울 수 있습니다(경험칙).
             체형과 발 조건을 넣으면 맞는 신발을 추려드립니다.
           </p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">

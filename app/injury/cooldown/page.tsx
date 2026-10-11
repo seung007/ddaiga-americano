@@ -4,29 +4,56 @@ import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
 
+/**
+ * 2026-10-08 재검증 — PubMed 초록과 대조
+ *   · ⚠️ 「달리고 바로 앉거나 누우면 혈액이 다리에 몰린 상태가 유지된다」 → **반대.** 달리기를 멈춘 뒤
+ *     다리에 피가 고여 생기는 일시적 저혈압이 원인이고, 처치는 누워서 다리를 높이는 것(Asplund 2011, Speedy 2003).
+ *     메타 설명·본문·FAQ 전부 「멈춰 서 있으면 어지러울 수 있다, 어지러우면 누워서 다리를 올려라」로 바꿨다.
+ *   · 「바로 멈추면 회복이 늦어질 수 있다」 → 반대(Van Hooren 2018: 능동 쿨다운은 회복 지표 대부분을 개선 못 함). 삭제
+ *   · 제목·h1·메타의 「꼭 해야 할」 → 반대(Afonso 2021: 운동 후 스트레칭 vs 휴식, 근력 회복·근육통 차이 없음). 제거
+ *   · 정적 스트레칭의 목적 「굳은 근육 풀고 회복」 「근육 이완」 → 유연성 유지로 낮춤
+ *   · 러닝화 수명 500~800km → 연구로 정해진 교체 기준 아님. Cook 1985(실착 500마일에 충격흡수 약 70%) 범위로
+ *   · rest-day 링크 문구 「완전히 눕는 것보다 나은 것」 → 그 페이지 결론(차이 확인 안 됨)과 반대라 고침
+ *   · 정운경 하이닥 기사는 이번 재검증에서 열람하지 못했다. 인용은 「병행 권고」까지만 남긴다.
+ */
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/cooldown";
+const TITLE = "달리기 후 10분 정적 스트레칭 루틴";
+const DESC =
+  "종아리·햄스트링·엉덩이 정적 스트레칭 루틴. 달리고 멈춰 서 있으면 왜 어지러울 수 있는지, 스트레칭이 회복에 어디까지 도움이 되는지 정리했습니다.";
+
 export const metadata: Metadata = {
-  title: "달리기 후 꼭 해야 할 10분 정적 스트레칭 — 뛰다가 아메리카노",
-  description: "종아리·햄스트링·엉덩이까지 풀어주는 쿨다운 루틴. 왜 달리고 나서 바로 앉으면 안 되는지 알아봅니다.",
+  title: "달리기 후 10분 정적 스트레칭 루틴 — 뛰다가 아메리카노",
+  description: DESC,
+  alternates: { canonical: "/injury/cooldown" },
 };
 
 export default function Page() {
   return (
     <>
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["쿨다운", "/injury/cooldown"],
+        ]}
+      />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
           ← 러닝 가이드
         </Link>
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full mb-3">쿨다운</span>
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">달리기 후 꼭 해야 할 10분 정적 스트레칭</h1>
-          {/* 2026-09-14: 동적/정적 구분 + 자세 설명을 넣어 985 → 1,556자. 분당 500자로 3분. */}
-          {/* 2026-09-22: 2,060자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
-          <p className="text-gray-500 text-sm mb-4">4분 읽기</p>
+          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">달리기 후 10분 정적 스트레칭 루틴</h1>
+          {/* 규약은 app/injury/page.tsx 상단 주석 */}
+          <p className="text-gray-500 text-sm mb-4">6분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 연구로 확인된 것과 경험칙을 구분해 적었습니다
           </div>
         </header>
         {/**
@@ -34,34 +61,20 @@ export default function Page() {
          *
          * 이 페이지가 받는 검색어: 「정적 스트레칭」 63노출 1클릭(1.6%),
          * 「달리기 후 스트레칭」 23노출 2클릭(8.7%).
-         *
-         * 벤치마킹에서 나온 것: Google 「정적 스트레칭」 상위 문서 제목이
-         * **"운동 전∙후 스트레칭, 똑같이 하면 될까?… 동적 vs 정적"** 형태였다.
-         * 그 검색어를 치는 사람의 진짜 질문은 **"언제 뭘 하냐"** 인데
-         * 이 페이지엔 그 구분이 아예 없었다.
-         *
-         * ⚠️ 다만 같은 조사에서 **그 검색어 상위 7건 중 2건이 학술 논문**이었다.
-         * 「정적 스트레칭」은 일반 러너 질의가 아닌 비중이 있어서,
-         * CTR 1.6%가 우리 탓이 아닐 수 있다. 고쳐도 안 오를 수 있다는 뜻이다.
-         *
-         * 「달리기 전에는 동적」은 널리 쓰이는 권고다. 수행능력이 몇 % 떨어진다는
-         * 식의 수치는 쓰지 않았다 — 근거 강도에 논쟁이 있고, 이 저장소는
-         * 인용 21건 중 14건이 틀려서 전수 정정한 이력이 있다.
+         * 그 검색어를 치는 사람의 진짜 질문은 **"언제 뭘 하냐"** 이다.
          */}
         <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
           <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
-          {/* ⚠️ 2026-09-14 — "순서를 바꾸면 둘 다 효과가 줄어듭니다" 라고 적었다가 고쳤다.
-              `/injury/warmup` 이 이미 근거 경계를 그어 뒀다 — *"근거가 있는 쪽은
-              「달리기 전에는 정적보다 동적」이라는 방향까지입니다."* 나는 그 경계를
-              인과 주장으로 넘었고, 이 페이지엔 논문 인용이 0건이다. */}
           <p className="mt-2 leading-relaxed text-emerald-900">
-            <strong>달리기 전에는 동적, 달리고 나서는 정적</strong>입니다. 운동전문가(정운경, 아래
-            인용)도 <strong>둘 중 하나를 고르는 게 아니라 병행</strong>하라고 말합니다 — 앞은
-            가동범위를 확보하고 뒤는 근육을 이완시킵니다.
+            <strong>달리기 전에는 동적, 달리고 나서는 정적</strong>이 흔한 권고입니다. 아래 인용한 운동전문가(정운경)도
+            둘 중 하나를 고르는 게 아니라 <strong>병행</strong>하라고 말합니다.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-emerald-800">
-            다만 저희가 근거를 확인한 범위는 <strong>&ldquo;달리기 전에는 정적보다 동적&rdquo;</strong>이라는
-            방향까지입니다. 순서를 바꾸면 얼마나 손해인지까지는 말하지 않겠습니다.
+            다만 <strong>달린 뒤 스트레칭이 회복을 앞당긴다는 근거는 확인되지 않았습니다.</strong> 운동 후 스트레칭과
+            그냥 쉬기를 비교한 무작위 시험 10편(229명, 주로 17~38세 남성)을 모은 분석에서 근력 회복과 24~72시간 뒤
+            근육통 모두 차이가 없었습니다.{" "}
+            <S>(Afonso et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34025459/" />)</S>{" "}
+            달린 뒤 정적 스트레칭은 유연성을 유지하려는 목적으로 하세요.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-emerald-800">
             정적 스트레칭은 <strong>한 자세로 멈춰서 30초 버티는 것</strong>입니다.
@@ -69,7 +82,15 @@ export default function Page() {
           </p>
         </div>
 
-        <p className="text-lg leading-relaxed mb-8 text-gray-700">달리기를 마치고 바로 앉거나 눕는 것은 혈액이 다리에 몰린 상태를 유지시킵니다. 5분의 걷기와 10분의 정적 스트레칭으로 심박수를 서서히 내리세요. 다만 스트레칭이 다음 날 근육통을 줄인다는 근거는 약합니다 — 코크란 리뷰(Herbert 2011)는 의미 있는 감소를 찾지 못했습니다.</p>
+        <p className="text-lg leading-relaxed mb-8 text-gray-700">
+          달리다 갑자기 멈춰 서 있으면 혈액이 다리에 머물러 어지러울 수 있습니다.{" "}
+          <strong>어지러우면 누워서 다리를 올리세요.</strong>{" "}
+          <S>(Asplund et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21948122/" />)</S>{" "}
+          5분 정도 걸으며 마무리하면 심박과 호흡이 더 빨리 돌아올 수 있지만, 이것이 어지럼을 막는지는 확인되지 않았습니다.{" "}
+          <S>(Van Hooren &amp; Peake (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29663142/" />)</S>{" "}
+          스트레칭이 다음 날 근육통을 줄인다는 근거도 약합니다 — 코크란 리뷰는 의미 있는 감소를 찾지 못했습니다.{" "}
+          <S>(Herbert et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21735398/" />)</S>
+        </p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">동적 스트레칭과 정적 스트레칭, 뭐가 다른가요</h2>
@@ -101,7 +122,7 @@ export default function Page() {
                 <tr>
                   <td className="py-2 pr-3 font-medium text-gray-900">목적</td>
                   <td className="py-2 pr-3">몸을 데워 달릴 준비</td>
-                  <td className="py-2">굳은 근육 풀고 회복</td>
+                  <td className="py-2">유연성 유지(회복 효과는 확인 안 됨)</td>
                 </tr>
               </tbody>
             </table>
@@ -115,33 +136,26 @@ export default function Page() {
           </p>
         </section>
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">쿨다운이 중요한 이유</h2>
-          <p className="leading-relaxed text-gray-700 whitespace-pre-line">달리기 중 심장은 다리 근육에 많은 혈액을 보냅니다. 갑자기 멈추면 혈액이 다리에 정체되어 어지러움이 생기거나 회복이 늦어질 수 있습니다. 5분 걷기는 심장이 천천히 평상시 박동으로 돌아오게 도와줍니다.</p>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">쿨다운으로 기대할 수 있는 것</h2>
+          <p className="leading-relaxed text-gray-700 mb-3">
+            장거리 대회를 마친 직후 쓰러지는 경우의 대부분은 달리기를 멈춘 뒤 다리에 혈액이 고여 생기는 일시적
+            저혈압으로 설명됩니다. 대처는 <strong>누워서 다리를 높이고 물을 마시는 것</strong>입니다.{" "}
+            <S>(Asplund et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21948122/" />)</S>{" "}
+            그러니 멈춰 서 있기보다 걸으며 마무리하고, 어지러우면 바로 누우세요. 다만 결승선에서 의식을 잃었거나
+            달리는 도중에 쓰러졌다면 다른 원인일 수 있으니 의료진을 부르세요.{" "}
+            <S>(Speedy et al. (2003) <Up h="https://pubmed.ncbi.nlm.nih.gov/20086459/" />)</S>
+          </p>
+          <p className="leading-relaxed text-gray-700">
+            걷기 같은 가벼운 쿨다운은 혈중 젖산을 더 빨리 낮추고 심혈관 회복을 앞당길 수 있습니다. 하지만 같은 리뷰는
+            쿨다운이 부상을 막거나 근육통을 줄이지는 않는 것으로 보고, 어지럼·실신을 막는지는 알 수 없다고 정리합니다.{" "}
+            <S>(Van Hooren &amp; Peake (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29663142/" />)</S>
+          </p>
         </section>
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">10분 정적 스트레칭 루틴</h2>
           {/**
-           * 2026-09-13 — 문단 하나였던 것을 목록으로 쪼갰다.
-           *
-           * 원문은 `① … → ② … → ③ …` 이 `<p>` 하나에 들어 있었다.
-           * `whitespace-pre-line` 은 붙어 있었지만 **실제 줄바꿈 문자가 없어서**
-           * 화면에서는 그냥 한 덩어리로 흘렀다.
-           *
-           * 초·세트는 원래 다 적혀 있었다. **정보는 있는데 형태가 없었다.**
-           * 스트레칭을 따라 하려고 폰을 든 사람이 지금 몇 번째인지 못 찾는다.
-           * 네이버 유입의 79.55%가 모바일이다.
-           *
-           * 문구는 한 글자도 바꾸지 않았다. `→` 와 `①②③` 을 `<li>` 로 옮겼을 뿐이다.
-           */}
-          {/**
-           * 2026-09-14 — 이름만 있던 5개에 **하는 법**을 넣었다.
-           *
-           * 어제 목록으로 쪼갠 것까지는 맞았는데, 쪼개고 보니
-           * `종아리 벽 스트레칭 — 30초 × 2` 처럼 **이름과 횟수만** 있었다.
-           * 처음 하는 사람은 이 이름만 보고 자세를 못 잡는다.
-           * `/injury/achilles` 는 같은 종류를 단계별로 적어 뒀다 — 그 형식을 따랐다.
-           *
-           * 순서·시간·문구는 원래 것을 그대로 유지했다. 자세 설명만 더했다.
+           * 2026-09-13 — 문단 하나였던 것을 목록으로 쪼갰다. 네이버 유입의 79.55%가 모바일이다.
+           * 2026-09-14 — 이름만 있던 5개에 **하는 법**을 넣었다(`/injury/achilles` 형식).
            */}
           <div className="space-y-3">
             {[
@@ -193,12 +207,15 @@ export default function Page() {
           </p>
         </section>
 
-        <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다 — 러닝화 수명은 보통 500~800km입니다." />
+        <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다 — 흔히 500~800km를 교체 시점으로 말하지만, 연구로 정해진 기준은 아닙니다." />
+        <p className="mb-8 text-sm leading-relaxed text-gray-500">
+          1985년 실험에서 러너들이 실제로 신은 신발은 500마일(약 800km)에 처음 충격흡수 능력의 약 70%가 남아 있었습니다.{" "}
+          <S>(Cook et al. (1985) <Up h="https://pubmed.ncbi.nlm.nih.gov/4025676/" />)</S>{" "}
+          쿠션이 줄어드는 정도를 잰 연구이고, 언제 바꿔야 하는지나 부상과의 관계를 정한 연구는 아닙니다.
+        </p>
         <section className="mb-8">
-          {/* ⚠️ 2026-09-14: "섭취하면 근육 회복 속도가 빨라집니다" 였다.
-              이 주장을 받치던 인용은 2026-08-31 에 무관한 논문으로 판명돼 이미 내려갔고
-              (아래 참고자료 첫 항목), 그 뒤로 **근거 없이 단정만 남아 있었다.**
-              인용이 내려갔으면 그 인용이 받치던 문장도 같이 손봐야 한다. */}
+          {/* ⚠️ 2026-09-14: "섭취하면 근육 회복 속도가 빨라집니다" 였다. 받치던 인용이 무관한 논문으로 판명돼
+              내려간 뒤 근거 없이 단정만 남아 있었다. */}
           <h2 className="text-xl font-bold text-gray-900 mb-4">회복에 도움이 된다고 이야기되는 것</h2>
           <p className="leading-relaxed text-gray-700">
             운동 뒤 단백질과 탄수화물을 같이 먹는 것, 그리고 충분히 자는 것이 흔히 권해집니다.
@@ -210,26 +227,36 @@ export default function Page() {
         <section className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">참고 자료</h2>
           <ul className="space-y-2 text-sm">
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">운동 후 회복 영양 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
-            {/* ⚠️ 2026-09-14: 링크가 `https://www.nsca.com` — **단체 홈페이지 루트**였다.
-                특정 문헌을 가리키지 않으므로 인용이 아니다.
-                2026-09-15: 그 자리를 한국어 전문가 자료로 채웠다. */}
             <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=43866" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                정운경 (힐리언스 코어센터 운동전문가) — <strong>운동 전에는 동적(가동범위 확보), 운동 후에는 정적(근육 이완·회복)</strong>. 둘 중 하나가 아니라 병행. 하이닥 ↗
-              </a>
+              <span><strong>Asplund et al. (2011)</strong> — 운동 직후 쓰러짐(EAC) 근거 리뷰. 멈춘 뒤 다리 혈액 저류로 인한 일시적 저혈압, 처치는 다리를 높인 자세와 경구 수분. 지구력 대회 결승선 상황. Br J Sports Med 45(14):1157-62. <a href="https://pubmed.ncbi.nlm.nih.gov/21948122/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">정적 스트레칭 관련 자료 1건 — 걸려 있던 링크가 특정 논문이 아니라 단체 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Speedy et al. (2003)</strong> — 운동 직후 쓰러짐은 근육 펌프 중단에 따른 기립성 저혈압, 처치는 다리·골반 올리기. 경기 중 쓰러짐은 다른 원인 의심. <a href="https://pubmed.ncbi.nlm.nih.gov/20086459/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Van Hooren &amp; Peake (2018)</strong> — 쿨다운 서술적 리뷰. 부상 예방 안 됨, 근육통 감소 없음, 혈중 젖산·심혈관 회복은 빠를 수 있음, 실신 예방 여부는 모름. Sports Med 48(7):1575-95. <a href="https://pubmed.ncbi.nlm.nih.gov/29663142/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Afonso et al. (2021)</strong> — 운동 후 스트레칭 vs 휴식 RCT 메타분석(10편, 229명). 근력 회복 ES −0.08, 24~72시간 근육통 차이 없음, 근거 확신도 매우 낮음. <a href="https://pubmed.ncbi.nlm.nih.gov/34025459/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
             {/* 2026-10-06: 본문이 「다음 날의 근육통을 줄입니다」라고 단정했는데, 이 주제의 코크란 리뷰는
                 반대 결론이다. PubMed 초록(PMID 21735398) 직접 확인. */}
             <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://pubmed.ncbi.nlm.nih.gov/21735398/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Herbert, de Noronha &amp; Kamper (2011) Cochrane Database Syst Rev (7):CD004577 — 운동 전·후 스트레칭은 지연성 근육통을 임상적으로 의미 있게 줄이지 않음(운동 후 스트레칭: 다음 날 100점 척도에서 평균 약 1점 차이) ↗
+              <span><strong>Herbert et al. (2011)</strong> — 코크란 리뷰. 운동 전·후 스트레칭은 지연성 근육통을 임상적으로 의미 있게 줄이지 않음(운동 후 스트레칭: 다음 날 100점 척도에서 평균 약 1점 차이). Cochrane Database Syst Rev (7):CD004577. <a href="https://pubmed.ncbi.nlm.nih.gov/21735398/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Cook et al. (1985)</strong> — 러닝화 충격흡수의 거리별 변화. 기계 시험 250~500마일에서 처음의 60% 미만, 실착 500마일에서 약 70%. Am J Sports Med 13(4):248-53. <a href="https://pubmed.ncbi.nlm.nih.gov/4025676/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            {/* 2026-09-15: nsca.com 루트 링크 자리를 한국어 전문가 자료로 채웠다. 2026-10-08 재검증에서는 열람하지 못했다. */}
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=43866" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                정운경 (힐리언스 코어센터 운동전문가) — 운동 전에는 동적, 운동 후에는 정적. 둘 중 하나가 아니라 병행. 하이닥 ↗
               </a>
             </li>
-
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">운동 후 회복 영양 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">정적 스트레칭 관련 자료 1건 — 걸려 있던 링크가 특정 논문이 아니라 단체 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
           </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 논문 1건(코크란 리뷰)과 전문가 기사 1건을 참고했습니다.</p>
+          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 논문 6건과 전문가 기사 1건을 참고했습니다. 스트레칭 동작과 시간(30초 × 2)은 통용 관행입니다.</p>
         </section>
 
         <YoutubeSection links={[
@@ -241,15 +268,15 @@ export default function Page() {
         <FaqSection items={[
           {
             q: "달리고 나서 바로 앉거나 누우면 안 되나요?",
-            a: "바로 앉거나 누우면 혈액이 다리에 정체돼 어지러움이 생기거나 회복이 늦어질 수 있습니다. 먼저 5분 걷기로 심박수를 서서히 내린 뒤 10분 정적 스트레칭을 하는 게 좋습니다.",
+            a: "앉거나 눕는 것 자체가 문제는 아닙니다. 오래 달리다 갑자기 멈춰 서 있으면 혈액이 다리에 머물러 어지러울 수 있는데, 그럴 땐 오히려 누워서 다리를 올리는 것이 대처법입니다(Asplund 2011). 바로 멈추기보다 5분 정도 걸으며 마무리하면 심박과 호흡이 더 빨리 돌아올 수 있지만, 이것이 어지럼을 막는지는 확인되지 않았습니다(Van Hooren 2018). 달리는 도중에 쓰러졌거나 의식이 흐리면 의료진을 부르세요.",
           },
           {
             q: "쿨다운 정적 스트레칭은 어떤 순서로 하나요?",
-            a: "① 종아리 벽 스트레칭 → ② 햄스트링(서서 앞으로 굽히기) → ③ 고관절 굴근(런지 자세) → ④ 장경인대(다리 꼬아 옆으로 기울기) → ⑤ 엉덩이(누워서 무릎 당기기), 각 30초씩 2회. 통증이 아니라 당기는 느낌에서 멈추세요.",
+            a: "① 종아리 벽 스트레칭 → ② 햄스트링(서서 앞으로 굽히기) → ③ 고관절 굴근(런지 자세) → ④ 장경인대(다리 꼬아 옆으로 기울기) → ⑤ 엉덩이(누워서 무릎 당기기), 각 30초씩 2회. 통증이 아니라 당기는 느낌에서 멈추세요. 순서와 시간은 통용 관행이고, 이 루틴이 회복을 앞당긴다는 근거는 확인되지 않았습니다.",
           },
           {
             q: "회복을 더 빠르게 하려면 뭘 하면 되나요?",
-            a: "운동 뒤 단백질과 탄수화물을 같이 먹고 충분히 자는 것이 흔히 권해집니다. 다만 이 글에는 그 효과를 받치는 인용이 없습니다 — 예전에 달았던 자료가 무관한 논문으로 판명돼 내렸습니다.",
+            a: "운동 뒤 단백질과 탄수화물을 같이 먹고 충분히 자는 것이 흔히 권해집니다. 다만 이 글에는 그 효과를 받치는 인용이 없습니다 — 예전에 달았던 자료가 무관한 논문으로 판명돼 내렸습니다. 운동 후 스트레칭은 그냥 쉬는 것과 비교해 회복 차이가 확인되지 않았습니다(Afonso 2021).",
           },
         ]} />
 
@@ -269,20 +296,18 @@ export default function Page() {
               className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
             >
               <p className="font-semibold text-gray-900 text-sm">휴식일에 뭘 해야 할까? 액티브 리커버리 →</p>
-              <p className="mt-1 text-sm text-gray-600">쉬는 날 완전히 눕는 것보다 나은 것.</p>
+              <p className="mt-1 text-sm text-gray-600">쉬는 날 가볍게 움직여도 되는지, 근거는 어디까지인지.</p>
             </Link>
           </div>
         </section>
 
         <p className="text-xs text-gray-400 mb-4">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
 
-        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
-            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
-            두 달간 질문 0건이 그 증거다. */}
+        {/* 2026-09-06: 글 안에서 바로 묻게 한다. /community 로 보내면 두 달간 질문 0건이었다. */}
         <InlineAsk from="cooldown" tag="기타" placeholder="예) 쿨다운을 얼마나 해야 하는지 매번 헷갈려요" />
 
         <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형·발볼·부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
-        <ShareButtons from="cooldown" title="달리기 후 쿨다운" description="쿨다운을 왜, 얼마나 해야 하는지 정리했습니다." />
+        <ShareButtons from="cooldown" title="달리기 후 쿨다운" description="쿨다운 루틴과, 그 효과에 대해 연구가 실제로 말하는 것을 정리했습니다." />
 
       </article>
     </>

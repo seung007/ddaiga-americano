@@ -5,8 +5,19 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
 
+/**
+ * 2026-10-08 재검증 — 건강·발 형태 주장만 PubMed 초록과 대조(브랜드 폭 옵션·규격 정의는 대상 아님)
+ *   · 「달리는 동안 발이 붓고 퍼져 커진다」 → 반대 근거: Mo 2024(남성 19명, 10km 후 길이↑·볼 둘레↓, 2mm 미만). 연구마다 갈린다고 고침
+ *   · 「붓기·물집·눌림이면 규격이 안 맞는 것」 단정 → Buldt 2018(맞지 않는 신발과 발 통증·질환의 연관)로 「신호일 수 있음」으로 낮춤
+ *   · 표의 「달릴 때 많이 붓는 편」「평발로 퍼짐」, 하루 중 붓기·앉으면 좁게·좌우 차이 정상 → 근거 못 찾음, 경험칙으로 낮추거나 뺌
+ *   · 나이와 발너비 → Reeves 2024(여성 374명, 횡단면) 추가. 「늘어난다」→「나이 많은 그룹이 넓었다」
+ *   · 사이즈코리아(KCI) 논문은 PubMed 밖이라 이번 재검증에서 원문 대조를 못 했다 — 내용은 유지
+ *   · 본문에서 쓰지 않는 이우천 2005 참고 항목 삭제
+ */
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/wide-foot";
 
 export const metadata: Metadata = {
@@ -15,6 +26,7 @@ export const metadata: Metadata = {
   // 반면 "발볼 와이드 기준"은 CTR 50% — 제목에 그 단어들이 있었기 때문이다.
   title: "2E·4E 와이드 뜻과 내 발볼 재는 법 — 러닝화 와이드 규격 총정리 | 뛰다가 아메리카노",
   description: "2E·4E가 무슨 뜻인지, 내 발볼이 와이드 기준에 해당하는지 재는 법, 브랜드별 폭 옵션까지 정리했습니다.",
+  alternates: { canonical: "/injury/wide-foot" },
 };
 
 export default function WideFootPage() {
@@ -25,6 +37,12 @@ export default function WideFootPage() {
         description="2E·4E 규격이 필요한지 판단하는 방법과 발볼 넓은 러너에게 맞는 러닝화를 알려드립니다."
         url={PAGE_URL}
         datePublished="2025-03-01"
+      />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["발볼 와이드 규격", "/injury/wide-foot"],
+        ]}
       />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
@@ -38,7 +56,7 @@ export default function WideFootPage() {
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
             2E·4E 와이드 뜻과<br />내 발볼 재는 법
           </h1>
-          {/* 2026-09-22: 2,579자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
+          {/* 규약은 app/injury/page.tsx 상단 주석 */}
           <p className="text-gray-500 text-sm">5분 읽기</p>
         </header>
 
@@ -74,8 +92,10 @@ export default function WideFootPage() {
         </div>
 
         <p className="text-lg leading-relaxed mb-8 text-gray-700">
-          달리고 나면 발이 붓고, 발 바깥쪽에 물집이 생기거나, 새끼발가락이 신발에 눌린다면
-          발볼 규격이 안 맞는 것입니다. 달리기가 힘들어서가 아니라, 신발이 맞지 않아서 포기하는 경우가 생각보다 많습니다.
+          달리고 나서 발 바깥쪽에 물집이 생기거나 새끼발가락이 신발에 눌린다면
+          발볼 폭이 좁다는 신호일 수 있습니다. 발 폭이나 길이에 맞지 않는 신발을 신는 사람이 연구마다 63~72%였고,
+          맞지 않는 신발은 발 통증·작은발가락 변형·티눈·굳은살과 연관돼 있었습니다(일반인·고령자 등 대상 연구 18편 리뷰, 러너 대상은 아님).{" "}
+          <S>(Buldt et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/30065787/" />)</S>
         </p>
 
         <section className="mb-8">
@@ -98,8 +118,8 @@ export default function WideFootPage() {
                 {[
                   ["B", "좁음", "발폭이 좁고 발등이 낮은 편"],
                   ["D", "표준", "대부분의 사람 (기본값)"],
-                  ["2E", "넓음", "발볼이 넓거나 달릴 때 발이 많이 붓는 편"],
-                  ["4E", "매우 넓음", "발볼이 매우 넓거나 평발로 발이 바닥에 퍼짐"],
+                  ["2E", "넓음", "발볼이 넓은 편"],
+                  ["4E", "매우 넓음", "발볼이 매우 넓은 편"],
                 ].map(([code, width, desc], i) => (
                   <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                     <td className="px-4 py-3 font-mono font-bold text-blue-700">{code}</td>
@@ -122,7 +142,7 @@ export default function WideFootPage() {
               },
               {
                 title: "방법 2. 달린 뒤 체크",
-                desc: "5km 이상 달린 후 발 바깥쪽·새끼발가락 부위에 압박이나 발적이 생긴다면 와이드가 필요합니다. 발은 달리는 동안 붓고 퍼져서 평소보다 커집니다(정확한 수치는 저희가 확인한 자료가 없습니다).",
+                desc: "5km 이상 달린 후 발 바깥쪽·새끼발가락 부위에 압박이나 발적이 생긴다면 와이드를 고려해 볼 신호입니다(경험칙).",
               },
               {
                 title: "방법 3. 엄지발가락 여유 공간",
@@ -135,6 +155,13 @@ export default function WideFootPage() {
               </div>
             ))}
           </div>
+          <p className="mt-4 text-sm leading-relaxed text-gray-600">
+            &ldquo;달리면 발이 붓고 퍼진다&rdquo;는 말은 흔하지만 연구 결과는 갈립니다. 남성 러너 19명이 10km를 달린 연구에서는
+            발 길이가 늘고 볼 둘레는 오히려 줄었는데, 차이는 둘 다 2mm 미만이었습니다.{" "}
+            <S>(Mo et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39193231/" />)</S>{" "}
+            작은 연구 하나라 단정할 수는 없지만, 달린 뒤의 압박감을 &ldquo;발이 커져서 그렇다&rdquo;로만 넘기지 말고
+            아래 방법으로 폭을 한 번 재 보세요.
+          </p>
         </section>
 
         {/**
@@ -151,14 +178,14 @@ export default function WideFootPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">발볼을 실제로 재는 법</h2>
           <p className="leading-relaxed text-gray-700 mb-4">
-            종이 한 장과 자만 있으면 됩니다. <strong>저녁에 재세요</strong> — 발은 하루 동안
-            붓기 때문에 아침에 재면 실제보다 작게 나옵니다.
+            종이 한 장과 자만 있으면 됩니다. <strong>저녁에 재는 것</strong>이 흔한 요령입니다
+            (경험칙 — 하루 중 발 크기 변화를 확인한 자료는 찾지 못했습니다).
           </p>
           <ol className="space-y-2 list-decimal list-inside leading-relaxed text-gray-700">
-            <li>바닥에 종이를 놓고 그 위에 <strong>서서</strong> 체중을 싣습니다 (앉아서 재면 좁게 나옵니다)</li>
+            <li>바닥에 종이를 놓고 그 위에 <strong>서서</strong> 체중을 싣습니다 (신발을 신고 달릴 때처럼 체중을 실은 상태로 잽니다)</li>
             <li>발 윤곽을 연필로 그립니다. 연필은 바닥과 <strong>수직</strong>으로 세웁니다</li>
             <li>발볼이 가장 넓은 곳 — <strong>엄지발가락 아래 튀어나온 뼈에서 새끼발가락 아래 뼈까지</strong> 가로로 잽니다</li>
-            <li>양발 다 재서 <strong>더 넓은 쪽</strong>을 씁니다. 좌우가 다른 게 정상입니다</li>
+            <li>양발 다 재서 <strong>더 넓은 쪽</strong>을 씁니다. 좌우가 다를 수 있습니다</li>
           </ol>
           <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
             <strong>잰 숫자를 어디에 쓰나</strong> — 절대 기준은 없습니다. 사려는 브랜드의
@@ -178,6 +205,9 @@ export default function WideFootPage() {
            * ⚠️ 이 논문에도 **"몇 mm부터 2E"는 없다.** 유형 분류지 규격 기준이 아니다.
            * 그래서 위 "절대 기준은 없습니다"는 그대로 둔다.
            * 다만 "내가 넓은 편인가"를 가늠할 모집단 정보는 된다.
+           *
+           * 2026-10-08: KCI 논문이라 PubMed 재검증 범위 밖 — 이번에 원문 대조를 못 했다. 내용은 9/15 기록대로 유지.
+           * 「나이가 들수록 늘어난다」는 횡단면 비교라 「나이 많은 그룹이 넓었다」로 낮추고 Reeves 2024 를 보탰다.
            */}
           <div className="mt-3 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
             <strong>참고 — 한국인 발은 어떻게 생겼나</strong>
@@ -185,8 +215,10 @@ export default function WideFootPage() {
             사이즈코리아 3D 스캔(남 2,000명·여 2,503명)을 분석한 연구에서 남성은 3개, 여성은
             4개 유형으로 나뉘었고, <strong>남녀 모두 &lsquo;보통 발&rsquo;이 가장 많고
             &lsquo;넓고 두꺼운 큰 발&rsquo;이 가장 적었습니다.</strong> 그리고{" "}
-            <strong>나이가 들수록 발둘레·발너비가 늘어납니다</strong> — 예전 사이즈를 그대로
-            쓰고 있다면 한 번 재보실 만합니다.
+            <strong>연령대가 높을수록 발둘레·발너비가 컸습니다.</strong> 영국에서 스포츠를 하는 여성 374명의 발을
+            스캔한 연구에서도 18~29세 그룹의 발너비가 더 나이 많은 그룹보다 좁았습니다.{" "}
+            <S>(Reeves et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39369693/" />)</S>{" "}
+            둘 다 같은 사람을 추적한 연구는 아니지만, 예전 사이즈를 그대로 쓰고 있다면 한 번 재보실 만합니다.
             <span className="mt-2 block text-xs text-gray-500">
               ※ 이 연구도 &ldquo;몇 mm부터 2E&rdquo;를 정하지는 않습니다. 유형 분류이지 규격 기준이 아닙니다.
             </span>
@@ -237,7 +269,7 @@ export default function WideFootPage() {
         <FaqSection items={[
           {
             q: "와이드(2E·4E) 규격이 필요한지 어떻게 판단하나요?",
-            a: "세 가지로 확인합니다. ① 신발 밑창보다 발이 옆으로 삐져나와 있다 ② 5km 이상 달린 뒤 새끼발가락·발 바깥쪽에 압박이나 물집이 생긴다 ③ 앞코 길이는 여유가 있는데 옆이 눌린다 — 길이가 아닌 폭 문제입니다. 발은 달리는 동안 붓고 퍼져서 평소보다 커집니다(정확한 수치는 저희가 확인한 자료가 없습니다).",
+            a: "세 가지로 확인합니다. ① 신발 밑창보다 발이 옆으로 삐져나와 있다 ② 5km 이상 달린 뒤 새끼발가락·발 바깥쪽에 압박이나 물집이 생긴다 ③ 앞코 길이는 여유가 있는데 옆이 눌린다 — 길이가 아닌 폭 문제입니다. 「달리면 발이 붓고 퍼진다」는 말은 흔하지만, 남성 러너 19명이 10km를 달린 연구에서는 볼 둘레가 오히려 줄었고 차이는 2mm 미만이었습니다(Mo 2024).",
           },
           {
             q: "러닝화 폭 규격 B·D·2E·4E는 무슨 뜻인가요?",
@@ -266,9 +298,13 @@ export default function WideFootPage() {
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span>
-              <a href="https://www.kjfm.or.kr/upload/pdf/Jkafm026-03-01.pdf" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                이우천 (2005) 가정의학회지 26(3):127-137 — 족부 전문의 종설. 무지외반증 보존 치료로 &ldquo;족지 상자가 넓고 굽이 낮은 신&rdquo;을 권고 ↗
-              </a>
+              <span><strong>Buldt et al. (2018)</strong> — 연구 18편 서술 리뷰. 63~72%가 폭이나 길이가 맞지 않는 신발을 신었고, 맞지 않는 신발은 발 통증·작은발가락 변형·티눈·굳은살과 연관. <a href="https://pubmed.ncbi.nlm.nih.gov/30065787/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Mo et al. (2024)</strong> — 남성 레크리에이션 러너 19명, 10km 전후 3D 스캔. 발 길이↑·볼 둘레↓(2mm 미만), 아치 높이 감소. <a href="https://pubmed.ncbi.nlm.nih.gov/39193231/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Reeves et al. (2024)</strong> — 스포츠 활동 여성 374명 발 스캔. 18~29세 그룹의 발너비가 더 나이 많은 그룹보다 좁음. <a href="https://pubmed.ncbi.nlm.nih.gov/39369693/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">&ldquo;몇 mm부터 2E&rdquo; 기준 — KS 표준(M 6681 / G 3405)이 존재한다는 언급은 확인했으나 <strong>원문을 열어 확인하지 못했습니다.</strong> 그래서 본문에 수치 기준을 적지 않았습니다</span></li>
           </ul>

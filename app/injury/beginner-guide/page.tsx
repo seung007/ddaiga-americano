@@ -2,15 +2,30 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
 
+/**
+ * 2026-10-08 재검증 — PubMed 초록과 대조
+ *   · 슬개대퇴 원인 「약한 대퇴사두근, 과도한 계단 오르기」 → 대퇴사두근 약화는 군 훈련병에서만 위험 요인(Neal 2019),
+ *     계단은 근거 못 찾음 → 삭제. 대처의 「경사 구간 줄이기」도 근거 못 찾음 → 삭제, 강화 운동은 van der Heijden 로 출처 표기
+ *   · 신스플린트 원인 「딱딱한 노면·거리 급증」 → 메타분석 위험 요인(BMI·주상골 하강·가동 범위)으로 교체(Hamstra-Wright 2015)
+ *   · 신스플린트 대처 → 권할 만큼 검증된 치료 없음(Winters 2013). 거리 줄이기는 경험칙으로 표기
+ *   · 「초심자 필수 루틴」 → 워밍업·쿨다운 RCT 에서 부상 감소 없음(van Mechelen 1993). 제목에서 「필수」 삭제
+ *   · 신발 문구에 Relph 2022(코크런) 출처 추가
+ */
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/beginner-guide";
+const TITLE = "초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기";
+const DESC =
+  "러닝을 막 시작했다면. 얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법까지 정리했습니다.";
 
 export const metadata: Metadata = {
   // 네이버 실측(2026-08): "초보 러너 뛰는법" 노출 73 · CTR 1.4%.
   // 사용자는 '뛰는 법'을 찾는데 제목은 '부상 예방'을 내놓아 의도가 어긋났다.
   title: "초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기 | 뛰다가 아메리카노",
-  description: "러닝을 막 시작했다면. 얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법까지 정리했습니다.",
+  description: DESC,
+  alternates: { canonical: "/injury/beginner-guide" },
 };
 
 export default function BeginnerGuidePage() {
@@ -24,11 +39,12 @@ export default function BeginnerGuidePage() {
         * description 의 「10% 규칙」도 뺐다. 이 페이지 본문이 *"10%라는 숫자를
         * 뒷받침하는 연구는 없습니다"* 라고 적고 있는데 요약이 그걸 근거처럼 내보내고 있었다.
         */}
-      <ArticleJsonLd
-        headline="초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기"
-        description="러닝을 막 시작했다면. 얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법까지 정리했습니다."
-        url={PAGE_URL}
-        datePublished="2025-03-01"
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} datePublished="2025-03-01" />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["초보 러너 뛰는 법", "/injury/beginner-guide"],
+        ]}
       />
       <article className="max-w-3xl mx-auto px-6 py-12 text-gray-900">
 
@@ -39,6 +55,7 @@ export default function BeginnerGuidePage() {
             <span className="text-xs text-gray-400">꾸준히 1년 미만 · 주 0~3회 · 주 5~20km</span>
           </div>
           <h1 className="text-3xl font-bold mb-3">초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기</h1>
+          <p className="text-gray-500 text-sm mb-4">8분 읽기</p>
           <p className="text-gray-600 leading-relaxed">
             {/* 2026-10-06: 「연간」을 뺐다 — van Gent 2007 이 모은 연구들은 추적 기간이 제각각이다(초록에 '연간' 없음).
                 「처음 6개월이 가장 위험」도 뺐다 — 같은 고찰에서 경력과 부상의 관계는 연구마다 갈린다. */}
@@ -123,10 +140,23 @@ export default function BeginnerGuidePage() {
                 // 슬개대퇴만의 비율은 없다. 저장소 자신의 shin-splints:158 은
                 // Nielsen 2014 PLOS ONE 으로 **10%** 를 적는다. 그 값으로 맞춘다.
                 freq: "부상당한 초보 러너의 약 10%",
-                cause: "약한 대퇴사두근, 과도한 계단 오르기 포함",
-                fix: "대퇴사두근·둔근 강화, 경사 구간 줄이기, 긴 날을 한꺼번에 늘리지 않기",
+                cause: (
+                  <>
+                    분명하지 않습니다. 대퇴사두근이 약한 사람에게서 더 생겼다는 근거가 있지만 군 훈련병 연구에서 나온 결과이고,
+                    엉덩이 근육 약화는 위험 요인이 아니었습니다{" "}
+                    <S>(Neal et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30242107/" />)</S>
+                  </>
+                ),
+                fix: (
+                  <>
+                    대퇴사두근·엉덩이 근육 강화 운동 — 근거의 질은 매우 낮지만 통증을 줄인다는 결과가 일관되고, 무릎 운동만 하는 것보다
+                    엉덩이 운동을 함께 할 때 통증이 더 줄었습니다{" "}
+                    <S>(van der Heijden et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26158920/" />)</S>.
+                    긴 날을 한꺼번에 늘리지 않기.
+                  </>
+                ),
                 color: "border-red-200 bg-red-50",
-                ref: "Nielsen et al. (2014) PLOS ONE"
+                ref: "빈도 Nielsen et al. (2014) PLOS ONE"
               },
               {
                 name: "정강이 통증 (신스플린트)",
@@ -134,10 +164,22 @@ export default function BeginnerGuidePage() {
                 // 그 논문은 **보존적 치료 옵션 리뷰**이지 역학 조사가 아니다(링크도 없었다).
                 // 저장소 자신의 shin-splints:158 은 Nielsen 2014 로 **15%** 를 적는다.
                 freq: "부상당한 초보 러너의 약 15%",
-                cause: "포장도로·딱딱한 노면, 갑작스런 거리 증가",
-                fix: "부드러운 노면으로 전환, 거리 줄이기, 휴식",
+                cause: (
+                  <>
+                    메타분석에서 확인된 위험 요인은 체질량지수가 높은 것, 발 아치가 많이 내려앉는 것(주상골 하강), 발목·고관절 가동 범위가
+                    큰 것이었습니다. 노면의 영향은 확인된 연구가 없습니다{" "}
+                    <S>(Hamstra-Wright et al. (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/25185588/" />)</S>
+                  </>
+                ),
+                fix: (
+                  <>
+                    권할 만큼 효과가 확실히 검증된 치료는 아직 없습니다{" "}
+                    <S>(Winters et al. (2013) <Up h="https://pubmed.ncbi.nlm.nih.gov/23979968/" />)</S>.
+                    통증이 줄 때까지 거리를 줄이고(경험칙), 계속되면 진료를 받으세요.
+                  </>
+                ),
                 color: "border-orange-200 bg-orange-50",
-                ref: "Nielsen et al. (2014) PLOS ONE"
+                ref: "빈도 Nielsen et al. (2014) PLOS ONE"
               },
               {
                 name: "물집·흑색 발톱",
@@ -163,9 +205,17 @@ export default function BeginnerGuidePage() {
           </div>
         </section>
 
-        {/* 준비운동 & 쿨다운 */}
+        {/* 준비운동 & 쿨다운
+            2026-10-08: 제목이 「초심자 필수 루틴」이었다. 워밍업·쿨다운·스트레칭 무작위 시험(van Mechelen 1993)에서
+            부상이 줄지 않았고, 이 페이지 FAQ 도 「근거는 약합니다」라고 적는다. 「필수」를 뺐다. */}
         <section className="mb-8">
-          <h2 className="text-xl font-bold mb-3">③ 초심자 필수 루틴</h2>
+          <h2 className="text-xl font-bold mb-3">③ 달리기 전후 루틴</h2>
+          <p className="text-gray-700 mb-3 leading-relaxed">
+            이 루틴이 부상을 줄인다는 근거는 확인되지 않았습니다. 남성 레크리에이션 러너 421명을 무작위로 나눈 16주 시험에서
+            워밍업·쿨다운·스트레칭을 한 그룹의 부상은 1,000시간당 5.5건, 하지 않은 그룹은 4.9건으로 줄지 않았습니다{" "}
+            <S>(van Mechelen et al. (1993) <Up h="https://pubmed.ncbi.nlm.nih.gov/8238713/" />)</S>.
+            몸을 풀고 마무리하는 용도로 쓰세요.
+          </p>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
               <p className="font-semibold text-emerald-900 mb-2">달리기 전 (5분)</p>
@@ -250,6 +300,12 @@ export default function BeginnerGuidePage() {
             <li><strong>Videbæk et al. (2015)</strong> — 1,000시간당 부상 메타분석(13편). 초보 17.8건, 레크리에이션 러너 7.7건. Sports Med 45(7):1017-26. <a href="https://pubmed.ncbi.nlm.nih.gov/25951917/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Honert et al. (2020)</strong> — 러닝 수준별 신발 특성 델파이 연구. 이 글의 초심자 기준(입문 정의)의 출처. PLOS ONE 15(7):e0236047. <a href="https://pubmed.ncbi.nlm.nih.gov/32673375/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
             <li><strong>Behm & Chaouachi (2011)</strong> — 정적·동적 스트레칭이 수행능력에 미치는 즉각적 효과 리뷰. 동적 스트레칭은 수행능력을 떨어뜨리지 않거나 오히려 높였다. Eur J Appl Physiol 111:2633-2651. <a href="https://pubmed.ncbi.nlm.nih.gov/21373870/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>van Mechelen et al. (1993)</strong> — 워밍업·쿨다운·스트레칭 교육 무작위 시험(남성 레크리에이션 러너 421명, 16주). 부상 1,000시간당 5.5건 대 4.9건, 효과 없음. <a href="https://pubmed.ncbi.nlm.nih.gov/8238713/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Neal et al. (2019)</strong> — 슬개대퇴 통증 위험 요인 메타분석(18편, 4,818명). 대퇴사두근 약화는 군 훈련병에서 위험 요인, 엉덩이 근육 약화는 위험 요인 아님. <a href="https://pubmed.ncbi.nlm.nih.gov/30242107/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>van der Heijden et al. (2016)</strong> — 슬개대퇴 통증 운동치료 코크런 고찰 요약본(31편, 1,690명). 근거의 질은 매우 낮지만 운동치료가 통증을 줄인다는 결과가 일관됨. <a href="https://pubmed.ncbi.nlm.nih.gov/26158920/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Hamstra-Wright et al. (2015)</strong> — 내측 경골 스트레스 증후군 위험 요인 메타분석(21편). 체질량지수·주상골 하강·발목 저측굴곡·고관절 외회전 가동 범위. <a href="https://pubmed.ncbi.nlm.nih.gov/25185588/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Winters et al. (2013)</strong> — 내측 경골 스트레스 증후군 치료 체계적 고찰(11편). 편향이 적어 권할 수 있는 치료 없음. <a href="https://pubmed.ncbi.nlm.nih.gov/23979968/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
+            <li><strong>Relph et al. (2022)</strong> — 러닝화와 부상 예방 코크런 고찰(12편, 11,240명). 신발 종류를 비교한 연구 대부분에서 부상 감소 없음, 근거 확실성은 낮음~매우 낮음. <a href="https://pubmed.ncbi.nlm.nih.gov/35993829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a></li>
           </ul>
           <p className="text-xs text-gray-400 mt-2">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
         </section>
@@ -265,7 +321,7 @@ export default function BeginnerGuidePage() {
           },
           {
             q: "달리기 시작 후 언제가 가장 부상 위험이 큰가요?",
-            a: "특정 시기가 가장 위험하다고 말할 근거는 저희가 확인하지 못했습니다. 다만 달린 시간당으로 보면 초보가 레크리에이션 러너보다 더 자주 다쳤습니다(Videbæk 2015 메타분석). 워밍업·쿨다운이 부상을 막는다는 근거는 약합니다. 긴 날을 지난 30일 최장 거리의 110% 안에서 늘리고, 다음 날 통증을 확인하세요.",
+            a: "특정 시기가 가장 위험하다고 말할 근거는 저희가 확인하지 못했습니다. 다만 달린 시간당으로 보면 초보가 레크리에이션 러너보다 더 자주 다쳤습니다(Videbæk 2015 메타분석). 워밍업·쿨다운이 부상을 막는다는 근거는 약합니다 — 러너 421명 무작위 시험에서 부상이 줄지 않았습니다(van Mechelen 1993). 긴 날을 지난 30일 최장 거리의 110% 안에서 늘리고, 다음 날 통증을 확인하세요.",
           },
         ]} />
 
@@ -273,6 +329,10 @@ export default function BeginnerGuidePage() {
           {/* 2026-10-06: 「초심자에게 맞는 신발이 부상 위험을 줄입니다」였다 — 이 사이트의 다른 글(평발·허브)이
               적는 결론과 반대다. 엔진 v4 에서 체형 축도 뺐으므로 「체형」 문구도 뺀다. */}
           <p className="font-medium text-emerald-900 mb-2">신발로 부상을 막는다는 근거는 약합니다. 다만 발볼·사이즈는 맞춰야 합니다</p>
+          <p className="text-xs text-emerald-800 mb-3">
+            12편 11,240명을 모은 고찰에서 신발 종류를 바꿔 부상이 줄었다는 결과는 대부분 확인되지 않았습니다{" "}
+            <S>(Relph et al. (2022) <Up h="https://pubmed.ncbi.nlm.nih.gov/35993829/" />)</S>
+          </p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
             발볼·발 타입으로 신발 찾기 →
           </Link>

@@ -1,17 +1,44 @@
 import Link from "next/link";
 import FaqSection from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import { Up, S } from "@/components/guide/Up";
 import type { Metadata } from "next";
+
+/**
+ * 2026-10-08 재검증 — PubMed 초록과 대조
+ *   · 「아침 안정시 심박수가 뚜렷하게 높다」 → 과장. Bosquet 2008 메타분석: 단기 과부하에선 중간 정도 상승(SMD 0.55),
+ *     장기 과부하에선 안정시 값 변화 없음, 다른 신호와 함께 봐야 함. 단독 신호로 쓰지 않게 고침
+ *   · 「수면 장애」 → Meeusen 2013 초록에 없음. 경험칙 표기
+ *   · 48~72시간을 적어 놓고 바로 아래에서 「며칠 같은 숫자 기준은 적지 않는다」고 쓴 모순 → 출처를 나눠 적음
+ *   · 「2주 넘게 이어지면 진료」 → 근거 못 찾음. 「몇 주씩」(경험칙)으로
+ *   · 「20~30분 걷기면 충분」 「숨이 차면 휴식 아님」 → 경험칙 표기
+ *   · 이재엽 2024·박찬호 2013(KCI)은 이번에 원문을 열람하지 못했다. 문장은 유지하고,
+ *     젖산 쪽은 같은 방향의 PubMed 근거(Van Hooren 2018)를 덧붙였다.
+ */
+const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/rest-day";
+const TITLE = "휴식일에 뭘 해야 할까? 액티브 리커버리";
+// 2026-09-14: "가벼운 움직임이 회복을 빠르게 합니다" 였다. 이 페이지가 인용한
+// Zouhal 2024 체계적 고찰이 바로 그 차이를 확인하지 못했다 — 근거가 부정하는 문장이었다.
+const DESC =
+  "쉬는 날 꼭 뭘 해야 하는 건 아닙니다. 가볍게 움직이는 쪽이 완전히 쉬는 쪽보다 낫다는 근거는 약합니다. 오버트레이닝 신호를 보는 법까지 정리했습니다.";
 
 export const metadata: Metadata = {
   title: "휴식일에 뭘 해야 할까? 액티브 리커버리 — 뛰다가 아메리카노",
-  // 2026-09-14: "가벼운 움직임이 회복을 빠르게 합니다" 였다. 이 페이지가 인용한
-  // Zouhal 2024 체계적 고찰이 바로 그 차이를 확인하지 못했다 — 근거가 부정하는 문장이었다.
-  description: "쉬는 날 꼭 뭘 해야 하는 건 아닙니다. 가볍게 움직이는 쪽이 완전히 쉬는 쪽보다 낫다는 근거는 약합니다. 오버트레이닝 신호를 보는 법까지 정리했습니다.",
+  description: DESC,
+  alternates: { canonical: "/injury/rest-day" },
 };
 
 export default function Page() {
   return (
     <>
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} />
+      <BreadcrumbJsonLd
+        trail={[
+          ["러닝 가이드", "/injury"],
+          ["휴식일", "/injury/rest-day"],
+        ]}
+      />
       <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
         <Link href="/injury" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
           ← 러닝 가이드
@@ -19,10 +46,10 @@ export default function Page() {
         <header className="mb-8">
           <span className="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full mb-3">회복</span>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-3">휴식일에 뭘 해야 할까? 액티브 리커버리</h1>
-          <p className="text-gray-500 text-sm mb-4">3분 읽기</p>
+          <p className="text-gray-500 text-sm mb-4">5분 읽기</p>
           <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5">
             <span className="text-emerald-600">✓</span>
-            협찬 없이 작성 — 공개 연구 및 의학 자료 기반
+            협찬 없이 작성 — 연구로 확인된 것과 경험칙을 구분해 적었습니다
           </div>
         </header>
         {/* 2026-09-14: "연구에 따르면 … 회복을 20~30% 빠르게 합니다" 였다.
@@ -51,7 +78,7 @@ export default function Page() {
             완전히 눕는 쪽보다 낫다는 증거는 <strong>생각보다 약합니다.</strong>
           </p>
           <p className="mt-2 text-sm leading-relaxed text-emerald-800">
-            몸이 뻣뻣하면 20~30분 걷는 정도로 충분합니다. <strong>숨이 차면 그건 휴식이 아닙니다.</strong>
+            몸이 뻣뻣하면 20~30분 걷는 정도면 됩니다. <strong>숨이 찰 정도면 휴식이라 보기 어렵습니다.</strong> (경험칙)
           </p>
         </div>
 
@@ -87,7 +114,9 @@ export default function Page() {
             <ul className="mt-2 space-y-1.5">
               <li>
                 · <strong>운동 직후 혈중 젖산</strong> — 가볍게 움직이는 회복이 가만히 쉬는 것보다 빠르게
-                낮췄을 가능성이 있습니다 (이재엽 외 2024, 한국체육과학회지 메타분석)
+                낮췄을 가능성이 있습니다 (이재엽 외 2024, 한국체육과학회지 메타분석). 같은 방향으로, 운동 직후
+                가벼운 쿨다운이 혈중 젖산을 더 빨리 낮춘다는 리뷰가 있습니다 — 근육 속 젖산까지는 아닙니다.{" "}
+                <S>(Van Hooren &amp; Peake (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29663142/" />)</S>
               </li>
               <li>
                 · <strong>인터벌 세트 사이 회복 → 체력 향상</strong> — 3주 이상 훈련 프로그램에서{" "}
@@ -116,7 +145,7 @@ export default function Page() {
             <li><strong>요가</strong> 또는 필라테스</li>
           </ol>
           <p className="mt-3 leading-relaxed text-gray-700">
-            핵심은 <strong>숨이 차지 않는 강도</strong>입니다. 달리기는 하지 않습니다.
+            핵심은 <strong>숨이 차지 않는 강도</strong>입니다. 달리기는 하지 않습니다. (이 사이트의 기준 — 연구로 정해진 강도는 아닙니다)
           </p>
         </section>
 
@@ -142,10 +171,16 @@ export default function Page() {
             </p>
             <ul className="space-y-1.5 text-sm leading-relaxed text-red-900">
               <li>· 쉬어도 풀리지 않는 극심한 피로</li>
-              <li>· 수면 장애</li>
-              <li>· <strong>아침 안정시 심박수가 평소 내 값보다 뚜렷하게 높다</strong></li>
-              <li>· 달리기 의욕이 완전히 사라졌다</li>
+              <li>· 이유 없이 기록이 떨어진다</li>
+              <li>· 달리기 의욕이 사라지고 기분이 평소와 다르다</li>
+              <li>· 잠이 평소와 다르다 (경험칙 — 아래 합의문 초록에는 없는 항목)</li>
             </ul>
+            <p className="mt-2 text-sm leading-relaxed text-red-900">
+              아침 안정시 심박수가 평소보다 높은 날이 이어질 수도 있지만, <strong>이것 하나로는 판단할 수 없습니다.</strong>{" "}
+              경쟁 선수를 모은 메타분석에서 2주 미만 훈련량을 늘렸을 때 안정시 심박은 중간 정도 올랐지만, 더 긴 과부하에서는
+              안정시 값이 변하지 않았습니다. 변화 폭이 하루하루의 변동 안에 들 수 있어 다른 신호와 함께 봐야 한다고 결론 냈습니다.{" "}
+              <S>(Bosquet et al. (2008) <Up h="https://pubmed.ncbi.nlm.nih.gov/18308872/" />)</S>
+            </p>
             {/* 2026-09-15: "며칠"이라고만 적었던 자리에 근거가 생겼다.
                 박찬호·곽이섭 (2013) 코칭능력개발지 — 과도한 훈련 후 48~72시간 이상 휴식, 주 1일 이상 휴식.
                 ⚠️ 같은 논문에 **안정시 심박수 기준은 없다.** 검색하면 "분당 5회"가 이 논문에
@@ -155,12 +190,12 @@ export default function Page() {
                   크로스트레이닝도 효과적이라고 적는다 — 인용과 반대 방향의 금지였다. */}
               이때는 <strong>48~72시간 이상</strong> 달리기를 쉬는 쪽이 낫습니다(과도한 훈련 뒤 휴식에 대한
               일반 권고, 아래 인용). 평소에도 <strong>주 1일 이상</strong>은 쉬는 날로 두세요.
-              신호가 2주 넘게 이어지면 진료를 받아 보세요.
+              피로가 몇 주씩 이어지면 진료를 받아 보세요(경험칙).
             </p>
             <p className="mt-2 text-xs leading-relaxed text-red-800">
-              &ldquo;몇 bpm부터&rdquo;, &ldquo;며칠&rdquo; 같은 숫자 기준은 <strong>아래 인용한
-              합의문에 나오지 않습니다.</strong> 그래서 저희도 적지 않습니다 — 평소 자기 값을
-              알고 있어야 비교가 됩니다.
+              &ldquo;몇 bpm부터&rdquo; 같은 숫자 기준은 <strong>오버트레이닝 국제 합의문(Meeusen 2013) 초록에
+              나오지 않습니다.</strong> 위 48~72시간도 합의문이 정한 기준이 아니라 국내 논문 한 편(박찬호·곽이섭 2013)의
+              일반 권고입니다. 심박은 평소 자기 값을 알고 있어야 비교가 됩니다.
             </p>
           </div>
         </section>
@@ -180,8 +215,14 @@ export default function Page() {
               </a>
             </li>
             <li className="flex gap-2"><span className="text-gray-400">•</span><a href="https://pubmed.ncbi.nlm.nih.gov/23247672/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
-                Meeusen et al. (2013) MSSE 45(1):186-205 — 오버트레이닝 증후군 국제 합의문. <strong>심박수·일수 같은 수치 기준은 이 문헌에 없습니다</strong> ↗
+                Meeusen et al. (2013) MSSE 45(1):186-205 — 오버트레이닝 증후군 국제 합의문. 피로·수행 저하·기분 변화를 꼽고, 일반적으로 인정되는 단일 지표는 없다고 봄. <strong>심박수·일수 같은 수치 기준은 초록에 없습니다</strong> ↗
               </a>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Bosquet et al. (2008)</strong> — 경쟁 선수 대상 심박·심박변이도 메타분석. 단기 과부하 안정시 심박 SMD 0.55 상승, 장기 과부하 안정시 값 변화 없음. Br J Sports Med 42(9):709-14. <a href="https://pubmed.ncbi.nlm.nih.gov/18308872/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
+            </li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span>
+              <span><strong>Van Hooren &amp; Peake (2018)</strong> — 쿨다운 서술적 리뷰. 능동 쿨다운은 혈중 젖산 회복을 앞당기지만 근육 속 젖산은 아님, 회복 지표 대부분은 개선 못 함. Sports Med 48(7):1575-95. <a href="https://pubmed.ncbi.nlm.nih.gov/29663142/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
             </li>
             {/* 2026-09-15 추가 — 휴식 기간에 처음으로 근거가 붙었다. */}
             <li className="flex gap-2"><span className="text-gray-400">•</span>
@@ -199,15 +240,15 @@ export default function Page() {
         <FaqSection items={[
           {
             q: "휴식일에는 완전히 쉬는 게 좋나요?",
-            a: "둘 중 하나가 낫다고 말할 만한 근거가 약합니다. 휴식일 자체를 비교한 연구는 저희가 찾지 못했고, 가까운 연구(Zouhal 2024)는 인터벌 세트 사이에 쉬느냐 가볍게 움직이느냐를 비교해 체력 향상에서 차이를 확인하지 못했습니다. 몸이 뻣뻣하면 20~30분 걷는 정도로 가볍게 움직여도 되고, 완전히 쉬어도 됩니다. 다만 숨이 차면 그건 휴식이 아닙니다.",
+            a: "둘 중 하나가 낫다고 말할 만한 근거가 약합니다. 휴식일 자체를 비교한 연구는 저희가 찾지 못했고, 가까운 연구(Zouhal 2024)는 인터벌 세트 사이에 쉬느냐 가볍게 움직이느냐를 비교해 체력 향상에서 차이를 확인하지 못했습니다. 몸이 뻣뻣하면 20~30분 걷는 정도로 가볍게 움직여도 되고, 완전히 쉬어도 됩니다. 다만 숨이 찰 정도면 휴식이라 보기 어렵습니다(경험칙).",
           },
           {
             q: "휴식일에 어떤 활동을 하면 좋나요?",
-            a: "① 20~30분 빠른 걷기(대화 가능한 속도) ② 수영 또는 아쿠아 조깅 ③ 가벼운 자전거 ④ 요가·필라테스. 핵심은 숨이 차지 않는 강도이며, 달리기는 하지 않습니다.",
+            a: "① 20~30분 빠른 걷기(대화 가능한 속도) ② 수영 또는 아쿠아 조깅 ③ 가벼운 자전거 ④ 요가·필라테스. 핵심은 숨이 차지 않는 강도이며, 달리기는 하지 않습니다(이 사이트의 기준).",
           },
           {
             q: "완전 휴식이 필요한 신호는 무엇인가요?",
-            a: "피로가 쉬어도 풀리지 않고, 기록이 이유 없이 떨어지고, 잠이나 기분이 평소와 다르면 의심해 볼 신호입니다. 오버트레이닝 국제 합의문(Meeusen 2013)은 이를 확정하는 단일 지표나 숫자 기준이 없다고 봅니다 — 그래서 저희도 「몇 bpm」, 「몇 개 중 몇 개」 같은 기준을 적지 않습니다. 이럴 땐 48~72시간 이상 달리기를 쉬고, 2주 넘게 이어지면 진료를 받아 보세요.",
+            a: "피로가 쉬어도 풀리지 않고, 기록이 이유 없이 떨어지고, 기분이 평소와 다르면 의심해 볼 신호입니다. 오버트레이닝 국제 합의문(Meeusen 2013)은 이를 확정하는 단일 지표가 없다고 봅니다 — 그래서 저희도 「몇 bpm」, 「몇 개 중 몇 개」 같은 기준을 적지 않습니다. 안정시 심박도 단독으로는 판단하기 어렵다는 메타분석이 있습니다(Bosquet 2008). 이럴 땐 48~72시간 이상 달리기를 쉬는 쪽이 낫다는 국내 논문의 일반 권고가 있고(박찬호·곽이섭 2013), 피로가 몇 주씩 이어지면 진료를 받아 보세요(경험칙).",
           },
         ]} />
 
