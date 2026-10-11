@@ -33,26 +33,6 @@
     "cutoff": "하프 2시간 30분 · 10km 1시간 30분"
   },
   {
-    "id": "sono-runtrip-gyeongju",
-    "name": "소노 런트립 180K in 경주",
-    "date": "2026-10-04",
-    "region": "경북",
-    "distancesKm": [
-      7,
-      9
-    ],
-    "status": "접수중",
-    "venue": "소노캄 경주",
-    "registrationStart": "2026-09-02",
-    "registrationEnd": "2026-10-03",
-    "organizer": "(주)소노인터내셔널",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/sono-runtrip-180k-in-gyeongju",
-    "officialUrl": "https://www.sonohotelsresorts.com/reserve/activity/dtl?salesNo=292686",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "note": "공식 예약 페이지 기준 판매가 67,000원부터(옵션별 상이)."
-  },
-  {
     "id": "eworld-uphill-2026",
     "name": "이월드 83타워 업힐런 챌린지",
     "date": "2026-10-11",
