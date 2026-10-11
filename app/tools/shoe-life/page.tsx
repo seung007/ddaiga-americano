@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import FinderCta from "@/components/FinderCta";
+import ShoeLog from "@/components/ShoeLog";
 
 /**
  * 러닝화 수명 계산기 — 2026-09-02
@@ -226,6 +227,9 @@ export default function ShoeLifePage() {
           </p>
         </div>
       </section>
+
+      {/* ── 기록장 (2026-10-12) — 한 번 계산하고 끝나지 않게, 달릴 때마다 더한다 ── */}
+      <ShoeLog />
 
       {/* ── 한계 ───────────────────────────────────────────── */}
       <section className="mb-8">

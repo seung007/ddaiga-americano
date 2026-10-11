@@ -1,3 +1,4 @@
+import ShoeSideProfile from "@/components/ShoeSideProfile";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
@@ -82,23 +83,24 @@ const SPEC_ROWS: SpecRow[] = [
   },
   {
     label: "무게 (M9)",
-    explain: "남성 9사이즈 기준 한 짝 무게. 가벼울수록 빠른 반응",
+    explain: "남성 9사이즈 기준 한 짝 무게(브랜드 공개값)",
     getValue: (s) => s.weightGramsM9,
     unit: "g",
     lowerIsBetter: true,
   },
   {
     label: "힐 드롭",
-    explain: "뒤꿈치-앞볼 높이 차. 높을수록 힐스트라이커 친화, 낮을수록 미드풋 유도",
+    explain: "뒤꿈치 두께 − 앞꿈치 두께(브랜드 공개값)",
     getValue: (s) => s.heelDropMm,
     unit: "mm",
   },
   {
     label: "스택 높이",
-    explain: "발바닥과 지면 사이 쿠션 두께. 높을수록 충격 흡수 좋음",
+    // 2026-10-12: 「높을수록 충격 흡수 좋음」과 ✓(higherIsBetter)를 뺐다. 두께와 부상·충격의 관계를
+    // 이 사이트는 확인하지 못했다. 드롭의 「힐스트라이커 친화·미드풋 유도」도 같은 이유로 뺐다.
+    explain: "뒤꿈치 쪽 미드솔 두께(브랜드 공개값)",
     getValue: (s) => s.stackHeightMm,
     unit: "mm",
-    higherIsBetter: true,
   },
   {
     label: "쿠셔닝",
@@ -316,8 +318,22 @@ export default async function ComparePage({
           </table>
         </div>
         <p className="text-xs text-gray-400 mt-2">
-          ✓ 표시는 해당 항목에서 수치상 유리한 신발을 나타내요. 달리기 목적에 따라 맞는 신발은 달라질 수 있어요.
+          ✓ 표시는 가격이 낮거나 무게가 가벼운 쪽이에요. 두께·드롭은 많고 적음에 좋고 나쁨을 매기지 않았어요.
         </p>
+      </section>
+
+      {/* ── 두께 그림 (2026-10-12) — 표의 숫자를 같은 축척으로 겹쳐 본다 ── */}
+      <section className="mb-8">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+          두께를 겹쳐 보기
+        </h2>
+        <ShoeSideProfile shoes={[shoeA, shoeB]} />
+        <Link
+          href={`/tools/shoe-side?s=${shoeA.id},${shoeB.id}`}
+          className="mt-2 inline-block text-xs text-emerald-700 underline"
+        >
+          다른 신발을 더해 비교하기 →
+        </Link>
       </section>
 
       {/* ── 어떤 체형에게 맞나? ── */}

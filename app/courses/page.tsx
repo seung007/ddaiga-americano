@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CourseFigure from "@/components/CourseFigure";
 import CourseMapLive from "@/components/CourseMapLive";
+import CourseVirtualRun from "@/components/CourseVirtualRun";
 import NearestCourse from "@/components/NearestCourse";
 import FinderCta from "@/components/FinderCta";
 import InlineAsk from "@/components/InlineAsk";
@@ -148,6 +149,8 @@ export default function CoursesPage() {
                 도식은 지도 아래 보조로 남긴다 — 그 안의 텍스트는 크롤되므로 버리지 않는다. */}
             <div className="mb-4">
               <CourseMapLive course={c} />
+              {/* 2026-10-12: 경로선이 있는 코스만 가상 달리기를 보여준다(없으면 컴포넌트가 아무것도 그리지 않는다) */}
+              <CourseVirtualRun course={c} />
             </div>
 
             <details className="mb-5 rounded-2xl border border-gray-200 bg-white">

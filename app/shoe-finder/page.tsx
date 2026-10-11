@@ -1,5 +1,6 @@
 "use client";
 
+import ShoeSideProfile from "@/components/ShoeSideProfile";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import AffiliateNotice from "@/components/AffiliateNotice";
@@ -1255,6 +1256,10 @@ function ComparePanel({
       {compareIds.length === 2 && shoes.length === 2 && (
         <>
           <CompareTable shoes={shoes} userWidth={userWidth} userFootType={userFootType} />
+          {/* 2026-10-12: 표의 두께·드롭 숫자를 같은 축척 그림으로 — components/ShoeSideProfile.tsx */}
+          <div className="mt-4">
+            <ShoeSideProfile shoes={shoes} />
+          </div>
           <div className="mt-4 pt-4 border-t border-emerald-200 flex items-center justify-between">
             <p className="text-xs text-gray-500">이 비교를 저장하거나 친구에게 공유하고 싶다면?</p>
             <Link

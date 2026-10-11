@@ -21,8 +21,14 @@ const TOOLS = [
   {
     href: "/tools/shoe-life",
     title: "러닝화 수명 계산기",
-    desc: "480km에서 뒤꿈치 쿠셔닝이 16~33% 줄어드는데, 640km까지 달린 러너 중 누구도 그걸 느끼지 못했습니다. 감으로는 안 잡히니 세어봅니다.",
+    desc: "480km에서 뒤꿈치 쿠셔닝이 16~33% 줄어드는데, 640km까지 달린 러너 중 누구도 그걸 느끼지 못했습니다. 감으로는 안 잡히니 세어봅니다. 신발별 기록장도 있습니다.",
     basis: "Cornwall & McPoil 2017",
+  },
+  {
+    href: "/tools/shoe-side",
+    title: "러닝화 두께 비교",
+    desc: "최대 3개를 골라 뒤꿈치·앞꿈치 두께와 드롭, 무게를 같은 축척으로 겹쳐 봅니다. 착용감처럼 숫자로 공개되지 않는 것은 그리지 않습니다.",
+    basis: "브랜드 공개 스펙 — 논문 근거 아님",
   },
   {
     href: "/tools/pace",
@@ -55,7 +61,7 @@ export default function ToolsPage() {
                 나눗셈 결과에 그걸 달면 근거를 부풀리는 셈이 된다. */}
             <span
               className={`rounded-md px-2 py-1 text-xs font-medium ${
-                t.basis.includes("산수")
+                t.basis.includes("산수") || t.basis.includes("논문 근거 아님")
                   ? "bg-gray-100 text-gray-600"
                   : "bg-blue-50 text-blue-700"
               }`}

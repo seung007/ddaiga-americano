@@ -218,6 +218,10 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             <a href={s.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
               스펙 출처 ↗
             </a>
+            {" · "}
+            <Link href={`/tools/shoe-side?s=${s.id}`} className="text-emerald-700 underline underline-offset-2">
+              다른 신발과 두께 겹쳐 보기 →
+            </Link>
           </p>
         </section>
 
