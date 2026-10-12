@@ -143,12 +143,29 @@ async function deployedSha(ms = 12_000) {
 // ── 3. 푸시 — 커밋할 게 없어도 한다 ────────────────────────
 const branch = run("git", ["rev-parse", "--abbrev-ref", "HEAD"]).out.trim();
 const ahead = run("git", ["rev-list", "--count", `origin/${branch}..HEAD`]).out.trim();
+// IndexNow 에 「무엇이 바뀌었나」를 알리려면 푸시 전 원격 커밋이 필요하다
+const remoteBefore = run("git", ["rev-parse", `origin/${branch}`]).out.trim();
 
 if (ahead === "0") {
   console.log(dim("올릴 커밋 없음 — 원격과 같습니다"));
 } else {
   process.stdout.write(dim(`푸시 ${ahead}개… `));
-  const push = run("git", ["push"]);
+  let push = run("git", ["push"]);
+  /**
+   * 2026-10-12: GitHub Actions 봇이 지난 대회를 자동 보관하며 원격에 직접 커밋한다(chore(races)).
+   * 그러면 푸시가 「fetch first」로 거절된다. 한 번만 rebase 해서 다시 민다 — 충돌이 나면 멈추고 사람에게 넘긴다.
+   */
+  if (push.code !== 0 && /fetch first|non-fast-forward/.test(push.out)) {
+    process.stdout.write(dim("원격에 새 커밋 → rebase 후 재시도… "));
+    const pull = run("git", ["pull", "--rebase", "-q"]);
+    if (pull.code !== 0) {
+      console.log(red("rebase 충돌\n"));
+      console.log(pull.out);
+      console.log(red("\n`git rebase --abort` 로 되돌리거나 충돌을 고친 뒤 다시 실행하세요."));
+      process.exit(1);
+    }
+    push = run("git", ["push"]);
+  }
   if (push.code !== 0) {
     console.log(red("실패\n"));
     console.log(push.out);
@@ -178,7 +195,8 @@ if (local === remote) {
     let live = false;
     let seen = null;
     let missing = false;
-    while (Date.now() - started < 240_000) {
+    // 2026-10-12: 240초로는 모자랐다(페이지가 늘어 빌드가 4분을 넘김 — 실제로 「안 바뀜」 경고 후 반영됨). 420초로
+    while (Date.now() - started < 420_000) {
       await new Promise((r) => setTimeout(r, 6_000));
       seen = await deployedSha();
       /**
@@ -192,6 +210,9 @@ if (local === remote) {
     const sec = Math.round((Date.now() - started) / 1000);
     if (live) {
       console.log(green(`반영됨 (${sec}초)`));
+      // 바뀐 페이지를 IndexNow(빙·네이버 등 참여 엔진)에 알린다. 실패해도 배포는 끝났으니 경고만 — scripts/indexnow.mjs
+      const idx = run("node", ["scripts/indexnow.mjs", "--since", remoteBefore]);
+      console.log(dim(idx.out || "indexnow: 출력 없음"));
       console.log(dim("이제 npm run shot 을 돌려도 새 화면이 찍힙니다."));
     } else if (missing) {
       console.log(dim("건너뜀"));

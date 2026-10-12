@@ -98,7 +98,8 @@ for (const d of DIRS) {
           why: "대체 이미지에 외부 요청 — lib/shoes/placeholder.ts 의 shoePlaceholder() 를 쓰세요",
           line: line.trim().slice(0, 100),
         });
-      if (SVG_TITLE.test(line))
+      // React 렌더 파일(.tsx·.jsx)만 본다. route.ts 가 만드는 RSS·XML 의 <title> 은 React 가 아니다(app/rss.xml/route.ts, 2026-10-12)
+      if (SVG_TITLE.test(line) && /\.(tsx|jsx)$/.test(rel))
         hits.push({
           rel,
           n: i + 1,
