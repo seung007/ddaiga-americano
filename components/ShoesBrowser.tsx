@@ -105,6 +105,12 @@ export default function ShoesBrowser() {
   const [likedOnly, setLikedOnly] = useState(false);
 
   useEffect(() => {
+    // 2026-10-12: /shoes?wide=1 로 들어오면 넓은 발볼 필터를 켠 채로 시작(wide-foot 글에서 넘어오는 길)
+    try {
+      if (new URLSearchParams(window.location.search).get("wide") === "1") setWide(true);
+    } catch {
+      /* 주소를 못 읽으면 기본값 */
+    }
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {

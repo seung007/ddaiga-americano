@@ -1,5 +1,6 @@
 import Link from "next/link";
 import FinderCta from "@/components/FinderCta";
+import WideShoeList, { wideSummary } from "@/components/WideShoeList";
 import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
@@ -190,8 +191,8 @@ export default function WideFootPage() {
           <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
             <strong>잰 숫자를 어디에 쓰나</strong> — 절대 기준은 없습니다. 사려는 브랜드의
             사이즈표(보통 &ldquo;Width Guide&rdquo; 또는 &ldquo;발 너비&rdquo;)에서 내 발 길이에
-            해당하는 줄을 찾아 비교하세요. <strong>같은 2E라도 뉴발란스와 아식스의 실제 너비가
-            다릅니다.</strong>
+            해당하는 줄을 찾아 비교하세요. <strong>폭 표기(2E 등)는 브랜드마다 실제 너비가
+            다를 수 있습니다</strong>(브랜드별 실측 비교는 저희가 확인하지 못했습니다).
           </div>
 
           {/**
@@ -227,37 +228,8 @@ export default function WideFootPage() {
 
         <FinderCta from="wide-foot" variant="inline" headline="발볼 조건을 넣으면 2E·4E 옵션이 있는 신발만 골라서 보여드립니다." />
 
-        <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">브랜드별 와이드 옵션 현황</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
-              <thead className="bg-gray-50">
-                <tr>
-                  {["브랜드", "와이드 옵션", "추천 이유"].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left font-semibold text-gray-700 border-b border-gray-200">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["New Balance", "B / D / 2E / 4E", "국내 브랜드 중 폭 옵션 가장 다양"],
-                  ["Brooks", "B / D / 2E / 4E", "Ghost·Adrenaline 전 시리즈 와이드 제공"],
-                  ["Asics", "D / 2E / 4E", "카야노·님버스 와이드 옵션 있음"],
-                  ["Hoka", "D / 2E", "봉디·클리프턴 2E 있음, 4E는 없음"],
-                  ["Nike", "D / 4E 일부", "페가수스 4E 있지만 모델 제한적"],
-                  ["On", "D만", "와이드 옵션 없음 — 발볼 넓다면 비추"],
-                ].map(([brand, options, reason], i) => (
-                  <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                    <td className="px-4 py-3 font-medium text-gray-900">{brand}</td>
-                    <td className="px-4 py-3 font-mono text-blue-700">{options}</td>
-                    <td className="px-4 py-3 text-gray-600">{reason}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-xs text-gray-400 mt-2">* 2026년 기준. 모델별로 다를 수 있으니 구매 전 확인하세요.</p>
-        </section>
+        {/* 2026-10-12: 손으로 쓴 브랜드 표가 신발 원장과 어긋나(On·Hoka·Nike) 원장에서 계산하는 표로 바꿨다 — components/WideShoeList.tsx */}
+        <WideShoeList />
 
 
         <YoutubeSection links={[
@@ -277,7 +249,7 @@ export default function WideFootPage() {
           },
           {
             q: "와이드 옵션이 많은 러닝화 브랜드는 어디인가요?",
-            a: "New Balance와 Brooks가 B부터 4E까지 폭 옵션이 가장 다양합니다. Asics는 주요 모델에 2E·4E 옵션이 있고, Hoka는 2E까지만 제공합니다. On은 와이드 옵션이 없어 발볼이 넓다면 피하는 게 좋습니다. (2026년 기준, 모델별로 다를 수 있음)",
+            a: wideSummary(),
           },
         ]} />
 
