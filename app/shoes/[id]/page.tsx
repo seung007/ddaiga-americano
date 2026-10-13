@@ -223,7 +223,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
                   </Link>
                 )}
                 <Link href="/shoe-finder" className="underline">
-                  내 몸에 맞는 신발 찾기
+                  나에게 맞는 신발 찾기
                 </Link>
               </p>
             </div>

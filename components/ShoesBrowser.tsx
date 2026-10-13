@@ -199,7 +199,7 @@ export default function ShoesBrowser() {
               href="/shoe-finder"
               className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
             >
-              1분 답하기 →
+              질문 8개 답하기 →
             </Link>
           </div>
         )}

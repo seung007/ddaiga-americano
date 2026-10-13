@@ -293,7 +293,7 @@ export default function Page() {
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 러닝화를 찾으세요</p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            내 러닝화 찾기 →
+            나에게 맞는 신발 찾기 →
           </Link>
         </div>
         <ShareButtons from="warmup" title="달리기 전 5분 동적 스트레칭" description="동작 6개를 그림으로 정리했습니다." />

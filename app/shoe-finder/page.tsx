@@ -150,6 +150,8 @@ export default function ShoeFinderPage() {
   const restoredRef = useRef(false);
   /** 2026-10-13 — 프리셋으로 들어온 완주는 from=preset. 분모는 finder_preset 이다(start 를 안 쏘므로) */
   const presetRef = useRef(false);
+  /** 2026-10-13 — 「1분」 문구를 뺐다(잰 적이 없었다). 시작→완주 시간을 재서 다시 쓸지 정한다 */
+  const startedAtRef = useRef<number | null>(null);
   /** 프리셋을 눌렀고 키·체중만 남았다 — 체중이 골라지는 순간 결과를 낸다 */
   const [presetPending, setPresetPending] = useState<string | null>(null);
 
@@ -157,6 +159,7 @@ export default function ShoeFinderPage() {
     // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
     if (!startFiredRef.current) {
       startFiredRef.current = true;
+      startedAtRef.current = Date.now();
       gtagEvent("recommend_form_start", {});
     }
     setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1));
@@ -333,6 +336,10 @@ export default function ShoeFinderPage() {
         gender: gender || "unset",
         level: level || "unset",
         from: presetRef.current ? "preset" : restoredRef.current ? "restore" : "form",
+        // 1단계부터 밟은 완주만 걸린 시간(초)을 붙인다. 30분 넘게 걸린 건 자리를 비운 것으로 보고 뺀다
+        ...(startedAtRef.current && Date.now() - startedAtRef.current < 30 * 60_000
+          ? { elapsed_sec: Math.round((Date.now() - startedAtRef.current) / 1000) }
+          : {}),
       });
     }
   }
@@ -424,7 +431,7 @@ export default function ShoeFinderPage() {
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
         <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-          내 발에 맞는 신발, 1분이면 찾아드려요.
+          질문 8개에 답하면 내 발에 맞는 신발 3개를 골라드려요.
         </p>
       </header>
 
@@ -769,13 +776,13 @@ export default function ShoeFinderPage() {
             {!isEditing && (
             <button type="submit"
               className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
-              내 러닝화 찾기 →
+              추천 결과 보기 →
             </button>
             )}
 
             <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
               키·체중·발 정보는 <strong className="font-medium text-gray-500">이 화면 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
-              「내 러닝화 찾기」를 누르면{" "}
+              「추천 결과 보기」를 누르면{" "}
               <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
             </p>
           </div>

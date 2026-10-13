@@ -260,7 +260,7 @@ export default function CoursesPage() {
         <p className="mt-4 text-sm leading-relaxed text-gray-600">
           구체적인 모델은 체형까지 봐야 정해집니다.{" "}
           <Link href="/shoe-finder" className="font-medium text-emerald-700 hover:underline">
-            발볼·발 타입으로 3개 골라 보기 →
+            나에게 맞는 신발 찾기 →
           </Link>
         </p>
       </section>

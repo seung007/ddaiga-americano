@@ -340,7 +340,7 @@ export default function ITBandPage() {
             href="/shoe-finder"
             className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
           >
-            내 러닝화 찾기 →
+            나에게 맞는 신발 찾기 →
           </Link>
         </div>
 

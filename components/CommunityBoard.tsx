@@ -608,7 +608,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
       <FinderCta
         from="community"
         headline="글 남기는 김에, 내 발에 맞는 신발도 찾아보세요"
-        sub="키·체중·발볼만 고르면 조건을 통과한 신발 3개를 골라드려요. 가입 없이 1분."
+        sub="질문 8개에 답하면 조건을 통과한 신발 3개를 골라드려요. 가입 없이 무료."
       />
     </main>
   );

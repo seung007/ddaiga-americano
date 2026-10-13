@@ -184,7 +184,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
         <FinderCta
           from="race-detail"
           headline="대회 날 신을 신발 고르기"
-          sub="발볼·발 모양으로 1분 안에 3개를 골라드려요."
+          sub="질문 8개에 답하면 3개를 골라드려요."
         />
       </article>
     </>

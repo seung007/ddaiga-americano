@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 // 2026-10-12 SEO 점검: 홈만 canonical 이 없었다(제목·설명은 layout 기본값을 쓴다)
 const HOME_TITLE = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
-const HOME_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 1분 만에 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
+const HOME_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 질문 8개로 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
 // og 의 홈 값은 layout 이 아니라 여기 둔다(layout 에 두면 모든 하위 페이지가 홈 값을 물려받는다 — app/layout.tsx 주석)
 export const metadata: Metadata = {
   // RSS 자동 발견 링크(2026-10-12). 제출은 서치어드바이저에서 따로 한다 — app/rss.xml/route.ts
@@ -455,7 +455,7 @@ export default function Home() {
         <h2 className="mb-8 text-center text-2xl font-bold text-gray-900">어떻게 추천하나요?</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { n: "1", t: "내 정보 선택", d: "키·체중·발볼·발 타입을 버튼으로 고르면 끝. 숫자 입력 없이 1분." },
+            { n: "1", t: "내 정보 선택", d: "용도·키·체중·발볼·발 타입 등 질문 8개를 버튼으로 고르면 끝. 숫자 입력은 없어요." },
             { n: "2", t: "맞춤 추천 3개", d: "수십 개 모델 중 내 체형 조건을 통과한 신발만 골라드려요." },
             { n: "3", t: "부상 예방까지", d: "무릎·발목·아킬레스건 — 증상별 대처법을 추천과 함께 연결해드려요." },
           ].map((s) => (
@@ -490,12 +490,12 @@ export default function Home() {
       <section className="bg-emerald-600">
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
           <h2 className="text-2xl font-bold text-white mb-2">어떤 신발이 맞는지 모르겠다면</h2>
-          <p className="text-emerald-50 mb-6">발볼·발 타입·체형만 고르면 1분 안에 신발 3개를 골라드려요. 근거가 있는 것과 사이트 기준인 것은 결과에서 나눠 보여드려요.</p>
+          <p className="text-emerald-50 mb-6">질문 8개에 답하면 신발 3개를 골라드려요. 근거가 있는 것과 사이트 기준인 것은 결과에서 나눠 보여드려요.</p>
           <Link
             href="/shoe-finder"
             className="inline-block bg-white text-emerald-700 font-semibold px-8 py-4 rounded-xl hover:bg-emerald-50 transition-colors"
           >
-            내 발에 맞는 러닝화 찾기 →
+            나에게 맞는 신발 찾기 →
           </Link>
         </div>
       </section>

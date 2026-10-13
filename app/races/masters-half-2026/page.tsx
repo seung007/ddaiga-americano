@@ -89,9 +89,9 @@ export default function RacePage() {
           </Link>
           로 km당 페이스를 먼저 확인해 보세요. 대회용 신발이 고민이면{" "}
           <Link href="/shoe-finder" className="text-emerald-600 hover:underline">
-            신발 찾기
+            나에게 맞는 신발 찾기
           </Link>
-          에서 1분이면 후보를 좁힐 수 있습니다.
+          에서 질문 8개로 후보를 좁힐 수 있습니다.
         </p>
       </section>
 

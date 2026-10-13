@@ -259,7 +259,7 @@ export default function InjuryHubPage() {
           href="/shoe-finder"
           className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
         >
-          내 러닝화 찾기 →
+          나에게 맞는 신발 찾기 →
         </Link>
         <p className="mt-3 text-xs text-emerald-700/70">추천 순서는 광고비로 바뀌지 않습니다</p>
       </div>

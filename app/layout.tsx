@@ -24,7 +24,7 @@ const GA_ID = IS_PROD_DEPLOY ? process.env.NEXT_PUBLIC_GA_ID : undefined;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
 
 const SITE_TITLE = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
-const SITE_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 1분 만에 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
+const SITE_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 질문 8개로 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -78,7 +78,7 @@ const websiteJsonLd = {
   name: "뛰다가 아메리카노",
   alternateName: "ddaiga-americano",
   url: SITE_URL,
-  description: "키·체중·발볼·발 타입에 맞는 러닝화를 1분 만에 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.",
+  description: "키·체중·발볼·발 타입에 맞는 러닝화를 질문 8개로 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.",
   inLanguage: "ko",
 };
 

@@ -12,7 +12,7 @@ export default function SiteFooter() {
           <nav className="flex flex-wrap gap-x-5 gap-y-1">
             {/* 2026-09-02: 헤더에 계산기를 넣으면서 Q&A·블로그를 모바일에서 숨겼다.
                 푸터에 없으면 작은 화면에서 접근 경로가 아예 사라지므로 여기에 추가한다. */}
-            <Link href="/shoe-finder" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">신발 찾기</Link>
+            <Link href="/shoe-finder" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">나에게 맞는 신발 찾기</Link>
             <Link href="/shoes"       className="text-xs text-gray-500 hover:text-gray-800 transition-colors">러닝화</Link>
             <Link href="/races"       className="text-xs text-gray-500 hover:text-gray-800 transition-colors">대회 일정</Link>
             <Link href="/tools"       className="text-xs text-gray-500 hover:text-gray-800 transition-colors">계산기</Link>

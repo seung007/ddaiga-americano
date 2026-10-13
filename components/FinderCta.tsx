@@ -55,7 +55,7 @@ export default function FinderCta({
           onClick={fire}
           className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
         >
-          1분 만에 찾기 →
+          내 신발 찾기 →
         </Link>
       </div>
     );
@@ -70,7 +70,7 @@ export default function FinderCta({
         onClick={fire}
         className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
       >
-        내 러닝화 찾기 →
+        나에게 맞는 신발 찾기 →
       </Link>
     </div>
   );

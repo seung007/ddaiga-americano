@@ -252,7 +252,7 @@ export default function PacePage() {
         from="tools-pace"
         variant="block"
         headline="목표 페이스가 정해졌다면, 그 페이스에 맞는 신발인지도 확인해보세요"
-        sub="키·체중·발볼·발 타입으로 1분 만에 후보를 좁혀드립니다."
+        sub="키·체중·발볼·발 타입 등 질문 8개로 후보를 좁혀드립니다."
       />
     </main>
   );

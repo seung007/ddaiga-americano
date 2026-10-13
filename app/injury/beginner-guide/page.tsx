@@ -335,7 +335,7 @@ export default function BeginnerGuidePage() {
             <S>(Relph et al. (2022) <Up h="https://pubmed.ncbi.nlm.nih.gov/35993829/" />)</S>
           </p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            발볼·발 타입으로 신발 찾기 →
+            나에게 맞는 신발 찾기 →
           </Link>
         </div>
 
