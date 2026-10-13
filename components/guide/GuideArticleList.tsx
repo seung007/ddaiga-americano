@@ -28,6 +28,7 @@ import { TOPIC_ORDER, TOPIC_SLUG, topicPreview, latestEnabled, byLatest, look } 
  *   단계 카드의 「이 단계에 맞는 글 전체」(?stage=)로 오면 묶음 안에서 거르고, 빈 묶음은 숨긴다.
  * 2026-10-13 (4차): 글이 늘면 저절로 나뉜다 — 규칙과 숫자는 lib/guide/listRules.ts 한 곳.
  *   한 주제가 넘치면 앞 몇 개 + 「모두 보기」(주제 페이지), 전체가 많아지면 「최신 글」 띠. 지금(27개)은 둘 다 안 보인다.
+ * 2026-10-13 (5차): 목록 오른쪽 「4분」을 뺐다 — 운영자 "분은 왜 넣은 거야? 굳이?". 글을 고르는 데 쓰이지 않는 정보였다.
  *
  * 칩마다 개수를 붙이는 이유(9/03): 개수가 화면에 있으면 그 자체가 검사기다.
  * 「전체」를 빼지 않는 이유(9/03): 빼면 되돌아올 길이 막힌다.
@@ -111,7 +112,6 @@ export default function GuideArticleList() {
                   <span className="min-w-0 flex-1 break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
                     {a.title}
                   </span>
-                  <span className="mt-0.5 shrink-0 text-xs text-gray-400">{a.readTime}</span>
                 </Link>
               </li>
             ))}
@@ -147,7 +147,6 @@ export default function GuideArticleList() {
                         </span>
                         <span className="mt-0.5 line-clamp-1 break-all text-sm text-gray-500">{a.desc}</span>
                       </span>
-                      <span className="mt-0.5 shrink-0 text-xs text-gray-400">{a.readTime}</span>
                     </Link>
                   </li>
                 ))}

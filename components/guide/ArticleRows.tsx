@@ -17,7 +17,6 @@ export function ArticleRows({ items }: { items: GuideArticle[] }) {
               </span>
               <span className="mt-0.5 line-clamp-2 break-keep text-sm text-gray-500">{a.desc}</span>
             </span>
-            <span className="mt-0.5 shrink-0 text-xs text-gray-400">{a.readTime}</span>
           </Link>
         </li>
       ))}
