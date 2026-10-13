@@ -197,7 +197,7 @@ export default function InjuryHubPage() {
       </section>
 
       <section id="articles" className="mt-12 scroll-mt-20">
-        <h2 className="mb-3 text-lg font-bold text-gray-900">전체 글</h2>
+        <h2 className="mb-3 text-lg font-bold text-gray-900">주제별 글</h2>
         <GuideArticleList />
       </section>
 
