@@ -8,6 +8,8 @@ import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
+import { Up, S } from "@/components/guide/Up";
+import { Lead, P, H2, Summary, References, Basis, Note } from "@/components/guide/Read";
 
 /**
  * 카본화 — 검색 수요 3위(카본화 관련 20%)에 답하는 페이지.
@@ -36,6 +38,10 @@ import TableOfContents from "@/components/TableOfContents";
  * 감사에서 걷어낸 기록이기도 하다. 여기서 다시 만들어 내지 않는다.
  *
  * 숫자(개수·가격·무게)는 `SHOES` 에서 계산한다. 상수를 적지 않는다.
+ *
+ * 2026-10-13 가독성 재설계 — 「먼저 결론」 → <Summary>, 참고 문헌은 맨 끝 기본 접힘.
+ *   「4:17/km 보다 느린 속도는 시험하지 않았다 — 효과가 없다는 게 아니라 확인이 안 됐다」가 이 글의 결론이라
+ *   접지 않는다(Lead·Summary·본문에 그대로). 「말한 것/말하지 않은 것」 박스와 가격 목록도 그대로.
  */
 
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/carbon-plate";
@@ -70,11 +76,11 @@ const FAQ: FaqItem[] = [
   },
   {
     q: "입문자가 카본화를 신으면 위험한가요?",
-    a: "'위험하다'고 단정할 근거도 부족합니다. 다만 카본화는 밑창이 단단하고 불안정한 편이라 발목·아킬레스에 부담이 갈 수 있고, 무엇보다 지금 시점에 국내 정가가 36만원대라 얻는 것에 비해 비용이 큽니다. 이 사이트의 추천 로직은 입문자 프로필에 카본화 점수를 낮춥니다.",
+    a: "'위험하다'고 단정할 근거도 부족합니다. 다만 카본화는 밑창이 단단하고 불안정한 편이라 발목·아킬레스에 부담이 갈 수 있고, 무엇보다 지금 시점에 국내 정가가 36만원대라 얻는 것에 비해 비용이 큽니다. 저희 추천 로직은 입문자 프로필에 카본화 점수를 낮춥니다.",
   },
   {
-    q: "이 사이트는 카본화를 추천하나요?",
-    a: `추천 로직에서 카본화는 입문자 프로필일 때 점수가 깎입니다. 다만 목표 기록이 있고 훈련량이 쌓인 경우에는 후보에 남습니다. 이 사이트가 스펙을 확인한 카본화는 ${CARBON.length}개이고 그중 후속이 안 나온 현행 모델은 ${CARBON_NOW.length}개입니다.`,
+    q: "저희는 카본화를 추천하나요?",
+    a: `추천 로직에서 카본화는 입문자 프로필일 때 점수가 깎입니다. 다만 목표 기록이 있고 훈련량이 쌓인 경우에는 후보에 남습니다. 저희가 스펙을 확인한 카본화는 ${CARBON.length}개이고 그중 후속이 안 나온 현행 모델은 ${CARBON_NOW.length}개입니다.`,
   },
 ];
 
@@ -94,56 +100,72 @@ export default function CarbonPlatePage() {
           ["카본화", "/injury/carbon-plate"],
         ]}
       />
-      <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
-        <Link href="/injury" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
+      <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
+        <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
         </Link>
 
-        <h1 className="text-3xl font-bold leading-tight text-gray-900">카본화 살까 말까</h1>
-
-        <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
-          <p className="mt-2 leading-relaxed text-emerald-900">
-            가장 많이 인용되는 연구가 시험한 속도는{" "}
-            <strong>14km/h — 약 4:17/km 부터</strong>입니다. 그보다 느린 속도는{" "}
-            <strong>아예 측정하지 않았습니다.</strong>
-          </p>
-          <p className="mt-2 leading-relaxed text-emerald-900">
-            그리고 지금 살 수 있는 현행 카본화는 <strong>{won(NOW_MIN)} ~ {won(NOW_MAX)}</strong>{" "}
-            입니다. 효과가 확인되지 않은 구간에서 뛰는 사람에게는 비용이 큽니다.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-emerald-800">
-            효과가 없다는 뜻이 아닙니다. <strong>확인된 바가 없다</strong>는 뜻입니다.
-          </p>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">카본화</span>
         </div>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">카본화 살까 말까</h1>
+        <Lead>
+          가장 많이 인용되는 카본화 연구는 <strong>약 4:17/km와 그보다 빠른 속도에서만</strong> 시험했습니다. 그보다 느리게 뛴다면, 그
+          연구로는 효과를 알 수 없습니다.
+        </Lead>
 
-        <TableOfContents
+        <Summary
           items={[
-            { id: "evidence", label: "논문이 말한 것과 말하지 않은 것" },
-            { id: "pace", label: "4:17/km 이 어느 정도냐면" },
-            { id: "shoe-list", label: `확인한 카본화 ${CARBON.length}개와 가격` },
-            { id: "refs", label: "참고 문헌" },
+            <>
+              그 연구가 시험한 속도는 <strong>14km/h — 약 4:17/km 부터</strong>. 그보다 느린 속도는{" "}
+              <strong>아예 측정하지 않았습니다.</strong>
+              <Basis kind="paper" />
+            </>,
+            <>
+              효과가 없다는 뜻이 아닙니다. <strong>확인된 바가 없다</strong>는 뜻입니다. 4%도 기록이 아니라 에너지 비용입니다.
+              <Basis kind="paper" />
+            </>,
+            <>
+              지금 살 수 있는 현행 카본화는 <strong>{won(NOW_MIN)} ~ {won(NOW_MAX)}</strong>. 효과가 확인되지 않은 구간에서 뛰는
+              사람에게는 비용이 큽니다.
+              <Basis kind="rule" />
+            </>,
           ]}
         />
 
-        {/* ── 논문이 말한 것 / 말하지 않은 것 ───────────────── */}
-        <h2 id="evidence" className="mt-10 text-xl font-bold text-gray-900">
-          논문이 말한 것과 말하지 않은 것
+        <TableOfContents
+          items={[
+            { id: "evidence", label: "논문이 말한 것·안 한 것" },
+            { id: "pace", label: "4:17/km은 어느 정도?" },
+            { id: "shoe-list", label: `카본화 ${CARBON.length}개와 가격` },
+          ]}
+        />
+
+        {/* ── ① 논문이 말한 것 / 말하지 않은 것 ───────────────── */}
+        <h2 id="evidence" className={H2}>
+          카본화 신으면 정말 빨라질까
         </h2>
-        <p className="mt-2 text-sm text-gray-600">
-          Hoogkamer et al. (2018) Sports Medicine 48:1009-1019
+        <P>
+          가장 많이 인용되는 연구는 시험한 신발이 <strong>에너지를 약 4% 덜 쓰게 했다</strong>고 보고했습니다. 기록이 4% 빨라진다는 뜻은
+          아닙니다.
+        </P>
+        <P>
+          그리고 그 연구는 <strong>약 4:17/km보다 느린 속도를 시험하지 않았습니다.</strong>
+        </P>
+        <p className="mt-2 text-sm text-gray-500">
+          <S>(Hoogkamer et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29143929/" />)</S> Sports Medicine 48:1009-1019
         </p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
             <p className="text-sm font-bold text-emerald-900">말한 것</p>
-            <ul className="mt-2 space-y-2 text-sm leading-relaxed text-emerald-900">
+            <ul className="mt-2 space-y-2 break-keep text-[15px] leading-relaxed text-emerald-900">
               <li>· 시험한 신발이 <strong>대사 에너지 비용을 약 4% 낮췄다</strong></li>
               <li>· 측정 속도는 <strong>14 · 16 · 18 km/h</strong></li>
             </ul>
           </div>
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm font-bold text-amber-900">말하지 않은 것</p>
-            <ul className="mt-2 space-y-2 text-sm leading-relaxed text-amber-900">
+            <ul className="mt-2 space-y-2 break-keep text-[15px] leading-relaxed text-amber-900">
               <li>· <strong>4:17/km 보다 느린 속도</strong> — 시험 자체를 안 했다</li>
               <li>· <strong>기록이 4% 빨라진다</strong> — 에너지 비용이지 기록이 아니다</li>
               <li>· <strong>플레이트 덕분이다</strong> — 중창 폼과 분리하지 않았다</li>
@@ -152,31 +174,31 @@ export default function CarbonPlatePage() {
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
+        <div className="mt-5 break-keep rounded-xl border border-gray-200 bg-gray-50 p-4 text-[15px] leading-relaxed text-gray-700">
           <strong className="text-gray-900">에너지 반환율 85% · 87% 같은 숫자는</strong> 브랜드가
           발표한 값이지 논문 수치가 아닙니다. 브랜드마다 측정 방법이 달라 서로 비교할 수도 없습니다.
         </div>
 
-        {/* ── 4:17/km 이 어느 정도인가 ──────────────────────── */}
-        <h2 id="pace" className="mt-10 text-xl font-bold text-gray-900">
-          4:17/km 이 어느 정도냐면
+        {/* ── ② 4:17/km 이 어느 정도인가 ──────────────────────── */}
+        <h2 id="pace" className={H2}>
+          4:17/km이면 어느 정도 속도일까
         </h2>
-        <p className="mt-3 leading-relaxed text-gray-700">
-          10km를 <strong>43분</strong>, 하프를 <strong>1시간 30분</strong>, 풀코스를{" "}
-          <strong>3시간 1분</strong>에 완주하는 속도입니다.
-        </p>
-        <p className="mt-3 leading-relaxed text-gray-700">
+        <P>
+          10km를 <strong>43분</strong>, 하프를 <strong>1시간 30분</strong>, 풀코스를 <strong>3시간 1분</strong>에 완주하는
+          속도입니다.
+        </P>
+        <P>
+          이보다 느리게 달린다면 그 연구의 결과가 나에게 적용된다고 말할 근거가 없습니다.{" "}
+          <strong>효과가 없다는 게 아니라 확인이 안 됐다</strong>는 겁니다.
+        </P>
+        <Note>그 구간에서 효과를 본 사람도 있을 수 있고, 그건 아직 데이터가 아닙니다.</Note>
+        <P>
           지금 내가 어느 단계인지 모르겠다면{" "}
           <Link href="/tier-list" className="font-medium text-emerald-600 hover:underline">
             러닝화 계급도
           </Link>
           에서 칸별로 &ldquo;이런 사람에게&rdquo;를 적어 뒀습니다. 카본화는 마지막 칸입니다.
-        </p>
-        <p className="mt-3 leading-relaxed text-gray-700">
-          이보다 느리게 달린다면 그 연구의 결과가 나에게 적용된다고 말할 근거가 없습니다.
-          다시 말하지만 <strong>효과가 없다는 게 아니라 확인이 안 됐다</strong>는 겁니다.
-          그 구간에서 효과를 본 사람도 있을 수 있고, 그건 아직 데이터가 아닙니다.
-        </p>
+        </P>
 
         <FinderCta
           from="carbon-plate"
@@ -184,18 +206,17 @@ export default function CarbonPlatePage() {
           headline="지금 내 수준에 맞는 신발이 뭔지 모르겠다면 조건을 넣어보세요."
         />
 
-        {/* ── 실제 가격 ────────────────────────────────────── */}
-        <h2 id="shoe-list" className="mt-10 text-xl font-bold text-gray-900">
-          이 사이트가 확인한 카본화 {CARBON.length}개
+        {/* ── ③ 실제 가격 ────────────────────────────────────── */}
+        <h2 id="shoe-list" className={H2}>
+          저희가 확인한 카본화 {CARBON.length}개, 얼마일까
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-gray-600">
-          현행(후속 미출시) {CARBON_NOW.length}개는 <strong>{won(NOW_MIN)}부터</strong>입니다.
-          평균 무게는 {CARBON_W.toFixed(0)}g 으로 일반 데일리화 {NORMAL_W.toFixed(0)}g 보다
-          가볍습니다.
-        </p>
+        <P>
+          현행(후속 미출시) {CARBON_NOW.length}개는 <strong>{won(NOW_MIN)}부터</strong>입니다. 평균 무게는 {CARBON_W.toFixed(0)}g 으로
+          일반 데일리화 {NORMAL_W.toFixed(0)}g 보다 가볍습니다.
+        </P>
         <ul className="mt-4 space-y-1.5">
           {CARBON_NOW.sort((a, b) => a.priceKrw - b.priceKrw).map((s) => (
-            <li key={s.id} className="text-sm">
+            <li key={s.id} className="break-keep text-[15px]">
               <span className="font-medium text-gray-900">
                 {s.brand} {s.model}
               </span>
@@ -227,45 +248,44 @@ export default function CarbonPlatePage() {
 
         {/* ── 추천 로직이 무엇을 하는지 공개 ────────────────── */}
         <div className="mt-8 rounded-2xl border border-gray-200 p-5">
-          <p className="font-bold text-gray-900">이 사이트의 추천 로직은 이렇게 다룹니다</p>
-          <p className="mt-2 text-sm leading-relaxed text-gray-700">
-            입문자 프로필에서는 카본화 점수를 <strong>깎습니다.</strong> 근거가 확인된 속도
-            구간 밖이고 가격이 높기 때문입니다. 목표 기록이 있고 훈련량이 쌓인 프로필에서는
-            후보에 남습니다.
+          <p className="font-bold text-gray-900">
+            저희 추천은 카본화를 이렇게 다룹니다
+            <Basis kind="rule" />
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-gray-600">
-            이건 논문에서 도출한 규칙이 아니라 <strong>제가 정한 기준</strong>입니다. 그렇게
-            표시해 두는 게 맞다고 봤습니다.
+          <p className="mt-2 break-keep text-[15px] leading-relaxed text-gray-700">
+            입문자 프로필에서는 카본화 점수를 <strong>깎습니다.</strong> 근거가 확인된 속도 구간 밖이고 가격이 높기 때문입니다. 목표
+            기록이 있고 훈련량이 쌓인 프로필에서는 후보에 남습니다.
+          </p>
+          <p className="mt-2 break-keep text-sm leading-relaxed text-gray-600">
+            이건 논문에서 도출한 규칙이 아니라 <strong>저희가 정한 기준</strong>입니다. 그렇게 표시해 두는 게 맞다고 봤습니다.
           </p>
         </div>
 
-        <div className="mt-8 rounded-xl border border-amber-100 bg-amber-50 p-4 text-sm text-amber-900">
-          <strong>부상 얘기:</strong> 카본화가 부상을 늘린다는 근거도, 줄인다는 근거도 충분하지
-          않습니다. 다만 밑창이 단단하고 높아 발목이 불안정하게 느껴질 수 있으니, 처음 신는다면
-          짧은 거리부터 늘려가세요. 통증이 지속되면 전문의와 상담하세요.
+        <div className="mt-8 break-keep rounded-xl border border-amber-100 bg-amber-50 p-4 text-[15px] leading-relaxed text-amber-900">
+          <strong>부상 얘기:</strong> 카본화가 부상을 늘린다는 근거도, 줄인다는 근거도 충분하지 않습니다. 다만 밑창이 단단하고 높아 발목이
+          불안정하게 느껴질 수 있으니, 처음 신는다면 짧은 거리부터 늘려가세요. 통증이 지속되면 전문의와 상담하세요.
         </div>
 
-        <div className="mt-10">
+        <div className="mt-14">
           <FaqSection items={FAQ} />
         </div>
 
-        <h2 id="refs" className="mt-10 text-xl font-bold text-gray-900">
-          참고 문헌
-        </h2>
-        <ul className="mt-3 space-y-2 text-sm text-gray-700">
-          <li>
-            <strong>Hoogkamer et al. (2018)</strong> — 마라톤 레이싱화의 러닝 에너지 비용 비교.
-            Sports Medicine 48(4):1009-1019.{" "}
-            <a
-              href="https://pubmed.ncbi.nlm.nih.gov/29143929/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-600 underline"
-            >
-              PubMed →
-            </a>
-          </li>
-        </ul>
+        <References n={1}>
+          <ul>
+            <li>
+              <strong>Hoogkamer et al. (2018)</strong> — 마라톤 레이싱화의 러닝 에너지 비용 비교.
+              Sports Medicine 48(4):1009-1019.{" "}
+              <a
+                href="https://pubmed.ncbi.nlm.nih.gov/29143929/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-600 underline"
+              >
+                PubMed →
+              </a>
+            </li>
+          </ul>
+        </References>
 
         <div className="mt-10">
           <InlineAsk from="carbon-plate" tag="카본화" />

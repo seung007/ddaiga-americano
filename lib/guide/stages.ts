@@ -28,7 +28,7 @@
 export type StageId = "start" | "to10k" | "to-half" | "to-full" | "faster";
 
 export type Bottleneck = {
-  /** 사람들이 실제로 막히는 지점 */
+  /** 사람들이 실제로 막히는 지점 — 2026-10-13 부터 **사람이 실제로 하는 말**로 적는다("다쳐서 그만둔다" → "아파서 자꾸 쉬게 돼요") */
   title: string;
   /** 논문이 보여준 것 — 숫자는 초록 값 그대로 */
   fact: string;
@@ -64,7 +64,7 @@ export const STAGES: Stage[] = [
     who: "막 시작했거나 오래 쉬다 다시 시작. 아직 30분을 쉬지 않고 달리기 어렵다.",
     bottlenecks: [
       {
-        title: "다쳐서 그만둔다",
+        title: "아파서 결국 그만두게 돼요",
         fact: "6주 초보 프로그램 참가자 774명 중 29.5%가 26주 안에 달리기를 그만뒀고, 그만둔 이유 1위가 부상(48%)이었습니다.",
         cite: "Fokkema et al. (2019) J Sci Med Sport 22(1):106-111",
         href: "https://pubmed.ncbi.nlm.nih.gov/29934211/",
@@ -72,7 +72,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "정해진 진도를 못 따라간다",
+        title: "프로그램 진도를 못 따라가겠어요",
         fact: "9주 걷기-달리기 프로그램(Couch-to-5k 변형) 참가자 110명 중 끝까지 마친 사람은 27.3%. 그만둔 사람들은 부상과 '정해진 진도'를 이유로 꼽았고, 저자들은 더 유연한 설계를 권했습니다.",
         cite: "Relph et al. (2023) Int J Environ Res Public Health 20(17):6682",
         href: "https://pubmed.ncbi.nlm.nih.gov/37681822/",
@@ -80,7 +80,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "숨이 차서 못 버틴다",
+        title: "숨이 차서 몇 분을 못 뛰어요",
         fact: "말하기 테스트(편하게 문장을 말할 수 있는가)는 환기역치 아래 강도를 가려내는 타당하고 실용적인 방법으로 평가됩니다.",
         cite: "Reed & Pipe (2014) Curr Opin Cardiol 29(5):475-80",
         href: "https://pubmed.ncbi.nlm.nih.gov/25010379/",
@@ -103,15 +103,16 @@ export const STAGES: Stage[] = [
     who: "30분은 뛰는데 거리를 늘리는 중. 첫 대회를 생각한다.",
     bottlenecks: [
       {
-        title: "긴 날 하루에 몰아서 늘린다",
+        title: "거리를 얼마나 늘려도 될지 모르겠어요",
         fact: "성인 러너 5,205명을 18개월 추적한 결과, 한 번 달린 거리가 최근 30일 최장 거리보다 10% 넘게 길면 과사용 부상 비율이 1.52~2.28배였습니다. 전주 대비 주간 거리 비율은 부상과 관계가 없었습니다.",
         cite: "Frandsen et al. (2025) Br J Sports Med 59(17):1203-1210",
         href: "https://pubmed.ncbi.nlm.nih.gov/40623829/",
         todo: "가장 긴 날을 지난 한 달 최장 거리의 110% 안에서 늘립니다.",
-        basis: "paper",
+        // 2026-10-13: paper → rule. 관찰 연구 한 편(Frandsen 2025)의 연관을 지시로 바꾼 것이라 — 가이드 글 검증과 같은 판단
+        basis: "rule",
       },
       {
-        title: "정강이·무릎 앞이 아프기 시작한다",
+        title: "정강이나 무릎 앞이 아파요",
         fact: "부상당한 초보 러너 254명 중 정강이 통증이 15%, 무릎 앞(슬개대퇴) 통증이 10%였습니다.",
         cite: "Nielsen et al. (2014) PLOS ONE 9(6):e99877",
         href: "https://doi.org/10.1371/journal.pone.0099877",
@@ -119,11 +120,11 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "숨은 편해졌는데 다리가 못 따라온다",
+        title: "숨은 괜찮은데 다리가 못 따라와요",
         fact: "13개 연구를 모은 메타분석에서 달린 시간 1,000시간당 부상은 초보 17.8건, 레크리에이션 러너 7.7건이었습니다(부상 정의가 연구마다 달라 비교에 한계).",
         cite: "Videbæk et al. (2015) Sports Med 45(7):1017-26",
         href: "https://pubmed.ncbi.nlm.nih.gov/25951917/",
-        todo: "숨이 편해져도 거리는 천천히 늘립니다. 심폐가 늘었다는 게 다리가 준비됐다는 뜻은 아닙니다.",
+        todo: "숨이 편해졌다고 다리도 준비된 건 아닙니다. 거리는 천천히 늘립니다.",
         basis: "rule",
       },
     ],
@@ -144,7 +145,7 @@ export const STAGES: Stage[] = [
     who: "10km는 완주했고, 주간 거리를 늘려 하프를 준비한다.",
     bottlenecks: [
       {
-        title: "얼마나 준비해야 하는지 모른다",
+        title: "하프는 얼마나 준비하고 나가나요",
         fact: "하프 참가자 556명의 준비량 중앙값은 주 26km, 주 3회, 가장 긴 달리기 18.5km였습니다. 주 32km 초과·최장 21km 초과 그룹이 더 빨랐고 후반 감속이 적었으며, 훈련량과 부상의 관련은 없었습니다(관찰 연구).",
         cite: "Fokkema et al. (2020) Scand J Med Sci Sports 30(9):1692-1704",
         href: "https://pubmed.ncbi.nlm.nih.gov/32421886/",
@@ -152,7 +153,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "준비 초반에 주간 거리를 확 늘린다",
+        title: "준비 시작하면서 거리를 확 늘렸어요",
         fact: "하프를 준비하는 러너 261명을 14주 추적한 연구에서 21일 시점, 주간 거리를 20~60% 늘린 사람이 20% 미만으로 늘린 사람보다 부상 위험이 22.6%p 높았습니다(56·98일 시점에는 차이 없음). 같은 지표가 다른 대규모 연구(Frandsen 2025)에서는 관계가 없었습니다.",
         cite: "Damsted et al. (2019) J Orthop Sports Phys Ther 49(4):230-238",
         href: "https://pubmed.ncbi.nlm.nih.gov/30526231/",
@@ -160,7 +161,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "아픈데 계속 뛴다",
+        title: "아픈데 그냥 뛰어도 될까요",
         fact: "영국 파크런 러너 1,145명 설문에서 현재 부상이 있는 570명 중 86%가 통증을 안고 계속 달리고 있었습니다.",
         cite: "Linton & Valentin (2018) J Sci Med Sport 21(12):1221-1225",
         href: "https://pubmed.ncbi.nlm.nih.gov/29853263/",
@@ -168,7 +169,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "다쳤던 곳이 또 다친다",
+        title: "전에 다친 적이 있어요",
         fact: "전향 코호트 11편을 모은 체계적 고찰에서 가장 일관된 위험 요인은 지난 12개월 안의 부상이었습니다(조사한 8편 중 5편).",
         cite: "Saragiotto et al. (2014) Sports Med 44(8):1153-63",
         href: "https://pubmed.ncbi.nlm.nih.gov/24809248/",
@@ -194,7 +195,7 @@ export const STAGES: Stage[] = [
     who: "하프를 완주했고 풀코스를 준비한다. 주간 거리가 가장 크게 늘어나는 구간.",
     bottlenecks: [
       {
-        title: "얼마나 준비해야 하는지 모른다",
+        title: "풀코스는 얼마나 준비하고 나가나요",
         fact: "풀코스 참가자 441명의 준비량 중앙값은 주 40km, 주 3회, 가장 긴 달리기 32km였습니다. 주 40km 미만과 최장 25km 미만은 더 느린 완주와 관련 있었고, 훈련량과 부상의 관련은 없었습니다(관찰 연구).",
         cite: "Fokkema et al. (2020) Scand J Med Sci Sports 30(9):1692-1704",
         href: "https://pubmed.ncbi.nlm.nih.gov/32421886/",
@@ -202,7 +203,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "준비 기간에 다친다",
+        title: "준비하다가 다칠까 걱정돼요",
         fact: "뉴욕마라톤 참가자 735명을 16주 추적했더니 40.0%가 훈련 중 다쳤습니다. 최근 7일과 28일 거리로 계산한 급성:만성 비율(ACWR)이 1.5 이상인 날이 많을수록 부상이 많았습니다(하루당 OR 1.06). 다만 다른 대규모 연구(Frandsen 2025)에서는 이 지표가 반대 방향으로 나왔습니다.",
         cite: "Toresdahl et al. (2023) Br J Sports Med 57(3):146-152",
         href: "https://pubmed.ncbi.nlm.nih.gov/36113976/",
@@ -210,7 +211,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "후반에 벽에 부딪힌다",
+        title: "후반에 갑자기 다리가 안 나가요",
         fact: "400만 건 넘는 기록을 분석한 결과, 후반에 크게 느려지는 '벽'을 겪은 비율이 남성 28%, 여성 17%였습니다.",
         cite: "Smyth (2021) PLOS ONE 16(5):e0251513",
         href: "https://pubmed.ncbi.nlm.nih.gov/34010308/",
@@ -235,7 +236,7 @@ export const STAGES: Stage[] = [
     who: "완주는 했고 기록을 줄이고 싶다.",
     bottlenecks: [
       {
-        title: "예측 기록을 그대로 믿는다",
+        title: "계산기 예측 기록, 믿어도 되나요",
         fact: "레크리에이션 러너 2,303명 분석에서 널리 쓰이는 리겔 공식은 하프까지는 잘 맞았지만, 풀코스는 러너 절반에게서 실제보다 10분 이상 빠르게 예측했습니다.",
         cite: "Vickers & Vertosick (2016) BMC Sports Sci Med Rehabil 8(1):26",
         href: "https://pubmed.ncbi.nlm.nih.gov/27570626/",
@@ -243,7 +244,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "강도 배분을 공식으로만 찾는다",
+        title: "쉬운 날·힘든 날 비율은 어떻게 하나요",
         fact: "13개 연구 348명의 개별 자료를 모은 메타분석에서 양극화형과 피라미드형 강도 배분은 전체로는 최대산소섭취량·기록 차이가 없었습니다. 최대산소섭취량만 따로 보면 레크리에이션 선수는 피라미드형에서 더 좋아졌을 가능성이 있었습니다.",
         cite: "Rosenblat et al. (2025) Sports Med 55(3):655-673",
         href: "https://pubmed.ncbi.nlm.nih.gov/39888556/",
@@ -251,7 +252,7 @@ export const STAGES: Stage[] = [
         basis: "rule",
       },
       {
-        title: "달리기만 한다",
+        title: "근력운동도 해야 하나요",
         fact: "중장거리 러너 근력운동 메타분석에서 고중량(1RM 80% 이상) 근력운동은 기록에 중간 크기 효과, 여러 방법을 섞으면 큰 효과가 있었습니다. 근거 확실성은 매우 낮음~중간.",
         cite: "Llanos-Lagos et al. (2024) Sports Med 54(7):1801-1833",
         href: "https://pubmed.ncbi.nlm.nih.gov/38627351/",

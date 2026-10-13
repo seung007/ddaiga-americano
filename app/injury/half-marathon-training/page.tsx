@@ -5,6 +5,7 @@ import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
+import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 
 /**
  * 3단계 — 10km → 하프 (2026-10-06)
@@ -17,10 +18,14 @@ import { Up, S } from "@/components/guide/Up";
  *   · 표 숫자는 그 논문의 본문 표 값 그대로. 관찰 연구라 「더 뛰면 빨라진다」가 아니라 「더 뛴 사람이 빨랐다」로 적는다.
  *   · 주간 거리 증가율은 연구끼리 엇갈린다(Damsted 2019 vs Frandsen 2025) — 엇갈린다고 적는다.
  *   · 긴 달리기 진도표는 사이트 예시다. 하프 준비 기간을 정한 연구는 찾지 못했다.
+ *
+ * 2026-10-13 가독성 재설계 — 섹션마다 답 → 할 일 → 근거(접힘). 숫자는 <Evidence> 안으로 옮겼다.
+ *   주간 증가율 엇갈림(Damsted vs Frandsen)은 <Note> 로 본문에 남긴다. 참고 문헌은 기본 접힘.
+ *   제목의 「막히는 곳」 → 「얼마나 늘릴까」(쉬운 말 규칙).
  */
 
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/half-marathon-training";
-const TITLE = "하프마라톤 준비 — 10km에서 21km로 늘릴 때 막히는 곳";
+const TITLE = "하프마라톤 준비 — 10km에서 21km로, 얼마나 늘릴까";
 const DESC =
   "하프 참가자 556명은 주 26km, 주 3회, 가장 긴 달리기 18.5km(중앙값)로 준비했습니다. 주간 거리와 긴 달리기를 얼마나, 얼마나 빨리 늘릴지, 어디서 다치는지 논문 수치로 정리했습니다.";
 
@@ -91,8 +96,8 @@ export default function HalfMarathonTrainingPage() {
           ["하프마라톤 준비", "/injury/half-marathon-training"],
         ]}
       />
-      <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
-        <Link href="/injury" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
+      <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
+        <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
         </Link>
 
@@ -103,54 +108,52 @@ export default function HalfMarathonTrainingPage() {
           >
             3단계 · 10km → 하프
           </Link>
-          <span className="text-xs text-gray-400">7분 읽기</span>
+          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
-        <h1 className="text-3xl font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <Lead>
+          10km를 뛰는 사람이 하프를 준비할 때 <strong>얼마나 뛰고, 얼마나 빨리 늘릴지</strong> 정리했습니다. 기준은 실제 하프
+          참가자 556명의 준비량입니다.
+        </Lead>
 
-        <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-          <p className="text-sm font-semibold text-emerald-900">먼저 결론</p>
-          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-emerald-900">
-            <li>
-              실제 하프 참가자 556명의 준비량 중앙값: <strong>주 26km · 주 3회 · 가장 긴 달리기 18.5km</strong>.
-            </li>
-            <li>
-              주 32km 넘게, 최장 21km 넘게 준비한 그룹이 더 빨랐고 후반 감속이 적었습니다. <strong>훈련량과 부상의 관련은 없었습니다</strong>
-              (관찰 연구).
-            </li>
-            <li>
-              늘리는 속도: 긴 날은 <strong>지난 30일 최장 거리의 110% 안</strong>. 주간 거리 증가율은 연구끼리 결과가 엇갈립니다.
-            </li>
-            <li>아프면 통증 기준으로 조절하고, 무릎 바깥 통증(장경인대)을 특히 조심합니다.</li>
-          </ol>
-        </div>
-
-        <TableOfContents
+        <Summary
           items={[
-            { id: "benchmark", label: "실제 완주자는 얼마나 준비했나" },
-            { id: "ramp", label: "얼마나 빨리 늘리나" },
-            { id: "pace", label: "어떤 속도로" },
-            { id: "pain", label: "아플 때" },
-            { id: "strength", label: "근력운동" },
-            { id: "next", label: "대회와 다음 단계" },
-            { id: "refs", label: "참고 문헌" },
+            <>하프 참가자 556명의 준비량 중앙값은 <strong>주 26km · 주 3회 · 가장 긴 달리기 18.5km</strong>.<Basis kind="paper" /></>,
+            <>주 32km·최장 21km 넘게 준비한 그룹이 더 빨랐고, <strong>훈련량과 부상의 관련은 없었습니다</strong>(관찰 연구).<Basis kind="paper" /></>,
+            <>긴 날은 <strong>지난 30일 중 가장 길게 뛴 거리의 110% 안</strong>에서 늘립니다(한 추적 연구 기반).<Basis kind="rule" /></>,
+            <>주간 거리는 <strong>준비 첫 3주에 20% 미만</strong>으로. 연구끼리 엇갈려 둘 다 지키는 쪽입니다.<Basis kind="rule" /></>,
           ]}
         />
 
-        {/* ── 기준점 ─────────────────────────────────────────── */}
-        <h2 id="benchmark" className="mt-10 text-xl font-bold text-gray-900">
-          실제 완주자는 얼마나 준비했나
-        </h2>
-        <p className="mt-3 text-[15px] leading-relaxed">
-          네덜란드 하프마라톤 참가자 556명에게 준비 기간과 대회 직후 설문을 받은 연구입니다. 참가자의 러닝 경력 중앙값은 5년, 평균 나이 42.8세,
-          대회 2~6주 전 기준으로 <strong>주 26km(20~40km), 주 3회, 훈련 페이스 5:45/km, 가장 긴 달리기 18.5km</strong>였습니다(괄호는
-          사분위 범위). 평균 완주 시간은 2:00:05였습니다.{" "}
-          <S>(Fokkema et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/32421886/" />)</S>
-        </p>
+        <TableOfContents
+          items={[
+            { id: "benchmark", label: "다들 얼마나 뛰었나" },
+            { id: "ramp", label: "얼마나 빨리 늘릴까" },
+            { id: "pace", label: "어떤 속도로" },
+            { id: "pain", label: "준비 중에 아프면" },
+            { id: "strength", label: "근력운동" },
+            { id: "next", label: "대회와 다음 단계" },
+          ]}
+        />
 
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
+        {/* ── ① 기준점 ─────────────────────────────────────── */}
+        <h2 id="benchmark" className={H2}>
+          다른 사람들은 얼마나 뛰고 하프에 나갔을까
+        </h2>
+        <P>
+          하프 참가자 556명의 준비량 중앙값은 <strong>주 26km, 주 3회, 가장 긴 달리기 18.5km</strong>였습니다. 평균 완주 시간은
+          2:00:05였습니다.
+        </P>
+        <P>
+          주 32km 넘게, 최장 21km 넘게 준비한 그룹이 더 빨랐고 후반에 덜 느려졌습니다. 이 연구에서{" "}
+          <strong>훈련량·최장 거리와 부상 사이에는 관련이 없었습니다.</strong>
+        </P>
+        <Note>관찰 연구라 「더 뛰면 빨라진다」가 아니라 「더 뛴 사람이 빨랐다」입니다. 원래 빠른 사람이 더 많이 뛰었을 가능성은 남습니다.</Note>
+
+        <div className="mt-5 overflow-x-auto">
+          <table className="w-full border-collapse text-[15px]">
             <thead>
-              <tr className="bg-gray-100 text-left">
+              <tr className="bg-gray-100 text-left text-sm">
                 <th className="p-2.5">주간 거리</th>
                 <th className="whitespace-nowrap p-2.5">인원</th>
                 <th className="whitespace-nowrap p-2.5">평균 완주</th>
@@ -160,13 +163,13 @@ export default function HalfMarathonTrainingPage() {
             <tbody>
               {BY_VOLUME.map(([a, n, t, d]) => (
                 <tr key={a} className="border-t border-gray-100">
-                  <td className="p-2.5 font-medium text-gray-900">{a}</td>
+                  <td className="break-keep p-2.5 font-medium text-gray-900">{a}</td>
                   <td className="whitespace-nowrap p-2.5 text-gray-600">{n}</td>
                   <td className="p-2.5 text-gray-700">{t}</td>
                   <td className="p-2.5 text-gray-700">{d}</td>
                 </tr>
               ))}
-              <tr className="border-t-2 border-gray-200 bg-gray-50 text-left">
+              <tr className="border-t-2 border-gray-200 bg-gray-50 text-left text-sm">
                 <th className="p-2.5">가장 긴 달리기</th>
                 <th className="p-2.5" />
                 <th className="p-2.5" />
@@ -174,7 +177,7 @@ export default function HalfMarathonTrainingPage() {
               </tr>
               {BY_LONGEST.map(([a, n, t, d]) => (
                 <tr key={a} className="border-t border-gray-100">
-                  <td className="p-2.5 font-medium text-gray-900">{a}</td>
+                  <td className="break-keep p-2.5 font-medium text-gray-900">{a}</td>
                   <td className="whitespace-nowrap p-2.5 text-gray-600">{n}</td>
                   <td className="p-2.5 text-gray-700">{t}</td>
                   <td className="p-2.5 text-gray-700">{d}</td>
@@ -183,38 +186,61 @@ export default function HalfMarathonTrainingPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-gray-500">
-          출처: 같은 논문 본문 표 2. 후반 감속은 대회 중 페이스가 떨어진 정도. 회귀 분석에서도 주 32km 초과와 최장 21km 초과가 더
-          빠른 완주·적은 감속과 관련 있었고, <strong>훈련량·최장 거리와 부상 사이에는 관련이 없었습니다</strong>. 관찰 연구라 원래 빠른 사람이
-          더 많이 뛰었을 가능성은 남습니다.
+        <p className="mt-2 break-keep text-xs leading-relaxed text-gray-500">
+          출처: 같은 논문 본문 표 2. 후반 감속은 대회 중 페이스가 떨어진 정도.
         </p>
+        <Evidence n={1}>
+          <p>
+            네덜란드 하프마라톤 참가자 556명에게 준비 기간과 대회 직후 설문을 받은 연구입니다. 참가자의 러닝 경력 중앙값은 5년, 평균 나이
+            42.8세, 대회 2~6주 전 기준으로 주 26km(20~40km), 주 3회, 훈련 페이스 5:45/km, 가장 긴 달리기 18.5km였습니다(괄호는 사분위
+            범위). 평균 완주 시간은 2:00:05였습니다. 회귀 분석에서도 주 32km 초과와 최장 21km 초과가 더 빠른 완주·적은 감속과 관련 있었고,
+            훈련량·최장 거리와 부상 사이에는 관련이 없었습니다.{" "}
+            <S>(Fokkema et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/32421886/" />)</S>
+          </p>
+        </Evidence>
 
-        {/* ── 늘리는 속도 ─────────────────────────────────────── */}
-        <h2 id="ramp" className="mt-10 text-xl font-bold text-gray-900">
-          얼마나 빨리 늘리나
+        {/* ── ② 늘리는 속도 ─────────────────────────────────── */}
+        <h2 id="ramp" className={H2}>
+          얼마나 빨리 늘려도 될까
         </h2>
-        <ul className="mt-3 space-y-3 text-[15px] leading-relaxed">
-          <li>
-            <strong>긴 날.</strong> 성인 러너 5,205명을 18개월 추적한 연구에서 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 과사용
-            부상 비율이 1.52~2.28배였습니다. 전주 대비 주간 거리 비율은 관계가 없었습니다.{" "}
+        <P>
+          가장 길게 뛰는 날은 <strong>지난 30일 중 가장 길게 뛴 거리의 110%</strong>까지로 잡습니다.
+          <Basis kind="rule" /> 성인 러너 5,205명을 18개월 추적한 한 연구에서 그보다 길게 뛴 사람들에게서 과사용 부상이 더 많았습니다.
+        </P>
+        <P>
+          주간 거리는 따로 봅니다. 저희는 준비 첫 3주는 주간 거리를 20% 미만으로 늘리는 쪽을 권합니다.
+          <Basis kind="rule" />
+        </P>
+        <Todo
+          title="저희 제안 — 두 기준을 다 지키기"
+          basis="rule"
+          items={[
+            <>긴 날: <strong>지난 30일 최장 거리의 110% 안</strong>에서</>,
+            <>주간 거리: <strong>준비 첫 3주는 20% 미만</strong>으로</>,
+          ]}
+        />
+        <Note>
+          주간 거리 증가율은 두 연구의 결과가 엇갈립니다. 한 연구는 주간 거리 비율이 부상과 관계없었고, 다른 연구는 첫 3주에 많이 늘린
+          사람이 더 다쳤습니다. 그래서 둘 다 지키는 쪽을 택했습니다.
+        </Note>
+        <Evidence n={2}>
+          <p>
+            <strong>긴 날.</strong> 성인 러너 5,205명을 18개월 추적한 연구에서 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면
+            과사용 부상 비율이 1.52~2.28배였습니다. 전주 대비 주간 거리 비율은 관계가 없었습니다.{" "}
             <S>(Frandsen et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/40623829/" />)</S>
-          </li>
-          <li>
-            <strong>주간 거리.</strong> 하프를 준비하는 러너 261명을 14주 추적한 연구에서는 21일 시점에 주간 거리를 20~60% 늘린 사람이 20% 미만으로
-            늘린 사람보다 부상 위험이 22.6%p 높았습니다. 56일·98일 시점에는 차이가 없었습니다. 14주 동안 21.5%가 다쳤습니다.{" "}
+          </p>
+          <p>
+            <strong>주간 거리.</strong> 하프를 준비하는 러너 261명을 14주 추적한 연구에서는 21일 시점에 주간 거리를 20~60% 늘린 사람이 20%
+            미만으로 늘린 사람보다 부상 위험이 22.6%p 높았습니다. 56일·98일 시점에는 차이가 없었습니다. 14주 동안 21.5%가 다쳤습니다.{" "}
             <S>(Damsted et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30526231/" />)</S>
-          </li>
-        </ul>
-        <p className="mt-3 rounded-lg bg-gray-50 p-3 text-sm leading-relaxed text-gray-700">
-          두 연구가 주간 증가율에 대해 다른 결과를 냈습니다. 이 사이트는 둘 다 지키는 쪽을 권합니다 — <strong>준비 첫 3주는 주간 거리를 20%
-          미만으로</strong> 늘리고, <strong>긴 날은 110% 안에서</strong>(경험칙).
-        </p>
+          </p>
+        </Evidence>
 
-        <h3 className="mt-6 text-base font-bold text-gray-900">긴 달리기 예시 (10km에서 시작)</h3>
-        <div className="mt-2 overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
+        <h3 className={H3}>긴 달리기 예시 (10km에서 시작)</h3>
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full border-collapse text-[15px]">
             <thead>
-              <tr className="bg-gray-100 text-left">
+              <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">주</th>
                 <th className="whitespace-nowrap p-2.5">가장 긴 날</th>
                 <th className="p-2.5">메모</th>
@@ -224,110 +250,148 @@ export default function HalfMarathonTrainingPage() {
               {LONG_RUNS.map(([w, km, memo]) => (
                 <tr key={w} className="border-t border-gray-100">
                   <td className="p-2.5 font-semibold text-gray-900">{w}</td>
-                  <td className="p-2.5 text-gray-700">{km}</td>
-                  <td className="p-2.5 text-xs text-gray-500">{memo}</td>
+                  <td className="whitespace-nowrap p-2.5 text-gray-700">{km}</td>
+                  <td className="break-keep p-2.5 text-xs text-gray-500">{memo}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-xs text-gray-400">
-          이 사이트의 예시입니다. 매주 긴 날이 직전 30일 최장 거리의 110%를 넘지 않게 짰고, 4주마다 줄이는 주와 대회 2주 전 감량은 경험칙입니다.
-          하프 준비 기간이나 최장 거리를 정한 연구는 찾지 못했습니다.
-        </p>
+        <P className="text-sm text-gray-500">
+          이 표는 저희 예시입니다. 매주 긴 날이 직전 30일 최장 거리의 110%를 넘지 않게 짰고, 4주마다 줄이는 주와 대회 2주 전 감량은 저희
+          제안입니다. 하프 준비 기간이나 최장 거리를 정한 연구는 찾지 못했습니다.
+        </P>
 
-        {/* ── 속도 ─────────────────────────────────────────── */}
-        <h2 id="pace" className="mt-10 text-xl font-bold text-gray-900">
-          어떤 속도로
+        {/* ── ③ 속도 ─────────────────────────────────────────── */}
+        <h2 id="pace" className={H2}>
+          어떤 속도로 뛰어야 할까
         </h2>
-        <ul className="mt-3 space-y-3 text-[15px] leading-relaxed">
-          <li>
-            <strong>대부분은 대화가 되는 속도.</strong> 말하기 테스트는 환기역치 아래 강도를 가려내는 타당한 방법으로 평가됩니다.{" "}
+        <P>
+          <strong>대부분은 대화가 되는 속도로, 일부만 빠르게</strong> 뜁니다. 특정 비율 공식보다 이게 실천 기준입니다.
+          <Basis kind="rule" />
+        </P>
+        <P>
+          심박계가 있다면 참고할 연구가 있습니다. 한 연구에서 45분 쉬운 달리기 때는 심박으로 정한 구간이 대회 페이스로 정한 것보다 목표 강도를 더
+          잘 지켰습니다.
+        </P>
+        <Note>
+          취미 러너 37명 연구이고, 심박 구간은 실험실 검사로 정했습니다. 손목 시계의 추정 최대심박으로 정한 구간은 이보다 부정확할 수
+          있습니다.
+        </Note>
+        <Evidence n={3}>
+          <p>
+            말하기 테스트는 숨이 갑자기 가빠지는 지점(환기역치) 아래 강도를 가려내는 타당한 방법으로 평가됩니다.{" "}
             <S>(Reed &amp; Pipe (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/25010379/" />)</S>
-          </li>
-          <li>
-            <strong>심박계가 있다면.</strong> 레크리에이션 러너 37명을 교차 시험한 연구에서 45분 저강도 달리기 때 목표 구간에 머문 시간이 심박으로
-            정했을 때 85%, 대회 페이스 비율로 정했을 때 69%였습니다. 고강도 인터벌에서는 두 방법 모두 낮았습니다(41%·27%).{" "}
-            <S>(Ranieri et al. (2026) <Up h="https://pubmed.ncbi.nlm.nih.gov/41875873/" />)</S>{" "}
-            이 연구의 심박 구간은 실험실 검사로 정했습니다. 손목 시계의 추정 최대심박으로 정한 구간은 이보다 부정확할 수 있습니다.
-          </li>
-          <li>
-            <strong>강도 배분.</strong> 13개 연구 개별 자료를 모은 메타분석에서 양극화형과 피라미드형 배분은 전체로는 차이가 없었고,
-            최대산소섭취량은 레크리에이션 선수가 피라미드형에서 더 좋아졌을 가능성이 있었습니다.{" "}
-            <S>(Rosenblat et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/39888556/" />)</S>{" "}
-            특정 비율 공식보다 &lsquo;대부분은 쉽게, 일부만 빠르게&rsquo;가 실천 기준입니다(경험칙).
-          </li>
-        </ul>
+          </p>
+          <p>
+            취미 러너 37명을 교차 시험한 연구에서 45분 저강도 달리기 때 목표 구간에 머문 시간이 심박으로 정했을 때 85%, 대회 페이스 비율로
+            정했을 때 69%였습니다. 고강도 인터벌에서는 두 방법 모두 낮았습니다(41%·27%). 이 연구의 심박 구간은 실험실 검사로 정했습니다.{" "}
+            <S>(Ranieri et al. (2026) <Up h="https://pubmed.ncbi.nlm.nih.gov/41875873/" />)</S>
+          </p>
+          <p>
+            13개 연구 개별 자료를 모은 메타분석에서 양극화형과 피라미드형 배분은 전체로는 차이가 없었고, 최대산소섭취량은 취미 수준 선수가
+            피라미드형에서 더 좋아졌을 가능성이 있었습니다.{" "}
+            <S>(Rosenblat et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/39888556/" />)</S>
+          </p>
+        </Evidence>
 
-        {/* ── 아플 때 ─────────────────────────────────────────── */}
-        <h2 id="pain" className="mt-10 text-xl font-bold text-gray-900">
-          아플 때
+        {/* ── ④ 아플 때 ─────────────────────────────────────── */}
+        <h2 id="pain" className={H2}>
+          하프 준비 중에 아프면
         </h2>
-        <ul className="mt-3 space-y-3 text-[15px] leading-relaxed">
-          <li>
-            <strong>무릎 바깥.</strong> 국내 러닝 커뮤니티 부상 글에서 작성자 기준 가장 많이 언급된 부위였습니다(이 사이트 집계). 내리막에서
-            심해지면 장경인대 증후군을 의심합니다 →{" "}
-            <Link href="/injury/it-band" className="text-emerald-700 underline">장경인대 글</Link>
-          </li>
-          <li>
-            <strong>아픈 채 계속 달리지 않기.</strong> 파크런 러너 설문에서 지금 부상이 있는 570명 중 86%가 통증을 안고 달리고 있었습니다.{" "}
-            <S>(Linton &amp; Valentin (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29853263/" />)</S>{" "}
-            통증 점수로 조절하는 법은{" "}
-            <Link href="/injury/return-to-running#rest-or-run" className="text-emerald-700 underline">부상 후 복귀 글</Link>에 있습니다.
-          </li>
-          <li>
-            <strong>다쳤던 곳.</strong> 지난 12개월 안의 부상은 가장 일관된 부상 위험 요인이었습니다.{" "}
-            <S>(Saragiotto et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24809248/" />)</S>{" "}
-            위 하프 참가자의 52.3%도 지난 12개월 안에 다친 적이 있었습니다.
-          </li>
-        </ul>
+        <P>
+          <strong>아픈 채 계속 달리지 마세요.</strong> 통증 점수로 거리를 조절하는 법은{" "}
+          <Link href="/injury/return-to-running#rest-or-run" className="text-emerald-700 underline">
+            부상 후 복귀 글
+          </Link>
+          에 있습니다.
+          <Basis kind="rule" />
+        </P>
+        <P>
+          <strong>무릎 바깥</strong>이 아프고 내리막에서 심해지면 장경인대 증후군을 의심합니다. 국내 러닝 커뮤니티 부상 글에서 작성자
+          기준 가장 많이 언급된 부위였습니다(저희 집계) →{" "}
+          <Link href="/injury/it-band" className="text-emerald-700 underline">
+            장경인대 글
+          </Link>
+        </P>
+        <P>
+          <strong>지난 12개월 안에 다친 적이 있다면</strong> 더 조심하세요.
+          <Basis kind="rule" /> 위험 요인 연구들을 모은 고찰에서 지난 12개월 안의 부상이 가장 일관된 부상 위험 요인이었습니다.
+        </P>
+        <Evidence n={2}>
+          <p>
+            파크런 러너 설문에서 지금 부상이 있는 570명 중 86%가 통증을 안고 달리고 있었습니다.{" "}
+            <S>(Linton &amp; Valentin (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29853263/" />)</S>
+          </p>
+          <p>
+            지난 12개월 안의 부상은 가장 일관된 부상 위험 요인이었습니다.{" "}
+            <S>(Saragiotto et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24809248/" />)</S> 위 하프 참가자의 52.3%도 지난 12개월
+            안에 다친 적이 있었습니다.
+          </p>
+        </Evidence>
 
-        {/* ── 근력 ─────────────────────────────────────────── */}
-        <h2 id="strength" className="mt-10 text-xl font-bold text-gray-900">
-          근력운동
+        {/* ── ⑤ 근력 ─────────────────────────────────────────── */}
+        <h2 id="strength" className={H2}>
+          근력운동을 하면 덜 다칠까
         </h2>
-        <p className="mt-3 text-[15px] leading-relaxed">
-          부상 예방 효과는 엇갈립니다. 스포츠 전반 무작위 시험 25편 메타분석에서는 근력운동이 부상을 3분의 1 수준으로 줄였지만(RR 0.315),{" "}
-          <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>{" "}
-          첫 풀마라톤 러너 720명에게 주 3회 10분 자가 근력 프로그램을 준 시험에서는 완주를 막은 과사용 부상이 7.1% 대 7.3%로 같았습니다.{" "}
-          <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>{" "}
-          기록에는 고중량(1RM 80% 이상) 근력운동이 중간 크기 효과를 보였고, 근거 확실성은 매우 낮음~중간이었습니다.{" "}
-          <S>(Llanos-Lagos et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/38627351/" />)</S>
-        </p>
+        <P>
+          <strong>부상 예방 효과는 연구마다 엇갈립니다.</strong> 스포츠 전반을 모은 분석에서는 부상이 줄었지만, 첫 풀마라톤 러너에게 짧은
+          자가 근력 프로그램을 준 한 무작위 시험에서는 차이가 없었습니다.
+        </P>
+        <P>기록에는 무거운 근력운동이 중간 크기 효과를 보였다는 분석이 있습니다.</P>
+        <Note>기록 효과의 근거 확실성은 매우 낮음~중간으로 평가됐습니다.</Note>
+        <Evidence n={3}>
+          <p>
+            스포츠 전반 무작위 시험 25편 메타분석에서는 근력운동이 부상을 3분의 1 수준으로 줄였습니다(RR 0.315).{" "}
+            <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>
+          </p>
+          <p>
+            첫 풀마라톤 러너 720명에게 주 3회 10분 자가 근력 프로그램을 준 시험에서는 완주를 막은 과사용 부상이 7.1% 대 7.3%로
+            같았습니다. <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
+          </p>
+          <p>
+            기록에는 고중량(1RM 80% 이상) 근력운동이 중간 크기 효과를 보였고, 근거 확실성은 매우 낮음~중간이었습니다.{" "}
+            <S>(Llanos-Lagos et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/38627351/" />)</S>
+          </p>
+        </Evidence>
 
         {/* ── 대회와 다음 ─────────────────────────────────────── */}
-        <h2 id="next" className="mt-10 text-xl font-bold text-gray-900">
-          대회와 다음 단계
+        <h2 id="next" className={H2}>
+          대회 당일, 그리고 다음 단계
         </h2>
-        <p className="mt-3 text-[15px] leading-relaxed">
+        <P>
           대회 당일의 젤·급수·페이스는{" "}
-          <Link href="/injury/half-marathon-race-day" className="text-emerald-700 underline">하프 대회 당일 체크리스트</Link>에 정리했습니다. 목표
-          기록이 궁금하면 10km 기록으로{" "}
-          <Link href="/tools/pace" className="text-emerald-700 underline">페이스 계산기</Link>의 예측을 참고하세요.
-        </p>
-        <p className="mt-3 text-[15px] leading-relaxed">
-          하프를 완주했다면 4단계(하프 → 풀)입니다. 풀코스 참가자 441명의 준비량 중앙값은 주 40km, 주 3회, 가장 긴 달리기 32km였고, 주 40km
-          미만·최장 25km 미만은 더 느린 완주와 관련 있었습니다.{" "}
-          <S>(Fokkema et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/32421886/" />)</S>
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/half-marathon-race-day" className="text-emerald-700 underline">
+            하프 대회 당일 체크리스트
+          </Link>
+          에 정리했습니다. 목표 기록이 궁금하면 10km 기록으로{" "}
+          <Link href="/tools/pace" className="text-emerald-700 underline">
+            페이스 계산기
+          </Link>
+          의 예측을 참고하세요.
+        </P>
+        <P>하프를 완주했다면 4단계(하프 → 풀)입니다.</P>
+        <Evidence n={1} label="풀코스 참가자는 얼마나 준비했나">
+          <p>
+            풀코스 참가자 441명의 준비량 중앙값은 주 40km, 주 3회, 가장 긴 달리기 32km였고, 주 40km 미만·최장 25km 미만은 더 느린 완주와
+            관련 있었습니다. <S>(Fokkema et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/32421886/" />)</S>
+          </p>
+        </Evidence>
+        <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury#stage-to-full" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            4단계에서 막히는 곳 →
+            4단계에서 자주 겪는 문제 →
           </Link>
           <Link href="/injury/intermediate-guide" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">
             중급자 가이드
           </Link>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-14">
           <FaqSection items={FAQ} />
         </div>
 
-        <h2 id="refs" className="mt-10 text-xl font-bold text-gray-900">
-          참고 문헌
-        </h2>
-        <p className="mt-1 text-xs text-gray-400">2026-10-06 PubMed 초록과 대조했습니다(Fokkema 2020 은 PMC 본문 표).</p>
-        <ul className="mt-3 space-y-2 text-sm text-gray-700">
+        <References n={11} note="2026-10-06 PubMed 초록과 대조했습니다(Fokkema 2020 은 PMC 본문 표).">
+          <ul>
           <li>
             <strong>Fokkema et al. (2020)</strong> — 하프 556명·풀 441명의 훈련량·최장 거리와 기록·부상. Scand J Med Sci Sports 30(9):1692-1704.{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/32421886/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
@@ -373,8 +437,9 @@ export default function HalfMarathonTrainingPage() {
             <strong>Llanos-Lagos et al. (2024)</strong> — 중장거리 러너 근력운동 방법별 메타분석. Sports Med 54(7):1801-1833.{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/38627351/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
           </li>
-        </ul>
-        <p className="mt-3 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다.</p>
+          </ul>
+        </References>
+        <p className="mt-6 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다.</p>
       </article>
     </>
   );

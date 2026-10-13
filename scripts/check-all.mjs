@@ -65,6 +65,8 @@ const CHECKS = [
   { name: "제휴링크", cmd: "node", args: ["scripts/affiliate-check.mjs"],              net: false },
   // 앵커는 틀려도 404 도 콘솔 오류도 안 난다 — 눌러야만 안다. 그래서 검사가 본다.
   { name: "목차앵커", cmd: "node", args: ["scripts/check-toc.mjs"],                    net: false },
+  // 2026-10-13 가독성 재설계 — 접힌 근거 안 안전 문장, 개수, 허브 앵커
+  { name: "가이드읽기", cmd: "node", args: ["scripts/check-guide-read.mjs"],            net: false },
   // 대회 날짜는 사람이 참가비를 내고 이동하는 정보다. 좌표보다 세게 막는다.
   { name: "대회일정", cmd: "node", args: ["scripts/check-races.mjs"],                  net: false },
   // 2026-09-28: 브라우저 링크 검사기의 판정 함수. 브라우저 없이 20건을 시험한다 — 판정이 망가진 채 PC 에서 8분 돌리는 일을 막는다

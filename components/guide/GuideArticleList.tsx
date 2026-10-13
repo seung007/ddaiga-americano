@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ARTICLES, TOPICS, topicOf, type GuideArticle, type Topic } from "@/lib/guide/articles";
 import { STAGES, type StageId } from "@/lib/guide/stages";
 
@@ -11,6 +11,9 @@ import { STAGES, type StageId } from "@/lib/guide/stages";
  * 2026-10-06: 수준 칩(초심자/중급자/숙련자)을 단계 칩으로 바꿨다. 이유는 `lib/guide/stages.ts` 머리말.
  * GA 이벤트 이름(`injury_filter`·`injury_topic`)은 그대로 둔다 — 9/03 부터 쌓인 값과 이어서 보려고.
  * 파라미터만 `level` → `stage` 로 바뀌었다.
+ *
+ * 2026-10-13: 단계 칩 줄을 뺐다 — 허브 맨 위 「지금 어디쯤인가요?」가 단계를 이미 묻는다. 칩 두 줄(11개)이 목록보다 먼저 눈에 걸렸다.
+ *   `stage` 상태는 「필터 지우기」 호환을 위해 남긴다(항상 「전체」).
  *
  * 칩마다 개수를 붙이는 이유(9/03): 개수가 화면에 있으면 그 자체가 검사기다.
  * 「전체」를 빼지 않는 이유(9/03): 빼면 되돌아올 길이 막힌다.
@@ -39,18 +42,28 @@ export default function GuideArticleList() {
   const [stage, setStage] = useState<StageFilter>("전체");
   const [topic, setTopic] = useState<Topic>("전체");
 
+  // 단계 카드의 「이 단계에 맞는 글 전체」(StageListButton) 또는 주소 ?stage= 로 거른다
+  useEffect(() => {
+    const valid = (v: string | null): v is StageId => !!v && STAGES.some((s) => s.id === v);
+    const q = new URLSearchParams(location.search).get("stage");
+    if (valid(q)) setStage(q);
+    const on = (e: Event) => {
+      const v = (e as CustomEvent<string>).detail;
+      if (valid(v)) {
+        setStage(v);
+        setTopic("전체");
+        track("injury_filter", { stage: v, from: "stage_card" });
+      }
+    };
+    window.addEventListener("guide:stage", on);
+    return () => window.removeEventListener("guide:stage", on);
+  }, []);
+
+  const stageInfo = stage === "전체" ? null : STAGES.find((s) => s.id === stage);
+
   const filtered = ARTICLES.filter(
     (a) => inStage(a, stage) && (topic === "전체" || topicOf(a.tag) === topic),
   );
-
-  const stageChips: { id: StageFilter; label: string; n: number }[] = [
-    { id: "전체", label: "전체", n: ARTICLES.length },
-    ...STAGES.map((s) => ({
-      id: s.id as StageFilter,
-      label: `${s.step} ${s.short}`,
-      n: ARTICLES.filter((a) => inStage(a, s.id)).length,
-    })),
-  ];
 
   const topicChips = (["전체", ...Object.keys(TOPICS), "기타"] as Topic[])
     .map((t) => ({
@@ -62,26 +75,6 @@ export default function GuideArticleList() {
   return (
     <>
       <div className="flex flex-wrap gap-2">
-        {stageChips.map(({ id, label, n }) => (
-          <button
-            key={id}
-            onClick={() => {
-              setStage(id);
-              track("injury_filter", { stage: id, count: n });
-            }}
-            className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
-              stage === id
-                ? "border-emerald-600 bg-emerald-600 text-white"
-                : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-            }`}
-          >
-            {label}
-            <span className={stage === id ? "ml-1.5 text-emerald-100" : "ml-1.5 text-gray-400"}>{n}</span>
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-3 flex flex-wrap gap-2">
         {topicChips.map(({ t, n }) => (
           <button
             key={t}
@@ -101,6 +94,25 @@ export default function GuideArticleList() {
         ))}
       </div>
 
+      {stageInfo && (
+        <p className="mt-3 flex flex-wrap items-center gap-2 text-sm text-gray-700">
+          <span className="rounded-full bg-emerald-50 px-2.5 py-1 font-medium text-emerald-800">
+            {stageInfo.step}단계 · {stageInfo.from} → {stageInfo.to}에 맞는 글만
+          </span>
+          <button
+            onClick={() => {
+              setStage("전체");
+              const u = new URL(location.href);
+              u.searchParams.delete("stage");
+              history.replaceState(null, "", u);
+            }}
+            className="text-emerald-700 underline underline-offset-2"
+          >
+            전체 보기
+          </button>
+        </p>
+      )}
+
       {filtered.length === 0 && (
         <p className="mt-4 text-sm text-gray-500">
           이 조합에는 글이 없습니다.{" "}
@@ -116,24 +128,18 @@ export default function GuideArticleList() {
         </p>
       )}
 
-      <ul className="mt-5 flex flex-col gap-3">
+      {/* 2026-10-13: 카드(설명 2~3줄) 27장이 4,500px 를 차지했다 → 제목 한 줄 목록. 설명은 글 첫머리에 있다 */}
+      <ul className="mt-4 divide-y divide-gray-100 rounded-xl border border-gray-200 bg-white">
         {filtered.map((a) => (
           <li key={a.href}>
-            <Link
-              href={a.href}
-              className="flex items-start justify-between gap-4 rounded-xl border border-gray-100 bg-white p-5 transition-all hover:border-emerald-300 hover:shadow-sm"
-            >
-              <div className="flex-1">
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${a.tagColor}`}>{a.tag}</span>
-                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
-                    {stageBadge(a)}
-                  </span>
-                </div>
-                <h3 className="mb-1 font-semibold leading-snug text-gray-900">{a.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-500">{a.desc}</p>
-              </div>
-              <span className="mt-1 shrink-0 whitespace-nowrap text-xs text-gray-400">{a.readTime}</span>
+            <Link href={a.href} className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50">
+              <span className="min-w-0 flex-1">
+                <span className="block break-keep text-[15px] font-medium leading-snug text-gray-900">{a.title}</span>
+                <span className="mt-0.5 block text-xs text-gray-400">
+                  {a.tag} · {stageBadge(a)} · {a.readTime}
+                </span>
+              </span>
+              <span aria-hidden className="shrink-0 text-gray-300">›</span>
             </Link>
           </li>
         ))}

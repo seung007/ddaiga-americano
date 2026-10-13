@@ -477,7 +477,8 @@ function judge(claim, actual) {
  *   · paper 배지 수가 그 페이지의 검증된 인용 수를 넘는 경우
  * 세 가지뿐이다. 배지와 본문 주장의 일치는 여전히 사람이 봐야 한다.
  */
-const ALLOWED_BASIS = new Set(["paper", "practice", "experience"]);
+// 2026-10-13: "rule" 추가 — 가이드 읽기 부품 <Todo basis="rule"> (components/guide/Read.tsx, 화면에는 「저희 제안」)
+const ALLOWED_BASIS = new Set(["paper", "practice", "experience", "rule"]);
 
 async function auditBadges(rows) {
   const byFile = new Map();

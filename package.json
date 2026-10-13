@@ -36,6 +36,7 @@
     "check:affiliate": "node scripts/affiliate-check.mjs",
     "check:affiliate:sheet": "node scripts/affiliate-check.mjs --sheet",
     "check:toc": "node scripts/check-toc.mjs",
+    "check:guide": "node scripts/check-guide-read.mjs",
     "check:races": "node scripts/check-races.mjs",
     "check:races:live": "node scripts/check-races.mjs --live",
     "races:sweep": "node scripts/races-sweep.mjs",
