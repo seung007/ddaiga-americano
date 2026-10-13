@@ -8,7 +8,7 @@ export default function SiteHeader() {
     // 헤더를 전역으로 올린 오늘(2026-09-06) 전까지는 /courses 에 헤더가 아예 없어서
     // 이 충돌이 드러날 일이 없었다. 1000보다 큰 값이어야 한다.
     <header className="border-b border-gray-100 bg-white sticky top-0 z-[1100]">
-      <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-3xl lg:max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
         {/* whitespace-nowrap 이 없어서 390px 에서 "뛰다가 아메리 / 카노" 로 쪼개졌다.
             로고가 두 줄이면 사이트가 고장난 것처럼 보인다. */}
         <Link
@@ -75,7 +75,9 @@ export default function SiteHeader() {
             href="/shoe-finder"
             className="shrink-0 whitespace-nowrap rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 sm:px-4"
           >
-            신발 찾기
+            {/* 2026-10-13 운영자: 「신발 찾기」보다 「나에게 맞는 신발 찾기」. 1024px 미만은 폭이 모자라 짧게(768px 에서 긴 문구는 로고와 메뉴가 붙었다). 1024px 이상은 머리글 폭을 5xl 로 넓혀 자리를 만든다 */}
+            <span className="lg:hidden">내 신발 찾기</span>
+            <span className="hidden lg:inline">나에게 맞는 신발 찾기</span>
           </Link>
         </nav>
       </div>

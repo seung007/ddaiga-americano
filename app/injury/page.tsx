@@ -70,7 +70,7 @@ const MORE_LINKS: { href: string; label: string }[] = [
 
 export default function InjuryHubPage() {
   return (
-    <main className="mx-auto max-w-2xl px-5 py-10">
+    <main className="mx-auto w-full max-w-2xl px-5 py-10">
       <BreadcrumbJsonLd trail={[["러닝 가이드", "/injury"]]} />
       <OpenOnHash />
 

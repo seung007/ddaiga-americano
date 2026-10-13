@@ -139,13 +139,14 @@ export default function Home() {
           내 발에 맞는 러닝화,<br />데이터로 찾아드려요
         </h1>
         <p className="mb-6 text-base leading-relaxed text-gray-600 sm:text-lg">
-          발볼·발 타입만 고르면 내 발에 맞는 신발 3개를 골라드려요
+          {/* 2026-10-13: 「발볼·발 타입만 고르면」은 사실과 달랐다 — 신발 찾기는 질문 8개(용도·성별·키·체중·발 특성·경험·부상·예산)다 */}
+          질문 8개에 답하면 내 발에 맞는 신발 3개를 골라드려요
         </p>
         <Link
           href="/shoe-finder"
           className="block w-full rounded-xl bg-emerald-600 px-8 py-4 font-medium text-white transition-colors hover:bg-emerald-700 sm:inline-block sm:w-auto"
         >
-          내 신발 찾기 시작 →
+          나에게 맞는 신발 찾기 →
         </Link>
         <p className="mt-3 text-xs font-medium text-gray-500">가입 없이 무료</p>
 

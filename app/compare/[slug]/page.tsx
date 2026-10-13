@@ -433,7 +433,7 @@ export default async function ComparePage({
           어떤 신발이 내 발에 맞는지 모르겠다면?
         </p>
         <h3 className="text-base font-bold text-gray-900 mb-2">
-          발볼·발 타입만 고르면 1분 안에 3개를 골라드려요
+          질문 8개에 답하면 3개를 골라드려요
         </h3>
         <p className="text-sm text-gray-500 mb-4">
           근거가 있는 항목과 사이트 기준인 항목을 나눠 보여드려요.
