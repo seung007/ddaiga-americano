@@ -17,6 +17,7 @@ import RaceSourceCta from "@/components/RaceSourceCta";
 import RaceStatusBadge from "@/components/RaceStatusBadge";
 import FinderCta from "@/components/FinderCta";
 import RaceReactions from "@/components/RaceReactions";
+import RaceJourney from "@/components/RaceJourney";
 
 /**
  * 대회 상세 — **템플릿 하나로 전 대회** (2026-09-16)
@@ -155,6 +156,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
 
         {/* 2026-09-23 — 나가요 / 다녀왔어요. 근거·경위는 components/RaceReactions.tsx 주석 */}
         <RaceReactions raceId={r.id} ended={ended} distances={r.distancesKm.map(distanceLabel)} />
+
+        {/* 2026-10-13 — 대회까지 순서(준비 → 2주 전 → 당일 → 끝난 뒤). 시점은 대회 날짜의 D-day 로만. 경위는 components/RaceJourney.tsx */}
+        <RaceJourney distancesKm={r.distancesKm} dday={d} />
 
         {others.length > 0 && (
           <section className="mb-10">

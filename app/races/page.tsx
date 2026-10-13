@@ -4,6 +4,7 @@ import { upcomingRaces, daysUntil, distanceLabel, currentStatus, regionGroup } f
 import RaceFilterList, { type RaceItem } from "@/components/RaceFilterList";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import FinderCta from "@/components/FinderCta";
+import RaceJourney from "@/components/RaceJourney";
 
 /**
  * 마라톤 대회 일정 — **재방문을 만드는 축.**
@@ -75,6 +76,13 @@ export default function RacesPage() {
           </div>
         ) : (
           <RaceFilterList items={items} />
+        )}
+
+        {/* 2026-10-13 — 상세와 같은 「대회까지 순서」를 D-day 없이 거리별 링크로. 목록 아래라 필터를 밀어내지 않는다 */}
+        {races.length > 0 && (
+          <div className="mt-10">
+            <RaceJourney />
+          </div>
         )}
 
         <div className="mt-10">

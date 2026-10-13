@@ -90,6 +90,7 @@ export const STAGES: Stage[] = [
     ],
     guides: [
       { href: "/injury/start-running", label: "처음 달리기 — 30분까지" },
+      { href: "/tools/run-30", label: "따라 하는 30분 플랜" },
       { href: "/injury/beginner-guide", label: "초보 러너 뛰는 법" },
     ],
     next: "대화가 되는 속도로 30분을 쉬지 않고, 다음 날 통증이 없을 때",

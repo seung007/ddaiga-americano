@@ -228,6 +228,15 @@ export default function ShoesBrowser() {
           <Toggle on={carbon} onClick={() => setCarbon((v) => !v)}>카본 플레이트</Toggle>
           <Toggle on={hideOld} onClick={() => setHideOld((v) => !v)}>후속 나온 모델 숨기기</Toggle>
           <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}>♥ 찜 {liked.length}</Toggle>
+          {/* 2026-10-13: 찜한 신발을 바로 견주는 길 — 두께 비교 도구는 3켤레까지(?s=a,b,c) */}
+          {liked.length >= 2 && (
+            <Link
+              href={`/tools/shoe-side?s=${liked.filter((id) => SHOES.some((x) => x.id === id)).slice(-3).join(",")}`}
+              className="rounded-full border border-emerald-300 px-3 py-1 text-sm text-emerald-700 hover:bg-emerald-50"
+            >
+              찜한 신발 두께 비교 →
+            </Link>
+          )}
         </div>
       </div>
 

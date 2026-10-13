@@ -48,6 +48,27 @@ const INJURY_OPTIONS: { value: InjuryArea; label: string; desc: string }[] = [
 
 type SortKey = "score" | "price_asc" | "price_desc";
 
+/**
+ * 원탭 시작 프리셋 (2026-10-13)
+ *
+ * Rundida 가 「Beginner road runner」「Wide-foot daily」 같은 묶음으로 시작하게 하는 것을 보고 넣었다.
+ * 8단계 중 용도·경험·거리·발볼은 「나는 이런 러너」 한마디로 정해지는 경우가 많다.
+ *
+ * - **기존 선택지 값만** 쓴다. 정한 항목만 덮고 나머지(성별·아치·부상·예산)는 건드리지 않는다.
+ * - **체중 묶음은 만들지 않는다** — 체중은 순위에 안 쓴다(recommend.ts v4).
+ * - 키·체중은 추천 계산에 필수라 프리셋이 대신 고를 수 없다. 이미 골라져 있으면 바로 결과로,
+ *   아니면 키 단계로 보내고 체중을 고르는 순간 결과를 낸다(`presetPending`).
+ */
+const PRESETS: {
+  id: string; label: string;
+  use: ShoeUse; level?: RunnerLevel; distance?: RunDistance; width?: "wide";
+}[] = [
+  { id: "beginner_daily", label: "처음 시작하는 데일리", use: "daily",  level: "beginner",     distance: "short" },
+  { id: "wide_daily",     label: "발볼이 넓어요",        use: "daily",  width: "wide" },
+  { id: "half_prep",      label: "하프 준비 중",          use: "long",   level: "intermediate", distance: "mid" },
+  { id: "racing",         label: "기록 단축·레이싱",      use: "racing", level: "advanced",     distance: "long" },
+];
+
 const TOTAL_STEPS = 8;
 // 2026-09-14: 첫 문항을 「예산」 → 「용도」로 바꿨다(마지막과 자리 교환).
 // 관측한 추천 서비스 5곳 중 예산을 첫 문항에 둔 곳은 0곳이었다. 경위는 STEP 0 주석에.
@@ -127,6 +148,10 @@ export default function ShoeFinderPage() {
    * 새 매개변수 이름을 쓰면 또 등록해야 하고 **소급 적용이 안 된다.**
    */
   const restoredRef = useRef(false);
+  /** 2026-10-13 — 프리셋으로 들어온 완주는 from=preset. 분모는 finder_preset 이다(start 를 안 쏘므로) */
+  const presetRef = useRef(false);
+  /** 프리셋을 눌렀고 키·체중만 남았다 — 체중이 골라지는 순간 결과를 낸다 */
+  const [presetPending, setPresetPending] = useState<string | null>(null);
 
   function goNext() {
     // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
@@ -136,7 +161,26 @@ export default function ShoeFinderPage() {
     }
     setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1));
   }
-  function goPrev() { setCurrentStep(s => Math.max(s - 1, 0)); }
+  function goPrev() { setPresetPending(null); setCurrentStep(s => Math.max(s - 1, 0)); }
+
+  function applyPreset(p: (typeof PRESETS)[number]) {
+    gtagEvent("finder_preset", { preset: p.id });
+    // 프리셋 경로는 goNext 를 거의 안 거친다. 여기서 start 를 쏘면 from=form 완주율의 분모가 부풀므로
+    // 쏘지 않고, 이후 goNext 에서도 안 쏘게 막아 둔다. 이 경로의 분모는 finder_preset 이다.
+    startFiredRef.current = true;
+    presetRef.current = true;
+    setUse(p.use);
+    if (p.level) setLevel(p.level);
+    if (p.distance) setDistance(p.distance);
+    if (p.width) {
+      const wid = p.width;
+      setFootSelections(prev => [...prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== "width"), wid]);
+    }
+    setError("");
+    setPresetPending(p.id);
+    if (heightRange && weightRange) return; // 키·체중이 이미 있으면 아래 effect 가 바로 제출한다
+    setCurrentStep(heightRange ? 3 : 2);
+  }
 
   // 저장된 프로필을 상태에 적용 (공유 URL · 지난 추천 다시보기 공용)
   function applyProfile(p: SavedProfile, submit: boolean) {
@@ -246,6 +290,11 @@ export default function ShoeFinderPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    submitNow();
+  }
+
+  function submitNow() {
+    setPresetPending(null);
     /**
      * ⚠️ 2026-09-14 — **오류가 해당 단계로 데려가게 했다.**
      *
@@ -278,11 +327,12 @@ export default function ShoeFinderPage() {
       completeFiredRef.current = true;
       // from=form  → 1단계부터 8단계를 밟은 진짜 완주 (완주율의 분자)
       // from=restore → 공유 링크·지난 추천으로 결과 화면부터 시작한 뒤 재제출
+      // from=preset  → 원탭 프리셋으로 시작 (2026-10-13). 분모는 finder_preset
       //                start 가 없으므로 분자에서 빼야 한다
       gtagEvent("recommend_form_complete", {
         gender: gender || "unset",
         level: level || "unset",
-        from: restoredRef.current ? "restore" : "form",
+        from: presetRef.current ? "preset" : restoredRef.current ? "restore" : "form",
       });
     }
   }
@@ -325,6 +375,12 @@ export default function ShoeFinderPage() {
     if (editingStep === 2 && heightRange && !weightRange) setEditingStep(3);
   }, [editingStep, heightRange, weightRange]);
 
+  // 2026-10-13 프리셋: 키·체중이 갖춰지는 순간 제출. 프리셋 값이 상태에 반영된 뒤의 렌더에서 돈다
+  useEffect(() => {
+    if (presetPending && heightRange && weightRange && !submitted) submitNow();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presetPending, heightRange, weightRange, submitted]);
+
   /**
    * 조건 칩에 띄울 현재 값. null이면 아직 안 고른 것.
    * ⚠️ **이 배열의 순서는 `STEP_LABELS` 와 1:1로 맞아야 한다.**
@@ -359,6 +415,8 @@ export default function ShoeFinderPage() {
     // 새 퍼널 진행이므로 시작·완주를 다시 셀 수 있게 되돌린다.
     startFiredRef.current = false;
     completeFiredRef.current = false;
+    presetRef.current = false;
+    setPresetPending(null);
   }
 
   return (
@@ -490,6 +548,22 @@ export default function ShoeFinderPage() {
          * 제출 버튼은 마지막 단계에 있어야 하므로, 용도에 붙어 있던 제출을
          * 예산 쪽(이제 STEP 7)으로 같이 옮겼다.
          */}
+        {/* 2026-10-13 원탭 시작 — 경위는 PRESETS 주석. 인라인 편집 중에는 안 보인다 */}
+        {activeStep === 0 && !isEditing && (
+          <div className="-mt-1">
+            <p className="mb-1.5 text-xs text-gray-500">빠르게 시작 — 누르면 답을 채웁니다. 나중에 고칠 수 있습니다.</p>
+            <div className="grid grid-cols-2 gap-1.5">
+              {PRESETS.map(p => (
+                <button key={p.id} type="button" onClick={() => applyPreset(p)}
+                  className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-left text-xs font-semibold text-emerald-800 transition-colors hover:border-emerald-400">
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-gray-400">또는 직접 고르기</p>
+          </div>
+        )}
+
         {activeStep === 0 && (
           <div className="flex flex-col gap-2">
             {([
@@ -502,7 +576,7 @@ export default function ShoeFinderPage() {
                 onClick={() => { setUse(o.value); handleChange(); }}
                 className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
                   ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                <span className={`font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
+                <span className={`shrink-0 whitespace-nowrap font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
                 <span className="text-xs text-gray-400">{o.desc}</span>
               </button>
             ))}
@@ -534,6 +608,12 @@ export default function ShoeFinderPage() {
             </button>
             <p className="text-xs text-gray-400 mt-1">선택 안 해도 추천 받을 수 있어요.</p>
           </div>
+        )}
+
+        {presetPending && !isEditing && (activeStep === 2 || activeStep === 3) && (
+          <p className="-mt-2 rounded-lg bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
+            「{PRESETS.find(p => p.id === presetPending)?.label}」로 나머지 답을 채웠습니다. 키·체중만 고르면 바로 결과를 보여 드립니다.
+          </p>
         )}
 
         {/* ── STEP 2: 키 ── */}
@@ -845,6 +925,18 @@ export default function ShoeFinderPage() {
                 canAddCompare={compareIds.length < 2 || compareIds.includes(rec.shoe.id)}
                 onToggleCompare={() => toggleCompare(rec.shoe.id)} />
             ))}
+          </ul>
+
+          {/* 2026-10-13 한계 고지 — Rundida 의 "Don't trust it for fit"·드롭 급변 주의를 보고 넣었다.
+              하단 ※문단에 「직접 신어보고」가 있지만 작고 맨 끝이라, 사기 직전에 보이게 목록 바로 아래에 둔다.
+              드롭 문장은 /injury/achilles #drop 이 말하는 만큼만 — 그 글은 「흔히 이야기된다」이고 인용 연구는 드롭 연구가 아니다. */}
+          <ul className="mt-5 space-y-1.5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+            <li>· 착용감·사이즈는 화면으로 알 수 없습니다. 같은 브랜드도 모델마다 다르니 매장에서 신어 보고 고르세요.</li>
+            <li>
+              · 지금 신는 신발과 드롭(뒤꿈치–앞발 높이 차) 차이가 크면 한 번에 바꾸지 말고 천천히 옮겨 가세요. 드롭이 낮아지면
+              아킬레스건·종아리가 더 일한다고 흔히 이야기됩니다(저희가 확인한 근거는 아닙니다).{" "}
+              <a href="/injury/achilles#drop" className="font-medium underline">아킬레스 글 →</a>
+            </li>
           </ul>
 
           {compareIds.length > 0 && (

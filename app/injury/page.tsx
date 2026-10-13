@@ -61,6 +61,7 @@ const PAIN_LINKS: { href: string; label: string }[] = [
 ];
 
 const MORE_LINKS: { href: string; label: string }[] = [
+  { href: "/tools/run-30", label: "30분 달리기 플랜 — 회차별로 따라 하기" },
   { href: "/injury/training-types", label: "훈련 종류 (인터벌·템포·LSD…)" },
   { href: "/injury/warmup", label: "달리기 전 준비운동" },
   { href: "/injury/half-marathon-race-day", label: "대회 당일 체크리스트" },

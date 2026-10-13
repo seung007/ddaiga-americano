@@ -94,7 +94,7 @@ export function Evidence({
   label?: string;
 }) {
   return (
-    <details className="group/ev mt-3 rounded-xl bg-gray-50 open:pb-1">
+    <details data-ev={label} className="group/ev mt-3 rounded-xl bg-gray-50 open:pb-1">
       <summary className="flex cursor-pointer list-none items-center gap-1.5 px-4 py-2.5 text-sm text-gray-500 hover:text-gray-800 [&::-webkit-details-marker]:hidden">
         <span aria-hidden className="inline-block transition-transform group-open/ev:rotate-90">›</span>
         {label}
@@ -119,17 +119,20 @@ export function References({
 }) {
   return (
     <section id="refs" aria-label={title} className="mt-14 scroll-mt-20 border-t border-gray-200 pt-6">
-      <details className="group/refs">
+      <details data-refs="1" className="group/refs">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
           {/* summary 안 h2 — 제목 목록(스크린리더·목차)에서 「참고 문헌」이 빠지지 않게 (council Dev 지적) */}
-          <h2 className="text-lg font-bold text-gray-900">
-            {title}
-            {n ? <span className="ml-1.5 text-sm font-normal text-gray-400">{n}개</span> : null}
-          </h2>
+          <div className="min-w-0">
+            <h2 className="text-lg font-bold text-gray-900">
+              {title}
+              {n ? <span className="ml-1.5 text-sm font-normal text-gray-400">{n}개</span> : null}
+            </h2>
+            {/* 2026-10-13: 대조 날짜를 접힌 채로도 보이게 — 「언제 확인했나」는 신뢰 신호다(벤치마킹: 날짜를 첫 화면에 두는 사이트들) */}
+            {note && <p className="mt-0.5 break-keep text-xs text-gray-400">{note}</p>}
+          </div>
           <span className="shrink-0 rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 group-open/refs:hidden">펼치기</span>
           <span className="hidden shrink-0 rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 group-open/refs:inline">접기</span>
         </summary>
-        {note && <p className="mt-2 text-xs text-gray-400">{note}</p>}
         <div className="mt-3 break-keep text-sm leading-relaxed text-gray-600 [&_li]:mt-2.5">{children}</div>
       </details>
     </section>

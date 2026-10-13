@@ -49,17 +49,24 @@ export default function TableOfContents({
 
   return (
     /**
+     * 2026-10-13: **기본 접힘으로 바꿨다.** 벤치마킹한 국내 사이트(러닝위키·aboda)는 목차를 접어 두고 「Toggle」로 연다.
+     * 가독성 재설계 뒤 첫 화면이 제목 → 한 줄 소개 → 「한눈에」 → 목차(8~9줄, 약 300px)였고, 목차가 본문을 밀어냈다.
+     * 접어도 링크는 HTML 에 그대로라 검색엔진·AI 가 읽는 값은 같다.
+     * (아래는 예전 설명)
      * `<details>` 를 쓰되 **모바일에서만 접는다.**
      * 데스크톱은 세로 여유가 있어서 펼쳐 두는 편이 한눈에 들어오고,
      * 390px 에서는 목차가 본문을 밀어내면 목차가 본문이 된다.
      * `open` 속성은 CSS 로 못 바꾸므로 두 벌을 두지 않고 항상 열어 두되
      * 모바일에서 높이를 제한한다 — 그게 가장 단순하고 깨질 데가 없다.
      */
-    <nav
-      aria-label="목차"
-      className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4"
-    >
-      <p className="text-xs font-semibold tracking-wide text-gray-500">{title}</p>
+    <nav aria-label="목차" className="mt-5">
+      <details className="group/toc rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 text-sm text-gray-600 [&::-webkit-details-marker]:hidden">
+        <span>
+          <span className="font-semibold">{title}</span> <span className="text-gray-400">· {items.length}개 항목</span>
+        </span>
+        <span aria-hidden className="text-gray-400 transition-transform group-open/toc:rotate-90">›</span>
+      </summary>
       <ol className="mt-2 space-y-1.5">
         {items.map((it, i) => (
           <li key={it.id} className="flex gap-2 text-sm leading-snug">
@@ -73,6 +80,7 @@ export default function TableOfContents({
           </li>
         ))}
       </ol>
+      </details>
     </nav>
   );
 }

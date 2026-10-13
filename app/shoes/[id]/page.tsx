@@ -7,6 +7,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
 import ShoeReactions from "@/components/ShoeReactions";
+import LikeButton from "@/components/LikeButton";
 import { nicknamesOf } from "@/lib/shoes/aliases";
 import { rungOf } from "@/lib/shoes/tiers";
 import { predecessorOf, successorOf } from "@/lib/shoes/lineage";
@@ -83,8 +84,37 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   return (
     <div className="flex gap-4 px-4 py-2.5 text-sm">
       <dt className="w-24 shrink-0 font-medium text-gray-500">{label}</dt>
-      <dd className="text-gray-800">{children}</dd>
+      <dd className="min-w-0 flex-1 text-gray-800">{children}</dd>
     </div>
+  );
+}
+
+/**
+ * 스펙 옆 「전체 N켤레 중 어디쯤」 (2026-10-13, 벤치마킹: RunRepeat 는 측정값마다 평균·최소~최대를 같이 보여준다)
+ *
+ * 「38mm」만 보면 두꺼운지 얇은지 모른다. 같은 원장(lib/shoes/data.ts) 전체와 견준 위치만 보여주고
+ * **좋다·나쁘다는 붙이지 않는다** — 두께·드롭·무게와 부상의 관계를 이 사이트는 확인하지 못했다(ShoeSideProfile 머리말과 같은 원칙).
+ * 무게는 남성 US9 끼리만 비교한다(여성 US8 값과 섞지 않는다).
+ */
+function Position({ value, all, unit, low, high }: { value: number; all: number[]; unit: string; low: string; high: string }) {
+  const xs = all.filter((v) => Number.isFinite(v) && v > 0);
+  if (xs.length < 10) return null;
+  const min = Math.min(...xs);
+  const max = Math.max(...xs);
+  const below = xs.filter((v) => v < value).length;
+  const pct = Math.round((below / xs.length) * 100);
+  const pos = max === min ? 50 : ((value - min) / (max - min)) * 100;
+  const where = pct <= 33 ? `${low} 편` : pct >= 67 ? `${high} 편` : "중간쯤";
+  return (
+    <span className="mt-1 block">
+      <span className="relative block h-1.5 rounded-full bg-gray-100" aria-hidden>
+        <span className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-emerald-600" style={{ left: `${pos}%` }} />
+      </span>
+      <span className="mt-1 block text-xs text-gray-500">
+        {xs.length}켤레 중 {where} · 범위 {min}~{max}
+        {unit}
+      </span>
+    </span>
   );
 }
 
@@ -123,7 +153,10 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
                 {rago(nicknamesOf(s.model).at(-1) ?? "")} 불러요
               </p>
             )}
-            <p className="mt-2 text-lg text-gray-800">약 {won(s.priceKrw)}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <p className="text-lg text-gray-800">약 {won(s.priceKrw)}</p>
+              <LikeButton id={s.id} name={name} />
+            </div>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {s.uses.map((u) => (
                 <span key={u} className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
@@ -202,9 +235,18 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">스펙</h2>
           <dl className="divide-y divide-gray-100 rounded-2xl border border-gray-200">
-            <Row label="무게">{s.weightGramsM9}g (남성 US9){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}</Row>
-            <Row label="힐 드롭">{s.heelDropMm}mm</Row>
-            <Row label="스택 높이">{s.stackHeightMm}mm</Row>
+            <Row label="무게">
+              {s.weightGramsM9}g (남성 US9){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}
+              <Position value={s.weightGramsM9} all={SHOES.map((x) => x.weightGramsM9)} unit="g" low="가벼운" high="무거운" />
+            </Row>
+            <Row label="힐 드롭">
+              {s.heelDropMm}mm
+              <Position value={s.heelDropMm} all={SHOES.map((x) => x.heelDropMm)} unit="mm" low="낮은" high="높은" />
+            </Row>
+            <Row label="스택 높이">
+              {s.stackHeightMm}mm
+              <Position value={s.stackHeightMm} all={SHOES.map((x) => x.stackHeightMm)} unit="mm" low="얇은" high="두꺼운" />
+            </Row>
             <Row label="쿠셔닝">
               {s.cushioning}/5 ({cushionKo(s.cushioning)})
             </Row>
@@ -215,6 +257,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           </dl>
           <p className="mt-2 text-xs text-gray-400">
             {checked ? `${checked} 스펙 확인 · ` : ""}
+            위치는 이 사이트에 등록된 신발끼리 비교한 것이고, 좋고 나쁨을 뜻하지 않습니다 ·{" "}
             <a href={s.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
               스펙 출처 ↗
             </a>

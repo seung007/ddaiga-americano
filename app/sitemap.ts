@@ -44,6 +44,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/tools/shoe-life`,  lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/tools/pace`,       lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/tools/shoe-side`,  lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    // 2026-10-13: 30분 달리기 따라 하기(처음 달리기 글의 진도표를 회차·타이머로)
+    { url: `${BASE_URL}/tools/run-30`,     lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     // 2026-09-06: 코스 페이지. 계산기 때 사이트맵 등재를 빠뜨린 실패를 반복하지 않는다.
     { url: `${BASE_URL}/courses`,     lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/injury`,      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },

@@ -7,6 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
+import { WALK_RUN } from "@/lib/guide/walkRun";
 
 /**
  * 1단계 — 처음 → 30분 연속 (2026-10-06)
@@ -26,6 +27,9 @@ import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note
  * 2026-10-13 가독성 재설계 — "글자가 너무 많아서 읽히지가 않는다". 섹션마다 답 → 할 일 → 근거(접힘).
  *   사실·숫자는 지우지 않고 <Evidence> 안으로 옮겼다. 멈출 신호는 접지 않는다. 참고 문헌은 기본 접힘.
  *   「경험칙」 → 「저희 제안」 배지(components/guide/Read.tsx).
+ *
+ * 2026-10-13 진도표(WALK_RUN)를 lib/guide/walkRun.ts 로 옮겼다 — /tools/run-30(따라 하기 플랜)과 같은 표를 쓰게.
+ *   표 글자는 옮기기 전과 한 글자씩 같다(대조함). 표 바로 아래 「이 표대로 따라 하기 →」 버튼.
  */
 
 const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/start-running";
@@ -39,16 +43,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/injury/start-running" },
 };
 
-const WALK_RUN: [string, string, string][] = [
-  ["A", "달리기 1분 + 걷기 2분 × 8", "24분"],
-  ["B", "달리기 2분 + 걷기 2분 × 6", "24분"],
-  ["C", "달리기 3분 + 걷기 1분 30초 × 5", "22분 30초"],
-  ["D", "달리기 5분 + 걷기 1분 30초 × 4", "26분"],
-  ["E", "달리기 8분 + 걷기 1분 × 3", "27분"],
-  ["F", "달리기 12분 + 걷기 1분 × 2", "26분"],
-  ["G", "달리기 20분 + 걷기 1분 + 달리기 8분", "29분"],
-  ["H", "달리기 30분", "30분"],
-];
+// 진도표는 lib/guide/walkRun.ts 가 단일 출처 — /tools/run-30 과 같은 표를 쓴다 (2026-10-13)
 
 const FAQ: FaqItem[] = [
   {
@@ -224,6 +219,13 @@ export default function StartRunningPage() {
             </tbody>
           </table>
         </div>
+        {/* 2026-10-13: 표를 읽고 끝나지 않게 — 회차별 순서·타이머·진행 저장이 있는 따라 하기 도구로 잇는다 */}
+        <Link
+          href="/tools/run-30"
+          className="mt-4 flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-center text-[15px] font-semibold text-white break-keep hover:bg-emerald-700"
+        >
+          이 표대로 따라 하기 →
+        </Link>
 
         <Todo
           title="다음 단계로 넘어가는 조건"
