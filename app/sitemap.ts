@@ -4,6 +4,8 @@ import type { MetadataRoute } from "next";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { upcomingRaces } from "@/lib/races";
 import { SHOES } from "@/lib/shoes/data";
+import { ARTICLES } from "@/lib/guide/articles";
+import { TOPIC_SLUG, latestEnabled, topicsWithPage } from "@/lib/guide/listRules";
 
 /**
  * 폴백은 실제로 서비스 중인 주소여야 한다.
@@ -28,6 +30,8 @@ const INJURY_SLUGS = fs
   .readdirSync(path.join(process.cwd(), "app", "injury"), { withFileTypes: true })
   .filter((e) => e.isDirectory())
   .map((e) => e.name)
+  // 2026-10-13: 글이 아닌 목록 경로(주제 페이지·모든 글)는 아래에서 규칙대로 따로 넣는다
+  .filter((name) => name !== "topic" && name !== "all")
   .sort();
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -67,10 +71,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const injury: MetadataRoute.Sitemap = INJURY_SLUGS.map((slug) => ({
     url: `${BASE_URL}/injury/${slug}`,
-    lastModified: now,
+    // 2026-10-13: 원장(lib/guide/articles.ts)에 고친 날이 있으면 그 날짜 — 매 빌드 「지금」은 검색엔진에 신호가 안 된다
+    lastModified: (() => {
+      const d = ARTICLES.find((a) => a.href === `/injury/${slug}`)?.updated;
+      return d ? new Date(d) : now;
+    })(),
     changeFrequency: "monthly",
     priority: 0.7,
   }));
+
+  // 2026-10-13: 목록 페이지 — lib/guide/listRules.ts 의 같은 규칙으로. 지금(27개)은 둘 다 0개
+  const guideLists: MetadataRoute.Sitemap = [
+    ...topicsWithPage().map((t) => ({
+      url: `${BASE_URL}/injury/topic/${TOPIC_SLUG[t]}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    })),
+    ...(latestEnabled() ? [{ url: `${BASE_URL}/injury/all`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.5 }] : []),
+  ];
 
   const compare: MetadataRoute.Sitemap = COMPARE_SLUGS.map((slug) => ({
     url: `${BASE_URL}/compare/${slug}`,
@@ -94,5 +113,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...core, ...injury, ...compare, ...races, ...shoes];
+  return [...core, ...injury, ...guideLists, ...compare, ...races, ...shoes];
 }

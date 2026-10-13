@@ -99,6 +99,14 @@ const DYNAMIC = [
     expand: () => [],
     templates: [/\/community\/\$\{/],
   },
+  // 2026-10-13: 가이드 주제 페이지 — 한 주제가 lib/guide/listRules.ts 의 TOPIC_INLINE_MAX 를 넘을 때만 생긴다(지금 0개).
+  // 이 검사는 .mjs 라 TS 규칙을 못 읽으므로 빈 목록으로 편다. 생기는 페이지는 허브의 「모두 보기」 링크와
+  // sitemap.ts 가 **같은 함수(topicsWithPage)** 로 만든다 — 링크·사이트맵·페이지가 따로 놀 수 없다.
+  {
+    route: "/injury/topic/[slug]",
+    expand: () => [],
+    templates: [/\/injury\/topic\/\$\{/],
+  },
 ];
 
 // ── 파일 수집 ───────────────────────────────────────────────

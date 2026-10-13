@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ARTICLES, topicOf, type GuideArticle } from "@/lib/guide/articles";
 import { STAGES, type StageId } from "@/lib/guide/stages";
+import { TOPIC_ORDER, TOPIC_SLUG, topicPreview, latestEnabled, byLatest, look } from "@/lib/guide/listRules";
 
 /**
  * 허브 글 목록 — 단계 칩 × 주제 칩 (AND).
@@ -25,6 +26,8 @@ import { STAGES, type StageId } from "@/lib/guide/stages";
  * 2026-10-13 (3차): 운영자 — "처음부터 분류로 나눠 놓으면 안 돼? 전체 글 보기가 가독성이 떨어지고 두 줄(2열)이라 또 그렇다".
  *   주제 칩 + 섞인 카드 2열 → **주제별 묶음, 한 줄에 글 하나.** 칩·「더 보기」를 없앴다(분류 제목이 곧 길잡이).
  *   단계 카드의 「이 단계에 맞는 글 전체」(?stage=)로 오면 묶음 안에서 거르고, 빈 묶음은 숨긴다.
+ * 2026-10-13 (4차): 글이 늘면 저절로 나뉜다 — 규칙과 숫자는 lib/guide/listRules.ts 한 곳.
+ *   한 주제가 넘치면 앞 몇 개 + 「모두 보기」(주제 페이지), 전체가 많아지면 「최신 글」 띠. 지금(27개)은 둘 다 안 보인다.
  *
  * 칩마다 개수를 붙이는 이유(9/03): 개수가 화면에 있으면 그 자체가 검사기다.
  * 「전체」를 빼지 않는 이유(9/03): 빼면 되돌아올 길이 막힌다.
@@ -37,20 +40,6 @@ function inStage(a: GuideArticle, s: StageFilter): boolean {
   return a.stages === "all" || a.stages.includes(s);
 }
 
-/** 주제별 아이콘·색 — 카드 왼쪽 타일과 칩에 같이 쓴다(Tailwind 가 읽도록 클래스 문자열을 그대로 적는다) */
-const LOOK: Record<string, { icon: string; tile: string; text: string }> = {
-  "단계 가이드": { icon: "🧭", tile: "bg-emerald-50", text: "text-emerald-700" },
-  "훈련 방법": { icon: "⏱️", tile: "bg-indigo-50", text: "text-indigo-700" },
-  "신발 고르기": { icon: "👟", tile: "bg-sky-50", text: "text-sky-700" },
-  "아픈 곳": { icon: "🩹", tile: "bg-rose-50", text: "text-rose-700" },
-  "달리는 법": { icon: "🏃", tile: "bg-amber-50", text: "text-amber-700" },
-  대회: { icon: "🏁", tile: "bg-teal-50", text: "text-teal-700" },
-  "선수 이야기": { icon: "🏅", tile: "bg-yellow-50", text: "text-yellow-700" },
-  기타: { icon: "📄", tile: "bg-gray-100", text: "text-gray-600" },
-};
-const look = (t: string) => LOOK[t] ?? LOOK["기타"];
-/** 묶음 순서 — 허브에 들어온 사람이 많이 찾는 순서(단계 → 아픈 곳 → 신발 → 달리는 법 …) */
-const ORDER = ["단계 가이드", "아픈 곳", "신발 고르기", "달리는 법", "훈련 방법", "대회", "선수 이야기", "기타"] as const;
 
 function track(name: string, params: Record<string, unknown>) {
   const g = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
@@ -77,7 +66,7 @@ export default function GuideArticleList() {
   }, []);
 
   const stageInfo = stage === "전체" ? null : STAGES.find((s) => s.id === stage);
-  const groups = ORDER.map((t) => ({
+  const groups = TOPIC_ORDER.map((t) => ({
     t,
     items: ARTICLES.filter((a) => topicOf(a.tag) === t && inStage(a, stage)),
   })).filter((g) => g.items.length > 0);
@@ -103,9 +92,38 @@ export default function GuideArticleList() {
         </p>
       )}
 
+      {stage === "전체" && latestEnabled() && (
+        <section aria-label="최신 글" className="mb-4 rounded-2xl border border-emerald-200 bg-emerald-50/40 px-4 pb-1 pt-4">
+          <h3 className="flex items-center justify-between font-bold text-gray-900">
+            최신 글
+            <Link href="/injury/all" className="text-sm font-medium text-emerald-700 hover:underline">
+              모든 글 →
+            </Link>
+          </h3>
+          <ul className="mt-2 divide-y divide-emerald-100">
+            {byLatest().slice(0, 5).map((a, i) => (
+              <li key={a.href}>
+                <Link
+                  href={a.href}
+                  onClick={() => track("injury_list_click", { topic: "최신 글", pos: i + 1, to: a.href })}
+                  className="group flex items-start gap-3 py-3"
+                >
+                  <span className="min-w-0 flex-1 break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
+                    {a.title}
+                  </span>
+                  <span className="mt-0.5 shrink-0 text-xs text-gray-400">{a.readTime}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <div className="space-y-4">
         {groups.map(({ t, items }) => {
           const L = look(t);
+          // 단계로 거른 상태에서는 다 보여 준다(이미 좁혀졌다)
+          const { shown, rest } = stage === "전체" ? topicPreview(items) : { shown: items, rest: 0 };
           return (
             <section key={t} aria-label={t} className="rounded-2xl border border-gray-200 bg-white px-4 pb-1 pt-4">
               <h3 className="flex items-center gap-2.5">
@@ -116,9 +134,13 @@ export default function GuideArticleList() {
                 <span className="text-sm text-gray-400">{items.length}</span>
               </h3>
               <ul className="mt-2 divide-y divide-gray-100">
-                {items.map((a) => (
+                {shown.map((a, i) => (
                   <li key={a.href}>
-                    <Link href={a.href} className="group flex items-start gap-3 py-3">
+                    <Link
+                      href={a.href}
+                      onClick={() => track("injury_list_click", { topic: t, pos: i + 1, to: a.href })}
+                      className="group flex items-start gap-3 py-3"
+                    >
                       <span className="min-w-0 flex-1">
                         <span className="block break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
                           {a.title}
@@ -130,6 +152,14 @@ export default function GuideArticleList() {
                   </li>
                 ))}
               </ul>
+              {rest > 0 && (
+                <Link
+                  href={`/injury/topic/${TOPIC_SLUG[t]}`}
+                  className="mb-3 mt-1 block rounded-xl bg-gray-50 py-2.5 text-center text-sm font-medium text-gray-700 hover:text-emerald-700"
+                >
+                  {t} 글 {items.length}개 모두 보기 →
+                </Link>
+              )}
             </section>
           );
         })}

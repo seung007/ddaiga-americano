@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gtagEvent } from "@/lib/gtag";
+import { ARTICLES } from "@/lib/guide/articles";
 
 /**
  * 가이드 글 측정 두 가지 (2026-10-13)
@@ -35,7 +36,8 @@ export default function GuideSignals() {
     return () => document.removeEventListener("toggle", on, true);
   }, [path]);
 
-  if (!path || path === "/injury") return null; // 허브 제외
+  // 글 페이지에만 — 허브·주제 페이지·모든 글 목록에는 「이 글이 도움이 됐나요?」를 붙이지 않는다
+  if (!path || !ARTICLES.some((a) => a.href === path)) return null;
 
   return (
     <aside aria-label="이 글 평가" className="mx-auto mt-2 max-w-2xl px-5">
