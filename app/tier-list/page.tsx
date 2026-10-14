@@ -7,6 +7,7 @@ import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 러닝화 계급도 — **순서는 있다. 다만 품질 순서가 아니라 러너 수준 순서다.**
@@ -45,7 +46,7 @@ import TableOfContents from "@/components/TableOfContents";
  * 그건 `recommend.ts` 가 이미 프로필별로 계산하던 것이라 지어낼 필요가 없다.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/tier-list";
+const PAGE_URL = pageUrl("/tier-list");
 
 export const metadata: Metadata = {
   title: "러닝화 계급도 2026 — 입문부터 레이싱까지, 기준 공개 | 뛰다가 아메리카노",

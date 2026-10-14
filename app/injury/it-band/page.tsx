@@ -7,6 +7,7 @@ import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 장경인대 증후군 — 2026-10-06 전면 개편
@@ -28,7 +29,7 @@ import type { Metadata } from "next";
  *   진료 신호는 <Warn>. 참고 논문은 기본 접힘.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/it-band";
+const PAGE_URL = pageUrl("/injury/it-band");
 const TITLE = "장경인대 증후군 — 무릎 바깥 통증, 왜 생기고 무엇이 효과 있나";
 const DESC =
   "달리다 무릎 바깥이 아프고 내리막에서 심해진다면. 마찰이 아니라 압박이라는 해부 연구, 장경인대는 거의 늘어나지 않는다는 측정, 엉덩이 외전근 강화로 6주 만에 24명 중 22명이 복귀한 연구까지 정리했습니다.";

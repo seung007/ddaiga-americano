@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — 초록과 대조
@@ -21,7 +22,7 @@ import type { Metadata } from "next";
  *   「실험실 연구」「10명」「웹진 원문 재확인 못 함」「시선 거리 근거 없음」 단서는 본문에 남겼다.
  *   「(경험칙)」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/posture";
+const PAGE_URL = pageUrl("/injury/posture");
 const TITLE = "달리기 자세 체크리스트 — 어깨·팔·시선";
 const DESC =
   "어깨·팔·시선 체크포인트와, 상체 기울기가 무릎·고관절 부하를 어떻게 바꾸는지 연구로 확인된 부분과 저희 제안을 구분해 정리했습니다.";

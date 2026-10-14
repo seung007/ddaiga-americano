@@ -5,6 +5,7 @@ import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Lead, P, H2, H3, Summary, Todo, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — 기사 원문과 대조(한국경제 2025-08-15·2026-05-14, 경향신문 2001-01-26 은 원문 페이지에서 직접 확인)
@@ -23,7 +24,7 @@ import type { Metadata } from "next";
  *   따옴표 인용·기사 출처 표기·정정 안내 문구는 글자 그대로 둔다. 연구 인용이 없어 <Evidence> 는 쓰지 않는다.
  *   「경험칙」 → 「저희 제안」 배지. 참고 자료는 .map() 대신 <li> 를 풀어 적었다 — 검사기가 <li> 개수를 문자열로 센다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/kwon-eun-ju";
+const PAGE_URL = pageUrl("/injury/kwon-eun-ju");
 const TITLE = "권은주 선수에게 배우는 여성 러너의 부상 예방";
 const DESC =
   "21년간 한국 여자 마라톤 기록을 지킨 권은주 선수의 부상 경험과 조언, 여성 러너가 챙길 근력 운동을 기사로 확인한 것과 저희 제안으로 나눠 정리했습니다.";

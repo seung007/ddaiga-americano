@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * 폴백은 실제로 서비스 중인 주소여야 한다. `app/sitemap.ts`와 같은 이유다.
@@ -13,7 +14,7 @@ import type { MetadataRoute } from "next";
  * Vercel 환경변수는 올바르게 설정돼 있다. 폴백은 환경변수가 빠지는 순간을 위한 안전망이다.
  * 도메인을 실제로 사면 이 폴백과 sitemap.ts, Vercel 환경변수를 **셋 다** 바꿀 것.
  */
-const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app").replace(/\/$/, "");
+const BASE_URL = SITE_URL;
 
 export default function robots(): MetadataRoute.Robots {
   return {

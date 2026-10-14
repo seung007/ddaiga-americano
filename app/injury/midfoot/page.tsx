@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — 초록과 대조
@@ -24,7 +25,7 @@ import type { Metadata } from "next";
  *   숫자·인원·인용은 <Evidence> 안으로. 「경험칙」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
  *   표본 크기(14명·19명)는 보이는 본문/<Note> 에 남겼다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/midfoot";
+const PAGE_URL = pageUrl("/injury/midfoot");
 const TITLE = "미드풋 착지란? 힐스트라이크와 차이";
 const DESC = "미드풋이 무엇인지, 힐스트라이크와 뭐가 다른지, 그리고 초보 러너가 굳이 바꿔야 하는지까지 정리했습니다.";
 

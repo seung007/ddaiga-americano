@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 /**
  * ArticleJsonLd — schema.org Article 구조화 데이터
  * 구글 리치스니펫 및 AI 검색(ChatGPT, Perplexity 등) 인용을 위해
@@ -11,8 +12,7 @@
  *   />
  */
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
+
 
 const PUBLISHER = {
   "@type": "Organization",

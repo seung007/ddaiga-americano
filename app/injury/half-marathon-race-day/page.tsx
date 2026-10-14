@@ -9,6 +9,7 @@ import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록(일부 PMC 전문)과 대조
@@ -31,7 +32,7 @@ import type { Metadata } from "next";
  *   배지 라벨 「논문 근거」 → 「연구로 확인」(다른 글의 <Basis> 와 같은 말). 「통용 관행」「직접 경험」은
  *   RaceGraphics 그림 캡션과 맞추려고 그대로 둔다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/half-marathon-race-day";
+const PAGE_URL = pageUrl("/injury/half-marathon-race-day");
 const TITLE = "하프마라톤 대회 당일 체크리스트";
 const DESC =
   "하프마라톤 당일에 실제로 필요한 것만. 탄수화물 로딩이 하프에 필요한지, 젤은 언제 몇 개, 물은 얼마나, 바세린은 어디에. 논문 근거와 직접 뛰어본 경험을 구분해서 적었습니다.";

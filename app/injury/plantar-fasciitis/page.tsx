@@ -9,6 +9,7 @@ import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-07 재검증 — 고친 것
@@ -27,7 +28,7 @@ import type { Metadata } from "next";
  *   병원에 가야 할 신호는 <Warn> 으로 위쪽에 펼친 채 둔다. 주사 부작용(파열·감염)도 본문에 남긴다.
  *   「수술까지 간 만성 사례」「병원까지 온 사람들의 자료」「힘줄 연구에서 온 모델」 단서는 본문에.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/plantar-fasciitis";
+const PAGE_URL = pageUrl("/injury/plantar-fasciitis");
 const TITLE = "족저근막염 — 아침 첫발이 아픈 이유와 근거 있는 대처";
 const DESC =
   "아침 첫 걸음에 발뒤꿈치가 아프다면. 스트레칭보다 3개월 시점 효과가 컸던 고부하 근력 운동, 주사의 실제 효과, 그리고 생각보다 긴 회복 기간까지 논문 수치로 정리했습니다.";

@@ -9,6 +9,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-07 — 2단계(30분 → 10km) 근거로 다시 정리
@@ -26,7 +27,7 @@ import type { Metadata } from "next";
  *   「경험칙」 → 「저희 제안」 배지. 준비물 목록·페이스 표는 그대로. 참고 자료는 기본 접힘.
  *   「풀코스 연구」(걷뛰기)·「10km에서 확인한 연구 없음」(음의 분할)·「초보만 모은 연구 아님」(110%) 단서는 <Note> 로 본문에.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/first-10k";
+const PAGE_URL = pageUrl("/injury/first-10k");
 const TITLE = "생애 첫 10km 대회 준비물과 페이스 전략";
 const DESC = "출발선에 서기 전에 알아야 할 것들. 얼마나 준비하고 어떻게 늘릴지, 준비물과 페이스까지 — 연구로 확인된 것과 저희 제안을 구분해 정리했습니다.";
 

@@ -8,6 +8,7 @@ import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import { WALK_RUN } from "@/lib/guide/walkRun";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 1단계 — 처음 → 30분 연속 (2026-10-06)
@@ -32,7 +33,7 @@ import { WALK_RUN } from "@/lib/guide/walkRun";
  *   표 글자는 옮기기 전과 한 글자씩 같다(대조함). 표 바로 아래 「이 표대로 따라 하기 →」 버튼.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/start-running";
+const PAGE_URL = pageUrl("/injury/start-running");
 const TITLE = "처음 달리기 — 30분 쉬지 않고 뛰기까지";
 const DESC =
   "처음 달리기를 시작한 사람 거의 3명 중 1명이 반년 안에 그만둡니다. 가장 큰 이유는 부상. 속도·진도·긴 날·멈출 신호를 논문 수치로 정리했습니다.";

@@ -1,5 +1,6 @@
 import { ARTICLES } from "@/lib/guide/articles";
 import { upcomingRaces } from "@/lib/races";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * RSS 2.0 피드 — 2026-10-12
@@ -19,7 +20,7 @@ import { upcomingRaces } from "@/lib/races";
 
 export const revalidate = 21600; // 대회 목록이 날짜로 걸러지므로 6시간마다 다시 만든다(홈과 같은 주기)
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app").replace(/\/$/, "");
+const SITE = SITE_URL;
 
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

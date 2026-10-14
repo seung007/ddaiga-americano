@@ -7,6 +7,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
 import ShoeReactions from "@/components/ShoeReactions";
+import ShoeReviews from "@/components/ShoeReviews";
 import LikeButton from "@/components/LikeButton";
 import { nicknamesOf } from "@/lib/shoes/aliases";
 import { rungOf } from "@/lib/shoes/tiers";
@@ -17,6 +18,7 @@ import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
 import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, isRecommendable } from "@/lib/shoes/types";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 러닝화 상세 (2026-09-16) — `lib/shoes/data.ts` 한 켤레 = 한 페이지.
@@ -30,7 +32,7 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
-const PAGE = (id: string) => `https://ddaiga-americano.vercel.app/shoes/${id}`;
+const PAGE = (id: string) => pageUrl(`/shoes/${id}`);
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -348,6 +350,9 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </div>
           </section>
         )}
+
+        {/* 2026-10-14 — 외부 후기 모음(블로그·유튜브). 안 모은 신발은 안 그린다. 원칙은 lib/shoes/reviews.ts 주석 */}
+        <ShoeReviews shoeId={s.id} />
 
         {/* 2026-09-23 — 신어본 사람 반응. 근거·경위는 components/ShoeReactions.tsx 주석 */}
         <ShoeReactions shoeId={s.id} shoeName={name} />

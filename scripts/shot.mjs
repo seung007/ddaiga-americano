@@ -40,11 +40,12 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { SITE_URL } from "./lib/site.mjs";
 
 const OUT_DIR = "shots";
 const args = process.argv.slice(2);
 const LOCAL = args.includes("--local");
-const BASE = LOCAL ? "http://localhost:3000" : "https://ddaiga-americano.vercel.app";
+const BASE = LOCAL ? "http://localhost:3000" : SITE_URL;
 
 /** 기본으로 찍는 화면. 인수로 경로를 주면 그것만 찍는다. */
 const DEFAULT_TARGETS = [

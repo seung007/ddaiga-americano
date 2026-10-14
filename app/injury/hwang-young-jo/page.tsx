@@ -5,6 +5,7 @@ import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Lead, P, H2, Summary, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — 기사 원문과 대조(서울신문 1992-08-11 두 기사·매일신문 2024-10-22 은 원문 페이지에서 직접 확인)
@@ -24,7 +25,7 @@ import type { Metadata } from "next";
  *   기사 사실 줄(Summary 1번)에는 배지를 달지 않았다 — 논문도 저희 제안도 아니어서.
  *   참고 자료는 map 대신 <li> 를 풀어 적었다(<References n> 검사가 <li> 를 센다). 제목·URL 은 한 글자도 안 바꿨다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/hwang-young-jo";
+const PAGE_URL = pageUrl("/injury/hwang-young-jo");
 const TITLE = "황영조의 몬주익 — 초보 러너가 가져갈 것";
 const DESC =
   "1992 바르셀로나 올림픽 마라톤 금메달리스트 황영조. 당시 기사와 본인 발언으로 확인한 사실과, 초보 러너에게 주는 이 글의 제안을 구분해 정리했습니다.";

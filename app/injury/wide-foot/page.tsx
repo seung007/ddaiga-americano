@@ -10,6 +10,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — 건강·발 형태 주장만 PubMed 초록과 대조(브랜드 폭 옵션·규격 정의는 대상 아님)
@@ -26,7 +27,7 @@ import type { Metadata } from "next";
  *   <WideShoeList />·FAQ 의 wideSummary() 는 그대로. 「추천 순서는 광고비로…」 고지는 접지 않으려고 표 바로 아래로 옮겼다.
  *   Summary 첫 줄(2E·4E 뜻)은 규격 정의라 연구/저희 제안 어느 쪽도 아니어서 배지를 달지 않았다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/wide-foot";
+const PAGE_URL = pageUrl("/injury/wide-foot");
 
 export const metadata: Metadata = {
   // 네이버 실측(2026-08): "2e 와이드 뜻" 노출 134·CTR 0.7%, "런닝화 와이드 뜻" 노출 18·CTR 5.6%.

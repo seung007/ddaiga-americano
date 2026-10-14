@@ -10,6 +10,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 평발 러닝화 — 검색 수요 2위(발 조건 + 브랜드, 33%)에 답하는 페이지.
@@ -48,7 +49,7 @@ import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } f
  *   · 병원 신호 → <Warn>. 참고 문헌은 맨 끝 기본 접힘
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/flat-feet";
+const PAGE_URL = pageUrl("/injury/flat-feet");
 
 export const metadata: Metadata = {
   // 검색 질의는 "평발 러닝화", "평발 러닝화 추천", "평발 안정화" 형태로 온다.

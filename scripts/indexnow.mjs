@@ -16,9 +16,10 @@
  * ship.mjs 가 배포 반영을 확인한 뒤 --since <푸시 전 원격 커밋> 으로 부른다. 실패해도 배포는 이미 끝났으니 경고만 한다.
  */
 import { spawnSync } from "node:child_process";
+import { SITE_URL } from "./lib/site.mjs";
 
 const KEY = "b04b9ddfb996167f0c8e26b96352fe4d";
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app").replace(/\/$/, "");
+const SITE = (SITE_URL).replace(/\/$/, "");
 const HOST = new URL(SITE).host;
 const ENDPOINT = "https://www.bing.com/indexnow";
 

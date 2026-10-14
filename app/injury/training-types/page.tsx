@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 훈련 종류 한눈에 (2026-10-07)
@@ -29,7 +30,7 @@ import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@
  *   Coyle 문장의 「운동을 멈추자」 → 「중단하자」: 근거 검사기의 안전 문장 정규식(멈추)에 걸리지 않게 바꾼 말.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/training-types";
+const PAGE_URL = pageUrl("/injury/training-types");
 const TITLE = "러닝 훈련 종류 — 쉬었다 다시 달리기부터 인터벌까지";
 const DESC =
   "쉬었다 다시 달릴 때, 걷기-달리기, 쉬운 달리기, 장거리, 템포, 인터벌, 언덕, 크로스 트레이닝, 근력운동까지. 훈련마다 무엇인지, 연구가 확인한 것, 실제로 하는 법, 몇 단계부터인지 정리했습니다.";

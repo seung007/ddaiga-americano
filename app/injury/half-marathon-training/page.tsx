@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 3단계 — 10km → 하프 (2026-10-06)
@@ -24,7 +25,7 @@ import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } fro
  *   제목의 「막히는 곳」 → 「얼마나 늘릴까」(쉬운 말 규칙).
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/half-marathon-training";
+const PAGE_URL = pageUrl("/injury/half-marathon-training");
 const TITLE = "하프마라톤 준비 — 10km에서 21km로, 얼마나 늘릴까";
 const DESC =
   "하프 참가자 556명은 주 26km, 주 3회, 가장 긴 달리기 18.5km(중앙값)로 준비했습니다. 주간 거리와 긴 달리기를 얼마나, 얼마나 빨리 늘릴지, 어디서 다치는지 논문 수치로 정리했습니다.";

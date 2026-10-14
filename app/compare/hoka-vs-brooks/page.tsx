@@ -5,6 +5,7 @@ import type { Shoe } from "@/lib/shoes/types";
 import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 호카 vs 브룩스 — 브랜드 단위 비교.
@@ -176,7 +177,7 @@ export default function HokaVsBrooks() {
         <ShoeJsonLd
           shoes={[...HOKA.shoes, ...BROOKS.shoes]}
           name="호카 vs 브룩스 — 스펙 집계"
-          url="https://ddaiga-americano.vercel.app/compare/hoka-vs-brooks"
+          url={pageUrl("/compare/hoka-vs-brooks")}
         />
         <BreadcrumbJsonLd trail={[["호카 vs 브룩스", "/compare/hoka-vs-brooks"]]} />
         <h1 className="text-3xl font-bold text-gray-900">호카 vs 브룩스</h1>

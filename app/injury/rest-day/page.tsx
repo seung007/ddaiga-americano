@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록과 대조
@@ -23,7 +24,7 @@ import type { Metadata } from "next";
  *   · 오버트레이닝 신호·진료 문장은 <Warn> 으로 접지 않음. 참고 자료는 맨 끝 기본 접힘
  *   · 48~72시간·주 1일(박찬호·곽이섭 2013, 국내 논문 일반 권고)은 「연구로 확인」 배지를 달지 않고 출처를 글로 적음
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/rest-day";
+const PAGE_URL = pageUrl("/injury/rest-day");
 const TITLE = "휴식일에 뭘 해야 할까? 액티브 리커버리";
 // 2026-09-14: "가벼운 움직임이 회복을 빠르게 합니다" 였다. 이 페이지가 인용한
 // Zouhal 2024 체계적 고찰이 바로 그 차이를 확인하지 못했다 — 근거가 부정하는 문장이었다.

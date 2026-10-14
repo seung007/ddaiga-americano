@@ -8,6 +8,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록과 대조
@@ -23,7 +24,7 @@ import type { Metadata } from "next";
  *   「연구가 갈립니다」「동작 폼은 논문 근거 아님」「몇 배인지 연구 못 찾음」「소규모·일반 마스크 미확인」은 본문에 남겼다.
  *   「경험칙」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/warmup";
+const PAGE_URL = pageUrl("/injury/warmup");
 const TITLE = "달리기 전 5분 동적 스트레칭 루틴";
 const DESC = "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유와 구체적인 5분 루틴을 알려드립니다.";
 

@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록과 대조
@@ -24,7 +25,7 @@ import type { Metadata } from "next";
  *   부상 카드 세 개는 H3 + 대처 목록 + 근거로 풀었다. 대처 목록은 원래 출처 표기만 있어 배지를 달지 않았다.
  *   「과학적 근거 논문」 목록은 맨 끝 <References>(기본 접힘)로. 원래 화면에 대조 날짜 문구가 없어 note 는 비웠다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/intermediate-guide";
+const PAGE_URL = pageUrl("/injury/intermediate-guide");
 const TITLE = "중급자 부상 예방 가이드 (꾸준히 1년+)";
 const DESC =
   "꾸준히 달린 지 1년이 넘었고 하프를 준비하는 러너를 위한 부상 예방 가이드. IT밴드, 아킬레스건, 오버트레이닝 징후.";

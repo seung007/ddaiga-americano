@@ -10,6 +10,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, References, Basis, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 카본화 — 검색 수요 3위(카본화 관련 20%)에 답하는 페이지.
@@ -44,7 +45,7 @@ import { Lead, P, H2, Summary, References, Basis, Note } from "@/components/guid
  *   접지 않는다(Lead·Summary·본문에 그대로). 「말한 것/말하지 않은 것」 박스와 가격 목록도 그대로.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/carbon-plate";
+const PAGE_URL = pageUrl("/injury/carbon-plate");
 
 export const metadata: Metadata = {
   title: "카본화 살까 말까 — 논문이 시험한 속도는 4:17/km부터입니다 | 뛰다가 아메리카노",

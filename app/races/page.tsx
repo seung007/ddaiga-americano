@@ -5,6 +5,7 @@ import RaceFilterList, { type RaceItem } from "@/components/RaceFilterList";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import FinderCta from "@/components/FinderCta";
 import RaceJourney from "@/components/RaceJourney";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 마라톤 대회 일정 — **재방문을 만드는 축.**
@@ -17,7 +18,7 @@ import RaceJourney from "@/components/RaceJourney";
  * 방문자가 고장으로 읽으므로, **왜 비어 있고 무엇을 대신 볼 수 있는지** 적는다.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/races";
+const PAGE_URL = pageUrl("/races");
 
 export const metadata: Metadata = {
   title: "2026 마라톤 대회 일정 — 10·11월 접수중 대회 정리 | 뛰다가 아메리카노",

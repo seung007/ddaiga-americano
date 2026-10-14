@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — 초록과 대조
@@ -21,7 +22,7 @@ import type { Metadata } from "next";
  *   「다리 길이는 연구마다 다름」「대부분 그 자리 효과만 봄」「근거가 매우 제한적」 단서는 본문에 남겼다.
  *   「현재 값에서 조금씩 올려라」는 원래 「연구에 더 가까운 조언」(저희 해석) → 「저희 제안」 배지.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/cadence";
+const PAGE_URL = pageUrl("/injury/cadence");
 const TITLE = "케이던스 180이 모두의 정답은 아닙니다 — 속도와 개인차";
 const DESC =
   "케이던스 180 spm은 모두에게 맞는 목표값이 아닙니다. 같은 사람도 속도에 따라 달라지고, 키로 적정 케이던스를 정할 수는 없다는 연구가 있습니다. 케이던스를 조금 올렸을 때 연구가 말하는 효과까지 정리했습니다.";

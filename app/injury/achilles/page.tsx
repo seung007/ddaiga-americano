@@ -10,8 +10,9 @@ import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/achilles";
+const PAGE_URL = pageUrl("/injury/achilles");
 
 /**
  * 제목 (2026-09-21 교체)

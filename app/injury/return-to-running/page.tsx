@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 부상 후 복귀 (2026-10-06)
@@ -26,7 +27,7 @@ import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note
  *   통증 점수 기준·넘어가는 조건·멈출 신호(뼈 부상 포함)는 접지 않는다(<Warn>·표). 「검증된 적 없음」은 <Note>.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/return-to-running";
+const PAGE_URL = pageUrl("/injury/return-to-running");
 const TITLE = "부상 후 다시 달리기 — 언제, 얼마나, 어떻게";
 const DESC =
   "부상당한 초보 러너의 회복 기간 중앙값은 71일이었습니다. 완전히 쉬어야 하는지, 통증이 어느 정도면 달려도 되는지, 다시 다치지 않으려면 어떻게 늘리는지 논문 수치로 정리했습니다.";

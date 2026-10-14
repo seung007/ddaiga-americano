@@ -8,10 +8,10 @@ import AffiliateNotice from "@/components/AffiliateNotice";
 import { affiliateFor, resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
+
 import ShoeImage from "@/components/ShoeImage";
 import { COMPARE_SLUGS } from "@/lib/compares";
+import { SITE_URL } from "@/lib/site";
 
 // ── 슬러그 파싱 ────────────────────────────────────────────────
 // URL: /compare/nb-fuelcell-rebel-v4-vs-hoka-clifton-10

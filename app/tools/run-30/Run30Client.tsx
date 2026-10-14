@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { gtagEvent } from "@/lib/gtag";
+import { SITE_HOST } from "@/lib/site";
 import {
   WALK_RUN_STEPS,
   SESSIONS_PER_STEP,
@@ -926,7 +927,7 @@ function Certificate({ finishedOn }: { finishedOn: string }) {
 
     ctx.fillStyle = "#9ca3af";
     ctx.font = `400 20px ${FONT}`;
-    ctx.fillText("ddaiga-americano.vercel.app", W / 2, H - 100);
+    ctx.fillText(SITE_HOST, W / 2, H - 100);
 
     const filename = `running-30min-${finishedOn}.png`;
     const save = (href: string, revoke: boolean) => {

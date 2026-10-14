@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록과 대조
@@ -24,7 +25,7 @@ import type { Metadata } from "next";
  *   「10명짜리 상관 연구」「철인3종 선수 연구」「경쟁 선수·기록 기준」「인터뷰에서 나온 방법」 단서는 <Note> 로 본문에.
  *   `/injury#levels` 링크는 유지(허브에 있음).
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/advanced-guide";
+const PAGE_URL = pageUrl("/injury/advanced-guide");
 const TITLE = "숙련자 부상 예방 가이드 (3년+·주 50km+)";
 const DESC =
   "꾸준히 3년 넘게, 주 50km 넘게 달리며 풀코스·기록을 준비하는 러너를 위한 부상 예방 가이드. 피로 골절, 건병증, 주기화 훈련.";

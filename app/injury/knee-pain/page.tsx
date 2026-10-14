@@ -10,8 +10,9 @@ import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/knee-pain";
+const PAGE_URL = pageUrl("/injury/knee-pain");
 
 /**
  * 2026-10-07 재검증 — 「원인」 절이 전향 연구 메타분석과 반대였다.

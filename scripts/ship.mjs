@@ -33,6 +33,7 @@ import { spawnSync } from "node:child_process";
 import { writeFileSync, unlinkSync, readdirSync, renameSync, mkdirSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join as pjoin } from "node:path";
+import { SITE_URL } from "./lib/site.mjs";
 
 const dim = (s) => `\x1b[2m${s}\x1b[0m`;
 const red = (s) => `\x1b[31m${s}\x1b[0m`;
@@ -136,7 +137,7 @@ if (changed.length) {
  * **묻고 싶은 것을 직접 물어라.** 알고 싶은 건 "지금 떠 있는 커밋"인데
  * 나는 "번들이 바뀌었나"를 물었다. 두 답이 갈리는 경우가 곧 문제가 되는 경우다.
  */
-const SITE = "https://ddaiga-americano.vercel.app";
+const SITE = SITE_URL; // scripts/lib/site.mjs — 도메인 바꾸면 .env·Vercel 환경변수만
 async function deployedSha(ms = 12_000) {
   try {
     const r = await fetch(`${SITE}/version`, {

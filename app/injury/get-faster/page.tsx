@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 5단계 — 완주 → 기록 단축 (2026-10-07)
@@ -25,7 +26,7 @@ import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } fro
  *   제목의 「막히는 곳」 → 「더 빨라지려면」(쓰지 않는 말 목록). 허브 제목(lib/guide/articles.ts)은 메인 세션에 반영 요청.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/get-faster";
+const PAGE_URL = pageUrl("/injury/get-faster");
 const TITLE = "기록 단축 — 완주 다음, 더 빨라지려면";
 const DESC =
   "더 많이 뛴 사람이 빨랐고, 강도 배분 공식은 생각보다 차이가 작았습니다. 인터벌·근력운동·테이퍼가 실제로 얼마나 효과 있었는지, 기록 예측은 얼마나 믿을 수 있는지 논문 수치로 정리했습니다.";

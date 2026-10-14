@@ -76,6 +76,10 @@ const CHECKS = [
   { name: "추천엔진", cmd: "node", args: ["scripts/check-engine.mjs"],                  net: false },
   // 2026-10-14: 루트·outputs/ 에 문서가 쌓이는 것을 막는다. 자리는 docs/README.md
   { name: "루트정리", cmd: "node", args: ["scripts/check-root.mjs"],                    net: false },
+  // 2026-10-14: 사이트 주소를 lib/site.ts 한 곳으로 모았다. 다시 글자로 박히면 막는다 (도메인 교체 대비)
+  { name: "주소정본", cmd: "node", args: ["scripts/check-site-url.mjs"],                net: false },
+  // 2026-10-14: 외부 후기 모음 — 형식·신발 id·평가어. 링크 생존은 --live (아래 net)
+  { name: "외부후기", cmd: "node", args: ["scripts/check-reviews.mjs"],                  net: false },
   // 2026-09-16: Cowork 단독 작업으로 전환해 담당구역 검사를 뺐다 (AGENTS.md 「작업 방식」). 스크립트는 남겨 둠.
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },
@@ -84,6 +88,7 @@ const CHECKS = [
   { name: "사진(실조회)",   cmd: "node", args: ["scripts/check-images.mjs"],     net: true },
   // 접수처가 죽으면 대회가 끝났거나 주소가 바뀐 것이다. 주간 CI 가 잡는다.
   { name: "대회접수처(실조회)", cmd: "node", args: ["scripts/check-races.mjs", "--live"], net: true },
+  { name: "외부후기(실조회)", cmd: "node", args: ["scripts/check-reviews.mjs", "--live"], net: true },
 ];
 
 function run(c) {

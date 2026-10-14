@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 4단계 — 하프 → 풀 (2026-10-07)
@@ -22,7 +23,7 @@ import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } fro
  *   테이퍼 근거의 대상(경쟁 선수 / 관찰 연구)도 <Note> 로. 제목의 「막히는 곳」 → 「자주 겪는 문제」.
  */
 
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/marathon-training";
+const PAGE_URL = pageUrl("/injury/marathon-training");
 const TITLE = "풀코스 준비 — 하프에서 42.195km로 늘릴 때 자주 겪는 문제";
 const DESC =
   "풀코스 참가자 441명은 주 40km, 주 3회, 가장 긴 달리기 32km(중앙값)로 준비했습니다. 준비 중 다치는 이유, 후반에 무너지는 이유, 테이퍼와 보급까지 논문 수치로 정리했습니다.";

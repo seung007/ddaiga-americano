@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-07 재검증 — 초록·StatPearls 원문과 대조
@@ -19,7 +20,7 @@ import type { Metadata } from "next";
  *   **피로골절 구별·병원 신호 박스는 접지 않고 문장도 그대로 둔다**(글씨 크기만 키움).
  *   「원인이 아니라 같이 관찰되는 것」「효과 크기 작음」「깔창은 원래 발 문제였는지 못 가름」「순위는 분류 방식에 따라 다름」은 본문에 남겼다.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/shin-splints";
+const PAGE_URL = pageUrl("/injury/shin-splints");
 const TITLE = "정강이 통증(신스플린트) — 초보 러너에게 흔한 부상";
 const DESC =
   "초보 러너에게 흔한 정강이 통증(MTSS). 피로골절과 어떻게 구별하는지, 위험 요인과 치료 연구가 실제로 말하는 것을 논문 링크와 함께 정리했습니다.";

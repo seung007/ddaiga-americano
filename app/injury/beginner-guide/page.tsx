@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록과 대조
@@ -21,7 +22,7 @@ import type { Metadata } from "next";
  *   「계속되면 진료」는 부상 카드 본문에. 「경험칙」 → 「저희 제안」 배지. 참고 문헌은 기본 접힘.
  *   머리말의 van Gent·Videbæk 은 원래 링크가 없었다 → 참고 문헌에 이미 있던 같은 PubMed 주소를 <Up> 으로 붙였다(새 출처 아님).
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/beginner-guide";
+const PAGE_URL = pageUrl("/injury/beginner-guide");
 const TITLE = "초보 러너 뛰는 법 — 처음 6개월 안 다치고 달리기";
 const DESC =
   "러닝을 막 시작했다면. 얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법까지 정리했습니다.";

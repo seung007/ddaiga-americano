@@ -9,6 +9,7 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import { pageUrl } from "@/lib/site";
 
 /**
  * 2026-10-08 재검증 — PubMed 초록과 대조
@@ -26,7 +27,7 @@ import type { Metadata } from "next";
  *   ⚠️ 저나트륨혈증(두통·구토·혼란이면 물 금지·119)과 쓰러짐 119 는 <Warn> 으로 본문에 둔다. 접지 않는다.
  *   「경험칙」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
  */
-const PAGE_URL = "https://ddaiga-americano.vercel.app/injury/cooldown";
+const PAGE_URL = pageUrl("/injury/cooldown");
 const TITLE = "달리기 후 10분 정적 스트레칭 루틴";
 const DESC =
   "종아리·햄스트링·엉덩이 정적 스트레칭 루틴. 달리고 멈춰 서 있으면 왜 어지러울 수 있는지, 스트레칭이 회복에 어디까지 도움이 되는지 정리했습니다.";

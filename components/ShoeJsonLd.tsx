@@ -1,4 +1,5 @@
 import type { Shoe } from "@/lib/shoes/types";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * 신발 구조화 데이터 — `ItemList` 안에 `Product` 를 담는다.
@@ -44,8 +45,7 @@ import type { Shoe } from "@/lib/shoes/types";
  * 그게 이 사이트의 값이고, 경쟁사 대부분이 기계가 읽을 형식으로 안 내놓는 것이다.
  */
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
+
 
 const STABILITY_KO: Record<string, string> = {
   neutral: "중립",

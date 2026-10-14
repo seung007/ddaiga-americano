@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE_HOST } from "@/lib/site";
 
 export const runtime = "edge";
 export const alt = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
@@ -99,7 +100,7 @@ export default function Image() {
             fontSize: "22px",
           }}
         >
-          ddaiga-americano.vercel.app
+          {SITE_HOST}
         </div>
       </div>
     ),

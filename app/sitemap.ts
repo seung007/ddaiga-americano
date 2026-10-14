@@ -6,6 +6,7 @@ import { upcomingRaces } from "@/lib/races";
 import { SHOES } from "@/lib/shoes/data";
 import { ARTICLES } from "@/lib/guide/articles";
 import { TOPIC_SLUG, latestEnabled, topicsWithPage } from "@/lib/guide/listRules";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * 폴백은 실제로 서비스 중인 주소여야 한다.
@@ -16,7 +17,7 @@ import { TOPIC_SLUG, latestEnabled, topicsWithPage } from "@/lib/guide/listRules
  * 전 URL이 죽은 것으로 보인다. 실패가 눈에 안 띄는 종류라 더 위험하다.
  * 도메인을 실제로 사면 이 폴백과 Vercel 환경변수를 같이 바꿀 것.
  */
-const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app").replace(/\/$/, "");
+const BASE_URL = SITE_URL;
 
 /**
  * 부상 예방 콘텐츠 슬러그 — app/injury/ 디렉터리에서 직접 읽는다.

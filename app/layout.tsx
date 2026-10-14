@@ -6,6 +6,7 @@ import MobileNav from "@/components/MobileNav";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -21,7 +22,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
  */
 const IS_PROD_DEPLOY = process.env.VERCEL_ENV ? process.env.VERCEL_ENV === "production" : true;
 const GA_ID = IS_PROD_DEPLOY ? process.env.NEXT_PUBLIC_GA_ID : undefined;
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app";
+
 
 const SITE_TITLE = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
 const SITE_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 질문 8개로 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
