@@ -62,7 +62,7 @@ type Post = {
  * GA4 이벤트.
  *
  * ⚠️ 조용히 버리지 않는다. `recommend_form_start` 가 **gtag 로드 전에 발화해 통째로
- * 유실**된 적이 있다(`유입_설정_기준선.md §4-7` — 그래서 완주율을 계산할 수 없다).
+ * 유실**된 적이 있다(`docs/운영/유입_설정_기준선.md §4-7` — 그래서 완주율을 계산할 수 없다).
  * gtag 가 아직 없으면 짧게 기다렸다 다시 시도하고, 5초를 넘기면 포기한다.
  */
 function sendGa(name: string, params: Record<string, string>, attempt = 0) {

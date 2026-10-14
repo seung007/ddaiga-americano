@@ -74,6 +74,8 @@ const CHECKS = [
   // 2026-10-06: 추천 엔진 출력 회귀 검사. 「가중치를 줄였다」는 주석과 실제 순위가 달랐던 사건에서 나왔다.
   // 체중 독립 불변식 + 대표 프로필 648개 상위 3개 스냅샷. 의도한 변경이면 npm run engine:snapshot.
   { name: "추천엔진", cmd: "node", args: ["scripts/check-engine.mjs"],                  net: false },
+  // 2026-10-14: 루트·outputs/ 에 문서가 쌓이는 것을 막는다. 자리는 docs/README.md
+  { name: "루트정리", cmd: "node", args: ["scripts/check-root.mjs"],                    net: false },
   // 2026-09-16: Cowork 단독 작업으로 전환해 담당구역 검사를 뺐다 (AGENTS.md 「작업 방식」). 스크립트는 남겨 둠.
 
   { name: "인용(실조회)",   cmd: "node", args: ["scripts/verify-citations.mjs"], net: true },

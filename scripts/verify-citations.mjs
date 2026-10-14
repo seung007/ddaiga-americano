@@ -210,13 +210,18 @@ async function* walk(dir) {
  *
  * 주의: 원고는 `.gitignore`에 걸려 있어 저장소에 없을 수 있다. 없으면 조용히 건너뛴다.
  */
+// 2026-10-14: 원고를 루트에서 docs/블로그/ 로 옮겼다. 루트도 계속 본다 — 옛 위치에 새 원고를
+// 만들면 검사에서 조용히 빠지는 일이 없게. (위치를 옮기면서 검사 범위가 줄면 그게 9/3 의 재발이다)
+const BLOG_DIRS = [ROOT, path.join(ROOT, "docs", "블로그")];
 async function* walkBlogDrafts() {
-  let entries;
-  try {
-    entries = await readdir(ROOT, { withFileTypes: true });
-  } catch { return; }
-  for (const e of entries) {
-    if (e.isFile() && /^네이버블로그_.*\.md$/.test(e.name)) yield path.join(ROOT, e.name);
+  for (const dir of BLOG_DIRS) {
+    let entries;
+    try {
+      entries = await readdir(dir, { withFileTypes: true });
+    } catch { continue; }
+    for (const e of entries) {
+      if (e.isFile() && /^네이버블로그_.*\.md$/.test(e.name)) yield path.join(dir, e.name);
+    }
   }
 }
 

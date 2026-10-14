@@ -30,7 +30,7 @@
  * 출력 규칙 — **성공은 짧게, 실패는 전부.** 붙여넣기 비용이 정보량에 비례해야 한다.
  */
 import { spawnSync } from "node:child_process";
-import { writeFileSync, unlinkSync } from "node:fs";
+import { writeFileSync, unlinkSync, readdirSync, renameSync, mkdirSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join as pjoin } from "node:path";
 
@@ -52,9 +52,14 @@ const win = process.platform === "win32";
  * 교훈: **정렬이 의미를 갖는 출력에 전역 trim 을 걸지 마라.**
  * 뒤쪽 개행만 잘라내고, 파싱은 정규식으로 명시한다.
  */
+/**
+ * 2026-10-14: Windows 는 shell:true 로 인수를 공백으로 이어 붙인다 — `Claude outputs/x.patch` 처럼
+ * 공백이 든 경로가 두 인수로 쪼개진다. 공백·따옴표가 있는 인수만 큰따옴표로 감싼다.
+ */
+const q = (a) => (/[\s"]/.test(a) ? `"${a.replace(/"/g, '\\"')}"` : a);
 function run(cmd, args, { quiet = true } = {}) {
   const r = win
-    ? spawnSync([cmd, ...args].join(" "), { encoding: "utf8", shell: true })
+    ? spawnSync([cmd, ...args.map(q)].join(" "), { encoding: "utf8", shell: true })
     : spawnSync(cmd, args, { encoding: "utf8" });
   const out = ((r.stdout ?? "") + (r.stderr ?? "")).replace(/\s+$/, "");
   return { code: r.status ?? 1, out, show: quiet ? "" : out };
@@ -65,7 +70,8 @@ function porcelainPath(line) {
   const m = /^(..)\s+(.+)$/.exec(line);
   const path = m ? m[2] : line;
   // 이름 변경은 "old -> new" 로 온다. 새 이름을 쓴다.
-  return path.includes(" -> ") ? path.split(" -> ").pop() : path;
+  const p = path.includes(" -> ") ? path.split(" -> ").pop() : path;
+  return p.replace(/^"|"$/g, "");
 }
 
 const msgArg = process.argv.slice(2).filter((a) => !a.startsWith("-")).join(" ");
@@ -82,7 +88,12 @@ if (check.code !== 0) {
 console.log(green("통과"));
 
 // ── 2. 변경 확인 ───────────────────────────────────────────
-const status = run("git", ["status", "--porcelain"]);
+/**
+ * `core.quotepath=false` — 없으면 한글 경로가 `"\353\202..."` 8진수로 와서 자동 커밋 메시지가 깨진다.
+ * report.mjs(2026-09-12)·check-zones.mjs 는 이미 고쳤는데 여기만 빠져 있었다(2026-10-14 발견).
+ * 따옴표로 감싼 경로("…")도 벗긴다.
+ */
+const status = run("git", ["-c", "core.quotepath=false", "status", "--porcelain"]);
 const changed = status.out ? status.out.split("\n").filter((l) => l.trim()) : [];
 
 if (changed.length) {
@@ -183,6 +194,7 @@ const subject = run("git", ["log", "-1", "--pretty=%s"]).out.trim();
 console.log("");
 if (local === remote) {
   console.log(bold(green(`✓ ${branch} ${local} 원격 일치`)) + dim(` — ${subject}`));
+  archiveAppliedPatches();
 
   /**
    * **배포가 실제로 바뀔 때까지 기다린다.** 추측하지 않는다.
@@ -229,4 +241,34 @@ if (local === remote) {
 } else {
   console.log(red(`✗ 로컬 ${local} ≠ 원격 ${remote} — 아직 안 올라갔습니다`));
   process.exit(1);
+}
+
+/**
+ * 반영된 패치를 `_archive/patches/` 로 옮긴다 (2026-10-14).
+ *
+ * 왜: PC 명령을 못 돌리던 시기(2026-09-16~10-14)에 Cowork 가 `.patch` 로 넘기고 사람이 적용했다.
+ * 적용 뒤에 치우는 단계가 없어서 27개가 쌓였다. 사람이 기억할 단계를 없앤다.
+ *
+ * 판정: `git apply --check -R` 이 통과하면 = 지금 코드에 이미 들어 있다 → 보관.
+ * 통과 못 하는 것(아직 안 넣었거나, 넣은 뒤 다른 수정이 덮은 것)은 **건드리지 않고 개수만 알린다.**
+ * 「반영됐을 것」을 추측해 옮기지 않는다. 지우지도 않는다 — 보관함은 보존용이다.
+ */
+function archiveAppliedPatches() {
+  const dir = "Claude outputs";
+  if (!existsSync(dir)) return;
+  const patches = readdirSync(dir).filter((n) => n.endsWith(".patch"));
+  if (!patches.length) return;
+  const dest = pjoin("_archive", "patches");
+  let moved = 0;
+  const left = [];
+  for (const n of patches) {
+    const src = pjoin(dir, n);
+    if (run("git", ["apply", "--check", "-R", src]).code === 0) {
+      mkdirSync(dest, { recursive: true });
+      const to = existsSync(pjoin(dest, n)) ? pjoin(dest, `${Date.now()}-${n}`) : pjoin(dest, n);
+      try { renameSync(src, to); moved++; } catch { left.push(n); }
+    } else left.push(n);
+  }
+  if (moved) console.log(dim(`반영된 패치 ${moved}개 → _archive/patches/`));
+  if (left.length) console.log(dim(`판정 안 된 패치 ${left.length}개는 Claude outputs/ 에 그대로: ${left.join(", ")}`));
 }
