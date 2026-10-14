@@ -6,6 +6,7 @@
  *   npm run reviews:collect -- asics-gel-cumulus-27 --q="젤 쿠물러스 27 후기"   검색어를 직접
  *   npm run reviews:collect -- asics-gel-cumulus-27 --n=10 --headed
  *   npm run reviews:collect -- asics-gel-cumulus-27 --kw="큐물러스,쿠물러스,큐뮬러스"   본문 언급 판정에 쓸 한글 표기
+ *   npm run reviews:batch                     scripts/reviews-targets.json 전부 (이미 한 것은 건너뜀, --force 로 다시)
  *
  * 「언급 N회」: 본문에 모델명이 몇 번 나오나. 라인업 소개 글(한 줄 언급)과 후기를 가르는 기계적 기준이다.
  * reviews.json 의 rule 은 「상위 10건 중 본문에서 이 모델을 3회 이상 다룬 글 전부」처럼 적는다 — 고르지 않되 무관한 글은 뺀다.
@@ -29,6 +30,31 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const args = process.argv.slice(2);
+
+/**
+ * 일괄 모드 (2026-10-15) — `npm run reviews:batch`
+ * scripts/reviews-targets.json 순서대로 한 켤레씩 이 스크립트를 다시 부른다(브라우저도 켤레마다 새로).
+ * 한 켤레가 실패해도 다음으로 넘어가고, 끝에 한 줄씩 요약한다. 13켤레 ≈ 8~10분.
+ */
+if (args.includes("--batch")) {
+  const { spawnSync } = await import("node:child_process");
+  const { existsSync } = await import("node:fs");
+  const FORCE = args.includes("--force");
+  const pass = args.filter((a) => a === "--headed");
+  const { targets } = JSON.parse(readFileSync(path.join(ROOT, "scripts/reviews-targets.json"), "utf8"));
+  const done = Object.keys(JSON.parse(readFileSync(path.join(ROOT, "lib/shoes/reviews.json"), "utf8")));
+  const summary = [];
+  for (const t of targets) {
+    const raw = path.join(ROOT, "outputs", `reviews-raw-${t.id}.json`);
+    if (!FORCE && (done.includes(t.id) || existsSync(raw))) { summary.push(`  - ${t.id}  건너뜀 (${done.includes(t.id) ? "정리 끝" : "수집 파일 있음"})`); continue; }
+    console.log(`\n━━ ${t.id}`);
+    const r = spawnSync(process.execPath, [path.join(ROOT, "scripts/reviews-collect.mjs"), t.id, `--q=${t.q}`, `--kw=${t.kw}`, ...pass], { stdio: "inherit" });
+    summary.push(`  ${r.status === 0 ? "✓" : "✗"} ${t.id}`);
+  }
+  console.log("\n━━ 요약\n" + summary.join("\n") + "\n\n이제 Claude 에게 「reviews-raw 정리해」");
+  process.exit(0);
+}
+
 const id = args.find((a) => !a.startsWith("-"));
 const opt = (k, d) => { const m = args.find((a) => a.startsWith(`--${k}=`)); return m ? m.slice(k.length + 3) : d; };
 const N = Number(opt("n", 10));
@@ -107,7 +133,15 @@ for (const [i, url] of urls.entries()) {
       row.date = `${d[1]}-${d[2].padStart(2, "0")}-${d[3].padStart(2, "0")}`;
       row.author = lines[di - 1];
     } else {
-      row.date = lines.find((l) => /전$|어제/.test(l)) ?? ""; // 「3시간 전」 같은 상대 날짜 — 사람이 확인
+      // 2026-10-15: 하루 안 된 글은 「17시간 전」으로 나온다. 첫 수집에서 날짜·작성자가 둘 다 비었다(클리프톤 10, 두부).
+      // 지금 시각에서 빼서 이 PC 의 날짜(KST)로 적는다. 분 단위 정확도는 필요 없다 — 날짜만 쓴다
+      const ri = lines.findIndex((l) => /^(\d+)\s*(분|시간|일)\s*전$|^어제$/.test(l));
+      if (ri > 0) {
+        const m = /^(\d+)\s*(분|시간|일)/.exec(lines[ri]);
+        const ms = m ? Number(m[1]) * { 분: 60e3, 시간: 3600e3, 일: 86400e3 }[m[2]] : 86400e3;
+        row.date = new Date(Date.now() - ms).toLocaleDateString("sv-SE"); // YYYY-MM-DD, 로컬 시간대
+        row.author = lines[ri - 1];
+      }
     }
     row.text = (body || all).replace(/\n{3,}/g, "\n\n").trim().slice(0, 12000);
     const low = row.text.toLowerCase();

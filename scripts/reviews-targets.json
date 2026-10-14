@@ -1,0 +1,18 @@
+{
+  "_설명": "npm run reviews:batch 가 이 순서대로 수집한다. 순서 = 추천 엔진 스냅샷(648 프로필 상위 3)에 나온 횟수(-w 합산), 2026-10-15. 이미 reviews.json 에 있거나 outputs/reviews-raw-<id>.json 이 있으면 건너뛴다(--force 로 다시). 짧은 한글 이름(가이드·라이드·고스트·레벨)은 다른 뜻으로 잡혀서 브랜드를 붙였다. 한글 표기는 lib/shoes/aliases.ts 의 ko.",
+  "targets": [
+    { "id": "mizuno-wave-rider-30",  "q": "웨이브 라이더 30 후기",     "kw": "웨이브라이더,웨이브 라이더,wave rider" },
+    { "id": "asics-gel-kayano-32",   "q": "젤 카야노 32 후기",         "kw": "카야노,kayano" },
+    { "id": "hoka-clifton-10",       "q": "클리프톤 10 후기",          "kw": "클리프톤,clifton" },
+    { "id": "brooks-ghost-17",       "q": "브룩스 고스트 17 후기",     "kw": "고스트,ghost" },
+    { "id": "hoka-arahi-8",          "q": "아라히 8 후기",             "kw": "아라히,arahi" },
+    { "id": "saucony-guide-18",      "q": "써코니 가이드 18 후기",     "kw": "가이드,guide" },
+    { "id": "nike-pegasus-42",       "q": "페가수스 42 후기",          "kw": "페가수스,pegasus" },
+    { "id": "saucony-ride-18",       "q": "써코니 라이드 18 후기",     "kw": "라이드,ride" },
+    { "id": "mizuno-wave-sky-9",     "q": "웨이브 스카이 9 후기",      "kw": "웨이브스카이,웨이브 스카이,wave sky" },
+    { "id": "nb-1080-v15",           "q": "뉴발란스 1080 v15 후기",    "kw": "1080" },
+    { "id": "asics-gt-2000-14",      "q": "GT2000 14 후기",            "kw": "gt2000,gt-2000,gt 2000" },
+    { "id": "mizuno-wave-inspire-22","q": "웨이브 인스파이어 22 후기", "kw": "인스파이어,inspire" },
+    { "id": "nb-fuelcell-rebel-v4",  "q": "퓨얼셀 레벨 v4 후기",       "kw": "레벨,rebel" }
+  ]
+}

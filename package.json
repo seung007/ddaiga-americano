@@ -14,6 +14,7 @@
     "check:siteurl": "node scripts/check-site-url.mjs",
     "check:reviews": "node scripts/check-reviews.mjs",
     "reviews:collect": "node scripts/reviews-collect.mjs",
+    "reviews:batch": "node scripts/reviews-collect.mjs --batch",
     "check:all": "node scripts/check-all.mjs --full",
     "hooks:on": "git config core.hooksPath .githooks",
     "check:citations": "node scripts/verify-citations.mjs",
