@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { HangangCourse } from "@/lib/courses";
+import CourseMap from "@/components/CourseMap";
 
 /**
  * 코스 가상 달리기 (2026-10-12)
@@ -20,14 +21,12 @@ import type { HangangCourse } from "@/lib/courses";
  *   · 페이스는 **일정하다고 가정**한다. 실제로는 반환점·신호·사람 때문에 느려진다 — 화면에 적는다
  *   · 경로선 양 끝은 다리 좌표에서 수백 m 떨어져 있을 수 있다(snapFromM/snapToM). 「○○대교 쪽」으로만 부른다
  *
- * 그림은 위경도를 평면에 단순 투영(경도 × cos 위도)한 것이다. 지도 타일을 쓰지 않으니 OSM 타일 정책과 무관하고,
- * 경로 데이터의 출처(OSM 기여자)만 표기한다.
+ * 2026-10-14: 회색 선만 있는 별도 그림을 없애고 **코스 지도 위에서** 점이 움직인다(카카오맵, 키가 없으면 OSM).
+ *   운영자: "지금 둘 다 별로거든?" — 지도 하나, 가상 달리기 하나가 따로 있어서 같은 길을 두 번 보여 줬다.
+ *   이 컴포넌트가 지도까지 그린다. 경로선이 없는 코스는 지도만 그린다.
  */
 
 type Pt = [number, number];
-const VW = 420; // 휴대폰에서 글자가 읽히게 좁은 viewBox
-const VH = 200;
-const PAD = 24;
 
 function haversineM(a: Pt, b: Pt) {
   const R = 6371000;
@@ -73,17 +72,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
     const pts = route.coords as Pt[];
     const cum = [0];
     for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + haversineM(pts[i - 1], pts[i]));
-    const total = cum[cum.length - 1];
-    const lat0 = pts.reduce((s, p) => s + p[0], 0) / pts.length;
-    const k = Math.cos((lat0 * Math.PI) / 180);
-    const xs = pts.map((p) => p[1] * k);
-    const ys = pts.map((p) => p[0]);
-    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-    const scale = Math.min((VW - PAD * 2) / (maxX - minX || 1), (VH - PAD * 2) / (maxY - minY || 1));
-    const offX = (VW - (maxX - minX) * scale) / 2;
-    const offY = (VH - (maxY - minY) * scale) / 2;
-    const proj = pts.map((p, i): Pt => [offX + (xs[i] - minX) * scale, VH - (offY + (ys[i] - minY) * scale)]);
-    return { proj, cum, total };
+    return { pts, cum, total: cum[cum.length - 1] };
   }, [route]);
 
   const [distKm, setDistKm] = useState(5);
@@ -136,7 +125,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
     };
   }, [running, speed, endSec]);
 
-  if (!route || !geo || turns.length < 2) return null;
+  if (!route || !geo || turns.length < 2) return <CourseMap course={course} />;
 
   /** 누적 거리 d(m) → 왕복 경로 위 좌표 */
   function posAt(dM: number): Pt {
@@ -144,12 +133,13 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
     const legScale = L / legM; // 화면 경로 길이와 route.km 의 미세한 차이를 흡수
     const m = (dM * legScale) % (2 * L);
     const along = m <= L ? m : 2 * L - m;
-    const { cum, proj } = geo!;
+    const { cum, pts } = geo!;
     let i = 1;
     while (i < cum.length - 1 && cum[i] < along) i++;
     const seg = cum[i] - cum[i - 1] || 1;
     const f = Math.min(1, Math.max(0, (along - cum[i - 1]) / seg));
-    return [proj[i - 1][0] + (proj[i][0] - proj[i - 1][0]) * f, proj[i - 1][1] + (proj[i][1] - proj[i - 1][1]) * f];
+    // 위경도 그대로 보간 — 수백 m 구간이라 평면 근사로 충분하다
+    return [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * f, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * f];
   }
 
   const myM = pace ? Math.min(goalM, (t / pace) * 1000) : 0;
@@ -172,17 +162,16 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
   ]
     .filter(Boolean)
     .join(" + ");
-  const pathD = geo.proj.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
   const done = t >= endSec && endSec > 0;
   // 먼저 들어온 쪽이 끝난 순간, 늦은 쪽이 남겨 둔 거리
   const gapM =
     ghost && pace
       ? Math.round(finishSec <= ghostFinish ? goalM - (finishSec / ghost) * 1000 : goalM - (ghostFinish / pace) * 1000)
       : 0;
-  const anchor = (x: number) => (x < VW / 3 ? "start" : x > (VW * 2) / 3 ? "end" : "middle");
-  const labelY = (y: number) => (y < 34 ? y + 26 : y - 12);
-  const P0 = geo.proj[0];
-  const P1 = geo.proj[geo.proj.length - 1];
+  const runners = [
+    ...(ghost ? [{ id: "ghost", lat: gh[0], lng: gh[1], color: "#4f46e5", label: `같이 달린 러너 ${(ghostM / 1000).toFixed(2)}km` }] : []),
+    ...(pace ? [{ id: "me", lat: me[0], lng: me[1], color: "#059669", label: `나 ${(myM / 1000).toFixed(2)}km` }] : []),
+  ];
 
   function start() {
     if (!pace) return;
@@ -193,7 +182,9 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
   }
 
   return (
-    <div className="mt-6 rounded-2xl border border-gray-200 p-4">
+    <div>
+      <CourseMap course={course} runners={runners} />
+      <div className="mt-4 rounded-2xl border border-gray-200 p-4">
       <p className="mb-1 text-sm font-semibold text-gray-900">이 코스에서 가상으로 달려보기</p>
       <p className="mb-4 text-xs leading-relaxed text-gray-500">
         {startName} 쪽 ↔ {endName} 쪽 강변 산책로 편도 {route.km}km를 왕복한다고 치고 계산합니다.
@@ -246,19 +237,15 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
         </p>
       )}
 
-      <svg viewBox={`0 0 ${VW} ${VH}`} className="h-auto w-full rounded-xl bg-sky-50" role="img" aria-label={`${course.name} 가상 달리기 경로`}>
-        <path d={pathD} fill="none" stroke="#94a3b8" strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx={geo.proj[0][0]} cy={geo.proj[0][1]} r={5} fill="#334155" />
-        <circle cx={geo.proj[geo.proj.length - 1][0]} cy={geo.proj[geo.proj.length - 1][1]} r={5} fill="#334155" />
-        <text x={P0[0]} y={labelY(P0[1])} textAnchor={anchor(P0[0])} fontSize="16" fill="#334155">{startName} 쪽 (출발)</text>
-        <text x={P1[0]} y={labelY(P1[1])} textAnchor={anchor(P1[0])} fontSize="16" fill="#334155">{endName} 쪽</text>
+      <p className="mb-1 text-xs text-gray-500">
+        <span className="mr-1 inline-block h-2.5 w-2.5 rounded-full bg-emerald-600 align-middle" />나
         {ghost && (
-          <circle cx={gh[0]} cy={gh[1]} r={9} fill="#4f46e5" stroke="#fff" strokeWidth={2} opacity={0.85} role="img" aria-label={`같이 달린 러너 ${(ghostM / 1000).toFixed(2)}km`} />
+          <>
+            <span className="ml-3 mr-1 inline-block h-2.5 w-2.5 rounded-full bg-indigo-600 align-middle" />같이 달린 러너
+          </>
         )}
-        {pace && (
-          <circle cx={me[0]} cy={me[1]} r={9} fill="#059669" stroke="#fff" strokeWidth={2} role="img" aria-label={`나 ${(myM / 1000).toFixed(2)}km`} />
-        )}
-      </svg>
+        <span className="ml-2 text-gray-400">— 위 지도에서 움직입니다</span>
+      </p>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button
@@ -317,6 +304,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
         </a>{" "}
         ({route.source.checkedAt} 기준).
       </p>
+      </div>
     </div>
   );
 }

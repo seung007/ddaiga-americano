@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CourseFigure from "@/components/CourseFigure";
-import CourseMapLive from "@/components/CourseMapLive";
 import CourseVirtualRun from "@/components/CourseVirtualRun";
 import NearestCourse from "@/components/NearestCourse";
 import FinderCta from "@/components/FinderCta";
@@ -149,8 +148,8 @@ export default function CoursesPage() {
                 도식은 "다리 순서"만 알려주고, 사람이 알고 싶은 건 "길이 어디냐"다.
                 도식은 지도 아래 보조로 남긴다 — 그 안의 텍스트는 크롤되므로 버리지 않는다. */}
             <div className="mb-4">
-              <CourseMapLive course={c} />
-              {/* 2026-10-12: 경로선이 있는 코스만 가상 달리기를 보여준다(없으면 컴포넌트가 아무것도 그리지 않는다) */}
+              {/* 2026-10-14: 지도와 가상 달리기를 하나로 — 가상 달리기 점이 코스 지도 위에서 움직인다.
+                  지도는 카카오맵(키가 있을 때) 또는 OpenStreetMap. 경로선이 없는 코스는 지도만 나온다 */}
               <CourseVirtualRun course={c} />
             </div>
 
