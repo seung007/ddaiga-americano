@@ -12,8 +12,10 @@ import { KINDS, escapeHtml, pinHtml, snapTurn, type Runner } from "@/components/
  * 운영자: "지금 둘 다 별로거든? 지도를 네이버에서 가져올 수 없어?" → 카카오맵으로 시작하기로 정함.
  * OpenStreetMap 타일은 한국 지명·산책로 표기가 낯설고(영문·한자 혼용), 가상 달리기는 지도 없이 회색 선만 있었다.
  *
- *   · 키: Vercel 환경변수 NEXT_PUBLIC_KAKAO_MAP_KEY (카카오 개발자 앱의 **JavaScript 키** — REST 키 아님).
- *     브라우저에 그대로 보이는 값이고, 카카오 개발자 콘솔에 등록한 도메인에서만 동작한다.
+ *   · 키: 카카오톡 공유 버튼이 이미 쓰는 NEXT_PUBLIC_KAKAO_JS_KEY 를 그대로 쓴다(같은 앱의 **JavaScript 키** — REST 키 아님).
+ *     운영자: "예전에 카카오 했을 텐데" → 새 앱·새 키를 만들지 않는다. 지도만 다른 앱으로 떼고 싶을 때만 NEXT_PUBLIC_KAKAO_MAP_KEY 로 덮어쓴다.
+ *     키만으로는 안 뜬다 — 카카오 개발자 콘솔에서 그 앱의 「카카오맵」 사용 설정을 켜고, JavaScript SDK 도메인에 사이트 주소가 있어야 한다(설정_안내.md 「ⓐ-1」).
+ *     브라우저에 그대로 보이는 값이고, 등록한 도메인에서만 동작한다.
  *   · 키가 없거나, SDK 가 10초 안에 안 뜨거나, 오류가 나면 **onFail** → 부모(CourseMap)가 기존 Leaflet 지도로 바꾼다.
  *     예전 교훈: 「영원한 로딩 표시는 오류보다 나쁘다」(CourseMapLive 머리말).
  *   · SDK 는 next/script 로 싣는다. head 에 손으로 <script> 를 꽂으면 React 와 다투다 사라진 적이 있다(check-cdn 머리말).
@@ -21,7 +23,8 @@ import { KINDS, escapeHtml, pinHtml, snapTurn, type Runner } from "@/components/
  *   · 카카오 로고·저작권 표시는 SDK 가 지도 안에 그린다. 가리지 않는다.
  */
 
-const KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY ?? "";
+// next 는 process.env.NEXT_PUBLIC_* 를 글자 그대로 찾아 빌드 때 바꿔 넣는다 — 두 이름을 각각 적어야 한다
+const KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY || process.env.NEXT_PUBLIC_KAKAO_JS_KEY || "";
 const SDK = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KEY}&autoload=false`;
 const TIMEOUT_MS = 10_000;
 
