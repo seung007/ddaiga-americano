@@ -4,7 +4,19 @@
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import type { HangangCourse } from "@/lib/courses";
-import { KINDS, escapeHtml, pinHtml, snapTurn, type Runner } from "@/components/courseMapShared";
+import {
+  KINDS,
+  RANK,
+  applyPlacement,
+  labelSize,
+  escapeHtml,
+  pinHtml,
+  placeLabels,
+  rectIn,
+  snapTurn,
+  type Rect,
+  type Runner,
+} from "@/components/courseMapShared";
 
 /**
  * 코스 지도 — 카카오맵 (2026-10-14)
@@ -43,6 +55,7 @@ export default function CourseMapKakao({
   const boxRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const pinRef = useRef<any[]>([]);
+  const badgeRef = useRef<HTMLDivElement>(null);
   const runnerRef = useRef<Map<string, any>>(new Map());
   const [visible, setVisible] = useState(false);
   const [sdkReady, setSdkReady] = useState(false);
@@ -90,7 +103,10 @@ export default function CourseMapKakao({
           scrollwheel: false, // 페이지를 내리다 지도가 확대되는 일을 막는다(Leaflet 때와 같은 판단)
         });
         mapRef.current = map;
+        // 확대 버튼이 차지하는 자리를 알아 두려고 붙이기 전후의 자식을 비교한다(SDK 가 요소를 돌려주지 않는다)
+        const before = new Set(Array.from(boxRef.current.children));
         map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+        const zoomEl = Array.from(boxRef.current.children).find((c) => !before.has(c)) ?? null;
 
         const bounds = new kakao.maps.LatLngBounds();
         if (route?.coords.length) {
@@ -101,23 +117,50 @@ export default function CourseMapKakao({
           new kakao.maps.Polyline({ map, path, strokeWeight: 6, strokeColor: "#059669", strokeOpacity: 1 });
         }
 
-        pinRef.current = course.map.points.map((p) => {
+        const pins = course.map.points.map((p) => {
           const [lat, lng] = snapTurn(course, p);
           const pos = LL(lat, lng);
           bounds.extend(pos);
-          return new kakao.maps.CustomOverlay({
+          const holder = document.createElement("div");
+          holder.innerHTML = pinHtml(KINDS[p.kind], p.name);
+          const el = holder.firstElementChild as HTMLElement;
+          const overlay = new kakao.maps.CustomOverlay({
             map,
             position: pos,
-            content: pinHtml(KINDS[p.kind], p.name),
-            // 핀 끝(폭 160 의 가운데, 높이 62 중 38)이 좌표를 가리키게 — 비율로 준다
+            content: el,
+            // 상자 = 핀(26×38), 끝 = 상자 아래 가운데. 이름표는 상자 밖에 떠 있다(courseMapShared pinHtml)
             xAnchor: 0.5,
-            yAnchor: 38 / 62,
+            yAnchor: 1,
             zIndex: p.kind === "turn" ? 3 : p.kind === "start" ? 2 : 1,
           });
+          return { overlay, pos, el, rank: RANK[p.kind] };
         });
+        pinRef.current = pins.map((x) => x.overlay);
+
+        // 이름표 자리 — 지도가 멈출 때마다(처음·확대·이동) 다시 고른다
+        const layout = () => {
+          const box = boxRef.current;
+          if (!box || mapRef.current !== map) return;
+          const W = box.clientWidth, H = box.clientHeight;
+          const proj = map.getProjection();
+          const items = pins.map((x) => {
+            const pt = proj.containerPointFromCoords(x.pos);
+            return { x: pt.x, y: pt.y, ...labelSize(x.el), rank: x.rank };
+          });
+          const obstacles = [
+            rectIn(zoomEl, box),
+            rectIn(badgeRef.current, box),
+            // 카카오 로고·축척(왼쪽 아래) — SDK 가 그리는 요소라 크기를 넉넉히 잡는다
+            { x: 0, y: H - 30, w: 170, h: 30 },
+          ].filter(Boolean) as Rect[];
+          placeLabels(items, W, H, obstacles).forEach((pl, i) => applyPlacement(pins[i].el, pl));
+        };
+        kakao.maps.event.addListener(map, "idle", () => requestAnimationFrame(layout));
 
         map.setBounds(bounds, 48, 48, 48, 48);
         setState("ready");
+        requestAnimationFrame(layout);
+        setTimeout(layout, 400); // 거리 배지가 ready 뒤에 그려진다 — 그것까지 피하려고 한 번 더
       });
     } catch {
       onFail();
@@ -186,7 +229,7 @@ export default function CourseMapKakao({
         {/* 카카오맵 전용 — React 는 여기에 자식을 렌더하지 않는다(Leaflet 때 같은 노드를 둘이 다퉜다) */}
         <div ref={boxRef} className="absolute inset-0" />
         {state === "ready" && course.map.route && (
-          <div className="pointer-events-none absolute left-3 top-3 z-10 rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
+          <div ref={badgeRef} className="pointer-events-none absolute left-3 top-3 z-10 rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
             편도 {course.map.route.km}km
             <span className="mx-1.5 font-normal text-gray-300">|</span>
             <span className="text-emerald-700">왕복 {(course.map.route.km * 2).toFixed(1)}km</span>

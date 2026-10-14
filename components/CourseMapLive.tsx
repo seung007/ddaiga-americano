@@ -4,7 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 import type { HangangCourse } from "@/lib/courses";
-import { KINDS, pinHtml, escapeHtml, snapTurn, type Runner } from "@/components/courseMapShared";
+import {
+  KINDS,
+  RANK,
+  applyPlacement,
+  labelSize,
+  pinHtml,
+  escapeHtml,
+  placeLabels,
+  rectIn,
+  snapTurn,
+  PIN_W,
+  PIN_H,
+  type Rect,
+  type Runner,
+} from "@/components/courseMapShared";
 
 /**
  * 실제 지도 — Leaflet + OpenStreetMap
@@ -148,9 +162,9 @@ export default function CourseMapLive({ course, runners = [] }: { course: Hangan
               className: "",
               html: pinHtml(k, p.name),
               // 물방울 핀은 **끝이 좌표를 가리켜야** 한다. 가운데가 아니다.
-              // 폭 160 의 가운데(80), 높이 중 핀 끝(38)을 앵커로 잡는다.
-              iconSize: [160, 62],
-              iconAnchor: [80, 38],
+              // 상자 = 핀(26×38), 끝 = 아래 가운데. 이름표는 상자 밖에 떠 있고 자리는 layout 이 고른다(2026-10-14).
+              iconSize: [PIN_W, PIN_H],
+              iconAnchor: [PIN_W / 2, PIN_H],
             }),
             // 반환점이 지하철 표시에 가리지 않게 순서를 준다.
             zIndexOffset: p.kind === "turn" ? 300 : p.kind === "start" ? 200 : 100,
@@ -173,6 +187,30 @@ export default function CourseMapLive({ course, runners = [] }: { course: Hangan
           ]),
           { padding: [42, 42] }
         );
+
+        // 이름표 자리 — 이동·확대가 끝날 때마다 겹치지 않는 쪽으로 (카카오맵과 같은 규칙, courseMapShared placeLabels)
+        const pinPts = course.map.points.map((p) => ({ at: snapTurn(course, p), rank: RANK[p.kind] }));
+        const layout = () => {
+          const box = boxRef.current;
+          if (!box || mapRef.current !== map) return;
+          // divIcon 의 바깥 div(Leaflet) 안에 pinHtml 상자가 있다
+          const els = markersRef.current.map((m) => (m.getElement()?.firstElementChild as HTMLElement | null) ?? null);
+          const items = pinPts.map((x, i) => {
+            const pt = map.latLngToContainerPoint(x.at);
+            return { x: pt.x, y: pt.y, ...labelSize(els[i]), rank: x.rank };
+          });
+          const ctl = box.parentElement?.querySelector("[data-km-badge]");
+          const obstacles = [
+            rectIn(map.zoomControl?.getContainer(), box),
+            rectIn(map.attributionControl?.getContainer(), box),
+            rectIn(box.querySelector(".leaflet-control-scale"), box),
+            rectIn(ctl, box),
+          ].filter(Boolean) as Rect[];
+          placeLabels(items, box.clientWidth, box.clientHeight, obstacles).forEach((pl, i) => applyPlacement(els[i], pl));
+        };
+        map.on("moveend zoomend", () => requestAnimationFrame(layout));
+        requestAnimationFrame(layout);
+        setTimeout(layout, 400); // 거리 배지가 ready 뒤에 그려진다 — 그것까지 피하려고 한 번 더
 
         clearTimeout(timer);
         if (!cancelled) setState("ready");
@@ -258,7 +296,7 @@ export default function CourseMapLive({ course, runners = [] }: { course: Hangan
           /* 2026-09-08: 왼쪽 위에 뒀더니 **줌 버튼과 겹쳐 "편도" 두 글자가 가려졌다.**
              화면을 보고서야 알았다(npm run shot). 오른쪽 위로 옮긴다 —
              네이버·카카오도 정보 칩을 컨트롤 반대편에 둔다. */
-          <div className="pointer-events-none absolute right-3 top-3 z-[800] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
+          <div data-km-badge className="pointer-events-none absolute right-3 top-3 z-[800] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
             편도 {course.map.route.km}km
             <span className="mx-1.5 font-normal text-gray-300">|</span>
             <span className="text-emerald-700">왕복 {(course.map.route.km * 2).toFixed(1)}km</span>
