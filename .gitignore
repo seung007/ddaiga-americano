@@ -80,3 +80,12 @@ docs/*
 !docs/조사/
 docs/조사/*
 !docs/조사/벤치마킹_*.md
+
+# ── 2026-10-20 자동 수집 파이프라인 (council 2026-10-20: 같은 저장소 pipeline/ 에서 시작) ──
+# 남의 글 원문·응답 캐시·모델 가중치는 공개 저장소에 넣지 않는다. 노트북에만 둔다.
+# scripts/check-leak.mjs 가 이 자리에 파일이 추적되면 커밋을 막는다 (git add -f 로 넣어도 잡는다)
+pipeline/raw/
+pipeline/cache/
+pipeline/models/
+# 백업 압축본 — 안에 .env · docs/개인 이 들어 있다
+*.zip

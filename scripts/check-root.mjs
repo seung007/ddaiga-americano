@@ -34,6 +34,7 @@ const ROOT_FILES = new Set([
 const ROOT_DIRS = new Set([
   "app", "components", "lib", "public", "scripts", "supabase", // 사이트
   "docs",            // 내부 문서 — 자리는 docs/README.md
+  "pipeline",        // 자동 수집 (2026-10-20). 원문은 pipeline/raw/ — .gitignore + check-leak
   "outputs",         // 스크립트 결과물 전용 (link-check · image-sheet · affiliate-check)
   "shots",           // npm run shot
   "_archive",        // 보존만 한다. 읽지 않는다 (AGENTS.md 「폴더 지도」)

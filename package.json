@@ -13,6 +13,7 @@
     "check:root": "node scripts/check-root.mjs",
     "check:siteurl": "node scripts/check-site-url.mjs",
     "check:reviews": "node scripts/check-reviews.mjs",
+    "check:leak": "node scripts/check-leak.mjs",
     "reviews:collect": "node scripts/reviews-collect.mjs",
     "reviews:batch": "node scripts/reviews-collect.mjs --batch",
     "check:all": "node scripts/check-all.mjs --full",
