@@ -152,7 +152,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
           {r.capacity && <Row label="정원">{r.capacity}</Row>}
           {r.organizer && <Row label="주최">{r.organizer}</Row>}
         </dl>
-        <p className="mb-10 text-xs text-gray-400">{r.checkedAt} 확인 · 코스·제한시간은 공식 홈페이지에서 확인하세요</p>
+        <p className="mb-10 text-xs text-gray-400">{r.checkedAt} {r.checkedBy === "수집기" ? "자동 확인" : "확인"} · 코스·제한시간은 공식 홈페이지에서 확인하세요</p>
 
         {/* 2026-09-23 — 나가요 / 다녀왔어요. 근거·경위는 components/RaceReactions.tsx 주석 */}
         <RaceReactions raceId={r.id} ended={ended} distances={r.distancesKm.map(distanceLabel)} />

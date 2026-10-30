@@ -127,6 +127,12 @@ for (const [i, r] of races.entries()) {
     errors.push(`${at} — officialKind 값이 이상합니다: ${r.officialKind}`);
   if (r?.officialKind !== undefined && !r?.officialUrl)
     errors.push(`${at} — officialKind 가 있는데 officialUrl 이 없습니다`);
+  // 2026-10-30 자동 수집 — 기계가 확인한 항목은 표시가 있어야 한다. 사람 확인은 비워 둔다
+  if (r?.checkedBy !== undefined && r.checkedBy !== "수집기")
+    errors.push(`${at} — checkedBy 값이 이상합니다: ${r.checkedBy} (비우면 사람, 자동 수집은 "수집기")`);
+  // 수집기는 모음 사이트에서 읽는다. 「공식」 표시는 사람이 공식 사이트에서 확인한 항목에만 붙는다
+  if (r?.checkedBy === "수집기" && r?.factsFrom === "공식")
+    errors.push(`${at} — 수집기가 확인한 항목에 factsFrom "공식" 이 붙어 있습니다. 공식 표시는 사람 확인 전용입니다`);
   if (r?.factsFrom !== undefined && !["공식", "모음"].includes(r.factsFrom))
     errors.push(`${at} — factsFrom 값이 이상합니다: ${r.factsFrom}`);
   if (r?.capacity !== undefined && typeof r.capacity !== "string")

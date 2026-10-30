@@ -66,10 +66,11 @@ jobs:
   # **빼는 쪽만 자동이다.** 대회 날짜가 지나면 목록에서 빠지고 보관 파일로 옮겨진다.
   # 시간이 지나면 확실히 참이 되는 판정이라 사람 확인이 필요 없다.
   #
-  # **넣는 쪽은 자동화하지 않는다.** 새 대회를 어디선가 긁어 와 날짜를 채우면
-  # 틀린 날짜가 사람 확인 없이 배포된다. 이 저장소는 그걸로 이미 당했다 —
-  # 지어낸 좌표가 숫자 검사를 전부 통과하고 배포돼 경로선이 한강을 가로질렀다.
-  # 대회는 더 나쁘다. 사람이 참가비를 내고 이동한다.
+  # 넣는 쪽은 2026-10-30 부터 비공개 저장소 ddaiga-pipeline 의 수집기가 한다 (hyun 님 결정).
+  # 사람 확인 대신 고유 ID·2회 확인·「자동 확인」 표시·사람 확인값 보호·배포 전 검사로 막는다.
+  # 경위와 규칙은 scripts/races-sweep.mjs 머리말.
+  #
+  # 수집기도 lib/races.json 을 고치므로 푸시 직전에 원격을 다시 받는다 (충돌 시 이번 주는 건너뛴다).
   #
   # 바뀐 게 있을 때만 커밋한다. 매주 빈 커밋을 쌓지 않는다.
   races-sweep:
@@ -95,6 +96,7 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add lib/races.json lib/races.past.json
             git commit -m "chore(races): 지난 대회 자동 보관"
+            git pull --rebase || { git rebase --abort; echo "수집기 커밋과 충돌 — 다음 주에 다시 정리"; exit 0; }
             git push
           else
             echo "정리할 것 없음"
