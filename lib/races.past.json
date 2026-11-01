@@ -696,5 +696,340 @@
     "factsFrom": "공식",
     "checkedAt": "2026-09-28",
     "note": "제2회 대회. 4/27부터 개인 선착순 접수였고, 공식 신청 페이지에 「참가 접수마감되었습니다」 표시. 07:00 집결."
+  },
+  {
+    "id": "ulsan-run-festa-2026",
+    "name": "2026 울산 런 페스타",
+    "date": "2026-10-25",
+    "region": "울산",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "문수국제양궁장",
+    "registrationStart": "2026-08-19",
+    "registrationEnd": "2026-09-20",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 45000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-ulsan-run-festa",
+    "officialUrl": "https://www.ulsanrunfesta.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-09-28",
+    "cutoff": "하프 2시간 30분 · 10km 1시간 30분 · 5km 1시간"
+  },
+  {
+    "id": "oak-tree-run-2026",
+    "name": "2026 참나무달리기",
+    "date": "2026-10-25",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "뚝섬한강공원 수변무대",
+    "startTime": "09:00",
+    "registrationStart": "2026-08-01",
+    "registrationEnd": "2026-09-29",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "참나무프로젝트",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-oak-tree-run",
+    "factsFrom": "모음",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdLEH2aPgDLwc0CTtcEA2ljxYLr3vISJk4izdf1CPXtLOQsBQ/viewform",
+    "officialKind": "접수폼"
+  },
+  {
+    "id": "cookie-run-seoul-2026",
+    "name": "용감한 쿠키 Run in 서울",
+    "date": "2026-10-25",
+    "region": "서울",
+    "distancesKm": [
+      10
+    ],
+    "status": "접수중",
+    "venue": "어린이대공원",
+    "registrationStart": "2026-08-20",
+    "registrationEnd": "2026-09-21",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 70000
+      }
+    ],
+    "capacity": "7,000명",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/cookie-run",
+    "officialUrl": "https://runable.me/product/20032?comp=19600",
+    "officialKind": "접수대행",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-17"
+  },
+  {
+    "id": "dangjin-one-run-2026",
+    "name": "2026 당진원런 마라톤",
+    "date": "2026-10-31",
+    "region": "충남",
+    "distancesKm": [
+      5
+    ],
+    "status": "접수중",
+    "venue": "당진 석문방조제",
+    "registrationStart": "2026-09-03",
+    "registrationEnd": "2026-09-15",
+    "capacity": "선착순 499명",
+    "organizer": "당진러닝팀",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-dangjin-one-run-marathon",
+    "officialUrl": "https://www.instagram.com/drt_2022/",
+    "officialKind": "SNS",
+    "factsFrom": "모음",
+    "checkedAt": "2026-09-16"
+  },
+  {
+    "id": "daecheongho-walk-2026",
+    "name": "2026 대청호 오백리길 걷기대회",
+    "date": "2026-10-31",
+    "region": "대전",
+    "distancesKm": [
+      1.5,
+      4,
+      10
+    ],
+    "status": "마감",
+    "venue": "금강 로하스 대청공원 동광장",
+    "startTime": "09:00",
+    "registrationStart": "2026-08-20",
+    "fees": [
+      {
+        "label": "1.5km",
+        "distanceKm": 1.5,
+        "krw": 2000
+      },
+      {
+        "label": "4km",
+        "distanceKm": 4,
+        "krw": 2000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 2000
+      }
+    ],
+    "capacity": "1,500명",
+    "organizer": "대전광역시 · 대전관광공사 · (사)한국걷기운동본부",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-daecheongho-obaengni-gil-walking-festival",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "officialUrl": "http://www.kwalk.co.kr/",
+    "note": "공식 사이트에 「모집 마감되었습니다」 표시(마감일은 안 적혀 있음). 예전에 9/30 마감으로 적혀 있던 것을 고쳤습니다."
+  },
+  {
+    "id": "just-run10-pocheon",
+    "name": "JUST RUN10 포천",
+    "date": "2026-10-31",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "접수중",
+    "venue": "포천시종합운동장",
+    "registrationStart": "2026-08-01",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 45000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(주)러닝브레이커",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/just-run10-pocheon",
+    "officialUrl": "https://runten.co.kr/competitions/46e731b4-252b-4dce-9634-44369aceea25",
+    "officialKind": "접수대행",
+    "factsFrom": "공식",
+    "checkedAt": "2026-10-05",
+    "note": "공식 접수처(런텐)에 10월 5일 기준 「접수 중」으로 떠 있습니다. 마감일은 공식 페이지에 안 나와 있어서, 예전에 적어 둔 9/15 마감을 뺐습니다."
+  },
+  {
+    "id": "sme-energy-2026",
+    "name": "제7회 중소기업인 氣살리기 마라톤",
+    "date": "2026-10-31",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "안양천 축구장 (1호선 구일역 1번 출구)",
+    "startTime": "08:30",
+    "registrationStart": "2026-08-07",
+    "registrationEnd": "2026-10-18",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 44000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 55000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 55000
+      }
+    ],
+    "organizer": "중소기업진흥회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/7th-small-and-medium-business-people-energy-boosting-marathon",
+    "officialUrl": "https://kasmirun.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28"
+  },
+  {
+    "id": "autism-race-2026",
+    "name": "2026 오티즘 레이스",
+    "date": "2026-10-31",
+    "region": "서울",
+    "distancesKm": [
+      4.2,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "상암 평화의공원 평화광장",
+    "startTime": "하프 08:50 · 10km 08:55 · 4.2km 09:00",
+    "registrationStart": "2026-07-08",
+    "registrationEnd": "2026-09-09",
+    "fees": [
+      {
+        "label": "4.2km",
+        "distanceKm": 4.2,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 40000
+      }
+    ],
+    "organizer": "한국자폐인사랑협회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-autism-race",
+    "officialUrl": "https://autismrace.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-09-28",
+    "cutoff": "전 종목 11:50까지 골인 (하프 약 3시간 · 10km 약 2시간 55분 · 4.2km 약 2시간 50분)",
+    "note": "9월 9일(수) 오후 5시에 참가 신청이 조기 마감됐습니다(공식 공지). 취소분 추가 모집은 따로 안내한다고 합니다."
+  },
+  {
+    "id": "chuncheon-2026",
+    "name": "2026 춘천마라톤",
+    "date": "2026-10-25",
+    "region": "강원",
+    "distancesKm": [
+      42.195,
+      10
+    ],
+    "status": "마감",
+    "venue": "춘천 공지천교 (집결 공지천 인조잔디구장)",
+    "startTime": "09:00",
+    "organizer": "조선일보 · 춘천시 · 스포츠조선 · 대한육상연맹",
+    "sourceUrl": "https://www.chuncheonmarathon.com/",
+    "officialUrl": "https://www.chuncheonmarathon.com/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "공식 신청 페이지에 「참가신청이 마감되었습니다」 표시."
+  },
+  {
+    "id": "incheon-night-2026",
+    "name": "2026 INCHEON NIGHT RACE",
+    "date": "2026-10-31",
+    "region": "인천",
+    "distancesKm": [
+      5,
+      8.15,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "영종 씨사이드파크 하늘구름광장 일원",
+    "startTime": "16:00",
+    "registrationStart": "2026-09-01",
+    "registrationEnd": "2026-10-20",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 60000
+      },
+      {
+        "label": "8.15km",
+        "distanceKm": 8.15,
+        "krw": 60000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 60000
+      }
+    ],
+    "organizer": "인천광역시걷기협회 · 국민건강진흥원",
+    "sourceUrl": "http://icnr.kr/",
+    "officialUrl": "http://icnr.kr/",
+    "factsFrom": "공식",
+    "checkedAt": "2026-09-28",
+    "note": "오후 4시에 출발하는 야간 레이스입니다. 10/20 18시 이후 신청자는 배번에 이름이 안 들어갑니다(공식 대회안내)."
   }
 ]
