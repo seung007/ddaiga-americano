@@ -1,1 +1,262 @@
-{}
+{
+  "asics-gel-kayano-33": {
+    "brand": "Asics",
+    "priceKrw": 199000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=21902",
+    "widths": [
+      "2E",
+      "4E"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-gel-nimbus-28": {
+    "brand": "Asics",
+    "priceKrw": 199000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=21900",
+    "widths": [
+      "2E",
+      "4E"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-gt-2000-15": {
+    "brand": "Asics",
+    "priceKrw": 159000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=22571",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-magic-speed-5": {
+    "brand": "Asics",
+    "priceKrw": 209000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=20962",
+    "widths": [
+      "2E"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-metaspeed-edge-tokyo": {
+    "brand": "Asics",
+    "priceKrw": 329000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=21187",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-metaspeed-ray": {
+    "brand": "Asics",
+    "priceKrw": 439000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=22019",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-metaspeed-sky-tokyo": {
+    "brand": "Asics",
+    "priceKrw": 329000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=20950",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-novablast-6": {
+    "brand": "Asics",
+    "priceKrw": 179000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=22024",
+    "widths": [
+      "2E"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "asics-superblast-3": {
+    "brand": "Asics",
+    "priceKrw": 259000,
+    "listed": true,
+    "url": "https://www.asics.co.kr/goods/view?no=21932",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "brooks-ghost-18": {
+    "brand": "Brooks",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://www.brooksrunning.co.kr/product/detail.html?product_no=852",
+    "widths": [
+      "MEDIUM",
+      "SUPERWIDE",
+      "WIDE"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "brooks-ghost-max-4": {
+    "brand": "Brooks",
+    "priceKrw": 189000,
+    "listed": true,
+    "url": "https://www.brooksrunning.co.kr/product/detail.html?product_no=960",
+    "widths": [
+      "MEDIUM",
+      "WIDE"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-neo-vista-3": {
+    "brand": "Mizuno",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=12063",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-neo-zen-2": {
+    "brand": "Mizuno",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=11331",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-wave-inspire-22": {
+    "brand": "Mizuno",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=11361",
+    "widths": [
+      "SW"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-wave-rebellion-flash-3": {
+    "brand": "Mizuno",
+    "priceKrw": 199000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=10737",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-wave-rebellion-pro-3": {
+    "brand": "Mizuno",
+    "priceKrw": 259000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=10604",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-wave-rider-29": {
+    "brand": "Mizuno",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=10611",
+    "widths": [
+      "SW"
+    ],
+    "newerModel": "Wave Rider 30",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-wave-rider-30": {
+    "brand": "Mizuno",
+    "priceKrw": 179000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=12025",
+    "widths": [
+      "SW"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "mizuno-wave-sky-9": {
+    "brand": "Mizuno",
+    "priceKrw": 189000,
+    "listed": true,
+    "url": "https://kor.mizuno.com/product/detail.html?product_no=10666",
+    "widths": [
+      "SW"
+    ],
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-endorphin-azura": {
+    "brand": "Saucony",
+    "priceKrw": 189000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=310",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-endorphin-elite-3": {
+    "brand": "Saucony",
+    "priceKrw": 369000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=478",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-endorphin-pro-5": {
+    "brand": "Saucony",
+    "priceKrw": 299000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=302",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-endorphin-speed-5": {
+    "brand": "Saucony",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=164",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-guide-19": {
+    "brand": "Saucony",
+    "priceKrw": 179000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=370",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-hurricane-26": {
+    "brand": "Saucony",
+    "priceKrw": 209000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=533",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-kinvara-16": {
+    "brand": "Saucony",
+    "priceKrw": 159000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=153",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-ride-19": {
+    "brand": "Saucony",
+    "priceKrw": 179000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=205",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "saucony-triumph-24": {
+    "brand": "Saucony",
+    "priceKrw": 209000,
+    "listed": true,
+    "url": "https://saucony.co.kr/product/detail.html?product_no=412",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  }
+}

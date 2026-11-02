@@ -1509,5 +1509,1246 @@
     "factsFrom": "공식",
     "checkedAt": "2026-09-28",
     "note": "매니아 참가비는 45,000원입니다. 환불 신청은 11/22까지(공식 참가비 안내)."
+  },
+  {
+    "id": "hwasun-dolmen-marathon-2026",
+    "name": "2026 화순고인돌마라톤대회",
+    "date": "2026-12-06",
+    "region": "전남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "화순공설운동장",
+    "registrationStart": "2026-10-20",
+    "registrationEnd": "2026-11-10",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 20000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 40000
+      }
+    ],
+    "organizer": "화순군체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-hwasun-dolmen-marathon-056fe86f722045a29882f0bce46ad72f",
+    "officialUrl": "https://www.xn--299a84k68cg1cr8pi6h5qsd0i.kr:9020/run/1100.asp?T=3&wgu=1",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "gyeongbuk-new-town-marathon-2026",
+    "name": "2026 경북도청신도시 마라톤대회",
+    "date": "2026-11-08",
+    "region": "경북",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "경북도청 천년숲 앞 (안동시 풍천면 갈전리 1172)",
+    "registrationStart": "2026-08-31",
+    "registrationEnd": "2026-10-08",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 45000
+      }
+    ],
+    "organizer": "경상북도, 경상북도체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-gyeongbuk-new-town-marathon",
+    "officialUrl": "https://1004.tbc.co.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "yangsan-national-half-marathon-2026",
+    "name": "제20회 양산전국하프마라톤대회",
+    "date": "2026-12-06",
+    "region": "경남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "양산종합운동장",
+    "registrationStart": "2026-10-01",
+    "registrationEnd": "2026-10-20",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 45000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 45000
+      }
+    ],
+    "organizer": "양산시체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/20th-yangsan-national-half-marathon",
+    "officialUrl": "https://ysmarathon.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "jeonmahyeop-new-year-s-marathon-2027",
+    "name": "2027 전마협 새해 동계 마라톤대회",
+    "date": "2027-01-10",
+    "region": "충남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "금산인삼엑스포주차장",
+    "registrationStart": "2026-10-01",
+    "registrationEnd": "2026-11-26",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 35000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "전국마라톤협회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-jeonmahyeop-new-year-s-marathon-11c05e58816d4e8bb0cb12d44266ca0e",
+    "officialUrl": "https://mara1080.com/event/2c881231-b5dd-4ae8-a587-c02d539566af",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "korea-season-race-2026",
+    "name": "2026 코리아 시즌 레이스",
+    "date": "2026-12-26",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "상암월드컵공원 평화광장",
+    "registrationStart": "2026-08-25",
+    "registrationEnd": "2026-12-16",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(사)한국경비원협회중앙회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-korea-season-race",
+    "officialUrl": "https://k-run.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "10k-night-run-2026",
+    "name": "2026 서리풀 잠수교 10K 런 (2026 잠수교 10K 나이트런) 취소",
+    "date": "2026-11-22",
+    "region": "서울",
+    "distancesKm": [
+      10
+    ],
+    "status": "마감",
+    "venue": "반포한강공원 달빛광장",
+    "registrationStart": "2026-08-19",
+    "registrationEnd": "2026-08-23",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 80000
+      }
+    ],
+    "sourceUrl": "https://www.kormarathon.com/ko/races/10k-night-run",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "sangju-dried-persimmon-marathon-2026",
+    "name": "제24회 상주 곶감 마라톤",
+    "date": "2026-11-15",
+    "region": "경북",
+    "distancesKm": [
+      4.4,
+      10,
+      21.0975,
+      42.195
+    ],
+    "status": "마감",
+    "venue": "상주시민운동장",
+    "registrationStart": "2026-05-06",
+    "registrationEnd": "2026-10-30",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      },
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 55000
+      }
+    ],
+    "organizer": "전국마라톤협회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/24th-sangju-dried-persimmon-marathon",
+    "officialUrl": "https://www.mara1080.com/event/c8dc2c22-a83a-4743-9e34-c884e9809dbb",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "jeokbyeok-river-marathon-2026",
+    "name": "제7회 적벽강 마라톤",
+    "date": "2026-11-14",
+    "region": "충남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "금산 인삼골 오토캠핑장",
+    "registrationStart": "2026-08-10",
+    "registrationEnd": "2026-11-07",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "적벽강 마라톤 조직위원회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/jeokbyeok-river-marathon-2026",
+    "officialUrl": "https://jbr-marathon2026.lovable.app",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "liberty-democracy-marathon-2026",
+    "name": "제3회 자유민주 마라톤",
+    "date": "2026-11-08",
+    "region": "서울",
+    "distancesKm": [
+      6.1,
+      10
+    ],
+    "status": "마감",
+    "venue": "서울시청 광장",
+    "registrationStart": "2026-09-04",
+    "registrationEnd": "2026-09-30",
+    "fees": [
+      {
+        "label": "6.1km",
+        "distanceKm": 6.1,
+        "krw": 35000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      }
+    ],
+    "organizer": "민주화운동기념사업회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/3rd-liberty-democracy-marathon",
+    "officialUrl": "https://610run.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "the-last-run-goodbye-jamsil-2026",
+    "name": "2026 The Last Run : 굿바이잠실",
+    "date": "2026-11-22",
+    "region": "서울",
+    "distancesKm": [
+      10
+    ],
+    "status": "마감",
+    "venue": "서울 잠실종합운동장",
+    "registrationStart": "2026-10-22",
+    "registrationEnd": "2026-10-30",
+    "organizer": "중앙일보S",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-the-last-run-goodbye-jamsil-2c3264b4e42349e08ac8d2dc3b0f6a4d",
+    "officialUrl": "https://lgtwinslastrungoodbyejamsil.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "seongnam-heritage-run-2026",
+    "name": "2026 성남 헤리티지런",
+    "date": "2026-12-12",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "접수중",
+    "venue": "탄천종합운동장 (경기 성남시 분당구 탄천로 215)",
+    "registrationStart": "2026-10-22",
+    "registrationEnd": "2026-11-06",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "채널A",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-seongnam-heritage-run-2c45567a9e3d44eda24de02de2d8eb29",
+    "officialUrl": "https://charun.co.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "hanam-misa-lake-energy-run-2026",
+    "name": "2026 하남 미사 호수 에너지런",
+    "date": "2026-12-05",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "접수중",
+    "venue": "하남미사 경정공원",
+    "registrationStart": "2026-08-01",
+    "registrationEnd": "2026-11-26",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(사)행복한가게",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-hanam-misa-lake-energy-run",
+    "officialUrl": "https://energyrun.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "nanum-race-in-yongin-2026",
+    "name": "2026 나눔레이스 인 용인",
+    "date": "2026-11-15",
+    "region": "경기",
+    "distancesKm": [
+      10,
+      15
+    ],
+    "status": "마감",
+    "venue": "용인시 처인구 경안천로 76(마평동) 용인실내체육관 1층",
+    "registrationStart": "2026-08-24",
+    "registrationEnd": "2026-09-06",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 70000
+      },
+      {
+        "label": "15km",
+        "distanceKm": 15,
+        "krw": 80000
+      }
+    ],
+    "organizer": "나눔레이스조직위원회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-nanum-race-in-yongin",
+    "officialUrl": "https://nanumrun.or.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "bathrun-2026",
+    "name": "목욕런 2026",
+    "date": "2026-11-28",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "상암 월드컵공원(평화광장 집결)",
+    "registrationStart": "2026-08-10",
+    "registrationEnd": "2026-08-24",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      }
+    ],
+    "sourceUrl": "https://www.kormarathon.com/ko/races/bathrun-2026",
+    "officialUrl": "https://mokyokrun.shop/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "seoul-love-marathon-2026",
+    "name": "2026 서울사랑마라톤",
+    "date": "2026-11-29",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "서울 성북구 석관동 일대",
+    "registrationStart": "2026-09-23",
+    "registrationEnd": "2026-10-31",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 45000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "서울특별시 · 서울특별시육상연맹",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/seoul-love-marathon-2026",
+    "officialUrl": "https://seoulloverun.com",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "autumn-breeze-u-running-festa-2026",
+    "name": "2026 가을바람 유러닝 페스타",
+    "date": "2026-11-21",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "하남미사 경정공원",
+    "registrationStart": "2026-07-08",
+    "registrationEnd": "2026-07-30",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      }
+    ],
+    "organizer": "유러닝페스타운영위원회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-autumn-breeze-u-running-festa",
+    "officialUrl": "https://urfesta.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "daejeon-reed-forest-ecox-trekking-2026",
+    "name": "2026대전갈대숲eco트레킹",
+    "date": "2026-11-14",
+    "region": "대전",
+    "distancesKm": [
+      7
+    ],
+    "status": "접수중",
+    "venue": "갑천생태호수공원",
+    "registrationStart": "2026-09-10",
+    "registrationEnd": "2026-11-13",
+    "fees": [
+      {
+        "label": "7km",
+        "distanceKm": 7,
+        "krw": 20000
+      }
+    ],
+    "organizer": "(사)한국등산트레킹협회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-daejeon-reed-forest-ecox-trekking-3dee79218b9e4dbc95f263a57ab7034b",
+    "officialUrl": "https://komta.org/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "jebudo-searoad-marathon-2026",
+    "name": "제부도 씨로드 마라톤",
+    "date": "2026-11-14",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "화성시 제부도",
+    "registrationStart": "2026-09-01",
+    "registrationEnd": "2026-10-25",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 60000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      }
+    ],
+    "organizer": "콜스에듀케이션",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/jebudo-searoad-marathon-430fbd68d1744fa79abf696c0010b754",
+    "officialUrl": "https://www.jebudorun.com",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "yonhap-news-hanam-international-trail-run-festival-2026",
+    "name": "2026 연합뉴스 하남 국제 트레일런 페스티벌",
+    "date": "2026-12-12",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10,
+      15,
+      28
+    ],
+    "status": "접수예정",
+    "venue": "미사경정공원 및 하남시 일대",
+    "registrationStart": "2026-11-23",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yonhap-news-hanam-international-trail-run-festival-44ea415725f745708495f2cc23bd8810",
+    "officialUrl": "https://yhitf.co.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "son-kee-chung-peace-marathon-2026",
+    "name": "2026 손기정평화마라톤",
+    "date": "2026-11-15",
+    "region": "경기",
+    "distancesKm": [
+      6,
+      10,
+      21.0975,
+      42.195
+    ],
+    "status": "마감",
+    "venue": "임진각",
+    "registrationStart": "2026-08-09",
+    "registrationEnd": "2026-08-31",
+    "fees": [
+      {
+        "label": "6km",
+        "distanceKm": 6,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 60000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 65000
+      },
+      {
+        "label": "풀코스",
+        "distanceKm": 42.195,
+        "krw": 70000
+      }
+    ],
+    "organizer": "손기정기념재단, 스포티비뉴스",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-son-kee-chung-peace-marathon",
+    "officialUrl": "https://www.sonkeechungrun.com",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "asics-seoul-shinmun-go-free-run-2026",
+    "name": "2026 Asics Seoul Shinmun Go Free Run",
+    "date": "2026-11-21",
+    "region": "서울",
+    "distancesKm": [
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "여의도 공원",
+    "registrationStart": "2026-08-19",
+    "registrationEnd": "2026-08-24",
+    "organizer": "Asics, 서울 신문",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-asics-seoul-shinmun-go-free-run",
+    "officialUrl": "https://gofree.seoul.co.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "positive-power-marathon-2026",
+    "name": "제3회 긍정의 힘 마라톤",
+    "date": "2026-12-12",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "신정교 하부 영롱이 억새구장",
+    "registrationStart": "2026-08-01",
+    "registrationEnd": "2026-12-02",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(사)한국유튜브방송협회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/3rd-positive-power-marathon",
+    "officialUrl": "https://www.powerrun.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "virtual-hangul-run-2026",
+    "name": "2026 버추얼 한글런",
+    "date": "2026-11-04",
+    "region": "서울",
+    "distancesKm": [
+      5.15,
+      10.9
+    ],
+    "status": "접수중",
+    "venue": "전국 / 원하는 장소 어디서나",
+    "registrationStart": "2026-10-09",
+    "registrationEnd": "2026-11-04",
+    "fees": [
+      {
+        "label": "5.15km",
+        "distanceKm": 5.15,
+        "krw": 39000
+      },
+      {
+        "label": "10.9km",
+        "distanceKm": 10.9,
+        "krw": 39000
+      }
+    ],
+    "organizer": "코리아헤럴드, 헤럴드경제",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-virtual-hangul-run-518a4282ac6c4cec802eeb335972c9b8",
+    "officialUrl": "https://gift.kakao.com/product/14443548",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "earth-ulsan-run-2026",
+    "name": "어울런(Earth Ulsan Run)",
+    "date": "2026-12-05",
+    "region": "울산",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "태화강 남구 둔치",
+    "registrationStart": "2026-10-22",
+    "registrationEnd": "2026-10-27",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 20000
+      }
+    ],
+    "organizer": "컬랩윈주식회사",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/earth-ulsan-run-53906641b4d040c594c02b5f7210c452",
+    "officialUrl": "https://earth-ulsan.run/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "youth-race-2026",
+    "name": "2026 청춘레이스",
+    "date": "2026-11-15",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "우이천 다목적광장 (서울특별시 성북구 석관동 376)",
+    "registrationStart": "2026-10-01",
+    "registrationEnd": "2026-11-08",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(사)행복한가게",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-youth-race-5826e621ef1545d08d72feadb281cd95",
+    "officialUrl": "https://youngrace.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "tongkeun-run-2026",
+    "name": "통큰런",
+    "date": "2026-11-14",
+    "region": "서울",
+    "distancesKm": [
+      10
+    ],
+    "status": "마감",
+    "venue": "서울 월드컵공원 평화의 광장",
+    "registrationStart": "2026-10-28",
+    "registrationEnd": "2026-10-28",
+    "organizer": "희망친구 기아대책, 롯데마트, 롯데슈퍼, 서울특별시",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/tongkeun-run",
+    "officialUrl": "http://tongkeun-run.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "pyeongchang-snow-run-2026",
+    "name": "2026 평창 스노우런",
+    "date": "2026-12-12",
+    "region": "강원",
+    "distancesKm": [
+      0.1,
+      7.5,
+      15
+    ],
+    "status": "접수중",
+    "venue": "알펜시아 스키점프센터",
+    "registrationStart": "2026-10-24",
+    "registrationEnd": "2026-11-20",
+    "fees": [
+      {
+        "label": "0.1km",
+        "distanceKm": 0.1,
+        "krw": 15000
+      },
+      {
+        "label": "7.5km",
+        "distanceKm": 7.5,
+        "krw": 50000
+      },
+      {
+        "label": "15km",
+        "distanceKm": 15,
+        "krw": 70000
+      }
+    ],
+    "organizer": "(재)평창관광문화재단",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-pyeongchang-snow-run-6411481ca7cc47bd98ba976fda8088e5",
+    "officialUrl": "https://order.doortoout.com/12/8/78",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "damyang-metasequoia-national-marathon-2026",
+    "name": "제21회 담양 메타세쿼이아 전국마라톤대회",
+    "date": "2026-11-07",
+    "region": "전남",
+    "distancesKm": [
+      5,
+      8
+    ],
+    "status": "마감",
+    "venue": "담양추성경기장, 전남 담양군 담양읍 관방제림길 69",
+    "registrationStart": "2026-09-22",
+    "registrationEnd": "2026-10-20",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "8km",
+        "distanceKm": 8,
+        "krw": 30000
+      }
+    ],
+    "organizer": "담양마라톤클럽",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/damyang-metasequoia-national-marathon-68bbee789bcd4a3490a3b455c236e86b",
+    "officialUrl": "https://www.metarun.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "muju-firefly-peace-marathon-2026",
+    "name": "2026 무주반딧불 평화마라톤대회",
+    "date": "2026-11-22",
+    "region": "전북",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "무주 등나무운동장",
+    "registrationStart": "2026-09-01",
+    "registrationEnd": "2026-10-25",
+    "fees": [
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "무주군체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-muju-firefly-peace-marathon",
+    "officialUrl": "https://mujumarathon.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "yangsan-baenaegol-apple-run-2026",
+    "name": "2026 양산 배내골 애플 런",
+    "date": "2026-11-08",
+    "region": "경남",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "장선마을회관 앞",
+    "registrationStart": "2026-06-15",
+    "registrationEnd": "2026-06-30",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "sourceUrl": "https://www.kormarathon.com/ko/races/yangsan-baenaegol-apple-run-2026",
+    "officialUrl": "https://k-marathon.or.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "asan-ginkgo-tree-road-national-marathon-2026",
+    "name": "제12회 아산 은행나무길 전국 마라톤 대회",
+    "date": "2026-11-08",
+    "region": "충남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "현충사 은행나무길 광장",
+    "registrationStart": "2026-08-20",
+    "registrationEnd": "2026-09-24",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 40000
+      }
+    ],
+    "organizer": "아산시 체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/12th-asan-ginkgo-tree-road-national-marathon",
+    "officialUrl": "https://asanmarathon.co.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "jinhae-marathon-2026",
+    "name": "제19회 진해마라톤",
+    "date": "2026-11-07",
+    "region": "경남",
+    "distancesKm": [
+      5,
+      11.11
+    ],
+    "status": "마감",
+    "venue": "진해공설운동장 및 해군 영내 일원",
+    "registrationStart": "2026-08-24",
+    "registrationEnd": "2026-09-09",
+    "fees": [
+      {
+        "label": "11.11km",
+        "distanceKm": 11.11,
+        "krw": 30000
+      }
+    ],
+    "organizer": "경남신문",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/19th-jinhae-marathon",
+    "officialUrl": "https://www.jinhaemarathon.co.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "oak-valley-winter-half-marathon-2026",
+    "name": "오크밸리 윈터 하프 마라톤",
+    "date": "2026-12-05",
+    "region": "강원",
+    "distancesKm": [
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "오크밸리",
+    "registrationStart": "2026-09-03",
+    "registrationEnd": "2026-09-15",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/oak-valley-winter-half-marathon",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "just-run10-daejeon-second-half-2026",
+    "name": "JUST RUN10 대전 하반기",
+    "date": "2026-11-07",
+    "region": "대전",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "갑천 러닝성지",
+    "registrationStart": "2026-09-02",
+    "registrationEnd": "2026-10-31",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 45000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(주)러닝브레이커",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/just-run10-daejeon-second-half-2026",
+    "officialUrl": "https://runten.co.kr/competitions/5c0b58a2-577e-4cc3-8bc5-4234820ea4ab",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "econow-run-2026",
+    "name": "2026 에코나우런",
+    "date": "2026-11-15",
+    "region": "서울",
+    "distancesKm": [
+      5
+    ],
+    "status": "접수중",
+    "venue": "서울 뚝섬한강공원 수변무대",
+    "registrationStart": "2026-10-01",
+    "registrationEnd": "2026-11-08",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      }
+    ],
+    "organizer": "(사)에코나우",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-econow-run-7c6afaffc7f04723aed67f7a3d703838",
+    "officialUrl": "https://econow.campaignus.me/econow_run",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "national-sasang-eco-marathon-2026",
+    "name": "2026 전국사상에코마라톤",
+    "date": "2026-11-08",
+    "region": "부산",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "사상구 삼락생태공원 일원",
+    "registrationStart": "2026-08-25",
+    "registrationEnd": "2026-09-10",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "사상구, 사상구 체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-national-sasang-eco-marathon",
+    "officialUrl": "https://ssecorun.co.kr",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "wonju-chiak-marathon-2026",
+    "name": "2026 원주 치악마라톤",
+    "date": "2026-11-29",
+    "region": "강원",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "마감",
+    "venue": "원주종합운동장",
+    "registrationStart": "2026-09-16",
+    "registrationEnd": "2026-10-30",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 30000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 45000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "강원도민일보, 원주시육상연맹",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-wonju-chiak-marathon-7f764242a3364d45abb444a8af69b83f",
+    "officialUrl": "https://wonju.raceplan.co.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "fila-run-and-espresso-10k-2026",
+    "name": "휠라 RUN & ESPRESSO 10K",
+    "date": "2026-11-15",
+    "region": "서울",
+    "distancesKm": [
+      10
+    ],
+    "status": "마감",
+    "venue": "상암 월드컵공원",
+    "registrationStart": "2026-08-22",
+    "registrationEnd": "2026-09-10",
+    "organizer": "휠라",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/fila-run-and-espresso-10k",
+    "officialUrl": "https://www.fila.co.kr/pages/fila-run-espresso-10k-seoul",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "daejeon-seo-gu-mayors-cup-marathon-2026",
+    "name": "제16회 대전서구청장배 마라톤대회",
+    "date": "2026-11-15",
+    "region": "대전",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "대전 엑스포 다리 밑 (갑천변)",
+    "registrationStart": "2026-08-28",
+    "registrationEnd": "2026-10-01",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 40000
+      }
+    ],
+    "organizer": "대전광역시 서구체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/16th-daejeon-seo-gu-mayors-cup-marathon",
+    "officialUrl": "https://jgmrun.com",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "global-6k-for-water-in-goyang-2026",
+    "name": "2026 Global 6K for Water in 고양",
+    "date": "2026-11-07",
+    "region": "경기",
+    "distancesKm": [
+      6
+    ],
+    "status": "마감",
+    "venue": "일산호수공원(노래하는 분수대)",
+    "registrationStart": "2026-08-02",
+    "registrationEnd": "2026-09-06",
+    "fees": [
+      {
+        "label": "6km",
+        "distanceKm": 6,
+        "krw": 30000
+      }
+    ],
+    "organizer": "월드비전 경기북부사업본부",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-global-6k-for-water-in-goyang",
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLScU6OZL4ktzWfYj4NBwPN8Ot_isALEbxymgtQYj5m_3hxYmFg/viewform?fbzx=6151274521193237300",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
   }
 ]
