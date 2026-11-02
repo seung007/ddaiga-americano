@@ -4,6 +4,8 @@ import type { MetadataRoute } from "next";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { upcomingRaces } from "@/lib/races";
 import { SHOES } from "@/lib/shoes/data";
+import { verifiedAt } from "@/lib/shoes/labels";
+import { officialOf } from "@/lib/shoes/official";
 import { ARTICLES } from "@/lib/guide/articles";
 import { TOPIC_SLUG, latestEnabled, topicsWithPage } from "@/lib/guide/listRules";
 import { SITE_URL } from "@/lib/site";
@@ -100,16 +102,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // 2026-09-16: 대회 상세. 지난 대회는 색인 대상에서 뺀다(페이지는 남는다).
+  // 2026-11-02: lastModified 를 「확인한 날(checkedAt)」로 — 매 빌드 「지금」이면 바뀐 페이지를 검색엔진이 못 가린다.
+  //   자동 수집기가 매일 checkedAt 을 갱신하므로, 실제로 바뀐 대회만 새 날짜가 된다 (injury 와 같은 방식)
   const races: MetadataRoute.Sitemap = upcomingRaces().map((r) => ({
     url: `${BASE_URL}/races/${r.id}`,
-    lastModified: now,
+    lastModified: r.checkedAt ? new Date(r.checkedAt) : now,
     changeFrequency: "weekly",
     priority: 0.5,
   }));
 
+  // 2026-11-02: 사람 확인일(verified.json)과 공식몰 자동 확인일(official.json) 중 늦은 날
   const shoes: MetadataRoute.Sitemap = SHOES.map((s) => ({
     url: `${BASE_URL}/shoes/${s.id}`,
-    lastModified: now,
+    lastModified: (() => {
+      const d = [verifiedAt(s.id), officialOf(s.id)?.checkedAt].filter((x): x is string => !!x).sort().at(-1);
+      return d ? new Date(d) : now;
+    })(),
     changeFrequency: "monthly",
     priority: 0.6,
   }));
