@@ -44,6 +44,7 @@
     "check:toc": "node scripts/check-toc.mjs",
     "check:guide": "node scripts/check-guide-read.mjs",
     "check:races": "node scripts/check-races.mjs",
+    "check:official": "node scripts/check-official.mjs",
     "check:races:live": "node scripts/check-races.mjs --live",
     "races:sweep": "node scripts/races-sweep.mjs",
     "race:add": "node scripts/race-add.mjs",

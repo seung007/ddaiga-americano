@@ -69,6 +69,8 @@ const CHECKS = [
   { name: "가이드읽기", cmd: "node", args: ["scripts/check-guide-read.mjs"],            net: false },
   // 대회 날짜는 사람이 참가비를 내고 이동하는 정보다. 좌표보다 세게 막는다.
   { name: "대회일정", cmd: "node", args: ["scripts/check-races.mjs"],                  net: false },
+  // 2026-11-02 신발 수집기가 사람 확인 없이 쓰는 lib/shoes/official.json 의 마지막 문
+  { name: "공식몰확인", cmd: "node", args: ["scripts/check-official.mjs"],              net: false },
   // 2026-09-28: 브라우저 링크 검사기의 판정 함수. 브라우저 없이 20건을 시험한다 — 판정이 망가진 채 PC 에서 8분 돌리는 일을 막는다
   { name: "링크판정", cmd: "node", args: ["scripts/check-links-browser.mjs", "--selftest"], net: false },
   // 2026-10-06: 추천 엔진 출력 회귀 검사. 「가중치를 줄였다」는 주석과 실제 순위가 달랐던 사건에서 나왔다.

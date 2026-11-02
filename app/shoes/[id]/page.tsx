@@ -12,6 +12,7 @@ import LikeButton from "@/components/LikeButton";
 import { nicknamesOf } from "@/lib/shoes/aliases";
 import { rungOf } from "@/lib/shoes/tiers";
 import { predecessorOf, successorOf } from "@/lib/shoes/lineage";
+import { officialOf } from "@/lib/shoes/official";
 import type { Shoe } from "@/lib/shoes/types";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
@@ -127,6 +128,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
 
   const name = `${s.brand} ${s.model}`;
   const checked = verifiedAt(s.id);
+  const official = officialOf(s.id);
   const compares = COMPARE_SLUGS.filter((slug) => slug.split("-vs-").includes(s.id));
   const nameOf = (sid: string) => {
     const x = SHOES.find((y) => y.id === sid);
@@ -159,6 +161,26 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               <p className="text-lg text-gray-800">약 {won(s.priceKrw)}</p>
               <LikeButton id={s.id} name={name} />
             </div>
+            {official && (
+              // 2026-11-02 — 공식몰 목록 자동 확인 (lib/shoes/official.ts). 수집기가 2일 연속 같은 값을 읽었을 때만
+              <p className="mt-1 text-xs text-gray-500">
+                {official.listed && official.priceKrw ? (
+                  <>
+                    공식몰 정가{" "}
+                    {official.url ? (
+                      <a href={official.url} rel="nofollow noopener" target="_blank" className="underline underline-offset-2">
+                        {won(official.priceKrw)}
+                      </a>
+                    ) : (
+                      won(official.priceKrw)
+                    )}
+                  </>
+                ) : (
+                  <>공식몰 목록에서 보이지 않아요</>
+                )}{" "}
+                · {official.checkedAt} 자동 확인
+              </p>
+            )}
             <div className="mt-2 flex flex-wrap gap-1.5">
               {s.uses.map((u) => (
                 <span key={u} className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
@@ -188,6 +210,12 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </p>
           );
         })()}
+
+        {!s.successor && official?.newerModel && (
+          <p className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            공식몰에 다음 세대 <strong>{official.newerModel}</strong>이(가) 판매 중이에요. ({official.checkedAt} 자동 확인)
+          </p>
+        )}
 
         {(() => {
           const prev = predecessorOf(s);
