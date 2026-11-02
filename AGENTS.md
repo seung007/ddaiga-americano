@@ -70,7 +70,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - **루트**: AGENTS · CLAUDE · README 와 설정 파일만. 「루트정리」 검사(`scripts/check-root.mjs`)가 커밋을 막는다
 - **문서** → `docs/<분류>/` (분류표: `docs/README.md`). 블로그 원고는 반드시 `docs/블로그/` — 인용 검사 대상이다
 - **`outputs/`** = 스크립트 결과물만. 사람이 읽는 문서를 두지 않는다
-- **자동 수집은 이 저장소에 없다** — 비공개 저장소 `ddaiga-pipeline` (2026-10-30, 원문을 노트북 밖에 보관해야 해서 council 2026-10-20 분리 조건 1번 충족). 이 저장소에는 수집기가 `lib/races.json` 변경만 푸시한다. 그래서 루트에 `pipeline/` 폴더를 만들면 「루트정리」 검사가 막고, 원문이 섞이면 「유출」 검사(`scripts/check-leak.mjs`)가 막는다. 공개 저장소라 한 번 올라가면 회수가 안 된다
+- **자동 수집은 이 저장소에 없다** — 비공개 저장소 `ddaiga-pipeline` (2026-10-30, 원문을 노트북 밖에 보관해야 해서 council 2026-10-20 분리 조건 1번 충족). 이 저장소에는 수집기가 `lib/races.json`(대회)·`lib/shoes/official.json`(신발 공식몰 정가) 변경만 푸시한다 (2026-11-02 신발 추가, 수집기 쪽 허용 파일 목록과 `scripts/check-official.mjs` 가 지킨다). 설계 원본은 `ddaiga-pipeline` README. 그래서 루트에 `pipeline/` 폴더를 만들면 「루트정리」 검사가 막고, 원문이 섞이면 「유출」 검사(`scripts/check-leak.mjs`)가 막는다. 공개 저장소라 한 번 올라가면 회수가 안 된다
 - **`_archive/` = 보존만 한다. 읽지도 고치지도 않는다.** hyun 님이 그 안의 특정 파일을 요청할 때만 연다.
   Claude Code 는 `.claude/settings.json` 이 Read·Edit 를 막지만 **셸(grep·cat·find)은 못 막는다** — 그래서 이 줄이 막는다.
   `grep -r`·`find` 를 돌릴 때는 `_archive`·`node_modules`·`.next` 를 빼고 돌린다
