@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Lead, P, H2, H3, Summary, Todo, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
@@ -61,6 +62,7 @@ export default function KwonEunJuPage() {
           <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
             권은주 선수에게 배우는<br />여성 러너의 부상 예방
           </h1>
+          <ArticleMeta href="/injury/kwon-eun-ju" />
           <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-500">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 기사로 확인한 사실과 저희 제안을 구분했습니다

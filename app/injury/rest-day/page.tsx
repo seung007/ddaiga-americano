@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
@@ -58,6 +59,7 @@ export default function Page() {
           <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/rest-day" />
         {/* 2026-09-14: "연구에 따르면 … 회복을 20~30% 빠르게 합니다" 였다.
             그 「연구」로 달아 둔 Zouhal 2024 는 **차이를 확인하지 못했다**고 결론 낸 고찰이다.
             수치도 출처도 없는 문장이라 대체 주장 없이 뺐다. */}

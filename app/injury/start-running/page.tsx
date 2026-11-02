@@ -3,6 +3,7 @@ import Link from "next/link";
 import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -94,6 +95,7 @@ export default function StartRunningPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/start-running" />
         <Lead>
           처음 달리기를 시작한 사람이 그만두는 가장 큰 이유는 체력이 아니라 <strong>부상</strong>입니다. 아프지 않게 30분까지 가는
           방법만 추렸습니다.

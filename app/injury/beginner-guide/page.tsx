@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -74,6 +75,7 @@ export default function BeginnerGuidePage() {
           <span className="text-xs text-gray-400">· 5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/beginner-guide" />
         <Lead>
           러닝을 막 시작했다면 얼마나 자주, 얼마나 늘려야 하는지 정리했습니다. 경력과 부상의 관계는 연구마다 갈리지만, 달린 시간당으로
           보면 초보가 더 자주 다쳤습니다.

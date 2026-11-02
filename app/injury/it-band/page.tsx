@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -79,6 +80,7 @@ export default function ITBandPage() {
           <span className="text-xs text-gray-400">5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/it-band" />
         <Lead>
           달리다 무릎 바깥이 아프고 내리막에서 심해진다면 장경인대 증후군일 수 있습니다. 왜 생기는지, 무엇이 실제로 효과 있는지만
           추렸습니다.

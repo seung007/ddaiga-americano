@@ -6,6 +6,7 @@ import InlineAsk from "@/components/InlineAsk";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -129,6 +130,7 @@ export default function FlatFeetPage() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           평발 러닝화, 안정화화가 정답일까
         </h1>
+        <ArticleMeta href="/injury/flat-feet" />
         <Lead>
           &ldquo;평발이면 안정화화&rdquo;라는 말이 널리 퍼져 있습니다. 논문이 확인한 것과 확인하지 못한 것을 나눠 정리했습니다.
         </Lead>

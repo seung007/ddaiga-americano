@@ -4,6 +4,7 @@ import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import InlineAsk from "@/components/InlineAsk";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -60,6 +61,7 @@ export default function Page() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/plantar-fasciitis" />
         <p className="mt-3 text-xs text-gray-500">
           <span className="text-emerald-600">✓</span> 협찬 없이 작성 — 연구로 확인된 것과 저희 제안을 구분해 적었습니다
         </p>

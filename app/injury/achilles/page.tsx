@@ -5,6 +5,7 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -82,6 +83,7 @@ export default function AchillesPage() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           달리기 아킬레스건·종아리 통증<br />스트레칭 3가지
         </h1>
+        <ArticleMeta href="/injury/achilles" />
         {/* 2026-09-21: 도입부가 「유튜브 보고 미드풋으로 바꾼 사람」으로 시작했다.
             제목과 같은 병이다 — 들어온 사람 대부분이 자기 얘기가 아니라고 느끼고 되돌아간다.
             시작을 증상으로 바꾸고, 미드풋은 원인 목록의 하나로 내린다. */}

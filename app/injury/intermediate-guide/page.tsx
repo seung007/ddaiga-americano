@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -57,6 +58,7 @@ export default function IntermediateGuidePage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">중급자 부상 예방 가이드</h1>
+        <ArticleMeta href="/injury/intermediate-guide" />
         <Lead>
           경력이 쌓이면 달린 시간당 부상은 줄어들지만, <strong>다치는 부위가 달라집니다.</strong> 무엇을 조심하고 언제 쉬어야
           하는지 추렸습니다.

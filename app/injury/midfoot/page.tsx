@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -63,6 +64,7 @@ export default function Page() {
         {/* h1은 <title>과 같은 말을 해야 한다. 검색결과에서 "미드풋 착지란?"을 보고 들어왔는데
             화면에 "무조건 좋은 게 아닌 이유"가 있으면 약속한 답이 아니라 반박부터 만나게 된다. */}
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/midfoot" />
         {/**
          * 먼저 결론 (2026-09-13 추가) → 2026-10-13 <Lead>·<Summary> 로
          *

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -112,6 +113,7 @@ export default function HalfMarathonTrainingPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/half-marathon-training" />
         <Lead>
           10km를 뛰는 사람이 하프를 준비할 때 <strong>얼마나 뛰고, 얼마나 빨리 늘릴지</strong> 정리했습니다. 기준은 실제 하프
           참가자 556명의 준비량입니다.

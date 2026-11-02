@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -109,6 +110,7 @@ export default function TrainingTypesPage() {
           <span className="text-xs text-gray-400">6분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/training-types" />
         <Lead>
           쉬었다 다시 달리기부터 인터벌·근력운동까지 훈련 11가지를 모았습니다. 훈련마다 무엇인지, 어떻게 하는지, 언제부터
           하는지를 먼저 적었습니다.

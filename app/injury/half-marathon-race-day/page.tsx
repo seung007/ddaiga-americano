@@ -4,6 +4,7 @@ import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import { CourseMap, ChafingMap, PaceCurve } from "@/components/RaceGraphics";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -138,6 +139,7 @@ export default function Page() {
           <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">하프마라톤 대회 당일 체크리스트</h1>
+        <ArticleMeta href="/injury/half-marathon-race-day" />
         <Lead>
           하프마라톤 당일에 실제로 필요한 것만 추렸습니다. 가장 먼저 알아둘 것은 <strong>목마르지 않은데 물을 억지로 마시지
           않는 것</strong>입니다.

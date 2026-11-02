@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Lead, P, H2, Summary, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
@@ -80,6 +81,7 @@ export default function HwangYoungJoPage() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           황영조의 몬주익 —<br />초보 러너가 가져갈 것
         </h1>
+        <ArticleMeta href="/injury/hwang-young-jo" />
         <Lead>
           1992년 바르셀로나 올림픽 마라톤 금메달리스트 황영조. 당시 기사와 본인 발언으로 확인한 사실과, 초보 러너에게 주는 이
           글의 제안을 나눠 적었습니다.

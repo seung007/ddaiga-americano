@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -82,6 +83,7 @@ export default function ReturnToRunningPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/return-to-running" />
         <Lead>
           다친 뒤 언제, 얼마나, 어떻게 다시 달릴지 정리했습니다. <strong>생각보다 오래 걸리고</strong>, 기준은 부상 전 기록이 아니라
           지금입니다.

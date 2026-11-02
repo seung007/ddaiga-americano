@@ -6,6 +6,7 @@ import InlineAsk from "@/components/InlineAsk";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -110,6 +111,7 @@ export default function CarbonPlatePage() {
           <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">카본화</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">카본화 살까 말까</h1>
+        <ArticleMeta href="/injury/carbon-plate" />
         <Lead>
           가장 많이 인용되는 카본화 연구는 <strong>약 4:17/km와 그보다 빠른 속도에서만</strong> 시험했습니다. 그보다 느리게 뛴다면, 그
           연구로는 효과를 알 수 없습니다.

@@ -6,6 +6,7 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -66,6 +67,7 @@ export default function WideFootPage() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           2E·4E 와이드 뜻과<br />내 발볼 재는 법
         </h1>
+        <ArticleMeta href="/injury/wide-foot" />
         <Lead>
           달리고 나서 새끼발가락이 눌리거나 발 바깥쪽에 물집이 생긴다면 발볼 폭이 좁다는 신호일 수 있습니다. 2E·4E가 무슨
           뜻인지, 내 발볼은 어떻게 재는지 정리했습니다.

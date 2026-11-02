@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -53,6 +54,7 @@ export default function Page() {
             <span className="text-xs text-gray-400">4분 읽기</span>
           </div>
           <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">정강이 통증(신스플린트) — 초보 러너에게 흔한 부상</h1>
+          <ArticleMeta href="/injury/shin-splints" />
           <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-500">
             <span className="text-emerald-600">✓</span>
             협찬 없이 작성 — 연구로 확인된 것과 저희 기준을 구분해 적었습니다

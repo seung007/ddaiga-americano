@@ -5,6 +5,7 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -62,6 +63,7 @@ export default function Page() {
             <span className="text-xs text-gray-400">5분 읽기</span>
           </div>
           <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+          <ArticleMeta href="/injury/knee-pain" />
           <Lead>
             계단을 내려가거나 오래 앉았다 일어날 때 <strong>무릎 앞</strong>이 아프다면 이 글입니다. 흔히 듣는 원인과 대처 중 연구로
             확인된 것과 아닌 것을 나눴습니다.

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -89,6 +90,7 @@ export default function GetFasterPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/get-faster" />
         <Lead>
           더 많이 뛴 사람이 빨랐고, 강도 배분 공식끼리는 생각보다 차이가 작았습니다. 실제로 효과가 있었던 것과 기록 예측을 얼마나
           믿을지 추렸습니다.

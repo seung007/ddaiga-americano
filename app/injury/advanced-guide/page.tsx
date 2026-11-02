@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
@@ -64,6 +65,7 @@ export default function AdvancedGuidePage() {
           <span className="text-xs text-gray-400">· 5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">숙련자 부상 예방 가이드</h1>
+        <ArticleMeta href="/injury/advanced-guide" />
         {/* ⚠️ 2026-09-14: "Bahr & Mæhlum (2004)에 따르면" 이었다. 확인 불가 인용의 이름을 뺐다.
             2026-10-08: 「누적 부하가 한 번의 사고보다 흔한 부상 경로」도 비율 자료를 찾지 못해 낮췄다. */}
         <Lead>

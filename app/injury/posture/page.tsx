@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -55,6 +56,7 @@ export default function Page() {
           <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/posture" />
         <Lead>
           발과 다리에만 집중하기 쉽지만, 상체 자세도 달리기에 영향을 줍니다. 다만 자세가 부상을 줄이는지는 아직 확인되지
           않았습니다.

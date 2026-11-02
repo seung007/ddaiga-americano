@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { Up, S } from "@/components/guide/Up";
@@ -110,6 +111,7 @@ export default function MarathonTrainingPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/marathon-training" />
         <Lead>
           하프에서 풀코스로 넘어갈 때 자주 겪는 문제는 <strong>준비 중 부상</strong>과 <strong>후반에 크게 느려지는 것</strong>입니다.
           실제 완주자의 준비량부터 테이퍼·보급까지 추렸습니다.

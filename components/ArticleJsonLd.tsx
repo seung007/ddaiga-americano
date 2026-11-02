@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/site";
+import { articleDates } from "@/components/ArticleMeta";
 /**
  * ArticleJsonLd — schema.org Article 구조화 데이터
  * 구글 리치스니펫 및 AI 검색(ChatGPT, Perplexity 등) 인용을 위해
@@ -51,7 +52,12 @@ export default function ArticleJsonLd({
     publisher: PUBLISHER,
     author: PUBLISHER,
     ...(datePublished ? { datePublished } : {}),
-    dateModified: new Date().toISOString().split("T")[0],
+    // 2026-11-02: 빌드한 날이 아니라 원장(lib/guide/articles.ts)의 실제 수정일. 매 빌드 「오늘」은 사실이 아니다
+    ...(() => {
+      const d = articleDates(new URL(url, SITE_URL).pathname);
+      const modified = d.updated ?? d.published ?? datePublished;
+      return modified ? { dateModified: modified } : {};
+    })(),
   };
 
   return (

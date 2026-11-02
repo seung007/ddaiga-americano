@@ -5,6 +5,7 @@ import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
@@ -93,6 +94,7 @@ export default function Page() {
           <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/cooldown" />
         <Lead>
           달리고 나서 하는 정적 스트레칭 다섯 가지와, 그게 실제로 어디까지 도움이 되는지 정리했습니다. 멈춰 서 있다가 어지러울
           때의 대처도 함께 적었습니다.

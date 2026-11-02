@@ -2,6 +2,7 @@ import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { Up, S } from "@/components/guide/Up";
 import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
@@ -57,6 +58,7 @@ export default function CadencePage() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           케이던스 180이 모두의 정답은 아닙니다<br />속도와 개인차
         </h1>
+        <ArticleMeta href="/injury/cadence" />
         <Lead>
           &ldquo;케이던스 180 spm을 유지해야 부상을 막을 수 있다&rdquo;는 조언이 흔합니다. 하지만 180은 모두에게 맞는
           목표값이 아니고, 같은 사람도 속도에 따라 달라집니다.
