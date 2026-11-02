@@ -33,7 +33,10 @@ const ROOT_FILES = new Set([
 ]);
 const ROOT_DIRS = new Set([
   "app", "components", "lib", "public", "scripts", "supabase", // 사이트
-  "docs",            // 내부 문서 — 자리는 docs/README.md  "outputs",         // 스크립트 결과물 전용 (link-check · image-sheet · affiliate-check)
+  "docs",            // 내부 문서 — 자리는 docs/README.md
+  // 2026-11-02 고침: 바로 위 줄 주석 뒤에 붙어 있어 "outputs" 가 허용 목록에서 빠져 있었다.
+  //   샌드박스에는 outputs/ 가 없어 통과했고, 노트북(outputs/ 있음)에서만 실패했다 — 「내가 본 통과는 내 환경의 통과다」
+  "outputs",         // 스크립트 결과물 전용 (link-check · image-sheet · affiliate-check)
   "shots",           // npm run shot
   "_archive",        // 보존만 한다. 읽지 않는다 (AGENTS.md 「폴더 지도」)
   "Claude", "Claude outputs", // Cowork 작업 폴더 · 패치 전달함
