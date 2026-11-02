@@ -13,20 +13,24 @@ export type FaqItem = { q: string; a: string };
 const SCHEMA_DISCLAIMER =
   " (이 답변은 일반적인 정보이며 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의와 상담하세요.)";
 
-export default function FaqSection({ items }: { items: FaqItem[] }) {
+/**
+ * schemaNote: 구조화 데이터 답변 뒤에 붙는 한 줄. 기본은 의학 면책.
+ * 대회·러닝화 상세처럼 증상과 무관한 답에는 그 페이지에 맞는 한 줄을 넘긴다 (2026-11-02, lib/faq.ts).
+ */
+export default function FaqSection({ items, schemaNote = SCHEMA_DISCLAIMER, title = "자주 묻는 질문" }: { items: FaqItem[]; schemaNote?: string; title?: string }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map((i) => ({
       "@type": "Question",
       name: i.q,
-      acceptedAnswer: { "@type": "Answer", text: i.a + SCHEMA_DISCLAIMER },
+      acceptedAnswer: { "@type": "Answer", text: i.a + schemaNote },
     })),
   };
 
   return (
     <section className="mb-8">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">자주 묻는 질문</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-4">{title}</h2>
       <div className="flex flex-col gap-3">
         {items.map((i, idx) => (
           <details

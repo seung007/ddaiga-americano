@@ -18,6 +18,8 @@ import RaceStatusBadge from "@/components/RaceStatusBadge";
 import FinderCta from "@/components/FinderCta";
 import RaceReactions from "@/components/RaceReactions";
 import RaceJourney from "@/components/RaceJourney";
+import FaqSection from "@/components/FaqSection";
+import { raceFaq } from "@/lib/faq";
 
 /**
  * 대회 상세 — **템플릿 하나로 전 대회** (2026-09-16)
@@ -159,6 +161,13 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
 
         {/* 2026-10-13 — 대회까지 순서(준비 → 2주 전 → 당일 → 끝난 뒤). 시점은 대회 날짜의 D-day 로만. 경위는 components/RaceJourney.tsx */}
         <RaceJourney distancesKm={r.distancesKm} dday={d} />
+
+        {/* 2026-11-02 — 표의 값을 질문-답으로. 값이 없는 질문은 만들지 않는다 (lib/faq.ts) */}
+        <FaqSection
+          items={raceFaq(r)}
+          title={`${r.name}, 자주 묻는 질문`}
+          schemaNote={` (뛰다가 아메리카노 ${r.checkedAt} 확인 기준. 대회 측 공지가 우선합니다.)`}
+        />
 
         {others.length > 0 && (
           <section className="mb-10">

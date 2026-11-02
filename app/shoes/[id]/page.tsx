@@ -6,6 +6,8 @@ import BuyLinkButtons from "@/components/BuyLinkButtons";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
+import FaqSection from "@/components/FaqSection";
+import { shoeFaq } from "@/lib/faq";
 import ShoeReactions from "@/components/ShoeReactions";
 import ShoeReviews from "@/components/ShoeReviews";
 import LikeButton from "@/components/LikeButton";
@@ -353,6 +355,15 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </div>
           </section>
         )}
+
+        {/* 2026-11-02 — 스펙·가격 표의 값을 질문-답으로. 값이 없는 질문은 만들지 않는다 (lib/faq.ts) */}
+        <div className="mt-8">
+          <FaqSection
+            items={shoeFaq(s, official, checked)}
+            title={`${s.model}, 자주 묻는 질문`}
+            schemaNote={` (뛰다가 아메리카노 확인 기준. 가격·재고는 판매처에서 바뀔 수 있습니다.)`}
+          />
+        </div>
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">구매</h2>
