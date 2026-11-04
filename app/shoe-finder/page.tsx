@@ -559,7 +559,7 @@ export default function ShoeFinderPage() {
         {fromHome && !submitted && !isEditing && (
           <div className="-mt-1 flex items-center justify-between gap-3 rounded-lg bg-emerald-50 px-3 py-2">
             <p className="text-xs leading-relaxed text-emerald-900">
-              홈에서 고른{" "}
+              홈에서 고른 「
               <strong className="font-semibold">
                 {[
                   FOOT_OPTIONS.find(o => o.id === fromHome.f)?.label.replace(" 2E/4E", ""),
@@ -567,7 +567,7 @@ export default function ShoeFinderPage() {
                   fromHome.u ? ({ daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" } as const)[fromHome.u] : "",
                 ].filter(Boolean).join(" · ")}
               </strong>
-              을 넣어 뒀어요. 나머지만 답하면 돼요.
+              」 조건을 넣어 뒀어요. 나머지만 답하면 돼요.
             </p>
             {/* 용도는 1번 문항이라 되돌아가 바꾼다. 발볼은 5번(발 특성)에서 골라진 채로 보이니 거기서 바꾼다 */}
             {fromHome.u && activeStep !== 0 && (
