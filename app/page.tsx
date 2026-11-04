@@ -72,18 +72,13 @@ const officialDate = officialChecked.map((o) => o!.checkedAt).sort().at(-1);
 const verifiedDates = SHOES.map((s) => (VERIFIED as Record<string, string>)[s.id]).filter(Boolean).sort();
 const TRUST_BASE = [
   { what: "추천 순서", how: "광고비로 순위를 바꾸지 않아요" },
+  // 2026-11-05 운영자: 문장을 짧게. 단, 공식몰 자동 확인은 일부 모델뿐이라 「106종 전부 공식몰 정가」로 읽히게 쓰지 않는다
+  //   (모델별로 「공식몰 정가」 / 「권장가 추산」 표시는 카드에 따로 있다)
   {
     what: "가격",
-    how: officialDate
-      ? `${SHOES.length}종 중 ${officialChecked.length}종은 브랜드 한국 공식몰 정가(${officialDate} 자동 확인), 나머지는 권장가 추산이에요`
-      : "권장가 추산이에요. 판매처마다 달라요",
+    how: officialDate ? `${SHOES.length}종 · 공식몰 정가는 매일 자동 확인 (최근 ${officialDate})` : `${SHOES.length}종 · 권장가 추산`,
   },
-  verifiedDates.length
-    ? {
-        what: "스펙·발볼",
-        how: `운영자가 브랜드 공식 자료로 ${verifiedDates.length}종 확인 (${verifiedDates[0]} ~ ${verifiedDates.at(-1)})`,
-      }
-    : null,
+  verifiedDates.length ? { what: "스펙·발볼", how: `브랜드 공식 자료로 ${verifiedDates.length}종 스펙 확인` } : null,
 ].filter((x): x is { what: string; how: string } => !!x);
 
 /** 「다가오는 대회」가 날짜로 걸러지므로 빌드 때 값에 굳지 않게 한다 (2026-09-16) */
@@ -112,9 +107,10 @@ export default function Home() {
     .sort((a, b) => (a.registrationEnd ?? "").localeCompare(b.registrationEnd ?? ""))
     .slice(0, 4);
 
+  // 「공식 홈페이지에서 확인」만 쓰면 안 된다 — 다가오는 대회 115건 중 80건은 factsFrom 「모음」(2026-11-05 기준)
   const raceChecked = upcoming.map((r) => r.checkedAt).filter(Boolean).sort().at(-1);
   const TRUST = raceChecked
-    ? [...TRUST_BASE, { what: "대회", how: `주최 측 공지와 접수 페이지로 확인 (가장 최근 ${raceChecked})` }]
+    ? [...TRUST_BASE, { what: "대회", how: `공식 홈페이지와 대회 모음 사이트에서 확인 (최근 ${raceChecked})` }]
     : TRUST_BASE;
 
   return (

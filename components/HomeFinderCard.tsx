@@ -86,7 +86,7 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
     ? all.length
       ? `${cond} 조건으로 고른 신발 ${all.length}종이에요`
       : `${cond} 조건의 신발은 아직 정리하지 못했어요`
-    : "발볼과 용도를 고르면 바로 좁혀져요";
+    : "나만의 맞춤 전용 신발을 골라봐요";
 
   const q = new URLSearchParams();
   if (fw || u) q.set("from", "home");
