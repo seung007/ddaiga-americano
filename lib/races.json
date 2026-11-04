@@ -2961,7 +2961,7 @@
     "distancesKm": [
       10
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "하남 미사 경정공원",
     "registrationStart": "2026-10-20",
     "registrationEnd": "2026-11-03",
@@ -3026,7 +3026,7 @@
       3,
       10
     ],
-    "status": "접수예정",
+    "status": "접수중",
     "venue": "안양천 신정교 하부 육상트랙구장",
     "registrationStart": "2026-11-04",
     "registrationEnd": "2026-11-11",
@@ -3720,6 +3720,44 @@
     "officialUrl": "https://hugrun.kr",
     "factsFrom": "모음",
     "checkedAt": "2026-11-03",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "spotv-night-run-let-s-run-park-seoul-2026",
+    "name": "2026 한국마사회와 함께하는 SPOTV NIGHT RUN",
+    "date": "2026-11-28",
+    "region": "경기",
+    "distancesKm": [
+      0.45,
+      3.5,
+      7
+    ],
+    "status": "접수중",
+    "venue": "렛츠런파크 (과천시 경마공원대로 107)",
+    "registrationStart": "2026-10-31",
+    "registrationEnd": "2026-11-14",
+    "fees": [
+      {
+        "label": "0.45km",
+        "distanceKm": 0.45,
+        "krw": 15000
+      },
+      {
+        "label": "3.5km",
+        "distanceKm": 3.5,
+        "krw": 40000
+      },
+      {
+        "label": "7km",
+        "distanceKm": 7,
+        "krw": 70000
+      }
+    ],
+    "organizer": "SPOTV, 한국마사회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-spotv-night-run-let-s-run-park-seoul-09137a501011467590f53bedd3c5d93c",
+    "officialUrl": "https://spotvrun.co.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-04",
     "checkedBy": "수집기"
   }
 ]
