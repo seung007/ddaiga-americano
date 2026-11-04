@@ -21,36 +21,31 @@ export const metadata: Metadata = {
 };
 import HomeCommunitySection from "@/components/HomeCommunitySection";
 import { reactionNames } from "@/lib/reaction-names";
-import HeroBackdrop from "@/components/HeroBackdrop";
-import ShoeStrip, { type StripShoe } from "@/components/ShoeStrip";
+import HomeFinderCard, { type FinderShoe } from "@/components/HomeFinderCard";
+import { officialOf } from "@/lib/shoes/official";
 import QuickAnswers from "@/components/QuickAnswers";
 import { SHOES } from "@/lib/shoes/data";
 import { upcomingRaces, daysUntil, distanceLabel, currentStatus } from "@/lib/races";
 
 /**
- * 띠에 실을 신발 — 서버에서 골라 최소 필드만 넘긴다.
- *
- * 2026-09-16: **전부 싣는다(52켤레).** 전에는 후속 모델이 나온 것과 여성 모델을 빼서 18켤레만 돌았다.
- * `/shoes` 목록을 만들고 "52켤레"라고 적었는데 홈에서는 그 1/3만 보여 **숫자가 안 맞는다**는 지적을 받았다(hyun 님).
- * 후속 모델이 나온 신발은 카드에 표시한다 — 재고 할인으로 싸게 살 수 있는 신발이라 뺄 이유가 없다.
- * 여성 모델은 이름에 「(여성)」이 붙어 있어 중복으로 읽히지 않는다.
+ * 홈 추천 카드에 실을 신발 — 서버에서 최소 필드만 넘긴다 (전부 싣는다. 2026-09-16 ShoeStrip 과 같은 이유).
+ * 가격은 공식몰 자동 확인값이 목록에 살아 있을 때만 「공식몰 정가」로 넘긴다.
  */
-const STRIP_SHOES: StripShoe[] = SHOES.map(
-  (s) => ({
+const FINDER_SHOES: FinderShoe[] = SHOES.map((s) => {
+  const o = officialOf(s.id);
+  return {
     id: s.id,
     brand: s.brand,
     model: s.model,
     imageUrl: s.imageUrl,
-    cushioning: s.cushioning,
-    weightGramsM9: s.weightGramsM9,
-    priceKrw: s.priceKrw,
-    tagline: s.blurb,
     uses: s.uses,
     widthOptions: s.widthOptions,
-    hasCarbon: !!s.hasCarbon,
-    successor: s.successor,
-  })
-);
+    priceKrw: s.priceKrw,
+    officialPrice: o?.listed && o.priceKrw ? o.priceKrw : undefined,
+  };
+});
+const HERO_SHOE = SHOES.find((s) => s.id === "asics-novablast-5");
+const FINDER_HERO = HERO_SHOE ? { src: HERO_SHOE.imageUrl, alt: "" } : undefined;
 
 // 사전 렌더링된 인기 비교 페어 (app/compare/[slug] generateStaticParams와 일치)
 const POPULAR_COMPARES = [
@@ -102,86 +97,14 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
 
-      {/* Hero
-          2026-09-03: 배경이 비어 보인다는 지적으로 HeroBackdrop을 넣었다.
-          바깥에 relative + overflow-hidden을 두어 배경을 화면 전체 폭으로 깔고,
-          안쪽 콘텐츠는 기존대로 max-w-3xl 가운데 정렬을 유지한다.
-          콘텐츠에 relative를 줘야 배경(absolute) 위로 올라온다. */}
-      <div className="relative overflow-hidden">
-        <HeroBackdrop />
-        {/* 2026-09-12: py-20 → py-12(모바일). 히어로가 80px씩 먹어서 바로 밑에 넣은
-            「답 바로가기」가 첫 화면 밖으로 밀렸다. 방문자의 80%가 390×812 다.
-            데스크톱은 여백이 있어야 읽히므로 sm 이상에서만 py-20 을 유지한다. */}
-        <section className="relative mx-auto max-w-3xl px-6 py-8 text-center sm:py-16">
-        {/* 2026-09-03: "광고비로 순서가 바뀌지 않는 데이터 기반 러닝화 추천"에서 바꿨다.
-            그 문장에는 문제가 셋 있었다.
-
-            ① **부정문으로 시작했다.** 처음 온 사람은 "광고비? 무슨 광고비?" 하고
-               **없던 의심이 생긴다.** 아무도 묻지 않은 것을 첫 줄에서 해명하는 꼴이었다.
-            ② **한 화면에 같은 주장이 세 번** 나왔다(아이브로우·서브카피·CTA 밑).
-               세 번 반복하면 설득이 아니라 방어로 읽힌다.
-            ③ 관형절이 길어 정작 주어("러닝화 추천")가 맨 뒤로 밀렸다.
-
-            중립성 주장은 **CTA 바로 밑 한 곳에만** 남긴다 — 먼저 외치는 자리가 아니라
-            버튼을 누를지 망설일 때 받쳐주는 자리다.
-            첫 줄은 이 사이트를 누가 왜 만들었는지로 바꾼다. */}
-        {/**
-         * 2026-09-18 — 히어로를 줄이고 진입로를 첫 화면에 넣었다. 근거는 Clarity 30일 실측(홈·모바일 132회).
-         *   · 스크롤: 30%까지 91.7% → 35% 71.2% → 40% 63.6%. **히어로가 끝나는 자리에서 3명 중 1명이 나간다**
-         *   · 클릭 1위가 「질문 올리기」(5회), 2·3위는 **누를 수 없는 영역**(히어로 문구·로고) = 데드 클릭
-         *   · 신발 카드 0클릭 — 첫 화면(844px) 밖 625px 에 있었다
-         *   · 모바일에는 헤더 메뉴가 없어 첫 화면에서 갈 수 있는 곳이 이 버튼 하나뿐이었다
-         *
-         * 그래서 아이브로우 한 줄을 없애고 제목·설명을 한 줄씩 줄였다. 버튼은 모바일에서 가로 전체로 —
-         * 버튼 옆을 누르던 데드 클릭을 버튼이 받게 한다.
-         */}
-        <h1 className="mb-3 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
-          내 발에 맞는 러닝화,<br />데이터로 찾아드려요
-        </h1>
-        <p className="mb-6 text-base leading-relaxed text-gray-600 sm:text-lg">
-          {/* 2026-10-13: 「발볼·발 타입만 고르면」은 사실과 달랐다 — 신발 찾기는 질문 8개(용도·성별·키·체중·발 특성·경험·부상·예산)다 */}
-          질문 8개에 답하면 내 발에 맞는 신발 3개를 골라드려요
-        </p>
-        <Link
-          href="/shoe-finder"
-          className="block w-full rounded-xl bg-emerald-600 px-8 py-4 font-medium text-white transition-colors hover:bg-emerald-700 sm:inline-block sm:w-auto"
-        >
-          나에게 맞는 신발 찾기 →
-        </Link>
-        <p className="mt-3 text-xs font-medium text-gray-500">가입 없이 무료</p>
-
-        {/**
-         * 2026-09-22: 여기 있던 진입로 칩 4개를 **`components/MobileNav.tsx` 로 옮겼다.**
-         *
-         * 2026-09-18 에 이 자리에 넣은 이유는 *"모바일에는 헤더 메뉴가 없어 첫 화면에서
-         * 갈 수 있는 곳이 버튼 하나뿐이었다"* 였다. 그 목적은 지금 **더 잘 만족된다** —
-         * 전역 진입로는 헤더 바로 밑이라 이 자리보다 위에 있고, **홈이 아닌 페이지에도 있다.**
-         *
-         * 여기 그대로 두면 홈에서만 칩이 두 번 나온다. 그래서 지운다.
-         * 히어로가 58px 짧아진다(칩 34px + mt-6 24px).
-         */}
-        </section>
-      </div>
-
       {/**
-       * 순서를 바꿨다 (2026-09-14): 신발 띠를 「답 바로가기」 **위로** 올렸다.
-       *
-       * 이유 둘.
-       *   ① GA4 28일 — `scroll` 이 115명 중 46명(40%)이다. **60%는 스크롤을 안 한다.**
-       *      그런데 1280×800 실측에서 **첫 화면 안에 신발 카드가 0장**이었다(800px 아래).
-       *      `home_shoe_click` 0건은 "안 눌렀다"가 아니라 **볼 기회가 없었다**일 수 있다.
-       *   ② 추천 서비스 14곳 중 11곳이 상품·카테고리를 퀴즈보다 먼저 보여준다.
-       *
-       * 「답 바로가기」는 9/12에 만들었고 이틀간 `quick_answer_click` **0건**이다.
-       * 표본이 작아 실패로 단정하진 않지만, 신발 띠보다 먼저 놓을 근거는 없다.
-       *
-       * `id="shoes"` 는 히어로의 「그냥 둘러볼게요」가 내려오던 자리다. 그 버튼은
-       * 2026-09-15에 뺐지만(바로 이 띠가 200px 아래라 무의미했다) 앵커는 남겨 둔다 —
-       * 다른 곳에서 쓸 수 있고 해가 없다.
+       * 2026-11-05 — 히어로와 신발 띠를 「추천 카드」 하나로 바꿨다 (디자인 캔버스 「H01 수정안」).
+       * 홈에서 발볼·용도를 고르면 아래 목록이 바로 좁혀지고, 버튼을 누르면 고른 것을 들고 추천기로 간다.
+       * 이전 히어로(「내 발에 맞는 러닝화, 데이터로 찾아드려요」)와 ShoeStrip 의 경위 주석은
+       * git 기록과 components/HeroBackdrop.tsx · components/ShoeStrip.tsx 에 남아 있다 — 파일은 지우지 않았다.
+       * 경위는 components/HomeFinderCard.tsx 머리말.
        */}
-      <div id="shoes" className="scroll-mt-16">
-        <ShoeStrip shoes={STRIP_SHOES} />
-      </div>
+      <HomeFinderCard shoes={FINDER_SHOES} hero={FINDER_HERO} />
 
       {/* 답 바로가기 — 신발 띠 밑.
           2026-09-12: 네이버 유입 검색어의 73%가 브랜드 비교, 33%가 발 조건인데

@@ -154,6 +154,13 @@ export default function ShoeFinderPage() {
   const startedAtRef = useRef<number | null>(null);
   /** 프리셋을 눌렀고 키·체중만 남았다 — 체중이 골라지는 순간 결과를 낸다 */
   const [presetPending, setPresetPending] = useState<string | null>(null);
+  /**
+   * 2026-11-05 — 홈 추천 카드에서 발볼·용도를 고르고 들어온 사람 (`?from=home&f=wide&u=long`).
+   * 홈에서 이미 답한 것을 다시 묻지 않는다. 프리셋과 같은 이유로 `recommend_form_start` 를 쏘지 않는다 —
+   * 1단계를 안 밟았으니 from=form 완주율의 분모를 부풀린다. 이 경로의 분모는 `finder_from_home` 이다.
+   */
+  const homeRef = useRef(false);
+  const [fromHome, setFromHome] = useState<{ f: string; u: ShoeUse | "" } | null>(null);
 
   function goNext() {
     // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
@@ -220,6 +227,23 @@ export default function ShoeFinderPage() {
           inj: (sp.get("inj") ?? "").split(",").filter(Boolean), t: 0,
         }, true);
         return;
+      }
+      if (sp.get("from") === "home") {
+        const hu = sp.get("u") ?? "";
+        const u: ShoeUse | "" = USES.some(o => o.value === hu) ? (hu as ShoeUse) : "";
+        const f = (sp.get("f") ?? "").split(",")
+          .find(id => FOOT_OPTIONS.some(o => o.id === id && o.category === "width")) ?? "";
+        if (u || f) {
+          gtagEvent("finder_from_home", { width: f || "unset", use: u || "unset" });
+          startFiredRef.current = true;
+          homeRef.current = true;
+          startedAtRef.current = Date.now();
+          if (u) setUse(u);
+          if (f) setFootSelections([f]);
+          setFromHome({ f, u });
+          // 용도를 골라 왔으면 1번(용도)을 건너뛰고 성별부터. 발볼만 골라 왔으면 용도부터 묻는다
+          if (u) setCurrentStep(1);
+        }
       }
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) setSavedProfile(JSON.parse(raw) as SavedProfile);
@@ -335,7 +359,8 @@ export default function ShoeFinderPage() {
       gtagEvent("recommend_form_complete", {
         gender: gender || "unset",
         level: level || "unset",
-        from: presetRef.current ? "preset" : restoredRef.current ? "restore" : "form",
+        // from=home → 홈 추천 카드에서 발볼·용도를 넘겨받음 (2026-11-05). 분모는 finder_from_home
+        from: presetRef.current ? "preset" : homeRef.current ? "home" : restoredRef.current ? "restore" : "form",
         // 1단계부터 밟은 완주만 걸린 시간(초)을 붙인다. 30분 넘게 걸린 건 자리를 비운 것으로 보고 뺀다
         ...(startedAtRef.current && Date.now() - startedAtRef.current < 30 * 60_000
           ? { elapsed_sec: Math.round((Date.now() - startedAtRef.current) / 1000) }
@@ -423,6 +448,8 @@ export default function ShoeFinderPage() {
     startFiredRef.current = false;
     completeFiredRef.current = false;
     presetRef.current = false;
+    homeRef.current = false;
+    setFromHome(null);
     setPresetPending(null);
   }
 
@@ -526,6 +553,29 @@ export default function ShoeFinderPage() {
               className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
               완료
             </button>
+          </div>
+        )}
+
+        {fromHome && !submitted && !isEditing && (
+          <div className="-mt-1 flex items-center justify-between gap-3 rounded-lg bg-emerald-50 px-3 py-2">
+            <p className="text-xs leading-relaxed text-emerald-900">
+              홈에서 고른{" "}
+              <strong className="font-semibold">
+                {[
+                  FOOT_OPTIONS.find(o => o.id === fromHome.f)?.label.replace(" 2E/4E", ""),
+                  // 홈 칩 이름 그대로 (components/HomeFinderCard.tsx USE_CHIPS)
+                  fromHome.u ? ({ daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" } as const)[fromHome.u] : "",
+                ].filter(Boolean).join(" · ")}
+              </strong>
+              을 넣어 뒀어요. 나머지만 답하면 돼요.
+            </p>
+            {/* 용도는 1번 문항이라 되돌아가 바꾼다. 발볼은 5번(발 특성)에서 골라진 채로 보이니 거기서 바꾼다 */}
+            {fromHome.u && activeStep !== 0 && (
+              <button type="button" onClick={() => setCurrentStep(0)}
+                className="shrink-0 min-h-11 px-2 text-xs font-semibold text-emerald-800 underline underline-offset-2">
+                용도 바꾸기
+              </button>
+            )}
           </div>
         )}
 
