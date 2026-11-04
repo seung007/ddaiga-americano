@@ -66,6 +66,14 @@ export function raceFaq(r: Race): FaqItem[] {
     });
   }
 
+  // 2026-11-04 네이버 검색어 「한강시민마라톤대회 참여자 수」 — 정원은 대회 측 모집 인원이지 실제 참가자 수가 아니다
+  if (r.capacity) {
+    items.push({
+      q: `${name} 참가 인원은 몇 명인가요?`,
+      a: `대회 측이 밝힌 모집 정원은 ${r.capacity}입니다. 실제 참가자 수는 확인한 자료가 없어 적지 않았습니다.`,
+    });
+  }
+
   const link = raceLink(r);
   if (link) {
     const host = (() => {

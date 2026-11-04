@@ -55,14 +55,19 @@ export async function generateMetadata({
   const { id } = await params;
   const r = raceById(id);
   if (!r) return {};
+  // 2026-11-04 네이버: 대회 페이지가 노출은 많은데 클릭이 거의 없었다(「대청호 걷기대회」 노출 693 · 클릭 1).
+  // 검색 결과에서 날짜·장소·마감일이 바로 보이게 — 접수 「상태」는 빌드 시점에 굳으므로 쓰지 않고 마감 「날짜」를 쓴다.
+  const fee = r.fees && r.fees.length ? `참가비 ${Math.min(...r.fees.map((f) => f.krw)).toLocaleString("ko-KR")}원${r.fees.length > 1 ? "부터" : ""}` : null;
   const bits = [
-    r.date ? `${r.date}` : null,
+    r.date ? withWeekday(r.date) : null,
     r.venue ?? r.region,
     r.distancesKm.map(distanceLabel).join("·"),
+    r.registrationEnd ? `접수 ${r.registrationEnd.slice(5).replace("-", "/")}까지` : null,
+    fee,
   ].filter(Boolean);
   return {
-    title: `${r.name} — 일정·참가비·접수 | 뛰다가 아메리카노`,
-    description: `${bits.join(" · ")}. 접수 기간과 참가비를 확인 날짜와 출처를 붙여 정리했습니다.`,
+    title: `${r.name}${r.date ? ` — ${withWeekday(r.date)} ${r.region}` : ""} | 뛰다가 아메리카노`,
+    description: `${bits.join(" · ")}. 확인 날짜와 출처를 붙여 정리했습니다.`,
     alternates: { canonical: `/races/${r.id}` },
   };
 }

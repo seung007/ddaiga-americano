@@ -70,7 +70,7 @@ export const ARTICLES: GuideArticle[] = [
   // 2026-10-06: 커뮤니티 부상 글 1위 부위라 전면 개편(3분 → 아래 실측). 복귀 글 신설.
   { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 다시 달리기 — 언제, 얼마나, 어떻게", desc: "회복 기간 중앙값 71일. 완전히 쉬어야 하는지, 통증 몇 점까지 괜찮은지, 어떻게 다시 늘리는지.", readTime: "4분", stages: "all", published: "2026-10-06", updated: "2026-10-13" },
   { href: "/injury/it-band", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "장경인대 증후군 — 무릎 바깥 통증, 무엇이 효과 있나", desc: "마찰이 아니라 압박. 스트레칭보다 엉덩이 외전근 강화. 내리막을 피하는 이유까지.", readTime: "5분", stages: ["to-half", "to-full"], published: "2025-03-01", updated: "2026-10-13" },
-  { href: "/injury/wide-foot", tag: "발볼", tagColor: "text-blue-600 bg-blue-50", title: "2E·4E 와이드 뜻과 내 발볼 재는 법", desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분", stages: "all", published: "2025-03-01", updated: "2026-10-13" },
+  { href: "/injury/wide-foot", tag: "발볼", tagColor: "text-blue-600 bg-blue-50", title: "2E·4E 와이드 뜻과 내 발볼 재는 법", desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분", stages: "all", published: "2025-03-01", updated: "2026-11-04" },
   // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데 평발 페이지가 없었다.
   { href: "/injury/flat-feet", tag: "평발", tagColor: "text-blue-600 bg-blue-50", title: "평발 러닝화, 안정화화가 정답일까", desc: "발 타입으로 신발을 처방하는 관행에 근거가 있는지 논문으로 확인했습니다.", readTime: "4분", stages: "all", published: "2026-09-08", updated: "2026-10-13" },
   // 2026-09-08 추가. 네이버 검색 의도 3위(카본화 20%).
@@ -83,7 +83,7 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/cooldown", tag: "쿨다운", tagColor: "text-teal-600 bg-teal-50", title: "달리기 후 10분 정적 스트레칭 루틴", desc: "종아리·햄스트링·엉덩이 쿨다운 루틴과, 스트레칭이 회복에 어디까지 도움이 되는지.", readTime: "4분", stages: ["start", "to10k"], updated: "2026-10-13" },
   { href: "/injury/rest-day", tag: "회복", tagColor: "text-indigo-600 bg-indigo-50", title: "휴식일에 뭘 해야 할까? 액티브 리커버리", desc: "가볍게 움직이는 쪽이 낫다는 증거는 생각보다 약합니다.", readTime: "3분", stages: "all", updated: "2026-10-13" },
   { href: "/injury/cadence", tag: "케이던스", tagColor: "text-purple-600 bg-purple-50", title: "케이던스 180이 모두의 정답은 아닙니다 — 속도와 개인차", desc: "같은 사람도 속도에 따라 달라지고, 키로 적정 케이던스를 정할 수는 없습니다.", readTime: "3분", stages: ["to10k", "faster"], updated: "2026-10-13" },
-  { href: "/injury/midfoot", tag: "착지법", tagColor: "text-violet-600 bg-violet-50", title: "미드풋 착지란? 힐스트라이크와 차이", desc: "발 중간으로 닿는 방식입니다. 초보가 바꿔야 하는지까지.", readTime: "4분", stages: ["to10k"], updated: "2026-10-13" },
+  { href: "/injury/midfoot", tag: "착지법", tagColor: "text-violet-600 bg-violet-50", title: "미드풋 착지란? 힐스트라이크와 차이", desc: "발 중간으로 닿는 방식입니다. 초보가 바꿔야 하는지까지.", readTime: "4분", stages: ["to10k"], updated: "2026-11-04" },
   { href: "/injury/posture", tag: "자세", tagColor: "text-cyan-600 bg-cyan-50", title: "달리기 자세 체크리스트 — 어깨·팔·시선", desc: "어깨·팔·시선 체크포인트와 연구로 확인된 부분을 구분해 정리했습니다.", readTime: "3분", stages: ["start", "to10k"], updated: "2026-10-13" },
   { href: "/injury/hwang-young-jo", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조의 몬주익 — 초보 러너가 가져갈 것", desc: "1992 바르셀로나 금메달리스트 — 기사로 확인한 사실과 이 글의 제안을 구분.", readTime: "3분", stages: [], updated: "2026-10-13" },
   { href: "/injury/kwon-eun-ju", tag: "권은주", tagColor: "text-pink-600 bg-pink-50", title: "권은주 선수에게 배우는 여성 러너 부상 예방", desc: "21년간 한국 기록을 지킨 권은주 선수의 부상 경험과 '쉬는 법' 조언.", readTime: "4분", stages: [], updated: "2026-10-13" },
