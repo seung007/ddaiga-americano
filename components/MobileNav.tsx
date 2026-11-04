@@ -51,7 +51,7 @@ import Link from "next/link";
 /** 헤더 메뉴 5개 중 4개. 순서는 홈 히어로에 있던 것을 그대로 옮겼다 */
 const LINKS: [string, string][] = [
   ["/shoes", "러닝화"],
-  ["/races", "대회 일정"],
+  ["/races", "대회"],
   ["/injury", "가이드"],
   ["/community", "게시판"],
 ];
@@ -62,13 +62,14 @@ export default function MobileNav() {
       aria-label="주요 메뉴"
       className="border-b border-gray-100 bg-white md:hidden"
     >
-      {/* max-w-3xl · px-6 은 SiteHeader 안쪽 컨테이너와 같은 값이다 (좌측 정렬을 맞춘다) */}
-      <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto px-6 py-2">
+      {/* px-5 는 SiteHeader 로고 왼쪽 여백(pl-5)과 같은 값이다 (좌측 정렬을 맞춘다) */}
+      {/* 2026-11-05 디자인 「H01 수정안」: 알약 칩 → 글자 메뉴, 높이 44 · 간격 24 · 16px */}
+      <div className="mx-auto flex h-11 max-w-3xl gap-6 overflow-x-auto px-5">
         {LINKS.map(([href, label]) => (
           <Link
             key={href}
             href={href}
-            className="shrink-0 whitespace-nowrap rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700 transition-colors hover:border-emerald-400 hover:text-emerald-700"
+            className="flex shrink-0 items-center whitespace-nowrap text-base text-[#111111]"
           >
             {label}
           </Link>

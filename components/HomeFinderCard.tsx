@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Barlow_Condensed } from "next/font/google";
+import { barlow } from "@/lib/fonts";
 import { gtagEvent } from "@/lib/gtag";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 
@@ -21,8 +21,6 @@ import { shoePlaceholder } from "@/lib/shoes/placeholder";
  *   · 가격은 공식몰 자동 확인값이 있을 때만 「공식몰 정가」, 없으면 상세 페이지처럼 「약 …원」.
  *   · 「보통」은 D 폭, 「넓은」은 2E·4E 가 있는 신발. 「모르겠어요」는 거르지 않고 재는 법으로 보낸다.
  */
-
-const barlow = Barlow_Condensed({ subsets: ["latin"], weight: "700", style: "italic", display: "swap" });
 
 export type FinderShoe = {
   id: string;
