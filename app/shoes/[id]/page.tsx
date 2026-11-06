@@ -7,6 +7,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
 import FaqSection from "@/components/FaqSection";
+import ShoeGuideLinks from "@/components/ShoeGuideLinks";
 import { shoeFaq } from "@/lib/faq";
 import ShoeReactions from "@/components/ShoeReactions";
 import ShoeReviews from "@/components/ShoeReviews";
@@ -355,6 +356,9 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </div>
           </section>
         )}
+
+        {/* 2026-11-06 — 데이터가 관련 있다고 말하는 가이드만 (components/ShoeGuideLinks.tsx 머리말: 구글 색인 대기 227개) */}
+        <ShoeGuideLinks shoes={[s]} className="mt-8" />
 
         {/* 2026-11-02 — 스펙·가격 표의 값을 질문-답으로. 값이 없는 질문은 만들지 않는다 (lib/faq.ts) */}
         <div className="mt-8">
