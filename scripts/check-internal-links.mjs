@@ -102,6 +102,13 @@ const DYNAMIC = [
   // 2026-10-13: 가이드 주제 페이지 — 한 주제가 lib/guide/listRules.ts 의 TOPIC_INLINE_MAX 를 넘을 때만 생긴다(지금 0개).
   // 이 검사는 .mjs 라 TS 규칙을 못 읽으므로 빈 목록으로 편다. 생기는 페이지는 허브의 「모두 보기」 링크와
   // sitemap.ts 가 **같은 함수(topicsWithPage)** 로 만든다 — 링크·사이트맵·페이지가 따로 놀 수 없다.
+  // 2026-11-07: 내용 파일 가이드(lib/guide/content/<slug>.json → app/injury/[slug]). 파일 이름이 곧 주소다.
+  //   들어오는 링크는 원장 lib/guide/articles.ts 의 href 문자열(허브·목록)이 센다. 글 안 링크는 check-content.mjs 가 본다.
+  {
+    route: "/injury/[slug]",
+    expand: () => readdirSync(join(ROOT, "lib/guide/content")).filter((n) => n.endsWith(".json")).map((n) => `/injury/${n.slice(0, -5)}`),
+    templates: [],
+  },
   {
     route: "/injury/topic/[slug]",
     expand: () => [],

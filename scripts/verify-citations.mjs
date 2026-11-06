@@ -185,13 +185,24 @@ function extractClaim(text, linkIndex, isMarkdown = false) {
   return best;
 }
 
+/**
+ * 내용 파일 가이드(lib/guide/content/*.json, 2026-11-07)도 검사 범위다 — 새 종류의 출처를 추가하면 검사기 범위부터 늘린다(AGENTS §3).
+ * JSON 을 문자열로 훑으면 앞뒤 참고 문헌의 저자가 섞일 수 있어서, 참고 문헌마다 「저자 (연도) 저널 URL」 한 줄로 펴서
+ * 마크다운처럼(줄 = 요소) 읽는다. 줄 번호는 펴낸 줄 번호(= references 순서)다.
+ */
+const isContentJson = (p) => p.endsWith(".json") && p.replace(/\\/g, "/").includes("/lib/guide/content/");
+function contentRefsAsLines(raw) {
+  const refs = JSON.parse(raw).references ?? [];
+  return refs.map((r) => `- ${r.authors} (${r.year}) ${r.journal ?? ""} ${r.url}`).join("\n");
+}
+
 async function* walk(dir) {
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
     if (e.isDirectory()) {
       if (e.name === "node_modules" || e.name.startsWith(".")) continue;
       yield* walk(p);
-    } else if (EXTS.has(path.extname(e.name))) {
+    } else if (EXTS.has(path.extname(e.name)) || isContentJson(p)) {
       yield p;
     }
   }
@@ -280,7 +291,8 @@ async function collectCitations() {
       const raw = await readFile(file, "utf8");
       // 마크다운에는 JS 주석이 없다. 코드 파일만 주석을 덮는다.
       // 오프셋이 보존되므로 아래 줄번호 역산은 그대로 유효하다.
-      const text = file.endsWith(".md") ? raw : maskComments(raw);
+      const asLines = file.endsWith(".md") || isContentJson(file);
+      const text = isContentJson(file) ? contentRefsAsLines(raw) : file.endsWith(".md") ? raw : maskComments(raw);
       const lines = text.split("\n");
       // 줄 시작 오프셋 미리 계산 (line 번호 역산용)
       const offsets = [];
@@ -323,7 +335,7 @@ async function collectCitations() {
             line,
             kind,
             id,
-            claim: extractClaim(text, m.index, file.endsWith(".md")),
+            claim: extractClaim(text, m.index, asLines),
           });
         }
       }

@@ -73,6 +73,8 @@ const CHECKS = [
   { name: "공식몰확인", cmd: "node", args: ["scripts/check-official.mjs"],              net: false },
   // 2026-11-02 새 가이드·블로그 원고가 질문형 소제목·FAQ·최종 수정일·작성 표시를 빠뜨리지 않게 (AGENTS.md 「새 글·페이지 규칙」)
   { name: "글구조",   cmd: "node", args: ["scripts/check-geo.mjs"],                   net: false },
+  // 2026-11-07: 내용 파일 가이드(lib/guide/content/*.json) — 양식 빠뜨림·출처 없는 숫자
+  { name: "글내용",   cmd: "node", args: ["scripts/check-content.mjs"],               net: false },
   // 2026-09-28: 브라우저 링크 검사기의 판정 함수. 브라우저 없이 20건을 시험한다 — 판정이 망가진 채 PC 에서 8분 돌리는 일을 막는다
   { name: "링크판정", cmd: "node", args: ["scripts/check-links-browser.mjs", "--selftest"], net: false },
   // 2026-10-06: 추천 엔진 출력 회귀 검사. 「가중치를 줄였다」는 주석과 실제 순위가 달랐던 사건에서 나왔다.

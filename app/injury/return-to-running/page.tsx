@@ -320,8 +320,10 @@ export default function ReturnToRunningPage() {
             전향 연구 11편을 모은 고찰에서 가장 일관된 부상 위험 요인은 지난 12개월 안의 부상이었습니다.{" "}
             <S>(Saragiotto et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24809248/" />)</S>
           </p>
+          {/* 2026-11-07 검증기 재검사: OR 7.56 은 초록에는 「새 부상 위험」으로, 본문 회귀분석에는 「완주 여부 예측」으로 적혀 있다. 본문은 다친 사람과 안 다친 사람의 부상 이력이 차이 없다(p>0.05)고 했다 → 새 부상 위험으로 쓰지 않는다 */}
           <p>
-            걷기-달리기 프로그램 110명 연구에서도 예전 부상이 있으면 새 부상 오즈가 7.56배였습니다.{" "}
+            걷기-달리기 프로그램 110명 연구에서는 예전에 다친 적이 있는 사람이 프로그램을 끝까지 마치지 못한 경우가 많았습니다(오즈비
+            7.56). 초록은 이 숫자를 새 부상 위험으로 적었지만, 본문 분석은 완주 여부를 본 것입니다.{" "}
             <S>(Relph et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/37681822/" />)</S>
           </p>
           <p>
@@ -416,7 +418,7 @@ export default function ReturnToRunningPage() {
             <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
           </li>
           <li>
-            <strong>Relph et al. (2023)</strong> — Couch-to-5k 변형 110명, 이전 부상 OR 7.56. Int J Environ Res Public Health 20(17):6682.{" "}
+            <strong>Relph et al. (2023)</strong> — Couch-to-5k 변형 110명, 이전 부상이 완주 여부를 예측(OR 7.56, 본문 분석 기준). Int J Environ Res Public Health 20(17):6682.{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/37681822/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
           </li>
           <li>
