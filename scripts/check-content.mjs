@@ -28,7 +28,7 @@ const articles = readFileSync(path.join(ROOT, "lib/guide/articles.ts"), "utf8");
 const errors = [];
 
 /** 숫자가 들었나 — 「1편」 같은 군더더기도 숫자다. 서지(권·쪽)는 본문에 쓰지 않으니 따로 빼지 않는다 */
-const hasNumber = (t) => /\d/.test(t.replace(/\]\(\/[^)]*\)/g, "]"));
+const hasNumber = (t) => /\d/.test(t.replace(/\]\(\/[^)]*\)/g, "]").replace(/[A-Za-z]+\d+/g, "")); // VT1·LT2·H7 같은 이름은 숫자로 안 본다
 const routeExists = (p) => {
   const clean = p.split("#")[0].replace(/\/$/, "");
   if (existsSync(path.join(ROOT, "app", clean, "page.tsx"))) return true;
@@ -85,7 +85,8 @@ for (const f of files) {
       else if (b.todo) for (const t of b.todo) texts.push([`「${s.q}」 할 일`, t.t, t.cite, t.basis, true]);
       else if (b.table) {
         b.table.rows.forEach((row, r) =>
-          row.forEach((cell, i) => texts.push([`「${s.q}」 표 ${r + 1}행 ${i + 1}열`, cell.t, cell.cite, cell.basis, true])),
+          // 첫 열은 줄 이름(「30세」 「1구간」)이라 숫자 검사를 하지 않는다. 값은 둘째 열부터
+          row.forEach((cell, i) => texts.push([`「${s.q}」 표 ${r + 1}행 ${i + 1}열`, cell.t, cell.cite, cell.basis, i > 0])),
         );
       } else if (b.evidence) {
         for (const e of b.evidence) {
