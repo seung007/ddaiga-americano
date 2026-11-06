@@ -38,38 +38,40 @@ const INJURY_SLUGS = fs
   .sort();
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
 
+  // 2026-11-06: 아래 고정 페이지·비교·주제 목록은 lastModified 가 매 요청 「지금」이었다. Google 은 lastmod 가
+  //   「일관되고 검증 가능하게 정확할 때만」 쓴다(Build and Submit a Sitemap 문서) — 거짓 날짜가 섞이면 사이트 전체의 lastmod 를 믿지 않을 수 있다.
+  //   그래서 실제 날짜를 모르는 페이지는 날짜를 빼고, 비교 페이지는 두 신발의 확인일 중 늦은 날을 쓴다.
   const core: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/`,           lastModified: now, changeFrequency: "weekly",  priority: 1 },
-    { url: `${BASE_URL}/shoe-finder`, lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${BASE_URL}/`,           changeFrequency: "weekly",  priority: 1 },
+    { url: `${BASE_URL}/shoe-finder`, changeFrequency: "weekly",  priority: 0.9 },
     // 2026-09-02: 계산기를 만들면서 여기에 등재하는 것을 빼먹었다.
     // `app/tools/page.tsx`에 "각각이 별개의 검색 입구가 된다"고 적어놓고
     // **그 입구를 만드는 유일한 장치를 빠뜨렸다.** 위 주석이 경고한 실패를 그대로 반복했다.
     // 계산기를 추가할 때마다 이 배열에 한 줄 추가할 것.
-    { url: `${BASE_URL}/tools`,            lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/tools/shoe-life`,  lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/tools/pace`,       lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/tools/shoe-side`,  lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/tools`,            changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/tools/shoe-life`,  changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/tools/pace`,       changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/tools/shoe-side`,  changeFrequency: "monthly", priority: 0.6 },
     // 2026-10-13: 30분 달리기 따라 하기(처음 달리기 글의 진도표를 회차·타이머로)
-    { url: `${BASE_URL}/tools/run-30`,     lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/tools/run-30`,     changeFrequency: "monthly", priority: 0.7 },
     // 2026-09-06: 코스 페이지. 계산기 때 사이트맵 등재를 빠뜨린 실패를 반복하지 않는다.
-    { url: `${BASE_URL}/courses`,     lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/injury`,      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE_URL}/courses`,     changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/injury`,      changeFrequency: "weekly",  priority: 0.8 },
     // 2026-09-08: 브랜드 비교. 네이버 실측 유입 검색어 1위가 `호카 브룩스 비교`(11.36%)다.
     // 정적 라우트라 COMPARE_SLUGS 에 안 들어가므로 여기에 직접 적는다.
     // 브랜드 페어를 더 만들면 이 배열에 한 줄 추가할 것.
-    { url: `${BASE_URL}/compare/hoka-vs-brooks`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/compare/hoka-vs-brooks`, changeFrequency: "monthly", priority: 0.8 },
     // 2026-09-12: 러닝화 계급도. 「러닝화 계급도」가 한국 검색의 지배적 형식이다
     // (docs/조사/벤치마킹_2026-09-12.md). (9/20 색인 판정은 2026-09-17 폐기 — 기준선 §0.)
-    { url: `${BASE_URL}/tier-list`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/tier-list`, changeFrequency: "monthly", priority: 0.8 },
     // 2026-09-12: 대회 일정. 내용이 자주 바뀌므로 weekly.
-    { url: `${BASE_URL}/races`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE_URL}/races`, changeFrequency: "weekly", priority: 0.7 },
     // 2026-09-16: 러닝화 목록
-    { url: `${BASE_URL}/shoes`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/community`,   lastModified: now, changeFrequency: "weekly",  priority: 0.4 },
-    { url: `${BASE_URL}/terms`,       lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
-    { url: `${BASE_URL}/privacy`,     lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
+    { url: `${BASE_URL}/shoes`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/community`,   changeFrequency: "weekly",  priority: 0.4 },
+    { url: `${BASE_URL}/terms`,       changeFrequency: "yearly",  priority: 0.3 },
+    { url: `${BASE_URL}/privacy`,     changeFrequency: "yearly",  priority: 0.3 },
   ];
 
   const injury: MetadataRoute.Sitemap = INJURY_SLUGS.map((slug) => ({
@@ -77,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 2026-10-13: 원장(lib/guide/articles.ts)에 고친 날이 있으면 그 날짜 — 매 빌드 「지금」은 검색엔진에 신호가 안 된다
     lastModified: (() => {
       const d = ARTICLES.find((a) => a.href === `/injury/${slug}`)?.updated;
-      return d ? new Date(d) : now;
+      return d ? new Date(d) : undefined;
     })(),
     changeFrequency: "monthly",
     priority: 0.7,
@@ -87,26 +89,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const guideLists: MetadataRoute.Sitemap = [
     ...topicsWithPage().map((t) => ({
       url: `${BASE_URL}/injury/topic/${TOPIC_SLUG[t]}`,
-      lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.6,
     })),
-    ...(latestEnabled() ? [{ url: `${BASE_URL}/injury/all`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.5 }] : []),
+    ...(latestEnabled() ? [{ url: `${BASE_URL}/injury/all`, changeFrequency: "weekly" as const, priority: 0.5 }] : []),
   ];
 
-  const compare: MetadataRoute.Sitemap = COMPARE_SLUGS.map((slug) => ({
+  const shoeDay = (id: string) =>
+    [verifiedAt(id), officialOf(id)?.checkedAt].filter((x): x is string => !!x).sort().at(-1);
+  const compare: MetadataRoute.Sitemap = COMPARE_SLUGS.map((slug) => {
+    const i = slug.indexOf("-vs-");
+    const d = [shoeDay(slug.slice(0, i)), shoeDay(slug.slice(i + 4))].filter((x): x is string => !!x).sort().at(-1);
+    return {
     url: `${BASE_URL}/compare/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
+    ...(d ? { lastModified: new Date(d) } : {}),
+    changeFrequency: "monthly" as const,
     priority: 0.6,
-  }));
+  };
+  });
 
   // 2026-09-16: 대회 상세. 지난 대회는 색인 대상에서 뺀다(페이지는 남는다).
   // 2026-11-02: lastModified 를 「확인한 날(checkedAt)」로 — 매 빌드 「지금」이면 바뀐 페이지를 검색엔진이 못 가린다.
   //   자동 수집기가 매일 checkedAt 을 갱신하므로, 실제로 바뀐 대회만 새 날짜가 된다 (injury 와 같은 방식)
   const races: MetadataRoute.Sitemap = upcomingRaces().map((r) => ({
     url: `${BASE_URL}/races/${r.id}`,
-    lastModified: r.checkedAt ? new Date(r.checkedAt) : now,
+    lastModified: r.checkedAt ? new Date(r.checkedAt) : undefined,
     changeFrequency: "weekly",
     priority: 0.5,
   }));
@@ -116,7 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/shoes/${s.id}`,
     lastModified: (() => {
       const d = [verifiedAt(s.id), officialOf(s.id)?.checkedAt].filter((x): x is string => !!x).sort().at(-1);
-      return d ? new Date(d) : now;
+      return d ? new Date(d) : undefined;
     })(),
     changeFrequency: "monthly",
     priority: 0.6,

@@ -10,6 +10,7 @@ import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 
 
 import ShoeImage from "@/components/ShoeImage";
+import ShoeGuideLinks from "@/components/ShoeGuideLinks";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { SITE_URL } from "@/lib/site";
 
@@ -445,6 +446,9 @@ export default async function ComparePage({
           내 발에 맞는 러닝화 찾기 →
         </Link>
       </section>
+
+      {/* 2026-11-06 — 두 신발 데이터가 관련 있다고 말하는 가이드 (components/ShoeGuideLinks.tsx 머리말) */}
+      <ShoeGuideLinks shoes={[shoeA, shoeB]} />
 
       {/* ── 다른 비교 보기 ── */}
       <OtherCompares currentA={shoeA} currentB={shoeB} />
