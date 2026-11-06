@@ -91,7 +91,11 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
         </ul>
       </Warn>
     );
-  if ("table" in b)
+  if ("table" in b) {
+    // 칸마다 같은 출처가 붙으면 표가 출처로 덮인다 — 출처가 모두 같으면 표 아래 한 번만 적는다(검증은 여전히 칸마다)
+    const cited = b.table.rows.flat().filter((c) => c.cite?.length);
+    const keys = new Set(cited.map((c) => [...(c.cite ?? [])].sort().join(",")));
+    const shared = cited.length > 1 && keys.size === 1 ? cited[0].cite : undefined;
     return (
       <div className="mt-5 overflow-x-auto">
         <table className="w-full border-collapse text-[15px]">
@@ -106,18 +110,28 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
             {b.table.rows.map((row, r) => (
               <tr key={r} className="border-b border-gray-100 last:border-0">
                 {row.map((c, i) => (
-                  <td key={i} className={`break-keep py-2 pr-3 align-top ${i === 0 ? "font-medium text-gray-900" : ""}`}>
+                  <td
+                    key={i}
+                    className={`break-keep py-2 pr-3 align-top ${i === 0 ? "font-medium text-gray-900" : ""} ${c.t.length <= 10 ? "whitespace-nowrap" : ""}`}
+                  >
                     <Inline text={c.t} />
                     {c.basis && <Basis kind={c.basis} />}
-                    <Cites cite={c.cite} refs={refs} />
+                    {!shared && <Cites cite={c.cite} refs={refs} />}
                   </td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
+        {shared && (
+          <p className="mt-1.5 text-xs text-gray-400">
+            출처
+            <Cites cite={shared} refs={refs} />
+          </p>
+        )}
       </div>
     );
+  }
   if ("evidence" in b)
     return (
       <Evidence n={new Set(b.evidence.flatMap((e) => e.cite)).size} label={b.label}>
