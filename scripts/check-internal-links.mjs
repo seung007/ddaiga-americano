@@ -34,7 +34,7 @@
  * 문자열로 적힌 경로와, 아래 DYNAMIC 에 등록한 템플릿만 본다.
  * 런타임에 조립되는 링크는 놓친다. **놓치는 쪽으로 틀리지, 있다고 지어내지는 않는다.**
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { stripComments } from "./lib/strip-comments.mjs";
 import { join, relative } from "node:path";
 
@@ -106,7 +106,7 @@ const DYNAMIC = [
   //   들어오는 링크는 원장 lib/guide/articles.ts 의 href 문자열(허브·목록)이 센다. 글 안 링크는 check-content.mjs 가 본다.
   {
     route: "/injury/[slug]",
-    expand: () => readdirSync(join(ROOT, "lib/guide/content")).filter((n) => n.endsWith(".json")).map((n) => `/injury/${n.slice(0, -5)}`),
+    expand: () => (existsSync(join(ROOT, "lib/guide/content")) ? readdirSync(join(ROOT, "lib/guide/content")) : []).filter((n) => n.endsWith(".json")).map((n) => `/injury/${n.slice(0, -5)}`),
     templates: [],
   },
   {

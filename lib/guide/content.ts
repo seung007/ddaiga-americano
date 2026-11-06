@@ -73,7 +73,13 @@ export type GuideContent = {
 const DIR = path.join(process.cwd(), "lib", "guide", "content");
 
 export function contentSlugs(): string[] {
-  return readdirSync(DIR)
+  let names: string[];
+  try {
+    names = readdirSync(DIR);
+  } catch {
+    return []; // 아직 글이 없으면 폴더도 없다(git 은 빈 폴더를 올리지 않는다)
+  }
+  return names
     .filter((f) => f.endsWith(".json"))
     .map((f) => f.replace(/\.json$/, ""))
     .sort();
