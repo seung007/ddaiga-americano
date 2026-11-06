@@ -107,7 +107,7 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
   };
 
   const chipCls = (on: boolean) =>
-    `press flex h-11 flex-1 items-center justify-center gap-1 rounded-full border border-[#2F3414] px-2 text-sm font-bold ${
+    `press flex h-11 flex-1 items-center justify-center gap-1 rounded-full border border-[#2F3414] px-2 text-sm font-bold md:h-12 md:text-base ${
       on ? "bg-[#111111] text-[#C8F031]" : "bg-white text-[#111111]"
     }`;
 
@@ -115,65 +115,90 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
 
   return (
     <>
+      {/**
+        * 2026-11-06 운영자: 「내 러닝화 찾기」를 한 줄로, PC 에서 카드가 화면에 비해 작아 보인다.
+        *   전에는 max-w-xl(576px) 한 칸이라 PC 1280px 에서 머리글·아래 목록(max-w-5xl)과 폭이 안 맞고 칩·버튼이 작게 보였다.
+        *   PC(768px~): 머리글과 같은 폭의 2칸 — 왼쪽 고르기, 오른쪽 사진. 비율 약 2.2:1 은 스포츠 브랜드 PC 첫 화면 실측
+        *   (나이키 2.1 · 뉴발란스 2.2 · 아디다스 2.4 · 호카·아식스 2.7, 스킬 sports-ui-from-references 2026-11-05) 범위 안.
+        *   제목 64px 는 호카 PC 실측(64/40px). 글자 단계(최대 40)를 PC 에서만 일부러 넘긴다 — 휴대폰은 40px 그대로.
+        *   사진은 PC 에서 돌리지도 섞지도 않는다(넓게 보이면 multiply 가 사진을 연두로 물들인다).
+        */}
       <section aria-labelledby="finder-h" className="px-5 pt-2 sm:pt-8">
-        <div className="relative mx-auto max-w-xl overflow-hidden rounded-3xl bg-[#C8F031] p-5 text-[#111111] sm:p-8">
-          {hero && (
-            // 첫 화면 연출이라 회전을 허용한다(목록 카드 사진은 돌리지 않는다).
-            // 흰 바탕 제품 사진이라 multiply 로 바탕을 카드 색에 녹인다.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={hero.src}
-              alt=""
-              width={180}
-              height={120}
-              referrerPolicy="no-referrer"
-              className="pointer-events-none absolute -right-8 top-4 w-36 -rotate-[14deg] mix-blend-multiply sm:right-4 sm:w-56"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-            />
-          )}
-          <p className={`${barlow.className} relative text-sm tracking-[1px]`}>SHOE FINDER</p>
-          <h1 id="finder-h" className="relative mt-1 text-[40px] font-black leading-[1.1] tracking-[-1.2px]">
-            내 러닝화<br />찾기
-          </h1>
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-[#C8F031] text-[#111111] md:grid md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          <div className="relative p-5 sm:p-8 md:p-12">
+            {hero && (
+              // 휴대폰: 첫 화면 연출이라 회전을 허용한다(목록 카드 사진은 돌리지 않는다). 흰 바탕을 multiply 로 카드 색에 녹인다.
+              // 제목이 한 줄이 되면서 사진을 줄여 제목 끝과 겹치지 않게 했다(390px 에서 확인).
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={hero.src}
+                alt=""
+                width={180}
+                height={120}
+                referrerPolicy="no-referrer"
+                className="pointer-events-none absolute -right-6 -top-1 w-28 -rotate-[14deg] mix-blend-multiply sm:w-40 md:hidden"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+              />
+            )}
+            <p className={`${barlow.className} relative text-sm tracking-[1px] md:text-base`}>SHOE FINDER</p>
+            <h1 id="finder-h" className="relative mt-1 whitespace-nowrap text-[40px] font-black leading-[1.1] tracking-[-1.2px] md:text-[64px] md:tracking-[-2px]">
+              내 러닝화 찾기
+            </h1>
 
-          <p className="mb-2 mt-4 text-xs font-bold text-[#2F3414]">발볼</p>
-          <div className="flex gap-2">
-            {WIDTH_CHIPS.map((c) => (
-              <button key={c.k} type="button" aria-pressed={w === c.k} onClick={() => pickW(c.k)} className={chipCls(w === c.k)}>
-                {w === c.k && <Check />}
-                {c.l}
-              </button>
-            ))}
-          </div>
-          {w === "unsure" && (
+            <p className="mb-2 mt-4 text-xs font-bold text-[#2F3414] md:mt-8 md:text-sm">발볼</p>
+            <div className="flex gap-2">
+              {WIDTH_CHIPS.map((c) => (
+                <button key={c.k} type="button" aria-pressed={w === c.k} onClick={() => pickW(c.k)} className={chipCls(w === c.k)}>
+                  {w === c.k && <Check />}
+                  {c.l}
+                </button>
+              ))}
+            </div>
+            {w === "unsure" && (
+              <Link
+                href="/injury/wide-foot"
+                className="press mt-2 flex min-h-11 items-center justify-between gap-2 rounded-xl bg-white px-3 text-sm font-bold"
+              >
+                <span>내 발볼 재는 법부터 볼까요?</span>
+                <Arrow />
+              </Link>
+            )}
+
+            <p className="mb-2 mt-3 text-xs font-bold text-[#2F3414] md:mt-4 md:text-sm">용도</p>
+            <div className="flex gap-2">
+              {USE_CHIPS.map((c) => (
+                <button key={c.k} type="button" aria-pressed={u === c.k} onClick={() => pickU(c.k)} className={chipCls(u === c.k)}>
+                  {u === c.k && <Check />}
+                  {c.l}
+                </button>
+              ))}
+            </div>
+
+            <p role="status" className="mt-4 text-sm font-bold md:mt-6 md:text-base">{countLine}</p>
             <Link
-              href="/injury/wide-foot"
-              className="press mt-2 flex min-h-11 items-center justify-between gap-2 rounded-xl bg-white px-3 text-sm font-bold"
+              href={finderHref}
+              onClick={() => gtagEvent("home_finder_cta", { width: fw ?? "unset", use: u ?? "unset" })}
+              className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-[#111111] text-base font-bold text-white md:h-[52px]"
             >
-              <span>내 발볼 재는 법부터 볼까요?</span>
+              내 맞춤 러닝화 추천받기
               <Arrow />
             </Link>
-          )}
-
-          <p className="mb-2 mt-3 text-xs font-bold text-[#2F3414]">용도</p>
-          <div className="flex gap-2">
-            {USE_CHIPS.map((c) => (
-              <button key={c.k} type="button" aria-pressed={u === c.k} onClick={() => pickU(c.k)} className={chipCls(u === c.k)}>
-                {u === c.k && <Check />}
-                {c.l}
-              </button>
-            ))}
           </div>
-
-          <p role="status" className="mt-4 text-sm font-bold">{countLine}</p>
-          <Link
-            href={finderHref}
-            onClick={() => gtagEvent("home_finder_cta", { width: fw ?? "unset", use: u ?? "unset" })}
-            className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-[#111111] text-base font-bold text-white"
-          >
-            내 맞춤 러닝화 추천받기
-            <Arrow />
-          </Link>
+          {hero && (
+            <div className="relative hidden md:block" aria-hidden="true">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={hero.src}
+                alt=""
+                width={720}
+                height={480}
+                fetchPriority="high"
+                referrerPolicy="no-referrer"
+                className="absolute inset-0 h-full w-full object-cover"
+                onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+              />
+            </div>
+          )}
         </div>
       </section>
 
