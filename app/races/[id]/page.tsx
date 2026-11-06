@@ -125,8 +125,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
         <header className="mb-6">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <RaceStatusBadge status={ended ? "대회종료" : status} />
+            {/* 2026-11-06: 「마감」 배지 옆 「D-9」가 마감까지 9일로 읽혔다. 이 숫자는 대회 날짜까지다 — 홈의 D-day(접수 마감)와 글자로 구분한다 */}
             {!ended && d !== null && (
-              <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>
+              <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "대회 오늘" : `대회 D-${d}`}</span>
             )}
           </div>
           <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900">{r.name}</h1>

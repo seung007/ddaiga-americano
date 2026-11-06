@@ -944,19 +944,20 @@ export default function ShoeFinderPage() {
             </div>
           )}
 
-          <div className="flex items-center justify-between mb-4">
+          {/* 2026-11-06: 390px 에서 정렬 탭이 「적/합/도/순」 한 글자씩 세로로 쪼개졌다 — 좁으면 제목 아래로 내리고 글자는 줄바꿈하지 않는다 */}
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
               <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 발볼·용도 조건을 통과한 결과예요.</p>
             </div>
-            <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
+            <div className="flex shrink-0 gap-1 self-start rounded-lg border border-gray-200 bg-gray-50 p-1">
               {([
                 { key: "score" as SortKey,      label: "적합도순" },
                 { key: "price_asc" as SortKey,  label: "가격 낮은순" },
                 { key: "price_desc" as SortKey, label: "가격 높은순" },
               ] as { key: SortKey; label: string }[]).map(o => (
                 <button key={o.key} type="button" onClick={() => setSortKey(o.key)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors
+                  className={`min-h-11 whitespace-nowrap px-3 rounded-md text-xs font-medium transition-colors
                     ${sortKey === o.key ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-700"}`}>
                   {o.label}
                 </button>

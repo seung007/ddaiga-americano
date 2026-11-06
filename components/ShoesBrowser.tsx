@@ -1,5 +1,6 @@
 "use client";
 
+import { officialOf } from "@/lib/shoes/official";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import ShoeThumb from "@/components/ShoeThumb";
@@ -286,7 +287,15 @@ export default function ShoesBrowser() {
                     <ShoeThumb src={s.imageUrl} alt={`${s.brand} ${s.model}`} model={s.model} className="aspect-square w-full" />
                     <p className="mt-2 text-xs text-gray-500">{s.brand}</p>
                     <p className="font-bold leading-snug text-gray-900">{s.model}</p>
-                    <p className="mt-1 text-sm text-gray-800">약 {won(s.priceKrw)}</p>
+                    {/* 2026-11-06: 홈은 「159,000원 공식몰 정가」, 여기는 「약 159,000원」으로 같은 신발이 달랐다 — 홈과 같은 규칙(공식몰 목록에 있고 값이 있을 때만) */}
+                    {(() => {
+                      const o = officialOf(s.id);
+                      return o?.listed && o.priceKrw ? (
+                        <p className="mt-1 text-sm text-gray-800">{won(o.priceKrw)} <span className="text-xs text-gray-500">공식몰 정가</span></p>
+                      ) : (
+                        <p className="mt-1 text-sm text-gray-800">약 {won(s.priceKrw)}</p>
+                      );
+                    })()}
                     <p className="mt-1 text-xs text-gray-500">
                       {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
                     </p>

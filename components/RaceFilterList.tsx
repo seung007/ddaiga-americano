@@ -168,7 +168,7 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
                     <>
                       <strong>{r.date}</strong>
                       {dday !== null && dday >= 0 && (
-                        <span className="ml-1.5 text-emerald-700">{dday === 0 ? "오늘" : `D-${dday}`}</span>
+                        <span className="ml-1.5 text-emerald-700">{dday === 0 ? "대회 오늘" : `대회 D-${dday}`}</span>
                       )}
                     </>
                   ) : (
