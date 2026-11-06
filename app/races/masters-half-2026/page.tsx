@@ -16,8 +16,13 @@ if (!found) throw new Error("masters-half-2026 이 lib/races.json · lib/races.p
 const race = found;
 
 
-/** 대회 전/후로 「나가요」→「다녀왔어요」가 바뀌므로 [id] 템플릿과 같은 주기로 다시 만든다 */
-export const revalidate = 21600;
+/**
+ * 2026-11-06: `revalidate = 21600` 을 뺐다. 「하루 네 번 다시 만든다」고 적어 뒀지만 실제로는
+ * 6시간이 지난 뒤 **첫 방문자에게 옛 화면을 주고** 그 뒤에 다시 만든다(방문이 드물면 며칠 전 화면).
+ * 미리보기 홈에서 11/6 에 「11/05 마감 · 오늘 마감」이 실제로 떴다. 마감이 지난 대회를 「오늘 마감」으로 보이는 건 틀린 정보라
+ * 날짜로 계산하는 페이지는 요청마다 그린다. 방문이 월 수백 건이라 서버 부담은 작다.
+ */
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `${race.name} — 뛰다가 아메리카노`,

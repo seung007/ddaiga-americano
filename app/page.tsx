@@ -76,13 +76,23 @@ const TRUST_BASE = [
   //   (모델별로 「공식몰 정가」 / 「권장가 추산」 표시는 카드에 따로 있다)
   {
     what: "가격",
-    how: officialDate ? `${SHOES.length}종 · 공식몰 정가는 매일 자동 확인 (최근 ${officialDate})` : `${SHOES.length}종 · 권장가 추산`,
+    // 2026-11-06: 「매일 자동 확인 (최근 11-02)」가 4일 뒤에도 그대로라 거짓말처럼 읽혔다. 수집기는 값이 같으면 checkedAt 을 14일마다만 올리고
+    //   (ddaiga-pipeline REFRESH_CHECKED_DAYS), GitHub 정기 실행이 늦거나 빠지는 날도 있어 「매일」을 약속할 수 없다.
+    //   그래서 몇 종이 자동 확인인지와 그 값이 언제 기준인지만 적는다.
+    how: officialDate
+      ? `${SHOES.length}종 · 공식몰 정가 ${officialChecked.length}종 자동 확인 (${officialDate} 기준)`
+      : `${SHOES.length}종 · 권장가 추산`,
   },
   verifiedDates.length ? { what: "스펙·발볼", how: `브랜드 공식 자료로 ${verifiedDates.length}종 스펙 확인` } : null,
 ].filter((x): x is { what: string; how: string } => !!x);
 
-/** 「다가오는 대회」가 날짜로 걸러지므로 빌드 때 값에 굳지 않게 한다 (2026-09-16) */
-export const revalidate = 21600;
+/**
+ * 2026-11-06: `revalidate = 21600` 을 뺐다. 「하루 네 번 다시 만든다」고 적어 뒀지만 실제로는
+ * 6시간이 지난 뒤 **첫 방문자에게 옛 화면을 주고** 그 뒤에 다시 만든다(방문이 드물면 며칠 전 화면).
+ * 미리보기 홈에서 11/6 에 「11/05 마감 · 오늘 마감」이 실제로 떴다. 마감이 지난 대회를 「오늘 마감」으로 보이는 건 틀린 정보라
+ * 날짜로 계산하는 페이지는 요청마다 그린다. 방문이 월 수백 건이라 서버 부담은 작다.
+ */
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   // 대회는 서버에서 센다. 개수를 손으로 적으면 대회가 하나 지날 때마다 틀린 숫자가 된다.
@@ -110,7 +120,7 @@ export default function Home() {
   // 「공식 홈페이지에서 확인」만 쓰면 안 된다 — 다가오는 대회 115건 중 80건은 factsFrom 「모음」(2026-11-05 기준)
   const raceChecked = upcoming.map((r) => r.checkedAt).filter(Boolean).sort().at(-1);
   const TRUST = raceChecked
-    ? [...TRUST_BASE, { what: "대회", how: `공식 홈페이지와 대회 모음 사이트에서 확인 (최근 ${raceChecked})` }]
+    ? [...TRUST_BASE, { what: "대회", how: `공식 홈페이지와 대회 모음 사이트에서 확인 (${raceChecked} 기준)` }]
     : TRUST_BASE;
 
   return (
@@ -220,7 +230,7 @@ export default function Home() {
         <Link href="/community" className="press flex items-center justify-between gap-4 rounded-2xl bg-[#F5F5F5] p-6 text-[#111111]">
           <span>
             <span className="block text-xl font-black">추천이 애매했나요?</span>
-            <span className="mt-1 block text-sm text-[#4B5059]">게시판에 발 모양을 적고 물어보세요</span>
+            <span className="mt-1 block text-sm text-[#4B5059]">게시판에 궁금한 점이나 문의 사항 적고 물어보세요</span>
           </span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" />
