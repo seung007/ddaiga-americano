@@ -33,285 +33,6 @@
     "cutoff": "하프 2시간 30분 · 10km 1시간 30분"
   },
   {
-    "id": "seoul-together-2026",
-    "name": "2026 서울동행 마라톤 대회",
-    "date": "2026-11-01",
-    "region": "서울",
-    "distancesKm": [
-      5,
-      10,
-      21.0975
-    ],
-    "status": "접수중",
-    "venue": "목동종합운동장 주경기장 일원",
-    "startTime": "하프 07:30 · 10km 07:40 · 5km 07:50",
-    "registrationStart": "2026-08-10",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 40000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 50000
-      },
-      {
-        "label": "하프",
-        "distanceKm": 21.0975,
-        "krw": 50000
-      }
-    ],
-    "capacity": "총 5,000명",
-    "organizer": "(사)한국환경체육청소년연맹",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-seoul-together-marathon",
-    "officialUrl": "https://seoulrun.com",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "cutoff": "3시간 (공지에 종목 구분 없이 적힘)",
-    "note": "공식 공지 기준 8/10부터 선착순 접수 — 마감일은 따로 없고 정원(총 5,000명)이 차면 끝납니다. 9/30은 환불 마감일입니다."
-  },
-  {
-    "id": "ulsan-humanrights-2026",
-    "name": "제21회 울산 인권마라톤",
-    "date": "2026-11-01",
-    "region": "울산",
-    "distancesKm": [
-      5,
-      10,
-      21.0975
-    ],
-    "status": "접수중",
-    "venue": "태화강 둔치 (태화로터리)",
-    "registrationStart": "2026-08-18",
-    "registrationEnd": "2026-08-21",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/21st-ulsan-human-rights-marathon-2026",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "officialUrl": "https://www.humanrun.org/",
-    "startTime": "하프 09:30 · 10km 09:35 · 5km 09:40",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 25000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 35000
-      },
-      {
-        "label": "하프",
-        "distanceKm": 21.0975,
-        "krw": 35000
-      }
-    ],
-    "organizer": "울산인권마라톤대회 조직위원회 · (사)울산인권운동연대",
-    "note": "공식 대회요강 일정표상 접수는 8/18~8/21이었고, 공식 사이트에 「참가신청이 마감되었습니다」 표시. 장애인·18세 미만은 참가비가 1만 원씩 낮고, 장애인 동반 1인은 면제."
-  },
-  {
-    "id": "public-interest-run-2026",
-    "name": "레디, 셋, 공익런",
-    "date": "2026-11-07",
-    "region": "충북",
-    "distancesKm": [
-      5,
-      10
-    ],
-    "status": "접수중",
-    "venue": "청주 무심천체육공원",
-    "registrationStart": "2026-09-10",
-    "registrationEnd": "2026-10-02",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 25000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 25000
-      }
-    ],
-    "organizer": "충북시민사회지원센터",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/ready-set-public-interest-run",
-    "officialUrl": "https://app.notion.com/p/2026-3c97e45d0696800ca05dde948858ed26?source=copy_link",
-    "officialKind": "SNS",
-    "factsFrom": "모음",
-    "checkedAt": "2026-09-16"
-  },
-  {
-    "id": "give-run-gumi-2026",
-    "name": "GIVE RUN 2026 구미",
-    "date": "2026-11-07",
-    "region": "경북",
-    "distancesKm": [
-      5,
-      10
-    ],
-    "status": "접수중",
-    "venue": "구미 낙동강체육공원 일대",
-    "startTime": "09:00",
-    "registrationStart": "2026-08-12",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 45000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 45000
-      }
-    ],
-    "capacity": "선착순 4,000명",
-    "organizer": "굿피플",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/give-run-2026-gumi",
-    "officialUrl": "https://giverun.kr/shop/main.ubs",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "note": "8/12 11시부터 선착순 4,000명 — 마감일은 따로 없습니다. 10/9(금) 17시는 환불 신청 마감입니다(공식 사이트). 예전에 10/9를 접수 마감으로 적었던 것을 고쳤습니다."
-  },
-  {
-    "id": "defense-daily-2026",
-    "name": "제22회 국방일보 전우마라톤",
-    "date": "2026-11-07",
-    "region": "경기",
-    "distancesKm": [
-      5,
-      10
-    ],
-    "status": "접수중",
-    "venue": "임진각 평화누리공원",
-    "startTime": "08:00",
-    "registrationStart": "2026-09-07",
-    "registrationEnd": "2026-09-07",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 20000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 20000
-      }
-    ],
-    "organizer": "국방홍보원",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/22nd-defense-daily-comrade-marathon",
-    "officialUrl": "https://www.dema.mil.kr/marathon/main.do",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "note": "일반 참가 신청이 9/7 오전 10시에 열려 26분 만에 정원 1,000명이 찼습니다(아시아투데이·한국경제TV 9/9~10 보도)."
-  },
-  {
-    "id": "purme-run-2026",
-    "name": "넥슨과 함께하는 2026 미라클365 푸르메런",
-    "date": "2026-11-07",
-    "region": "서울",
-    "distancesKm": [
-      3,
-      10
-    ],
-    "status": "접수중",
-    "venue": "월드컵공원 평화의공원 평화광장",
-    "startTime": "09:00",
-    "registrationStart": "2026-08-26",
-    "registrationEnd": "2026-09-23",
-    "fees": [
-      {
-        "label": "3km",
-        "distanceKm": 3,
-        "krw": 20000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 50000
-      }
-    ],
-    "capacity": "3,000명",
-    "organizer": "푸르메재단",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/miracle365-purme-run-1",
-    "officialUrl": "https://purmerun.com/",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "cutoff": "전 종목 2시간 (3km 걷기 · 10km 달리기)"
-  },
-  {
-    "id": "save-race-2026",
-    "name": "Save Race 2026 (카카오뱅크)",
-    "date": "2026-11-07",
-    "region": "서울",
-    "distancesKm": [
-      10
-    ],
-    "status": "접수중",
-    "venue": "여의도공원 문화의마당",
-    "registrationStart": "2026-09-07",
-    "registrationEnd": "2026-09-18",
-    "fees": [
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 50000
-      }
-    ],
-    "organizer": "카카오뱅크",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/save-race-2026",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "officialUrl": "https://www.saverace.co.kr/",
-    "startTime": "07:30",
-    "capacity": "7,000명",
-    "note": "카카오뱅크 앱에서 신청하고 추첨으로 참가자를 정합니다. 참가비는 전액 기부됩니다.",
-    "cutoff": "10km 1시간 30분"
-  },
-  {
-    "id": "yeongcheon-dam-2026",
-    "name": "2026 영천댐 마라톤 대회",
-    "date": "2026-11-07",
-    "region": "경북",
-    "distancesKm": [
-      5,
-      10,
-      21.0975
-    ],
-    "status": "마감",
-    "venue": "영천댐공원 일원",
-    "startTime": "09:40부터 순차 출발 (하프 → 10km → 5km, 집결 09:00)",
-    "registrationStart": "2026-09-01",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 25000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 40000
-      },
-      {
-        "label": "하프",
-        "distanceKm": 21.0975,
-        "krw": 40000
-      }
-    ],
-    "organizer": "영천시육상연맹, 채널경북",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yeongcheon-dam-marathon",
-    "officialUrl": "https://runyc.kr/",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "cutoff": "하프 3시간 · 10km 2시간 · 5km 제한시간 없음",
-    "note": "공식 사이트에 「참가 신청이 마감되었습니다」 표시(선착순 마감, 마감일은 안 적혀 있음)."
-  },
-  {
     "id": "chilgap-2026",
     "name": "2026 청양군체육회장기 칠갑마라톤",
     "date": "2026-11-08",
@@ -1008,38 +729,6 @@
     "note": "일정 모음 사이트에는 「제2회 천안독립기념관 마라톤」으로 올라와 있습니다. 공식 사이트 이름은 「2026 천안희망나눔 마라톤」(이봉주와 함께하는 대회)이고 날짜·장소·종목·참가비는 같습니다. 접수 마감일은 공식 사이트에 안 나와 있습니다."
   },
   {
-    "id": "jtbc-seoul-2026",
-    "name": "2026 JTBC 서울마라톤",
-    "date": "2026-11-01",
-    "region": "서울",
-    "distancesKm": [
-      42.195,
-      10
-    ],
-    "status": "접수중",
-    "venue": "상암월드컵공원 출발 · 풀코스 올림픽공원 · 10km 여의도공원",
-    "startTime": "풀코스 07:30",
-    "fees": [
-      {
-        "label": "풀코스",
-        "distanceKm": 42.195,
-        "krw": 150000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 100000
-      }
-    ],
-    "capacity": "30,000명",
-    "organizer": "JTBC · 대한육상연맹 · 러너블",
-    "sourceUrl": "https://marathon.jtbc.com/index",
-    "officialUrl": "https://marathon.jtbc.com/index",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "note": "본접수(추첨)는 4월에 끝났고, 9/8(화) 14시부터 미등록분 선착순 추가 접수가 열렸습니다(러너블). 9/28 기준 공식 공지에 마감 안내는 없습니다. 풀코스는 만 18세 이상·5시간 이내 완주 가능자만 참가할 수 있습니다. 9/18 17시 이후 취소·환불 불가."
-  },
-  {
     "id": "seoul-marathon-2027",
     "name": "2027 서울마라톤 겸 제97회 동아마라톤",
     "date": "2027-03-21",
@@ -1121,51 +810,6 @@
     "factsFrom": "공식",
     "checkedAt": "2026-09-28",
     "note": "9/14 10시 선착순 접수가 열렸고, 공식 신청 페이지에 「참가신청 접수가 종료되었습니다」 표시. 매니아(기념품 없음)·학생 참가비는 따로 있습니다."
-  },
-  {
-    "id": "buyeo-goodtrae-2026",
-    "name": "제15회 부여 굿뜨래 마라톤 대회",
-    "date": "2026-11-07",
-    "region": "충남",
-    "distancesKm": [
-      5,
-      10,
-      21.0975,
-      42.195
-    ],
-    "status": "마감",
-    "venue": "부여 구드래 나루터 선착장",
-    "startTime": "08:30",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 30000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 45000
-      },
-      {
-        "label": "하프",
-        "distanceKm": 21.0975,
-        "krw": 45000
-      },
-      {
-        "label": "풀코스",
-        "distanceKm": 42.195,
-        "krw": 50000
-      }
-    ],
-    "cutoff": "풀코스 5시간 · 하프 3시간 · 10km 2시간 · 5km 1시간",
-    "organizer": "부여군마라톤연합회 · 전국마라톤협회",
-    "sourceUrl": "https://mara1080.com/event/ffc023fc-7a54-4610-bdd6-2bb9a1028122",
-    "officialUrl": "https://mara1080.com/event/ffc023fc-7a54-4610-bdd6-2bb9a1028122",
-    "officialKind": "접수대행",
-    "factsFrom": "공식",
-    "checkedAt": "2026-09-28",
-    "note": "접수가 마감됐습니다(공식 공지 9/1). 07:30 집결. 5km 부여군민은 20,000원."
   },
   {
     "id": "haenam-ttangkkeut-2026",
@@ -2225,38 +1869,6 @@
     "checkedBy": "수집기"
   },
   {
-    "id": "virtual-hangul-run-2026",
-    "name": "2026 버추얼 한글런",
-    "date": "2026-11-04",
-    "region": "서울",
-    "distancesKm": [
-      5.15,
-      10.9
-    ],
-    "status": "마감",
-    "venue": "전국 / 원하는 장소 어디서나",
-    "registrationStart": "2026-10-09",
-    "registrationEnd": "2026-11-04",
-    "fees": [
-      {
-        "label": "5.15km",
-        "distanceKm": 5.15,
-        "krw": 39000
-      },
-      {
-        "label": "10.9km",
-        "distanceKm": 10.9,
-        "krw": 39000
-      }
-    ],
-    "organizer": "코리아헤럴드, 헤럴드경제",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-virtual-hangul-run-518a4282ac6c4cec802eeb335972c9b8",
-    "officialUrl": "https://gift.kakao.com/product/14443548",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
-    "checkedBy": "수집기"
-  },
-  {
     "id": "earth-ulsan-run-2026",
     "name": "어울런(Earth Ulsan Run)",
     "date": "2026-12-05",
@@ -2379,38 +1991,6 @@
     "checkedBy": "수집기"
   },
   {
-    "id": "damyang-metasequoia-national-marathon-2026",
-    "name": "제21회 담양 메타세쿼이아 전국마라톤대회",
-    "date": "2026-11-07",
-    "region": "전남",
-    "distancesKm": [
-      5,
-      8
-    ],
-    "status": "마감",
-    "venue": "담양추성경기장, 전남 담양군 담양읍 관방제림길 69",
-    "registrationStart": "2026-09-22",
-    "registrationEnd": "2026-10-20",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 30000
-      },
-      {
-        "label": "8km",
-        "distanceKm": 8,
-        "krw": 30000
-      }
-    ],
-    "organizer": "담양마라톤클럽",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/damyang-metasequoia-national-marathon-68bbee789bcd4a3490a3b455c236e86b",
-    "officialUrl": "https://www.metarun.kr",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
-    "checkedBy": "수집기"
-  },
-  {
     "id": "muju-firefly-peace-marathon-2026",
     "name": "2026 무주반딧불 평화마라톤대회",
     "date": "2026-11-22",
@@ -2508,33 +2088,6 @@
     "checkedBy": "수집기"
   },
   {
-    "id": "jinhae-marathon-2026",
-    "name": "제19회 진해마라톤",
-    "date": "2026-11-07",
-    "region": "경남",
-    "distancesKm": [
-      5,
-      11.11
-    ],
-    "status": "마감",
-    "venue": "진해공설운동장 및 해군 영내 일원",
-    "registrationStart": "2026-08-24",
-    "registrationEnd": "2026-09-09",
-    "fees": [
-      {
-        "label": "11.11km",
-        "distanceKm": 11.11,
-        "krw": 30000
-      }
-    ],
-    "organizer": "경남신문",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/19th-jinhae-marathon",
-    "officialUrl": "https://www.jinhaemarathon.co.kr",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
-    "checkedBy": "수집기"
-  },
-  {
     "id": "oak-valley-winter-half-marathon-2026",
     "name": "오크밸리 윈터 하프 마라톤",
     "date": "2026-12-05",
@@ -2547,38 +2100,6 @@
     "registrationStart": "2026-09-03",
     "registrationEnd": "2026-09-15",
     "sourceUrl": "https://www.kormarathon.com/ko/races/oak-valley-winter-half-marathon",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "just-run10-daejeon-second-half-2026",
-    "name": "JUST RUN10 대전 하반기",
-    "date": "2026-11-07",
-    "region": "대전",
-    "distancesKm": [
-      5,
-      10
-    ],
-    "status": "마감",
-    "venue": "갑천 러닝성지",
-    "registrationStart": "2026-09-02",
-    "registrationEnd": "2026-10-31",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 45000
-      },
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 50000
-      }
-    ],
-    "organizer": "(주)러닝브레이커",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/just-run10-daejeon-second-half-2026",
-    "officialUrl": "https://runten.co.kr/competitions/5c0b58a2-577e-4cc3-8bc5-4234820ea4ab",
     "factsFrom": "모음",
     "checkedAt": "2026-11-02",
     "checkedBy": "수집기"
@@ -2721,32 +2242,6 @@
     "organizer": "대전광역시 서구체육회",
     "sourceUrl": "https://www.kormarathon.com/ko/races/16th-daejeon-seo-gu-mayors-cup-marathon",
     "officialUrl": "https://jgmrun.com",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "global-6k-for-water-in-goyang-2026",
-    "name": "2026 Global 6K for Water in 고양",
-    "date": "2026-11-07",
-    "region": "경기",
-    "distancesKm": [
-      6
-    ],
-    "status": "마감",
-    "venue": "일산호수공원(노래하는 분수대)",
-    "registrationStart": "2026-08-02",
-    "registrationEnd": "2026-09-06",
-    "fees": [
-      {
-        "label": "6km",
-        "distanceKm": 6,
-        "krw": 30000
-      }
-    ],
-    "organizer": "월드비전 경기북부사업본부",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-global-6k-for-water-in-goyang",
-    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLScU6OZL4ktzWfYj4NBwPN8Ot_isALEbxymgtQYj5m_3hxYmFg/viewform?fbzx=6151274521193237300",
     "factsFrom": "모음",
     "checkedAt": "2026-11-02",
     "checkedBy": "수집기"
@@ -3044,32 +2539,6 @@
     ],
     "sourceUrl": "https://www.kormarathon.com/ko/races/winter-run-ab2f3d202bcf42808e796eb00ab9b959",
     "officialUrl": "https://play.google.com/store/apps/details?id=com.kaaf.krun&hl=ko&pli=1",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "mexicana-run-with-pepsi-2026",
-    "name": "2026 멕시카나런 with 펩시",
-    "date": "2026-11-07",
-    "region": "경기",
-    "distancesKm": [
-      5
-    ],
-    "status": "마감",
-    "venue": "파주 출판도시 일대 (지혜의숲 ~ 샛강 산책로)",
-    "registrationStart": "2026-10-12",
-    "registrationEnd": "2026-10-14",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 20000
-      }
-    ],
-    "organizer": "멕시카나치킨",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-mexicana-run-with-pepsi-acc38de66e594a48b2f4121ac4e32b9c",
-    "officialUrl": "https://www.mexicana.co.kr",
     "factsFrom": "모음",
     "checkedAt": "2026-11-03",
     "checkedBy": "수집기"
@@ -3399,47 +2868,6 @@
     "officialUrl": "https://mara1080.com/event/c0c0a4a4-eb54-4f93-a0b8-f21d9b2bd168",
     "factsFrom": "모음",
     "checkedAt": "2026-11-03",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "oncorun-2026",
-    "name": "제2회 온코런",
-    "date": "2026-11-07",
-    "region": "서울",
-    "distancesKm": [
-      3.2,
-      5
-    ],
-    "status": "마감",
-    "venue": "연세대학교 신촌캠퍼스 대운동장",
-    "registrationStart": "2026-09-14",
-    "registrationEnd": "2026-10-16",
-    "organizer": "연세암병원 암예방센터, 연세대학교 스포츠응용산업학과, 서대문구",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2nd-oncorun",
-    "officialUrl": "https://oncorun1885.com",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "seobonggi-short-marathon-2026",
-    "name": "서봉기 단축마라톤대회",
-    "date": "2026-11-06",
-    "region": "경북",
-    "distancesKm": [
-      3,
-      5,
-      10
-    ],
-    "status": "마감",
-    "venue": "문경시민운동장",
-    "registrationStart": "2026-10-15",
-    "registrationEnd": "2026-11-06",
-    "organizer": "문경시육상연맹",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/seobonggi-short-marathon-d164bd5dcb774eebb1c1c3da41246433",
-    "officialUrl": "http://cafe.daum.net/seobongmarathon",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-06",
     "checkedBy": "수집기"
   },
   {
@@ -3991,69 +3419,6 @@
     "checkedBy": "수집기"
   },
   {
-    "id": "ten-bridges-night-walk-festival-in-miryang-2026",
-    "name": "2026 Ten Bridges Night Walk Festival in 밀양",
-    "date": "2026-11-07",
-    "region": "경남",
-    "distancesKm": [
-      10
-    ],
-    "status": "마감",
-    "venue": "밀양시 일원",
-    "registrationStart": "2026-09-21",
-    "registrationEnd": "2026-10-30",
-    "fees": [
-      {
-        "label": "10km",
-        "distanceKm": 10,
-        "krw": 20000
-      }
-    ],
-    "organizer": "밀양시",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-ten-bridges-night-walk-festival-in-miryang-6c379efe597d434fab6f0bbcbdc31274",
-    "officialUrl": "https://www.mywalk.kr",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "mungyeong-legend-trail-baekdudaegan-2026",
-    "name": "2026 문경 레전드 트레일 백두대간",
-    "date": "2026-11-07",
-    "region": "경북",
-    "distancesKm": [
-      21,
-      34,
-      50
-    ],
-    "status": "마감",
-    "venue": "문경새재 야외공연장",
-    "registrationStart": "2026-08-07",
-    "fees": [
-      {
-        "label": "21km",
-        "distanceKm": 21,
-        "krw": 70000
-      },
-      {
-        "label": "34km",
-        "distanceKm": 34,
-        "krw": 90000
-      },
-      {
-        "label": "50km",
-        "distanceKm": 50,
-        "krw": 120000
-      }
-    ],
-    "organizer": "에코라인",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-mungyeong-legend-trail-baekdudaegan-7f1b5e36d32c46ccaeeac82e1abce634",
-    "officialUrl": "http://legendtrail.kr/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
-    "checkedBy": "수집기"
-  },
-  {
     "id": "cheongju-musimcheon-2-day-marathon-sun-2027",
     "name": "2027 전마협 청주 무심천 투데이 마라톤",
     "date": "2027-02-21",
@@ -4270,31 +3635,6 @@
     "organizer": "새마펄스",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-one-more-run-e2a056302708429c915aceb7c34e132b",
     "officialUrl": "https://www.omrun.co.kr/register/",
-    "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
-    "checkedBy": "수집기"
-  },
-  {
-    "id": "egg-run-2026",
-    "name": "2026 에그런",
-    "date": "2026-11-07",
-    "region": "세종",
-    "distancesKm": [
-      5
-    ],
-    "status": "마감",
-    "venue": "국립세종수목원 축제마당",
-    "registrationStart": "2026-09-07",
-    "fees": [
-      {
-        "label": "5km",
-        "distanceKm": 5,
-        "krw": 5000
-      }
-    ],
-    "organizer": "굿네이버스 충청권역, 국립세종수목원",
-    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-egg-run-f2b6229023f54ffd9478fee3d29840ca",
-    "officialUrl": "http://eggrun2026.imweb.me/",
     "factsFrom": "모음",
     "checkedAt": "2026-11-07",
     "checkedBy": "수집기"
