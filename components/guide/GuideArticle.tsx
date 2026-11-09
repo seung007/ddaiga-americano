@@ -155,11 +155,6 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
   return null;
 }
 
-const MADE = {
-  "ai-draft": "AI 초안 · 자동 검증",
-  human: "직접 작성",
-} as const;
-
 export default function GuideArticle({ slug, entry, c, related }: { slug: string; entry: Entry; c: GuideContent; related: Entry[] }) {
   const href = `/injury/${slug}`;
   const url = pageUrl(href);
@@ -179,12 +174,13 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
           <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{entry.title}</h1>
-        {/* ArticleMeta 와 같은 줄 + 만든 방법. 날짜는 원장에서만 */}
+        {/* ArticleMeta 와 같은 줄. 날짜는 원장에서만.
+            만든 방법(「AI 초안 · 자동 검증」)은 화면에 내지 않는다 — 사이트 주인 결정(2026-11-09).
+            c.made 는 그대로 남겨 검증기·check-content 가 읽는다(누가 언제 어떻게 대조했는지의 기록) */}
         <p className="mt-2 mb-4 text-xs text-gray-500">
           {updated && <>최종 수정 {updated}</>}
           {updated && published && published !== updated && <> · 처음 작성 {published}</>}
-          {" · "}뛰다가 아메리카노 · {MADE[c.made.by]}
-          {c.made.by === "ai-draft" && <> (출처 원문 대조 {c.made.verified})</>}
+          {" · "}뛰다가 아메리카노
         </p>
         <Lead><Inline text={c.lead} /></Lead>
         <Summary

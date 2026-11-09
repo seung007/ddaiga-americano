@@ -66,7 +66,7 @@ export type GuideContent = {
   references: Reference[];
   /** 이어서 볼 글 2개(/injury/…) */
   related: string[];
-  /** 만든 방법 — 작성 줄에 그대로 보인다(Google 「어떻게 만들었나」 공개 권고). 사람이 쓴 것처럼 보이지 않게 */
+  /** 만든 방법 — 기록용(검증기·check-content 가 읽음). 2026-11-09 사이트 주인 결정으로 화면에는 내지 않는다 */
   made: { by: "ai-draft" | "human"; verified: string; checker: string };
 };
 
