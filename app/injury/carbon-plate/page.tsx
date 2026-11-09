@@ -49,9 +49,9 @@ import { pageUrl } from "@/lib/site";
 const PAGE_URL = pageUrl("/injury/carbon-plate");
 
 export const metadata: Metadata = {
-  title: "카본화 살까 말까 — 논문이 시험한 속도는 4:17/km부터입니다 | 뛰다가 아메리카노",
+  title: "카본화, 초보가 느리게 뛰어도 효과 있나요? | 뛰다가 아메리카노",
   description:
-    "카본 플레이트 러닝화의 근거가 어디까지인지, 실제 가격이 얼마인지 정리했습니다. 가장 많이 인용되는 논문은 14km/h 이상에서만 측정했습니다.",
+    "가장 많이 인용되는 카본화 연구는 빠른 속도에서만 효과를 쟀습니다. 느리게 뛰는 초보에게도 해당하는지, 지금 가격은 얼마인지 근거와 함께 봅니다.",
   alternates: { canonical: "/injury/carbon-plate" },
 };
 
@@ -70,15 +70,15 @@ const NORMAL_W = avg(NON_CARBON.map((s) => s.weightGramsM9));
 const FAQ: FaqItem[] = [
   {
     q: "카본화를 신으면 정말 빨라지나요?",
-    a: "가장 많이 인용되는 연구(Hoogkamer 2018, Sports Medicine)는 시험한 신발이 대사 에너지 비용을 약 4% 낮췄다고 보고했습니다. 다만 4%는 기록이 4% 빨라진다는 뜻이 아니라 같은 속도로 달릴 때 드는 에너지가 적었다는 뜻입니다. 그리고 그 연구는 14·16·18km/h 세 속도에서만 측정했고, 카본 플레이트 단독 효과를 중창 폼과 분리하지 않았습니다.",
+    a: "시험한 신발이 대사 에너지 비용을 약 4% 낮췄다는 연구가 가장 많이 인용됩니다(Hoogkamer 2018, Sports Medicine). 다만 4%는 기록이 4% 빨라진다는 뜻이 아닙니다. 같은 속도로 달릴 때 드는 에너지가 적었다는 뜻입니다. 그 연구는 14, 16, 18km/h 세 속도에서만 측정했습니다. 카본 플레이트 단독 효과를 중창 폼과 분리하지도 않았습니다.",
   },
   {
     q: "느리게 뛰어도 효과가 있나요?",
-    a: "그 연구로는 알 수 없습니다. 가장 느린 시험 속도가 14km/h로 약 4:17/km인데, 그보다 느린 속도는 아예 측정하지 않았습니다. 효과가 없다는 뜻이 아니라 확인된 바가 없다는 뜻입니다. 인터넷에 도는 '몇 분 페이스 이하부터 효과' 같은 경계선은 대부분 그 논문에 없는 숫자입니다.",
+    a: "그 연구로는 알 수 없습니다. 가장 느린 시험 속도는 14km/h, 약 4:17/km입니다. 그보다 느린 속도는 아예 측정하지 않았습니다. 효과가 없다는 뜻이 아니라 확인된 바가 없다는 뜻입니다. 인터넷에 도는 '몇 분 페이스 이하부터 효과' 같은 경계선은 대부분 그 논문에 없는 숫자입니다.",
   },
   {
-    q: "입문자가 카본화를 신으면 위험한가요?",
-    a: "'위험하다'고 단정할 근거도 부족합니다. 다만 카본화는 밑창이 단단하고 불안정한 편이라 발목·아킬레스에 부담이 갈 수 있고, 무엇보다 지금 시점에 국내 정가가 36만원대라 얻는 것에 비해 비용이 큽니다. 저희 추천 로직은 입문자 프로필에 카본화 점수를 낮춥니다.",
+    q: "초보가 카본화를 신으면 위험한가요?",
+    a: "위험하다고 단정할 근거는 부족합니다. 다만 카본화는 밑창이 단단하고 불안정한 편이라 발목과 아킬레스에 부담이 갈 수 있습니다. 무엇보다 지금 국내 정가가 36만원대라 얻는 것에 비해 비용이 큽니다. 저희 추천 로직은 입문자 프로필에 카본화 점수를 낮춥니다.",
   },
   {
     q: "저희는 카본화를 추천하나요?",
@@ -90,8 +90,8 @@ export default function CarbonPlatePage() {
   return (
     <>
       <ArticleJsonLd
-        headline="카본화 살까 말까 — 논문이 시험한 속도는 4:17/km부터"
-        description="카본 플레이트 러닝화의 근거가 어디까지인지, 실제 가격이 얼마인지 정리했습니다."
+        headline="카본화, 초보가 느리게 뛰어도 효과 있나요?"
+        description="가장 많이 인용되는 카본화 연구는 빠른 속도에서만 효과를 쟀습니다. 느리게 뛰는 초보에게도 해당하는지, 지금 가격은 얼마인지 근거와 함께 봅니다."
         url={PAGE_URL}
         datePublished="2026-09-08"
       />
@@ -110,17 +110,17 @@ export default function CarbonPlatePage() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">카본화</span>
         </div>
-        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">카본화 살까 말까</h1>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">카본화, 초보가 느리게 뛰어도 효과 있나요?</h1>
         <ArticleMeta href="/injury/carbon-plate" />
         <Lead>
-          가장 많이 인용되는 카본화 연구는 <strong>약 4:17/km와 그보다 빠른 속도에서만</strong> 시험했습니다. 그보다 느리게 뛴다면, 그
-          연구로는 효과를 알 수 없습니다.
+          카본화를 신으면 빨라질지 고민이라면, 내 달리기 속도부터 볼 만합니다. 가장 많이 인용되는 카본화 연구는{" "}
+          <strong>약 4:17/km와 그보다 빠른 속도에서만</strong> 시험했습니다. 그보다 느리게 뛴다면 그 연구로는 효과를 알 수 없습니다.
         </Lead>
 
         <Summary
           items={[
             <>
-              그 연구가 시험한 속도는 <strong>14km/h — 약 4:17/km 부터</strong>. 그보다 느린 속도는{" "}
+              그 연구가 시험한 속도는 <strong>14km/h, 약 4:17/km부터</strong>입니다. 그보다 느린 속도는{" "}
               <strong>아예 측정하지 않았습니다.</strong>
               <Basis kind="paper" />
             </>,
@@ -129,7 +129,7 @@ export default function CarbonPlatePage() {
               <Basis kind="paper" />
             </>,
             <>
-              지금 살 수 있는 현행 카본화는 <strong>{won(NOW_MIN)} ~ {won(NOW_MAX)}</strong>. 효과가 확인되지 않은 구간에서 뛰는
+              지금 살 수 있는 현행 카본화는 <strong>{won(NOW_MIN)} ~ {won(NOW_MAX)}</strong>입니다. 효과가 확인되지 않은 속도로 뛰는
               사람에게는 비용이 큽니다.
               <Basis kind="rule" />
             </>,
@@ -138,22 +138,22 @@ export default function CarbonPlatePage() {
 
         <TableOfContents
           items={[
-            { id: "evidence", label: "논문이 말한 것·안 한 것" },
-            { id: "pace", label: "4:17/km은 어느 정도?" },
-            { id: "shoe-list", label: `카본화 ${CARBON.length}개와 가격` },
+            { id: "evidence", label: "카본화 신으면 빨라지나요?" },
+            { id: "pace", label: "4:17/km이면 어느 정도인가요?" },
+            { id: "shoe-list", label: `카본화 ${CARBON.length}개, 얼마인가요?` },
           ]}
         />
 
         {/* ── ① 논문이 말한 것 / 말하지 않은 것 ───────────────── */}
         <h2 id="evidence" className={H2}>
-          카본화 신으면 정말 빨라질까
+          카본화 신으면 정말 빨라지나요?
         </h2>
         <P>
-          가장 많이 인용되는 연구는 시험한 신발이 <strong>에너지를 약 4% 덜 쓰게 했다</strong>고 보고했습니다. 기록이 4% 빨라진다는 뜻은
+          가장 많이 인용되는 연구에서 시험한 신발은 <strong>에너지를 약 4% 덜 쓰게 했습니다.</strong> 기록이 4% 빨라진다는 뜻은
           아닙니다.
         </P>
         <P>
-          그리고 그 연구는 <strong>약 4:17/km보다 느린 속도를 시험하지 않았습니다.</strong>
+          그 연구는 <strong>약 4:17/km보다 느린 속도를 시험하지 않았습니다.</strong>
         </P>
         <p className="mt-2 text-sm text-gray-500">
           <S>(Hoogkamer et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29143929/" />)</S> Sports Medicine 48:1009-1019
@@ -163,28 +163,28 @@ export default function CarbonPlatePage() {
             <p className="text-sm font-bold text-emerald-900">말한 것</p>
             <ul className="mt-2 space-y-2 break-keep text-[15px] leading-relaxed text-emerald-900">
               <li>· 시험한 신발이 <strong>대사 에너지 비용을 약 4% 낮췄다</strong></li>
-              <li>· 측정 속도는 <strong>14 · 16 · 18 km/h</strong></li>
+              <li>· 측정 속도는 <strong>14, 16, 18 km/h</strong></li>
             </ul>
           </div>
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm font-bold text-amber-900">말하지 않은 것</p>
             <ul className="mt-2 space-y-2 break-keep text-[15px] leading-relaxed text-amber-900">
-              <li>· <strong>4:17/km 보다 느린 속도</strong> — 시험 자체를 안 했다</li>
-              <li>· <strong>기록이 4% 빨라진다</strong> — 에너지 비용이지 기록이 아니다</li>
-              <li>· <strong>플레이트 덕분이다</strong> — 중창 폼과 분리하지 않았다</li>
-              <li>· <strong>지금 파는 모델</strong> — 시험한 건 프로토타입과 구형 두 켤레다</li>
+              <li>· <strong>4:17/km보다 느린 속도</strong>는 시험 자체를 안 했다</li>
+              <li>· <strong>기록이 4% 빨라진다</strong>고 하지 않았다. 잰 것은 에너지 비용이다</li>
+              <li>· <strong>플레이트 덕분이다</strong>라고 하지 않았다. 중창 폼과 분리하지 않았다</li>
+              <li>· <strong>지금 파는 모델</strong>은 시험하지 않았다. 시험한 건 프로토타입과 구형 두 켤레다</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-5 break-keep rounded-xl border border-gray-200 bg-gray-50 p-4 text-[15px] leading-relaxed text-gray-700">
-          <strong className="text-gray-900">에너지 반환율 85% · 87% 같은 숫자는</strong> 브랜드가
+          <strong className="text-gray-900">에너지 반환율 85%나 87% 같은 숫자는</strong> 브랜드가
           발표한 값이지 논문 수치가 아닙니다. 브랜드마다 측정 방법이 달라 서로 비교할 수도 없습니다.
         </div>
 
         {/* ── ② 4:17/km 이 어느 정도인가 ──────────────────────── */}
         <h2 id="pace" className={H2}>
-          4:17/km이면 어느 정도 속도일까
+          4:17/km이면 어느 정도 빠른 건가요?
         </h2>
         <P>
           10km를 <strong>43분</strong>, 하프를 <strong>1시간 30분</strong>, 풀코스를 <strong>3시간 1분</strong>에 완주하는
@@ -194,7 +194,7 @@ export default function CarbonPlatePage() {
           이보다 느리게 달린다면 그 연구의 결과가 나에게 적용된다고 말할 근거가 없습니다.{" "}
           <strong>효과가 없다는 게 아니라 확인이 안 됐다</strong>는 겁니다.
         </P>
-        <Note>그 구간에서 효과를 본 사람도 있을 수 있고, 그건 아직 데이터가 아닙니다.</Note>
+        <Note>그 속도에서 효과를 본 사람도 있을 수 있습니다. 다만 그건 아직 데이터가 아닙니다.</Note>
         <P>
           지금 내가 어느 단계인지 모르겠다면{" "}
           <Link href="/tier-list" className="font-medium text-emerald-600 hover:underline">
@@ -211,7 +211,7 @@ export default function CarbonPlatePage() {
 
         {/* ── ③ 실제 가격 ────────────────────────────────────── */}
         <h2 id="shoe-list" className={H2}>
-          저희가 확인한 카본화 {CARBON.length}개, 얼마일까
+          저희가 확인한 카본화 {CARBON.length}개, 얼마인가요?
         </h2>
         <P>
           현행(후속 미출시) {CARBON_NOW.length}개는 <strong>{won(NOW_MIN)}부터</strong>입니다. 평균 무게는 {CARBON_W.toFixed(0)}g 으로
@@ -232,7 +232,7 @@ export default function CarbonPlatePage() {
         {CARBON.length > CARBON_NOW.length && (
           <details className="mt-3">
             <summary className="cursor-pointer text-xs text-gray-500">
-              후속 모델이 나온 {CARBON.length - CARBON_NOW.length}개도 보기 — 보통 재고 할인이 붙습니다
+              후속 모델이 나온 {CARBON.length - CARBON_NOW.length}개도 보기(보통 재고 할인이 붙습니다)
             </summary>
             <ul className="mt-2 space-y-1.5">
               {CARBON.filter((s) => s.successor)
@@ -265,8 +265,8 @@ export default function CarbonPlatePage() {
         </div>
 
         <div className="mt-8 break-keep rounded-xl border border-amber-100 bg-amber-50 p-4 text-[15px] leading-relaxed text-amber-900">
-          <strong>부상 얘기:</strong> 카본화가 부상을 늘린다는 근거도, 줄인다는 근거도 충분하지 않습니다. 다만 밑창이 단단하고 높아 발목이
-          불안정하게 느껴질 수 있으니, 처음 신는다면 짧은 거리부터 늘려가세요. 통증이 지속되면 전문의와 상담하세요.
+          <strong>카본화 신으면 다치지 않을까요?</strong> 카본화가 부상을 늘린다는 근거도, 줄인다는 근거도 충분하지 않습니다. 다만 밑창이
+          단단하고 높아 발목이 불안정하게 느껴질 수 있습니다. 처음 신는다면 짧은 거리부터 늘려가세요. 통증이 지속되면 전문의와 상담하세요.
         </div>
 
         <div className="mt-14">
@@ -296,8 +296,8 @@ export default function CarbonPlatePage() {
 
         <div className="mt-10">
           <ShareButtons
-            title="카본화 살까 말까 — 논문이 시험한 속도는 4:17/km부터"
-            description="카본 플레이트 러닝화의 근거가 어디까지인지 확인했습니다."
+            title="카본화, 초보가 느리게 뛰어도 효과 있나요?"
+            description="가장 많이 인용되는 카본화 연구는 빠른 속도에서만 효과를 쟀습니다. 느리게 뛰는 초보에게도 해당하는지, 지금 가격은 얼마인지 근거와 함께 봅니다."
             from="carbon-plate"
           />
         </div>
@@ -306,7 +306,7 @@ export default function CarbonPlatePage() {
           <FinderCta
             from="carbon-plate"
             headline="지금 수준에 맞는 신발부터 보시는 게 낫습니다"
-            sub="발볼·발 타입·부상 이력·목표를 넣으면 3개를 골라드려요."
+            sub="발볼, 발 타입, 부상 이력, 목표를 넣으면 3개를 골라드려요."
           />
         </div>
       </article>
