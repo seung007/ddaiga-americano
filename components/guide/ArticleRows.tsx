@@ -12,7 +12,7 @@ export function ArticleRows({ items }: { items: GuideArticle[] }) {
         <li key={a.href}>
           <Link href={a.href} className="group flex items-start gap-3 py-3.5">
             <span className="min-w-0 flex-1">
-              <span className="block break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
+              <span className="block break-keep text-base font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
                 {a.title}
               </span>
               <span className="mt-0.5 line-clamp-2 break-keep text-sm text-gray-500">{a.desc}</span>
@@ -40,7 +40,7 @@ export function Pager({ base, page, pages }: { base: string; page: number; pages
           href={href(n)}
           aria-current={n === page ? "page" : undefined}
           className={`min-w-9 rounded-lg border px-3 py-1.5 text-center text-sm ${
-            n === page ? "border-emerald-600 bg-emerald-600 font-semibold text-white" : "border-gray-200 text-gray-700 hover:border-emerald-300"
+            n === page ? "border-emerald-600 bg-ink font-semibold text-white" : "border-gray-200 text-gray-700 hover:border-emerald-300"
           }`}
         >
           {n}

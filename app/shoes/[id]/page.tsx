@@ -114,7 +114,7 @@ function Position({ value, all, unit, low, high }: { value: number; all: number[
   return (
     <span className="mt-1 block">
       <span className="relative block h-1.5 rounded-full bg-gray-100" aria-hidden>
-        <span className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-emerald-600" style={{ left: `${pos}%` }} />
+        <span className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-ink" style={{ left: `${pos}%` }} />
       </span>
       <span className="mt-1 block text-xs text-gray-500">
         {xs.length}켤레 중 {where} · 범위 {min}~{max}

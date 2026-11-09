@@ -85,8 +85,8 @@ function Badges({ weight, basis }: { weight: Weight; basis: Ground }) {
   const b = GROUND_STYLE[basis];
   return (
     <>
-      <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${w.cls}`}>{w.label}</span>
-      <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${b.cls}`}>{b.label}</span>
+      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${w.cls}`}>{w.label}</span>
+      <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${b.cls}`}>{b.label}</span>
     </>
   );
 }
@@ -108,11 +108,11 @@ function Item({
           <span className="mb-1.5 flex flex-wrap items-center gap-1.5">
             <Badges weight={weight} basis={basis} />
           </span>
-          <span className="block break-keep text-[15px] font-semibold text-gray-900">{title}</span>
+          <span className="block break-keep text-base font-semibold text-gray-900">{title}</span>
         </span>
         <span aria-hidden className="mt-1 shrink-0 text-gray-400 transition-transform group-open/item:rotate-90">›</span>
       </summary>
-      <div className="mt-2 space-y-2 break-keep text-[15px] leading-[1.75] text-gray-700">{children}</div>
+      <div className="mt-2 space-y-2 break-keep text-base leading-[1.75] text-gray-700">{children}</div>
     </details>
   );
 }
@@ -176,13 +176,13 @@ export default function Page() {
             바세린을 어디에 바르는지 시험한 임상연구는 찾지 못했기 때문입니다.
           </p>
           <div className="mt-2.5 flex flex-wrap gap-1.5">
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">필수</span>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">추천</span>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">취향</span>
-            <span className="mx-1 text-gray-300">|</span>
-            <span className="text-[11px] font-medium px-2 py-0.5 rounded-full border border-emerald-300 text-emerald-700 bg-emerald-50">연구 근거</span>
-            <span className="text-[11px] font-medium px-2 py-0.5 rounded-full border border-blue-200 text-blue-700 bg-blue-50">통용 관행</span>
-            <span className="text-[11px] font-medium px-2 py-0.5 rounded-full border border-violet-200 text-violet-700 bg-violet-50">직접 경험</span>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">필수</span>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">추천</span>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">취향</span>
+            <span className="mx-1 text-gray-500">|</span>
+            <span className="text-xs font-medium px-2 py-0.5 rounded-full border border-emerald-300 text-emerald-700 bg-emerald-50">연구 근거</span>
+            <span className="text-xs font-medium px-2 py-0.5 rounded-full border border-blue-200 text-blue-700 bg-blue-50">통용 관행</span>
+            <span className="text-xs font-medium px-2 py-0.5 rounded-full border border-violet-200 text-violet-700 bg-violet-50">직접 경험</span>
           </div>
           <p className="mt-2.5 break-keep text-xs leading-relaxed text-gray-500">
             <strong>&lsquo;직접 경험&rsquo;은 한 사람의 표본 1입니다.</strong> 참고로 쓰되 연구로 확인한 것과 같은 무게로 읽지 마세요.
@@ -600,7 +600,7 @@ export default function Page() {
           </p>
           <Link
             href="/tools/pace"
-            className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+            className="shrink-0 rounded-lg bg-ink px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
           >
             페이스 계산기 →
           </Link>
@@ -847,7 +847,7 @@ export default function Page() {
             길들이지 않은 신발은 물집 위험을 키울 수 있습니다.<Basis kind="rule" />{" "}
             체형과 발 조건을 넣으면 맞는 신발을 추려드립니다.
           </p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

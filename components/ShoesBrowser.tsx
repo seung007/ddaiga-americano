@@ -185,7 +185,7 @@ export default function ShoesBrowser() {
                 if (!mine) gtagEvent("shoes_my_filter", { from: "shoes" });
               }}
               className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-                mine ? "bg-emerald-600 text-white" : "border border-emerald-400 bg-white text-emerald-700"
+                mine ? "bg-ink text-white" : "border border-emerald-400 bg-white text-emerald-700"
               }`}
             >
               {mine ? "켜짐" : "켜기"}
@@ -198,7 +198,7 @@ export default function ShoesBrowser() {
             </p>
             <Link
               href="/shoe-finder"
-              className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
+              className="rounded-full bg-ink px-4 py-1.5 text-sm font-semibold text-white hover:bg-neutral-800"
             >
               질문 8개 답하기 →
             </Link>
@@ -279,7 +279,7 @@ export default function ShoesBrowser() {
                     type="button"
                     onClick={() => toggleLike(s.id)}
                     aria-label={liked.includes(s.id) ? "찜 해제" : "찜하기"}
-                    className={`absolute right-2 top-2 z-10 text-lg ${liked.includes(s.id) ? "text-red-500" : "text-gray-300 hover:text-gray-400"}`}
+                    className={`absolute right-2 top-2 z-10 text-lg ${liked.includes(s.id) ? "text-red-500" : "text-gray-500 hover:text-gray-400"}`}
                   >
                     ♥
                   </button>
@@ -301,14 +301,14 @@ export default function ShoesBrowser() {
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {s.uses.map((u) => (
-                        <span key={u} className="rounded bg-gray-100 px-1.5 py-0.5 text-[11px] text-gray-600">
+                        <span key={u} className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600">
                           {USE_KO[u]}
                         </span>
                       ))}
-                      {hasWide(s) && <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[11px] text-blue-700">와이드</span>}
-                      {s.hasCarbon && <span className="rounded bg-gray-900 px-1.5 py-0.5 text-[11px] text-white">카본</span>}
+                      {hasWide(s) && <span className="rounded bg-blue-50 px-1.5 py-0.5 text-xs text-blue-700">와이드</span>}
+                      {s.hasCarbon && <span className="rounded bg-gray-900 px-1.5 py-0.5 text-xs text-white">카본</span>}
                       {s.successor && (
-                        <span className="rounded bg-amber-50 px-1.5 py-0.5 text-[11px] text-amber-700">후속 출시</span>
+                        <span className="rounded bg-amber-50 px-1.5 py-0.5 text-xs text-amber-700">후속 출시</span>
                       )}
                     </div>
                     {r?.reason && <p className="mt-2 text-xs leading-snug text-emerald-800">{r.reason}</p>}

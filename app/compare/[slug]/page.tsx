@@ -227,7 +227,7 @@ export default async function ComparePage({
                 후속작 안내를 달아두면, 여기로 바로 들어온 사람은 구형인 줄 모르고
                 비교하고 나간다. 같은 정보를 같은 자리에서 보여줘야 한다. */}
             {shoe.successor && (
-              <p className="mt-1.5 text-[11px] font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
+              <p className="mt-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
                 후속 {shoe.successor} 출시됨
               </p>
             )}
@@ -401,7 +401,7 @@ export default async function ComparePage({
                   rel="noopener noreferrer"
                   className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-colors ${
                     link.isOfficial
-                      ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                      ? "bg-ink hover:bg-neutral-800 text-white"
                       : "bg-gray-700 hover:bg-gray-800 text-white"
                   }`}
                 >
@@ -441,7 +441,7 @@ export default async function ComparePage({
         </p>
         <Link
           href="/shoe-finder"
-          className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
+          className="inline-flex items-center gap-2 bg-ink hover:bg-neutral-800 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
         >
           내 발에 맞는 러닝화 찾기 →
         </Link>
@@ -531,7 +531,7 @@ function NotFound({ message }: { message: string }) {
       <p className="text-sm text-gray-500 mb-6">{message}</p>
       <Link
         href="/shoe-finder"
-        className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-emerald-700 transition-colors"
+        className="inline-flex items-center gap-2 bg-ink text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-neutral-800 transition-colors"
       >
         내 발에 맞는 신발 찾기 →
       </Link>

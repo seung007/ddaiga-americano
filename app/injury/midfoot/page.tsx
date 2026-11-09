@@ -95,7 +95,7 @@ export default function Page() {
           힐스트라이크 · 미드풋 · 포어풋, 뭐가 달라요?
         </h2>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="border-b border-gray-200 text-left">
                 <th className="py-2 pr-3 font-semibold text-gray-900">착지법</th>
@@ -138,25 +138,25 @@ export default function Page() {
         </h2>
         <div className="mt-5 space-y-3">
           <div className="rounded-xl border border-gray-200 p-4">
-            <p className="mb-1 text-[15px] font-semibold text-gray-900">
+            <p className="mb-1 text-base font-semibold text-gray-900">
               1. 신발 밑창을 본다 (제일 쉬움)
               <Basis kind="rule" />
             </p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               오래 신은 러닝화를 뒤집어 보세요. <strong>뒤꿈치 바깥쪽만 닳아 있으면 힐스트라이크에 가깝다</strong>고 흔히 봅니다.
               연구로 확인된 방법은 아니고 대략의 단서입니다. 그렇다고 잘못 뛰고 있는 건 아닙니다.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
-            <p className="mb-1 text-[15px] font-semibold text-gray-900">2. 옆에서 영상을 찍는다</p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="mb-1 text-base font-semibold text-gray-900">2. 옆에서 영상을 찍는다</p>
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               누군가에게 옆에서 슬로우모션으로 찍어 달라고 하세요. 요즘 폰은 대부분 됩니다. 어디로 닿는지와 함께 발이{" "}
               <strong>몸보다 얼마나 앞에서 닿는지</strong>도 보세요.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
-            <p className="mb-1 text-[15px] font-semibold text-gray-900">3. 발소리로는 판단하기 어렵습니다</p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="mb-1 text-base font-semibold text-gray-900">3. 발소리로는 판단하기 어렵습니다</p>
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               발소리가 크면 착지가 잘못됐다고 생각하기 쉽습니다. 하지만 러너 30명의 실험에서는 미드풋·포어풋 착지가 뒤꿈치 착지보다
               소리가 더 컸습니다. <strong>소리만으로 착지 위치나 충격을 판단하지 마세요.</strong>
             </p>
@@ -342,7 +342,7 @@ export default function Page() {
 
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
           <p className="mb-2 font-medium text-emerald-900">내 발에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

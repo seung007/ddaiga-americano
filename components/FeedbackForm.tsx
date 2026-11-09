@@ -66,7 +66,7 @@ export default function FeedbackForm({ shoeIds, bodyType }: FeedbackFormProps) {
               </button>
             ))}
           </div>
-          <span className={`text-sm font-medium h-5 transition-colors ${activeRating ? "text-amber-600" : "text-gray-300"}`}>
+          <span className={`text-sm font-medium h-5 transition-colors ${activeRating ? "text-amber-600" : "text-gray-500"}`}>
             {LABELS[activeRating]}
           </span>
         </div>
@@ -88,7 +88,7 @@ export default function FeedbackForm({ shoeIds, bodyType }: FeedbackFormProps) {
         <button
           type="submit"
           disabled={rating === 0 || status === "submitting"}
-          className="w-full rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+          className="w-full rounded-xl bg-ink py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
         >
           {status === "submitting" ? "전송 중…" : "의견 보내기"}
         </button>

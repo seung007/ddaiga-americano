@@ -87,7 +87,7 @@ export default function AdvancedGuidePage() {
             페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mt-8 rounded-2xl border border-red-100 bg-red-50 p-5">
           <h2 id="who" className="break-keep text-base font-bold text-red-900">이 글은 누구를 위한 글인가 — 고수준(high caliber) 정의</h2>
-          <ul className="mt-3 space-y-1.5 text-[15px] text-red-800">
+          <ul className="mt-3 space-y-1.5 text-base text-red-800">
             <li>• 주 1회 이상 꾸준히 달린 기간 <strong>3년 초과</strong></li>
             <li>• 일주일에 <strong>5회 이상</strong></li>
             <li>• 주간 거리 <strong>50km 초과</strong></li>
@@ -213,7 +213,7 @@ export default function AdvancedGuidePage() {
         </P>
         <Note>주기화가 부상을 줄인다는 연구는 찾지 못했습니다.</Note>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-sm">
                 <th className="whitespace-nowrap p-2.5 text-left">단계</th>
@@ -327,7 +327,7 @@ export default function AdvancedGuidePage() {
 
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6 text-center">
           <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼·사이즈가 맞는지는 확인해 보세요</p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800">
             내 발에 맞는 신발 찾기 →
           </Link>
         </div>

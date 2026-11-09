@@ -174,14 +174,14 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
                   ) : (
                     <span className="text-amber-700">날짜 미정</span>
                   )}
-                  <span className="mx-1.5 text-gray-300">·</span>
+                  <span className="mx-1.5 text-gray-500">·</span>
                   {r.venue ? `${r.region} · ${r.venue}` : r.region}
                 </p>
                 <p className="mt-1 text-sm text-gray-600">
                   {distances}
                   {r.registrationEnd && s !== "마감" && (
                     <>
-                      <span className="mx-1.5 text-gray-300">·</span>
+                      <span className="mx-1.5 text-gray-500">·</span>
                       접수 ~{r.registrationEnd.slice(5).replace("-", "/")}
                     </>
                   )}

@@ -225,7 +225,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
           <button
             onClick={addShoe}
             disabled={!pick && !custom.trim()}
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:bg-gray-300"
+            className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:bg-gray-300"
           >
             등록
           </button>
@@ -253,7 +253,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
                 <div className={`h-2.5 rounded-full ${total >= KEY_KM ? "bg-amber-500" : "bg-emerald-500"}`} style={{ width: `${pct}%` }} />
               </div>
               {/* 눈금은 0~640km 선형 축 위 실제 위치에 둔다(justify-between 이면 160 이 왼쪽 끝에 붙는다) */}
-              <div className="relative mb-3 h-4 text-[11px] text-gray-400">
+              <div className="relative mb-3 h-4 text-xs text-gray-400">
                 {MARKS.map((m) => (
                   <span
                     key={m}
@@ -358,7 +358,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
       )}
       {notice && <p className="mt-2 text-xs text-amber-800">{notice}</p>}
 
-      <p className="mt-4 text-[11px] leading-relaxed text-gray-500">
+      <p className="mt-4 text-xs leading-relaxed text-gray-500">
         기록은 이 기기의 이 브라우저에만 저장되고 서버로 보내지 않습니다. 다른 기기에서는 보이지 않고, 브라우저의 사이트 데이터를 지우면
         사라집니다 — 옮기거나 보관하려면 파일로 내보내세요. 여러 사람이 쓰는 PC라면 다 쓴 뒤 「전부 지우기」를 누르세요.
         {!storageOk && " 지금 브라우저에서는 저장이 막혀 있어 새로고침하면 기록이 사라집니다(사생활 보호 모드 등)."}

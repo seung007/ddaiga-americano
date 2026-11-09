@@ -146,7 +146,7 @@ export default function RaceReactions({
           type="button"
           onClick={() => send(false)}
           disabled={sending}
-          className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400"
+          className="mt-3 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 disabled:bg-gray-200 disabled:text-gray-400"
         >
           {sending ? "…" : "🙋 나가요"}
         </button>
@@ -154,7 +154,7 @@ export default function RaceReactions({
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+          className="mt-3 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800"
         >
           🏅 다녀왔어요
         </button>
@@ -171,7 +171,7 @@ export default function RaceReactions({
                     aria-pressed={distance === d}
                     onClick={() => setDistance(distance === d ? "" : d)}
                     className={`rounded-full border px-3 py-1 text-sm ${
-                      distance === d ? "border-emerald-600 bg-emerald-600 text-white" : "border-gray-300 text-gray-700"
+                      distance === d ? "border-emerald-600 bg-ink text-white" : "border-gray-300 text-gray-700"
                     }`}
                   >
                     {d}
@@ -203,7 +203,7 @@ export default function RaceReactions({
             type="button"
             onClick={() => send(true)}
             disabled={sending}
-            className="self-start rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400"
+            className="self-start rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 disabled:bg-gray-200 disabled:text-gray-400"
           >
             {sending ? "남기는 중…" : "남기기"}
           </button>

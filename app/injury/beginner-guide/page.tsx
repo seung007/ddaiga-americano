@@ -107,7 +107,7 @@ export default function BeginnerGuidePage() {
             페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mt-8 rounded-2xl border border-green-100 bg-green-50 p-5">
           <h2 className="text-base font-bold text-green-900">초심자 기준 — 입문(novice) 정의</h2>
-          <ul className="mt-3 space-y-1.5 text-[15px] text-green-800">
+          <ul className="mt-3 space-y-1.5 text-base text-green-800">
             <li>• 주 1회 이상 꾸준히 달린 기간 <strong>1년 미만</strong></li>
             <li>• 일주일에 <strong>0~3회</strong></li>
             <li>• 주간 거리 <strong>5~20km</strong></li>
@@ -135,7 +135,7 @@ export default function BeginnerGuidePage() {
           더 근거가 있는 기준은 <strong>한 번에 달리는 거리</strong>입니다. 성인 러너 5,205명을 18개월 추적한 한 연구에서, 한 번 달린
           거리가 지난 30일 최장 거리보다 10% 넘게 길면 과사용 부상이 더 많았습니다.
         </P>
-        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-[15px] leading-[1.7] text-emerald-900">
+        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-base leading-[1.7] text-emerald-900">
           예) 지난 한 달 가장 길게 뛴 날이 <strong>5km</strong>였다면 → 다음 긴 날은 <strong>5.5km까지</strong>.
         </div>
         <Note>초보만 모은 연구는 아닙니다(평균 45.8세).</Note>
@@ -178,10 +178,10 @@ export default function BeginnerGuidePage() {
           <div className="rounded-xl border border-red-200 bg-red-50 p-4">
             <p className="font-semibold text-gray-900">슬개대퇴 증후군 (러너 무릎)</p>
             <p className="mt-0.5 text-xs text-gray-500">발생 빈도: 부상당한 초보 러너의 약 10% · 빈도 Nielsen et al. (2014) PLOS ONE</p>
-            <p className="mt-2 break-keep text-[15px] leading-[1.7] text-gray-800">
+            <p className="mt-2 break-keep text-base leading-[1.7] text-gray-800">
               <span className="font-medium">원인:</span> 분명하지 않습니다.
             </p>
-            <p className="mt-1 break-keep text-[15px] leading-[1.7] text-gray-800">
+            <p className="mt-1 break-keep text-base leading-[1.7] text-gray-800">
               <span className="font-medium">대처:</span> 대퇴사두근·엉덩이 근육 강화 운동.
               <Basis kind="paper" /> 긴 날을 한꺼번에 늘리지 않기.
               <Basis kind="rule" />
@@ -206,11 +206,11 @@ export default function BeginnerGuidePage() {
           <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
             <p className="font-semibold text-gray-900">정강이 통증 (신스플린트)</p>
             <p className="mt-0.5 text-xs text-gray-500">발생 빈도: 부상당한 초보 러너의 약 15% · 빈도 Nielsen et al. (2014) PLOS ONE</p>
-            <p className="mt-2 break-keep text-[15px] leading-[1.7] text-gray-800">
+            <p className="mt-2 break-keep text-base leading-[1.7] text-gray-800">
               <span className="font-medium">원인:</span> 체질량지수가 높은 것, 발 아치가 많이 내려앉는 것 등이 위험 요인으로
               꼽힙니다. 노면의 영향은 확인된 연구가 없습니다.
             </p>
-            <p className="mt-1 break-keep text-[15px] leading-[1.7] text-gray-800">
+            <p className="mt-1 break-keep text-base leading-[1.7] text-gray-800">
               <span className="font-medium">대처:</span> 권할 만큼 효과가 확실히 검증된 치료는 아직 없습니다. 통증이 줄 때까지 거리를
               줄이고<Basis kind="rule" />, <strong>계속되면 진료를 받으세요.</strong>
             </p>
@@ -237,10 +237,10 @@ export default function BeginnerGuidePage() {
               <Basis kind="rule" />
             </p>
             <p className="mt-0.5 text-xs text-gray-500">발생 빈도: 초보에게 흔함 (정확한 비율은 확인된 자료 없음) · 인용 없음</p>
-            <p className="mt-2 break-keep text-[15px] leading-[1.7] text-gray-800">
+            <p className="mt-2 break-keep text-base leading-[1.7] text-gray-800">
               <span className="font-medium">원인:</span> 사이즈 미스매치, 양말 소재 불량, 긴 발톱
             </p>
-            <p className="mt-1 break-keep text-[15px] leading-[1.7] text-gray-800">
+            <p className="mt-1 break-keep text-base leading-[1.7] text-gray-800">
               <span className="font-medium">대처:</span> 러닝화는 엄지발가락 1cm 여유, 기능성 양말 착용, 발톱 짧게 유지
             </p>
           </div>
@@ -299,7 +299,7 @@ export default function BeginnerGuidePage() {
           <Basis kind="rule" />
         </P>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">요일</th>
@@ -337,7 +337,7 @@ export default function BeginnerGuidePage() {
             12편 11,240명을 모은 고찰에서 신발 종류를 바꿔 부상이 줄었다는 결과는 대부분 확인되지 않았습니다{" "}
             <S>(Relph et al. (2022) <Up h="https://pubmed.ncbi.nlm.nih.gov/35993829/" />)</S>
           </p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

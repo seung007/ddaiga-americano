@@ -231,7 +231,7 @@ export default function CourseMapKakao({
         {state === "ready" && course.map.route && (
           <div ref={badgeRef} className="pointer-events-none absolute left-3 top-3 z-10 rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
             편도 {course.map.route.km}km
-            <span className="mx-1.5 font-normal text-gray-300">|</span>
+            <span className="mx-1.5 font-normal text-gray-500">|</span>
             <span className="text-emerald-700">왕복 {(course.map.route.km * 2).toFixed(1)}km</span>
           </div>
         )}

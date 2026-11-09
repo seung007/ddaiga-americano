@@ -202,12 +202,12 @@ export default function Page() {
             <span className="rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700">통용 관행</span>
             <span className="rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">논문 근거 아님</span>
           </div>
-          <p className="break-keep text-[15px] leading-[1.75] text-gray-700">
+          <p className="break-keep text-base leading-[1.75] text-gray-700">
             <strong className="text-gray-900">개별 동작의 폼은 논문에서 가져온 것이 아닙니다.</strong> &ldquo;무릎을 몇 도까지 올려야
             한다&rdquo; 같은 수치를 뒷받침하는 연구를 확인하지 않았고, 그래서 그림에 각도를 적지 않았습니다. 러닝 코칭에서 널리 쓰이는
             동작을 알아보기 쉽게 그린 것입니다.
           </p>
-          <p className="mt-3 break-keep text-[15px] leading-[1.75] text-gray-700">
+          <p className="mt-3 break-keep text-base leading-[1.75] text-gray-700">
             근거가 있는 쪽은 <strong className="text-gray-900">&ldquo;달리기 전에는 정적보다 동적&rdquo;이라는 방향</strong>까지입니다. 그
             이상으로 &ldquo;이 순서가 최적&rdquo;이라거나 &ldquo;이 루틴이 부상을 줄인다&rdquo;고는 말하지 않겠습니다 — 동적 스트레칭과
             부상의 관계는 위 고찰(Behm 2016)에도 자료가 없었습니다.
@@ -295,7 +295,7 @@ export default function Page() {
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

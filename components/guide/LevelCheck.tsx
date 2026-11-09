@@ -91,7 +91,7 @@ function Chips<T extends string>({
           onClick={() => onPick(o.id)}
           className={`rounded-full border px-3 py-1.5 text-left text-sm transition-colors ${
             value === o.id
-              ? "border-emerald-600 bg-emerald-600 text-white"
+              ? "border-emerald-600 bg-ink text-white"
               : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
           }`}
         >

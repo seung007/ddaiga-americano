@@ -162,7 +162,7 @@ export default function ReturnToRunningPage() {
               <p className="text-xs text-red-800">위험</p>
             </div>
           </div>
-          <p className="mt-3 text-[15px] leading-relaxed text-gray-700">
+          <p className="mt-3 text-base leading-relaxed text-gray-700">
             조건: <strong>다음 날 아침에는 가라앉아 있을 것.</strong>
           </p>
         </div>
@@ -266,7 +266,7 @@ export default function ReturnToRunningPage() {
           한 달을 쉬었다면 &lsquo;지난 30일 최장 거리&rsquo;는 0에 가깝습니다. 부상 전 15km를 달렸어도 기준은 지금입니다.
         </P>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">단계</th>

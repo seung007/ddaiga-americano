@@ -124,7 +124,7 @@ export default function InlineAsk({
         <div className="mt-3 flex flex-wrap gap-2">
           <Link
             href="/shoe-finder"
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+            className="rounded-lg bg-ink px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
           >
             내 신발 찾기 →
           </Link>
@@ -174,7 +174,7 @@ export default function InlineAsk({
           <button
             type="submit"
             disabled={tooShort || state === "sending"}
-            className="shrink-0 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:bg-gray-300"
+            className="shrink-0 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 disabled:bg-gray-300"
           >
             {state === "sending" ? "올리는 중…" : "남기기 →"}
           </button>

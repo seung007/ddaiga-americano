@@ -254,7 +254,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               <Link
                 href="/shoe-finder"
-                className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+                className="rounded-lg bg-ink px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
               >
                 내 신발 찾기 →
               </Link>
@@ -309,7 +309,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
                 <p id="q-question-help" className="text-xs text-gray-400 leading-relaxed">
                   이 칸만 채우면 등록돼요. 말하듯이 편하게 적어주세요.
                 </p>
-                <span className="text-xs text-gray-300 shrink-0 tabular-nums" aria-hidden="true">
+                <span className="text-xs text-gray-500 shrink-0 tabular-nums" aria-hidden="true">
                   {question.length}/{QUESTION_MAX}
                 </span>
               </div>
@@ -333,7 +333,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
                       className={`block px-3 py-1.5 rounded-full text-sm border transition-colors
                         peer-focus-visible:ring-2 peer-focus-visible:ring-emerald-300
                         ${tag === t
-                          ? "bg-emerald-600 text-white border-emerald-600"
+                          ? "bg-ink text-white border-emerald-600"
                           : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}
                     >
                       {t}
@@ -415,7 +415,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
 
             <button
               type="submit" disabled={submitting}
-              className="w-full rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors disabled:bg-gray-200 disabled:text-gray-400"
+              className="w-full rounded-xl bg-ink py-3 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors disabled:bg-gray-200 disabled:text-gray-400"
             >
               {submitting ? "올리는 중…" : "남기기 →"}
             </button>
@@ -471,7 +471,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
             <button key={t} onClick={() => setActiveTag(t)}
               className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
                 ${activeTag === t
-                  ? "bg-emerald-600 text-white border-emerald-600"
+                  ? "bg-ink text-white border-emerald-600"
                   : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
               {t}
               {t !== "전체" && <span className="ml-1 text-xs opacity-70">
@@ -536,7 +536,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
                       {post.tag}
                     </span>
                     {post.answer && (
-                      <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                      <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-ink text-white">
                         ✓ 운영자 답변
                       </span>
                     )}
@@ -555,17 +555,17 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
                   )}
                   <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
                     <span>{post.nickname || "익명"}</span>
-                    <span className="text-gray-300">·</span>
+                    <span className="text-gray-500">·</span>
                     <span>{timeAgo(post.created_at)}</span>
                     {cc !== undefined && cc > 0 && (
                       <>
-                        <span className="text-gray-300">·</span>
+                        <span className="text-gray-500">·</span>
                         <span>💬 {cc}</span>
                       </>
                     )}
                     {post.likes > 0 && (
                       <>
-                        <span className="text-gray-300">·</span>
+                        <span className="text-gray-500">·</span>
                         <span>🤍 {post.likes}</span>
                       </>
                     )}

@@ -161,14 +161,14 @@ export default function CarbonPlatePage() {
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
             <p className="text-sm font-bold text-emerald-900">말한 것</p>
-            <ul className="mt-2 space-y-2 break-keep text-[15px] leading-relaxed text-emerald-900">
+            <ul className="mt-2 space-y-2 break-keep text-base leading-relaxed text-emerald-900">
               <li>· 시험한 신발이 <strong>대사 에너지 비용을 약 4% 낮췄다</strong></li>
               <li>· 측정 속도는 <strong>14 · 16 · 18 km/h</strong></li>
             </ul>
           </div>
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm font-bold text-amber-900">말하지 않은 것</p>
-            <ul className="mt-2 space-y-2 break-keep text-[15px] leading-relaxed text-amber-900">
+            <ul className="mt-2 space-y-2 break-keep text-base leading-relaxed text-amber-900">
               <li>· <strong>4:17/km 보다 느린 속도</strong> — 시험 자체를 안 했다</li>
               <li>· <strong>기록이 4% 빨라진다</strong> — 에너지 비용이지 기록이 아니다</li>
               <li>· <strong>플레이트 덕분이다</strong> — 중창 폼과 분리하지 않았다</li>
@@ -177,7 +177,7 @@ export default function CarbonPlatePage() {
           </div>
         </div>
 
-        <div className="mt-5 break-keep rounded-xl border border-gray-200 bg-gray-50 p-4 text-[15px] leading-relaxed text-gray-700">
+        <div className="mt-5 break-keep rounded-xl border border-gray-200 bg-gray-50 p-4 text-base leading-relaxed text-gray-700">
           <strong className="text-gray-900">에너지 반환율 85% · 87% 같은 숫자는</strong> 브랜드가
           발표한 값이지 논문 수치가 아닙니다. 브랜드마다 측정 방법이 달라 서로 비교할 수도 없습니다.
         </div>
@@ -219,7 +219,7 @@ export default function CarbonPlatePage() {
         </P>
         <ul className="mt-4 space-y-1.5">
           {CARBON_NOW.sort((a, b) => a.priceKrw - b.priceKrw).map((s) => (
-            <li key={s.id} className="break-keep text-[15px]">
+            <li key={s.id} className="break-keep text-base">
               <span className="font-medium text-gray-900">
                 {s.brand} {s.model}
               </span>
@@ -255,7 +255,7 @@ export default function CarbonPlatePage() {
             저희 추천은 카본화를 이렇게 다룹니다
             <Basis kind="rule" />
           </p>
-          <p className="mt-2 break-keep text-[15px] leading-relaxed text-gray-700">
+          <p className="mt-2 break-keep text-base leading-relaxed text-gray-700">
             입문자 프로필에서는 카본화 점수를 <strong>깎습니다.</strong> 근거가 확인된 속도 구간 밖이고 가격이 높기 때문입니다. 목표
             기록이 있고 훈련량이 쌓인 프로필에서는 후보에 남습니다.
           </p>
@@ -264,7 +264,7 @@ export default function CarbonPlatePage() {
           </p>
         </div>
 
-        <div className="mt-8 break-keep rounded-xl border border-amber-100 bg-amber-50 p-4 text-[15px] leading-relaxed text-amber-900">
+        <div className="mt-8 break-keep rounded-xl border border-amber-100 bg-amber-50 p-4 text-base leading-relaxed text-amber-900">
           <strong>부상 얘기:</strong> 카본화가 부상을 늘린다는 근거도, 줄인다는 근거도 충분하지 않습니다. 다만 밑창이 단단하고 높아 발목이
           불안정하게 느껴질 수 있으니, 처음 신는다면 짧은 거리부터 늘려가세요. 통증이 지속되면 전문의와 상담하세요.
         </div>

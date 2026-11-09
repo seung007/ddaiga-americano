@@ -151,7 +151,7 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
                     )}
                   </div>
                 </div>
-                <span className="shrink-0 text-xs text-gray-300 group-hover:text-emerald-500 mt-1">→</span>
+                <span className="shrink-0 text-xs text-gray-500 group-hover:text-emerald-500 mt-1">→</span>
               </Link>
             ))}
           </div>

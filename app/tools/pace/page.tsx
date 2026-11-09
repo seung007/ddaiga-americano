@@ -111,7 +111,7 @@ export default function PacePage() {
               onClick={() => { setKm(p.km); setCustom(""); }}
               className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 !custom && km === p.km
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-ink text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >

@@ -81,7 +81,7 @@ export default function IntermediateGuidePage() {
         </h2>
         <P>공인된 분류는 없습니다. 저희는 신발 연구 전문가 합의에서 쓴 취미 러너 정의를 따릅니다.</P>
         <div className="mt-4 rounded-xl bg-amber-50 px-4 py-3.5">
-          <ul className="space-y-1.5 break-keep text-[15px] leading-[1.7] text-amber-900">
+          <ul className="space-y-1.5 break-keep text-base leading-[1.7] text-amber-900">
             <li>• 주 1회 이상 꾸준히 달린 기간 <strong>1년 초과</strong></li>
             <li>• 일주일에 <strong>1~5회</strong></li>
             <li>• 주간 거리 <strong>15~50km</strong></li>
@@ -264,7 +264,7 @@ export default function IntermediateGuidePage() {
             ["기분 변화", "짜증·의욕 저하"],
           ].map(([title, desc]) => (
             <div key={title} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
-              <p className="mb-1 break-keep text-[15px] font-semibold text-gray-900">{title}</p>
+              <p className="mb-1 break-keep text-base font-semibold text-gray-900">{title}</p>
               <p className="break-keep text-sm text-gray-600">{desc}</p>
             </div>
           ))}
@@ -282,7 +282,7 @@ export default function IntermediateGuidePage() {
             ["잦은 감기", "훈련 후 자주 아픔"],
           ].map(([title, desc]) => (
             <div key={title} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
-              <p className="mb-1 break-keep text-[15px] font-semibold text-gray-900">{title}</p>
+              <p className="mb-1 break-keep text-base font-semibold text-gray-900">{title}</p>
               <p className="break-keep text-sm text-gray-600">{desc}</p>
             </div>
           ))}
@@ -376,7 +376,7 @@ export default function IntermediateGuidePage() {
 
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6 text-center">
           <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼·사이즈가 맞는지는 확인해 보세요</p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800">
             내 발에 맞는 신발 찾기 →
           </Link>
         </div>

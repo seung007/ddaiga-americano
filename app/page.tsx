@@ -145,7 +145,7 @@ export default function Home() {
       {/* 가이드 — GA4 28일(2026-11-05) 가이드 착지 상위 세 편 */}
       <section aria-labelledby="guide-h" className="pt-12">
         <div className="mx-auto max-w-5xl">
-          <h2 id="guide-h" className="px-5 text-xl font-black text-[#111111]">고르기 전에 읽어 보세요</h2>
+          <h2 id="guide-h" className="px-5 text-xl font-semibold text-[#111111]">고르기 전에 읽어 보세요</h2>
           <div className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
             {HOME_GUIDES.map((g) => (
               <Link
@@ -168,7 +168,7 @@ export default function Home() {
       {closingSoon.length > 0 && (
         <section id="races" aria-labelledby="race-h" className="mx-auto max-w-3xl px-5 pt-12">
           <div className="flex items-center justify-between">
-            <h2 id="race-h" className="text-xl font-black text-[#111111]">접수 마감이 가까운 대회</h2>
+            <h2 id="race-h" className="text-xl font-semibold text-[#111111]">접수 마감이 가까운 대회</h2>
             <Link href="/races" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">
               전체 일정
             </Link>
@@ -209,7 +209,7 @@ export default function Home() {
 
       {/* 이렇게 확인했어요 — 날짜는 전부 데이터 파일에서 계산한다(손으로 적으면 하루 지나 틀린다) */}
       <section aria-labelledby="trust-h" className="mx-auto max-w-3xl px-5 pt-12">
-        <h2 id="trust-h" className="mb-4 text-xl font-black text-[#111111]">이렇게 확인했어요</h2>
+        <h2 id="trust-h" className="mb-4 text-xl font-semibold text-[#111111]">이렇게 확인했어요</h2>
         <ul className="flex flex-col gap-3 text-sm leading-normal">
           {TRUST.map((t) => (
             <li key={t.what} className="flex gap-3">
@@ -229,7 +229,7 @@ export default function Home() {
       <section className="mx-auto max-w-3xl px-5 py-12">
         <Link href="/community" className="press flex items-center justify-between gap-4 rounded-2xl bg-[#F5F5F5] p-6 text-[#111111]">
           <span>
-            <span className="block text-xl font-black">추천이 애매했나요?</span>
+            <span className="block text-xl font-semibold">추천이 애매했나요?</span>
             <span className="mt-1 block text-sm text-[#4B5059]">게시판에 궁금한 점이나 문의 사항 적고 물어보세요</span>
           </span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">

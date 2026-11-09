@@ -26,13 +26,13 @@ export default function SiteHeader() {
         {/* 2026-11-06 운영자: 로고는 새로 만들기 전까지 원래 로고(🏃 + 이름, 마우스를 올리면 초록)를 그대로 쓴다 — main 의 머리글에서 옮겼다 */}
         <Link
           href="/"
-          className="shrink-0 whitespace-nowrap text-base font-bold text-[#111111] transition-colors hover:text-emerald-600 max-[359px]:text-sm sm:text-lg"
+          className="flex h-11 shrink-0 items-center whitespace-nowrap text-base font-bold text-[#111111] transition-colors hover:text-emerald-600 max-[359px]:text-sm sm:text-lg"
         >
           🏃 뛰다가 아메리카노
         </Link>
         <nav aria-label="주 메뉴" className="flex items-center gap-2 md:gap-6">
           {NAV.map(([href, label]) => (
-            <Link key={href} href={href} className="hidden text-base text-[#111111] hover:underline md:block">
+            <Link key={href} href={href} className="hidden h-11 items-center text-base text-[#111111] hover:underline md:flex">
               {label}
             </Link>
           ))}

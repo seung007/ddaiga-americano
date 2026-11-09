@@ -15,7 +15,7 @@
 
 /** 글 맨 위 한 문단 — 이 글이 무엇에 답하는지 두 문장 안에 */
 export function Lead({ children }: { children: React.ReactNode }) {
-  return <p className="mt-4 break-keep text-[17px] leading-[1.75] text-gray-700">{children}</p>;
+  return <p className="mt-4 break-keep text-lg leading-[1.75] text-gray-700">{children}</p>;
 }
 
 /** 본문 단락 — 16px·줄간격 1.8·어절 단위 줄바꿈 */
@@ -24,7 +24,7 @@ export function P({ children, className = "" }: { children: React.ReactNode; cla
 }
 
 /** 섹션 제목 — id 는 목차 검사(check:toc)가 문자열로 찾으므로 각 페이지에서 h2 를 직접 쓴다. 이건 스타일만 */
-export const H2 = "mt-14 scroll-mt-20 break-keep text-[22px] font-bold leading-snug text-gray-900";
+export const H2 = "mt-14 scroll-mt-20 break-keep text-2xl font-bold leading-snug text-gray-900";
 export const H3 = "mt-8 break-keep text-lg font-bold text-gray-900";
 
 /** 「한눈에」 — 글 전체 요약 3~4줄 */
@@ -35,7 +35,7 @@ export function Summary({ items, title = "한눈에" }: { items: React.ReactNode
       <ul className="mt-2 space-y-2">
         {items.map((it, i) => (
           <li key={i} className="flex gap-2.5 break-keep text-base leading-[1.65] text-emerald-950">
-            <span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" />
+            <span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
             <span>{it}</span>
           </li>
         ))}
@@ -72,7 +72,7 @@ export function Todo({
       </p>
       <ul className="mt-2 space-y-2">
         {items.map((it, i) => (
-          <li key={i} className="flex gap-2.5 break-keep text-[15px] leading-[1.7] text-gray-800">
+          <li key={i} className="flex gap-2.5 break-keep text-base leading-[1.7] text-gray-800">
             <span aria-hidden className="mt-[1px] shrink-0 font-bold text-emerald-600">✓</span>
             <span>{it}</span>
           </li>
@@ -145,11 +145,11 @@ export function References({
  */
 export function Basis({ kind }: { kind: "paper" | "rule" }) {
   return kind === "paper" ? (
-    <span className="ml-1.5 inline-block whitespace-nowrap rounded bg-emerald-50 px-1.5 py-0.5 align-middle text-[11px] font-medium text-emerald-700">
+    <span className="ml-1.5 inline-block whitespace-nowrap rounded bg-emerald-50 px-1.5 py-0.5 align-middle text-xs font-medium text-emerald-700">
       연구 근거
     </span>
   ) : (
-    <span className="ml-1.5 inline-block whitespace-nowrap rounded bg-gray-100 px-1.5 py-0.5 align-middle text-[11px] text-gray-500">
+    <span className="ml-1.5 inline-block whitespace-nowrap rounded bg-gray-100 px-1.5 py-0.5 align-middle text-xs text-gray-500">
       저희 제안
     </span>
   );
@@ -160,7 +160,7 @@ export function Warn({ title, children }: { title: string; children: React.React
   return (
     <div className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3.5 text-red-900">
       <p className="text-sm font-bold">{title}</p>
-      <div className="mt-1.5 break-keep text-[15px] leading-[1.7]">{children}</div>
+      <div className="mt-1.5 break-keep text-base leading-[1.7]">{children}</div>
     </div>
   );
 }

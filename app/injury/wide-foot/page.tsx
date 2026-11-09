@@ -105,7 +105,7 @@ export default function WideFootPage() {
         </P>
         <P>국내에서 팔리는 대부분의 신발은 D 규격(표준)이고, 와이드 버전은 따로 사야 합니다.</P>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-[15px]">
+          <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-base">
             <thead className="bg-gray-50">
               <tr>
                 {["규격", "너비", "해당하는 발"].map((h) => (
@@ -194,7 +194,7 @@ export default function WideFootPage() {
           <li>발볼이 가장 넓은 곳 — <strong>엄지발가락 아래 튀어나온 뼈에서 새끼발가락 아래 뼈까지</strong> 가로로 잽니다</li>
           <li>양발 다 재서 <strong>더 넓은 쪽</strong>을 씁니다. 좌우가 다를 수 있습니다</li>
         </ol>
-        <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3.5 break-keep text-[15px] leading-[1.7] text-amber-900">
+        <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3.5 break-keep text-base leading-[1.7] text-amber-900">
           <strong>잰 숫자를 어디에 쓰나</strong> — 절대 기준은 없습니다. 사려는 브랜드의 사이즈표(보통 &ldquo;Width Guide&rdquo; 또는
           &ldquo;발 너비&rdquo;)에서 내 발 길이에 해당하는 줄을 찾아 비교하세요. <strong>폭 표기(2E 등)는 브랜드마다 실제 너비가
           다를 수 있습니다</strong>(브랜드별 실측 비교는 저희가 확인하지 못했습니다).

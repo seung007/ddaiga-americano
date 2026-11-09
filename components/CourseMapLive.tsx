@@ -298,7 +298,7 @@ export default function CourseMapLive({ course, runners = [] }: { course: Hangan
              네이버·카카오도 정보 칩을 컨트롤 반대편에 둔다. */
           <div data-km-badge className="pointer-events-none absolute right-3 top-3 z-[800] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-semibold text-gray-900 shadow-md">
             편도 {course.map.route.km}km
-            <span className="mx-1.5 font-normal text-gray-300">|</span>
+            <span className="mx-1.5 font-normal text-gray-500">|</span>
             <span className="text-emerald-700">왕복 {(course.map.route.km * 2).toFixed(1)}km</span>
           </div>
         )}

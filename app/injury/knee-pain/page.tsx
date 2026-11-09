@@ -217,7 +217,7 @@ export default function Page() {
           <strong>증상과 훈련량을 관리하는 법을 아는 것이 기본입니다.</strong> 러너 69명의 한 무작위 시험에서 이 교육만 받은 그룹이
           운동이나 주법 교정을 더한 그룹과 비슷하게 좋아졌고, 연구진은 이 교육을 치료의 중심에 두라고 결론 냈습니다.
         </P>
-        <P className="text-[15px]">
+        <P className="text-base">
           실천: 통증 점수를 기준으로 조절합니다 →{" "}
           <Link href="/injury/return-to-running#rest-or-run" className="text-emerald-700 underline">
             통증 모니터링 모델
@@ -255,7 +255,7 @@ export default function Page() {
               <h4 className="font-bold text-gray-900">클램셸 (엉덩이)</h4>
               <span className="ml-auto whitespace-nowrap text-sm font-semibold text-emerald-700">15회 × 3세트</span>
             </div>
-            <p className="mt-2 break-keep text-[15px] leading-relaxed text-gray-700">옆으로 누워 무릎을 굽힌 채 위쪽 다리를 조개껍데기처럼 벌립니다.</p>
+            <p className="mt-2 break-keep text-base leading-relaxed text-gray-700">옆으로 누워 무릎을 굽힌 채 위쪽 다리를 조개껍데기처럼 벌립니다.</p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
             <div className="flex items-baseline gap-2">
@@ -263,7 +263,7 @@ export default function Page() {
               <h4 className="font-bold text-gray-900">스텝다운 (무릎)</h4>
               <span className="ml-auto whitespace-nowrap text-sm font-semibold text-emerald-700">10회 × 3세트</span>
             </div>
-            <p className="mt-2 break-keep text-[15px] leading-relaxed text-gray-700">
+            <p className="mt-2 break-keep text-base leading-relaxed text-gray-700">
               계단 끝에 서서 한쪽 다리로 천천히 내려옵니다. 무릎이 발가락 방향을 유지하도록 합니다.
             </p>
           </div>
@@ -273,7 +273,7 @@ export default function Page() {
               <h4 className="font-bold text-gray-900">벽 기대 반 스쿼트 (허벅지 앞)</h4>
               <span className="ml-auto whitespace-nowrap text-sm font-semibold text-emerald-700">30초 × 3회</span>
             </div>
-            <p className="mt-2 break-keep text-[15px] leading-relaxed text-gray-700">
+            <p className="mt-2 break-keep text-base leading-relaxed text-gray-700">
               벽에 등을 대고 무릎을 아프지 않은 각도까지만 굽혀 버팁니다. 통증 점수가 5를 넘으면 각도를 줄입니다.
             </p>
           </div>
@@ -326,7 +326,7 @@ export default function Page() {
         <P>
           권고한 것은 운동과 <strong>발 보조기(깔창형 교정구)</strong>입니다 — 신발 등급과는 다른 물건입니다.
         </P>
-        <div className="mt-5 break-keep rounded-xl border border-amber-200 bg-amber-50 p-4 text-[15px] leading-relaxed text-amber-900">
+        <div className="mt-5 break-keep rounded-xl border border-amber-200 bg-amber-50 p-4 text-base leading-relaxed text-amber-900">
           특히 <strong>&ldquo;평발이면 안정화화&rdquo;</strong>를 무릎 통증 해법으로 볼 근거는 없습니다. 발 타입에 맞춰 회내 제어 신발을
           처방하는 관행을 검토한 체계적 고찰은 그 관행을 뒷받침하는 연구를 찾지 못했습니다. 자세한 내용은{" "}
           <Link href="/injury/flat-feet" className="font-medium text-emerald-700 underline">

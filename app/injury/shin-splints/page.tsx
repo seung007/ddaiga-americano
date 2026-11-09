@@ -91,11 +91,11 @@ export default function Page() {
           <h2 id="stress-fracture" className="scroll-mt-20 break-keep text-lg font-bold text-red-900">
             먼저 — 피로골절인지 구별하세요
           </h2>
-          <p className="mt-3 break-keep text-[15px] leading-[1.7] text-red-900">
+          <p className="mt-3 break-keep text-base leading-[1.7] text-red-900">
             정강이 통증과 <strong>경골 피로골절</strong>은 증상이 비슷하고, 같은 &lsquo;뼈 스트레스 손상&rsquo;의 연속선 위에 있다고 봅니다. 쉬지 않고
             계속 뛰면 MTSS가 피로골절로 진행할 수 있습니다. 임상 참고서(StatPearls)가 쓰는 구별 기준은 <strong>누르면 아픈 범위의 길이</strong>입니다.
           </p>
-          <ul className="mt-3 space-y-2 break-keep text-[15px] leading-[1.7] text-red-900">
+          <ul className="mt-3 space-y-2 break-keep text-base leading-[1.7] text-red-900">
             <li>
               <strong>MTSS(정강이 통증)</strong> — 정강이뼈 안쪽 뒤 가장자리를 따라 <strong>5cm 넘게</strong> 누르면 아픕니다.
               손가락으로 짚으면 &ldquo;이 근처 전체&rdquo;가 아픕니다.
@@ -105,8 +105,8 @@ export default function Page() {
             </li>
           </ul>
           <p className="mt-2 text-xs text-red-700">5cm 기준: StatPearls 「Medial Tibial Stress Syndrome」(아래 참고 자료)</p>
-          <p className="mt-4 mb-1 break-keep text-[15px] font-semibold text-red-900">아래에 하나라도 해당하면 달리기를 멈추고 병원에 가세요</p>
-          <ul className="space-y-1 break-keep text-[15px] leading-[1.7] text-red-900">
+          <p className="mt-4 mb-1 break-keep text-base font-semibold text-red-900">아래에 하나라도 해당하면 달리기를 멈추고 병원에 가세요</p>
+          <ul className="space-y-1 break-keep text-base leading-[1.7] text-red-900">
             <li>• 아픈 곳이 한 점에 몰려 있고 손가락 하나로 짚을 수 있다</li>
             <li>• 한 발로 제자리 뛰기(호핑)를 못 할 정도로 아프다</li>
             <li>• 밤에 자다가 아파서 깬다 / 쉬고 있어도 아프다</li>
@@ -147,7 +147,7 @@ export default function Page() {
           반복 하중으로 정강이뼈 피질에 생긴 미세 손상이 회복되기 전에 쌓인다는 데까지는 대체로 같은 의견입니다. 그 다음은 두 가설이
           있습니다.
         </P>
-        <ul className="mt-4 space-y-2 break-keep text-[15px] leading-[1.7] text-gray-800">
+        <ul className="mt-4 space-y-2 break-keep text-base leading-[1.7] text-gray-800">
           <li>
             • <strong>견인 가설</strong> — 종아리 안쪽 근육(가자미근·후경골근 등)이 뼈막을 반복해서 잡아당긴다. 어느 근육인지는 연구마다 다릅니다.
           </li>
@@ -164,7 +164,7 @@ export default function Page() {
           어떤 사람이 더 잘 생기나요?
         </h2>
         <P>연구를 모은 분석 두 편에서 정강이 통증과 같이 관찰된 것들입니다.</P>
-        <ul className="mt-4 space-y-2 break-keep text-[15px] leading-[1.7] text-gray-800">
+        <ul className="mt-4 space-y-2 break-keep text-base leading-[1.7] text-gray-800">
           <li>• 예전에 정강이 통증을 겪은 적이 있음</li>
           <li>• 러닝 경력이 짧음 — 초보에게 흔한 이유와 맞닿습니다</li>
           <li>• 여성</li>
@@ -247,7 +247,7 @@ export default function Page() {
             <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>
           </p>
         </Evidence>
-        <p className="mt-5 break-keep rounded-xl bg-gray-50 p-3 text-[15px] leading-relaxed text-gray-600">
+        <p className="mt-5 break-keep rounded-xl bg-gray-50 p-3 text-base leading-relaxed text-gray-600">
           다시 달리기 시작할 때:{" "}
           <Link href="/injury/return-to-running#bone" className="text-emerald-700 underline">
             쉬었다가 다시 달리기 — 뼈 쪽 부상
@@ -319,7 +319,7 @@ export default function Page() {
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-1">내 발에 맞는 러닝화를 찾으세요</p>
           <p className="text-sm text-emerald-800 mb-3">신발이 정강이 통증을 막는다는 근거는 없습니다. 발볼과 쿠션 취향에 맞는 신발을 고르는 용도로 쓰세요.</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

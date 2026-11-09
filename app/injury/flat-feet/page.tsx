@@ -183,7 +183,7 @@ export default function FlatFeetPage() {
           모션컨트롤화가 도움이 됐다는 시험이 1건 있습니다. 아래 표에 나눠 적었습니다.
         </P>
         <div className="mt-5 overflow-hidden rounded-2xl border border-gray-200">
-          <table className="w-full text-[15px]">
+          <table className="w-full text-base">
             <tbody className="divide-y divide-gray-100">
               <tr>
                 <td className="w-28 break-keep bg-gray-50 px-4 py-3 align-top font-medium text-gray-700">

@@ -97,7 +97,7 @@ export default function Page() {
         </P>
 
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="border-b border-gray-200 text-left">
                 <th className="break-keep py-2 pr-4 font-semibold text-gray-900">지금 쉬지 않고</th>
@@ -156,7 +156,7 @@ export default function Page() {
           기준은 <strong>지난 30일 동안 가장 길게 뛴 거리의 110%</strong>입니다.<Basis kind="rule" /> 성인 러너 5,205명을 18개월
           추적한 한 연구에서, 한 번에 그보다 길게 뛰면 과사용 부상이 더 많았습니다.
         </P>
-        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-[15px] leading-[1.7] text-emerald-900">
+        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-base leading-[1.7] text-emerald-900">
           예) 지난 한 달 최장이 <strong>5km</strong>였다면 → 다음 긴 날은 <strong>5.5km까지</strong>.
         </div>
         <P>
@@ -251,7 +251,7 @@ export default function Page() {
         </Evidence>
 
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="border-b border-gray-200 text-left">
                 <th className="break-keep py-2 pr-4 font-semibold text-gray-900">목표 시간</th>
@@ -301,28 +301,28 @@ export default function Page() {
         <div className="mt-4 space-y-3">
           <div className="rounded-xl border border-gray-200 p-4">
             <p className="mb-1 text-sm font-semibold text-gray-900">2주 전</p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               가장 긴 거리를 여기서 뜁니다. 8~10km를 한 번 가 보면 당일에 겁이 덜 납니다.
               신발도 이때 마지막으로 점검합니다.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
             <p className="mb-1 text-sm font-semibold text-gray-900">마지막 1주</p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               <strong>거리를 줄입니다.</strong> 이 주에 무리해서 얻는 건 없고 잃을 건 있습니다.
               짧고 가볍게 2~3회만.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
             <p className="mb-1 text-sm font-semibold text-gray-900">전날</p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               준비물을 미리 다 꺼내 놓습니다. 번호표를 옷에 미리 답니다.
               평소 안 먹던 음식은 피합니다.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
             <p className="mb-1 text-sm font-semibold text-gray-900">당일 아침</p>
-            <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
+            <p className="break-keep text-base leading-[1.7] text-gray-700">
               출발 2~3시간 전에 평소 먹던 것으로 가볍게 먹습니다. 출발 20분 전{" "}
               <Link href="/injury/warmup" className="font-medium text-emerald-600 hover:underline">
                 준비운동

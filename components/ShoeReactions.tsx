@@ -204,7 +204,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
                 onClick={() => setPicked(v)}
                 className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${
                   picked === v
-                    ? "border-emerald-600 bg-emerald-600 text-white"
+                    ? "border-emerald-600 bg-ink text-white"
                     : "border-gray-300 bg-white text-gray-700 hover:border-emerald-400"
                 }`}
               >
@@ -232,7 +232,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
                         aria-pressed={value === v}
                         onClick={() => (set as (x: string | null) => void)(value === v ? null : v)}
                         className={`rounded-full border px-3 py-1 text-sm ${
-                          value === v ? "border-emerald-600 bg-emerald-600 text-white" : "border-gray-300 text-gray-700"
+                          value === v ? "border-emerald-600 bg-ink text-white" : "border-gray-300 text-gray-700"
                         }`}
                       >
                         {l}
@@ -263,7 +263,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
                 type="button"
                 onClick={submit}
                 disabled={sending}
-                className="mt-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400"
+                className="mt-2 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 disabled:bg-gray-200 disabled:text-gray-400"
               >
                 {sending ? "남기는 중…" : "남기기"}
               </button>

@@ -470,7 +470,7 @@ export default function ShoeFinderPage() {
           <div className="flex shrink-0 gap-2">
             <button type="button"
               onClick={() => { applyProfile(savedProfile, true); setSavedProfile(null); }}
-              className="text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
+              className="text-xs font-semibold text-white bg-ink hover:bg-neutral-800 px-3 py-1.5 rounded-lg transition-colors">
               다시 보기 →
             </button>
             <button type="button"
@@ -523,7 +523,7 @@ export default function ShoeFinderPage() {
                   aria-expanded={open}
                   className={`flex items-baseline gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors
                     ${open
-                      ? "border-emerald-500 bg-emerald-600 text-white"
+                      ? "border-emerald-500 bg-ink text-white"
                       : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"}`}>
                   <span className={open ? "text-emerald-100" : "text-gray-400"}>{label}</span>
                   <span className="font-semibold">{val ?? "선택 안 함"}</span>
@@ -550,7 +550,7 @@ export default function ShoeFinderPage() {
               {STEP_LABELS[activeStep]} 고치기
             </p>
             <button type="button" onClick={finishInlineEdit}
-              className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
+              className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors">
               완료
             </button>
           </div>
@@ -825,12 +825,12 @@ export default function ShoeFinderPage() {
 
             {!isEditing && (
             <button type="submit"
-              className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
+              className="w-full rounded-xl bg-ink px-5 py-3.5 font-semibold text-white hover:bg-neutral-800 transition-colors text-base">
               추천 결과 보기 →
             </button>
             )}
 
-            <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
+            <p className="text-center text-xs text-gray-400 leading-relaxed -mt-1">
               키·체중·발 정보는 <strong className="font-medium text-gray-500">이 화면 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
               「추천 결과 보기」를 누르면{" "}
               <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
@@ -863,7 +863,7 @@ export default function ShoeFinderPage() {
                 setError("");
                 goNext();
               }}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
+                className="flex-1 px-4 py-2.5 rounded-lg bg-ink text-white text-sm font-semibold hover:bg-neutral-800 transition-colors">
                 다음 →
               </button>
             )}
@@ -878,7 +878,7 @@ export default function ShoeFinderPage() {
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5">
             {topPick ? (
               <>
-                <p className="text-[11px] font-bold tracking-wide text-emerald-700">지금 1순위</p>
+                <p className="text-xs font-bold tracking-wide text-emerald-700">지금 1순위</p>
                 <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
                   {topPick.shoe.brand} {topPick.shoe.model}
                 </p>
@@ -886,7 +886,7 @@ export default function ShoeFinderPage() {
                   {topPick.shoe.priceKrw.toLocaleString()}원
                   {topPick.shoe.successor && ` · 후속 ${topPick.shoe.successor} 출시됨`}
                 </p>
-                <p className="mt-2 text-[11px] text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
+                <p className="mt-2 text-xs text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
               </>
             ) : (
               <p className="text-sm text-amber-700">
@@ -920,7 +920,7 @@ export default function ShoeFinderPage() {
               </span>
             </div>
 
-            <p className="text-[11px] text-blue-600/80 leading-relaxed mb-2.5">
+            <p className="text-xs text-blue-600/80 leading-relaxed mb-2.5">
               {/* 2026-10-06: 「키 기준 X~Y걸음 리듬이 무릎 충격을 줄여줘요」 → 키별 값은 사이트 기준(cadence 가이드가 밝힘).
                   연구(Heiderscheit 2011)는 지금보다 5~10% 올렸을 때를 봤다. */}
               케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음은 사이트 참고값이에요. 연구는 키별 값이 아니라 지금보다 5~10% 올렸을 때 무릎 부하가 줄었다는 결과예요(Heiderscheit 2011).{" "}
@@ -928,11 +928,11 @@ export default function ShoeFinderPage() {
             </p>
 
             {result.profileComment && (
-              <p className="text-[15px] text-blue-900 leading-relaxed">{result.profileComment}</p>
+              <p className="text-base text-blue-900 leading-relaxed">{result.profileComment}</p>
             )}
 
             {result.evidenceNote && (
-              <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-[11px] text-blue-500 leading-relaxed">
+              <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-xs text-blue-500 leading-relaxed">
                 {result.evidenceNote}
               </p>
             )}
@@ -1070,7 +1070,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                         ? "border-emerald-500 bg-emerald-500 text-white"
                         : canAddCompare
                         ? "border-emerald-400 bg-white text-emerald-600 hover:bg-emerald-50"
-                        : "border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed"
+                        : "border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed"
                     }`
                   }
                 >
@@ -1119,7 +1119,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                       affiliate: link.isAffiliate ? "yes" : "no",
                     })}
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
-                      ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
+                      ${link.isOfficial ? "bg-ink hover:bg-neutral-800 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
                     {link.isOfficial ? "🏪" : "🛒"} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                   </a>
                 ))}
@@ -1133,7 +1133,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                         ? "border-emerald-500 bg-emerald-50 text-emerald-700"
                         : canAddCompare
                         ? "border-gray-300 bg-white text-gray-600 hover:border-emerald-400 hover:text-emerald-600"
-                        : "border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed"
+                        : "border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed"
                     }`
                   }
                 >
@@ -1251,7 +1251,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                     affiliate: link.isAffiliate ? "yes" : "no",
                   })}
                   className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors
-                    ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
+                    ${link.isOfficial ? "bg-ink hover:bg-neutral-800 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
                   {link.isOfficial ? "🏪 공식 구매하기" : "🛒 " + link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
@@ -1429,7 +1429,7 @@ function ComparePanel({
             </p>
             <p className="text-xs text-gray-400 mt-0.5">선택됨</p>
           </div>
-          <span className="text-2xl text-gray-300">vs</span>
+          <span className="text-2xl text-gray-500">vs</span>
           <div className="flex-1 rounded-xl border-2 border-dashed border-emerald-300 p-4 text-center">
             <p className="text-sm text-emerald-600">신발 카드에서 선택</p>
           </div>
@@ -1536,7 +1536,7 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
                 store: link.label,
                 affiliate: link.isAffiliate ? "yes" : "no",
               })}
-              className="block text-center text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl transition-colors"
+              className="block text-center text-sm font-semibold bg-ink hover:bg-neutral-800 text-white px-4 py-2.5 rounded-xl transition-colors"
             >
               {shoe.brand} {shoe.model} 구매 ↗
             </a>

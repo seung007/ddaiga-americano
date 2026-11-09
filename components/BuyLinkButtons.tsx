@@ -36,7 +36,7 @@ export default function BuyLinkButtons({
             })
           }
           className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors ${
-            link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700" : "bg-gray-700 hover:bg-gray-800"
+            link.isOfficial ? "bg-ink hover:bg-neutral-800" : "bg-gray-700 hover:bg-gray-800"
           }`}
         >
           {link.label}

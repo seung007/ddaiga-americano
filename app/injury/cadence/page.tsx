@@ -159,7 +159,7 @@ export default function CadencePage() {
         />
 
         <h3 className={H3}>내 케이던스 재는 법</h3>
-        <ol className="mt-3 list-inside list-decimal space-y-1.5 break-keep text-[15px] leading-[1.7] text-gray-700">
+        <ol className="mt-3 list-inside list-decimal space-y-1.5 break-keep text-base leading-[1.7] text-gray-700">
           <li>편안한 페이스로 1분 달립니다</li>
           <li>오른발이 땅에 닿는 횟수를 30초 동안 셉니다</li>
           <li>그 숫자에 4를 곱하면 분당 케이던스(spm)입니다</li>
@@ -213,7 +213,7 @@ export default function CadencePage() {
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 신발 찾기</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

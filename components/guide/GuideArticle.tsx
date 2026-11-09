@@ -98,7 +98,7 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
     const shared = cited.length > 1 && keys.size === 1 ? cited[0].cite : undefined;
     return (
       <div className="mt-5 overflow-x-auto">
-        <table className="w-full border-collapse text-[15px]">
+        <table className="w-full border-collapse text-base">
           <thead>
             <tr className="border-b border-gray-200 text-left">
               {b.table.head.map((h, i) => (

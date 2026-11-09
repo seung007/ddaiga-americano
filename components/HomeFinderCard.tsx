@@ -141,7 +141,7 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
               />
             )}
             <p className={`${barlow.className} relative text-sm tracking-[1px] md:text-base`}>SHOE FINDER</p>
-            <h1 id="finder-h" className="relative mt-1 whitespace-nowrap text-[40px] font-black leading-[1.1] tracking-[-1.2px] md:text-[64px] md:tracking-[-2px]">
+            <h1 id="finder-h" className="relative mt-1 whitespace-nowrap text-[40px] font-bold leading-[1.1] tracking-[-1.2px] md:text-[64px] md:tracking-[-2px]">
               내 러닝화 찾기
             </h1>
 
@@ -205,7 +205,7 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
       <section id="shoes" aria-labelledby="list-h" className="scroll-mt-16 pt-12">
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center justify-between px-5">
-            <h2 id="list-h" className="text-xl font-black text-[#111111]">
+            <h2 id="list-h" className="text-xl font-semibold text-[#111111]">
               {cond ? "지금 조건의 러닝화" : "러닝화 미리 보기"}
             </h2>
             <Link href="/shoes" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">

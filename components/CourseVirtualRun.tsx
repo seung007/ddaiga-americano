@@ -238,7 +238,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
       )}
 
       <p className="mb-1 text-xs text-gray-500">
-        <span className="mr-1 inline-block h-2.5 w-2.5 rounded-full bg-emerald-600 align-middle" />나
+        <span className="mr-1 inline-block h-2.5 w-2.5 rounded-full bg-ink align-middle" />나
         {ghost && (
           <>
             <span className="ml-3 mr-1 inline-block h-2.5 w-2.5 rounded-full bg-indigo-600 align-middle" />같이 달린 러너
@@ -251,7 +251,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
         <button
           onClick={() => (running ? setRunning(false) : start())}
           disabled={!pace || (ghostOn && !ghost)}
-          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:bg-gray-300"
+          className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:bg-gray-300"
         >
           {running ? "멈춤" : done ? "다시 달리기" : t > 0 ? "이어 달리기" : "출발"}
         </button>
@@ -267,15 +267,15 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
 
       <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
         <div className="rounded-lg bg-gray-50 p-2">
-          <dt className="text-[11px] text-gray-500">경과</dt>
+          <dt className="text-xs text-gray-500">경과</dt>
           <dd className="font-mono text-sm font-semibold text-gray-900">{fmt(t)}</dd>
         </div>
         <div className="rounded-lg bg-gray-50 p-2">
-          <dt className="flex items-center justify-center gap-1 text-[11px] text-gray-500"><span className="inline-block h-2 w-2 rounded-full bg-emerald-600" />내 거리</dt>
+          <dt className="flex items-center justify-center gap-1 text-xs text-gray-500"><span className="inline-block h-2 w-2 rounded-full bg-ink" />내 거리</dt>
           <dd className="font-mono text-sm font-semibold text-gray-900">{(myM / 1000).toFixed(2)}km</dd>
         </div>
         <div className="rounded-lg bg-gray-50 p-2">
-          <dt className="flex items-center justify-center gap-1 text-[11px] text-gray-500">{ghost && <span className="inline-block h-2 w-2 rounded-full bg-indigo-600" />}{ghost ? "같이 달린 러너" : "완주 예상"}</dt>
+          <dt className="flex items-center justify-center gap-1 text-xs text-gray-500">{ghost && <span className="inline-block h-2 w-2 rounded-full bg-indigo-600" />}{ghost ? "같이 달린 러너" : "완주 예상"}</dt>
           <dd className="font-mono text-sm font-semibold text-gray-900">{ghost ? `${(ghostM / 1000).toFixed(2)}km` : pace ? fmt(finishSec) : "—"}</dd>
         </div>
       </dl>
@@ -292,11 +292,11 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
 
       <p className="mt-3 text-sm">
         <Link href="/tools/pace" className="text-emerald-700 underline">목표 기록으로 km별 통과 시간 만들기</Link>
-        <span className="mx-1.5 text-gray-300">·</span>
+        <span className="mx-1.5 text-gray-500">·</span>
         <Link href="/injury/first-10k" className="text-emerald-700 underline">첫 10km 준비</Link>
       </p>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-gray-400">
+      <p className="mt-3 text-xs leading-relaxed text-gray-400">
         페이스는 끝까지 일정하다고 가정했습니다. 반환점·사람·신호 때문에 실제로는 조금 더 걸립니다. 고도 자료가 없어 오르막 보정은 하지 않았습니다.
         경로선:{" "}
         <a href={route.source.url} target="_blank" rel="noopener noreferrer" className="underline">

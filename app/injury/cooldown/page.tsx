@@ -199,7 +199,7 @@ export default function Page() {
           아니라 <strong>병행</strong>하라고 말합니다(참고 자료).
         </P>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="border-b border-gray-200 text-left">
                 <th className="py-2 pr-3 font-semibold text-gray-900"></th>
@@ -258,7 +258,7 @@ export default function Page() {
                 <h3 className="font-bold text-gray-900">{s.name}</h3>
                 <span className="ml-auto shrink-0 text-sm font-semibold text-emerald-700">30초 × 2</span>
               </div>
-              <p className="mt-2 break-keep text-[15px] leading-[1.7] text-gray-700">{s.how}</p>
+              <p className="mt-2 break-keep text-base leading-[1.7] text-gray-700">{s.how}</p>
               <p className="mt-1 text-sm text-gray-500">{s.feel}</p>
             </div>
           ))}

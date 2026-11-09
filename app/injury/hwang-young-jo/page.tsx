@@ -143,7 +143,7 @@ export default function HwangYoungJoPage() {
           {TAKEAWAYS.map((item) => (
             <div key={item.title} className="rounded-xl border border-gray-200 px-4 py-3.5">
               <h3 className="break-keep font-semibold text-gray-900">{item.title}</h3>
-              <p className="mt-1.5 break-keep text-[15px] leading-[1.7] text-gray-800">
+              <p className="mt-1.5 break-keep text-base leading-[1.7] text-gray-800">
                 {item.todo}
                 <Basis kind="rule" />
               </p>
@@ -234,7 +234,7 @@ export default function HwangYoungJoPage() {
 
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 신발 찾기</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>
