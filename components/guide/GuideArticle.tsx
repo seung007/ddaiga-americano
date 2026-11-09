@@ -10,7 +10,7 @@ import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } f
 import { articleDates } from "@/components/ArticleMeta";
 import type { GuideArticle as Entry } from "@/lib/guide/articles";
 import type { Block, Cite, GuideContent, Reference } from "@/lib/guide/content";
-import { pageUrl } from "@/lib/site";
+import { AUTHOR_NOTE, pageUrl } from "@/lib/site";
 
 /**
  * 내용 파일 가이드의 공통 틀 (2026-11-07) — 손으로 쓴 가이드(예: app/injury/cooldown)와 같은 부품·같은 순서.
@@ -177,11 +177,14 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
         {/* ArticleMeta 와 같은 줄. 날짜는 원장에서만.
             만든 방법(「AI 초안 · 자동 검증」)은 화면에 내지 않는다 — 사이트 주인 결정(2026-11-09).
             c.made 는 그대로 남겨 검증기·check-content 가 읽는다(누가 언제 어떻게 대조했는지의 기록) */}
-        <p className="mt-2 mb-4 text-xs text-gray-500">
-          {updated && <>최종 수정 {updated}</>}
-          {updated && published && published !== updated && <> · 처음 작성 {published}</>}
-          {" · "}뛰다가 아메리카노
-        </p>
+        <div className="mt-2 mb-4 space-y-1 text-xs text-gray-500">
+          <p>
+            {updated && <>최종 수정 {updated}</>}
+            {updated && published && published !== updated && <> · 처음 작성 {published}</>}
+            {" · "}뛰다가 아메리카노 · 근거는 본문 인용
+          </p>
+          <p className="break-keep">{AUTHOR_NOTE}</p>
+        </div>
         <Lead><Inline text={c.lead} /></Lead>
         <Summary
           items={c.summary.map((s, i) => (
