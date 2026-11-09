@@ -66,7 +66,9 @@ export const ARTICLES: GuideArticle[] = [
   // ── 훈련 방법 (2026-10-07) ─────────────────────────
   { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "러닝 훈련 종류 — 쉬었다 다시 달리기부터 인터벌까지", desc: "걷기-달리기·쉬운 달리기·장거리·템포·인터벌·언덕·크로스·근력. 무엇인지, 연구가 확인한 것, 하는 법, 몇 단계부터.", readTime: "6분", stages: "all", published: "2026-10-07", updated: "2026-11-07" },
   // 2026-11-07: 첫 내용 파일 글(lib/guide/content/heart-rate-zones.json) — AI 초안, 판정 2회 검증. 읽기 시간은 같은 규약(보이는 글자 1,958 ÷ 600)
-  { href: "/injury/heart-rate-zones", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "심박존 훈련이란? 최대심박 공식과 쉬운 달리기 비율", desc: "나이 공식으로 낸 최대심박의 오차, 낮은 강도 위주 배분을 시험한 연구들, 손목 워치 심박의 정확도.", readTime: "4분", stages: "all", published: "2026-11-07", updated: "2026-11-07" },
+  { href: "/injury/heart-rate-zones", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "심박존이 뭔가요? 걷기만 해도 심박이 높게 나와요", desc: "걷기만 해도 심박이 높게 나와 불안하다면. 손목 워치가 틀리기 쉬운 때, 나이 공식의 오차, 쉬운 달리기 비율을 연구로 확인했습니다.", readTime: "4분", stages: "all", published: "2026-11-07", updated: "2026-11-09" },
+  // 2026-11-09 다시 씀: 제목·소제목을 오픈채팅 심박 질문(질문자 20명, 질문 71건 — 「걷기만 해도 높다」 「존2가 어디까지」 「워치가 튄다」)의 말로 바꾸고,
+  //   연구 문장은 결과를 앞에, 한 문장에 사실 하나로 나눴다. 근거·숫자는 그대로. 표 머리글 「엘리트」 → 「주니어」(Seiler & Kjerland 2006 원문 대상)
 
   // ── 나머지 (2026-09-22 순서 유지) ─────────────────────
   // 2026-10-06: 커뮤니티 부상 글 1위 부위라 전면 개편(3분 → 아래 실측). 복귀 글 신설.

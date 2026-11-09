@@ -5,7 +5,7 @@ import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
-import { Up, S } from "@/components/guide/Up";
+import { Up } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import { articleDates } from "@/components/ArticleMeta";
 import type { GuideArticle as Entry } from "@/lib/guide/articles";
@@ -49,9 +49,10 @@ function Cites({ cite, refs }: { cite?: Cite; refs: Map<string, Reference> }) {
         const r = refs.get(id);
         if (!r) return null;
         return (
-          <S key={id}>
-            ({r.authors} ({r.year}) <Up h={r.url} />){" "}
-          </S>
+          // S(줄바꿈 금지)를 쓰지 않는다 — 「Silva Oliveira et al. (2024)」 처럼 긴 이름이 320px 화면을 넘었다(2026-11-09). 저자명 안에서는 끊지 않는다
+          <span key={id} className="text-xs text-gray-400">
+            (<span className="whitespace-nowrap">{r.authors}</span> <span className="whitespace-nowrap">({r.year}) <Up h={r.url} /></span>){" "}
+          </span>
         );
       })}
     </>
@@ -96,9 +97,12 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
     const cited = b.table.rows.flat().filter((c) => c.cite?.length);
     const keys = new Set(cited.map((c) => [...(c.cite ?? [])].sort().join(",")));
     const shared = cited.length > 1 && keys.size === 1 ? cited[0].cite : undefined;
+    // 같은 이유로 「저희 제안」 배지가 칸마다 붙으면 표가 배지로 덮이고 휴대폰 폭을 넘는다(2026-11-09, 320px 에서 가로 넘침) — 모두 같으면 한 번만
+    const based = b.table.rows.flat().filter((c) => c.basis);
+    const sharedBasis = based.length > 1 && new Set(based.map((c) => c.basis)).size === 1 ? based[0].basis : undefined;
     return (
-      <div className="mt-5 overflow-x-auto">
-        <table className="w-full border-collapse text-[15px]">
+      <div className="mt-5 max-w-full overflow-x-auto [contain:inline-size]">
+        <table className="w-full border-collapse text-base">
           <thead>
             <tr className="border-b border-gray-200 text-left">
               {b.table.head.map((h, i) => (
@@ -115,7 +119,7 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
                     className={`break-keep py-2 pr-3 align-top ${i === 0 ? "font-medium text-gray-900" : ""} ${c.t.length <= 10 ? "whitespace-nowrap" : ""}`}
                   >
                     <Inline text={c.t} />
-                    {c.basis && <Basis kind={c.basis} />}
+                    {c.basis && !sharedBasis && <Basis kind={c.basis} />}
                     {!shared && <Cites cite={c.cite} refs={refs} />}
                   </td>
                 ))}
@@ -127,6 +131,11 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
           <p className="mt-1.5 text-xs text-gray-400">
             출처
             <Cites cite={shared} refs={refs} />
+          </p>
+        )}
+        {sharedBasis && (
+          <p className="mt-1.5 text-xs text-gray-400">
+            표의 값<Basis kind={sharedBasis} />
           </p>
         )}
       </div>
@@ -160,7 +169,7 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
     <>
       <ArticleJsonLd headline={entry.title} description={entry.desc} url={url} datePublished={entry.published} />
       <BreadcrumbJsonLd trail={[["러닝 가이드", "/injury"], [entry.tag, href]]} />
-      <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
+      <article className="mx-auto w-full min-w-0 max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
         </Link>
