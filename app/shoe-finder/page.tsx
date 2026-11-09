@@ -471,7 +471,7 @@ export default function ShoeFinderPage() {
           <div className="flex shrink-0 gap-2">
             <button type="button"
               onClick={() => { applyProfile(savedProfile, true); setSavedProfile(null); }}
-              className="text-xs font-semibold text-white bg-ink hover:bg-neutral-800 px-3 py-1.5 rounded-lg transition-colors">
+              className="text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
               다시 보기 →
             </button>
             <button type="button"
@@ -524,7 +524,7 @@ export default function ShoeFinderPage() {
                   aria-expanded={open}
                   className={`flex items-baseline gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors
                     ${open
-                      ? "border-emerald-500 bg-ink text-white"
+                      ? "border-emerald-500 bg-emerald-600 text-white"
                       : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"}`}>
                   <span className={open ? "text-emerald-100" : "text-gray-400"}>{label}</span>
                   <span className="font-semibold">{val ?? "선택 안 함"}</span>
@@ -551,7 +551,7 @@ export default function ShoeFinderPage() {
               {STEP_LABELS[activeStep]} 고치기
             </p>
             <button type="button" onClick={finishInlineEdit}
-              className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors">
+              className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
               완료
             </button>
           </div>
@@ -826,7 +826,7 @@ export default function ShoeFinderPage() {
 
             {!isEditing && (
             <button type="submit"
-              className="w-full rounded-xl bg-ink px-5 py-3.5 font-semibold text-white hover:bg-neutral-800 transition-colors text-base">
+              className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
               추천 결과 보기 →
             </button>
             )}
@@ -864,7 +864,7 @@ export default function ShoeFinderPage() {
                 setError("");
                 goNext();
               }}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-ink text-white text-sm font-semibold hover:bg-neutral-800 transition-colors">
+                className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
                 다음 →
               </button>
             )}
@@ -1120,7 +1120,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                       affiliate: link.isAffiliate ? "yes" : "no",
                     })}
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
-                      ${link.isOfficial ? "bg-ink hover:bg-neutral-800 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
+                      ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
                     {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                   </a>
                 ))}
@@ -1252,7 +1252,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                     affiliate: link.isAffiliate ? "yes" : "no",
                   })}
                   className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors
-                    ${link.isOfficial ? "bg-ink hover:bg-neutral-800 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
+                    ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
                   {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />}{link.isOfficial ? "공식 구매하기" : link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
@@ -1537,7 +1537,7 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
                 store: link.label,
                 affiliate: link.isAffiliate ? "yes" : "no",
               })}
-              className="block text-center text-sm font-semibold bg-ink hover:bg-neutral-800 text-white px-4 py-2.5 rounded-xl transition-colors"
+              className="block text-center text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl transition-colors"
             >
               {shoe.brand} {shoe.model} 구매 ↗
             </a>

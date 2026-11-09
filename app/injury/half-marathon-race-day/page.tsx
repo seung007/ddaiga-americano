@@ -600,7 +600,7 @@ export default function Page() {
           </p>
           <Link
             href="/tools/pace"
-            className="shrink-0 rounded-lg bg-ink px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
+            className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
           >
             페이스 계산기 →
           </Link>
@@ -847,7 +847,7 @@ export default function Page() {
             길들이지 않은 신발은 물집 위험을 키울 수 있습니다.<Basis kind="rule" />{" "}
             체형과 발 조건을 넣으면 맞는 신발을 추려드립니다.
           </p>
-          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

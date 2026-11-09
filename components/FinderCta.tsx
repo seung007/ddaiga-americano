@@ -53,7 +53,7 @@ export default function FinderCta({
         <Link
           href="/shoe-finder"
           onClick={fire}
-          className="shrink-0 rounded-lg bg-ink px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
+          className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
         >
           내 신발 찾기 →
         </Link>
@@ -68,7 +68,7 @@ export default function FinderCta({
       <Link
         href="/shoe-finder"
         onClick={fire}
-        className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+        className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
       >
         나에게 맞는 신발 찾기 →
       </Link>

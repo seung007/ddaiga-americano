@@ -131,7 +131,7 @@ export default function RaceJourney({
             <li key={s.key} className="flex gap-3 text-sm">
               <span
                 className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                  active ? "bg-ink text-white" : "bg-gray-100 text-gray-500"
+                  active ? "bg-emerald-600 text-white" : "bg-gray-100 text-gray-500"
                 }`}
               >
                 {i + 1}

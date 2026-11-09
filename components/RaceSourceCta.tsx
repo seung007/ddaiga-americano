@@ -23,7 +23,7 @@ export default function RaceSourceCta({ race }: { race: Race }) {
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-neutral-800"
+      className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
     >
       {LABEL[link.kind]}
       {open ? "에서 신청" : ""} ↗

@@ -36,7 +36,7 @@ export function toProfileShoe(s: Shoe): ProfileShoe {
  */
 
 export const PROFILE_COLORS = [
-  { stroke: "#059669", fill: "rgba(5,150,105,0.18)", text: "text-emerald-700", dot: "bg-ink" },
+  { stroke: "#059669", fill: "rgba(5,150,105,0.18)", text: "text-emerald-700", dot: "bg-emerald-600" },
   { stroke: "#4f46e5", fill: "rgba(79,70,229,0.16)", text: "text-indigo-700", dot: "bg-indigo-600" },
   { stroke: "#d97706", fill: "rgba(217,119,6,0.16)", text: "text-amber-700", dot: "bg-amber-600" },
 ] as const;

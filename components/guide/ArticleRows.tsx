@@ -40,7 +40,7 @@ export function Pager({ base, page, pages }: { base: string; page: number; pages
           href={href(n)}
           aria-current={n === page ? "page" : undefined}
           className={`min-w-9 rounded-lg border px-3 py-1.5 text-center text-sm ${
-            n === page ? "border-emerald-600 bg-ink font-semibold text-white" : "border-gray-200 text-gray-700 hover:border-emerald-300"
+            n === page ? "border-emerald-600 bg-emerald-600 font-semibold text-white" : "border-gray-200 text-gray-700 hover:border-emerald-300"
           }`}
         >
           {n}

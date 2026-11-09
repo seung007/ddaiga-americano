@@ -319,7 +319,7 @@ export default function Page() {
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-1">내 발에 맞는 러닝화를 찾으세요</p>
           <p className="text-sm text-emerald-800 mb-3">신발이 정강이 통증을 막는다는 근거는 없습니다. 발볼과 쿠션 취향에 맞는 신발을 고르는 용도로 쓰세요.</p>
-          <Link href="/shoe-finder" className="inline-block bg-ink text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors">
+          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

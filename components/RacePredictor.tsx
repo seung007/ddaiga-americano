@@ -81,7 +81,7 @@ export default function RacePredictor() {
             aria-checked={baseKm === b.km}
             onClick={() => setBaseKm(b.km)}
             className={`rounded-full border px-3 py-1.5 text-sm ${
-              baseKm === b.km ? "border-emerald-600 bg-ink text-white" : "border-gray-300 text-gray-700"
+              baseKm === b.km ? "border-emerald-600 bg-emerald-600 text-white" : "border-gray-300 text-gray-700"
             }`}
           >
             {b.label} 기록

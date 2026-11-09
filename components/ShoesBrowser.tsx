@@ -186,7 +186,7 @@ export default function ShoesBrowser() {
                 if (!mine) gtagEvent("shoes_my_filter", { from: "shoes" });
               }}
               className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-                mine ? "bg-ink text-white" : "border border-emerald-400 bg-white text-emerald-700"
+                mine ? "bg-emerald-600 text-white" : "border border-emerald-400 bg-white text-emerald-700"
               }`}
             >
               {mine ? "켜짐" : "켜기"}
@@ -199,7 +199,7 @@ export default function ShoesBrowser() {
             </p>
             <Link
               href="/shoe-finder"
-              className="rounded-full bg-ink px-4 py-1.5 text-sm font-semibold text-white hover:bg-neutral-800"
+              className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
             >
               질문 8개 답하기 →
             </Link>

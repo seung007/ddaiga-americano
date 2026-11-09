@@ -471,7 +471,7 @@ function ConditionCheck({
             className={`min-w-[72px] rounded-lg border px-4 py-2 text-sm font-medium ${
               v === b
                 ? b
-                  ? "border-emerald-500 bg-ink text-white"
+                  ? "border-emerald-500 bg-emerald-600 text-white"
                   : "border-amber-500 bg-amber-500 text-white"
                 : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
             }`}
@@ -499,7 +499,7 @@ function ConditionCheck({
           <button
             type="button"
             onClick={onUp}
-            className="mt-2 w-full rounded-xl bg-ink px-4 py-3 text-base font-semibold text-white hover:bg-neutral-800"
+            className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
           >
             {isLast ? "완주 — 수료증 만들기" : `${WALK_RUN_STEPS[stepIdx + 1].key}단계 시작`}
           </button>
@@ -514,7 +514,7 @@ function ConditionCheck({
           <button
             type="button"
             onClick={onRepeat}
-            className="mt-2 w-full rounded-xl bg-ink px-4 py-3 text-base font-semibold text-white hover:bg-neutral-800"
+            className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
           >
             {key}단계 다시 하기
           </button>
@@ -531,7 +531,7 @@ function ConditionCheck({
               <button
                 type="button"
                 onClick={onDown}
-                className="mt-2 w-full rounded-xl bg-ink px-4 py-3 text-base font-semibold text-white hover:bg-neutral-800"
+                className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
               >
                 {WALK_RUN_STEPS[stepIdx - 1].key}단계로 내려가기
               </button>
@@ -551,7 +551,7 @@ function ConditionCheck({
               <button
                 type="button"
                 onClick={onRepeat}
-                className="mt-2 w-full rounded-xl bg-ink px-4 py-3 text-base font-semibold text-white hover:bg-neutral-800"
+                className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
               >
                 A단계 다시 하기
               </button>
@@ -783,7 +783,7 @@ function IntervalTimer({
 
       <div
         className={`mt-3 rounded-xl px-4 py-5 text-center ${
-          ended ? "bg-gray-50" : isRun ? "bg-ink text-white" : "bg-sky-50 text-sky-950"
+          ended ? "bg-gray-50" : isRun ? "bg-emerald-600 text-white" : "bg-sky-50 text-sky-950"
         }`}
         aria-live="polite"
       >
@@ -823,7 +823,7 @@ function IntervalTimer({
           <button
             type="button"
             onClick={start}
-            className="rounded-xl bg-ink px-4 py-3 text-base font-semibold text-white hover:bg-neutral-800"
+            className="rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
           >
             {elapsed === 0 || ended ? "시작" : "이어서"}
           </button>
@@ -968,7 +968,7 @@ function Certificate({ finishedOn }: { finishedOn: string }) {
         <button
           type="button"
           onClick={download}
-          className="shrink-0 rounded-xl bg-ink px-4 py-2.5 text-base font-semibold text-white hover:bg-neutral-800"
+          className="shrink-0 rounded-xl bg-emerald-600 px-4 py-2.5 text-base font-semibold text-white hover:bg-emerald-700"
         >
           수료증 내려받기
         </button>

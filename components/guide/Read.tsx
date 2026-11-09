@@ -35,7 +35,7 @@ export function Summary({ items, title = "한눈에" }: { items: React.ReactNode
       <ul className="mt-2 space-y-2">
         {items.map((it, i) => (
           <li key={i} className="flex gap-2.5 break-keep text-base leading-[1.65] text-emerald-950">
-            <span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+            <span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" />
             <span>{it}</span>
           </li>
         ))}

@@ -238,7 +238,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
       )}
 
       <p className="mb-1 text-xs text-gray-500">
-        <span className="mr-1 inline-block h-2.5 w-2.5 rounded-full bg-ink align-middle" />나
+        <span className="mr-1 inline-block h-2.5 w-2.5 rounded-full bg-emerald-600 align-middle" />나
         {ghost && (
           <>
             <span className="ml-3 mr-1 inline-block h-2.5 w-2.5 rounded-full bg-indigo-600 align-middle" />같이 달린 러너
@@ -251,7 +251,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
         <button
           onClick={() => (running ? setRunning(false) : start())}
           disabled={!pace || (ghostOn && !ghost)}
-          className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:bg-gray-300"
+          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:bg-gray-300"
         >
           {running ? "멈춤" : done ? "다시 달리기" : t > 0 ? "이어 달리기" : "출발"}
         </button>
@@ -271,7 +271,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
           <dd className="font-mono text-sm font-semibold text-gray-900">{fmt(t)}</dd>
         </div>
         <div className="rounded-lg bg-gray-50 p-2">
-          <dt className="flex items-center justify-center gap-1 text-xs text-gray-500"><span className="inline-block h-2 w-2 rounded-full bg-ink" />내 거리</dt>
+          <dt className="flex items-center justify-center gap-1 text-xs text-gray-500"><span className="inline-block h-2 w-2 rounded-full bg-emerald-600" />내 거리</dt>
           <dd className="font-mono text-sm font-semibold text-gray-900">{(myM / 1000).toFixed(2)}km</dd>
         </div>
         <div className="rounded-lg bg-gray-50 p-2">

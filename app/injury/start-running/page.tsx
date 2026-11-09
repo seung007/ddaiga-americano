@@ -226,7 +226,7 @@ export default function StartRunningPage() {
         {/* 2026-10-13: 표를 읽고 끝나지 않게 — 회차별 순서·타이머·진행 저장이 있는 따라 하기 도구로 잇는다 */}
         <Link
           href="/tools/run-30"
-          className="mt-4 flex items-center justify-center rounded-xl bg-ink px-4 py-3 text-center text-base font-semibold text-white break-keep hover:bg-neutral-800"
+          className="mt-4 flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-center text-base font-semibold text-white break-keep hover:bg-emerald-700"
         >
           이 표대로 따라 하기 →
         </Link>
@@ -393,7 +393,7 @@ export default function StartRunningPage() {
           유지했다면 2단계(30분 → 10km)입니다. <Basis kind="rule" />
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Link href="/injury#stage-to10k" className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+          <Link href="/injury#stage-to10k" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             2단계에서 자주 겪는 문제 →
           </Link>
           <Link href="/injury/first-10k" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">

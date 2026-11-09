@@ -125,7 +125,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
         <button
           onClick={calc}
           disabled={w <= 0}
-          className="mt-5 w-full rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:bg-gray-300"
+          className="mt-5 w-full rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700 disabled:bg-gray-300"
         >
           계산하기
         </button>

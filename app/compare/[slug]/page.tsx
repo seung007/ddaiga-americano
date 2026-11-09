@@ -402,7 +402,7 @@ export default async function ComparePage({
                   rel="noopener noreferrer"
                   className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-colors ${
                     link.isOfficial
-                      ? "bg-ink hover:bg-neutral-800 text-white"
+                      ? "bg-emerald-600 hover:bg-emerald-700 text-white"
                       : "bg-gray-700 hover:bg-gray-800 text-white"
                   }`}
                 >
@@ -442,7 +442,7 @@ export default async function ComparePage({
         </p>
         <Link
           href="/shoe-finder"
-          className="inline-flex items-center gap-2 bg-ink hover:bg-neutral-800 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
+          className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
         >
           내 발에 맞는 러닝화 찾기 →
         </Link>
@@ -532,7 +532,7 @@ function NotFound({ message }: { message: string }) {
       <p className="text-sm text-gray-500 mb-6">{message}</p>
       <Link
         href="/shoe-finder"
-        className="inline-flex items-center gap-2 bg-ink text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-neutral-800 transition-colors"
+        className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-emerald-700 transition-colors"
       >
         내 발에 맞는 신발 찾기 →
       </Link>

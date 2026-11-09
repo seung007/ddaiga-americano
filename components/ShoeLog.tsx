@@ -225,7 +225,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
           <button
             onClick={addShoe}
             disabled={!pick && !custom.trim()}
-            className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:bg-gray-300"
+            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:bg-gray-300"
           >
             등록
           </button>

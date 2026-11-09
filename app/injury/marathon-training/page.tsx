@@ -397,7 +397,7 @@ export default function MarathonTrainingPage() {
           풀코스를 완주했다면 5단계(기록 단축)입니다. 거기서는 강도 배분·인터벌·근력운동이 관건입니다.
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Link href="/injury/get-faster" className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+          <Link href="/injury/get-faster" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             기록 단축 →
           </Link>
           <Link href="/injury/advanced-guide" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">

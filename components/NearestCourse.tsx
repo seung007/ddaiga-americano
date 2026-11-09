@@ -99,7 +99,7 @@ export default function NearestCourse({ courses }: { courses: NearbyCourse[] }) 
             type="button"
             onClick={find}
             disabled={state === "asking"}
-            className="mt-3 rounded-xl bg-ink px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:opacity-60"
+            className="mt-3 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-60"
           >
             {state === "asking" ? "위치 확인 중…" : "가까운 코스 찾기"}
           </button>

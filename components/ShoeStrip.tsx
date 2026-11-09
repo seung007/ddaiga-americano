@@ -189,7 +189,7 @@ export default function ShoeStrip({ shoes }: { shoes: StripShoe[] }) {
                 aria-pressed={on}
                 className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
                   on
-                    ? "border-emerald-600 bg-ink text-white"
+                    ? "border-emerald-600 bg-emerald-600 text-white"
                     : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300"
                 }`}
               >

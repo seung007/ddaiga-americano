@@ -337,7 +337,7 @@ export default function BeginnerGuidePage() {
             12편 11,240명을 모은 고찰에서 신발 종류를 바꿔 부상이 줄었다는 결과는 대부분 확인되지 않았습니다{" "}
             <S>(Relph et al. (2022) <Up h="https://pubmed.ncbi.nlm.nih.gov/35993829/" />)</S>
           </p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800">
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

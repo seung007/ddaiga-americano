@@ -93,7 +93,7 @@ export default function InjuryHubPage() {
               className="group scroll-mt-20 rounded-2xl border border-gray-200 bg-white open:border-emerald-300"
             >
               <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-3.5 [&::-webkit-details-marker]:hidden">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink text-sm font-bold text-white">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">
                   {s.step}
                 </span>
                 <span className="min-w-0 flex-1">
@@ -139,7 +139,7 @@ export default function InjuryHubPage() {
                       href={g.href}
                       className={
                         i === 0
-                          ? "rounded-lg bg-ink px-3 py-1.5 text-sm font-medium text-white hover:bg-neutral-800"
+                          ? "rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700"
                           : "rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-gray-300"
                       }
                     >
@@ -257,7 +257,7 @@ export default function InjuryHubPage() {
         </p>
         <Link
           href="/shoe-finder"
-          className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+          className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
         >
           나에게 맞는 신발 찾기 →
         </Link>

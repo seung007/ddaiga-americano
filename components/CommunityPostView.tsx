@@ -249,7 +249,7 @@ export default function CommunityPostView({ id }: { id: string }) {
                       <span className="text-xs text-gray-500">
                         <span className="font-medium text-gray-700">{c.nickname}</span>
                         {c.is_author && (
-                          <span className="ml-1.5 rounded bg-ink px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                          <span className="ml-1.5 rounded bg-emerald-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
                             글쓴이
                           </span>
                         )}
@@ -293,7 +293,7 @@ export default function CommunityPostView({ id }: { id: string }) {
                   <button
                     type="submit"
                     disabled={sending}
-                    className="shrink-0 rounded-xl bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 disabled:bg-gray-200 disabled:text-gray-400"
+                    className="shrink-0 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400"
                   >
                     {sending ? "…" : "댓글 달기"}
                   </button>

@@ -342,7 +342,7 @@ export default function Page() {
 
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
           <p className="mb-2 font-medium text-emerald-900">내 발에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800">
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>
