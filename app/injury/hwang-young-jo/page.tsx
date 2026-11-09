@@ -34,7 +34,7 @@ import { pageUrl } from "@/lib/site";
 const PAGE_URL = pageUrl("/injury/hwang-young-jo");
 const TITLE = "황영조 몬주익 금메달, 초보 러너가 배울 점은?";
 const DESC =
-  "황영조 선수가 몬주익 언덕에서 금메달을 딴 과정과, 선수 시절의 고통을 초보 러너가 따라 하지 않아도 되는 이유를 기사로 확인해 적었습니다.";
+  "황영조 선수가 몬주익 언덕에서 금메달을 딴 과정은 기사로 확인해 적었고, 선수 시절의 고통을 초보 러너가 따라 하지 않아도 된다는 것은 저희 제안으로 나눠 적었습니다.";
 
 export const metadata: Metadata = {
   title: `${TITLE} — 뛰다가 아메리카노`,
