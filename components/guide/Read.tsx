@@ -149,7 +149,7 @@ export function Basis({ kind }: { kind: "paper" | "rule" }) {
       연구 근거
     </span>
   ) : (
-    <span className="ml-1.5 inline-block whitespace-nowrap rounded bg-gray-100 px-1.5 py-0.5 align-middle text-xs text-gray-500">
+    <span className="ml-1.5 inline-block whitespace-nowrap rounded bg-gray-100 px-1.5 py-0.5 align-middle text-xs text-gray-600">
       저희 제안
     </span>
   );

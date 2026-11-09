@@ -106,7 +106,8 @@ const TRUST_BASE = [
       ? `${SHOES.length}종 · 공식몰 정가 ${officialChecked.length}종 자동 확인 (${officialDate} 기준)`
       : `${SHOES.length}종 · 권장가 추산`,
   },
-  verifiedDates.length ? { what: "스펙·발볼", how: `브랜드 공식 자료로 ${verifiedDates.length}종 스펙 확인` } : null,
+  // 2026-11-09: 「브랜드 공식 자료로」는 사실과 달랐다 — 스펙 다수는 공개된 실측 자료(데이터 sourceUrl) 값이다. 출처 종류를 사실대로 적는다
+  verifiedDates.length ? { what: "스펙·발볼", how: `브랜드 공식 표기와 공개된 실측 자료로 ${verifiedDates.length}종 확인` } : null,
 ].filter((x): x is { what: string; how: string } => !!x);
 
 /**
