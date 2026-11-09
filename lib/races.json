@@ -1905,7 +1905,7 @@
       10,
       21.0975
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "우이천 다목적광장 (서울특별시 성북구 석관동 376)",
     "registrationStart": "2026-10-01",
     "registrationEnd": "2026-11-08",
@@ -1930,7 +1930,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-youth-race-5826e621ef1545d08d72feadb281cd95",
     "officialUrl": "https://youngrace.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-09",
     "checkedBy": "수집기"
   },
   {
@@ -2112,7 +2112,7 @@
     "distancesKm": [
       5
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "서울 뚝섬한강공원 수변무대",
     "registrationStart": "2026-10-01",
     "registrationEnd": "2026-11-08",
@@ -2127,7 +2127,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-econow-run-7c6afaffc7f04723aed67f7a3d703838",
     "officialUrl": "https://econow.campaignus.me/econow_run",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-09",
     "checkedBy": "수집기"
   },
   {
@@ -2900,7 +2900,7 @@
       5,
       10
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "상암동 평화의공원 평화광장",
     "registrationStart": "2026-09-01",
     "registrationEnd": "2026-11-08",
@@ -2920,7 +2920,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-youth-run",
     "officialUrl": "https://www.youthrun.co.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-06",
     "checkedBy": "수집기"
   },
   {
@@ -3139,7 +3139,7 @@
       5,
       10
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "상암 월드컵경기장 평화의공원 평화광장",
     "registrationStart": "2026-10-06",
     "registrationEnd": "2026-11-08",
@@ -3147,7 +3147,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-hug-run",
     "officialUrl": "https://hugrun.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-06",
     "checkedBy": "수집기"
   },
   {
@@ -3266,7 +3266,7 @@
       10,
       21.0975
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "송도 달빛공원",
     "registrationStart": "2026-10-09",
     "registrationEnd": "2026-11-08",
