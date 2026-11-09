@@ -29,11 +29,11 @@ import { pageUrl } from "@/lib/site";
  *   「풀코스 연구」(걷뛰기)·「10km에서 확인한 연구 없음」(음의 분할)·「초보만 모은 연구 아님」(110%) 단서는 <Note> 로 본문에.
  */
 const PAGE_URL = pageUrl("/injury/first-10k");
-const TITLE = "생애 첫 10km 대회 준비물과 페이스 전략";
-const DESC = "출발선에 서기 전에 알아야 할 것들. 얼마나 준비하고 어떻게 늘릴지, 준비물과 페이스까지 — 연구로 확인된 것과 저희 제안을 구분해 정리했습니다.";
+const TITLE = "첫 10km 대회, 준비 기간과 페이스는?";
+const DESC = "지금 뛰는 거리에서 몇 주를 잡을지, 긴 날은 어디까지 늘릴지, 출발은 얼마나 천천히 할지 다룹니다. 연구로 확인된 것과 저희 제안은 나눠 적었습니다.";
 
 export const metadata: Metadata = {
-  title: "생애 첫 10km 대회 준비물과 페이스 전략 — 뛰다가 아메리카노",
+  title: "첫 10km 대회, 준비 기간과 페이스는? — 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/first-10k" },
 };
@@ -67,33 +67,33 @@ export default function Page() {
         <ArticleMeta href="/injury/first-10k" />
         {/* ⚠️ 2026-09-14 — 배지가 "공개 연구 및 의학 자료 기반" 이었다(당시 논문 0건). 페이지 내용에 맞게 고친 문구를 유지한다. */}
         <p className="mt-3 text-xs text-gray-500">
-          <span className="text-emerald-600">✓</span> 협찬 없이 작성 — 연구로 확인된 것과 저희 제안을 구분해 적었습니다
+          <span className="text-emerald-600">✓</span> 협찬 없이 썼습니다. 연구로 확인된 것과 저희 제안을 구분해 적었습니다
         </p>
         <Lead>
-          첫 10km 대회의 결승선은 달리기를 오래 즐기게 만드는 경험이 되기도 합니다. 부상이나 완주 실패로 나쁜 기억이 되지 않게,
-          얼마나 준비하고 어떻게 뛸지만 추렸습니다.
+          첫 대회를 신청해 두고 무엇부터 할지 막막하다면, 지금 뛸 수 있는 거리에서 시작하면 됩니다. 한 무작위 시험에서는 준비 기간을
+          길게 잡아도 덜 다치지 않았습니다.
         </Lead>
 
         <Summary
           items={[
             <>긴 날은 <strong>지난 30일 중 가장 길게 뛴 거리의 110% 안에서</strong> 늘립니다. 성인 러너를 추적한 한 관찰 연구에서 나온 기준입니다.<Basis kind="rule" /></>,
             <>3km를 뛸 수 있다면 준비 기간은 <strong>8~10주</strong>를 잡는 경우가 많습니다.<Basis kind="rule" /></>,
-            <>첫 대회의 목표는 기록이 아니라 <strong>완주</strong>. 기록은 두 번째 대회부터.<Basis kind="rule" /></>,
+            <>첫 대회는 <strong>완주</strong>를 목표로 잡습니다. 기록은 두 번째 대회부터 봅니다.<Basis kind="rule" /></>,
             <>대회 날에는 <strong>출발 2km를 너무 빨리 뛰지 않는 것</strong>이 핵심입니다.<Basis kind="rule" /></>,
           ]}
         />
 
         {/* 「10km 준비」「10km 러닝 준비」「10km 대회준비」가 들어오는데 답이 없던 자리 (2026-09-13 추가) */}
         <h2 id="how-long" className={H2}>
-          10km 대회, 얼마나 준비해야 하나요
+          10km 대회, 몇 주 준비해야 하나요?
         </h2>
         <P>
-          <strong>지금 뛸 수 있는 거리에서 시작합니다.</strong> 0에서 시작하는 게 아닙니다.
+          <strong>지금 뛸 수 있는 거리에서 시작합니다.</strong> 0에서 다시 시작하지 않습니다.
         </P>
         {/* ⚠️ 2026-09-14 — 표에 출처가 없다는 지적. 표는 사실처럼 보이기 때문에 고지가 더 필요한 자리다. */}
         <P className="text-sm text-gray-500">
-          아래 기간은 연구로 검증된 수치가 아니라 통용되는 기준입니다.<Basis kind="rule" /> 한 무작위 시험에서는 기간을 길게 잡아도
-          덜 다치지 않았습니다.
+          아래 기간은 흔히 쓰는 기준입니다. 연구로 검증된 수치는 아닙니다.<Basis kind="rule" /> 한 무작위 시험에서는 기간을 길게
+          잡아도 덜 다치지 않았습니다.
         </P>
 
         <div className="mt-4 overflow-x-auto">
@@ -134,8 +134,8 @@ export default function Page() {
         </P>
         <Evidence n={1} label="기간을 길게 잡으면 덜 다칠까?">
           <p>
-            6.7km 대회를 준비하는 초보 532명을 일반 8주 프로그램과 13주 프로그램으로 나눈 무작위 시험에서 부상률은 20.3%와 20.8%로
-            같았습니다. <S>(Buist et al. (2008) <Up h="https://pubmed.ncbi.nlm.nih.gov/17940147/" />)</S>
+            일반 8주 프로그램과 13주 프로그램의 부상률은 20.3%와 20.8%로 같았습니다(6.7km 대회를 준비하는 초보 532명을 나눈
+            무작위 시험). <S>(Buist et al. (2008) <Up h="https://pubmed.ncbi.nlm.nih.gov/17940147/" />)</S>
           </p>
         </Evidence>
 
@@ -150,35 +150,35 @@ export default function Page() {
         />
 
         <h2 id="long-day" className={H2}>
-          긴 날은 얼마나 늘려도 될까
+          긴 날은 얼마나 늘려도 되나요?
         </h2>
         <P>
-          기준은 <strong>지난 30일 동안 가장 길게 뛴 거리의 110%</strong>입니다.<Basis kind="rule" /> 성인 러너 5,205명을 18개월
-          추적한 한 연구에서, 한 번에 그보다 길게 뛰면 과사용 부상이 더 많았습니다.
+          기준은 <strong>지난 30일 동안 가장 길게 뛴 거리의 110%</strong>입니다.<Basis kind="rule" /> 한 번에 그보다 길게 뛰면
+          과사용 부상이 더 많았습니다(성인 러너 5,205명을 18개월 추적한 한 연구).
         </P>
         <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-[15px] leading-[1.7] text-emerald-900">
           예) 지난 한 달 최장이 <strong>5km</strong>였다면 → 다음 긴 날은 <strong>5.5km까지</strong>.
         </div>
         <P>
-          흔히 말하는 &lsquo;주간 10% 규칙&rsquo;은 한 초보 무작위 시험에서 부상을 줄이지 못했습니다. 위 110%는 주간 거리가 아니라
-          &lsquo;가장 긴 하루&rsquo; 기준이라 다른 이야기입니다.
+          흔히 말하는 &lsquo;주간 10% 규칙&rsquo;은 한 초보 무작위 시험에서 부상을 줄이지 못했습니다. 위 110%는 주간 거리 대신
+          &lsquo;가장 긴 하루&rsquo;를 기준으로 삼습니다.
         </P>
-        <Note>110% 연구는 초보만 모은 연구가 아니라 성인 러너를 따라간 연구입니다.</Note>
+        <Note>110% 연구는 초보만 모은 연구가 아닙니다. 성인 러너를 따라간 연구입니다.</Note>
         <Evidence n={2}>
           <p>
-            성인 러너 5,205명을 18개월 추적한 연구에서 한 번 달린 거리가 지난 30일 최장 거리의 110%보다 길면 과사용 부상 비율이
-            1.52~2.28배였고, 전주 대비 주간 거리 비율은 관계가 없었습니다.{" "}
+            한 번 달린 거리가 지난 30일 최장 거리의 110%보다 길면 과사용 부상 비율이 1.52~2.28배였습니다. 전주 대비 주간 거리
+            비율은 관계가 없었습니다(성인 러너 5,205명을 18개월 추적한 연구).{" "}
             <S>(Frandsen et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/40623829/" />)</S>
           </p>
           <p>
-            &lsquo;주간 10% 규칙&rsquo;에 맞춘 13주 프로그램도 위 초보 532명 무작위 시험에서 부상을 줄이지 못했습니다.{" "}
+            &lsquo;주간 10% 규칙&rsquo;에 맞춘 13주 프로그램도 부상을 줄이지 못했습니다(위 초보 532명 무작위 시험).{" "}
             <S>(Buist et al. (2008) <Up h="https://pubmed.ncbi.nlm.nih.gov/17940147/" />)</S>
           </p>
         </Evidence>
 
-        <h3 className={H3}>이 단계에서 많이 아픈 곳</h3>
+        <h3 className={H3}>이 단계에서는 어디가 많이 아픈가요?</h3>
         <P>
-          부상당한 초보 254명을 본 한 연구에서, 부상 가운데 정강이와 무릎 앞이 많았습니다. 위치별로 따로 정리했습니다.
+          부상 가운데 정강이와 무릎 앞이 많았습니다(부상당한 초보 254명을 본 한 연구). 부위별 대처는 아래 글에 있습니다.
         </P>
         <div className="mt-3 flex flex-wrap gap-2">
           <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증 →</Link>
@@ -186,41 +186,41 @@ export default function Page() {
         </div>
         <Evidence n={1}>
           <p>
-            부상당한 초보 254명 중 정강이 통증 15%, 무릎 앞 10%.{" "}
+            부상당한 초보 254명 중 정강이 통증이 15%, 무릎 앞이 10%였습니다.{" "}
             <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>
           </p>
         </Evidence>
 
         <h2 id="run-walk" className={H2}>
-          중간에 걸으면 실패인가요
+          중간에 걸으면 실패인가요?
         </h2>
         <P>
           <strong>아닙니다.</strong> 5분 뛰고 1분 걷기를 반복해도 10km는 10km입니다.
         </P>
         <P>
-          아마추어 마라토너 시험에서 걷기를 섞은 그룹은 계속 달린 그룹과 완주 시간 차이가 없었고, 근육 통증과 피로를 덜 느꼈습니다.
+          걷기를 섞은 그룹은 계속 달린 그룹과 완주 시간 차이가 없었습니다(아마추어 마라토너 시험). 근육 통증과 피로는 덜 느꼈습니다.
         </P>
-        <Note>10km가 아니라 풀코스 연구입니다.</Note>
+        <Note>10km가 아닌 풀코스 연구입니다.</Note>
         <Evidence n={1}>
           <p>
-            아마추어 마라토너 42명 시험에서 걷기를 섞은 그룹은 계속 달린 그룹과 완주 시간 차이가 없었고, 근육 통증과 피로를 덜
-            느꼈습니다(풀코스 연구). <S>(Hottenrott et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/25467199/" />)</S>
+            걷기를 섞은 그룹은 계속 달린 그룹과 완주 시간 차이가 없었습니다. 근육 통증과 피로는 덜 느꼈습니다(아마추어 마라토너 42명
+            시험, 풀코스 연구). <S>(Hottenrott et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/25467199/" />)</S>
           </p>
         </Evidence>
         <P className="text-sm">
-          <Link href="/injury/training-types#run-walk" className="text-emerald-700 underline">훈련 종류 — 걷기-달리기 →</Link>
+          <Link href="/injury/training-types#run-walk" className="text-emerald-700 underline">훈련 종류 글의 걷기-달리기 →</Link>
         </P>
 
         <h2 id="gear" className={H2}>
-          대회 준비물, 뭘 챙길까
+          대회 준비물은 뭘 챙기나요?
         </h2>
         {/* 2026-09-13: 「①②③ →」로 한 문단에 뭉쳐 있던 것을 목록으로. 문구는 유지. */}
         <ol className="mt-4 list-inside list-decimal space-y-2 break-keep text-base leading-[1.8] text-gray-800">
-          <li><strong>러닝화</strong> — 대회 2주 전에 미리 달려서 물집 없는지 확인</li>
-          <li><strong>러닝 양말</strong> — 면 양말 금지, 기능성 러닝 양말</li>
+          <li><strong>러닝화</strong>는 대회 2주 전에 미리 신고 달려서 물집이 없는지 확인합니다</li>
+          <li><strong>러닝 양말</strong>은 면 양말 대신 기능성 러닝 양말로</li>
           <li><strong>번호표 핀 4개</strong> 또는 번호표 클립</li>
-          <li><strong>워치 또는 페이스 앱</strong> — 심박수까지 보이면 더 좋음</li>
-          <li><strong>에너지 젤</strong> — 10km는 대개 1시간 안팎이라 필수는 아닙니다.</li>
+          <li><strong>워치 또는 페이스 앱</strong>. 심박수까지 보이면 더 좋습니다</li>
+          <li><strong>에너지 젤</strong>은 필수가 아닙니다. 10km는 대개 1시간 안팎입니다.</li>
         </ol>
         <Evidence n={1} label="젤은 왜 필수가 아닐까">
           <p>
@@ -234,14 +234,14 @@ export default function Page() {
         </P>
 
         <h2 id="pace" className={H2}>
-          처음엔 얼마나 천천히 뛰어야 하나요
+          처음엔 얼마나 천천히 뛰어야 하나요?
         </h2>
         <P>
-          출발 분위기에 휩쓸려 첫 1~2km를 너무 빠르게 달리기 쉽습니다.{" "}
           <strong>목표 페이스보다 10~15초/km 느리게 출발하세요.</strong>
-          <Basis kind="rule" />
+          <Basis kind="rule" />{" "}
+          출발 분위기에 휩쓸려 첫 1~2km를 너무 빠르게 달리기 쉽습니다.
         </P>
-        <P>5km 이후 여유가 있으면 속도를 높입니다(&lsquo;음의 분할&rsquo;).</P>
+        <P>5km 이후 여유가 있으면 속도를 높입니다. 이렇게 후반을 더 빨리 뛰는 것을 &lsquo;음의 분할&rsquo;이라고 합니다.</P>
         <Note>10km에서 이 전략의 이점을 따로 확인한 연구는 찾지 못했습니다.</Note>
         <Evidence n={1}>
           <p>
@@ -293,7 +293,7 @@ export default function Page() {
 
         {/* 「10km 대회준비」가 묻는 것 — 당일 전후 */}
         <h2 id="race-week" className={H2}>
-          대회 2주 전부터 당일까지
+          대회 2주 전부터 당일까지 뭘 하나요?
         </h2>
         <P>
           날짜별로 할 일입니다.<Basis kind="rule" />
@@ -310,7 +310,7 @@ export default function Page() {
             <p className="mb-1 text-sm font-semibold text-gray-900">마지막 1주</p>
             <p className="break-keep text-[15px] leading-[1.7] text-gray-700">
               <strong>거리를 줄입니다.</strong> 이 주에 무리해서 얻는 건 없고 잃을 건 있습니다.
-              짧고 가볍게 2~3회만.
+              짧고 가볍게 2~3회만 뜁니다.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-4">
@@ -327,7 +327,7 @@ export default function Page() {
               <Link href="/injury/warmup" className="font-medium text-emerald-600 hover:underline">
                 준비운동
               </Link>
-              을 합니다 — 이때는 정적 스트레칭이 아니라 몸을 데우는 동작입니다.
+              을 합니다. 이때는 정적 스트레칭 대신 몸을 데우는 동작을 합니다.
             </p>
           </div>
         </div>
@@ -335,13 +335,13 @@ export default function Page() {
         <FinderCta from="first-10k" variant="inline" headline="첫 10km, 신발은 정하셨나요? 새 신발은 대회 전에 몇 번 신어 길들이세요." />
 
         <h2 id="wall" className={H2}>
-          7km쯤에서 너무 힘들어요
+          7km쯤에서 너무 힘들면 어떻게 하나요?
         </h2>
-        <P>7~8km 구간이 가장 힘들었다는 후기가 많습니다.</P>
         <P>
           남은 거리를 1km 단위로 쪼개 &lsquo;다음 표지판까지만&rsquo;이라고 생각하는 방법을 많이 씁니다.
           <Basis kind="rule" />
         </P>
+        <P>7~8km 구간이 가장 힘들었다는 후기가 많습니다.</P>
 
         {/**
          * 다음에 읽을 것 (2026-09-13 추가)
@@ -392,7 +392,7 @@ export default function Page() {
           },
           {
             q: "10km를 걷지 않고 뛰어야 완주인가요?",
-            a: "아닙니다. 5분 뛰고 1분 걷기를 반복해도 10km는 10km입니다. 아마추어 마라토너 시험에서 걷기를 섞은 그룹은 완주 시간 차이 없이 근육 통증과 피로를 덜 느꼈습니다(Hottenrott 2016). 첫 대회의 목표는 기록이 아니라 완주입니다.",
+            a: "아닙니다. 5분 뛰고 1분 걷기를 반복해도 10km는 10km입니다. 걷기를 섞은 그룹은 완주 시간 차이 없이 근육 통증과 피로를 덜 느꼈습니다(아마추어 마라토너 시험, Hottenrott 2016). 첫 대회는 완주를 목표로 잡으세요.",
           },
           {
             q: "10km를 1시간에 뛰려면 페이스가 어떻게 되나요?",
@@ -404,11 +404,11 @@ export default function Page() {
           },
           {
             q: "첫 10km 대회 준비물은 무엇이 필요한가요?",
-            a: "미리 길들인 러닝화(대회 2주 전 미리 신어 물집 확인), 기능성 러닝 양말, 번호표 핀 4개나 클립, 페이스 측정용 워치·앱. 젤은 1시간 안팎 경기라 필수는 아닙니다(Burke 2019). 새 장비는 대회날 처음 쓰지 마세요.",
+            a: "미리 길들인 러닝화(대회 2주 전 미리 신어 물집 확인), 기능성 러닝 양말, 번호표 핀 4개나 클립, 페이스를 볼 워치나 앱을 챙깁니다. 젤은 1시간 안팎 경기라 필수는 아닙니다(Burke 2019). 새 장비는 대회날 처음 쓰지 마세요.",
           },
           {
             q: "첫 대회에서 페이스 전략은 어떻게 잡나요?",
-            a: "출발 분위기에 휩쓸려 첫 1~2km를 너무 빠르게 달리기 쉽습니다. 목표 페이스보다 10~15초/km 느리게 출발하고, 5km 이후 여유가 있으면 속도를 올리세요. 10km에서 이 전략의 이점을 따로 확인한 연구는 찾지 못했고, 저희 제안입니다.",
+            a: "목표 페이스보다 10~15초/km 느리게 출발하세요. 출발 분위기에 휩쓸려 첫 1~2km를 너무 빠르게 달리기 쉽습니다. 5km 이후 여유가 있으면 속도를 올리세요. 10km에서 이 전략의 이점을 따로 확인한 연구는 찾지 못했습니다. 저희 제안입니다.",
           },
           {
             q: "7~8km에서 너무 힘들 때는 어떻게 하나요?",
@@ -419,7 +419,7 @@ export default function Page() {
         <References
           n={8}
           title="참고 자료"
-          note="추천 순서는 광고비로 바뀌지 않습니다. 거리 늘리기·걷뛰기·젤은 위 논문으로 확인했고, 준비 기간 표·출발 페이스·당일 일정·멘탈 관리는 저희 제안입니다."
+          note="추천 순서는 광고비로 바뀌지 않습니다. 거리 늘리기와 걷뛰기, 젤은 위 논문으로 확인했습니다. 준비 기간 표와 출발 페이스, 당일 일정, 멘탈 관리는 저희 제안입니다."
         >
           <ul>
             <li className="flex gap-2"><span className="text-gray-400">•</span><span><strong>Buist et al. (2008)</strong> — 초보 532명, 8주 대 13주(10% 규칙) 프로그램 부상률. Am J Sports Med 36(1):33-9. <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span></li>
@@ -440,7 +440,7 @@ export default function Page() {
 
         <FinderCta from="first-10k" headline="대회 전에 신발부터 확인하세요" sub="새 신발은 대회 전에 길들이세요. 발볼과 발 조건을 넣으면 맞는 신발을 추려드립니다." />
         {/* 2026-09-14: description 이 "논문 근거와 함께 정리했습니다" 였다 — 논문 0건이다. */}
-        <ShareButtons from="first-10k" title="첫 10km 완주 가이드" description="10km를 처음 뛸 때 얼마나 준비하고 어떤 페이스로 가야 하는지 정리했습니다." />
+        <ShareButtons from="first-10k" title="첫 10km 대회, 준비 기간과 페이스는?" description="10km를 처음 뛸 때 몇 주를 준비하고 어떤 페이스로 출발할지 다룹니다." />
 
       </article>
     </>
