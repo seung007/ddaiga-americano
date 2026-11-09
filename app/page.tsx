@@ -80,7 +80,7 @@ const HOME_COMPARES: { href: string; label: string; note?: string; pair?: [strin
 
 /** 비교 카드의 두 켤레 — 주소의 「-vs-」 앞뒤가 신발 id 다(app/compare/[slug] 의 parseSlug 와 같은 규칙) */
 function comparePair(c: (typeof HOME_COMPARES)[number]) {
-  const [a, b] = c.pair ?? (c.href.replace("/compare/", "").split("-vs-") as [string, string]);
+  const [a, b] = c.pair ?? (c.href.split("/").pop()!.split("-vs-") as [string, string]);
   const A = SHOES.find((x) => x.id === a);
   const B = SHOES.find((x) => x.id === b);
   return A && B ? ([A, B] as const) : null;
