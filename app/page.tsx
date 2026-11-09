@@ -49,7 +49,31 @@ const FINDER_HERO = HERO_SHOE ? { src: HERO_SHOE.imageUrl, alt: "" } : undefined
 const HOME_GUIDES = [
   { href: "/injury/wide-foot", tag: "발볼", title: "내 발볼 재는 법과 넓은 발볼 러닝화" },
   { href: "/injury/midfoot", tag: "착지", title: "미드풋 착지란? 힐스트라이크와 차이" },
-  { href: "/injury/first-10k", tag: "FIRST 10K", title: "생애 첫 10km 대회 준비물과 페이스 전략" },
+  { href: "/injury/first-10k", tag: "첫 대회", title: "생애 첫 10km 대회 준비물과 페이스 전략" },
+  // 2026-11-09: 홈 본문 링크가 134개 → 16개로 줄어 구글이 들를 길이 줄었다(색인 대기 227개). 지금 홈에서 빠진 주제를 되살린다
+  { href: "/injury/flat-feet", tag: "평발", title: "평발 러닝화, 안정화화가 정답일까" },
+  { href: "/injury/carbon-plate", tag: "카본화", title: "카본화 살까 말까 — 논문이 시험한 속도" },
+  { href: "/injury/heart-rate-zones", tag: "심박", title: "심박존 훈련이란? 최대심박 공식과 쉬운 달리기 비율" },
+];
+
+/** 넘으려는 단계별 가이드 — 지금 홈(main)의 「단계별」 줄과 같다. 근거는 lib/guide/stages.ts 머리말 */
+const LEVEL_GUIDES = [
+  { href: "/injury/start-running", label: "처음 → 30분" },
+  { href: "/injury/first-10k", label: "첫 10km" },
+  { href: "/injury/intermediate-guide", label: "하프 준비" },
+  { href: "/injury/advanced-guide", label: "풀·기록" },
+];
+
+/**
+ * 두 켤레 비교 — 지금 홈(main)에서 옮김. 네이버 유입 검색어 1위가 「호카 브룩스 비교」(11.36%, 2026-09-08 기록)라
+ * 브랜드 비교를 맨 위에 둔다. 비교 페이지로 가는 홈 링크가 0개가 되면 구글이 그 페이지들을 더 늦게 찾는다
+ */
+const HOME_COMPARES = [
+  { href: "/compare/hoka-vs-brooks", label: "호카 vs 브룩스", note: "브랜드 단위로 스펙 모아 보기" },
+  { href: "/compare/hoka-clifton-10-vs-brooks-ghost-17", label: "호카 클리프턴 10 vs 브룩스 고스트 17" },
+  { href: "/compare/nike-pegasus-42-vs-hoka-clifton-10", label: "나이키 페가수스 42 vs 호카 클리프턴 10" },
+  { href: "/compare/asics-gel-nimbus-27-vs-hoka-bondi-9", label: "아식스 님버스 27 vs 호카 본디 9" },
+  { href: "/compare/brooks-adrenaline-gts-25-vs-nb-860-v15", label: "브룩스 아드레날린 25 vs 뉴발란스 860 v15" },
 ];
 
 /** 참가비 한 줄 — 금액이 하나면 그 값, 여럿이면 가장 싼 값 + 「부터」. 없으면 쓰지 않는다 */
@@ -157,6 +181,21 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          <nav aria-label="단계별 가이드" className="flex flex-wrap items-center gap-2 px-5 pt-3">
+            <span className="text-sm text-gray-500">단계별</span>
+            {LEVEL_GUIDES.map((g) => (
+              <Link
+                key={g.href}
+                href={g.href}
+                className="press inline-flex h-11 items-center rounded-full border border-gray-200 px-4 text-sm text-[#111111] transition-colors hover:border-[#111111]"
+              >
+                {g.label}
+              </Link>
+            ))}
+            <Link href="/injury" className="inline-flex h-11 items-center px-2 text-sm text-emerald-600 underline underline-offset-4">
+              가이드 전체
+            </Link>
+          </nav>
         </div>
       </section>
 
@@ -207,6 +246,29 @@ export default function Home() {
       )}
 
       {/* 이렇게 확인했어요 — 날짜는 전부 데이터 파일에서 계산한다(손으로 적으면 하루 지나 틀린다) */}
+      {/* 두 켤레 비교 — 목록은 이 파일 위쪽 HOME_COMPARES */}
+      <section aria-labelledby="cmp-h" className="mx-auto max-w-3xl px-5 pt-12">
+        <div className="flex items-baseline justify-between">
+          <h2 id="cmp-h" className="text-xl font-semibold text-[#111111]">두 켤레 놓고 비교하기</h2>
+          <Link href="/compare/hoka-vs-brooks" className="text-sm text-emerald-600 underline underline-offset-4">
+            브랜드 비교
+          </Link>
+        </div>
+        <ul className="mt-3 divide-y divide-gray-100 border-y border-gray-100">
+          {HOME_COMPARES.map((c) => (
+            <li key={c.href}>
+              <Link href={c.href} className="flex min-h-12 items-center justify-between gap-3 py-3 text-base text-[#111111] hover:underline">
+                <span className="min-w-0 break-keep">
+                  {c.label}
+                  {c.note && <span className="ml-2 text-sm text-gray-500">{c.note}</span>}
+                </span>
+                <span aria-hidden className="shrink-0 text-gray-400">›</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section aria-labelledby="trust-h" className="mx-auto max-w-3xl px-5 pt-12">
         <h2 id="trust-h" className="mb-4 text-xl font-semibold text-[#111111]">이렇게 확인했어요</h2>
         <ul className="flex flex-col gap-3 text-sm leading-normal">
