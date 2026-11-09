@@ -391,8 +391,8 @@ export default function StartRunningPage() {
           언제 다음 단계로 넘어가면 되나요?
         </h2>
         <P>
-          대화가 되는 속도로 <strong>30분을 쉬지 않고</strong> 달렸고 <strong>다음 날 아프지 않았다면</strong> 준비가 된 것입니다. 그걸
-          주 2~3회씩 2주 넘게 유지했다면 2단계(30분 → 10km)로 넘어갑니다. <Basis kind="rule" />
+          대화가 되는 속도로 <strong>30분을 쉬지 않고</strong> 달렸고 <strong>다음 날 아프지 않았고</strong>, 그걸 주 2~3회씩 2주
+          넘게 유지했다면 2단계(30분 → 10km)로 넘어갑니다. <Basis kind="rule" />
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury#stage-to10k" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">

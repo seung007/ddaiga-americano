@@ -27,7 +27,7 @@ import { pageUrl } from "@/lib/site";
  */
 const PAGE_URL = pageUrl("/injury/warmup");
 const TITLE = "러닝 전 스트레칭, 정적으로 해도 되나요?";
-const DESC = "오래 붙들고 늘리는 정적 스트레칭은 짧게 하면 됩니다. 몸을 데우는 5분 동적 루틴과 워밍업이 부상을 줄이는지까지 근거와 함께 봅니다.";
+const DESC = "오래 붙들고 늘리는 정적 스트레칭은 짧게, 아프지 않게 하면 됩니다. 몸을 데우는 5분 동적 루틴과 워밍업이 부상을 줄이는지까지 근거와 함께 봅니다.";
 
 export const metadata: Metadata = {
   title: "러닝 전 스트레칭, 정적으로 해도 되나요? — 뛰다가 아메리카노",
