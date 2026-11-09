@@ -199,8 +199,8 @@ export default function GetFasterPage() {
         </P>
         <Note>근거 확실성은 매우 낮음~중간입니다.</Note>
         <P>
-          부상 예방은 별개입니다. 첫 풀코스 러너 720명을 대상으로 한 한 시험에서는 주 3회 10분 자가 근력 프로그램이 부상을 줄이지
-          못했습니다.
+          부상 예방은 별개입니다. 첫 풀코스 러너 720명을 대상으로 한 한 시험에서는 주 3회 10분 자가 근력 프로그램이 완주를 막은
+          과사용 부상을 줄이지 못했습니다.
         </P>
         <Evidence n={2}>
           <p>
@@ -210,7 +210,8 @@ export default function GetFasterPage() {
             <S>(Llanos-Lagos et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/38627351/" />)</S>
           </p>
           <p>
-            첫 풀코스 러너 720명에게 주 3회 10분 자가 근력 프로그램을 준 시험에서는 부상이 줄지 않았습니다.{" "}
+            첫 풀코스 러너 720명에게 주 3회 10분 자가 근력 프로그램을 준 시험에서는 완주를 막은 과사용 부상이 7.1% 대 7.3%로 줄지
+            않았습니다.{" "}
             <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
           </p>
         </Evidence>

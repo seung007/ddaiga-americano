@@ -55,20 +55,22 @@ export type GuideArticle = {
 
 export const ARTICLES: GuideArticle[] = [
   // ── 단계 가이드 ─────────────────────────────────────
-  { href: "/injury/start-running", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "처음 달리기 — 30분 쉬지 않고 뛰기까지", desc: "초보 프로그램 참가자 거의 3명 중 1명이 반년 안에 그만둡니다. 이유 1위는 부상. 속도·진도·긴 날·멈출 신호.", readTime: "4분", stages: ["start"], published: "2026-10-06", updated: "2026-10-13" },
+  { href: "/injury/start-running", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "처음 달리기 — 30분 쉬지 않고 뛰기까지", desc: "초보 프로그램 참가자 거의 3명 중 1명이 반년 안에 그만둡니다. 이유 1위는 부상. 속도·진도·긴 날·멈출 신호.", readTime: "4분", stages: ["start"], published: "2026-10-06", updated: "2026-11-07" },
   { href: "/injury/beginner-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "초보 러너 뛰는 법", desc: "얼마나 자주·얼마나 늘려야 하는지, 초보에게 흔한 부상 3가지와 대처법.", readTime: "5분", stages: ["start", "to10k"], published: "2025-03-01", updated: "2026-10-13" },
-  { href: "/injury/half-marathon-training", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 준비 — 10km에서 21km로", desc: "하프 참가자 556명의 실제 준비량(주 26km·최장 18.5km)과, 주간 거리·긴 달리기를 늘리는 속도.", readTime: "4분", stages: ["to-half"], published: "2026-10-06", updated: "2026-10-13" },
+  { href: "/injury/half-marathon-training", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 준비 — 10km에서 21km로", desc: "하프 참가자 556명의 실제 준비량(주 26km·최장 18.5km)과, 주간 거리·긴 달리기를 늘리는 속도.", readTime: "4분", stages: ["to-half"], published: "2026-10-06", updated: "2026-11-07" },
   { href: "/injury/marathon-training", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "풀코스 준비 — 하프에서 42.195km로", desc: "풀 참가자 441명의 실제 준비량(주 40km·최장 32km), 준비 중 부상, 후반 붕괴, 테이퍼·보급.", readTime: "4분", stages: ["to-full"], published: "2026-10-07", updated: "2026-10-13" },
-  { href: "/injury/get-faster", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "기록 단축 — 완주 다음, 더 빨라지려면", desc: "주간 거리·강도 배분·인터벌·근력·테이퍼가 실제로 얼마나 효과 있었는지, 기록 예측은 얼마나 믿을지.", readTime: "4분", stages: ["faster"], published: "2026-10-07", updated: "2026-10-13" },
+  { href: "/injury/get-faster", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "기록 단축 — 완주 다음, 더 빨라지려면", desc: "주간 거리·강도 배분·인터벌·근력·테이퍼가 실제로 얼마나 효과 있었는지, 기록 예측은 얼마나 믿을지.", readTime: "4분", stages: ["faster"], published: "2026-10-07", updated: "2026-11-07" },
   { href: "/injury/intermediate-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "중급자 부상 예방 가이드", desc: "러너에게 흔한 부상 세 가지와 오버트레이닝 징후 — 확인된 것과 저희 제안을 구분.", readTime: "4분", stages: ["to-half"], updated: "2026-10-13" },
-  { href: "/injury/advanced-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "숙련자 부상 예방 가이드", desc: "피로골절·햄스트링 건병증·주기화와 HRV, 근거 수준과 함께.", readTime: "5분", stages: ["to-full", "faster"], updated: "2026-10-13" },
+  { href: "/injury/advanced-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "숙련자 부상 예방 가이드", desc: "피로골절·햄스트링 건병증·주기화와 HRV, 근거 수준과 함께.", readTime: "5분", stages: ["to-full", "faster"], updated: "2026-11-07" },
 
   // ── 훈련 방법 (2026-10-07) ─────────────────────────
-  { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "러닝 훈련 종류 — 쉬었다 다시 달리기부터 인터벌까지", desc: "걷기-달리기·쉬운 달리기·장거리·템포·인터벌·언덕·크로스·근력. 무엇인지, 연구가 확인한 것, 하는 법, 몇 단계부터.", readTime: "6분", stages: "all", published: "2026-10-07", updated: "2026-10-13" },
+  { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "러닝 훈련 종류 — 쉬었다 다시 달리기부터 인터벌까지", desc: "걷기-달리기·쉬운 달리기·장거리·템포·인터벌·언덕·크로스·근력. 무엇인지, 연구가 확인한 것, 하는 법, 몇 단계부터.", readTime: "6분", stages: "all", published: "2026-10-07", updated: "2026-11-07" },
+  // 2026-11-07: 첫 내용 파일 글(lib/guide/content/heart-rate-zones.json) — AI 초안, 판정 2회 검증. 읽기 시간은 같은 규약(보이는 글자 1,958 ÷ 600)
+  { href: "/injury/heart-rate-zones", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "심박존 훈련이란? 최대심박 공식과 쉬운 달리기 비율", desc: "나이 공식으로 낸 최대심박의 오차, 낮은 강도 위주 배분을 시험한 연구들, 손목 워치 심박의 정확도.", readTime: "4분", stages: "all", published: "2026-11-07", updated: "2026-11-07" },
 
   // ── 나머지 (2026-09-22 순서 유지) ─────────────────────
   // 2026-10-06: 커뮤니티 부상 글 1위 부위라 전면 개편(3분 → 아래 실측). 복귀 글 신설.
-  { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 다시 달리기 — 언제, 얼마나, 어떻게", desc: "회복 기간 중앙값 71일. 완전히 쉬어야 하는지, 통증 몇 점까지 괜찮은지, 어떻게 다시 늘리는지.", readTime: "4분", stages: "all", published: "2026-10-06", updated: "2026-10-13" },
+  { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 다시 달리기 — 언제, 얼마나, 어떻게", desc: "회복 기간 중앙값 71일. 완전히 쉬어야 하는지, 통증 몇 점까지 괜찮은지, 어떻게 다시 늘리는지.", readTime: "4분", stages: "all", published: "2026-10-06", updated: "2026-11-07" },
   { href: "/injury/it-band", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "장경인대 증후군 — 무릎 바깥 통증, 무엇이 효과 있나", desc: "마찰이 아니라 압박. 스트레칭보다 엉덩이 외전근 강화. 내리막을 피하는 이유까지.", readTime: "5분", stages: ["to-half", "to-full"], published: "2025-03-01", updated: "2026-10-13" },
   { href: "/injury/wide-foot", tag: "발볼", tagColor: "text-blue-600 bg-blue-50", title: "2E·4E 와이드 뜻과 내 발볼 재는 법", desc: "2E·4E 규격이 필요한지 판단하는 방법과 브랜드별 옵션.", readTime: "4분", stages: "all", published: "2025-03-01", updated: "2026-11-04" },
   // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데 평발 페이지가 없었다.

@@ -7,6 +7,7 @@ import { SHOES } from "@/lib/shoes/data";
 import { verifiedAt } from "@/lib/shoes/labels";
 import { officialOf } from "@/lib/shoes/official";
 import { ARTICLES } from "@/lib/guide/articles";
+import { contentSlugs } from "@/lib/guide/content";
 import { TOPIC_SLUG, latestEnabled, topicsWithPage } from "@/lib/guide/listRules";
 import { SITE_URL } from "@/lib/site";
 
@@ -34,7 +35,9 @@ const INJURY_SLUGS = fs
   .filter((e) => e.isDirectory())
   .map((e) => e.name)
   // 2026-10-13: 글이 아닌 목록 경로(주제 페이지·모든 글)는 아래에서 규칙대로 따로 넣는다
-  .filter((name) => name !== "topic" && name !== "all")
+  .filter((name) => name !== "topic" && name !== "all" && !name.startsWith("["))
+  // 2026-11-07: 내용 파일 가이드(app/injury/[slug] ← lib/guide/content/<slug>.json). 폴더 이름 「[slug]」 대신 실제 주소로
+  .concat(contentSlugs())
   .sort();
 
 export default function sitemap(): MetadataRoute.Sitemap {
