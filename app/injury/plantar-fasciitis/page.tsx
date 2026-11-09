@@ -32,7 +32,7 @@ import { pageUrl } from "@/lib/site";
 const PAGE_URL = pageUrl("/injury/plantar-fasciitis");
 const TITLE = "족저근막염, 뭘 하면 낫고 얼마나 걸리나요?";
 const DESC =
-  "아침 첫 걸음에 발뒤꿈치가 아프다면, 스트레칭보다 석 달 시점에 더 나았던 근력 운동과 주사의 실제 효과, 생각보다 긴 회복 기간을 다룹니다.";
+  "아침 첫 걸음에 발뒤꿈치가 아프다면, 스트레칭보다 석 달 시점에 더 나았던 고부하 근력 운동과 주사의 실제 효과, 생각보다 긴 회복 기간을 다룹니다.";
 
 export const metadata: Metadata = {
   title: "족저근막염, 뭘 하면 낫고 얼마나 걸리나요? | 뛰다가 아메리카노",

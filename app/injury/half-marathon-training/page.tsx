@@ -120,8 +120,8 @@ export default function HalfMarathonTrainingPage() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/half-marathon-training" />
         <Lead>
-          하프를 신청해 놓고 <strong>얼마나 뛰어야 할지</strong> 막막하다면, 실제 참가자들이 뛴 양을 기준으로 삼을 수 있습니다. 더
-          뛴 그룹이 더 빨랐지만, 훈련량과 부상 사이에는 관련이 나타나지 않았습니다.
+          하프를 신청해 놓고 <strong>얼마나 뛰어야 할지</strong> 막막하다면, 실제 참가자들이 뛴 양을 기준으로 삼을 수 있습니다. 한
+          관찰 연구에서 더 뛴 그룹이 더 빨랐지만, 훈련량과 부상 사이에는 관련이 나타나지 않았습니다.
         </Lead>
 
         <Summary
