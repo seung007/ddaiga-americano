@@ -23,6 +23,7 @@ import HomeFinderCard, { type FinderShoe } from "@/components/HomeFinderCard";
 import { officialOf } from "@/lib/shoes/official";
 import VERIFIED from "@/lib/shoes/verified.json";
 import { SHOES } from "@/lib/shoes/data";
+import ShoeThumb from "@/components/ShoeThumb";
 import { upcomingRaces, daysUntil, distanceLabel, currentStatus, type Race } from "@/lib/races";
 
 /**
@@ -68,13 +69,22 @@ const LEVEL_GUIDES = [
  * 두 켤레 비교 — 지금 홈(main)에서 옮김. 네이버 유입 검색어 1위가 「호카 브룩스 비교」(11.36%, 2026-09-08 기록)라
  * 브랜드 비교를 맨 위에 둔다. 비교 페이지로 가는 홈 링크가 0개가 되면 구글이 그 페이지들을 더 늦게 찾는다
  */
-const HOME_COMPARES = [
-  { href: "/compare/hoka-vs-brooks", label: "호카 vs 브룩스", note: "브랜드 단위로 스펙 모아 보기" },
+const HOME_COMPARES: { href: string; label: string; note?: string; pair?: [string, string] }[] = [
+  // 브랜드 비교 카드의 사진은 아래 모델쌍과 겹치지 않는 두 켤레(마하 6 · 글리세린 22)
+  { href: "/compare/hoka-vs-brooks", label: "호카 vs 브룩스", note: "브랜드 단위로 스펙 모아 보기", pair: ["hoka-mach-6", "brooks-glycerin-22"] },
   { href: "/compare/hoka-clifton-10-vs-brooks-ghost-17", label: "호카 클리프턴 10 vs 브룩스 고스트 17" },
   { href: "/compare/nike-pegasus-42-vs-hoka-clifton-10", label: "나이키 페가수스 42 vs 호카 클리프턴 10" },
   { href: "/compare/asics-gel-nimbus-27-vs-hoka-bondi-9", label: "아식스 님버스 27 vs 호카 본디 9" },
   { href: "/compare/brooks-adrenaline-gts-25-vs-nb-860-v15", label: "브룩스 아드레날린 25 vs 뉴발란스 860 v15" },
 ];
+
+/** 비교 카드의 두 켤레 — 주소의 「-vs-」 앞뒤가 신발 id 다(app/compare/[slug] 의 parseSlug 와 같은 규칙) */
+function comparePair(c: (typeof HOME_COMPARES)[number]) {
+  const [a, b] = c.pair ?? (c.href.replace("/compare/", "").split("-vs-") as [string, string]);
+  const A = SHOES.find((x) => x.id === a);
+  const B = SHOES.find((x) => x.id === b);
+  return A && B ? ([A, B] as const) : null;
+}
 
 /** 참가비 한 줄 — 금액이 하나면 그 값, 여럿이면 가장 싼 값 + 「부터」. 없으면 쓰지 않는다 */
 function feeLabel(fees: Race["fees"]): string {
@@ -205,69 +215,95 @@ export default function Home() {
        * 빨강(#C9313F)은 마감에만 쓴다.
        */}
       {closingSoon.length > 0 && (
-        <section id="races" aria-labelledby="race-h" className="mx-auto max-w-3xl px-5 pt-12">
-          <div className="flex items-center justify-between">
-            <h2 id="race-h" className="text-xl font-semibold text-[#111111]">접수 마감이 가까운 대회</h2>
-            <Link href="/races" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">
-              전체 일정
+        <section id="races" aria-labelledby="race-h" className="pt-12">
+          <div className="mx-auto max-w-5xl">
+            <div className="flex items-center justify-between px-5">
+              <h2 id="race-h" className="text-xl font-semibold text-[#111111]">접수 마감이 가까운 대회</h2>
+              <Link href="/races" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">
+                전체 일정
+              </Link>
+            </div>
+            {/**
+             * 2026-11-09 배번표 카드 — 사이트의 「세계」(대회 배번·기록증)를 그대로 쓴 한 자리.
+             * 큰 숫자는 장식이 아니라 실제 값(접수 마감까지 남은 날). 빨강(#C9313F)은 마감에만 쓴다.
+             * 네 귀퉁이 점은 배번을 옷에 다는 핀 자리 — 그림일 뿐이라 화면 읽기 프로그램에는 숨긴다.
+             */}
+            <ul className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
+              {closingSoon.map((r) => {
+                const left = daysUntil(r.registrationEnd ?? null);
+                const fee = feeLabel(r.fees);
+                return (
+                  <li key={r.id} className="w-64 shrink-0 snap-start">
+                    <Link
+                      href={`/races/${r.id}`}
+                      className="press relative flex h-full flex-col rounded-xl border border-[#D5D8DD] bg-white px-5 pb-4 pt-5 text-[#111111] transition-colors hover:border-[#111111]"
+                    >
+                      {[["left-2.5", "top-2.5"], ["right-2.5", "top-2.5"], ["left-2.5", "bottom-2.5"], ["right-2.5", "bottom-2.5"]].map(([x, y]) => (
+                        <span key={x + y} aria-hidden className={`absolute ${x} ${y} h-2 w-2 rounded-full border border-[#D5D8DD] bg-[#F4F5F7]`} />
+                      ))}
+                      <span className="text-center text-xs text-[#4B5059]">접수 마감까지</span>
+                      <span className="mt-1 text-center text-[40px] font-bold leading-none tabular-nums text-[#C9313F]">
+                        {left === null ? "임박" : left === 0 ? "오늘" : `D-${left}`}
+                      </span>
+                      <span className="mt-4 border-t border-dashed border-[#D5D8DD] pt-3 text-base font-semibold leading-snug [overflow-wrap:anywhere] break-keep">
+                        {r.name}
+                      </span>
+                      <span className="mt-1 text-sm text-[#4B5059]">
+                        {[r.region, r.distancesKm.map(distanceLabel).join(", ")].filter(Boolean).join(" · ")}
+                      </span>
+                      <span className="mt-auto flex items-center justify-between pt-3 text-xs tabular-nums text-[#4B5059]">
+                        <span>{r.registrationEnd ? `${r.registrationEnd.slice(5).replace("-", "/")} 마감` : ""}</span>
+                        <span>{fee}</span>
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* 이렇게 확인했어요 — 날짜는 전부 데이터 파일에서 계산한다(손으로 적으면 하루 지나 틀린다) */}
+      {/* 두 켤레 비교 — 목록은 이 파일 위쪽 HOME_COMPARES */}
+      <section aria-labelledby="cmp-h" className="pt-12">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex items-baseline justify-between px-5">
+            <h2 id="cmp-h" className="text-xl font-semibold text-[#111111]">두 켤레 놓고 비교하기</h2>
+            <Link href="/compare/hoka-vs-brooks" className="text-sm text-emerald-600 underline underline-offset-4">
+              브랜드 비교
             </Link>
           </div>
-          <ul>
-            {closingSoon.map((r) => {
-              const left = daysUntil(r.registrationEnd ?? null);
-              const fee = feeLabel(r.fees);
+          {/* 2026-11-09: 글자 목록 → 실제 신발 사진 두 장을 마주 보게. 색을 더하지 않고 사진이 눈을 끈다 */}
+          <ul className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
+            {HOME_COMPARES.map((c) => {
+              const pair = comparePair(c);
+              const [l, r] = c.label.split(" vs ");
               return (
-                <li key={r.id}>
+                <li key={c.href} className="w-72 shrink-0 snap-start">
                   <Link
-                    href={`/races/${r.id}`}
-                    className="press flex min-h-[72px] items-center justify-between gap-4 border-t border-[#D5D8DD] py-3 text-[#111111]"
+                    href={c.href}
+                    className="press flex h-full flex-col overflow-hidden rounded-2xl border border-[#D5D8DD] bg-white text-[#111111] transition-colors hover:border-[#111111]"
                   >
-                    <span className="flex flex-col gap-1">
-                      <span className="text-base font-bold leading-snug">{r.name}</span>
-                      <span className="text-sm text-[#4B5059]">
-                        {[r.region, r.distancesKm.map(distanceLabel).join(", "), fee].filter(Boolean).join(" · ")}
+                    <span className="relative grid grid-cols-2 gap-1 bg-[#F4F5F7] p-3">
+                      {pair?.map((x) => (
+                        <ShoeThumb key={x.id} src={x.imageUrl} alt="" model={x.model} className="aspect-square w-full" />
+                      ))}
+                      <span aria-hidden className="absolute left-1/2 top-1/2 grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-sm font-bold shadow-sm">
+                        vs
                       </span>
                     </span>
-                    <span className="flex shrink-0 flex-col items-end gap-1">
-                      <span className="text-sm font-bold tabular-nums text-[#C9313F]">
-                        {left === null ? "마감 임박" : left === 0 ? "오늘 마감" : `D-${left}`}
-                      </span>
-                      {r.registrationEnd && (
-                        <span className="text-xs tabular-nums text-[#4B5059]">
-                          {r.registrationEnd.slice(5).replace("-", "/")} 마감
-                        </span>
-                      )}
+                    <span className="flex flex-1 flex-col gap-0.5 px-4 pb-4 pt-3">
+                      <span className="text-base font-semibold leading-snug">{l}</span>
+                      <span className="text-base font-semibold leading-snug">{r}</span>
+                      <span className="mt-auto pt-2 text-sm text-emerald-600">{c.note ?? "무게·드롭·가격 비교"} ›</span>
                     </span>
                   </Link>
                 </li>
               );
             })}
           </ul>
-        </section>
-      )}
-
-      {/* 이렇게 확인했어요 — 날짜는 전부 데이터 파일에서 계산한다(손으로 적으면 하루 지나 틀린다) */}
-      {/* 두 켤레 비교 — 목록은 이 파일 위쪽 HOME_COMPARES */}
-      <section aria-labelledby="cmp-h" className="mx-auto max-w-3xl px-5 pt-12">
-        <div className="flex items-baseline justify-between">
-          <h2 id="cmp-h" className="text-xl font-semibold text-[#111111]">두 켤레 놓고 비교하기</h2>
-          <Link href="/compare/hoka-vs-brooks" className="text-sm text-emerald-600 underline underline-offset-4">
-            브랜드 비교
-          </Link>
         </div>
-        <ul className="mt-3 divide-y divide-gray-100 border-y border-gray-100">
-          {HOME_COMPARES.map((c) => (
-            <li key={c.href}>
-              <Link href={c.href} className="flex min-h-12 items-center justify-between gap-3 py-3 text-base text-[#111111] hover:underline">
-                <span className="min-w-0 break-keep">
-                  {c.label}
-                  {c.note && <span className="ml-2 text-sm text-gray-500">{c.note}</span>}
-                </span>
-                <span aria-hidden className="shrink-0 text-gray-400">›</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section aria-labelledby="trust-h" className="mx-auto max-w-3xl px-5 pt-12">
