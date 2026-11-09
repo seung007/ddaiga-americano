@@ -14,9 +14,9 @@ import { hasWide } from "@/lib/shoes/labels";
  *   해당 없으면 아무것도 그리지 않는다. 글 제목은 lib/guide/articles.ts 의 제목을 줄인 것.
  */
 const GUIDES = {
-  wide: { href: "/injury/wide-foot", label: "2E·4E 와이드 뜻과 내 발볼 재는 법" },
-  stability: { href: "/injury/flat-feet", label: "평발 러닝화, 안정화화가 정답일까" },
-  carbon: { href: "/injury/carbon-plate", label: "카본화 살까 말까 — 논문이 시험한 속도" },
+  wide: { href: "/injury/wide-foot", label: "2E 와이드 뜻, 내 발볼도 넓은 편일까요?" },
+  stability: { href: "/injury/flat-feet", label: "평발 러닝화, 안정화를 꼭 신어야 하나요?" },
+  carbon: { href: "/injury/carbon-plate", label: "카본화, 초보가 느리게 뛰어도 효과 있나요?" },
 } as const;
 
 export function guidesFor(shoes: Shoe[]) {

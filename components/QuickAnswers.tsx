@@ -51,7 +51,7 @@ const ITEMS = [
   {
     href: "/injury/flat-feet",
     q: "평발인데 뭐 신지",
-    a: "안정화화가 정답일까",
+    a: "안정화가 정답일까",
   },
   {
     href: "/injury/carbon-plate",

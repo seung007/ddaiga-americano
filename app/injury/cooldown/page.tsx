@@ -326,14 +326,14 @@ export default function Page() {
             href="/injury/warmup"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">달리기 전 준비운동 — 동적 스트레칭 →</p>
+            <p className="text-sm font-semibold text-gray-900">러닝 전 스트레칭, 정적으로 해도 되나요? →</p>
             <p className="mt-1 text-sm text-gray-600">이 글의 반대편. 도식으로 동작을 볼 수 있습니다.</p>
           </Link>
           <Link
             href="/injury/rest-day"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">휴식일에 뭘 해야 할까? 액티브 리커버리 →</p>
+            <p className="text-sm font-semibold text-gray-900">러닝 쉬는 날, 가볍게라도 움직여야 하나요? →</p>
             <p className="mt-1 text-sm text-gray-600">쉬는 날 가볍게 움직여도 되는지, 근거는 어디까지인지.</p>
           </Link>
         </div>

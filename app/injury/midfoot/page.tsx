@@ -288,7 +288,7 @@ export default function Page() {
             href="/injury/cadence"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">케이던스 180이 모두의 정답은 아닙니다 →</p>
+            <p className="text-sm font-semibold text-gray-900">케이던스 높을수록 좋나요? 꼭 180이어야 하나요 →</p>
             <p className="mt-1 text-sm text-gray-600">착지법 대신 먼저 만져야 할 것.</p>
           </Link>
           <Link

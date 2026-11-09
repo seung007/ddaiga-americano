@@ -330,7 +330,7 @@ export default function Page() {
           권고한 것은 운동과 <strong>발 보조기(깔창형 교정구)</strong>입니다. 발 보조기는 신발 등급과는 다른 물건입니다.
         </P>
         <div className="mt-5 break-keep rounded-xl border border-amber-200 bg-amber-50 p-4 text-[15px] leading-relaxed text-amber-900">
-          특히 <strong>&ldquo;평발이면 안정화화&rdquo;</strong>를 무릎 통증 해법으로 볼 근거는 없습니다. 발 타입에 맞춰 회내 제어 신발을
+          특히 <strong>&ldquo;평발이면 안정화&rdquo;</strong>를 무릎 통증 해법으로 볼 근거는 없습니다. 발 타입에 맞춰 회내 제어 신발을
           처방하는 관행을 검토한 체계적 고찰은 그 관행을 뒷받침하는 연구를 찾지 못했습니다. 자세한 내용은{" "}
           <Link href="/injury/flat-feet" className="font-medium text-emerald-700 underline">
             평발 러닝화 글
