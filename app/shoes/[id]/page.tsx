@@ -149,7 +149,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
         </Link>
 
         <header className="flex flex-col gap-5 sm:flex-row sm:items-center">
-          <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="aspect-square w-full max-w-[220px]" />
+          {/* 2026-11-09: 휴대폰에서 정사각 220px 상자 + 위아래 빈 띠라 사진이 작게 보였다 — 휴대폰은 화면 폭 4:3(자르지 않음, object-contain), 넓은 화면은 그대로 */}
+          <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="aspect-[4/3] w-full rounded-2xl bg-gray-50 sm:aspect-square sm:max-w-[220px]" />
           <div>
             <p className="text-sm text-gray-500">{s.brand}</p>
             <h1 className="text-3xl font-bold leading-tight text-gray-900">{s.model}</h1>
