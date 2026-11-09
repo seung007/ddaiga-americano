@@ -92,7 +92,7 @@ export default function WideShoeList() {
         </Link>
       </div>
       <p className="mt-2 text-xs leading-relaxed text-gray-400">
-        폭 옵션 출처: 신발마다 상세 페이지의 「스펙 출처」(RunRepeat). 해외 출시 기준일 수 있어 국내 판매처에 그 폭이 들어오는지는 따로 확인하세요.
+        폭 옵션은 공개된 실측 자료 기준이라 해외 출시 기준일 수 있어요. 국내 판매처에 그 폭이 들어오는지는 따로 확인하세요.
       </p>
     </section>
   );

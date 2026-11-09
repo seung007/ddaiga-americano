@@ -1260,10 +1260,8 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <p>공식몰 접속 → 검색창에 모델명 붙여넣기 → 사이즈·색상 선택 후 구매</p>
               <p>공식몰 구매 시 정품 보장, 교환·반품 정책 적용됩니다.</p>
             </div>
-            <a href={shoe.sourceUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-block mt-3 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-700">
-              스펙 출처: 브랜드 공식·RunRepeat 참고 ↗
-            </a>
+            {/* 2026-11-09: 경쟁 리뷰 사이트로 링크하지 않는다(운영자 결정). 어디 값인지는 밝힌다 */}
+            <p className="mt-3 text-xs text-gray-500">스펙은 브랜드 공식 표기와 공개된 실측 자료 기준이에요</p>
           </div>
         </div>
       )}

@@ -62,7 +62,7 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
       <h1 className="mb-3 text-3xl font-bold text-gray-900">러닝화 두께 비교</h1>
       <p className="mb-6 leading-relaxed text-gray-600">
         신발을 최대 3개 고르면 미드솔 두께·드롭·무게를 <strong className="text-gray-900">같은 축척으로 겹쳐</strong> 보여줍니다.
-        착용감은 발과 신발이 만나야 알 수 있어서 그리지 않았습니다 — 여기 있는 것은 숫자로 공개된 스펙(출처 RunRepeat)뿐입니다.
+        착용감은 발과 신발이 만나야 알 수 있어서 그리지 않았습니다 — 여기 있는 것은 숫자로 공개된 실측 스펙뿐입니다.
       </p>
 
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
