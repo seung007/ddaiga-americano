@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { barlow } from "@/lib/fonts";
 import { gtagEvent } from "@/lib/gtag";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 
@@ -140,7 +139,7 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
               />
             )}
-            <p className={`${barlow.className} relative text-sm tracking-[1px] md:text-base`}>SHOE FINDER</p>
+            {/* 2026-11-09: 영문 대문자 머리말 「SHOE FINDER」를 뺐다 — 한국어 화면에서 뜻을 더하지 않는 장식(unslop 점검 「uppercase tracked label」) */}
             <h1 id="finder-h" className="relative mt-1 whitespace-nowrap text-[40px] font-bold leading-[1.1] tracking-[-1.2px] md:text-[64px] md:tracking-[-2px]">
               내 러닝화 찾기
             </h1>

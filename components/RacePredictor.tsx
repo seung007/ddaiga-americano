@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { gtagEvent } from "@/lib/gtag";
+import { TriangleAlert } from "lucide-react";
 
 /**
  * 기록으로 다른 거리 예측 (2026-09-26)
@@ -126,14 +127,15 @@ export default function RacePredictor() {
                   <dd className="text-right">
                     <span className="font-semibold tabular-nums text-gray-900">{fmt(t2)}</span>
                     <span className="ml-2 text-xs text-gray-500">km당 {fmt(t2 / t.km)}</span>
-                    {t.km === 42.195 && <span className="ml-1 text-xs font-semibold text-red-600">⚠</span>}
+                    {t.km === 42.195 && <TriangleAlert size={14} strokeWidth={1.5} aria-hidden className="ml-1 inline align-[-2px] text-red-600" />}
                   </dd>
                 </div>
               );
             })}
           </dl>
           <p className="mt-3 rounded-xl bg-red-50 p-3 text-xs leading-relaxed text-red-900">
-            ⚠ <strong>풀코스는 이 값보다 느리게 나올 가능성이 커요.</strong> 레크리에이션 러너 2,303명의 기록을 분석한 연구에서
+            <TriangleAlert size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />
+            <strong>풀코스는 이 값보다 느리게 나올 가능성이 커요.</strong> 레크리에이션 러너 2,303명의 기록을 분석한 연구에서
             이 공식은 하프까지는 잘 맞았지만, 풀코스는 <strong>러너 절반에게서 실제보다 10분 이상 빠르게</strong> 예측했어요.
             얼마나 느려지는지는 훈련량에 따라 달라서 여기서 숫자로 보정하지 않았어요. 출처: Vickers &amp; Vertosick (2016) BMC Sports
             Sci Med Rehabil 8:26{" "}

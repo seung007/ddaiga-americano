@@ -60,7 +60,7 @@ export default function AdvancedGuidePage() {
         </Link>
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">🔴 숙련자</span>
+          <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700"><span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-red-500 align-middle" />숙련자</span>
           <span className="text-xs text-gray-400">꾸준히 3년+ · 주 5회+ · 주 50km+</span>
           <span className="text-xs text-gray-400">· 5분 읽기</span>
         </div>

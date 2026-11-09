@@ -5,6 +5,7 @@ import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
 import { timeAgo } from "@/lib/community";
 import type { ReactionNames } from "@/lib/reaction-names";
+import { Footprints, Medal } from "lucide-react";
 
 /**
  * 최근 한 줄 후기 — 신발 상세·대회 상세에 남긴 반응을 모아 보여줌 (2026-09-23)
@@ -139,7 +140,7 @@ export default function RecentReactions({
             className="block rounded-xl border border-gray-100 bg-white px-4 py-3 transition-colors hover:border-emerald-300"
           >
             <p className="text-xs text-gray-500">
-              <span className="mr-1">{it.kind === "shoe" ? "👟" : "🏅"}</span>
+              {it.kind === "shoe" ? <Footprints size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" /> : <Medal size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />}
               {it.label} · {timeAgo(it.created_at)}
             </p>
             <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-800">{it.note}</p>

@@ -13,6 +13,7 @@ import ShoeImage from "@/components/ShoeImage";
 import ShoeGuideLinks from "@/components/ShoeGuideLinks";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { SITE_URL } from "@/lib/site";
+import { Store, ShoppingCart } from "lucide-react";
 
 // ── 슬러그 파싱 ────────────────────────────────────────────────
 // URL: /compare/nb-fuelcell-rebel-v4-vs-hoka-clifton-10
@@ -191,7 +192,7 @@ export default async function ComparePage({
 
       {/* ── 헤더 ── */}
       <header className="mb-8">
-        <p className="text-xs font-medium text-emerald-600 mb-2 tracking-wide uppercase">
+        <p className="text-xs font-medium text-emerald-600 mb-2">
           러닝화 비교
         </p>
         <h1 className="text-2xl font-bold text-gray-900 leading-snug">
@@ -243,7 +244,7 @@ export default async function ComparePage({
 
       {/* ── 스펙 비교 테이블 ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           스펙 비교
         </h2>
         <div className="rounded-2xl border border-gray-200 overflow-hidden">
@@ -325,7 +326,7 @@ export default async function ComparePage({
 
       {/* ── 두께 그림 (2026-10-12) — 표의 숫자를 같은 축척으로 겹쳐 본다 ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           두께를 겹쳐 보기
         </h2>
         <ShoeSideProfile shoes={[shoeA, shoeB]} />
@@ -339,7 +340,7 @@ export default async function ComparePage({
 
       {/* ── 어떤 체형에게 맞나? ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           어떤 체형에 최적인가?
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -379,7 +380,7 @@ export default async function ComparePage({
 
       {/* ── 구매 링크 ── */}
       <section className="mb-10">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           구매하기
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -419,7 +420,7 @@ export default async function ComparePage({
                    * 지금은 등록된 제휴 링크가 0개라 화면에 변화가 없다. 그래서 **지금 고친다** —
                    * 링크를 붙여넣는 날에는 이 누락이 눈에 안 띈 채로 배포된다.
                    */}
-                  {link.isOfficial ? "🏪" : "🛒"} {link.label}
+                  {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden className="inline align-[-3px]" /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden className="inline align-[-3px]" />} {link.label}
                   {link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
@@ -496,7 +497,7 @@ function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe 
 
   return (
     <section className="mt-8">
-      <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+      <h2 className="text-sm font-semibold text-gray-500 mb-3">
         다른 비교 보기
       </h2>
       <div className="flex flex-col gap-2">

@@ -21,7 +21,6 @@ export const metadata: Metadata = {
 };
 import HomeFinderCard, { type FinderShoe } from "@/components/HomeFinderCard";
 import { officialOf } from "@/lib/shoes/official";
-import { barlow } from "@/lib/fonts";
 import VERIFIED from "@/lib/shoes/verified.json";
 import { SHOES } from "@/lib/shoes/data";
 import { upcomingRaces, daysUntil, distanceLabel, currentStatus, type Race } from "@/lib/races";
@@ -48,8 +47,8 @@ const FINDER_HERO = HERO_SHOE ? { src: HERO_SHOE.imageUrl, alt: "" } : undefined
 
 /** 가이드 카드 — GA4 28일(2026-11-05 확인) 가이드 착지 상위 셋: 미드풋 18 · 첫 10km 17 · 넓은 발볼 15명. 제목은 각 페이지 제목에서 줄였다 */
 const HOME_GUIDES = [
-  { href: "/injury/wide-foot", tag: "WIDE FOOT", title: "내 발볼 재는 법과 넓은 발볼 러닝화" },
-  { href: "/injury/midfoot", tag: "MIDFOOT", title: "미드풋 착지란? 힐스트라이크와 차이" },
+  { href: "/injury/wide-foot", tag: "발볼", title: "내 발볼 재는 법과 넓은 발볼 러닝화" },
+  { href: "/injury/midfoot", tag: "착지", title: "미드풋 착지란? 힐스트라이크와 차이" },
   { href: "/injury/first-10k", tag: "FIRST 10K", title: "생애 첫 10km 대회 준비물과 페이스 전략" },
 ];
 
@@ -153,7 +152,7 @@ export default function Home() {
                 href={g.href}
                 className="press flex min-h-40 w-60 shrink-0 snap-start flex-col justify-between gap-4 rounded-2xl bg-[#111111] p-5 text-white"
               >
-                <span className={`${barlow.className} text-sm tracking-[1px] text-[#C8F031]`}>{g.tag}</span>
+                <span className="text-sm font-semibold text-[#C8F031]">{g.tag}</span>
                 <span className="text-base font-bold leading-snug">{g.title}</span>
               </Link>
             ))}

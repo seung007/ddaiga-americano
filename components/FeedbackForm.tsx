@@ -33,7 +33,6 @@ export default function FeedbackForm({ shoeIds, bodyType }: FeedbackFormProps) {
   if (status === "done") {
     return (
       <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-8 text-center">
-        <p className="text-2xl mb-2">🙏</p>
         <p className="font-semibold text-emerald-800">의견 감사해요!</p>
         <p className="text-sm text-emerald-600 mt-1">더 좋은 추천을 만드는 데 쓸게요.</p>
       </div>

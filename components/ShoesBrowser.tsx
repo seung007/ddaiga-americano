@@ -11,6 +11,7 @@ import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from 
 import { rankAllShoes } from "@/lib/shoes/recommend";
 import type { Shoe, ShoeUse } from "@/lib/shoes/types";
 import { matchesQuery, searchKeyOf } from "@/lib/shoes/aliases";
+import { Heart } from "lucide-react";
 
 /** 검색 키는 한 번만 만든다 — 52켤레라 싸지만 매 입력마다 다시 만들 이유가 없다 */
 const SEARCH_KEY = new Map(SHOES.map((s) => [s.id, searchKeyOf(s.brand, s.model)]));
@@ -228,7 +229,7 @@ export default function ShoesBrowser() {
           <Toggle on={stability} onClick={() => setStability((v) => !v)}>안정화</Toggle>
           <Toggle on={carbon} onClick={() => setCarbon((v) => !v)}>카본 플레이트</Toggle>
           <Toggle on={hideOld} onClick={() => setHideOld((v) => !v)}>후속 나온 모델 숨기기</Toggle>
-          <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}>♥ 찜 {liked.length}</Toggle>
+          <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}><Heart size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />찜 {liked.length}</Toggle>
           {/* 2026-10-13: 찜한 신발을 바로 견주는 길 — 두께 비교 도구는 3켤레까지(?s=a,b,c) */}
           {liked.length >= 2 && (
             <Link
@@ -281,7 +282,7 @@ export default function ShoesBrowser() {
                     aria-label={liked.includes(s.id) ? "찜 해제" : "찜하기"}
                     className={`absolute right-2 top-2 z-10 text-lg ${liked.includes(s.id) ? "text-red-500" : "text-gray-500 hover:text-gray-400"}`}
                   >
-                    ♥
+                    <Heart size={20} strokeWidth={1.5} aria-hidden fill={liked.includes(s.id) ? "currentColor" : "none"} />
                   </button>
                   <Link href={`/shoes/${s.id}`} className="flex flex-1 flex-col">
                     <ShoeThumb src={s.imageUrl} alt={`${s.brand} ${s.model}`} model={s.model} className="aspect-square w-full" />

@@ -3,6 +3,7 @@
 import ShoeSideProfile from "@/components/ShoeSideProfile";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { History, Search, TriangleAlert, Scale, Store, ShoppingCart } from "lucide-react";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
@@ -465,7 +466,7 @@ export default function ShoeFinderPage() {
       {!submitted && savedProfile && (
         <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
           <p className="text-sm text-emerald-800">
-            🕐 지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
+            <History size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
           </p>
           <div className="flex shrink-0 gap-2">
             <button type="button"
@@ -645,8 +646,8 @@ export default function ShoeFinderPage() {
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
               {([
-                { value: "male" as Gender,   label: "🚹 남성", desc: "남성 발형 기준으로 추천해요" },
-                { value: "female" as Gender, label: "🚺 여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
+                { value: "male" as Gender,   label: "남성", desc: "남성 발형 기준으로 추천해요" },
+                { value: "female" as Gender, label: "여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
               ]).map(g => (
                 <button key={g.value} type="button"
                   onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
@@ -904,7 +905,7 @@ export default function ShoeFinderPage() {
 
           <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-base">🔎</span>
+              <Search size={18} strokeWidth={1.5} aria-hidden className="text-blue-900" />
               <h3 className="text-sm font-bold text-blue-900">내 분석 결과</h3>
             </div>
 
@@ -940,7 +941,7 @@ export default function ShoeFinderPage() {
 
           {result.usedFallback && (
             <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-              ⚠️ {result.fallbackNote}
+              <TriangleAlert size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />{result.fallbackNote}
             </div>
           )}
 
@@ -967,7 +968,7 @@ export default function ShoeFinderPage() {
 
           {sortedPrimary.length >= 2 && compareIds.length === 0 && (
             <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 mb-4">
-              <span className="text-emerald-600 text-base">⚖️</span>
+              <Scale size={18} strokeWidth={1.5} aria-hidden className="shrink-0 text-emerald-600" />
               <p className="text-sm text-emerald-700">
                 각 카드 오른쪽 위 <strong>「비교」</strong> 버튼을 눌러 두 신발을 나란히 비교할 수 있어요.
               </p>
@@ -1052,7 +1053,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
                   <span className="text-xs font-bold text-gray-400">#{rank}</span>
-                  {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">👟 여성 전용 라스트</span>}
+                  {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">여성 전용 라스트</span>}
                   {rec.isFallback && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">근접 추천</span>}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 leading-tight">{shoe.brand} {shoe.model}</h3>
@@ -1074,7 +1075,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                     }`
                   }
                 >
-                  {inCompare ? "✓ 비교중" : "⚖️ 비교"}
+                  {inCompare ? "✓ 비교중" : "비교"}
                 </button>
               </div>
             </div>
@@ -1120,7 +1121,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                     })}
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
                       ${link.isOfficial ? "bg-ink hover:bg-neutral-800 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
-                    {link.isOfficial ? "🏪" : "🛒"} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
+                    {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                   </a>
                 ))}
                 <CopyModelName name={`${shoe.brand} ${shoe.model}`} />
@@ -1252,7 +1253,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                   })}
                   className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors
                     ${link.isOfficial ? "bg-ink hover:bg-neutral-800 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
-                  {link.isOfficial ? "🏪 공식 구매하기" : "🛒 " + link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
+                  {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />}{link.isOfficial ? "공식 구매하기" : link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
             </div>
@@ -1281,7 +1282,7 @@ function ShareResultButton({ buildUrl }: { buildUrl: () => string }) {
     <button type="button" onClick={copy}
       className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors
         ${copied ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-300 bg-white text-gray-600 hover:border-emerald-400 hover:text-emerald-600"}`}>
-      {copied ? "✓ 링크 복사됨" : "🔗 결과 링크 복사"}
+      {copied ? "✓ 링크 복사됨" : "결과 링크 복사"}
     </button>
   );
 }
@@ -1510,7 +1511,7 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
         </table>
       </div>
       <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
-        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">📖 용어 설명 보기</summary>
+        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">용어 설명 보기</summary>
         <ul className="mt-2 space-y-1 leading-relaxed">
           <li><strong>쿠셔닝</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
           <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이도록 만든 구조. 평발에 도움이 되는지는 연구가 갈림(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>

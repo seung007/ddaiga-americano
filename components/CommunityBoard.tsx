@@ -7,6 +7,7 @@ import FinderCta from "@/components/FinderCta";
 import { insertPost, myPosts, rememberMyPost, type MyPost } from "@/lib/community";
 import RecentReactions from "@/components/RecentReactions";
 import type { ReactionNames } from "@/lib/reaction-names";
+import { Heart, MessageCircle } from "lucide-react";
 
 /**
  * 2026-09-15: **Q&A → 자유게시판.** 태그 6개가 전부 증상이었다
@@ -90,8 +91,8 @@ function timeAgo(dateStr: string) {
  */
 const VIEWS = [
   ["talk", "이야기"],
-  ["shoe", "👟 신발 후기"],
-  ["race", "🏅 대회 후기"],
+  ["shoe", "신발 후기"],
+  ["race", "대회 후기"],
 ] as const;
 type View = (typeof VIEWS)[number][0];
 
@@ -247,7 +248,6 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
         <h2 className="text-base font-bold text-gray-900 mb-4">글 남기기</h2>
         {submitted ? (
           <div className="py-6 text-center">
-            <p className="text-2xl mb-2">🙌</p>
             <p className="font-semibold text-emerald-700">글이 올라갔어요!</p>
             <p className="text-sm text-gray-500 mt-1">운영자가 직접 읽습니다. 답이 필요한 글은 답을 달지만 기한은 약속드리기 어려워요.</p>
             {/* 글을 쓴 사람을 실제 서비스로 보낸다. 여기서 끝나면 재방문할 이유가 없다. */}
@@ -432,13 +432,13 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
           href={`/community/${newOnMine[0].id}`}
           className="mb-4 block rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 hover:bg-red-100"
         >
-          💬 내 글에 새 댓글이 {newOnMine.reduce((n, m) => n + (m.now - m.seen), 0)}개 달렸어요 →
+          <MessageCircle size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />내 글에 새 댓글이 {newOnMine.reduce((n, m) => n + (m.now - m.seen), 0)}개 달렸어요 →
         </Link>
       )}
 
       {/* 2026-09-23 운영규정 — 마라톤온라인도 게시판 맨 위에 고정. 비로그인 게시판이라 규칙이 먼저 보여야 함 */}
       <details className="mb-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
-        <summary className="cursor-pointer font-medium text-gray-700">📌 게시판 규칙</summary>
+        <summary className="cursor-pointer font-medium text-gray-700">게시판 규칙</summary>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-xs leading-relaxed">
           <li>광고·홍보, 욕설·비방, 다른 사람의 개인정보는 운영자가 지웁니다.</li>
           <li>연락처·주소 같은 내 개인정보도 적지 마세요.</li>
@@ -486,7 +486,6 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
           <div className="text-center py-16 text-gray-400 text-sm">불러오는 중…</div>
         ) : loadFailed ? (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-10 text-center" role="alert">
-            <p className="text-2xl mb-2">🔌</p>
             <p className="text-sm font-semibold text-amber-800">글 목록을 불러오지 못했어요</p>
             <p className="text-xs text-amber-700 mt-1 leading-relaxed">
               일시적인 문제일 수 있어요. 새로고침해도 같으면 잠시 뒤에 다시 방문해 주세요.
@@ -560,13 +559,13 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
                     {cc !== undefined && cc > 0 && (
                       <>
                         <span className="text-gray-500">·</span>
-                        <span>💬 {cc}</span>
+                        <span className="inline-flex items-center gap-1"><MessageCircle size={14} strokeWidth={1.5} aria-hidden />{cc}</span>
                       </>
                     )}
                     {post.likes > 0 && (
                       <>
                         <span className="text-gray-500">·</span>
-                        <span>🤍 {post.likes}</span>
+                        <span className="inline-flex items-center gap-1"><Heart size={14} strokeWidth={1.5} aria-hidden />{post.likes}</span>
                       </>
                     )}
                   </div>
