@@ -5,12 +5,12 @@ import FaqSection from "@/components/FaqSection";
 import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
-import { Up, S } from "@/components/guide/Up";
+import { Up } from "@/components/guide/Up";
 import { Lead, P, H2, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
 import { articleDates } from "@/components/ArticleMeta";
 import type { GuideArticle as Entry } from "@/lib/guide/articles";
 import type { Block, Cite, GuideContent, Reference } from "@/lib/guide/content";
-import { pageUrl } from "@/lib/site";
+import { AUTHOR_NOTE, pageUrl } from "@/lib/site";
 
 /**
  * 내용 파일 가이드의 공통 틀 (2026-11-07) — 손으로 쓴 가이드(예: app/injury/cooldown)와 같은 부품·같은 순서.
@@ -49,9 +49,10 @@ function Cites({ cite, refs }: { cite?: Cite; refs: Map<string, Reference> }) {
         const r = refs.get(id);
         if (!r) return null;
         return (
-          <S key={id}>
-            ({r.authors} ({r.year}) <Up h={r.url} />){" "}
-          </S>
+          // S(줄바꿈 금지)를 쓰지 않는다 — 「Silva Oliveira et al. (2024)」 처럼 긴 이름이 320px 화면을 넘었다(2026-11-09). 저자명 안에서는 끊지 않는다
+          <span key={id} className="text-xs text-gray-400">
+            (<span className="whitespace-nowrap">{r.authors}</span> <span className="whitespace-nowrap">({r.year}) <Up h={r.url} /></span>){" "}
+          </span>
         );
       })}
     </>
@@ -96,9 +97,12 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
     const cited = b.table.rows.flat().filter((c) => c.cite?.length);
     const keys = new Set(cited.map((c) => [...(c.cite ?? [])].sort().join(",")));
     const shared = cited.length > 1 && keys.size === 1 ? cited[0].cite : undefined;
+    // 같은 이유로 「저희 제안」 배지가 칸마다 붙으면 표가 배지로 덮이고 휴대폰 폭을 넘는다(2026-11-09, 320px 에서 가로 넘침) — 모두 같으면 한 번만
+    const based = b.table.rows.flat().filter((c) => c.basis);
+    const sharedBasis = based.length > 1 && new Set(based.map((c) => c.basis)).size === 1 ? based[0].basis : undefined;
     return (
-      <div className="mt-5 overflow-x-auto">
-        <table className="w-full border-collapse text-[15px]">
+      <div className="mt-5 max-w-full overflow-x-auto [contain:inline-size]">
+        <table className="w-full border-collapse text-base">
           <thead>
             <tr className="border-b border-gray-200 text-left">
               {b.table.head.map((h, i) => (
@@ -115,7 +119,7 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
                     className={`break-keep py-2 pr-3 align-top ${i === 0 ? "font-medium text-gray-900" : ""} ${c.t.length <= 10 ? "whitespace-nowrap" : ""}`}
                   >
                     <Inline text={c.t} />
-                    {c.basis && <Basis kind={c.basis} />}
+                    {c.basis && !sharedBasis && <Basis kind={c.basis} />}
                     {!shared && <Cites cite={c.cite} refs={refs} />}
                   </td>
                 ))}
@@ -127,6 +131,11 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
           <p className="mt-1.5 text-xs text-gray-400">
             출처
             <Cites cite={shared} refs={refs} />
+          </p>
+        )}
+        {sharedBasis && (
+          <p className="mt-1.5 text-xs text-gray-400">
+            표의 값<Basis kind={sharedBasis} />
           </p>
         )}
       </div>
@@ -146,11 +155,6 @@ function BlockView({ b, refs }: { b: Block; refs: Map<string, Reference> }) {
   return null;
 }
 
-const MADE = {
-  "ai-draft": "AI 초안 · 자동 검증",
-  human: "직접 작성",
-} as const;
-
 export default function GuideArticle({ slug, entry, c, related }: { slug: string; entry: Entry; c: GuideContent; related: Entry[] }) {
   const href = `/injury/${slug}`;
   const url = pageUrl(href);
@@ -160,7 +164,7 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
     <>
       <ArticleJsonLd headline={entry.title} description={entry.desc} url={url} datePublished={entry.published} />
       <BreadcrumbJsonLd trail={[["러닝 가이드", "/injury"], [entry.tag, href]]} />
-      <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
+      <article className="mx-auto w-full min-w-0 max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
         </Link>
@@ -170,13 +174,17 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
           <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{entry.title}</h1>
-        {/* ArticleMeta 와 같은 줄 + 만든 방법. 날짜는 원장에서만 */}
-        <p className="mt-2 mb-4 text-xs text-gray-500">
-          {updated && <>최종 수정 {updated}</>}
-          {updated && published && published !== updated && <> · 처음 작성 {published}</>}
-          {" · "}뛰다가 아메리카노 · {MADE[c.made.by]}
-          {c.made.by === "ai-draft" && <> (출처 원문 대조 {c.made.verified})</>}
-        </p>
+        {/* ArticleMeta 와 같은 줄. 날짜는 원장에서만.
+            만든 방법(「AI 초안 · 자동 검증」)은 화면에 내지 않는다 — 사이트 주인 결정(2026-11-09).
+            c.made 는 그대로 남겨 검증기·check-content 가 읽는다(누가 언제 어떻게 대조했는지의 기록) */}
+        <div className="mt-2 mb-4 space-y-1 text-xs text-gray-500">
+          <p>
+            {updated && <>최종 수정 {updated}</>}
+            {updated && published && published !== updated && <> · 처음 작성 {published}</>}
+            {" · "}뛰다가 아메리카노 · 근거는 본문 인용
+          </p>
+          <p className="break-keep">{AUTHOR_NOTE}</p>
+        </div>
         <Lead><Inline text={c.lead} /></Lead>
         <Summary
           items={c.summary.map((s, i) => (
