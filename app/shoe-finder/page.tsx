@@ -10,7 +10,7 @@ import ChipRow, { Why } from "@/components/finder/ChipRow";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes } from "@/lib/shoes/recommend";
-import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
+import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
   CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USES, WEIGHT_OPTIONS,
@@ -1316,7 +1316,8 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
     ["스택높이",  a.stackHeightMm + "mm",                            b.stackHeightMm + "mm"],
     ["무게",      a.weightGramsM9 + "g",                             b.weightGramsM9 + "g"],
     ["발볼 옵션", toWidthText(a.widthOptions),                       toWidthText(b.widthOptions)],
-    ["발 타입",   toFootText(a.footTypes),                           toFootText(b.footTypes)],
+    // 2026-11-10: 발 타입이 빈 신발은 안정성 구조로 정한다(types.ts footTypesFromStability) — 「판단 전」은 더 나오지 않는다
+    ["발 타입",   toFootText(withFootTypes(a).footTypes),            toFootText(withFootTypes(b).footTypes)],
     ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),       b.uses.map(u => useLabel[u] ?? u).join("·")],
     ["국내구매",  KR_AVAILABILITY_LABEL[a.krAvailability],           KR_AVAILABILITY_LABEL[b.krAvailability]],
   ];

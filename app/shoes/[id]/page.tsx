@@ -21,7 +21,7 @@ import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
-import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, isRecommendable } from "@/lib/shoes/types";
+import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import { pageUrl } from "@/lib/site";
 
 /**
@@ -306,34 +306,23 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           * 「발 모양: 」 뒤가 비어 있으면 고장으로 보이고, 아무 말도 없으면
           * 판단한 신발과 안 한 신발을 구분할 방법이 사라진다.
           */}
-        {isRecommendable(s) ? (
-          <section className="mt-8">
-            {/* 2026-10-06: 제목 「이런 사람에게 맞춰 설계됐어요」는 브랜드 설계처럼 읽혔다. 체중·체형 줄은 뺐다
-                — 출처 없는 분류이고 추천 엔진이 더 이상 쓰지 않는다(recommend.ts v4). */}
-            <h2 className="mb-3 text-xl font-bold text-gray-900">이 사이트의 분류</h2>
-            <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
-              <li>• 발 모양: {s.footTypes.map((f) => FOOT_KO[f]).join(" · ")}</li>
-              {s.genderNote && <li>• {s.genderNote}</li>}
-            </ul>
-            <p className="mt-2 text-xs text-gray-400">
-              저희가 정한 분류입니다. 브랜드가 정한 제한이 아니고, 발 모양별 신발 처방은 연구가 갈립니다.
-            </p>
-          </section>
-        ) : (
-          <section className="mt-8">
-            <h2 className="mb-3 text-xl font-bold text-gray-900">누구에게 맞는지는 아직 판단하지 않았습니다</h2>
-            <p className="text-sm leading-relaxed text-gray-700">
-              이 신발은 <strong>공개된 스펙(무게·드롭·스택·폭 옵션·가격)만 확인</strong>했습니다.
-              어떤 발 모양이나 체형에 맞는지는 브랜드가 공개하지 않는 값이라 저희가 따로 판단해야 하는데,
-              아직 하지 않았습니다.
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-gray-700">
-              그래서 이 신발은 <strong>맞춤 추천 결과에 나오지 않습니다.</strong>{" "}
-              지어내서 채우는 대신 비워 두는 쪽을 택했습니다.
-            </p>
-            {s.genderNote && <p className="mt-2 text-sm text-gray-700">• {s.genderNote}</p>}
-          </section>
-        )}
+        {/* 2026-11-10: 106종 전부 추천 후보가 됐다(lib/shoes/types.ts footTypesFromStability). 사람이 발 모양을 적지 않은 신발은
+            안정성 구조로 정한 분류라고 밝힌다 — 전에는 「아직 판단하지 않아 추천에 안 나온다」고 적었다 */}
+        {(() => {
+          const sf = withFootTypes(s);
+          return (
+            <section className="mt-8">
+              <h2 className="mb-3 text-xl font-bold text-gray-900">이 사이트의 분류</h2>
+              <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
+                <li>• 발 모양: {sf.footTypes.map((f) => FOOT_KO[f]).join(" · ")}{sf.derivedFootTypes ? " (신발의 안정성 구조로 정함)" : ""}</li>
+                {s.genderNote && <li>• {s.genderNote}</li>}
+              </ul>
+              <p className="mt-2 text-xs text-gray-500">
+                저희가 정한 분류입니다. 브랜드가 정한 제한이 아니고, 발 모양별 신발 처방은 연구가 갈립니다.
+              </p>
+            </section>
+          );
+        })()}
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">근거</h2>
