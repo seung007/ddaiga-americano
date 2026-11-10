@@ -122,7 +122,7 @@ const TRUST_BASE = [
     //   (ddaiga-pipeline REFRESH_CHECKED_DAYS), GitHub 정기 실행이 늦거나 빠지는 날도 있어 「매일」을 약속할 수 없다.
     //   그래서 몇 종이 자동 확인인지와 그 값이 언제 기준인지만 적는다.
     how: officialDate
-      ? `${SHOES.length}종 · 공식몰 정가 ${officialChecked.length}종 자동 확인 (${officialDate} 기준)`
+      ? `${SHOES.length}종 · 공식몰 정가 ${officialChecked.length}종 자동 확인`
       : `${SHOES.length}종 · 권장가 추산`,
   },
   // 2026-11-09: 「브랜드 공식 자료로」는 사실과 달랐다 — 스펙 다수는 공개된 실측 자료(데이터 sourceUrl) 값이다. 출처 종류를 사실대로 적는다
@@ -162,8 +162,10 @@ export default function Home() {
 
   // 「공식 홈페이지에서 확인」만 쓰면 안 된다 — 다가오는 대회 115건 중 80건은 factsFrom 「모음」(2026-11-05 기준)
   const raceChecked = upcoming.map((r) => r.checkedAt).filter(Boolean).sort().at(-1);
+  // 2026-11-10 운영자: 「날짜 굳이 넣을 필요 없어」 — 홈 요약에서는 「(… 기준)」 날짜를 뺀다.
+  //   날짜는 각 대회·신발 상세 페이지에 그대로 남아 있다(확인 근거는 거기서 본다).
   const TRUST = raceChecked
-    ? [...TRUST_BASE, { what: "대회", how: `공식 홈페이지와 대회 모음 사이트에서 확인 (${raceChecked} 기준)` }]
+    ? [...TRUST_BASE, { what: "대회", how: "공식 홈페이지와 대회 모음 사이트에서 확인" }]
     : TRUST_BASE;
 
   return (
