@@ -44,8 +44,7 @@ const FINDER_SHOES: FinderShoe[] = SHOES.map((s) => {
     officialPrice: o?.listed && o.priceKrw ? o.priceKrw : undefined,
   };
 });
-const HERO_SHOE = SHOES.find((s) => s.id === "asics-novablast-5");
-const FINDER_HERO = HERO_SHOE ? { src: HERO_SHOE.imageUrl, alt: "" } : undefined;
+// 2026-11-10: 첫 화면 다리 사진(HERO_SHOE)을 뺐다 — 용도 신발 타일로 대신한다(components/HomeFinderCard.tsx)
 
 /** 가이드 카드 — GA4 28일(2026-11-05 확인) 가이드 착지 상위 셋: 미드풋 18 · 첫 10km 17 · 넓은 발볼 15명.
  * 제목은 원장(lib/guide/articles.ts)에서 가져온다 — 2026-11-10 가이드 제목을 모두 바꿨을 때 여기 손으로 적은 옛 제목 6개가 남았다 */
@@ -173,7 +172,7 @@ export default function Home() {
        * git 기록과 components/HeroBackdrop.tsx · components/ShoeStrip.tsx 에 남아 있다 — 파일은 지우지 않았다.
        * 경위는 components/HomeFinderCard.tsx 머리말.
        */}
-      <HomeFinderCard shoes={FINDER_SHOES} hero={FINDER_HERO} />
+      <HomeFinderCard shoes={FINDER_SHOES} />
 
       {/**
        * 2026-11-05 — 아래 구역을 디자인 「H01 수정안」 순서로 바꿨다: 가이드 → 마감 임박 대회 → 이렇게 확인했어요 → 게시판 입구.
@@ -233,6 +232,7 @@ export default function Home() {
              * 2026-11-09 배번표 카드 — 사이트의 「세계」(대회 배번·기록증)를 그대로 쓴 한 자리.
              * 큰 숫자는 장식이 아니라 실제 값(접수 마감까지 남은 날). 빨강(#C9313F)은 마감에만 쓴다.
              * 네 귀퉁이 점은 배번을 옷에 다는 핀 자리 — 그림일 뿐이라 화면 읽기 프로그램에는 숨긴다.
+             * 2026-11-10 운영자 「글자가 너무 크다」: 남은 날 40px → 24px. 큰 글자는 첫 화면 제목 하나로 둔다.
              */}
             <ul className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
               {closingSoon.map((r) => {
@@ -248,7 +248,7 @@ export default function Home() {
                         <span key={x + y} aria-hidden className={`absolute ${x} ${y} h-2 w-2 rounded-full border border-[#D5D8DD] bg-[#F4F5F7]`} />
                       ))}
                       <span className="text-center text-xs text-[#4B5059]">접수 마감까지</span>
-                      <span className="mt-1 text-center text-[40px] font-bold leading-none tabular-nums text-[#C9313F]">
+                      <span className="mt-1 text-center text-2xl font-bold leading-none tabular-nums text-[#C9313F]">
                         {left === null ? "임박" : left === 0 ? "오늘" : `D-${left}`}
                       </span>
                       <span className="mt-4 border-t border-dashed border-[#D5D8DD] pt-3 text-base font-semibold leading-snug [overflow-wrap:anywhere] break-keep">

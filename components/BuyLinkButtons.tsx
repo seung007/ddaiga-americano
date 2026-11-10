@@ -1,6 +1,7 @@
 "use client";
 
 import { gtagEvent } from "@/lib/gtag";
+import { SELLER_NOTE } from "@/lib/site";
 import { resolveBuyLinks } from "@/lib/shoes/affiliate";
 import type { BuyLink } from "@/lib/shoes/types";
 
@@ -19,9 +20,12 @@ export default function BuyLinkButtons({
   links: BuyLink[];
   from: string;
 }) {
+  // 2026-11-10: 공식몰 링크가 없거나 공식몰이 열리지 않으면(브룩스) 첫 판매처를 초록으로 — 어디서 사면 되는지 바로 보이게
+  const resolved = resolveBuyLinks(shoeId, links);
+  const hasOfficial = resolved.some((l) => l.isOfficial);
   return (
     <div className="flex flex-wrap gap-2">
-      {resolveBuyLinks(shoeId, links).map((link) => (
+      {resolved.map((link, i) => (
         <a
           key={link.label}
           href={link.url}
@@ -35,14 +39,15 @@ export default function BuyLinkButtons({
               from,
             })
           }
-          className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors ${
-            link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700" : "bg-gray-700 hover:bg-gray-800"
+          className={`inline-flex min-h-11 items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors ${
+            link.isOfficial || (!hasOfficial && i === 0) ? "bg-emerald-600 hover:bg-emerald-700" : "bg-gray-700 hover:bg-gray-800"
           }`}
         >
           {link.label}
           {link.isAffiliate ? " · 제휴" : ""} ↗
         </a>
       ))}
+      {resolved.some((l) => !l.isOfficial) && <p className="w-full text-xs text-gray-500">{SELLER_NOTE}</p>}
     </div>
   );
 }

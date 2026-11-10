@@ -1,3 +1,4 @@
+import { Bandage, FileText, Flag, Footprints, Medal, PersonStanding, Route, Timer, type LucideIcon } from "lucide-react";
 import { ARTICLES, topicOf, type GuideArticle } from "./articles";
 
 /**
@@ -68,15 +69,36 @@ export function pageOf<T>(list: readonly T[], page: number, size: number): { ite
   return { items: list.slice((page - 1) * size, page * size), page, pages };
 }
 
-/** 주제별 아이콘·색 — 카드 왼쪽 타일과 칩에 같이 쓴다(Tailwind 가 읽도록 클래스 문자열을 그대로 적는다) */
-export const LOOK: Record<string, { icon: string; tile: string; text: string }> = {
-  "단계 가이드": { icon: "🧭", tile: "bg-emerald-50", text: "text-emerald-700" },
-  "훈련 방법": { icon: "⏱️", tile: "bg-indigo-50", text: "text-indigo-700" },
-  "신발 고르기": { icon: "👟", tile: "bg-sky-50", text: "text-sky-700" },
-  "아픈 곳": { icon: "🩹", tile: "bg-rose-50", text: "text-rose-700" },
-  "달리는 법": { icon: "🏃", tile: "bg-amber-50", text: "text-amber-700" },
-  대회: { icon: "🏁", tile: "bg-teal-50", text: "text-teal-700" },
-  "선수 이야기": { icon: "🏅", tile: "bg-yellow-50", text: "text-yellow-700" },
-  기타: { icon: "📄", tile: "bg-gray-100", text: "text-gray-600" },
+/**
+ * 주제별 선 아이콘·색 — 묶음 제목 아이콘과 글 줄의 태그 칩에 같이 쓴다(Tailwind 가 읽도록 클래스 문자열을 그대로 적는다)
+ *
+ * 2026-11-10: 이모지 + 파스텔 네모 타일 → lucide 선 아이콘(이 브랜치 홈과 같은 묶음)·타일 없음.
+ *   칩 색은 흰 바탕 12px 글자로 읽히게 *-800 (yellow·amber·orange·sky·teal) 으로 한 단계 진하게.
+ *   빨강(rose)·보라(indigo)는 뺐다 — 빨강은 오류·경고(허브의 「진료가 먼저」)에만 쓰고, 「아픈 곳」은 주황.
+ */
+export const LOOK: Record<string, { Icon: LucideIcon; chip: string; text: string }> = {
+  "단계 가이드": { Icon: Route, chip: "bg-emerald-50 text-emerald-700", text: "text-emerald-700" },
+  "훈련 방법": { Icon: Timer, chip: "bg-slate-100 text-slate-700", text: "text-slate-700" },
+  "신발 고르기": { Icon: Footprints, chip: "bg-sky-50 text-sky-800", text: "text-sky-800" },
+  "아픈 곳": { Icon: Bandage, chip: "bg-orange-50 text-orange-800", text: "text-orange-800" },
+  "달리는 법": { Icon: PersonStanding, chip: "bg-amber-50 text-amber-800", text: "text-amber-800" },
+  대회: { Icon: Flag, chip: "bg-teal-50 text-teal-800", text: "text-teal-800" },
+  "선수 이야기": { Icon: Medal, chip: "bg-yellow-50 text-yellow-800", text: "text-yellow-800" },
+  기타: { Icon: FileText, chip: "bg-gray-100 text-gray-700", text: "text-gray-700" },
 };
 export const look = (t: string) => LOOK[t] ?? LOOK["기타"];
+
+/**
+ * 묶음 제목 아래 한 줄 — 「이 묶음은 무엇을 찾을 때 보나」. 지금 들어 있는 글의 tag(articles.ts TOPICS)로 쓴 말이다.
+ * 주제에 글을 넣거나 빼면 이 줄도 맞는지 본다(예: 대회에 풀코스 당일 글이 생기면 「하프」를 고친다).
+ */
+export const TOPIC_NOTE: Record<ListTopic, string> = {
+  "단계 가이드": "지금 거리에서 다음 거리로 넘어갈 때",
+  "아픈 곳": "아픈 부위별로, 쉴지와 다시 뛰는 법",
+  "신발 고르기": "발볼·평발·카본화",
+  "달리는 법": "자세·착지·스트레칭·쉬는 날",
+  "훈련 방법": "인터벌·템포런·심박수",
+  대회: "첫 10km 준비와 하프 대회 당일",
+  "선수 이야기": "한국 마라톤 선수의 부상과 회복",
+  기타: "그 밖의 글",
+};

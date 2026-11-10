@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SHOES } from "@/lib/shoes/data";
 
 export const metadata: Metadata = {
   title: "러닝화 추천기 — 뛰다가 아메리카노",
+  // 2026-11-10: 「발볼·발 타입·체형을 고르면」 → 체형(체중)은 순위에 쓰지 않으므로(recommend.ts v4) 실제로 순위를 바꾸는 입력만 적었다.
   description:
-    "발볼·발 타입·체형을 고르면 러닝화 3개를 골라드립니다. 연구로 확인된 것과 사이트가 정한 기준을 나눠 보여드리고, 광고비로 순위를 바꾸지 않습니다.",
+    "용도·발볼·발 모양·부상 이력을 고르면 러닝화 3개를 골라드립니다. 연구로 확인된 것과 사이트가 정한 기준을 나눠 보여드리고, 광고비로 순위를 바꾸지 않습니다.",
   // 2026-09-06: 저장소 전체에 canonical 이 하나도 없었다.
   // 이 페이지는 공유 URL로 `?h=&w=&g=` 파라미터 조합이 무한히 생기므로
   // canonical 이 없으면 변형들이 서로 색인 경쟁을 한다.
@@ -38,63 +38,28 @@ export const metadata: Metadata = {
  */
 
 /**
- * 2026-10-06: 「체형별 추천 예시(키·체중만 반영한 맛보기)」를 걷어냈다. 체형 태그는 출처가 없고,
- * 체중은 더 이상 추천에 쓰지 않는다(recommend.ts v4). 대신 입력 없이 볼 수 있는 기준 하나 —
- * 카본 없는 현행 데일리화를 정가 낮은 순 — 으로 바꿨다. 기준을 화면에 그대로 적는다.
+ * 2026-10-06: 「체형별 추천 예시(키·체중만 반영한 맛보기)」를 걷어내고 「데일리 러닝화 예시 — 정가 낮은 순」 6종으로 바꿨었다.
+ *
+ * 2026-11-10: 그 목록과 「전체 N종을 다룹니다…」 문단을 걷었다(운영자 요청). 「쿠셔닝 2/5 · 힐드롭 8mm」 같은 사양 줄을
+ * 처음 온 사람이 읽을 수 없었고, 추천기 바로 아래에 추천이 아닌 목록이 붙어 있어 무엇이 답인지 헷갈렸다.
+ * 위 2026-09-06 이유(크롤러가 읽을 본문)는 절반만 남는다 — `page.tsx` 는 "use client" 지만 첫 화면(질문·선택지)은
+ * 서버에서 그려져 HTML 에 들어간다. 신발 이름은 더는 이 URL 의 HTML 에 없다. 그 손실은 감수했다.
+ * 내부 링크는 한 문장만 남긴다: 러닝화 목록(/shoes)과 비교 페이지. 둘 다 다른 본문에서도 링크되어 있어
+ * 고아가 되지는 않는다(2026-11-10 `check:internal` 통과 확인). 한강 코스·수명 계산기 링크는 추천기와 관계가 멀어 뺐다
+ * (각각 components/guide/NextReads.tsx·app/courses/page.tsx 등에서 링크된다).
  */
-function dailyExamples() {
-  return SHOES.filter((s) => s.uses.includes("daily") && !s.successor && !s.hasCarbon)
-    .sort((a, b) => a.priceKrw - b.priceKrw || a.id.localeCompare(b.id))
-    .slice(0, 6);
-}
-
 export default function ShoeFinderLayout({ children }: { children: React.ReactNode }) {
-  const examples = dailyExamples();
-
   return (
     <>
       {children}
 
-      <section className="mx-auto max-w-3xl px-6 pb-16">
-        <h2 className="mb-2 text-xl font-bold text-gray-900">데일리 러닝화 예시 — 정가 낮은 순</h2>
-        <p className="mb-6 text-sm leading-relaxed text-gray-600">
-          위에서 단계를 입력하면 <strong className="text-gray-900">발볼·발 타입·용도·부상 이력·예산</strong>을
-          반영해 골라 드립니다. 아래는 입력 없이 <strong className="text-gray-900">카본 없는 현행 데일리화를
-          정가 낮은 순</strong>으로 고른 것뿐이에요. 체중·체형은 기준에 넣지 않았습니다.
-        </p>
-
-        <ul className="space-y-2.5 rounded-2xl border border-gray-200 p-5">
-          {examples.map((s) => (
-            <li key={s.id} className="text-sm leading-relaxed text-gray-700">
-              <strong className="text-gray-900">
-                {s.brand} {s.model}
-              </strong>{" "}
-              <span className="text-gray-500">
-                · 쿠셔닝 {s.cushioning}/5 · {s.weightGramsM9}g · 힐드롭 {s.heelDropMm}mm ·{" "}
-                {s.priceKrw.toLocaleString()}원
-              </span>
-              <br />
-              <span className="text-gray-600">{s.blurb}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-6 text-sm leading-relaxed text-gray-600">
-          전체 {SHOES.length}종을 다룹니다. 두 켤레를 직접 견주고 싶다면{" "}
-          <Link href="/compare/hoka-clifton-10-vs-brooks-ghost-17" className="font-medium text-emerald-700 hover:underline">
-            비교 페이지
-          </Link>
-          , 어디서 뛸지 정하려면{" "}
-          <Link href="/courses" className="font-medium text-emerald-700 hover:underline">
-            한강 코스
-          </Link>
-          , 신발을 언제 바꿀지는{" "}
-          <Link href="/tools/shoe-life" className="font-medium text-emerald-700 hover:underline">
-            수명 계산기
-          </Link>
-          를 보세요.
-        </p>
-      </section>
+      <p className="mx-auto max-w-3xl px-6 pb-16 text-sm leading-relaxed text-gray-600">
+        답하지 않고 둘러보려면{" "}
+        <Link href="/shoes" className="font-medium text-emerald-700 hover:underline">러닝화 전체 목록</Link>을,
+        두 켤레를 나란히 보려면{" "}
+        <Link href="/compare/hoka-clifton-10-vs-brooks-ghost-17" className="font-medium text-emerald-700 hover:underline">비교 페이지</Link>를
+        보세요.
+      </p>
     </>
   );
 }

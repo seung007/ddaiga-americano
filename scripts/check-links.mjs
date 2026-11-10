@@ -117,7 +117,7 @@ const VERIFIED = {
   "saucony.co.kr":        { date: "2026-09-28", shape: /\/product\/search\.html\?category_no=42&keyword=/, nature: "대체됨",   note: "가이드 18 → 결과가 전부 가이드 19. 트라이엄프 23 은 아직 남아 있음" },
   // 2026-09-27 추가(크롬으로 직접 열어 봄). 뉴발란스 한국몰은 WebFetch 로는 403 이라 크롬에서만 확인된다.
   "nbkorea.com":          { date: "2026-09-27", shape: /\/product\/searchResult\.action\?schWord=/, nature: "남아있음", note: "1080·860·모어·레벨·SC 검색 결과에 정가 표시. 1080 은 v15 가 폭(D·2E·4E)마다 값이 다르게 걸려 있다" },
-  "on.com":               { date: "2026-09-27", shape: /\/ko-kr\/shop\/mens\/shoes/,   nature: "해당없음", note: "검색 URL 형태는 여전히 못 찾았다. 남성 신발 전체 목록(59개)으로 건다 — 모델과 무관" },
+  "on.com":               { date: "2026-11-10", shape: /\/ko-kr\/(shop\/mens\/shoes|products\/[a-z0-9-]+\/mens\/[a-z0-9-]+)/,   nature: "해당없음", note: "2026-11-10 상품 페이지 형태(/ko-kr/products/모델/mens/색상) 추가 — 크롬에서 클라우드러너 3·클라우드몬스터 3 열림 확인. 검색 URL 형태는 여전히 못 찾았다. 남성 신발 전체 목록(59개)으로 건다 — 모델과 무관" },
 };
 
 /**

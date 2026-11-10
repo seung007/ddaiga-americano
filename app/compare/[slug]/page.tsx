@@ -1,4 +1,5 @@
 import ShoeSideProfile from "@/components/ShoeSideProfile";
+import { SELLER_NOTE } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
@@ -427,6 +428,7 @@ export default async function ComparePage({
             </div>
           ))}
         </div>
+        <p className="mt-3 text-xs text-gray-500">{SELLER_NOTE}</p>
       </section>
 
       {/* ── CTA ── */}

@@ -8,6 +8,7 @@ import OpenOnHash from "@/components/guide/OpenOnHash";
 import StageListButton from "@/components/guide/StageListButton";
 import { ARTICLES } from "@/lib/guide/articles";
 import { Basis } from "@/components/guide/Read";
+import { ChevronRight } from "lucide-react";
 
 /**
  * 러닝 가이드 허브 — **넘으려는 단계** 기준 (2026-10-06 개편)
@@ -32,6 +33,11 @@ import { Basis } from "@/components/guide/Read";
  *   · 경력·횟수·거리 비교(LevelCheck)는 맨 아래 「초보·중급·숙련」 접힘 안으로
  *   · 항목 이름은 사람이 하는 말로(lib/guide/stages.ts), 「경험칙·논문 결론」 → 「저희 제안·연구로 확인」
  *   · 수준 정의 표는 맨 아래 접힘
+ *
+ * 2026-11-10 — 사이트 주인: 주제별 글 묶음이 "들어가면 구분이 안 된다, 표처럼". 목록 모양은 GuideArticleList 머리말.
+ *   이 파일에서는 글자 크기를 6단계(12·14·16·20·24·40)로 맞추고(h1 40 · h2 24 · 묶음 20 · 본문 16),
+ *   누르는 곳(아픈 곳 칩·단계 카드 안 글 버튼·「근거」)을 44px 이상으로, 펼침 표시 › 와 링크 끝 → 를 선 아이콘으로 바꿨다(「처음 → 30분」 같은 뜻 있는 화살표는 그대로).
+ *   링크·id(stage-*·finder·pain·more·articles·levels)는 하나도 빼지 않았다 — 다른 글과 검사가 가리킨다.
  *   · 단계 카드 id(stage-*)는 그대로 — 글들이 /injury#stage-to10k 로 링크한다. 접혀 있어도 OpenOnHash 가 펼친다
  */
 
@@ -75,15 +81,15 @@ export default function InjuryHubPage() {
       <OpenOnHash />
 
       <header>
-        <h1 className="text-[28px] font-bold text-gray-900">러닝 가이드</h1>
-        <p className="mt-2 break-keep text-lg leading-[1.7] text-gray-600">
+        <h1 className="text-[40px] font-black leading-tight text-[#111111]">러닝 가이드</h1>
+        <p className="mt-2 break-keep text-base leading-[1.7] text-[#4B5059]">
           지금 어디쯤인지 고르면, 그 단계에서 자주 겪는 문제와 읽을 글을 보여 드립니다.
         </p>
       </header>
 
       {/* id="finder" 는 다른 글들의 「내 단계 찾기」 링크(/injury#finder)가 가리킨다 */}
       <section id="stages" className="mt-7 scroll-mt-20">
-        <h2 id="finder" className="scroll-mt-20 text-lg font-bold text-gray-900">지금 어디쯤인가요?</h2>
+        <h2 id="finder" className="scroll-mt-20 text-2xl font-bold text-[#111111]">지금 어디쯤인가요?</h2>
 
         <div className="mt-4 space-y-2.5">
           {STAGES.map((s) => (
@@ -100,7 +106,7 @@ export default function InjuryHubPage() {
                   <span className="block font-bold text-gray-900">{ASK[s.id][0]}</span>
                   <span className="block break-keep text-sm text-gray-500">{ASK[s.id][1]}</span>
                 </span>
-                <span aria-hidden className="shrink-0 text-gray-400 transition-transform group-open:rotate-90">›</span>
+                <ChevronRight aria-hidden className="h-5 w-5 shrink-0 text-gray-400 transition-transform group-open:rotate-90" />
               </summary>
 
               <div className="border-t border-gray-100 px-4 pb-4">
@@ -117,8 +123,8 @@ export default function InjuryHubPage() {
                         <Basis kind={b.basis} />
                       </p>
                       <details className="group/e mt-1.5">
-                        <summary className="cursor-pointer list-none text-xs text-gray-400 hover:text-gray-600 [&::-webkit-details-marker]:hidden">
-                          <span aria-hidden className="inline-block transition-transform group-open/e:rotate-90">›</span> 근거
+                        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm text-gray-400 hover:text-gray-600 [&::-webkit-details-marker]:hidden">
+                          <ChevronRight aria-hidden className="h-4 w-4 transition-transform group-open/e:rotate-90" /> 근거
                         </summary>
                         <p className="mt-1 break-keep rounded-lg bg-gray-50 px-3 py-2 text-sm leading-relaxed text-gray-600">
                           {b.fact}{" "}
@@ -131,7 +137,7 @@ export default function InjuryHubPage() {
                   ))}
                 </ul>
 
-                <p className="mt-1 text-sm font-medium text-gray-700">이 단계에서 읽을 글</p>
+                <p className="mt-1 text-sm font-bold text-[#111111]">이 단계에서 읽을 글</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {s.guides.map((g, i) => (
                     <Link
@@ -139,8 +145,8 @@ export default function InjuryHubPage() {
                       href={g.href}
                       className={
                         i === 0
-                          ? "rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700"
-                          : "rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-gray-300"
+                          ? "flex min-h-11 items-center break-keep rounded-lg bg-emerald-600 px-3 py-2 text-sm font-bold text-white hover:bg-emerald-700"
+                          : "flex min-h-11 items-center break-keep rounded-lg bg-[#F5F5F5] px-3 py-2 text-sm text-[#111111] hover:text-emerald-700"
                       }
                     >
                       {g.label}
@@ -162,13 +168,13 @@ export default function InjuryHubPage() {
       </section>
 
       <section id="pain" className="mt-10 scroll-mt-20">
-        <h2 className="text-lg font-bold text-gray-900">어디가 아픈가요?</h2>
+        <h2 className="text-2xl font-bold text-[#111111]">어디가 아픈가요?</h2>
         <div className="mt-3 flex flex-wrap gap-2">
           {PAIN_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-full border border-gray-200 bg-white px-3.5 py-2 text-base text-gray-800 hover:border-emerald-400"
+              className="flex min-h-11 items-center rounded-full border border-gray-300 bg-white px-4 text-base text-[#111111] hover:border-emerald-600"
             >
               {l.label}
             </Link>
@@ -181,23 +187,24 @@ export default function InjuryHubPage() {
       </section>
 
       <section id="more" className="mt-10 scroll-mt-20">
-        <h2 className="text-lg font-bold text-gray-900">이런 것도 찾나요?</h2>
+        <h2 className="text-2xl font-bold text-[#111111]">이런 것도 찾나요?</h2>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {MORE_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-800 hover:border-emerald-400"
+              className="flex min-h-12 items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-[#111111] hover:border-emerald-600"
             >
-              <span className="break-keep">{l.label}</span>
-              <span aria-hidden className="text-gray-400">→</span>
+              <span className="min-w-0 break-keep">{l.label}</span>
+              <ChevronRight aria-hidden className="h-5 w-5 shrink-0 text-gray-400" />
             </Link>
           ))}
         </div>
       </section>
 
       <section id="articles" className="mt-12 scroll-mt-20">
-        <h2 className="mb-3 text-lg font-bold text-gray-900">주제별 글</h2>
+        <h2 className="text-2xl font-bold text-[#111111]">주제별 글</h2>
+        <p className="mb-6 mt-1 break-keep text-sm text-[#4B5059]">글마다 붙은 「1·2단계」는 위 「지금 어디쯤인가요?」의 번호입니다.</p>
         <GuideArticleList />
       </section>
 
@@ -208,7 +215,7 @@ export default function InjuryHubPage() {
             <h2 className="break-keep text-base font-bold text-gray-900">
               내 달리기량 점검 <span className="font-normal text-gray-500">— 너무 빨리 늘리고 있나요? 초보·중급·숙련 기준</span>
             </h2>
-            <span aria-hidden className="text-gray-400 transition-transform group-open:rotate-90">›</span>
+            <ChevronRight aria-hidden className="h-5 w-5 shrink-0 text-gray-400 transition-transform group-open:rotate-90" />
           </summary>
           <div className="px-4 pb-4">
             <LevelCheck />
@@ -257,9 +264,10 @@ export default function InjuryHubPage() {
         </p>
         <Link
           href="/shoe-finder"
-          className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+          className="press inline-flex h-12 items-center gap-1 rounded-full bg-emerald-600 px-6 text-base font-bold text-white transition-colors hover:bg-emerald-700"
         >
-          나에게 맞는 신발 찾기 →
+          나에게 맞는 신발 찾기
+          <ChevronRight aria-hidden className="h-5 w-5" />
         </Link>
         <p className="mt-3 text-xs text-emerald-700/70">추천 순서는 광고비로 바뀌지 않습니다</p>
       </div>

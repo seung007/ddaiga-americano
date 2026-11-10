@@ -139,6 +139,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 179000,
     krAvailability: "kr_official",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "뉴발란스 공식몰(nbkorea.com) — 지금은 레벨 v5", url: "https://www.nbkorea.com/product/searchResult.action?schWord=%EB%A0%88%EB%B2%A8%20V5", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20%ED%93%A8%EC%96%B4%EC%85%80%20%EB%A0%88%EB%B2%A8%20v4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20FuelCell%20Rebel%20v4", isOfficial: false },
@@ -481,6 +483,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 229000,
     krAvailability: "kr_official",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "뉴발란스 공식몰(nbkorea.com) — 1080 v15", url: "https://www.nbkorea.com/product/searchResult.action?schWord=1080%20V15", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%201080%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20Fresh%20Foam%20X%201080%20v15", isOfficial: false },
@@ -945,6 +949,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 189000,
     krAvailability: "kr_official",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "뉴발란스 공식몰(nbkorea.com) — 860 v15", url: "https://www.nbkorea.com/product/searchResult.action?schWord=860%20V15", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20860%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20860%20v15", isOfficial: false },
@@ -1021,6 +1027,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 199000,
     krAvailability: "kr_official",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "온 공식몰(on.com) — 클라우드러너 3", url: "https://www.on.com/ko-kr/products/cloudrunner-3-m-3mg1007/mens/black-black-shoes-3MG10071043", isOfficial: true },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%98%A8%20%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EB%9F%AC%EB%84%88%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=On%20Cloudrunner%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=On%20Cloudrunner%203", isOfficial: false },
@@ -1256,7 +1264,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 185000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — 호카 마하 6", url: "https://www.musinsa.com/search/goods?keyword=%ED%98%B8%EC%B9%B4%20%EB%A7%88%ED%95%98%206", isOfficial: false },
+      // 2026-11-10: 무신사 「호카 마하 6」 검색 0건(크롬 확인)이라 뺐다 — 다나와·크림에서 판다
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4+%EB%A7%88%ED%95%98+6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Mach%206", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Mach%206", isOfficial: false },
@@ -1294,6 +1302,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 205000,
     krAvailability: "kr_parallel",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "써코니 공식몰(saucony.co.kr) — 지금은 라이드 19", url: "https://saucony.co.kr/product/search.html?category_no=42&keyword=%EB%9D%BC%EC%9D%B4%EB%93%9C%2019", isOfficial: true },
       { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Ride+18", isOfficial: false },
       { label: "29CM 검색 — 지금은 라이드 19", url: "https://www.29cm.co.kr/store/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%EB%9D%BC%EC%9D%B4%EB%93%9C", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%EB%9D%BC%EC%9D%B4%EB%93%9C%2018", isOfficial: false },
@@ -1378,6 +1388,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 229000,
     krAvailability: "kr_official",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "온 공식몰(on.com) — 지금은 클라우드몬스터 3", url: "https://www.on.com/ko-kr/products/cloudmonster-3-m-3mg1005/mens/ivory-topaz-shoes-3MG10055261", isOfficial: true },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%98%A8+%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EB%AA%AC%EC%8A%A4%ED%84%B0+2", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=On%20Cloudmonster%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=On%20Cloudmonster%202", isOfficial: false },
@@ -2070,6 +2082,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 320000,
     krAvailability: "kr_parallel",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "써코니 공식몰(saucony.co.kr) — 지금은 엔돌핀 프로 5", url: "https://saucony.co.kr/product/search.html?category_no=42&keyword=%EC%97%94%EB%8F%8C%ED%95%80%20%ED%94%84%EB%A1%9C", isOfficial: true },
       { label: "플릿러너 — 한국 공인딜러", url: "https://www.fleetrunner.co.kr/goods/goods_search.php?keyword=Endorphin+Pro+4", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%8D%A8%EC%BD%94%EB%8B%88%20%EC%97%94%EB%8F%8C%ED%95%80%20%ED%94%84%EB%A1%9C%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Saucony+Endorphin+Pro+4", isOfficial: false },
@@ -2149,6 +2163,8 @@ export const SHOES: Shoe[] = [
     priceKrw: 340000,
     krAvailability: "kr_parallel",
     buyLinks: [
+      // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
+      { label: "뉴발란스 공식몰(nbkorea.com) — 지금은 SC 엘리트 v6", url: "https://www.nbkorea.com/product/searchResult.action?schWord=SC%20Elite", isOfficial: true },
       { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=뉴발란스+슈퍼컴프+엘리트", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New+Balance+FuelCell+SuperComp+Elite+v4", isOfficial: false },
