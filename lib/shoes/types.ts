@@ -174,6 +174,12 @@ export interface Shoe {
    * 값이 있으면 추천 결과 카드에 안내가 노출된다.
    */
   successor?: string;
+
+  /**
+   * 공식몰 자동 확인으로 들어온 다음 세대 신발(lib/shoes/auto.ts). 사람 원장(data.ts)의 신발에는 없다.
+   * 있으면 화면에 「이전 세대 기준」 분류임을 알린다.
+   */
+  auto?: { basedOn: string; basedOnModel: string; checkedAt: string; weightBasis?: string };
 }
 
 /**

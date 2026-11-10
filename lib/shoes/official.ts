@@ -1,4 +1,5 @@
 import OFFICIAL from "./official.json";
+import AUTO from "./auto.json";
 
 /**
  * 공식몰 자동 확인 (2026-11-02)
@@ -23,5 +24,9 @@ export type OfficialCheck = {
 };
 
 export function officialOf(id: string): OfficialCheck | null {
-  return (OFFICIAL as unknown as Record<string, OfficialCheck>)[id] ?? null;
+  const hit = (OFFICIAL as unknown as Record<string, OfficialCheck>)[id];
+  if (hit) return hit;
+  // 2026-11-10: 자동 추가 신발(auto.json)은 공식몰에서 읽은 값 자체라 같은 모양으로 돌려준다 — 목록·홈·구매처가 같은 규칙을 쓰게
+  const a = (AUTO as unknown as Record<string, { brand: string; priceKrw: number; url: string; checkedAt: string }>)[id];
+  return a ? { brand: a.brand, priceKrw: a.priceKrw, listed: true, url: a.url, checkedAt: a.checkedAt, checkedBy: "수집기" } : null;
 }

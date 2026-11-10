@@ -924,7 +924,9 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 <span className="text-base font-bold text-gray-900">
                   약 {shoe.priceKrw.toLocaleString()}원
                 </span>
-                <span className="text-xs text-gray-400">(${shoe.priceUsd} · 2026-06-01 추산)</span>
+                <span className="text-xs text-gray-400">
+                  {shoe.auto ? `(공식몰 정가 · ${shoe.auto.checkedAt} 자동 확인)` : `($${shoe.priceUsd} · 2026-06-01 추산)`}
+                </span>
                 {shoe.successor && (
                   <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
                     후속 {shoe.successor} 출시됨

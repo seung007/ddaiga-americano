@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ShoesBrowser from "@/components/ShoesBrowser";
+import NewFamilyList from "@/components/NewFamilyList";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { SHOES } from "@/lib/shoes/data";
 
@@ -27,6 +28,7 @@ export default function ShoesPage() {
         <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">러닝화</h1>
         {/* 2026-09-17: 설명 문단·링크 3개를 뺐다. 목록과 필터가 첫 화면에 바로 보이게 */}
         <ShoesBrowser />
+        <NewFamilyList />
       </main>
     </>
   );
