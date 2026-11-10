@@ -1,24 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { gtagEvent } from "@/lib/gtag";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 
 /**
- * 홈 첫 화면 — 추천 카드 (2026-11-05, 디자인 캔버스 「H01 수정안」)
+ * 홈 첫 화면 — 추천기 입구 (2026-11-05 「H01 수정안」 → 2026-11-10 디자인 A안)
  *
- * 왜 바꿨나
- *   GA4 최근 28일(2026-11-05 확인): `/shoe-finder` 를 연 사람의 주요 이벤트 비율이 가장 높았는데
- *   홈에서 그 입구는 「나에게 맞는 신발 찾기」 버튼 하나였고, 누르면 1번 문항부터 다시 시작했다.
- *   그래서 홈에서 **발볼·용도 두 개를 먼저 고르게** 하고, 고른 것을 들고 추천기로 넘긴다
- *   (`/shoe-finder?from=home&f=wide&u=long` → 추천기가 용도를 건너뛰고 성별부터 묻는다).
+ * 왜 이렇게 됐나
+ *   GA4 최근 28일(2026-11-05 확인): `/shoe-finder` 를 연 사람의 주요 이벤트 비율이 가장 높았다 → 홈 첫 화면을 추천기 입구로.
+ *   11-05 안은 발볼·용도를 고른 뒤 버튼을 한 번 더 눌러야 했다. 11-10 운영자: 「두 번 눌러야 한다」 「발볼은 안에서 고르니 빼자」.
+ *   → 용도 타일을 누르면 바로 추천기로 간다(`/shoe-finder?from=home&u=long` → 추천기가 용도를 채우고 시작).
  *
  * 지키는 것
- *   · 칩은 **필터**다. 아래 목록은 「그 조건이 있는 신발」이지 「당신에게 맞는 신발」이 아니다
- *     (ShoeStrip 머리말과 같은 판단 — 키·체중·발 타입까지 보는 추천과 충돌하지 않게).
+ *   · 아래 「러닝화 미리 보기」는 추천이 아니라 목록 맛보기다.
  *   · 가격은 공식몰 자동 확인값이 있을 때만 「공식몰 정가」, 없으면 상세 페이지처럼 「약 …원」.
- *   · 「보통」은 D 폭, 「넓은」은 2E·4E 가 있는 신발. 「모르겠어요」는 거르지 않고 재는 법으로 보낸다.
  */
 
 export type FinderShoe = {
@@ -34,46 +30,25 @@ export type FinderShoe = {
   priceKrw: number;
 };
 
-type WidthKey = "wide" | "normal" | "unsure";
 type UseKey = "daily" | "long" | "racing";
 
-const WIDTH_CHIPS: { k: WidthKey; l: string }[] = [
-  { k: "wide", l: "넓은" },
-  { k: "normal", l: "보통" },
-  { k: "unsure", l: "모르겠어요" },
-];
-const USE_CHIPS: { k: UseKey; l: string }[] = [
-  { k: "daily", l: "일상" },
-  { k: "long", l: "장거리" },
-  { k: "racing", l: "대회용" },
-];
 /**
- * 2026-11-10 운영자: 첫 화면 다리 사진(맨다리가 크게 보이는 착용 컷)이 보기 좋지 않다, 「신발 하나만 넣지 말고 잘 해 봐」.
- * → 용도 칩을 **신발 그림이 있는 타일**로 바꿨다. 고른 용도의 신발이 올라오고 나머지는 흐려진다 — 사진이 장식이 아니라 답이 된다.
- * 예시 신발은 원장(lib/shoes/data.ts)에서 그 용도를 가진 모델이다. 「예시」라고 적는다 — 추천 결과가 아니다.
- * 사진: public/shoes/cutout/ — 2026-11-04 디자인 시안 작업 때 브랜드 공식몰 제품 사진(흰 배경)에서 배경을 지운 것.
+ * 2026-11-10 운영자: 「발볼은 추천기 안에서 고르니 첫 화면에선 빼자」 → 디자인 캔버스 A안.
+ * 첫 화면은 용도 타일 세 개뿐이고, 타일을 누르면 그 용도를 들고 바로 추천기로 간다(누르는 횟수 한 번).
+ * 타일 그림: public/shoes/cutout/ — 2026-11-04 디자인 시안 작업 때 브랜드 공식몰 제품 사진(흰 배경)에서 배경을 지운 것.
  *   ⚠️ 원본 이미지 주소를 그때 기록하지 않았다. 사진 사용 권리는 아직 정하지 않았다(운영자 확인 대기, 다른 신발 사진과 같은 문제).
+ * 움직임(globals.css 「홈 용도 타일」): 들어올 때 한 번 300ms, 마우스를 올리거나 키보드로 고르면 회색 → 연두 200ms·신발 8px 올라옴.
+ *   마우스 올림은 (hover:hover) and (pointer:fine) 안에서만, 움직임 줄이기면 이동을 빼고 짧은 페이드만 남긴다.
  */
-const USE_TILES: Record<UseKey, { img: string; w: number; h: number; ex: string }> = {
-  daily: { img: "/shoes/cutout/brooks-ghost-18.webp", w: 560, h: 249, ex: "브룩스 고스트 18" },
-  long: { img: "/shoes/cutout/mizuno-wave-rider-30.webp", w: 560, h: 282, ex: "미즈노 웨이브 라이더 30" },
-  racing: { img: "/shoes/cutout/asics-metaspeed-sky-tokyo.webp", w: 560, h: 268, ex: "아식스 메타스피드 스카이 도쿄" },
-};
+const USE_TILES: { k: UseKey; label: string; desc: string; img: string; w: number; h: number }[] = [
+  { k: "daily", label: "일상", desc: "평소 조깅", img: "/shoes/cutout/brooks-ghost-18.webp", w: 560, h: 249 },
+  { k: "long", label: "장거리", desc: "하프·풀 준비", img: "/shoes/cutout/mizuno-wave-rider-30.webp", w: 560, h: 282 },
+  { k: "racing", label: "대회용", desc: "기록을 줄일 때", img: "/shoes/cutout/asics-metaspeed-sky-tokyo.webp", w: 560, h: 268 },
+];
 const USE_BADGE: Record<string, string> = { daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" };
 const WIDTH_WORD: Record<string, string> = { B: "좁게", D: "보통", "2E": "넓게", "4E": "아주 넓게" };
 const WIDTH_ORDER = ["B", "D", "2E", "4E"];
 
-const hasWide = (s: FinderShoe) => s.widthOptions.some((w) => w === "2E" || w === "4E");
-const matchesWidth = (s: FinderShoe, w: WidthKey | null) =>
-  !w || w === "unsure" ? true : w === "wide" ? hasWide(s) : s.widthOptions.includes("D");
-
-function Check() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 12l5 5 9-10" />
-    </svg>
-  );
-}
 function Arrow({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
@@ -82,151 +57,64 @@ function Arrow({ size = 16 }: { size?: number }) {
   );
 }
 
-/**
- * 용도 고르기 = 신발 타일. 누르면 그 타일이 검은 테두리로 바뀌고 신발이 살짝 올라온다(누름 피드백 M02·선택 강조).
- * 고르지 않은 타일은 흐리게 하지 않는다 — 연두 바탕에서 투명도를 낮추면 신발이 연두로 물들어 보였다(2026-11-10 화면 확인). 고른 것만 테두리·체크로 구분한다.
- * 움직임: transform·opacity 만, 200ms, 움직임 줄이기 설정이면 끈다(globals 의 .press 와 같은 규칙).
- */
-function UseTiles({ u, pick, wide = false }: { u: UseKey | null; pick: (k: UseKey) => void; wide?: boolean }) {
-  return (
-    <>
-      <p className={`mb-2 text-sm font-bold text-[#2F3414] ${wide ? "" : "mt-4"}`}>용도</p>
-      <div className={wide ? "flex flex-col gap-3" : "grid grid-cols-3 gap-2"}>
-        {USE_CHIPS.map((c) => {
-          const t = USE_TILES[c.k];
-          const on = u === c.k;
-          return (
-            <button
-              key={c.k}
-              type="button"
-              aria-pressed={on}
-              onClick={() => pick(c.k)}
-              className={`press group relative flex overflow-hidden rounded-2xl border-2 bg-white text-left ${
-                on ? "border-[#111111]" : "border-transparent"
-              } ${wide ? "h-[104px] items-center gap-4 px-4" : "flex-col items-center px-2 pb-3 pt-2"}`}
-            >
-              <span className={`flex shrink-0 items-end justify-center ${wide ? "w-[168px]" : "h-14 w-full"}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={t.img}
-                alt=""
-                width={t.w}
-                height={t.h}
-                fetchPriority={c.k === "daily" ? "high" : undefined}
-                className={`h-auto shrink-0 transition-transform duration-200 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
-                  on ? "-translate-y-1 scale-105" : ""
-                } ${wide ? "w-[168px]" : "max-h-14 w-full max-w-[120px] object-contain"}`}
-              />
-              </span>
-              <span className={wide ? "min-w-0" : "mt-1 text-center"}>
-                <span className="flex items-center justify-center gap-1 text-sm font-bold md:justify-start md:text-base">
-                  {on && <Check />}
-                  {c.l}
-                </span>
-                {wide && <span className="mt-0.5 block break-keep text-sm text-[#4B5059]">예: {t.ex}</span>}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </>
-  );
-}
-
-export default function HomeFinderCard({ shoes }: { shoes: FinderShoe[] }) {
-  const [w, setW] = useState<WidthKey | null>(null);
-  const [u, setU] = useState<UseKey | null>(null);
-
-  const fw = w === "unsure" ? null : w;
-  const all = shoes.filter((s) => matchesWidth(s, fw) && (!u || s.uses.includes(u)));
-  const shown = all.slice(0, 4);
-
-  const widthLabel = fw === "wide" ? "넓은 발볼" : fw === "normal" ? "보통 발볼" : "";
-  const useLabel = u ? USE_CHIPS.find((c) => c.k === u)!.l : "";
-  const cond = [widthLabel, useLabel].filter(Boolean).join(" · ");
-  const countLine = cond
-    ? all.length
-      ? `${cond} 조건으로 고른 신발 ${all.length}종이에요`
-      : `${cond} 조건의 신발은 아직 정리하지 못했어요`
-    : "나만의 맞춤 전용 신발을 골라봐요";
-
-  const q = new URLSearchParams();
-  if (fw || u) q.set("from", "home");
-  if (fw) q.set("f", fw);
-  if (u) q.set("u", u);
-  const qs = q.toString();
-  const finderHref = `/shoe-finder${qs ? `?${qs}` : ""}`;
-
-  const pickW = (k: WidthKey) => {
-    const next = w === k ? null : k;
-    setW(next);
-    if (next) gtagEvent("home_finder_chip", { group: "width", value: next });
-  };
-  const pickU = (k: UseKey) => {
-    const next = u === k ? null : k;
-    setU(next);
-    if (next) gtagEvent("home_finder_chip", { group: "use", value: next });
-  };
-
-  const chipCls = (on: boolean) =>
-    `press flex h-11 flex-1 items-center justify-center gap-1 rounded-full border border-[#2F3414] px-2 text-sm font-bold md:h-12 md:text-base ${
-      on ? "bg-[#111111] text-[#C8F031]" : "bg-white text-[#111111]"
-    }`;
-
-  const raceWide = fw === "wide" && u === "racing";
+export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; count: number }) {
+  const shown = shoes.slice(0, 4);
 
   return (
     <>
       {/**
-        * 2026-11-06 운영자: PC 에서 카드가 화면에 비해 작아 보인다 → 머리글과 같은 폭(max-w-5xl)의 2칸.
-        * 2026-11-10 운영자: 「제목 글자가 너무 크다」, 다리 사진 교체.
-        *   제목 PC 64px → 40px, 휴대폰 40px → 32px(13자 이하 큰 제목 규칙의 아래 단계). 한 화면에 큰 글자 하나는 그대로.
-        *   PC 2칸: 왼쪽 = 제목·발볼·버튼, 오른쪽 = 용도 신발 타일 3개(세로). 휴대폰은 한 줄로 이어진다(타일 3개 가로).
+        * 2026-11-10 디자인 A안 — 흰 바탕, 큰 제목 하나, 용도 타일 세 개(같은 회색 바탕, 패턴 15).
+        * 「N종」은 추천기가 실제로 고르는 후보 수(lib/shoes/recommend.ts RECOMMENDABLE_COUNT)를 서버에서 받아 쓴다 —
+        * 자동 수집으로 신발이 늘면 이 문장도 같이 바뀐다.
         */}
-      <section aria-labelledby="finder-h" className="px-5 pt-2 sm:pt-8">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-[#C8F031] p-5 text-[#111111] sm:p-8 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-10 md:p-10">
-          <div className="flex min-w-0 flex-col">
-            <h1 id="finder-h" className="whitespace-nowrap text-[32px] font-bold leading-[1.15] tracking-[-0.8px] md:text-[40px] md:tracking-[-1.2px]">
-              내 러닝화 찾기
-            </h1>
+      <section aria-labelledby="finder-h" className="pt-8 md:pt-16">
+        <div className="mx-auto max-w-5xl px-5">
+          <h1 id="finder-h" className="text-[40px] font-black leading-[1.1] tracking-[-1px] md:whitespace-nowrap md:text-[64px] md:tracking-[-2px]">
+            내 발에 맞는 러닝화
+          </h1>
+          <p className="mt-4 text-base font-bold leading-normal text-[#111111] md:mt-6 md:text-xl">
+            러닝화 {count}종의 스펙 데이터로 <br className="md:hidden" />
+            3켤레를 골라 드려요
+          </p>
+          <p className="mt-2 text-sm text-[#4B5059]">가입 없이 무료</p>
 
-            <p className="mb-2 mt-5 text-sm font-bold text-[#2F3414] md:mt-8">발볼</p>
-            <div className="flex gap-2">
-              {WIDTH_CHIPS.map((c) => (
-                <button key={c.k} type="button" aria-pressed={w === c.k} onClick={() => pickW(c.k)} className={chipCls(w === c.k)}>
-                  {w === c.k && <Check />}
-                  {c.l}
-                </button>
-              ))}
-            </div>
-            {w === "unsure" && (
-              <Link
-                href="/injury/wide-foot"
-                className="press mt-2 flex min-h-11 items-center justify-between gap-2 rounded-xl bg-white px-3 text-sm font-bold"
-              >
-                <span>내 발볼 재는 법부터 볼까요?</span>
-                <Arrow />
-              </Link>
-            )}
-
-            {/* 휴대폰: 용도 타일이 발볼 바로 아래. PC 에서는 오른쪽 칸으로 간다 */}
-            <div className="md:hidden">
-              <UseTiles u={u} pick={pickU} />
-            </div>
-
-            <p role="status" className="mt-5 text-sm font-bold md:mt-auto md:pt-8 md:text-base">{countLine}</p>
-            <Link
-              href={finderHref}
-              onClick={() => gtagEvent("home_finder_cta", { width: fw ?? "unset", use: u ?? "unset" })}
-              className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-[#111111] text-base font-bold text-white md:h-[52px]"
-            >
-              내 맞춤 러닝화 추천받기
-              <Arrow />
-            </Link>
-          </div>
-          <div className="hidden min-w-0 md:block">
-            <UseTiles u={u} pick={pickU} wide />
-          </div>
+          <h2 className="mt-8 text-base font-bold md:mt-12">어디에 신을 신발인가요?</h2>
+          <ul className="mt-3 flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-4">
+            {USE_TILES.map((t, i) => (
+              <li key={t.k} className="use-in" style={{ animationDelay: `${80 + i * 60}ms` }}>
+                <Link
+                  href={`/shoe-finder?from=home&u=${t.k}`}
+                  onClick={() => gtagEvent("home_finder_cta", { width: "unset", use: t.k })}
+                  aria-label={`${t.label}, ${t.desc} 용도로 추천 시작`}
+                  className="use-tile press flex items-center gap-3 rounded-2xl text-[#111111] md:flex-col md:items-stretch md:gap-0"
+                >
+                  <span className="use-surf flex h-32 shrink-0 items-center justify-center rounded-2xl px-2 md:aspect-[4/3] md:h-auto md:p-8">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={t.img}
+                      alt=""
+                      width={t.w}
+                      height={t.h}
+                      fetchPriority={i === 0 ? "high" : undefined}
+                      className="use-shoe h-auto w-[clamp(112px,36vw,160px)] md:w-full"
+                    />
+                  </span>
+                  <span className="flex min-w-0 flex-1 items-center justify-between gap-3 md:mt-4">
+                    <span className="min-w-0">
+                      <span className="block text-xl font-black md:inline md:text-2xl">{t.label}</span>
+                      <span className="block text-sm text-[#4B5059] md:inline md:text-base md:font-medium">
+                        <span className="hidden md:inline"> - </span>
+                        {t.desc}
+                      </span>
+                    </span>
+                    <span className="use-go grid size-11 shrink-0 place-items-center rounded-full bg-[#111111] text-white">
+                      <Arrow />
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -234,61 +122,23 @@ export default function HomeFinderCard({ shoes }: { shoes: FinderShoe[] }) {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center justify-between px-5">
             <h2 id="list-h" className="text-xl font-semibold text-[#111111]">
-              {cond ? "지금 조건의 러닝화" : "러닝화 미리 보기"}
+              러닝화 미리 보기
             </h2>
             <Link href="/shoes" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">
               전체 보기
             </Link>
           </div>
 
-          {cond && (
-            <div className="flex flex-wrap items-center gap-2 px-5 pt-2">
-              {widthLabel && (
-                <button type="button" onClick={() => setW(null)} aria-label={`${widthLabel} 조건 빼기`}
-                  className="press flex h-11 items-center gap-1 rounded-full border border-[#D5D8DD] bg-white px-3 text-sm font-bold text-[#111111]">
-                  {widthLabel}<span aria-hidden="true">✕</span>
-                </button>
-              )}
-              {useLabel && (
-                <button type="button" onClick={() => setU(null)} aria-label={`${useLabel} 조건 빼기`}
-                  className="press flex h-11 items-center gap-1 rounded-full border border-[#D5D8DD] bg-white px-3 text-sm font-bold text-[#111111]">
-                  {useLabel}<span aria-hidden="true">✕</span>
-                </button>
-              )}
-              <button type="button" onClick={() => { setW(null); setU(null); }}
-                className="h-11 px-2 text-sm text-[#4B5059] underline">
-                모두 지우기
-              </button>
-            </div>
-          )}
-
-          {all.length === 0 && (
-            <div className="mx-5 mt-4 rounded-2xl bg-[#F5F5F5] p-6">
-              <p className="text-base font-bold text-[#111111]">
-                {raceWide ? "넓은 발볼용 대회화는 아직 정리하지 못했어요" : "이 조건의 신발은 아직 정리하지 못했어요"}
-              </p>
-              <p className="mb-4 mt-2 text-sm leading-normal text-[#4B5059]">
-                {raceWide ? "정리한 대회용 신발은 보통 폭으로만 나와요. 보통 발볼로 바꿔 볼까요?" : "조건을 하나 풀면 가까운 신발을 볼 수 있어요"}
-              </p>
-              <button type="button"
-                onClick={() => (raceWide ? setW("normal") : (setW(null), setU(null)))}
-                className="press h-11 rounded-full border border-[#111111] bg-white px-4 text-sm font-bold text-[#111111]">
-                {raceWide ? "보통 발볼로 보기" : "조건 풀기"}
-              </button>
-            </div>
-          )}
-
           <div className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
-            {shown.map((s, i) => {
-              const badge = u ? USE_BADGE[u] : s.uses.map((x) => USE_BADGE[x]).filter(Boolean).join("·");
+            {shown.map((s) => {
+              const badge = s.uses.map((x) => USE_BADGE[x]).filter(Boolean).join("·");
               const widths = WIDTH_ORDER.filter((x) => s.widthOptions.includes(x)).map((x) => WIDTH_WORD[x]).join("·");
               return (
                 <Link
-                  key={`${s.id}-${w}-${u}`}
+                  key={s.id}
                   href={`/shoes/${s.id}`}
                   onClick={() => gtagEvent("home_shoe_click", { shoe: s.id, from: "finder_card" })}
-                  className="press rise flex w-[300px] shrink-0 snap-start flex-col gap-1 text-[#111111]"
-                  style={{ animationDelay: `${i * 24}ms` }}
+                  className="press flex w-[300px] shrink-0 snap-start flex-col gap-1 text-[#111111]"
                 >
                   <span className="grid h-[300px] place-items-center overflow-hidden rounded-2xl bg-[#F1F3F0]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -325,7 +175,7 @@ export default function HomeFinderCard({ shoes }: { shoes: FinderShoe[] }) {
                 </Link>
               );
             })}
-            {all.length > 0 && (
+            {shown.length > 0 && (
               <Link
                 href="/shoes"
                 className="press flex h-[300px] w-40 shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-2xl bg-[#111111] text-base font-bold text-white"

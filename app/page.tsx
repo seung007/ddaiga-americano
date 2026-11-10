@@ -24,6 +24,7 @@ import HomeFinderCard, { type FinderShoe } from "@/components/HomeFinderCard";
 import { officialOf } from "@/lib/shoes/official";
 import VERIFIED from "@/lib/shoes/verified.json";
 import { SHOES } from "@/lib/shoes/data";
+import { RECOMMENDABLE_COUNT } from "@/lib/shoes/recommend";
 import ShoeThumb from "@/components/ShoeThumb";
 import { upcomingRaces, daysUntil, distanceLabel, currentStatus, type Race } from "@/lib/races";
 
@@ -172,7 +173,7 @@ export default function Home() {
        * git 기록과 components/HeroBackdrop.tsx · components/ShoeStrip.tsx 에 남아 있다 — 파일은 지우지 않았다.
        * 경위는 components/HomeFinderCard.tsx 머리말.
        */}
-      <HomeFinderCard shoes={FINDER_SHOES} />
+      <HomeFinderCard shoes={FINDER_SHOES} count={RECOMMENDABLE_COUNT} />
 
       {/**
        * 2026-11-05 — 아래 구역을 디자인 「H01 수정안」 순서로 바꿨다: 가이드 → 마감 임박 대회 → 이렇게 확인했어요 → 게시판 입구.

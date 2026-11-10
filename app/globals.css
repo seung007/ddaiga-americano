@@ -136,3 +136,29 @@ body {
   .press, .rise { transition: none; animation: none; }
   .press:active { transform: none; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   홈 용도 타일 (components/HomeFinderCard.tsx, 2026-11-10 디자인 A안)
+   바탕색은 여기 두어야 hover·focus 의 연두가 이긴다(인라인 style 이면 덮지 못한다)
+   들어옴 300ms 한 번 · 바탕 200ms · 신발 8px 200ms · 마우스 올림은 정밀 포인터에서만
+   ───────────────────────────────────────────────────────────── */
+.use-surf { background: #F2F2F0; transition: background-color 200ms linear; }
+.use-shoe { transition: transform 200ms cubic-bezier(0.2, 0, 0, 1); }
+.use-go { transition: transform 200ms cubic-bezier(0.2, 0, 0, 1); }
+.use-tile:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }
+.use-tile:focus-visible .use-surf, .use-tile:active .use-surf { background: #C8F031; }
+.use-tile:focus-visible .use-shoe { transform: translateY(-8px); }
+.use-tile:focus-visible .use-go { transform: translateX(4px); }
+@media (hover: hover) and (pointer: fine) {
+  .use-tile:hover .use-surf { background: #C8F031; }
+  .use-tile:hover .use-shoe { transform: translateY(-8px); }
+  .use-tile:hover .use-go { transform: translateX(4px); }
+}
+.use-in { animation: use-in 300ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+@keyframes use-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes use-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .use-shoe, .use-go { transition: none; }
+  .use-tile:hover .use-shoe, .use-tile:focus-visible .use-shoe, .use-tile:hover .use-go, .use-tile:focus-visible .use-go { transform: none; }
+  .use-in { animation: use-fade 150ms linear both; }
+}
