@@ -1171,7 +1171,7 @@
       10,
       21.0975
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "화순공설운동장",
     "registrationStart": "2026-10-20",
     "registrationEnd": "2026-11-10",
@@ -1196,7 +1196,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-hwasun-dolmen-marathon-056fe86f722045a29882f0bce46ad72f",
     "officialUrl": "https://www.xn--299a84k68cg1cr8pi6h5qsd0i.kr:9020/run/1100.asp?T=3&wgu=1",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-09",
     "checkedBy": "수집기"
   },
   {
@@ -2560,7 +2560,7 @@
       10,
       21.0975
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "상암 평화의공원 평화광장",
     "registrationStart": "2026-10-01",
     "registrationEnd": "2026-11-10",
@@ -2568,7 +2568,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/seoul-life-marathon-2026-b243954a0e2949e0bf25ced3eff2d974",
     "officialUrl": "http://seoul.lifemarathon.co.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-09",
     "checkedBy": "수집기"
   },
   {
@@ -3230,7 +3230,7 @@
     "distancesKm": [
       16
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "구덕운동장 → 남포동·부산역·서면 → 부산학생교육문화회관",
     "registrationStart": "2026-10-13",
     "registrationEnd": "2026-11-10",
@@ -3238,7 +3238,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/busan-student-and-citizen-relay-run-0d5bce9df881499584b12ad08231e47f",
     "officialUrl": "https://forms.gle/kuXEkqnkUQPY8Twm6",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
+    "checkedAt": "2026-11-10",
     "checkedBy": "수집기"
   },
   {
