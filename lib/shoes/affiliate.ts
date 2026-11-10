@@ -194,18 +194,41 @@ export function pickTwoBuyLinks<
  */
 const BRAND_KO: Record<string, string> = { Asics: "아식스", Saucony: "써코니", Brooks: "브룩스", Mizuno: "미즈노" };
 
+/**
+ * 지금 열리지 않는 공식몰 (2026-11-10 크롬 확인: www.brooksrunning.co.kr 이 오류 페이지만 띄움, 운영자도 같은 판단).
+ * 이 주소의 공식몰 링크는 화면에서 숨기고 다른 판매처를 먼저 보인다. data.ts·official.json 은 그대로 둔다 —
+ * 사이트가 돌아오면 이 목록에서 지우기만 하면 된다(주간 링크 검사 checks.yml 결과로 확인).
+ */
+const OFFICIAL_DOWN: Record<string, string> = { "brooksrunning.co.kr": "2026-11-10" };
+const isDown = (url: string) => {
+  try {
+    const h = new URL(url).hostname.replace(/^www\./, "");
+    return h in OFFICIAL_DOWN;
+  } catch {
+    return false;
+  }
+};
+
 export function resolveBuyLinks<T extends { label: string; url: string; isOfficial: boolean }>(
   shoeId: string,
   links: readonly T[]
 ): Array<T & { isAffiliate?: boolean; isProductPage?: boolean }> {
   const off = officialOf(shoeId);
-  const product = off?.listed && off.url ? off.url : null;
-  let out: Array<T & { isAffiliate?: boolean; isProductPage?: boolean }> = links.map((l) =>
-    product && l.isOfficial ? { ...l, url: product, isProductPage: true } : { ...l }
-  );
-  if (product && !links.some((l) => l.isOfficial)) {
+  const product = off?.listed && off.url && !isDown(off.url) ? off.url : null;
+  let out: Array<T & { isAffiliate?: boolean; isProductPage?: boolean }> = links
+    .filter((l) => !(l.isOfficial && isDown(l.url)))
+    .map((l) => (product && l.isOfficial ? { ...l, url: product, isProductPage: true } : { ...l }));
+  if (product && !out.some((l) => l.isOfficial)) {
     const label = `${BRAND_KO[off!.brand] ?? off!.brand} 공식몰`;
     out = [{ label, url: product, isOfficial: true, isProductPage: true } as T & { isProductPage: boolean }, ...out];
+  }
+  // 2026-11-10: 공식몰 링크가 없으면 첫 칸(초록 버튼)이 「살 수 있는 곳」이어야 한다. 그런데 첫 칸이 무신사 **브랜드 페이지**
+  //   (모델과 무관)인 신발이 많았다. 모델로 바로 찾는 새 상품 판매처를 앞으로, 리셀(KREAM)·브랜드 페이지를 뒤로 보낸다.
+  //   공식몰 링크가 있는 신발은 순서를 바꾸지 않는다(공식 먼저 — pickTwoBuyLinks 와 같은 원칙).
+  if (!out.some((l) => l.isOfficial)) {
+    const rank = (u: string) =>
+      /musinsa\.com\/(products|search)/.test(u) ? 0 : /danawa\.com/.test(u) ? 1 : /coupang\.com/.test(u) ? 2 : /kream\.co\.kr/.test(u) ? 4 : /musinsa\.com\/brand/.test(u) ? 5 : 3;
+    out = out.map((l, i) => ({ l, i })).sort((a, b) => rank(a.l.url) - rank(b.l.url) || a.i - b.i).map((x) => x.l);
   }
   const partner = affiliateFor(shoeId);
   if (!partner) return out;

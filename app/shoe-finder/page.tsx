@@ -849,6 +849,8 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
   inCompare: boolean; canAddCompare: boolean; onToggleCompare: () => void;
 }) {
   const { shoe, score, reasons } = rec;
+  const buyLinks = resolveBuyLinks(shoe.id, shoe.buyLinks);
+  const hasOfficial = buyLinks.some(l => l.isOfficial);
 
   return (
     <li className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
@@ -936,7 +938,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                {resolveBuyLinks(shoe.id, shoe.buyLinks).map(link => (
+                {buyLinks.map((link, li) => (
                   <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer"
                     onClick={() => gtagEvent("buy_link_click", {
                       shoe: `${shoe.brand} ${shoe.model}`,
@@ -944,8 +946,8 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                       // 제휴 링크 클릭을 따로 셀 수 있어야 수익 파이프가 실제로 도는지 잰다.
                       affiliate: link.isAffiliate ? "yes" : "no",
                     })}
-                    className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
-                      ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
+                    className={`inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
+                      ${link.isOfficial || (!hasOfficial && li === 0) ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
                     {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                   </a>
                 ))}
@@ -967,11 +969,12 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 </button>
               </div>
               {/* 2026-11-10: 공식몰 상품 페이지로 바로 가는 신발(수집기 확인)에는 이 안내가 필요 없다 */}
-              {!shoe.buyLinks.some(l => l.isOfficial) && (
-                // 2026-11-10: 공식몰 링크가 없는 신발 — 한국 공식몰이 안 파는 모델(뉴발란스 520 v9·인피니티런 4 등)이거나 아직 확인 못 한 곳(호카)
-                <p className="text-xs text-gray-500 mt-1.5">공식몰 링크는 아직 없어요. 위 판매처에서 살 수 있어요.</p>
+              {!hasOfficial && (
+                // 2026-11-10: 공식몰 링크가 없는 신발 — 한국 공식몰이 안 파는 모델(호카 다수·뉴발란스 520 v9 등)이거나
+                // 공식몰이 지금 열리지 않는 곳(브룩스, lib/shoes/affiliate.ts OFFICIAL_DOWN). 첫 판매처를 초록 버튼으로 둔다
+                <p className="text-xs text-gray-500 mt-1.5">공식몰에서 팔지 않거나 지금 열리지 않아서, 파는 곳으로 연결해요.</p>
               )}
-              {shoe.buyLinks.some(l => l.isOfficial) && !resolveBuyLinks(shoe.id, shoe.buyLinks).some(l => l.isProductPage) && (
+              {hasOfficial && !buyLinks.some(l => l.isProductPage) && (
                 <p className="text-xs text-gray-500 mt-1.5">
                   공식몰에서 안 보이면 위 모델명을 복사해 검색창에 붙여 넣으세요.
                 </p>

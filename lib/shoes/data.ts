@@ -1264,7 +1264,7 @@ export const SHOES: Shoe[] = [
     priceKrw: 185000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — 호카 마하 6", url: "https://www.musinsa.com/search/goods?keyword=%ED%98%B8%EC%B9%B4%20%EB%A7%88%ED%95%98%206", isOfficial: false },
+      // 2026-11-10: 무신사 「호카 마하 6」 검색 0건(크롬 확인)이라 뺐다 — 다나와·크림에서 판다
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%98%B8%EC%B9%B4+%EB%A7%88%ED%95%98+6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Hoka%20Mach%206", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Hoka%20Mach%206", isOfficial: false },
