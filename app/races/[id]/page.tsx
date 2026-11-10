@@ -70,6 +70,25 @@ export async function generateMetadata({
     r.registrationEnd ? `접수 ${r.registrationEnd.slice(5).replace("-", "/")}까지` : null,
     fee,
   ].filter(Boolean);
+  // 2026-11-10 네이버 28일: 「대청호 걷기대회」 노출 743 · 클릭 1. 그 대회는 10/31 에 끝났는데 결과에는
+  //   일정·마감일만 보여 「지난 대회」인지 알 수 없었다. 끝난 대회는 제목에 「끝난 대회」를 붙이고,
+  //   설명 첫머리에 끝났다는 것과 정원(검색어 「참가인원」「참여자 수」)을 둔다. 정원은 모집 인원이지 실제 참가자 수가 아니라 「정원」이라고 적는다.
+  const d = daysUntil(r.date);
+  const ended = d !== null && d < 0;
+  if (ended) {
+    const endedBits = [
+      r.date ? `${withWeekday(r.date)}에 끝난 대회` : "끝난 대회",
+      r.venue ?? r.region,
+      r.distancesKm.map(distanceLabel).join("·"),
+      r.capacity ? `정원 ${r.capacity}` : null,
+      fee,
+    ].filter(Boolean);
+    return {
+      title: `${r.name} — 끝난 대회, ${r.region} | 뛰다가 아메리카노`,
+      description: `${endedBits.join(" · ")}. 다음 대회 소식은 공식 홈페이지에서 확인하세요.`,
+      alternates: { canonical: `/races/${r.id}` },
+    };
+  }
   return {
     title: `${r.name}${r.date ? ` — ${withWeekday(r.date)} ${r.region}` : ""} | 뛰다가 아메리카노`,
     description: `${bits.join(" · ")}. 확인 날짜와 출처를 붙여 정리했습니다.`,

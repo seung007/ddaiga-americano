@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MidNext from "@/components/guide/MidNext";
 import FinderCta from "@/components/FinderCta";
 import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
@@ -191,6 +192,11 @@ export default function Page() {
             <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>
           </p>
         </Evidence>
+
+        <MidNext from="first-10k" links={[
+          { href: "/injury/beginner-guide", sub: "준비 기간을 어떻게 짤지 더 자세히" },
+          { href: "/races", title: "10km 대회 일정 보기", sub: "접수 중인 대회를 날짜순으로" },
+        ]} />
 
         <h2 id="run-walk" className={H2}>
           중간에 걸으면 실패인가요?

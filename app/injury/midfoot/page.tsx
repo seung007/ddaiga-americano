@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MidNext from "@/components/guide/MidNext";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
@@ -170,6 +171,11 @@ export default function Page() {
             </Evidence>
           </div>
         </div>
+
+        <MidNext from="midfoot" links={[
+          { href: "/injury/cadence", sub: "착지법 대신 먼저 만져 볼 것" },
+          { href: "/injury/posture", sub: "상체·팔 자세가 착지에 미치는 것" },
+        ]} />
 
         <h2 id="injury" className={H2}>
           힐스트라이크로 달리면 무릎이 망가지나요?
