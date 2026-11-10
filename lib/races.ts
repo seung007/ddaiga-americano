@@ -111,7 +111,8 @@ export type Race = {
   /**
    * 2026-11-10 네이버 검색어 「추가접수」「취소 기간」「매진」 — 전에는 메모(note)에만 있어 질문·답이 안 만들어졌다.
    * **대회 측 공지에서 확인한 것만** 적는다. 모르면 비운다(비우면 그 질문을 만들지 않는다).
-   * 수집기(ddaiga-pipeline)는 이 필드를 읽지도 쓰지도 않는다 — 사람 항목은 덮어쓰지 않고, 모르는 필드는 그대로 둔다(project.py FIELD_ORDER 밖 필드 보존).
+   * 수집기(ddaiga-pipeline): extraRegistration 만 채운다 — 일정 자료의 「추가 접수」 칸에 시작·끝 날짜가 다 있을 때, 수집기 항목에만(「10/27~11/9」 형식).
+   *   사람 항목은 채우지 않고 보고만 한다(extra_registration_found). soldOut·refundDeadline 은 사람이 공식 공지에서 확인해 넣는다.
    */
   /** 추가 접수 — 기간·방식 그대로 (예: 「9/18~9/22 선착순」) */
   extraRegistration?: string;
