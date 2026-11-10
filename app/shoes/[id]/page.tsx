@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import BuyLinkButtons from "@/components/BuyLinkButtons";
+import { photoOf } from "@/lib/shoes/photos";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
@@ -21,7 +22,7 @@ import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
-import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, isRecommendable } from "@/lib/shoes/types";
+import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import { pageUrl } from "@/lib/site";
 
 /**
@@ -142,18 +143,35 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
     <>
       <BreadcrumbJsonLd trail={[["러닝화", "/shoes"], [name, `/shoes/${s.id}`]]} />
       <ShoeJsonLd shoes={[s]} name={name} url={PAGE(s.id)} />
-      <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
+      <main className="pb-24 text-gray-800 md:pb-0">
+      <div className="mx-auto max-w-5xl px-6 pt-8 md:pt-12">
         <AffiliateNotice show={!!affiliateFor(s.id)} />
-        <Link href="/shoes" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
+        <Link href="/shoes" className="mb-4 inline-flex min-h-11 items-center text-sm text-emerald-600 hover:underline">
           ← 러닝화 목록
         </Link>
 
-        <header className="flex flex-col gap-5 sm:flex-row sm:items-center">
-          {/* 2026-11-09: 휴대폰에서 정사각 220px 상자 + 위아래 빈 띠라 사진이 작게 보였다 — 휴대폰은 화면 폭 4:3(자르지 않음, object-contain), 넓은 화면은 그대로 */}
-          <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="aspect-[4/3] w-full rounded-2xl bg-gray-50 sm:aspect-square sm:max-w-[220px]" />
-          <div>
+        {/**
+          * 2026-11-10 디자인 점검(패턴 30): PC 에서 사진이 220px 칸 하나라 작았다.
+          * → 넓은 화면은 사진 왼쪽 크게(약 55%)·정보 오른쪽, 휴대폰은 화면 폭 4:3.
+          *   공식몰 옆모습 사진(lib/shoes/photos.json)이 있으면 그것을 쓴다. 여러 장(3~5장)은 아직 모으지 않았다.
+          */}
+        <header className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+          {(() => {
+            const ph = photoOf(s.id);
+            return (
+              <div className="grid aspect-[4/3] w-full shrink-0 place-items-center overflow-hidden rounded-2xl bg-gray-50 p-6 md:w-[55%] md:p-10">
+                {ph ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={`/shoes/photo/${s.id}.webp`} alt={name} width={ph.w} height={ph.h} fetchPriority="high" className="h-auto w-full" />
+                ) : (
+                  <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="h-full w-full" />
+                )}
+              </div>
+            );
+          })()}
+          <div className="min-w-0">
             <p className="text-sm text-gray-500">{s.brand}</p>
-            <h1 className="text-3xl font-bold leading-tight text-gray-900">{s.model}</h1>
+            <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">{s.model}</h1>
             {nicknamesOf(s.model).length > 0 && (
               // 2026-09-26 — 러닝 오픈채팅에서 실제로 쓰인 애칭만 (lib/shoes/aliases.ts)
               <p className="mt-1 text-sm text-gray-500">
@@ -162,7 +180,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               </p>
             )}
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <p className="text-lg text-gray-800">약 {won(s.priceKrw)}</p>
+              <p className="text-xl text-gray-800">약 {won(s.priceKrw)}</p>
               <LikeButton id={s.id} name={name} />
             </div>
             {official && (
@@ -196,6 +214,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </div>
           </div>
         </header>
+      </div>
+      <article className="mx-auto max-w-5xl px-6 pb-12 [&>*]:max-w-2xl">
 
         {s.successor && (() => {
           const next = successorOf(s);
@@ -264,7 +284,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           );
         })()}
 
-        <p className="mt-6 text-lg leading-relaxed text-gray-700">{s.blurb}</p>
+        <p className="mt-6 text-base leading-relaxed text-gray-700">{s.blurb}</p>
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">스펙</h2>
@@ -306,34 +326,23 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           * 「발 모양: 」 뒤가 비어 있으면 고장으로 보이고, 아무 말도 없으면
           * 판단한 신발과 안 한 신발을 구분할 방법이 사라진다.
           */}
-        {isRecommendable(s) ? (
-          <section className="mt-8">
-            {/* 2026-10-06: 제목 「이런 사람에게 맞춰 설계됐어요」는 브랜드 설계처럼 읽혔다. 체중·체형 줄은 뺐다
-                — 출처 없는 분류이고 추천 엔진이 더 이상 쓰지 않는다(recommend.ts v4). */}
-            <h2 className="mb-3 text-xl font-bold text-gray-900">이 사이트의 분류</h2>
-            <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
-              <li>• 발 모양: {s.footTypes.map((f) => FOOT_KO[f]).join(" · ")}</li>
-              {s.genderNote && <li>• {s.genderNote}</li>}
-            </ul>
-            <p className="mt-2 text-xs text-gray-400">
-              저희가 정한 분류입니다. 브랜드가 정한 제한이 아니고, 발 모양별 신발 처방은 연구가 갈립니다.
-            </p>
-          </section>
-        ) : (
-          <section className="mt-8">
-            <h2 className="mb-3 text-xl font-bold text-gray-900">누구에게 맞는지는 아직 판단하지 않았습니다</h2>
-            <p className="text-sm leading-relaxed text-gray-700">
-              이 신발은 <strong>공개된 스펙(무게·드롭·스택·폭 옵션·가격)만 확인</strong>했습니다.
-              어떤 발 모양이나 체형에 맞는지는 브랜드가 공개하지 않는 값이라 저희가 따로 판단해야 하는데,
-              아직 하지 않았습니다.
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-gray-700">
-              그래서 이 신발은 <strong>맞춤 추천 결과에 나오지 않습니다.</strong>{" "}
-              지어내서 채우는 대신 비워 두는 쪽을 택했습니다.
-            </p>
-            {s.genderNote && <p className="mt-2 text-sm text-gray-700">• {s.genderNote}</p>}
-          </section>
-        )}
+        {/* 2026-11-10: 106종 전부 추천 후보가 됐다(lib/shoes/types.ts footTypesFromStability). 사람이 발 모양을 적지 않은 신발은
+            안정성 구조로 정한 분류라고 밝힌다 — 전에는 「아직 판단하지 않아 추천에 안 나온다」고 적었다 */}
+        {(() => {
+          const sf = withFootTypes(s);
+          return (
+            <section className="mt-8">
+              <h2 className="mb-3 text-xl font-bold text-gray-900">이 사이트의 분류</h2>
+              <ul className="space-y-1.5 pl-4 text-sm text-gray-700">
+                <li>• 발 모양: {sf.footTypes.map((f) => FOOT_KO[f]).join(" · ")}{sf.derivedFootTypes ? " (신발의 안정성 구조로 정함)" : ""}</li>
+                {s.genderNote && <li>• {s.genderNote}</li>}
+              </ul>
+              <p className="mt-2 text-xs text-gray-500">
+                저희가 정한 분류입니다. 브랜드가 정한 제한이 아니고, 발 모양별 신발 처방은 연구가 갈립니다.
+              </p>
+            </section>
+          );
+        })()}
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">근거</h2>
@@ -368,7 +377,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           />
         </div>
 
-        <section className="mt-8">
+        <section id="buy" className="mt-8 scroll-mt-20">
           <h2 className="mb-3 text-xl font-bold text-gray-900">구매</h2>
           <BuyLinkButtons shoeId={s.id} shoeName={name} links={s.buyLinks} from="shoe-detail" />
           <p className="mt-2 text-xs text-gray-400">가격은 국내 권장소비자가 기준 추산이고 판매처마다 다릅니다.</p>
@@ -407,6 +416,13 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           />
         </div>
       </article>
+      {/* 2026-11-10 디자인 점검(패턴 34): 구매가 페이지 맨 아래였다 → 휴대폰은 아래 고정 버튼으로 구매 구역에 바로 간다 */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 px-5 py-3 backdrop-blur md:hidden">
+        <a href="#buy" className="flex h-12 items-center justify-center rounded-full bg-emerald-600 text-base font-semibold text-white hover:bg-emerald-700">
+          구매처 보기 →
+        </a>
+      </div>
+      </main>
     </>
   );
 }

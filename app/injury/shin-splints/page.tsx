@@ -42,6 +42,7 @@ export default function Page() {
           ["정강이 통증", "/injury/shin-splints"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -89,7 +90,7 @@ export default function Page() {
 
         {/* 안전 정보를 맨 위에 둔다 — 이 페이지의 존재 이유. 2026-10-13 재설계에서도 접지 않는다. */}
         <section className="mt-10 rounded-2xl border border-red-200 bg-red-50 p-5">
-          <h2 id="stress-fracture" className="scroll-mt-20 break-keep text-lg font-bold text-red-900">
+          <h2 id="stress-fracture" className="scroll-mt-20 break-keep text-xl font-bold text-red-900">
             피로골절과는 어떻게 구별하나요?
           </h2>
           <p className="mt-3 break-keep text-base leading-[1.7] text-red-900">
@@ -326,6 +327,7 @@ export default function Page() {
           </Link>
         </div>
       </article>
+      </main>
     </>
   );
 }

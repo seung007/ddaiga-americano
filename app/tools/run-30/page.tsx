@@ -50,7 +50,7 @@ export default function Run30Page() {
         </nav>
 
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">30분 달리기 따라 하기</h1>
-        <p className="mt-3 break-keep text-lg leading-[1.75] text-gray-700">
+        <p className="mt-3 break-keep text-base leading-[1.8] text-gray-700">
           걷기와 달리기를 섞어 <strong>8단계 × 3회 = 24회</strong>. 오늘 할 회차를 누르고 타이머를 켜면 됩니다.
         </p>
 

@@ -55,6 +55,7 @@ export default function KwonEunJuPage() {
           ["권은주", "/injury/kwon-eun-ju"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -286,6 +287,7 @@ export default function KwonEunJuPage() {
           </Link>
         </div>
       </article>
+      </main>
     </>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MidNext from "@/components/guide/MidNext";
 import FinderCta from "@/components/FinderCta";
 import WideShoeList, { wideSummary } from "@/components/WideShoeList";
 import InlineAsk from "@/components/InlineAsk";
@@ -54,6 +55,7 @@ export default function WideFootPage() {
           ["발볼 와이드 규격", "/injury/wide-foot"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -233,7 +235,11 @@ export default function WideFootPage() {
           </p>
         </Evidence>
 
-        <FinderCta from="wide-foot" variant="inline" headline="발볼 조건을 넣으면 2E·4E 옵션이 있는 신발만 골라서 보여드립니다." />
+        {/* 2026-11-10: 글 중간 연결 — 이 자리의 인라인 신발 찾기를 MidNext 로 바꿨다(신발 찾기 버튼이 그 안에 있다) */}
+        <MidNext from="wide-foot" links={[
+          { href: "/shoes?wide=1", title: "2E·4E 옵션이 있는 러닝화만 보기", sub: "러닝화 목록에서 넓은 발볼 조건을 켠 채로" },
+          { href: "/injury/flat-feet", sub: "발 모양에 따라 신발을 고를 때" },
+        ]} />
 
         {/* 2026-10-12: 손으로 쓴 브랜드 표가 신발 원장과 어긋나(On·Hoka·Nike) 원장에서 계산하는 표로 바꿨다 — components/WideShoeList.tsx */}
         <WideShoeList />
@@ -299,6 +305,7 @@ export default function WideFootPage() {
           <ShareButtons from="wide-foot" title="발볼 넓은 러너 와이드 규격 총정리" description="2E·4E가 필요한지 판단하는 법과 브랜드별 옵션." />
         </div>
       </article>
+      </main>
     </>
   );
 }

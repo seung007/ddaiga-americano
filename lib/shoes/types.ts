@@ -135,6 +135,8 @@ export interface Shoe {
    *   ② 판단 필드를 **비운 채로** 목록·비교·상세에만 올리고, **추천에서는 빼 둔다**
    *
    * ②를 골랐다. 비어 있으면 `isRecommendable()` 이 false 를 내고 추천 후보에서 빠진다.
+   * ⚠️ 2026-11-10 바뀜: 체중·키·체형은 점수에 안 쓰므로 후보 조건에서 뺐고, footTypes 가 비면 안정성 구조에서 정한다
+   *   (아래 footTypesFromStability). 그래서 지금은 106종 전부 추천 후보다.
    * **플래그가 아니라 값의 유무로 판정한다** — 플래그는 켜는 걸 잊고, 잊으면 조용히 섞인다.
    *
    * 기존 52종은 값이 다 있으므로 동작이 달라지지 않는다.
@@ -180,18 +182,35 @@ export interface Shoe {
  * 하나라도 비어 있으면 `/shoes` 목록·상세·비교에는 나오지만 **추천 결과에는 안 나온다.**
  * 스펙만 확인한 신발을 "당신에게 맞습니다"라고 말하지 않기 위한 장치다.
  */
-export type RecommendableShoe = Shoe &
-  Required<Pick<Shoe, "footTypes" | "weightRangeKg" | "heightRangeCm" | "primaryBodyTypes">>;
+export type RecommendableShoe = Shoe & Required<Pick<Shoe, "footTypes">>;
+
+/**
+ * 2026-11-10 — 추천 후보를 52 → 106종으로 (운영자 결정: 「안 하면 106종으로 늘린 이유가 없다」).
+ *
+ * 왜 바꿨나
+ *   · 위 판단 필드 4개 중 **점수에 쓰이는 것은 footTypes 하나뿐**이다. 체중·키 범위·체형은 v4(2026-10-06)에서
+ *     순위에서 뺐다(recommend.ts 머리말). 그런데 이 넷이 다 있어야 후보가 되는 조건은 그대로 남아,
+ *     노바블라스트 6·고스트 18·GT-2000 15 같은 현행 모델 54종이 추천에서 빠지고 구형(고스트 17 등)이 추천됐다.
+ *   · 기존 52종의 footTypes 는 거의 전부 **안정성 구조(공개 스펙)에서 그대로 나온다** — 2026-11-10 집계:
+ *     중립 → 보통·높은 아치 38종, 안정화 → 평발·보통 11종, 예외 3종(사람이 따로 정한 값, 그대로 둔다).
+ *     그래서 비어 있는 신발은 같은 규칙으로 정한다. 지어낸 판단이 아니라 이미 쓰던 규칙을 적용하는 것이다.
+ *   · 화면에는 「사이트 분류(안정성 구조로 정함)」로 밝힌다. 발 모양별 신발 처방은 연구가 갈린다(recommend.ts 3·Richards 2009).
+ * 사람이 footTypes 를 적은 신발은 그 값을 쓴다(덮어쓰지 않는다).
+ */
+export function footTypesFromStability(st: StabilityType): FootType[] {
+  if (st === "motion_control") return ["flat"];
+  if (st === "stability") return ["flat", "neutral"];
+  return ["neutral", "high_arch"];
+}
+
+/** footTypes 를 사람이 적지 않았으면 안정성 구조에서 정한 값을 채운 신발. derivedFootTypes 로 구분한다 */
+export function withFootTypes(shoe: Shoe): RecommendableShoe & { derivedFootTypes: boolean } {
+  const has = Array.isArray(shoe.footTypes) && shoe.footTypes.length > 0;
+  return { ...shoe, footTypes: has ? shoe.footTypes! : footTypesFromStability(shoe.stability), derivedFootTypes: !has };
+}
 
 export function isRecommendable(shoe: Shoe): shoe is RecommendableShoe {
-  return (
-    Array.isArray(shoe.footTypes) &&
-    shoe.footTypes.length > 0 &&
-    Array.isArray(shoe.weightRangeKg) &&
-    Array.isArray(shoe.heightRangeCm) &&
-    Array.isArray(shoe.primaryBodyTypes) &&
-    shoe.primaryBodyTypes.length > 0
-  );
+  return Array.isArray(shoe.footTypes) && shoe.footTypes.length > 0;
 }
 
 export interface Recommendation {

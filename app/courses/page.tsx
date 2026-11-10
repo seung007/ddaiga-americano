@@ -61,7 +61,7 @@ export default function CoursesPage() {
        * 고지는 링크가 있는 페이지에만 있어야 정확하다 —
        * 지금은 `/shoe-finder` 와 `/compare/*` 다.
        */}
-      <h1 className="mb-3 text-3xl font-bold text-gray-900">한강 러닝 코스 4곳</h1>
+      <h1 className="mb-3 text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">한강 러닝 코스 4곳</h1>
       {/* 2026-09-12: 코스 → 대회로 보낸다. 연습할 곳을 본 사람이 다음에 찾는 게 대회다. */}
       <p className="mb-2 text-sm text-gray-600">
         연습 코스를 정했으면{" "}
@@ -222,7 +222,7 @@ export default function CoursesPage() {
           **코스 글이 아니라 신발 글**이 된다. 코스는 코스대로 읽히게 두고,
           신발은 다 읽은 뒤 한 번만 놓는다. 그게 이 페이지의 성격에 맞다. */}
       <section className="mb-10 rounded-2xl border border-gray-200 p-5">
-        <h2 className="mb-1 text-lg font-bold text-gray-900">
+        <h2 className="mb-1 text-xl font-bold text-gray-900">
           참고 — 거리에 따라 달라지는 것은 쿠션량뿐입니다
         </h2>
         <p className="mb-4 text-sm leading-relaxed text-gray-600">
@@ -266,7 +266,7 @@ export default function CoursesPage() {
 
       {/* ── 도구 연결 ── */}
       <section className="mb-10 rounded-2xl border border-gray-200 p-5">
-        <h2 className="mb-2 text-lg font-bold text-gray-900">달리기 전에 계산해 볼 것</h2>
+        <h2 className="mb-2 text-xl font-bold text-gray-900">달리기 전에 계산해 볼 것</h2>
         <ul className="space-y-2 text-sm leading-relaxed text-gray-600">
           <li>
             ·{" "}

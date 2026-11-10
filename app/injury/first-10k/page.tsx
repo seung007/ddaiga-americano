@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MidNext from "@/components/guide/MidNext";
 import FinderCta from "@/components/FinderCta";
 import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
@@ -48,6 +49,7 @@ export default function Page() {
           ["첫 10km", "/injury/first-10k"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -190,6 +192,11 @@ export default function Page() {
             <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>
           </p>
         </Evidence>
+
+        <MidNext from="first-10k" links={[
+          { href: "/injury/beginner-guide", sub: "준비 기간을 어떻게 짤지 더 자세히" },
+          { href: "/races", title: "10km 대회 일정 보기", sub: "접수 중인 대회를 날짜순으로" },
+        ]} />
 
         <h2 id="run-walk" className={H2}>
           중간에 걸으면 실패인가요?
@@ -443,6 +450,7 @@ export default function Page() {
         <ShareButtons from="first-10k" title="첫 10km 대회, 준비 기간과 페이스는?" description="10km를 처음 뛸 때 몇 주를 준비하고 어떤 페이스로 출발할지 다룹니다." />
 
       </article>
+      </main>
     </>
   );
 }

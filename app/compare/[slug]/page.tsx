@@ -3,7 +3,7 @@ import { SELLER_NOTE } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
-import { KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
+import { KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { affiliateFor, resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
@@ -357,8 +357,8 @@ export default async function ComparePage({
                 {shoe.blurb}
               </p>
               <div className="mt-3 space-y-1">
-                {/* 2026-09-21: 판단 필드. 비어 있으면 배지를 아예 안 그린다 */}
-                {(shoe.footTypes ?? []).map((ft) => (
+                {/* 2026-09-21: 판단 필드. 2026-11-10: 비어 있으면 안정성 구조로 정한 값(types.ts footTypesFromStability) */}
+                {withFootTypes(shoe).footTypes.map((ft) => (
                   <span
                     key={ft}
                     className="inline-block text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full mr-1"
@@ -530,7 +530,7 @@ function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe 
 function NotFound({ message }: { message: string }) {
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-24 text-center text-gray-900">
-      <p className="text-lg font-semibold mb-2">신발을 찾을 수 없어요</p>
+      <p className="text-xl font-semibold mb-2">신발을 찾을 수 없어요</p>
       <p className="text-sm text-gray-500 mb-6">{message}</p>
       <Link
         href="/shoe-finder"

@@ -99,6 +99,7 @@ export default function MarathonTrainingPage() {
           ["풀코스 준비", "/injury/marathon-training"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -464,6 +465,7 @@ export default function MarathonTrainingPage() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다.</p>
       </article>
+      </main>
     </>
   );
 }

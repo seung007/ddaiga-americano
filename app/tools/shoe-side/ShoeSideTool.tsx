@@ -59,7 +59,7 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
         <span className="text-gray-900">러닝화 두께 비교</span>
       </nav>
 
-      <h1 className="mb-3 text-3xl font-bold text-gray-900">러닝화 두께 비교</h1>
+      <h1 className="mb-3 text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">러닝화 두께 비교</h1>
       <p className="mb-6 leading-relaxed text-gray-600">
         신발을 최대 3개 고르면 미드솔 두께·드롭·무게를 <strong className="text-gray-900">같은 축척으로 겹쳐</strong> 보여줍니다.
         착용감은 발과 신발이 만나야 알 수 있어서 그리지 않았습니다 — 여기 있는 것은 숫자로 공개된 실측 스펙뿐입니다.
@@ -115,7 +115,7 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
       </div>
 
       <section className="mt-10 rounded-2xl border border-gray-200 bg-gray-50 p-5">
-        <h2 className="mb-2 text-lg font-bold text-gray-900">이 그림이 말하지 않는 것</h2>
+        <h2 className="mb-2 text-xl font-bold text-gray-900">이 그림이 말하지 않는 것</h2>
         <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
           <li>
             • <strong>착용감·쿠션의 무르기.</strong> 같은 두께라도 폼 재질에 따라 다르게 느껴집니다. 그 차이는 공개된 숫자가 없습니다.

@@ -84,6 +84,7 @@ export default function Page() {
           ["쿨다운", "/injury/cooldown"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -383,6 +384,7 @@ export default function Page() {
         <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형과 발볼, 부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
         <ShareButtons from="cooldown" title="달리기 후 정적 스트레칭, 회복이 빨라지나요?" description="달린 뒤 스트레칭이 회복을 앞당긴다는 근거는 확인되지 않았습니다. 유연성을 위해 할 다섯 동작과 멈춰 서 있다 어지러울 때 할 일을 담았습니다." />
       </article>
+      </main>
     </>
   );
 }

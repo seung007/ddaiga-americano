@@ -85,7 +85,7 @@ export default function PacePage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-12">
+    <main className="w-full min-w-0 max-w-3xl mx-auto px-6 py-12">
       <nav className="mb-6 text-sm text-gray-500">
         <Link href="/" className="hover:text-gray-900">홈</Link>
         <span className="mx-2">/</span>
@@ -94,7 +94,7 @@ export default function PacePage() {
         <span className="text-gray-900">페이스</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-3">러닝 페이스 계산기</h1>
+      <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝 페이스 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
         목표 시간을 넣으면 km당 페이스를, 페이스를 넣으면 완주 시간을 계산합니다.
         <strong className="text-gray-900"> 5km 단위 구간 통과 시간표</strong>까지 나오니
@@ -202,13 +202,13 @@ export default function PacePage() {
           <div className="mb-6 grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl bg-emerald-50 p-6">
               <p className="text-sm text-emerald-800">km당 페이스</p>
-              <p className="text-3xl font-bold text-emerald-900">
-                {fmt(usePace)} <span className="text-lg font-normal">/km</span>
+              <p className="text-[40px] leading-none font-bold text-emerald-900">
+                {fmt(usePace)} <span className="text-base font-normal">/km</span>
               </p>
             </div>
             <div className="rounded-2xl bg-gray-50 p-6">
               <p className="text-sm text-gray-600">완주 시간</p>
-              <p className="text-3xl font-bold text-gray-900">{fmt(useTotal, true)}</p>
+              <p className="text-[40px] leading-none font-bold text-gray-900">{fmt(useTotal, true)}</p>
             </div>
           </div>
 

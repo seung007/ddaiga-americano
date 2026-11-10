@@ -56,7 +56,7 @@ import type {
   BodyType, FootType, FootWidth, Gender, Recommendation,
   RecommendableShoe, RunnerProfile, Shoe, WidthOption,
 } from "./types";
-import { getBodyType, INJURY_LABEL, isRecommendable } from "./types";
+import { getBodyType, INJURY_LABEL, isRecommendable, withFootTypes } from "./types";
 
 /**
  * 추천이 보는 후보 — **`SHOES` 를 직접 쓰지 말 것.**
@@ -66,7 +66,10 @@ import { getBodyType, INJURY_LABEL, isRecommendable } from "./types";
  * 여기서 한 번 걸러서 `recommendShoes` 와 `rankAllShoes` 가 같은 후보를 보게 한다.
  * 두 함수가 다른 배열을 쓰면 폼 결과와 목록 정렬이 어긋난다.
  */
-const RECOMMENDABLE: RecommendableShoe[] = SHOES.filter(isRecommendable);
+// 2026-11-10: 106종 전부 후보 — footTypes 가 빈 신발은 안정성 구조에서 정한다(types.ts footTypesFromStability 머리말)
+const RECOMMENDABLE: RecommendableShoe[] = SHOES.map(withFootTypes).filter(isRecommendable);
+/** 추천 계산에 들어가는 신발 수 — 화면 문구(「러닝화 N종의 스펙 데이터로…」)는 이 값을 쓴다. 손으로 숫자를 적지 않는다 */
+export const RECOMMENDABLE_COUNT = RECOMMENDABLE.length;
 
 const WIDTH_MATCH: Record<FootWidth, WidthOption[]> = {
   narrow: ["B", "D"],

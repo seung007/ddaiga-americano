@@ -51,6 +51,7 @@ export default function Page() {
           ["족저근막염", "/injury/plantar-fasciitis"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -335,6 +336,7 @@ export default function Page() {
         <ShareButtons from="plantar-fasciitis" title="족저근막염, 뭘 하면 낫고 얼마나 걸리나요?" description="효과가 확인된 방법과 신발로 낫는다는 근거가 없는 이유." />
 
       </article>
+      </main>
     </>
   );
 }

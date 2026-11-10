@@ -71,6 +71,7 @@ export default function HwangYoungJoPage() {
           ["황영조", "/injury/hwang-young-jo"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -244,6 +245,7 @@ export default function HwangYoungJoPage() {
           </Link>
         </div>
       </article>
+      </main>
     </>
   );
 }

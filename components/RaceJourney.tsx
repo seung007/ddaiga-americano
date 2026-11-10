@@ -118,7 +118,7 @@ export default function RaceJourney({
 
   return (
     <section className="mb-10 rounded-2xl border border-gray-200 p-4">
-      <h2 className="mb-3 flex flex-wrap items-baseline gap-x-2 text-lg font-bold text-gray-900">
+      <h2 className="mb-3 flex flex-wrap items-baseline gap-x-2 text-xl font-bold text-gray-900">
         대회까지 순서
         {d !== null && d >= 0 && (
           <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>

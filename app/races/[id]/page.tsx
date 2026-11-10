@@ -70,6 +70,25 @@ export async function generateMetadata({
     r.registrationEnd ? `접수 ${r.registrationEnd.slice(5).replace("-", "/")}까지` : null,
     fee,
   ].filter(Boolean);
+  // 2026-11-10 네이버 28일: 「대청호 걷기대회」 노출 743 · 클릭 1. 그 대회는 10/31 에 끝났는데 결과에는
+  //   일정·마감일만 보여 「지난 대회」인지 알 수 없었다. 끝난 대회는 제목에 「끝난 대회」를 붙이고,
+  //   설명 첫머리에 끝났다는 것과 정원(검색어 「참가인원」「참여자 수」)을 둔다. 정원은 모집 인원이지 실제 참가자 수가 아니라 「정원」이라고 적는다.
+  const d = daysUntil(r.date);
+  const ended = d !== null && d < 0;
+  if (ended) {
+    const endedBits = [
+      r.date ? `${withWeekday(r.date)}에 끝난 대회` : "끝난 대회",
+      r.venue ?? r.region,
+      r.distancesKm.map(distanceLabel).join("·"),
+      r.capacity ? `정원 ${r.capacity}` : null,
+      fee,
+    ].filter(Boolean);
+    return {
+      title: `${r.name} — 끝난 대회, ${r.region} | 뛰다가 아메리카노`,
+      description: `${endedBits.join(" · ")}. 다음 대회 소식은 공식 홈페이지에서 확인하세요.`,
+      alternates: { canonical: `/races/${r.id}` },
+    };
+  }
   return {
     title: `${r.name}${r.date ? ` — ${withWeekday(r.date)} ${r.region}` : ""} | 뛰다가 아메리카노`,
     description: `${bits.join(" · ")}. 확인 날짜와 출처를 붙여 정리했습니다.`,
@@ -116,6 +135,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
   return (
     <>
       <BreadcrumbJsonLd trail={[["대회 일정", "/races"], [r.name, `/races/${r.id}`]]} />
+      <main>
       <article className="mx-auto max-w-2xl px-6 py-10 text-gray-800">
         <Link href="/races" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 대회 일정
@@ -130,7 +150,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
               <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "대회 오늘" : `대회 D-${d}`}</span>
             )}
           </div>
-          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900">{r.name}</h1>
+          <h1 className="mb-4 text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">{r.name}</h1>
           <RaceSourceCta race={r} />
         </header>
 
@@ -182,7 +202,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
 
         {others.length > 0 && (
           <section className="mb-10">
-            <h2 className="mb-3 text-lg font-bold text-gray-900">같은 달 다른 대회</h2>
+            <h2 className="mb-3 text-xl font-bold text-gray-900">같은 달 다른 대회</h2>
             <ul className="grid gap-2 sm:grid-cols-2">
               {others.map((o) => (
                 <li key={o.id}>
@@ -207,6 +227,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
           sub="질문 8개에 답하면 3개를 골라드려요."
         />
       </article>
+      </main>
     </>
   );
 }

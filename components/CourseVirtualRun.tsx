@@ -258,7 +258,7 @@ export default function CourseVirtualRun({ course }: { course: HangangCourse }) 
         <button onClick={() => { setRunning(false); setT(0); }} className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700">
           처음으로
         </button>
-        <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="rounded-lg border border-gray-300 px-2 py-2 text-xs text-gray-700">
+        <select aria-label="재생 속도" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="rounded-lg border border-gray-300 px-2 py-2 text-xs text-gray-700">
           {SPEEDS.map((s) => (
             <option key={s.x} value={s.x}>재생 속도 {s.label}</option>
           ))}

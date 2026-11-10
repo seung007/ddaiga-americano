@@ -141,7 +141,7 @@ export default function ShoeReactions({ shoeId, shoeName }: { shoeId: string; sh
 
   return (
     <section className="mt-10 rounded-2xl border border-gray-200 p-5" aria-labelledby="shoe-react-h">
-      <h2 id="shoe-react-h" className="text-lg font-bold text-gray-900">
+      <h2 id="shoe-react-h" className="text-xl font-bold text-gray-900">
         {shoeName} 신어보셨나요?
       </h2>
       <p className="mt-1 text-xs leading-relaxed text-gray-500">

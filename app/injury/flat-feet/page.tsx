@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withFootTypes } from "@/lib/shoes/types";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
 import FinderCta from "@/components/FinderCta";
@@ -63,10 +64,10 @@ export const metadata: Metadata = {
 };
 
 /** `flat` 을 지원하는 신발 — 여성 전용 라스트는 같은 신발의 변형이라 뺀다. */
-const FLAT_SHOES = SHOES.filter(
-  // 2026-09-21: footTypes 가 선택 필드가 됐다. 비어 있으면 「평발에 맞는다」고 판단한 적이
-  // 없는 신발이므로 이 글의 개수 집계에서 빠진다 — 본문 숫자가 판단한 것만 세게 한다.
-  (s) => s.footTypes?.includes("flat") && s.gender !== "female"
+const FLAT_SHOES = SHOES.map(withFootTypes).filter(
+  // 2026-09-21: footTypes 가 선택 필드가 됐다. 2026-11-10: 비면 안정성 구조로 정한다(추천 엔진과 같은 규칙,
+  // lib/shoes/types.ts footTypesFromStability) — 추천 결과와 이 글의 목록이 서로 다른 기준을 쓰지 않게
+  (s) => s.footTypes.includes("flat") && s.gender !== "female"
 );
 const FLAT_CURRENT = FLAT_SHOES.filter((s) => !s.successor);
 const FLAT_STABILITY = FLAT_SHOES.filter((s) => s.stability !== "neutral").length;
@@ -118,6 +119,7 @@ export default function FlatFeetPage() {
           ["평발 러닝화", "/injury/flat-feet"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -434,6 +436,7 @@ export default function FlatFeetPage() {
           </ul>
         </References>
       </article>
+      </main>
     </>
   );
 }

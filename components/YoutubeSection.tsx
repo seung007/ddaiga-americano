@@ -48,7 +48,7 @@ export default function YoutubeSection({ links }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3 hover:bg-red-100 transition-colors"
             >
-              <span className="text-red-600 text-lg shrink-0">&#9654;</span>
+              <span className="text-red-600 text-base shrink-0">&#9654;</span>
               <div className="min-w-0">
                 <p className="text-sm font-medium text-gray-900">{link.label}</p>
                 {isSearch(link.url) ? (

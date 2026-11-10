@@ -45,6 +45,7 @@ export default function Page() {
           ["준비운동", "/injury/warmup"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -301,6 +302,7 @@ export default function Page() {
         <ShareButtons from="warmup" title="러닝 전 스트레칭, 정적으로 해도 되나요?" description="동작 6개를 그림으로 정리했습니다." />
 
       </article>
+      </main>
     </>
   );
 }

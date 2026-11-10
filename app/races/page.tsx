@@ -48,8 +48,8 @@ export default function RacesPage() {
   return (
     <>
       <BreadcrumbJsonLd trail={[["대회 일정", "/races"]]} />
-      <main className="mx-auto max-w-3xl px-6 py-12 text-gray-800">
-        <h1 className="text-3xl font-bold leading-tight text-gray-900">마라톤 대회 일정</h1>
+      <main className="mx-auto w-full min-w-0 max-w-3xl px-6 py-12 text-gray-800">
+        <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">마라톤 대회 일정</h1>
         {/* 2026-09-17: 설명 문단과 노란 경고 상자를 한 줄로. 출처 설명은 화면에서 뺐다(공식 홈페이지만 링크) */}
         <p className="mt-2 text-sm text-gray-500">접수 상태는 날짜에 맞춰 바뀝니다. 신청 전 공식 홈페이지를 한 번 더 확인하세요.</p>
 

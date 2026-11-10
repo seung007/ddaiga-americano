@@ -74,6 +74,7 @@ export default function ITBandPage() {
           ["장경인대 증후군", "/injury/it-band"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -396,6 +397,7 @@ export default function ITBandPage() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
+      </main>
     </>
   );
 }
