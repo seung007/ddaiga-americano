@@ -5,6 +5,7 @@ import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
 import RecentReactions from "@/components/RecentReactions";
 import type { ReactionNames } from "@/lib/reaction-names";
+import { MessageCircle } from "lucide-react";
 
 type Post = {
   id: string;
@@ -125,7 +126,6 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
 
         {state === "ok" && posts.length === 0 && (
           <div className="rounded-xl border border-dashed border-gray-200 bg-white px-4 py-8 text-center">
-            <p className="text-2xl mb-2">💬</p>
             <p className="text-sm text-gray-500">아직 올라온 글이 없어요.</p>
             <p className="text-xs text-gray-400 mt-1">질문도 후기도 좋아요. 운영자가 직접 읽습니다.</p>
           </div>
@@ -151,7 +151,7 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
                     )}
                   </div>
                 </div>
-                <span className="shrink-0 text-xs text-gray-300 group-hover:text-emerald-500 mt-1">→</span>
+                <span className="shrink-0 text-xs text-gray-500 group-hover:text-emerald-500 mt-1">→</span>
               </Link>
             ))}
           </div>
@@ -166,7 +166,8 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
         href="/community"
         className="mt-4 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-gray-200 text-sm text-gray-500 hover:border-emerald-300 hover:text-emerald-600 transition-colors bg-white"
       >
-        💬 글 남기기
+        <MessageCircle size={16} strokeWidth={1.5} aria-hidden />
+        글 남기기
       </Link>
     </div>
   );

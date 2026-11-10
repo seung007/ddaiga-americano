@@ -29,7 +29,7 @@ const TOOLS = [
     href: "/tools/shoe-side",
     title: "러닝화 두께 비교",
     desc: "최대 3개를 골라 뒤꿈치·앞꿈치 두께와 드롭, 무게를 같은 축척으로 겹쳐 봅니다. 착용감처럼 숫자로 공개되지 않는 것은 그리지 않습니다.",
-    basis: "RunRepeat 공개 스펙 — 논문 근거 아님",
+    basis: "공개된 실측 스펙 — 논문 근거 아님",
   },
   {
     href: "/tools/pace",

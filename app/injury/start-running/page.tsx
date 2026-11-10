@@ -204,7 +204,7 @@ export default function StartRunningPage() {
         </P>
 
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">단계</th>
@@ -226,7 +226,7 @@ export default function StartRunningPage() {
         {/* 2026-10-13: 표를 읽고 끝나지 않게 — 회차별 순서·타이머·진행 저장이 있는 따라 하기 도구로 잇는다 */}
         <Link
           href="/tools/run-30"
-          className="mt-4 flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-center text-[15px] font-semibold text-white break-keep hover:bg-emerald-700"
+          className="mt-4 flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-center text-base font-semibold text-white break-keep hover:bg-emerald-700"
         >
           이 표대로 따라 하기 →
         </Link>
@@ -261,7 +261,7 @@ export default function StartRunningPage() {
           저희 기준은 <strong>지난 30일 중 가장 길게 뛴 기록의 110%</strong>까지입니다. <Basis kind="rule" />
         </P>
         <P>그보다 길게 뛴 날에 부상이 더 많았습니다(성인 러너를 따라간 한 관찰 연구).</P>
-        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-[15px] leading-[1.7] text-emerald-900">
+        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-base leading-[1.7] text-emerald-900">
           예) 지난 한 달 가장 오래 달린 날이 <strong>20분</strong> → 다음 긴 날은 <strong>22분까지</strong>.
         </div>
         <Evidence n={1}>

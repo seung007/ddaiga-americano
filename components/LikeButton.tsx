@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { gtagEvent } from "@/lib/gtag";
+import { Heart } from "lucide-react";
 
 /**
  * 신발 상세의 「♥ 찜」 (2026-10-13)
@@ -52,7 +53,7 @@ export default function LikeButton({ id, name }: { id: string; name: string }) {
         on ? "border-red-200 bg-red-50 text-red-600" : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
       }`}
     >
-      <span aria-hidden>♥</span>
+      <Heart size={16} strokeWidth={1.5} aria-hidden fill={on ? "currentColor" : "none"} />
       {on ? "찜한 신발" : "찜하기"}
     </button>
   );

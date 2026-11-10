@@ -7,6 +7,7 @@ import { gtagEvent } from "@/lib/gtag";
 import { authorToken, hasReacted, isMyPost, markSeen, rememberReaction, timeAgo } from "@/lib/community";
 import ReportButton from "@/components/ReportButton";
 import FinderCta from "@/components/FinderCta";
+import { Coffee, Heart } from "lucide-react";
 
 /**
  * 게시판 글 상세 + 댓글 (2026-09-23)
@@ -204,7 +205,7 @@ export default function CommunityPostView({ id }: { id: string }) {
             {post.answer && (
               <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50 p-4">
                 <p className="mb-2 text-xs font-bold text-emerald-700">
-                  ☕ 운영자 답변 {post.answered_at ? `· ${timeAgo(post.answered_at)}` : ""}
+                  <Coffee size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />운영자 답변 {post.answered_at ? `· ${timeAgo(post.answered_at)}` : ""}
                 </p>
                 <p className="whitespace-pre-wrap text-sm leading-relaxed text-emerald-900">{post.answer}</p>
               </div>
@@ -220,7 +221,7 @@ export default function CommunityPostView({ id }: { id: string }) {
                     : "border-gray-200 text-gray-500 hover:border-red-200 hover:text-red-500"
                 }`}
               >
-                {liked ? "❤️" : "🤍"} 공감 {post.likes > 0 && post.likes}
+                <Heart size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" fill={liked ? "currentColor" : "none"} />공감 {post.likes > 0 && post.likes}
               </button>
               <ReportButton targetType="post" targetId={post.id} />
             </div>

@@ -60,7 +60,7 @@ export default function AdvancedGuidePage() {
         </Link>
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">🔴 숙련자</span>
+          <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700"><span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-red-500 align-middle" />숙련자</span>
           <span className="text-xs text-gray-400">꾸준히 3년+, 주 5회+, 주 50km+</span>
           <span className="text-xs text-gray-400">· 5분 읽기</span>
         </div>
@@ -86,7 +86,7 @@ export default function AdvancedGuidePage() {
             페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mt-8 rounded-2xl border border-red-100 bg-red-50 p-5">
           <h2 id="who" className="break-keep text-base font-bold text-red-900">이 글은 어떤 러너를 위한 글인가요?</h2>
-          <ul className="mt-3 space-y-1.5 text-[15px] text-red-800">
+          <ul className="mt-3 space-y-1.5 text-base text-red-800">
             <li>• 주 1회 이상 꾸준히 달린 기간 <strong>3년 초과</strong></li>
             <li>• 일주일에 <strong>5회 이상</strong></li>
             <li>• 주간 거리 <strong>50km 초과</strong></li>
@@ -214,7 +214,7 @@ export default function AdvancedGuidePage() {
         </P>
         <Note>주기화가 부상을 줄인다는 연구는 찾지 못했습니다.</Note>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-sm">
                 <th className="whitespace-nowrap p-2.5 text-left">단계</th>

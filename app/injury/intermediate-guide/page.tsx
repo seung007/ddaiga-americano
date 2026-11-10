@@ -54,7 +54,7 @@ export default function IntermediateGuidePage() {
         </Link>
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700">🟡 중급자</span>
+          <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700"><span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-amber-500 align-middle" />중급자</span>
           <span className="text-xs text-gray-400">꾸준히 1년+ · 주 1~5회 · 주 15~50km</span>
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
@@ -82,7 +82,7 @@ export default function IntermediateGuidePage() {
         </h2>
         <P>공인된 분류는 없습니다. 저희는 신발 연구 전문가 합의에서 쓴 취미 러너 정의를 따릅니다.</P>
         <div className="mt-4 rounded-xl bg-amber-50 px-4 py-3.5">
-          <ul className="space-y-1.5 break-keep text-[15px] leading-[1.7] text-amber-900">
+          <ul className="space-y-1.5 break-keep text-base leading-[1.7] text-amber-900">
             <li>• 주 1회 이상 꾸준히 달린 기간 <strong>1년 초과</strong></li>
             <li>• 일주일에 <strong>1~5회</strong></li>
             <li>• 주간 거리 <strong>15~50km</strong></li>
@@ -265,7 +265,7 @@ export default function IntermediateGuidePage() {
             ["기분 변화", "짜증이나 의욕 저하"],
           ].map(([title, desc]) => (
             <div key={title} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
-              <p className="mb-1 break-keep text-[15px] font-semibold text-gray-900">{title}</p>
+              <p className="mb-1 break-keep text-base font-semibold text-gray-900">{title}</p>
               <p className="break-keep text-sm text-gray-600">{desc}</p>
             </div>
           ))}
@@ -283,7 +283,7 @@ export default function IntermediateGuidePage() {
             ["잦은 감기", "훈련 후 자주 아픔"],
           ].map(([title, desc]) => (
             <div key={title} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
-              <p className="mb-1 break-keep text-[15px] font-semibold text-gray-900">{title}</p>
+              <p className="mb-1 break-keep text-base font-semibold text-gray-900">{title}</p>
               <p className="break-keep text-sm text-gray-600">{desc}</p>
             </div>
           ))}

@@ -13,6 +13,7 @@ import ShoeImage from "@/components/ShoeImage";
 import ShoeGuideLinks from "@/components/ShoeGuideLinks";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { SITE_URL } from "@/lib/site";
+import { Store, ShoppingCart } from "lucide-react";
 
 // ── 슬러그 파싱 ────────────────────────────────────────────────
 // URL: /compare/nb-fuelcell-rebel-v4-vs-hoka-clifton-10
@@ -84,14 +85,14 @@ const SPEC_ROWS: SpecRow[] = [
   },
   {
     label: "무게 (M9)",
-    explain: "남성 9사이즈 기준 한 짝 무게(RunRepeat 공개값)",
+    explain: "남성 9사이즈 기준 한 짝 무게(공개된 실측값)",
     getValue: (s) => s.weightGramsM9,
     unit: "g",
     lowerIsBetter: true,
   },
   {
     label: "힐 드롭",
-    explain: "뒤꿈치 두께 − 앞꿈치 두께(RunRepeat 공개값)",
+    explain: "뒤꿈치 두께 − 앞꿈치 두께(공개된 실측값)",
     getValue: (s) => s.heelDropMm,
     unit: "mm",
   },
@@ -99,7 +100,7 @@ const SPEC_ROWS: SpecRow[] = [
     label: "스택 높이",
     // 2026-10-12: 「높을수록 충격 흡수 좋음」과 ✓(higherIsBetter)를 뺐다. 두께와 부상·충격의 관계를
     // 이 사이트는 확인하지 못했다. 드롭의 「힐스트라이커 친화·미드풋 유도」도 같은 이유로 뺐다.
-    explain: "뒤꿈치 쪽 미드솔 두께(RunRepeat 공개값)",
+    explain: "뒤꿈치 쪽 미드솔 두께(공개된 실측값)",
     getValue: (s) => s.stackHeightMm,
     unit: "mm",
   },
@@ -191,7 +192,7 @@ export default async function ComparePage({
 
       {/* ── 헤더 ── */}
       <header className="mb-8">
-        <p className="text-xs font-medium text-emerald-600 mb-2 tracking-wide uppercase">
+        <p className="text-xs font-medium text-emerald-600 mb-2">
           러닝화 비교
         </p>
         <h1 className="text-2xl font-bold text-gray-900 leading-snug">
@@ -227,7 +228,7 @@ export default async function ComparePage({
                 후속작 안내를 달아두면, 여기로 바로 들어온 사람은 구형인 줄 모르고
                 비교하고 나간다. 같은 정보를 같은 자리에서 보여줘야 한다. */}
             {shoe.successor && (
-              <p className="mt-1.5 text-[11px] font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
+              <p className="mt-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
                 후속 {shoe.successor} 출시됨
               </p>
             )}
@@ -243,7 +244,7 @@ export default async function ComparePage({
 
       {/* ── 스펙 비교 테이블 ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           스펙 비교
         </h2>
         <div className="rounded-2xl border border-gray-200 overflow-hidden">
@@ -325,7 +326,7 @@ export default async function ComparePage({
 
       {/* ── 두께 그림 (2026-10-12) — 표의 숫자를 같은 축척으로 겹쳐 본다 ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           두께를 겹쳐 보기
         </h2>
         <ShoeSideProfile shoes={[shoeA, shoeB]} />
@@ -339,7 +340,7 @@ export default async function ComparePage({
 
       {/* ── 어떤 체형에게 맞나? ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           어떤 체형에 최적인가?
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -379,7 +380,7 @@ export default async function ComparePage({
 
       {/* ── 구매 링크 ── */}
       <section className="mb-10">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-gray-500 mb-3">
           구매하기
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -419,7 +420,7 @@ export default async function ComparePage({
                    * 지금은 등록된 제휴 링크가 0개라 화면에 변화가 없다. 그래서 **지금 고친다** —
                    * 링크를 붙여넣는 날에는 이 누락이 눈에 안 띈 채로 배포된다.
                    */}
-                  {link.isOfficial ? "🏪" : "🛒"} {link.label}
+                  {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden className="inline align-[-3px]" /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden className="inline align-[-3px]" />} {link.label}
                   {link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
@@ -496,7 +497,7 @@ function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe 
 
   return (
     <section className="mt-8">
-      <h2 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+      <h2 className="text-sm font-semibold text-gray-500 mb-3">
         다른 비교 보기
       </h2>
       <div className="flex flex-col gap-2">

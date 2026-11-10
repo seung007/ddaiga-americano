@@ -76,7 +76,7 @@ export default function InjuryHubPage() {
 
       <header>
         <h1 className="text-[28px] font-bold text-gray-900">러닝 가이드</h1>
-        <p className="mt-2 break-keep text-[17px] leading-[1.7] text-gray-600">
+        <p className="mt-2 break-keep text-lg leading-[1.7] text-gray-600">
           지금 어디쯤인지 고르면, 그 단계에서 자주 겪는 문제와 읽을 글을 보여 드립니다.
         </p>
       </header>
@@ -111,7 +111,7 @@ export default function InjuryHubPage() {
                   {s.bottlenecks.map((b) => (
                     <li key={b.title} className="py-3.5">
                       <h3 className="break-keep font-semibold text-gray-900">&ldquo;{b.title}&rdquo;</h3>
-                      <p className="mt-1.5 break-keep text-[15px] leading-[1.7] text-gray-800">
+                      <p className="mt-1.5 break-keep text-base leading-[1.7] text-gray-800">
                         <span className="mr-1 font-semibold text-emerald-700">→</span>
                         {b.todo}
                         <Basis kind={b.basis} />
@@ -168,7 +168,7 @@ export default function InjuryHubPage() {
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-full border border-gray-200 bg-white px-3.5 py-2 text-[15px] text-gray-800 hover:border-emerald-400"
+              className="rounded-full border border-gray-200 bg-white px-3.5 py-2 text-base text-gray-800 hover:border-emerald-400"
             >
               {l.label}
             </Link>
@@ -187,7 +187,7 @@ export default function InjuryHubPage() {
             <Link
               key={l.href}
               href={l.href}
-              className="flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 text-[15px] text-gray-800 hover:border-emerald-400"
+              className="flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-800 hover:border-emerald-400"
             >
               <span className="break-keep">{l.label}</span>
               <span aria-hidden className="text-gray-400">→</span>

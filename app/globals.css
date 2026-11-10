@@ -12,6 +12,26 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ─────────────────────────────────────────────────────────────
+   색 토큰 (2026-11-09) — 홈 새 디자인과 세부 페이지를 한 벌로 맞춘다.
+   왜: 운영 화면을 재 보니 초록 글자·초록 버튼이 흰 바탕에서 3.65:1, 출처·확인 날짜에 쓰는
+   gray-400 이 2.60:1 이었다(WCAG 본문 기준 4.5:1). 이 사이트가 파는 것은 「근거」인데 근거가 가장 흐렸다.
+   클래스 1,000여 곳을 하나씩 바꾸는 대신 값을 한 단계 진하게 바꾼다 — 이름(emerald-600)과 실제 색이
+   한 단계 어긋나니 새 코드는 아래 표를 보고 쓴다.
+     emerald-600 → 원래 emerald-700 값 (흰 바탕 글자 약 5.5:1)
+     emerald-700 → 원래 emerald-800 값 (마우스 올림 등 한 단계 더 진한 자리)
+     gray-400    → 원래 gray-500 값  (흰 바탕 4.8:1 — 날짜·출처·보조 글씨)
+     ink         → #111111 (홈 라임 카드 안의 버튼처럼 라임 위에 올리는 검정)
+   주 버튼은 초록(emerald-600 = 진한 초록 #007a55, 흰 글자 5.37:1)이다 — 운영자 결정(2026-11-09): 누르는 곳은 원래처럼 초록이 낫다.
+   예외: 홈 라임 카드 안 버튼은 검정(초록은 라임 위에서 4.08:1 이고 두 초록이 섞여 보인다)
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --color-emerald-600: oklch(50.8% 0.118 165.612);
+  --color-emerald-700: oklch(43.2% 0.095 166.913);
+  --color-gray-400: oklch(55.1% 0.027 264.364);
+  --color-ink: #111111;
+}
+
 /* 라이트모드 고정 — 다크모드 비활성화 */
 
 body {
@@ -100,4 +120,19 @@ body {
 body {
   word-break: keep-all;
   overflow-wrap: anywhere;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   홈 추천 카드 (components/HomeFinderCard.tsx, 2026-11-05)
+   누름 100ms · 나타남 200ms · 움직임 줄이기면 끈다
+   ───────────────────────────────────────────────────────────── */
+.press { transition: transform 100ms cubic-bezier(0.2, 0, 0, 1); }
+.press:active { transform: scale(0.97); }
+.rise { animation: finder-rise 200ms cubic-bezier(0, 0, 0.2, 1) both; }
+@keyframes finder-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.finder-row { scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; }
+.finder-row::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .press, .rise { transition: none; animation: none; }
+  .press:active { transform: none; }
 }

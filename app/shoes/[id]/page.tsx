@@ -149,7 +149,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
         </Link>
 
         <header className="flex flex-col gap-5 sm:flex-row sm:items-center">
-          <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="aspect-square w-full max-w-[220px]" />
+          {/* 2026-11-09: 휴대폰에서 정사각 220px 상자 + 위아래 빈 띠라 사진이 작게 보였다 — 휴대폰은 화면 폭 4:3(자르지 않음, object-contain), 넓은 화면은 그대로 */}
+          <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="aspect-[4/3] w-full rounded-2xl bg-gray-50 sm:aspect-square sm:max-w-[220px]" />
           <div>
             <p className="text-sm text-gray-500">{s.brand}</p>
             <h1 className="text-3xl font-bold leading-tight text-gray-900">{s.model}</h1>
@@ -289,12 +290,10 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             <Row label="국내 구매">{KR_AVAILABILITY_LABEL[s.krAvailability]}</Row>
           </dl>
           <p className="mt-2 text-xs text-gray-400">
-            {checked ? `${checked} 스펙 확인 · ` : ""}
-            위치는 이 사이트에 등록된 신발끼리 비교한 것이고, 좋고 나쁨을 뜻하지 않습니다 ·{" "}
-            <a href={s.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
-              스펙 출처 ↗
-            </a>
-            {" · "}
+            {/* 2026-11-09 운영자 결정: 경쟁 리뷰 사이트(RunRepeat)로 링크를 걸지 않는다 — 다른 사이트를 홍보할 이유가 없다.
+               다만 실측값을 우리가 잰 것처럼 쓰지 않도록 「공개된 실측 자료 기준」이라고 밝힌다. 원래 주소는 데이터(sourceUrl)에만 남긴다 */}
+            스펙은 공개된 실측 자료 기준{checked ? `(${checked} 확인)` : ""} · 위치는 이 사이트에 등록된 신발끼리 비교한 것이고, 좋고 나쁨을
+            뜻하지 않습니다 ·{" "}
             <Link href={`/tools/shoe-side?s=${s.id}`} className="text-emerald-700 underline underline-offset-2">
               다른 신발과 두께 겹쳐 보기 →
             </Link>

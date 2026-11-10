@@ -225,7 +225,7 @@ export default function GetFasterPage() {
           일주일은 어떻게 짜나요?
         </h2>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <tbody>
               {WEEK.map(([k, v]) => (
                 <tr key={k} className="border-t border-gray-100 first:border-t-0">

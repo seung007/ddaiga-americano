@@ -3,6 +3,7 @@
 import ShoeSideProfile from "@/components/ShoeSideProfile";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { History, Search, TriangleAlert, Scale, Store, ShoppingCart } from "lucide-react";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
@@ -154,6 +155,13 @@ export default function ShoeFinderPage() {
   const startedAtRef = useRef<number | null>(null);
   /** 프리셋을 눌렀고 키·체중만 남았다 — 체중이 골라지는 순간 결과를 낸다 */
   const [presetPending, setPresetPending] = useState<string | null>(null);
+  /**
+   * 2026-11-05 — 홈 추천 카드에서 발볼·용도를 고르고 들어온 사람 (`?from=home&f=wide&u=long`).
+   * 홈에서 이미 답한 것을 다시 묻지 않는다. 프리셋과 같은 이유로 `recommend_form_start` 를 쏘지 않는다 —
+   * 1단계를 안 밟았으니 from=form 완주율의 분모를 부풀린다. 이 경로의 분모는 `finder_from_home` 이다.
+   */
+  const homeRef = useRef(false);
+  const [fromHome, setFromHome] = useState<{ f: string; u: ShoeUse | "" } | null>(null);
 
   function goNext() {
     // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
@@ -220,6 +228,23 @@ export default function ShoeFinderPage() {
           inj: (sp.get("inj") ?? "").split(",").filter(Boolean), t: 0,
         }, true);
         return;
+      }
+      if (sp.get("from") === "home") {
+        const hu = sp.get("u") ?? "";
+        const u: ShoeUse | "" = USES.some(o => o.value === hu) ? (hu as ShoeUse) : "";
+        const f = (sp.get("f") ?? "").split(",")
+          .find(id => FOOT_OPTIONS.some(o => o.id === id && o.category === "width")) ?? "";
+        if (u || f) {
+          gtagEvent("finder_from_home", { width: f || "unset", use: u || "unset" });
+          startFiredRef.current = true;
+          homeRef.current = true;
+          startedAtRef.current = Date.now();
+          if (u) setUse(u);
+          if (f) setFootSelections([f]);
+          setFromHome({ f, u });
+          // 용도를 골라 왔으면 1번(용도)을 건너뛰고 성별부터. 발볼만 골라 왔으면 용도부터 묻는다
+          if (u) setCurrentStep(1);
+        }
       }
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) setSavedProfile(JSON.parse(raw) as SavedProfile);
@@ -335,7 +360,8 @@ export default function ShoeFinderPage() {
       gtagEvent("recommend_form_complete", {
         gender: gender || "unset",
         level: level || "unset",
-        from: presetRef.current ? "preset" : restoredRef.current ? "restore" : "form",
+        // from=home → 홈 추천 카드에서 발볼·용도를 넘겨받음 (2026-11-05). 분모는 finder_from_home
+        from: presetRef.current ? "preset" : homeRef.current ? "home" : restoredRef.current ? "restore" : "form",
         // 1단계부터 밟은 완주만 걸린 시간(초)을 붙인다. 30분 넘게 걸린 건 자리를 비운 것으로 보고 뺀다
         ...(startedAtRef.current && Date.now() - startedAtRef.current < 30 * 60_000
           ? { elapsed_sec: Math.round((Date.now() - startedAtRef.current) / 1000) }
@@ -423,6 +449,8 @@ export default function ShoeFinderPage() {
     startFiredRef.current = false;
     completeFiredRef.current = false;
     presetRef.current = false;
+    homeRef.current = false;
+    setFromHome(null);
     setPresetPending(null);
   }
 
@@ -438,7 +466,7 @@ export default function ShoeFinderPage() {
       {!submitted && savedProfile && (
         <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
           <p className="text-sm text-emerald-800">
-            🕐 지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
+            <History size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
           </p>
           <div className="flex shrink-0 gap-2">
             <button type="button"
@@ -529,6 +557,29 @@ export default function ShoeFinderPage() {
           </div>
         )}
 
+        {fromHome && !submitted && !isEditing && (
+          <div className="-mt-1 flex items-center justify-between gap-3 rounded-lg bg-emerald-50 px-3 py-2">
+            <p className="text-xs leading-relaxed text-emerald-900">
+              홈에서 고른 「
+              <strong className="font-semibold">
+                {[
+                  FOOT_OPTIONS.find(o => o.id === fromHome.f)?.label.replace(" 2E/4E", ""),
+                  // 홈 칩 이름 그대로 (components/HomeFinderCard.tsx USE_CHIPS)
+                  fromHome.u ? ({ daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" } as const)[fromHome.u] : "",
+                ].filter(Boolean).join(" · ")}
+              </strong>
+              」 조건을 넣어 뒀어요. 나머지만 답하면 돼요.
+            </p>
+            {/* 용도는 1번 문항이라 되돌아가 바꾼다. 발볼은 5번(발 특성)에서 골라진 채로 보이니 거기서 바꾼다 */}
+            {fromHome.u && activeStep !== 0 && (
+              <button type="button" onClick={() => setCurrentStep(0)}
+                className="shrink-0 min-h-11 px-2 text-xs font-semibold text-emerald-800 underline underline-offset-2">
+                용도 바꾸기
+              </button>
+            )}
+          </div>
+        )}
+
         {!submitted && (
           <p className="text-base font-semibold text-gray-800 -mb-1">
             {STEP_MICROCOPY[activeStep]}
@@ -595,8 +646,8 @@ export default function ShoeFinderPage() {
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
               {([
-                { value: "male" as Gender,   label: "🚹 남성", desc: "남성 발형 기준으로 추천해요" },
-                { value: "female" as Gender, label: "🚺 여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
+                { value: "male" as Gender,   label: "남성", desc: "남성 발형 기준으로 추천해요" },
+                { value: "female" as Gender, label: "여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
               ]).map(g => (
                 <button key={g.value} type="button"
                   onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
@@ -780,7 +831,7 @@ export default function ShoeFinderPage() {
             </button>
             )}
 
-            <p className="text-center text-[11px] text-gray-400 leading-relaxed -mt-1">
+            <p className="text-center text-xs text-gray-400 leading-relaxed -mt-1">
               키·체중·발 정보는 <strong className="font-medium text-gray-500">이 화면 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
               「추천 결과 보기」를 누르면{" "}
               <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
@@ -828,7 +879,7 @@ export default function ShoeFinderPage() {
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5">
             {topPick ? (
               <>
-                <p className="text-[11px] font-bold tracking-wide text-emerald-700">지금 1순위</p>
+                <p className="text-xs font-bold tracking-wide text-emerald-700">지금 1순위</p>
                 <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
                   {topPick.shoe.brand} {topPick.shoe.model}
                 </p>
@@ -836,7 +887,7 @@ export default function ShoeFinderPage() {
                   {topPick.shoe.priceKrw.toLocaleString()}원
                   {topPick.shoe.successor && ` · 후속 ${topPick.shoe.successor} 출시됨`}
                 </p>
-                <p className="mt-2 text-[11px] text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
+                <p className="mt-2 text-xs text-emerald-700">아래 전체 목록도 같이 갱신됐어요 ↓</p>
               </>
             ) : (
               <p className="text-sm text-amber-700">
@@ -854,7 +905,7 @@ export default function ShoeFinderPage() {
 
           <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-base">🔎</span>
+              <Search size={18} strokeWidth={1.5} aria-hidden className="text-blue-900" />
               <h3 className="text-sm font-bold text-blue-900">내 분석 결과</h3>
             </div>
 
@@ -870,7 +921,7 @@ export default function ShoeFinderPage() {
               </span>
             </div>
 
-            <p className="text-[11px] text-blue-600/80 leading-relaxed mb-2.5">
+            <p className="text-xs text-blue-600/80 leading-relaxed mb-2.5">
               {/* 2026-10-06: 「키 기준 X~Y걸음 리듬이 무릎 충격을 줄여줘요」 → 키별 값은 사이트 기준(cadence 가이드가 밝힘).
                   연구(Heiderscheit 2011)는 지금보다 5~10% 올렸을 때를 봤다. */}
               케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음은 사이트 참고값이에요. 연구는 키별 값이 아니라 지금보다 5~10% 올렸을 때 무릎 부하가 줄었다는 결과예요(Heiderscheit 2011).{" "}
@@ -878,11 +929,11 @@ export default function ShoeFinderPage() {
             </p>
 
             {result.profileComment && (
-              <p className="text-[15px] text-blue-900 leading-relaxed">{result.profileComment}</p>
+              <p className="text-base text-blue-900 leading-relaxed">{result.profileComment}</p>
             )}
 
             {result.evidenceNote && (
-              <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-[11px] text-blue-500 leading-relaxed">
+              <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-xs text-blue-500 leading-relaxed">
                 {result.evidenceNote}
               </p>
             )}
@@ -890,23 +941,24 @@ export default function ShoeFinderPage() {
 
           {result.usedFallback && (
             <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-              ⚠️ {result.fallbackNote}
+              <TriangleAlert size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />{result.fallbackNote}
             </div>
           )}
 
-          <div className="flex items-center justify-between mb-4">
+          {/* 2026-11-06: 390px 에서 정렬 탭이 「적/합/도/순」 한 글자씩 세로로 쪼개졌다 — 좁으면 제목 아래로 내리고 글자는 줄바꿈하지 않는다 */}
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
               <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 발볼·용도 조건을 통과한 결과예요.</p>
             </div>
-            <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
+            <div className="flex shrink-0 gap-1 self-start rounded-lg border border-gray-200 bg-gray-50 p-1">
               {([
                 { key: "score" as SortKey,      label: "적합도순" },
                 { key: "price_asc" as SortKey,  label: "가격 낮은순" },
                 { key: "price_desc" as SortKey, label: "가격 높은순" },
               ] as { key: SortKey; label: string }[]).map(o => (
                 <button key={o.key} type="button" onClick={() => setSortKey(o.key)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors
+                  className={`min-h-11 whitespace-nowrap px-3 rounded-md text-xs font-medium transition-colors
                     ${sortKey === o.key ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-700"}`}>
                   {o.label}
                 </button>
@@ -916,7 +968,7 @@ export default function ShoeFinderPage() {
 
           {sortedPrimary.length >= 2 && compareIds.length === 0 && (
             <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 mb-4">
-              <span className="text-emerald-600 text-base">⚖️</span>
+              <Scale size={18} strokeWidth={1.5} aria-hidden className="shrink-0 text-emerald-600" />
               <p className="text-sm text-emerald-700">
                 각 카드 오른쪽 위 <strong>「비교」</strong> 버튼을 눌러 두 신발을 나란히 비교할 수 있어요.
               </p>
@@ -1001,7 +1053,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
                   <span className="text-xs font-bold text-gray-400">#{rank}</span>
-                  {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">👟 여성 전용 라스트</span>}
+                  {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">여성 전용 라스트</span>}
                   {rec.isFallback && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">근접 추천</span>}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 leading-tight">{shoe.brand} {shoe.model}</h3>
@@ -1019,11 +1071,11 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                         ? "border-emerald-500 bg-emerald-500 text-white"
                         : canAddCompare
                         ? "border-emerald-400 bg-white text-emerald-600 hover:bg-emerald-50"
-                        : "border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed"
+                        : "border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed"
                     }`
                   }
                 >
-                  {inCompare ? "✓ 비교중" : "⚖️ 비교"}
+                  {inCompare ? "✓ 비교중" : "비교"}
                 </button>
               </div>
             </div>
@@ -1069,7 +1121,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                     })}
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors
                       ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
-                    {link.isOfficial ? "🏪" : "🛒"} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
+                    {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />} {link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                   </a>
                 ))}
                 <CopyModelName name={`${shoe.brand} ${shoe.model}`} />
@@ -1082,7 +1134,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                         ? "border-emerald-500 bg-emerald-50 text-emerald-700"
                         : canAddCompare
                         ? "border-gray-300 bg-white text-gray-600 hover:border-emerald-400 hover:text-emerald-600"
-                        : "border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed"
+                        : "border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed"
                     }`
                   }
                 >
@@ -1201,7 +1253,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                   })}
                   className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors
                     ${link.isOfficial ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-gray-700 hover:bg-gray-800 text-white"}`}>
-                  {link.isOfficial ? "🏪 공식 구매하기" : "🛒 " + link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
+                  {link.isOfficial ? <Store size={16} strokeWidth={1.5} aria-hidden /> : <ShoppingCart size={16} strokeWidth={1.5} aria-hidden />}{link.isOfficial ? "공식 구매하기" : link.label}{link.isAffiliate ? " · 제휴" : ""} ↗
                 </a>
               ))}
             </div>
@@ -1209,10 +1261,8 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <p>공식몰 접속 → 검색창에 모델명 붙여넣기 → 사이즈·색상 선택 후 구매</p>
               <p>공식몰 구매 시 정품 보장, 교환·반품 정책 적용됩니다.</p>
             </div>
-            <a href={shoe.sourceUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-block mt-3 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-700">
-              스펙 출처: 브랜드 공식·RunRepeat 참고 ↗
-            </a>
+            {/* 2026-11-09: 경쟁 리뷰 사이트로 링크하지 않는다(운영자 결정). 어디 값인지는 밝힌다 */}
+            <p className="mt-3 text-xs text-gray-500">스펙은 브랜드 공식 표기와 공개된 실측 자료 기준이에요</p>
           </div>
         </div>
       )}
@@ -1232,7 +1282,7 @@ function ShareResultButton({ buildUrl }: { buildUrl: () => string }) {
     <button type="button" onClick={copy}
       className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors
         ${copied ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-300 bg-white text-gray-600 hover:border-emerald-400 hover:text-emerald-600"}`}>
-      {copied ? "✓ 링크 복사됨" : "🔗 결과 링크 복사"}
+      {copied ? "✓ 링크 복사됨" : "결과 링크 복사"}
     </button>
   );
 }
@@ -1380,7 +1430,7 @@ function ComparePanel({
             </p>
             <p className="text-xs text-gray-400 mt-0.5">선택됨</p>
           </div>
-          <span className="text-2xl text-gray-300">vs</span>
+          <span className="text-2xl text-gray-500">vs</span>
           <div className="flex-1 rounded-xl border-2 border-dashed border-emerald-300 p-4 text-center">
             <p className="text-sm text-emerald-600">신발 카드에서 선택</p>
           </div>
@@ -1461,7 +1511,7 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
         </table>
       </div>
       <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
-        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">📖 용어 설명 보기</summary>
+        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">용어 설명 보기</summary>
         <ul className="mt-2 space-y-1 leading-relaxed">
           <li><strong>쿠셔닝</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
           <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이도록 만든 구조. 평발에 도움이 되는지는 연구가 갈림(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>

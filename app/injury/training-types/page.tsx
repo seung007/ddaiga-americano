@@ -89,7 +89,7 @@ const FAQ: FaqItem[] = [
 /** 「언제부터」 한 줄 — 단계는 러닝 가이드의 1~5단계, 저희 기준 */
 function When({ stage }: { stage: string }) {
   return (
-    <p className="mt-3 break-keep text-[15px] text-gray-700">
+    <p className="mt-3 break-keep text-base text-gray-700">
       <span className="font-semibold text-gray-900">언제부터</span> · {stage}
       <Basis kind="rule" />
     </p>
@@ -163,7 +163,7 @@ export default function TrainingTypesPage() {
           러닝 훈련에는 어떤 종류가 있나요?
         </h2>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="p-2.5">훈련</th>
@@ -567,7 +567,7 @@ export default function TrainingTypesPage() {
           </p>
         </Evidence>
 
-        <div className="mt-14 rounded-xl border border-gray-200 bg-gray-50 p-4 text-[15px] leading-relaxed text-gray-700">
+        <div className="mt-14 rounded-xl border border-gray-200 bg-gray-50 p-4 text-base leading-relaxed text-gray-700">
           <p className="font-semibold text-gray-900">한 주에 어떻게 섞나요?</p>
           <p className="mt-1 break-keep">
             단계별 주간 구성 예시는 각 단계 글에 있습니다.{" "}

@@ -168,20 +168,20 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
                     <>
                       <strong>{r.date}</strong>
                       {dday !== null && dday >= 0 && (
-                        <span className="ml-1.5 text-emerald-700">{dday === 0 ? "오늘" : `D-${dday}`}</span>
+                        <span className="ml-1.5 text-emerald-700">{dday === 0 ? "대회 오늘" : `대회 D-${dday}`}</span>
                       )}
                     </>
                   ) : (
                     <span className="text-amber-700">날짜 미정</span>
                   )}
-                  <span className="mx-1.5 text-gray-300">·</span>
+                  <span className="mx-1.5 text-gray-500">·</span>
                   {r.venue ? `${r.region} · ${r.venue}` : r.region}
                 </p>
                 <p className="mt-1 text-sm text-gray-600">
                   {distances}
                   {r.registrationEnd && s !== "마감" && (
                     <>
-                      <span className="mx-1.5 text-gray-300">·</span>
+                      <span className="mx-1.5 text-gray-500">·</span>
                       접수 ~{r.registrationEnd.slice(5).replace("-", "/")}
                     </>
                   )}

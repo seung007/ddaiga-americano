@@ -299,7 +299,7 @@ function ShoeCard({ shoe }: { shoe: StripShoe }) {
       <p className="text-xs font-medium text-gray-400">{shoe.brand}</p>
       <p className="mb-1 truncate text-sm font-semibold text-gray-900">{shoe.model}</p>
       {shoe.successor && (
-        <p className="mb-1 text-[11px] font-medium text-amber-700">후속 모델 출시 · 재고 할인 가능</p>
+        <p className="mb-1 text-xs font-medium text-amber-700">후속 모델 출시 · 재고 할인 가능</p>
       )}
       <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-gray-600">{shoe.tagline}</p>
       <p className="mt-auto text-xs text-gray-500">

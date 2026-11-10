@@ -54,10 +54,10 @@ export default function YoutubeSection({ links }: Props) {
                 {isSearch(link.url) ? (
                   <p className="text-xs text-gray-400 mt-0.5">유튜브 검색 결과로 이동</p>
                 ) : link.channel && (
-                  <p className="text-xs text-gray-500 mt-0.5">채널: {link.channel}</p>
+                  <p className="text-xs text-gray-600 mt-0.5">채널: {link.channel}</p>
                 )}
               </div>
-              <span className="ml-auto text-xs text-red-500 shrink-0">YouTube ↗</span>
+              <span className="ml-auto text-xs text-red-700 shrink-0">YouTube ↗</span>
             </a>
           ))}
         </div>
@@ -79,7 +79,7 @@ export default function YoutubeSection({ links }: Props) {
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-900">{link.label}</p>
                   {link.channel && (
-                    <p className="text-xs text-gray-500 mt-0.5">채널: {link.channel}</p>
+                    <p className="text-xs text-gray-600 mt-0.5">채널: {link.channel}</p>
                   )}
                 </div>
                 <span className="ml-auto text-xs font-semibold text-rose-500 shrink-0 bg-rose-100 px-2 py-0.5 rounded-full">Shorts ↗</span>

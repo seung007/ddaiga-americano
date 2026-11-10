@@ -159,7 +159,7 @@ export default function CadencePage() {
         />
 
         <h3 className={H3}>내 케이던스는 어떻게 재나요?</h3>
-        <ol className="mt-3 list-inside list-decimal space-y-1.5 break-keep text-[15px] leading-[1.7] text-gray-700">
+        <ol className="mt-3 list-inside list-decimal space-y-1.5 break-keep text-base leading-[1.7] text-gray-700">
           <li>편안한 페이스로 1분 달립니다</li>
           <li>오른발이 땅에 닿는 횟수를 30초 동안 셉니다</li>
           <li>그 숫자에 4를 곱하면 분당 케이던스(spm)입니다</li>

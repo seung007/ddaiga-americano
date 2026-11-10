@@ -109,7 +109,7 @@ export default function GuideArticleList() {
                   onClick={() => track("injury_list_click", { topic: "최신 글", pos: i + 1, to: a.href })}
                   className="group flex items-start gap-3 py-3"
                 >
-                  <span className="min-w-0 flex-1 break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
+                  <span className="min-w-0 flex-1 break-keep text-base font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
                     {a.title}
                   </span>
                 </Link>
@@ -142,7 +142,7 @@ export default function GuideArticleList() {
                       className="group flex items-start gap-3 py-3"
                     >
                       <span className="min-w-0 flex-1">
-                        <span className="block break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
+                        <span className="block break-keep text-base font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
                           {a.title}
                         </span>
                         <span className="mt-0.5 line-clamp-1 break-all text-sm text-gray-500">{a.desc}</span>

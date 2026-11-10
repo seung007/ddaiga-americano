@@ -7,7 +7,7 @@ export default function SiteFooter() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold text-gray-800">🏃 뛰다가 아메리카노</p>
-            <p className="text-xs text-gray-400 mt-1">공개 연구 기반 러닝화 추천. 추천 순서는 광고비로 바뀌지 않습니다.</p>
+            {/* 2026-11-05 운영자: 소개 한 줄을 뺐다. 「광고비로 순위를 바꾸지 않아요」는 홈 「이렇게 확인했어요」 첫 줄에 있다 */}
           </div>
           <nav className="flex flex-wrap gap-x-5 gap-y-1">
             {/* 2026-09-02: 헤더에 계산기를 넣으면서 Q&A·블로그를 모바일에서 숨겼다.

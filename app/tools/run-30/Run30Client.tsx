@@ -170,10 +170,10 @@ function SessionSteps({ step }: { step: WalkRunStep }) {
   return (
     <ol className="mt-2 space-y-1">
       {items.map((t, i) => (
-        <li key={i} className="flex min-w-0 gap-2 break-keep text-[15px] leading-[1.6] text-gray-800">
+        <li key={i} className="flex min-w-0 gap-2 break-keep text-base leading-[1.6] text-gray-800">
           <span
             aria-hidden
-            className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[11px] font-bold text-emerald-800"
+            className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-800"
           >
             {i + 1}
           </span>
@@ -265,7 +265,7 @@ export default function Run30Client({ safety }: { safety: React.ReactNode }) {
           className="rounded-2xl border-2 border-emerald-500 bg-emerald-50/60 px-4 py-4 print:hidden"
         >
           <p className="text-xs font-bold text-emerald-700">오늘 할 회차</p>
-          <h2 className="mt-1 break-keep text-[22px] font-bold text-gray-900">
+          <h2 className="mt-1 break-keep text-2xl font-bold text-gray-900">
             {WALK_RUN_STEPS[current.s].key}단계 {current.n}회차
           </h2>
           <SessionSteps step={WALK_RUN_STEPS[current.s]} />
@@ -304,7 +304,7 @@ export default function Run30Client({ safety }: { safety: React.ReactNode }) {
       )}
 
       {current && (
-        <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-white px-4 py-3 text-[15px] font-semibold text-emerald-800 hover:bg-emerald-50 print:hidden">
+        <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-white px-4 py-3 text-base font-semibold text-emerald-800 hover:bg-emerald-50 print:hidden">
           <input type="checkbox" checked={false} onChange={markDone} className="h-5 w-5 accent-emerald-600" />
           {WALK_RUN_STEPS[current.s].key}단계 {current.n}회차 했어요
         </label>
@@ -313,7 +313,7 @@ export default function Run30Client({ safety }: { safety: React.ReactNode }) {
       {/* ── 진행 ─────────────────────────────────────────── */}
       <section aria-label="진행 상황" className="mt-6">
         <div className="flex min-w-0 items-baseline justify-between gap-3">
-          <p className="text-[15px] font-semibold text-gray-900">
+          <p className="text-base font-semibold text-gray-900">
             {TOTAL_SESSIONS}회 중 <span className="text-emerald-700">{position}회</span>
           </p>
           {p.log.length !== position && (
@@ -364,7 +364,7 @@ export default function Run30Client({ safety }: { safety: React.ReactNode }) {
                   isCurrentStep ? "border-emerald-300 bg-emerald-50/40" : "border-gray-200"
                 }`}
               >
-                <p className="flex min-w-0 flex-wrap items-baseline gap-x-2 text-[15px] font-bold text-gray-900">
+                <p className="flex min-w-0 flex-wrap items-baseline gap-x-2 text-base font-bold text-gray-900">
                   {st.key}단계
                   <span className="text-sm font-normal text-gray-500">한 회차 총 {total}</span>
                   {isCurrentStep && p.repeats > 0 && (
@@ -460,7 +460,7 @@ function ConditionCheck({
 
   const question = (q: string, v: boolean | null, set: (b: boolean) => void) => (
     <div className="mt-3">
-      <p className="break-keep text-[15px] font-semibold text-gray-900">{q}</p>
+      <p className="break-keep text-base font-semibold text-gray-900">{q}</p>
       <div className="mt-1.5 flex gap-2">
         {[true, false].map((b) => (
           <button
@@ -493,13 +493,13 @@ function ConditionCheck({
 
       {answered && pass && (
         <div className="mt-4">
-          <p className="break-keep text-[15px] text-gray-800">
+          <p className="break-keep text-base text-gray-800">
             {isLast ? "H단계까지 마쳤습니다. 30분을 쉬지 않고 달렸습니다." : `${WALK_RUN_STEPS[stepIdx + 1].key}단계로 넘어갑니다.`}
           </p>
           <button
             type="button"
             onClick={onUp}
-            className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-[15px] font-semibold text-white hover:bg-emerald-700"
+            className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
           >
             {isLast ? "완주 — 수료증 만들기" : `${WALK_RUN_STEPS[stepIdx + 1].key}단계 시작`}
           </button>
@@ -508,13 +508,13 @@ function ConditionCheck({
 
       {answered && !pass && !suggestDown && (
         <div className="mt-4">
-          <p className="break-keep text-[15px] text-gray-800">
+          <p className="break-keep text-base text-gray-800">
             같은 {key}단계를 한 번 더 합니다. 반복해도 괜찮습니다.
           </p>
           <button
             type="button"
             onClick={onRepeat}
-            className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-[15px] font-semibold text-white hover:bg-emerald-700"
+            className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
           >
             {key}단계 다시 하기
           </button>
@@ -525,13 +525,13 @@ function ConditionCheck({
         <div className="mt-4">
           {stepIdx > 0 ? (
             <>
-              <p className="break-keep text-[15px] text-gray-800">
+              <p className="break-keep text-base text-gray-800">
                 두 번 반복해도 안 됐습니다. 한 단계 내려가 {WALK_RUN_STEPS[stepIdx - 1].key}단계부터 다시 하기를 권합니다.
               </p>
               <button
                 type="button"
                 onClick={onDown}
-                className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-[15px] font-semibold text-white hover:bg-emerald-700"
+                className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
               >
                 {WALK_RUN_STEPS[stepIdx - 1].key}단계로 내려가기
               </button>
@@ -545,13 +545,13 @@ function ConditionCheck({
             </>
           ) : (
             <>
-              <p className="break-keep text-[15px] text-gray-800">
+              <p className="break-keep text-base text-gray-800">
                 A단계는 더 내려갈 단계가 없습니다. 같은 단계를 이어서 하셔도 괜찮습니다.
               </p>
               <button
                 type="button"
                 onClick={onRepeat}
-                className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-[15px] font-semibold text-white hover:bg-emerald-700"
+                className="mt-2 w-full rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
               >
                 A단계 다시 하기
               </button>
@@ -816,14 +816,14 @@ function IntervalTimer({
 
       <div className="mt-4 grid grid-cols-2 gap-2">
         {running ? (
-          <button type="button" onClick={pause} className="rounded-xl bg-gray-900 px-4 py-3 text-[15px] font-semibold text-white">
+          <button type="button" onClick={pause} className="rounded-xl bg-gray-900 px-4 py-3 text-base font-semibold text-white">
             일시정지
           </button>
         ) : (
           <button
             type="button"
             onClick={start}
-            className="rounded-xl bg-emerald-600 px-4 py-3 text-[15px] font-semibold text-white hover:bg-emerald-700"
+            className="rounded-xl bg-emerald-600 px-4 py-3 text-base font-semibold text-white hover:bg-emerald-700"
           >
             {elapsed === 0 || ended ? "시작" : "이어서"}
           </button>
@@ -832,7 +832,7 @@ function IntervalTimer({
           type="button"
           onClick={reset}
           disabled={elapsed === 0 && !running}
-          className="rounded-xl border border-gray-200 px-4 py-3 text-[15px] text-gray-700 hover:bg-gray-50 disabled:opacity-40"
+          className="rounded-xl border border-gray-200 px-4 py-3 text-base text-gray-700 hover:bg-gray-50 disabled:opacity-40"
         >
           처음으로
         </button>
@@ -842,7 +842,7 @@ function IntervalTimer({
         <button
           type="button"
           onClick={onMarkDone}
-          className="mt-2 w-full rounded-xl border border-emerald-400 bg-emerald-50 px-4 py-3 text-[15px] font-semibold text-emerald-800"
+          className="mt-2 w-full rounded-xl border border-emerald-400 bg-emerald-50 px-4 py-3 text-base font-semibold text-emerald-800"
         >
           {sessionLabel} 했어요 표시
         </button>
@@ -953,7 +953,7 @@ function Certificate({ finishedOn }: { finishedOn: string }) {
   return (
     <section aria-label="수료증" className="rounded-2xl border-2 border-emerald-500 bg-emerald-50/60 px-4 py-4">
       <p className="text-xs font-bold text-emerald-700">{koDate(finishedOn)} 완주</p>
-      <h2 className="mt-1 break-keep text-[22px] font-bold text-gray-900">30분을 쉬지 않고 달렸습니다</h2>
+      <h2 className="mt-1 break-keep text-2xl font-bold text-gray-900">30분을 쉬지 않고 달렸습니다</h2>
       <p className="mt-1 break-keep text-sm text-gray-600">이름을 넣으면 수료증 그림(PNG)을 내려받습니다. 이름은 저장하지도 보내지도 않습니다.</p>
       <div className="mt-3 flex min-w-0 flex-col gap-2 sm:flex-row">
         <input
@@ -963,12 +963,12 @@ function Certificate({ finishedOn }: { finishedOn: string }) {
           onChange={(e) => setName(e.target.value)}
           placeholder="이름 (선택)"
           aria-label="수료증에 넣을 이름"
-          className="min-w-0 flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-[15px]"
+          className="min-w-0 flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-base"
         />
         <button
           type="button"
           onClick={download}
-          className="shrink-0 rounded-xl bg-emerald-600 px-4 py-2.5 text-[15px] font-semibold text-white hover:bg-emerald-700"
+          className="shrink-0 rounded-xl bg-emerald-600 px-4 py-2.5 text-base font-semibold text-white hover:bg-emerald-700"
         >
           수료증 내려받기
         </button>

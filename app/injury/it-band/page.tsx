@@ -125,7 +125,7 @@ export default function ITBandPage() {
             <S>(Aderem &amp; Louw (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26573859/" />)</S>
           </p>
         </Evidence>
-        <div className="mt-5 rounded-xl border border-gray-200 bg-gray-50 p-4 text-[15px] leading-[1.7] text-gray-700">
+        <div className="mt-5 rounded-xl border border-gray-200 bg-gray-50 p-4 text-base leading-[1.7] text-gray-700">
           <p className="font-semibold text-gray-900">국내 러닝 커뮤니티에서는 1위</p>
           <p className="mt-1 break-keep">
             부위가 나온 글의 작성자 기준으로 <strong>무릎 바깥·장경인대가 37명으로 가장 많았습니다</strong>. DC 러닝 마이너 갤러리의
@@ -228,7 +228,7 @@ export default function ITBandPage() {
             <S>(Sanchez-Alvarado et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39247485/" />)</S>
           </p>
         </Evidence>
-        <div className="mt-4 rounded-xl bg-yellow-50 p-4 text-[15px] leading-[1.7] text-gray-700">
+        <div className="mt-4 rounded-xl bg-yellow-50 p-4 text-base leading-[1.7] text-gray-700">
           <p className="mb-2 text-sm font-bold text-gray-900">
             예시 운동
             <Basis kind="rule" />

@@ -151,7 +151,7 @@ export default function MarathonTrainingPage() {
         <P>주 40km 미만이거나 가장 긴 달리기가 25km 미만이면 더 느린 완주와 관련 있었습니다.</P>
         <Note>관찰 연구라 원래 빠른 사람이 더 많이 뛰었을 가능성은 남습니다.</Note>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="break-keep p-2.5">주간 거리</th>
@@ -279,7 +279,7 @@ export default function MarathonTrainingPage() {
           21km에서 시작하면 아래처럼 7주째에 32km에 닿습니다.
         </P>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">주</th>

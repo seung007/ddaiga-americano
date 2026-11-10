@@ -148,7 +148,7 @@ export default function RaceReactions({
           disabled={sending}
           className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400"
         >
-          {sending ? "…" : "🙋 나가요"}
+          {sending ? "…" : "나가요"}
         </button>
       ) : !open ? (
         <button
@@ -156,7 +156,7 @@ export default function RaceReactions({
           onClick={() => setOpen(true)}
           className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
         >
-          🏅 다녀왔어요
+          다녀왔어요
         </button>
       ) : (
         <div className="mt-3 flex flex-col gap-3">

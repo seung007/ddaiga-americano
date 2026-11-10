@@ -223,10 +223,10 @@ export default function AchillesPage() {
               <span className="text-xl">1</span>
               <h3 className="font-bold text-gray-900">벽 카프 스트레칭 (종아리 앞쪽 늘리기)</h3>
             </div>
-            <p className="mb-3 break-keep text-[15px] leading-relaxed text-gray-700">
+            <p className="mb-3 break-keep text-base leading-relaxed text-gray-700">
               달리기 후 아킬레스건이 당길 때 가장 먼저 해야 하는 스트레칭입니다.
             </p>
-            <div className="rounded-lg bg-gray-50 p-4 text-[15px] text-gray-700">
+            <div className="rounded-lg bg-gray-50 p-4 text-base text-gray-700">
               <ol className="list-inside list-decimal space-y-1 break-keep">
                 <li>벽에 손을 짚고 한 발을 뒤로 뺍니다</li>
                 <li>뒤쪽 발 뒤꿈치를 바닥에 완전히 붙인 채 앞쪽 무릎을 굽힙니다</li>
@@ -241,10 +241,10 @@ export default function AchillesPage() {
               <span className="text-xl">2</span>
               <h3 className="font-bold text-gray-900">솔리어스 스트레칭 (종아리 깊은 근육)</h3>
             </div>
-            <p className="mb-3 break-keep text-[15px] leading-relaxed text-gray-700">
+            <p className="mb-3 break-keep text-base leading-relaxed text-gray-700">
               아킬레스건에 직접 붙어 있는 솔리어스 근육입니다. 무릎을 구부린 상태에서만 늘어납니다.
             </p>
-            <div className="rounded-lg bg-gray-50 p-4 text-[15px] text-gray-700">
+            <div className="rounded-lg bg-gray-50 p-4 text-base text-gray-700">
               <ol className="list-inside list-decimal space-y-1 break-keep">
                 <li>벽에 손을 짚고 스트레칭할 발을 뒤로 반 발자국만 뺍니다</li>
                 <li>뒤쪽 발 뒤꿈치를 바닥에 붙인 채 <strong>뒤쪽 무릎도 같이 굽힙니다</strong></li>
@@ -259,10 +259,10 @@ export default function AchillesPage() {
               <span className="text-xl">3</span>
               <h3 className="font-bold text-gray-900">편심성 힐 드롭 (아킬레스건 강화)</h3>
             </div>
-            <p className="mb-3 break-keep text-[15px] leading-relaxed text-gray-700">
+            <p className="mb-3 break-keep text-base leading-relaxed text-gray-700">
               세 가지 중 근거가 가장 많은 운동입니다. 통증이 줄어든 뒤에도 계속하는 경우가 많습니다.
             </p>
-            <div className="rounded-lg bg-gray-50 p-4 text-[15px] text-gray-700">
+            <div className="rounded-lg bg-gray-50 p-4 text-base text-gray-700">
               <ol className="list-inside list-decimal space-y-1 break-keep">
                 <li>계단 끝에 발 앞부분만 걸칩니다</li>
                 <li>양발로 올라간 뒤, 한 발로만 천천히(3~5초) 내려옵니다</li>

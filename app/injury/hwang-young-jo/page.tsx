@@ -148,7 +148,7 @@ export default function HwangYoungJoPage() {
           {TAKEAWAYS.map((item) => (
             <div key={item.title} className="rounded-xl border border-gray-200 px-4 py-3.5">
               <h3 className="break-keep font-semibold text-gray-900">{item.title}</h3>
-              <p className="mt-1.5 break-keep text-[15px] leading-[1.7] text-gray-800">
+              <p className="mt-1.5 break-keep text-base leading-[1.7] text-gray-800">
                 {item.todo}
                 <Basis kind="rule" />
               </p>

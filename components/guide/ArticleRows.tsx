@@ -12,7 +12,7 @@ export function ArticleRows({ items }: { items: GuideArticle[] }) {
         <li key={a.href}>
           <Link href={a.href} className="group flex items-start gap-3 py-3.5">
             <span className="min-w-0 flex-1">
-              <span className="block break-keep text-[15px] font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
+              <span className="block break-keep text-base font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
                 {a.title}
               </span>
               <span className="mt-0.5 line-clamp-2 break-keep text-sm text-gray-500">{a.desc}</span>

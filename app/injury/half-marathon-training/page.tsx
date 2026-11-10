@@ -159,7 +159,7 @@ export default function HalfMarathonTrainingPage() {
         <Note>관찰 연구라 「더 뛰면 빨라진다」가 아니라 「더 뛴 사람이 빨랐다」입니다. 원래 빠른 사람이 더 많이 뛰었을 가능성은 남습니다.</Note>
 
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="p-2.5">주간 거리</th>
@@ -246,7 +246,7 @@ export default function HalfMarathonTrainingPage() {
 
         <h3 className={H3}>10km에서 시작하면 긴 달리기는 어떻게 늘리나요?</h3>
         <div className="mt-3 overflow-x-auto">
-          <table className="w-full border-collapse text-[15px]">
+          <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">주</th>

@@ -1,5 +1,6 @@
 "use client";
 
+import { officialOf } from "@/lib/shoes/official";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import ShoeThumb from "@/components/ShoeThumb";
@@ -10,6 +11,7 @@ import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from 
 import { rankAllShoes } from "@/lib/shoes/recommend";
 import type { Shoe, ShoeUse } from "@/lib/shoes/types";
 import { matchesQuery, searchKeyOf } from "@/lib/shoes/aliases";
+import { Heart } from "lucide-react";
 
 /** 검색 키는 한 번만 만든다 — 52켤레라 싸지만 매 입력마다 다시 만들 이유가 없다 */
 const SEARCH_KEY = new Map(SHOES.map((s) => [s.id, searchKeyOf(s.brand, s.model)]));
@@ -227,7 +229,7 @@ export default function ShoesBrowser() {
           <Toggle on={stability} onClick={() => setStability((v) => !v)}>안정화</Toggle>
           <Toggle on={carbon} onClick={() => setCarbon((v) => !v)}>카본 플레이트</Toggle>
           <Toggle on={hideOld} onClick={() => setHideOld((v) => !v)}>후속 나온 모델 숨기기</Toggle>
-          <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}>♥ 찜 {liked.length}</Toggle>
+          <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}><Heart size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />찜 {liked.length}</Toggle>
           {/* 2026-10-13: 찜한 신발을 바로 견주는 길 — 두께 비교 도구는 3켤레까지(?s=a,b,c) */}
           {liked.length >= 2 && (
             <Link
@@ -278,28 +280,36 @@ export default function ShoesBrowser() {
                     type="button"
                     onClick={() => toggleLike(s.id)}
                     aria-label={liked.includes(s.id) ? "찜 해제" : "찜하기"}
-                    className={`absolute right-2 top-2 z-10 text-lg ${liked.includes(s.id) ? "text-red-500" : "text-gray-300 hover:text-gray-400"}`}
+                    className={`absolute right-2 top-2 z-10 text-lg ${liked.includes(s.id) ? "text-red-500" : "text-gray-500 hover:text-gray-400"}`}
                   >
-                    ♥
+                    <Heart size={20} strokeWidth={1.5} aria-hidden fill={liked.includes(s.id) ? "currentColor" : "none"} />
                   </button>
                   <Link href={`/shoes/${s.id}`} className="flex flex-1 flex-col">
                     <ShoeThumb src={s.imageUrl} alt={`${s.brand} ${s.model}`} model={s.model} className="aspect-square w-full" />
                     <p className="mt-2 text-xs text-gray-500">{s.brand}</p>
                     <p className="font-bold leading-snug text-gray-900">{s.model}</p>
-                    <p className="mt-1 text-sm text-gray-800">약 {won(s.priceKrw)}</p>
+                    {/* 2026-11-06: 홈은 「159,000원 공식몰 정가」, 여기는 「약 159,000원」으로 같은 신발이 달랐다 — 홈과 같은 규칙(공식몰 목록에 있고 값이 있을 때만) */}
+                    {(() => {
+                      const o = officialOf(s.id);
+                      return o?.listed && o.priceKrw ? (
+                        <p className="mt-1 text-sm text-gray-800">{won(o.priceKrw)} <span className="text-xs text-gray-500">공식몰 정가</span></p>
+                      ) : (
+                        <p className="mt-1 text-sm text-gray-800">약 {won(s.priceKrw)}</p>
+                      );
+                    })()}
                     <p className="mt-1 text-xs text-gray-500">
                       {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {s.uses.map((u) => (
-                        <span key={u} className="rounded bg-gray-100 px-1.5 py-0.5 text-[11px] text-gray-600">
+                        <span key={u} className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600">
                           {USE_KO[u]}
                         </span>
                       ))}
-                      {hasWide(s) && <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[11px] text-blue-700">와이드</span>}
-                      {s.hasCarbon && <span className="rounded bg-gray-900 px-1.5 py-0.5 text-[11px] text-white">카본</span>}
+                      {hasWide(s) && <span className="rounded bg-blue-50 px-1.5 py-0.5 text-xs text-blue-700">와이드</span>}
+                      {s.hasCarbon && <span className="rounded bg-gray-900 px-1.5 py-0.5 text-xs text-white">카본</span>}
                       {s.successor && (
-                        <span className="rounded bg-amber-50 px-1.5 py-0.5 text-[11px] text-amber-700">후속 출시</span>
+                        <span className="rounded bg-amber-50 px-1.5 py-0.5 text-xs text-amber-700">후속 출시</span>
                       )}
                     </div>
                     {r?.reason && <p className="mt-2 text-xs leading-snug text-emerald-800">{r.reason}</p>}

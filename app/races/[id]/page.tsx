@@ -44,8 +44,13 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
-/** 접수 상태·D-day 를 날짜로 계산하므로 하루 네 번 다시 만든다 */
-export const revalidate = 21600;
+/**
+ * 2026-11-06: `revalidate = 21600` 을 뺐다. 「하루 네 번 다시 만든다」고 적어 뒀지만 실제로는
+ * 6시간이 지난 뒤 **첫 방문자에게 옛 화면을 주고** 그 뒤에 다시 만든다(방문이 드물면 며칠 전 화면).
+ * 미리보기 홈에서 11/6 에 「11/05 마감 · 오늘 마감」이 실제로 떴다. 마감이 지난 대회를 「오늘 마감」으로 보이는 건 틀린 정보라
+ * 날짜로 계산하는 페이지는 요청마다 그린다. 방문이 월 수백 건이라 서버 부담은 작다.
+ */
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -120,8 +125,9 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
         <header className="mb-6">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <RaceStatusBadge status={ended ? "대회종료" : status} />
+            {/* 2026-11-06: 「마감」 배지 옆 「D-9」가 마감까지 9일로 읽혔다. 이 숫자는 대회 날짜까지다 — 홈의 D-day(접수 마감)와 글자로 구분한다 */}
             {!ended && d !== null && (
-              <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "오늘" : `D-${d}`}</span>
+              <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "대회 오늘" : `대회 D-${d}`}</span>
             )}
           </div>
           <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900">{r.name}</h1>

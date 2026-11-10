@@ -55,7 +55,7 @@ export default function FaqSection({ items, schemaNote = SCHEMA_DISCLAIMER, titl
             <summary className="cursor-pointer font-semibold text-sm text-gray-900 hover:text-emerald-700">
               {i.q}
             </summary>
-            <p className="mt-2 text-sm text-gray-600 leading-relaxed">{i.a}</p>
+            <p className="mt-2 text-base text-gray-700 leading-relaxed">{i.a}</p>
           </details>
         ))}
       </div>
