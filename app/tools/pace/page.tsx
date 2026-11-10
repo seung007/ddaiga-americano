@@ -94,7 +94,7 @@ export default function PacePage() {
         <span className="text-gray-900">페이스</span>
       </nav>
 
-      <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900 mb-3">러닝 페이스 계산기</h1>
+      <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝 페이스 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
         목표 시간을 넣으면 km당 페이스를, 페이스를 넣으면 완주 시간을 계산합니다.
         <strong className="text-gray-900"> 5km 단위 구간 통과 시간표</strong>까지 나오니

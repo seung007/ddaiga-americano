@@ -146,7 +146,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
       <main className="pb-24 text-gray-800 md:pb-0">
       <div className="mx-auto max-w-5xl px-6 pt-8 md:pt-12">
         <AffiliateNotice show={!!affiliateFor(s.id)} />
-        <Link href="/shoes" className="mb-4 inline-flex min-h-11 items-center text-sm font-bold text-[#111111]">
+        <Link href="/shoes" className="mb-4 inline-flex min-h-11 items-center text-sm text-emerald-600 hover:underline">
           ← 러닝화 목록
         </Link>
 
@@ -159,19 +159,19 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           {(() => {
             const ph = photoOf(s.id);
             return (
-              <div className="grid aspect-[4/3] w-full shrink-0 place-items-center overflow-hidden rounded-2xl bg-[#F2F2F0] p-6 md:w-[55%] md:p-10">
+              <div className="grid aspect-[4/3] w-full shrink-0 place-items-center overflow-hidden rounded-2xl bg-gray-50 p-6 md:w-[55%] md:p-10">
                 {ph ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={`/shoes/photo/${s.id}.webp`} alt={name} width={ph.w} height={ph.h} fetchPriority="high" className="h-auto w-full" />
                 ) : (
-                  <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="h-full w-full mix-blend-multiply" />
+                  <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="h-full w-full" />
                 )}
               </div>
             );
           })()}
           <div className="min-w-0">
             <p className="text-sm text-gray-500">{s.brand}</p>
-            <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">{s.model}</h1>
+            <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">{s.model}</h1>
             {nicknamesOf(s.model).length > 0 && (
               // 2026-09-26 — 러닝 오픈채팅에서 실제로 쓰인 애칭만 (lib/shoes/aliases.ts)
               <p className="mt-1 text-sm text-gray-500">
@@ -180,7 +180,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               </p>
             )}
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <p className="text-xl font-bold tabular-nums text-[#111111]">약 {won(s.priceKrw)}</p>
+              <p className="text-xl text-gray-800">약 {won(s.priceKrw)}</p>
               <LikeButton id={s.id} name={name} />
             </div>
             {official && (
@@ -417,8 +417,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
         </div>
       </article>
       {/* 2026-11-10 디자인 점검(패턴 34): 구매가 페이지 맨 아래였다 → 휴대폰은 아래 고정 버튼으로 구매 구역에 바로 간다 */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E5E3] bg-white/95 px-5 py-3 backdrop-blur md:hidden">
-        <a href="#buy" className="press flex h-12 items-center justify-center rounded-full bg-[#111111] text-base font-bold text-white no-underline">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 px-5 py-3 backdrop-blur md:hidden">
+        <a href="#buy" className="flex h-12 items-center justify-center rounded-full bg-emerald-600 text-base font-semibold text-white hover:bg-emerald-700">
           구매처 보기
         </a>
       </div>

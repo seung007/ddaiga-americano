@@ -117,7 +117,7 @@ export default function TierListPage() {
       <ShoeJsonLd shoes={POOL} name="러닝화 수준별 계급도" url={PAGE_URL} />
       <BreadcrumbJsonLd trail={[["러닝화 계급도", "/tier-list"]]} />
       <main className="mx-auto max-w-3xl px-6 py-12 text-gray-800">
-        <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">러닝화 계급도</h1>
+        <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">러닝화 계급도</h1>
         <p className="mt-3 leading-relaxed text-gray-600">
           입문부터 레이싱까지 <strong>러너 수준 순서</strong>로 정리했습니다. 각 칸에{" "}
           <strong>누구에게 맞는지</strong>와 <strong>언제 다음 칸으로 넘어가는지</strong>를

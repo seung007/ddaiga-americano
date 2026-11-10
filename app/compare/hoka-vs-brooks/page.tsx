@@ -180,7 +180,7 @@ export default function HokaVsBrooks() {
           url={pageUrl("/compare/hoka-vs-brooks")}
         />
         <BreadcrumbJsonLd trail={[["호카 vs 브룩스", "/compare/hoka-vs-brooks"]]} />
-        <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">호카 vs 브룩스</h1>
+        <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">호카 vs 브룩스</h1>
         <p className="mt-3 text-gray-600">
           브랜드 인상이 아니라 <strong>이 사이트가 검증한 스펙을 집계</strong>했습니다.
           호카 {HOKA.sampleSize}개, 브룩스 {BROOKS.sampleSize}개 기준입니다.

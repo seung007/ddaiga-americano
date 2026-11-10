@@ -447,7 +447,7 @@ export default function ShoeFinderPage() {
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
       <header className="mb-6">
-        <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">내 발에 맞는 러닝화 찾기</h1>
+        <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">내 발에 맞는 러닝화 찾기</h1>
         <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
           네 화면에 답하면 내 발에 맞는 신발 3개를 골라드려요.
         </p>

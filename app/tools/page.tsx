@@ -49,7 +49,7 @@ const TOOLS = [
 export default function ToolsPage() {
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
-      <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900 mb-3">러닝 계산기</h1>
+      <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
         논문에서 실제로 측정한 수치만 씁니다. 근거가 없는 항목은{" "}
         <strong className="text-gray-900">그럴듯한 계수를 지어내는 대신 없다고 적습니다.</strong>

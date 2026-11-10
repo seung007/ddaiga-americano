@@ -39,15 +39,17 @@ function Chips<T extends string>({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {label && <span className="w-full shrink-0 text-sm font-bold text-[#111111] md:w-12 md:text-xs md:font-medium md:text-[#4B5059]">{label}</span>}
+      {label && <span className="w-full shrink-0 text-sm font-semibold text-gray-700 md:w-10 md:text-xs md:font-medium md:text-gray-500">{label}</span>}
       {options.map((o) => (
         <button
           key={o}
           type="button"
           onClick={() => onChange(o)}
           aria-pressed={value === o}
-          className={`press h-11 shrink-0 rounded-full border px-4 text-sm ${
-            value === o ? "border-[#111111] bg-[#111111] font-bold text-white" : "border-[#D5D8DD] bg-white text-[#111111]"
+          className={`h-11 shrink-0 rounded-full border px-4 text-sm transition-colors ${
+            value === o
+              ? "border-emerald-500 bg-emerald-50 font-semibold text-emerald-700"
+              : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
           }`}
         >
           {o}
@@ -128,7 +130,7 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
 
   return (
     <>
-      <div className="mt-8 hidden space-y-3 rounded-2xl border border-[#E5E5E3] p-4 md:block">
+      <div className="mt-8 hidden space-y-2 rounded-2xl border border-gray-200 p-4 md:block">
         <Chips label="상태" options={STATUS_FILTERS} value={status} onChange={setStatus} />
         {moreFilters}
       </div>
@@ -137,14 +139,14 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
           type="button"
           onClick={() => setSheet(true)}
           aria-haspopup="dialog"
-          className="press flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-[#111111] px-4 text-sm font-bold"
+          className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 text-sm font-semibold text-gray-700"
         >
           <SlidersHorizontal size={16} aria-hidden />
           필터{more > 0 && ` (${more})`}
         </button>
         {STATUS_FILTERS.map((o) => (
           <button key={o} type="button" onClick={() => setStatus(o)} aria-pressed={status === o}
-            className={`press h-11 shrink-0 rounded-full border px-4 text-sm ${status === o ? "border-[#111111] bg-[#111111] font-bold text-white" : "border-[#D5D8DD] bg-white"}`}>
+            className={`h-11 shrink-0 rounded-full border px-4 text-sm transition-colors ${status === o ? "border-emerald-500 bg-emerald-50 font-semibold text-emerald-700" : "border-gray-200 bg-white text-gray-600"}`}>
             {o}
           </button>
         ))}
@@ -154,19 +156,19 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
           <button type="button" aria-label="필터 닫기" onClick={() => setSheet(false)} className="sheet-fade absolute inset-0 bg-black/40" />
           <div className="sheet-up absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col rounded-t-3xl bg-white">
             <div className="flex items-center justify-between px-5 pt-4">
-              <h2 id="race-sheet-h" className="text-xl font-bold">필터</h2>
+              <h2 id="race-sheet-h" className="text-xl font-bold text-gray-900">필터</h2>
               <button type="button" onClick={() => setSheet(false)} aria-label="닫기" className="grid size-11 place-items-center rounded-full">
                 <X size={20} aria-hidden />
               </button>
             </div>
             <div className="flex-1 space-y-5 overflow-y-auto px-5 pb-4 pt-2">{moreFilters}</div>
-            <div className="flex gap-2 border-t border-[#E5E5E3] px-5 py-3">
+            <div className="flex gap-2 border-t border-gray-200 px-5 py-3">
               {more > 0 && (
-                <button type="button" onClick={() => { setMonth("전체"); setGroup("전체"); setDist("전체"); }} className="press h-12 rounded-full bg-[#F5F5F5] px-5 text-base font-bold">
+                <button type="button" onClick={() => { setMonth("전체"); setGroup("전체"); setDist("전체"); }} className="h-12 rounded-full border border-gray-200 bg-white px-5 text-base font-semibold text-gray-700">
                   초기화
                 </button>
               )}
-              <button type="button" onClick={() => setSheet(false)} className="press h-12 flex-1 rounded-full bg-[#111111] text-base font-bold text-white">
+              <button type="button" onClick={() => setSheet(false)} className="h-12 flex-1 rounded-full bg-emerald-600 text-base font-semibold text-white hover:bg-emerald-700">
                 결과 {shown.length}개 보기
               </button>
             </div>
@@ -187,12 +189,12 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
         <button
           type="button"
           onClick={() => setStatus("마감임박")}
-          className="press mt-4 flex min-h-12 w-full items-center justify-between rounded-2xl bg-[#F5F5F5] px-4 py-3 text-left"
+          className="mt-4 flex min-h-12 w-full items-center justify-between rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-left transition-colors hover:border-amber-400"
         >
-          <span className="text-sm font-bold text-[#111111]">
+          <span className="text-sm font-semibold text-amber-900">
             일주일 안에 접수가 닫히는 대회 {closingSoon}개
           </span>
-          <span className="shrink-0 text-sm font-bold text-[#111111] underline">먼저 보기</span>
+          <span className="shrink-0 text-sm text-amber-700">먼저 보기 →</span>
         </button>
       )}
 

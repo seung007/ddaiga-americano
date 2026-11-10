@@ -131,7 +131,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
               <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "대회 오늘" : `대회 D-${d}`}</span>
             )}
           </div>
-          <h1 className="mb-4 text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">{r.name}</h1>
+          <h1 className="mb-4 text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">{r.name}</h1>
           <RaceSourceCta race={r} />
         </header>
 

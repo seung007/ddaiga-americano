@@ -51,7 +51,7 @@ export default function RacePage() {
       </Link>
 
       <header className="mb-8">
-        <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black text-gray-900 leading-tight mb-4">{race.name}</h1>
+        <h1 className="text-[32px] md:text-[40px] font-bold text-gray-900 leading-tight mb-4">{race.name}</h1>
         <p className="text-gray-600 text-sm">
           {race.date} · {race.region} · {race.distancesKm.map(distanceLabel).join(" / ")}
         </p>

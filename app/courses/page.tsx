@@ -61,7 +61,7 @@ export default function CoursesPage() {
        * 고지는 링크가 있는 페이지에만 있어야 정확하다 —
        * 지금은 `/shoe-finder` 와 `/compare/*` 다.
        */}
-      <h1 className="mb-3 text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">한강 러닝 코스 4곳</h1>
+      <h1 className="mb-3 text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">한강 러닝 코스 4곳</h1>
       {/* 2026-09-12: 코스 → 대회로 보낸다. 연습할 곳을 본 사람이 다음에 찾는 게 대회다. */}
       <p className="mb-2 text-sm text-gray-600">
         연습 코스를 정했으면{" "}
