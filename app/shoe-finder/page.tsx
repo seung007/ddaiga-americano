@@ -967,7 +967,11 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 </button>
               </div>
               {/* 2026-11-10: 공식몰 상품 페이지로 바로 가는 신발(수집기 확인)에는 이 안내가 필요 없다 */}
-              {!resolveBuyLinks(shoe.id, shoe.buyLinks).some(l => l.isProductPage) && (
+              {!shoe.buyLinks.some(l => l.isOfficial) && (
+                // 2026-11-10: 공식몰 링크가 없는 신발 — 한국 공식몰이 안 파는 모델(뉴발란스 520 v9·인피니티런 4 등)이거나 아직 확인 못 한 곳(호카)
+                <p className="text-xs text-gray-500 mt-1.5">공식몰 링크는 아직 없어요. 위 판매처에서 살 수 있어요.</p>
+              )}
+              {shoe.buyLinks.some(l => l.isOfficial) && !resolveBuyLinks(shoe.id, shoe.buyLinks).some(l => l.isProductPage) && (
                 <p className="text-xs text-gray-500 mt-1.5">
                   공식몰에서 안 보이면 위 모델명을 복사해 검색창에 붙여 넣으세요.
                 </p>
