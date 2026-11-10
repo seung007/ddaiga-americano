@@ -1,6 +1,7 @@
 "use client";
 
 import ShoeSideProfile from "@/components/ShoeSideProfile";
+import { SELLER_NOTE } from "@/lib/site";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { History, Search, TriangleAlert, Store, ShoppingCart } from "lucide-react";
@@ -969,6 +970,9 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 </button>
               </div>
               {/* 2026-11-10: 공식몰 상품 페이지로 바로 가는 신발(수집기 확인)에는 이 안내가 필요 없다 */}
+              {buyLinks.some(l => !l.isOfficial) && (
+                <p className="text-xs text-gray-500 mt-1.5">{SELLER_NOTE}</p>
+              )}
               {!hasOfficial && (
                 // 2026-11-10: 공식몰 링크가 없는 신발 — 한국 공식몰이 안 파는 모델(호카 다수·뉴발란스 520 v9 등)이거나
                 // 공식몰이 지금 열리지 않는 곳(브룩스, lib/shoes/affiliate.ts OFFICIAL_DOWN). 첫 판매처를 초록 버튼으로 둔다

@@ -1,6 +1,7 @@
 "use client";
 
 import { gtagEvent } from "@/lib/gtag";
+import { SELLER_NOTE } from "@/lib/site";
 import { resolveBuyLinks } from "@/lib/shoes/affiliate";
 import type { BuyLink } from "@/lib/shoes/types";
 
@@ -46,6 +47,7 @@ export default function BuyLinkButtons({
           {link.isAffiliate ? " · 제휴" : ""} ↗
         </a>
       ))}
+      {resolved.some((l) => !l.isOfficial) && <p className="w-full text-xs text-gray-500">{SELLER_NOTE}</p>}
     </div>
   );
 }

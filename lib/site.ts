@@ -27,4 +27,10 @@ export const SITE_HOST = SITE_URL.replace(/^https?:\/\//, "");
  */
 export const AUTHOR_NOTE = "글쓴이 · 러닝을 좋아하고 AI로 체계적으로 훈련하는 운영자. 누구나 편하게 달리도록 돕고 싶어 이 사이트를 만들었습니다.";
 
+/**
+ * 공식몰이 아닌 판매처(오픈마켓·리셀·가격비교로 간 쇼핑몰) 링크 옆에 붙이는 안내 (2026-11-10 운영자 「가품 걱정, 우리 책임이 아니게」).
+ * 저희는 판매처의 상품을 확인하지 않는다 — 사실이므로 그대로 적는다. 자세한 문장은 약관 5항.
+ */
+export const SELLER_NOTE = "공식몰이 아닌 판매처의 정품 여부와 교환·환불은 그 판매처가 책임져요. 저희는 상품을 확인하지 않아요. 정품이 걱정되면 공식몰이나 공식 판매처에서 사세요.";
+
 export const pageUrl =(path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
