@@ -142,7 +142,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   const widthOk = hasMatchingWidth(shoe, profile.footWidth);
   if (widthOk) {
     score += 20;
-    reasons.push(`${profile.footWidth === "wide" ? "넓은" : profile.footWidth === "narrow" ? "좁은" : "보통"} 발볼에 맞는 폭 옵션`);
+    reasons.push(`${profile.footWidth === "wide" ? "넓은" : profile.footWidth === "narrow" ? "좁은" : "보통"} 발볼에 맞는 폭이 있어요`);
   }
 
   // ── 3. 발 타입 + 안정화 (가중치 축소, 2026-08-31) ───────────
@@ -167,14 +167,14 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 발볼(20점)·체형(25점)은 물리적 치수 매칭이라 근거의 성질이 다르므로 유지한다.
   if (shoe.footTypes.includes(profile.footType)) {
     score += 12;
-    reasons.push(`${profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : "중립"} 발로 분류한 모델(사이트 분류)`);
+    reasons.push(`${profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : "보통"} 발에 맞춘 신발(사이트 분류)`);
   }
   if (profile.footType === "flat") {
     // 2026-10-06 hyun 결정: 유지 + 근거 교체(Malisoux 2016). 자가보고 평발 ≠ FPI 측정이라는 점을 같이 말한다.
-    if (shoe.stability !== "neutral") { score += 3; reasons.push("안정화 구조 — 발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT가 1건 있어요(Malisoux 2016). 다만 스스로 고른 「평발」과 같은 기준은 아니에요"); }
+    if (shoe.stability !== "neutral") { score += 3; reasons.push("발이 안쪽으로 덜 쏠리게 잡아 주는 안정화예요. 도움이 됐다는 연구는 1건이에요"); }
     else { score -= 2; }
   } else if (profile.footType === "high_arch") {
-    if (shoe.stability === "neutral") { score += 3; reasons.push("중립화 — 높은 아치에 흔히 권장되지만 강한 근거는 없습니다"); }
+    if (shoe.stability === "neutral") { score += 3; reasons.push("아치가 높으면 흔히 권하는 일반 신발이에요. 근거는 약해요"); }
     else { score -= 2; }
   } else {
     score += 4;
@@ -193,11 +193,11 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
       score += 12;
       genderFitMatch = true;
       genderFitNote = "여성 전용 라스트 — 여성 발은 남성 발의 축소판이 아니라는 연구(Wunderlich & Cavanagh 2001)";
-      reasons.push("여성 전용 라스트 — 여성 발은 아치·볼·엄지 모양이 남성 발과 다르다는 연구가 있어요(Wunderlich 2001)");
+      reasons.push("여성 발에 맞춰 만든 신발이에요");
     } else if (fit === "mens_last") {
       score -= 5;
       genderFitNote = "남성 기준 라스트 — 뒤꿈치가 헐렁할 수 있어요";
-      reasons.push("남성 기준 라스트 — 여성 발엔 힐 고정력이 떨어질 수 있음");
+      reasons.push("남성 발 기준이라 뒤꿈치가 헐렁할 수 있어요");
     }
     // (2) 여성 안정화 +3 / 모션컨트롤 −3 — 2026-10-06 삭제(hyun 결정).
     //     근거로 든 Ferber 2003 은 고관절·무릎 각도만 측정했고 신발을 다루지 않는다. 체중 점수를 빼자
@@ -206,7 +206,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     //     (서구 여성 라스트는 앞볼도 좁아 한국 여성에겐 끼일 수 있음 → 넓은 앞볼 우대)
     if (profile.footWidth === "wide" && isWideForefoot(shoe)) {
       score += 4;
-      reasons.push("넓은 앞볼 옵션 — 발볼 넓음 선택");
+      reasons.push("앞볼이 넓은 버전이 있어요");
     }
     // (4) 경량 가점 — 2026-10-06 삭제. 근거가 「여성 평균 체중대」였다(체중 경로 중립화).
   } else if (profile.gender === "male") {
@@ -224,11 +224,11 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 사이즈코리아·아시아 스캔: 한국인 발 = 넓은 앞볼·높은 발등 경향.
   if (isWideForefoot(shoe) && profile.footWidth !== "narrow") {
     score += 4;
-    reasons.push("넓은 앞볼 설계 — 앞쪽이 넉넉한 핏");
+    reasons.push("앞쪽이 넉넉한 편이에요");
   }
   if (shoe.instepVolume === "high") {
     score += 2;
-    reasons.push("높은 발등 볼륨 — 발등 압박이 적은 편");
+    reasons.push("발등이 덜 눌리는 편이에요");
   }
 
   // ── 4. 체중 × 쿠셔닝 — 2026-10-06 삭제 ─────────────────────
@@ -238,7 +238,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   const [dMin, dMax] = idealDropRange(profile.heightCm);
   if (shoe.heelDropMm >= dMin && shoe.heelDropMm <= dMax) {
     score += 10;
-    reasons.push(`키 ${profile.heightCm}cm 기준 드롭 ${shoe.heelDropMm}mm(사이트 기준 — 근거 논문 없음)`);
+    reasons.push(`키에 맞춘 앞뒤 굽 차이 ${shoe.heelDropMm}mm(사이트 기준)`);
   } else if (Math.abs(shoe.heelDropMm - (dMin + dMax) / 2) <= 3) {
     score += 5;
   }
@@ -247,7 +247,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   let useOk = true;
   if (profile.use) {
     useOk = shoe.uses.includes(profile.use);
-    if (useOk) { score += 15; reasons.push("선택 용도에 맞음"); }
+    if (useOk) { score += 15; reasons.push("고른 용도에 맞아요"); }
     else score -= 5;
   } else {
     score += 6;
@@ -265,18 +265,18 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     // 실무적 이유이고, 그 이유를 그대로 사용자에게 말한다.
     // (레이싱화지만 카본 없는 모델 — 예: Endorphin Speed — 은 패널티 없음)
     // 2026-10-06: 「밑창이 얇고」는 사실과 반대(카본화 스택 27–42mm). 「부상 위험」도 근거 없음 — 실무 이유만.
-    if (shoe.hasCarbon === true) { score -= 12; reasons.push("초심자에겐 카본 레이싱화 감점(사이트 기준) — 밑창이 높고 단단해 안정감이 덜하고, 수명이 짧고 비쌉니다. 데일리화부터"); }
-    if (shoe.cushioning >= 3 && shoe.uses.includes("daily")) { score += 4; reasons.push("초심자에게 충분한 쿠션의 데일리화"); }
+    if (shoe.hasCarbon === true) { score -= 12; reasons.push("카본 대회화라 처음 신기엔 덜 안정적이고 비싸서 뒤로 뺐어요(사이트 기준)"); }
+    if (shoe.cushioning >= 3 && shoe.uses.includes("daily")) { score += 4; reasons.push("처음 신기 좋은 쿠션 있는 일상화예요"); }
   } else if (profile.level === "advanced") {
     if (shoe.uses.includes("tempo") || shoe.uses.includes("racing")) { score += 3; }
   }
 
   // ── 8. 주 평균 거리 (PRD F-01) ────────────────────────────
   if (profile.distance === "long") {
-    if (shoe.cushioning >= 4 || shoe.uses.includes("long")) { score += 6; reasons.push("장거리에 맞는 쿠션·내구 설계"); }
-    if (shoe.cushioning <= 2) { score -= 6; reasons.push("쿠션이 얇아 장거리용으로는 감점(사이트 기준)"); }
+    if (shoe.cushioning >= 4 || shoe.uses.includes("long")) { score += 6; reasons.push("오래 달려도 버티는 쿠션이에요"); }
+    if (shoe.cushioning <= 2) { score -= 6; reasons.push("쿠션이 얇아 장거리엔 덜 맞아요(사이트 기준)"); }
   } else if (profile.distance === "short") {
-    if (shoe.weightGramsM9 <= 250) { score += 3; reasons.push("단거리에 경쾌한 경량"); }
+    if (shoe.weightGramsM9 <= 250) { score += 3; reasons.push("가벼워서 짧게 뛰기 좋아요"); }
   }
 
   // ── 9. 부상 이력 (PRD F-01 수용기준) ──────────────────────
@@ -290,11 +290,11 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     } else if (inj === "achilles") {
       // 2026-10-06: 가점은 유지(결정 보류), 문구만 정직하게. 드롭이 아킬레스 부담을 줄인다는 출처를
       // 저장소에서 찾지 못했다(flat-feet 주석). 아킬레스 가이드도 「몇 mm라고 말하지 않겠다」는 입장.
-      if (shoe.heelDropMm >= 8) { score += 6; reasons.push(`아킬레스 이력 — 드롭 ${shoe.heelDropMm}mm 우선(사이트 기준, 드롭이 부담을 줄인다는 근거는 확인 못 함)`); }
-      else if (shoe.heelDropMm <= 4) { score -= 6; reasons.push("아킬레스 이력 — 드롭 4mm 이하 감점(사이트 기준)"); }
+      if (shoe.heelDropMm >= 8) { score += 6; reasons.push(`아킬레스를 다친 적이 있어 뒤꿈치가 높은 신발(굽 차이 ${shoe.heelDropMm}mm)을 앞에 뒀어요(사이트 기준)`); }
+      else if (shoe.heelDropMm <= 4) { score -= 6; reasons.push("아킬레스를 다친 적이 있어 뒤꿈치가 낮은 신발은 뒤로 뺐어요(사이트 기준)"); }
     } else if (inj === "plantar") {
       // 2026-10-06: 문구만 정직하게. 족저근막 가이드 결론은 「쿠셔닝·드롭에 좋은 근거 없음」.
-      if (shoe.cushioning >= 4) { score += 5; reasons.push("족저근막 이력 — 쿠션 4 이상 우선(사이트 기준, 쿠션이 회복을 돕는다는 근거는 확인 못 함)"); }
+      if (shoe.cushioning >= 4) { score += 5; reasons.push("발바닥을 다친 적이 있어 쿠션 많은 신발을 앞에 뒀어요(사이트 기준)"); }
       if (shoe.stability !== "neutral") { score += 2; }
     } else if (inj === "ankle") {
       // 2026-08-31 축소(4 → 2). 같은 축의 중복 누적.
@@ -306,7 +306,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 여기서는 예산 내 모델에 소폭 가점만 (초과 모델은 이미 후보에서 제외됨)
   if (profile.budgetKrw && profile.budgetKrw > 0 && shoe.priceKrw <= profile.budgetKrw) {
     score += 5;
-    reasons.push(`예산(${profile.budgetKrw.toLocaleString()}원) 이내`);
+    reasons.push(`예산 ${profile.budgetKrw.toLocaleString()}원 안이에요`);
   }
 
   return {
@@ -349,7 +349,7 @@ export function getCadenceRange(heightCm: number): [number, number] {
 
 /**
  * 공개 동점 규칙 (2026-10-06) — 잘리기 전 점수 → 정가 낮은 순 → id 순.
- * 화면(evidenceNote)에도 같은 규칙을 적는다. 바꾸면 거기도 바꿀 것.
+ * 약관 3항에 같은 규칙을 적는다(2026-11-10 화면 문구에서는 뺐다). 바꾸면 약관도 바꿀 것.
  */
 function byRank(a: Scored, b: Scored): number {
   return b.rawScore - a.rawScore || a.shoe.priceKrw - b.shoe.priceKrw || a.shoe.id.localeCompare(b.shoe.id);
@@ -363,7 +363,7 @@ function byRank(a: Scored, b: Scored): number {
  *     근거 수준(회내 발 RCT 1건, 자가보고 ≠ FPI)에 비해 너무 세다 → **평발이면 안정화 최대 2 + 중립 1.**
  *  ② 1·2위 동점이 80% — 정가 낮은 순만 쓰면 같은 브랜드 싼 모델이 줄줄이 차지한다
  *     → **상위 N개는 브랜드가 겹치지 않게**(후보가 모자라면 그때만 겹침 허용).
- * 화면(evidenceNote)과 약관 3항에 같은 규칙을 적는다. 바꾸면 거기도 바꿀 것.
+ * 약관 3항에 같은 규칙을 적는다(2026-11-10 화면 문구에서는 뺐다). 바꾸면 거기도 바꿀 것.
  */
 function pickTop(sorted: Scored[], profile: RunnerProfile, limit: number): Scored[] {
   const isNeutral = (x: Scored) => x.shoe.stability === "neutral";
@@ -430,16 +430,15 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
     return {
       primary: overBudget,
       usedFallback: true,
-      fallbackNote: `${budget.toLocaleString()}원 이하 모델이 현재 추천 목록에 없어요. 가장 저렴한 모델이 약 ${cheapest.toLocaleString()}원이라, 예산을 조금 올리거나 아래 근접 가격대를 참고하세요.`,
+      fallbackNote: `${budget.toLocaleString()}원 이하 신발은 아직 없어요. 가장 싼 신발이 약 ${cheapest.toLocaleString()}원이라 그 근처 가격으로 보여 드려요.`,
       profileComment, evidenceNote, bodyType, cadenceSpm,
     };
   }
 
   const note = pool.length === 1
-    ? "조건에 딱 맞는 모델이 1개뿐이라 조건을 완화해 추가 제안합니다."
-    : profile.use
-    ? `'${profile.use}' 용도 + 발볼 조건을 동시에 만족하는 모델이 ${budget ? "예산 내에 " : ""}없어 완화했습니다.`
-    : "조건을 모두 만족하는 모델이 없어 가장 근접한 순으로 제시합니다.";
+    ? "조건에 꼭 맞는 신발이 1켤레뿐이라 비슷한 신발을 더 보여 드려요."
+    // 2026-11-10: 영문 값('daily')이 화면에 그대로 나오던 문구를 고쳤다
+    : `고른 용도와 발볼${budget ? ", 예산" : ""}에 모두 맞는 신발이 없어서 가장 가까운 순으로 보여 드려요.`;
 
   // 폴백도 예산은 지킴(가능할 때) — scored(예산 적용)에서 우선
   const fallback = pickTop(scored.sort(byRank), profile, limit)
@@ -453,44 +452,29 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
  * 전문용어(Q앵글·과회내·드롭·라스트)는 괄호로 풀어서 설명.
  */
 function buildProfileComment(profile: RunnerProfile): string {
-  // 2026-10-06: 체중별 쿠션 문구(「푹신한 쪽이 무릎·발목에 편해요」 등)를 근거에 맞게 바꿨다 — 맨 위 v4 설명.
-  const weightNote =
-    "체중은 순위에 넣지 않았어요. 848명을 6개월 추적한 연구(Malisoux 2020)에서 딱딱한 신발은 체중과 상관없이 부상 위험이 높았고, 무거운 러너라고 두꺼운 쿠션의 추가 이득이 확인되지는 않았어요. 쿠션은 신어 보고 편한 쪽으로 고르면 돼요.";
-
-  const heightNote =
-    profile.heightCm <= 163 ? "키 기준으로 앞뒤 굽 차이(드롭)가 작은 신발에 점수를 조금 더 줬어요 — 근거 논문이 없는 사이트 기준이에요." :
-    profile.heightCm >= 178 ? "키 기준으로 뒤꿈치가 조금 높은(드롭이 큰) 신발에 점수를 조금 더 줬어요 — 근거 논문이 없는 사이트 기준이에요." : "";
-
-  const genderNote = profile.gender === "female"
-    ? "여성 발은 남성 발의 축소판이 아니라는 연구(Wunderlich 2001)가 있어 여성 전용 라스트에 점수를 더 줬어요. 성별로 안정화·중립 신발을 나누지는 않았어요 — 그렇게 할 근거가 확인되지 않아서요."
-    : profile.gender === "male"
-    ? "성별로 안정화·중립 신발을 나누지는 않았어요 — 그렇게 할 근거가 확인되지 않아서요."
-    : "";
-
-  const widthNote = profile.footWidth !== "narrow"
-    ? "발볼을 보통·넓음으로 고르셔서 앞쪽이 넉넉한 신발에 점수를 더 줬어요."
-    : "";
-
+  // 2026-11-10 운영자 「왜 이렇게 길어, 고객이 이해만 되게」: 연구 이름·수치·「반영 안 한 것」 설명을 뺐다.
+  //   남긴 것은 **이 사람의 결과를 바꾼 것**만, 한 줄씩. 근거가 약한 것은 「사이트 기준」 한 마디로 표시한다(신뢰 규칙).
+  //   예전 문구(체중 미반영의 근거 Malisoux 2020, 성별 근거 Wunderlich 2001)는 맨 위 v4 설명에 남아 있다.
+  const lines: string[] = [];
+  if (profile.footWidth === "wide") lines.push("발볼이 넓어서 앞쪽이 넉넉한 신발을 먼저 골랐어요.");
+  if (profile.footType === "flat") lines.push("평발이라 안정화를 넣었지만, 근거가 약해서 1켤레는 일반 신발로 골랐어요.");
+  if (profile.gender === "female") lines.push("여성 발에 맞춰 만든 신발에 점수를 더 줬어요.");
+  if (profile.heightCm <= 163 || profile.heightCm >= 178) lines.push("키에 맞춰 앞뒤 굽 차이를 조금 반영했어요(사이트 기준).");
+  if (profile.level === "beginner") lines.push("처음 시작하는 단계라 카본 대회화는 뒤로 뺐어요.");
   const injuries = (profile.injuryHistory ?? []).filter((i) => i !== "none");
-  const injuryNote = injuries.length
-    ? `예전에 다친 부위(${injuries.map((i) => INJURY_LABEL[i]).join("·")})를 사이트 기준으로 반영했어요. 신발로 부상이 낫는다는 근거는 약해요 — 아프면 병원부터 가보세요.`
-    : "";
-
-  const flatNote = profile.footType === "flat"
-    ? "평발을 고르셔서 안정화 신발에 점수를 더 줬지만, 근거가 연구 1건이고 스스로 느끼는 평발과 연구의 측정 기준이 달라 3개 중 1개는 중립 신발로 채웠어요."
-    : "";
-
-  const levelNote = profile.level === "beginner"
-    ? "이제 막 시작한 단계라 카본 레이싱화는 안정감·수명·가격 때문에 점수를 낮췄어요."
-    : "";
-
-  return [weightNote, flatNote, heightNote, genderNote, widthNote, levelNote, injuryNote].filter(Boolean).join(" ");
+  if (injuries.length) {
+    const EASY: Record<string, string> = { knee: "무릎", ankle: "발목", achilles: "종아리·뒤꿈치 위", plantar: "발바닥" };
+    lines.push(`다친 적 있는 곳(${injuries.map((i) => EASY[i] ?? INJURY_LABEL[i]).join("·")})을 고려했어요. 지금 아프면 병원부터 가 보세요.`);
+  }
+  return lines.join(" ");
 }
 
 /** 결과 하단 안내 — 학술 인용 대신 편안한 참고용 한 줄(부담↓·중립성 유지) */
 function buildEvidenceNote(profile: RunnerProfile): string {
   void profile;
-  return "이 추천은 입력한 정보로 계산한 참고 가이드예요. 근거가 있는 항목과 사이트 기준인 항목이 섞여 있어서, 각 이유 옆에 어느 쪽인지 적었어요. 마음에 드는 후보를 신어보고 가장 편한 걸 고르면 돼요. 적합도는 100에서 잘라 보여 주고, 같은 점수면 정가 낮은 순으로 줄 세운 뒤 3개는 브랜드가 겹치지 않게 골랐어요. 제휴 링크 여부는 점수에 들어가지 않아요.";
+  // 2026-11-10: 점수 자르기·동점·브랜드 규칙과 제휴 문구를 뺐다(운영자 「쓸데없는 말」). 규칙은 약관 3항과 이 파일 주석에 그대로 있다.
+  //   쿠팡 파트너스 고지는 링크가 있는 화면의 AffiliateNotice 가 따로 한다 — 법적 표시라 지우지 않는다.
+  return "신어 보고 가장 편한 걸 고르세요.";
 }
 
 /**

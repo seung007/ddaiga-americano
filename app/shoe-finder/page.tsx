@@ -3,7 +3,7 @@
 import ShoeSideProfile from "@/components/ShoeSideProfile";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { History, Search, TriangleAlert, Scale, Store, ShoppingCart } from "lucide-react";
+import { History, Search, TriangleAlert, Store, ShoppingCart } from "lucide-react";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import ChipRow, { Why } from "@/components/finder/ChipRow";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
@@ -760,33 +760,14 @@ export default function ShoeFinderPage() {
               <h3 className="text-sm font-bold text-blue-900">내 분석 결과</h3>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 mb-2.5">
-              <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                내 체형 · {BODY_TYPE_LABEL[result.bodyType]}
-              </span>
-              <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                체중 · 순위에 반영 안 함
-              </span>
-              <span className="text-xs font-semibold text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-full">
-                참고 케이던스 · {result.cadenceSpm[0]}~{result.cadenceSpm[1]} spm
-              </span>
-            </div>
-
-            <p className="text-xs text-blue-600/80 leading-relaxed mb-2.5">
-              {/* 2026-10-06: 「키 기준 X~Y걸음 리듬이 무릎 충격을 줄여줘요」 → 키별 값은 사이트 기준(cadence 가이드가 밝힘).
-                  연구(Heiderscheit 2011)는 지금보다 5~10% 올렸을 때를 봤다. */}
-              케이던스 = 1분에 내딛는 걸음 수. 키 {heightCm}cm 기준 {result.cadenceSpm[0]}~{result.cadenceSpm[1]}걸음은 사이트 참고값이에요. 연구는 키별 값이 아니라 지금보다 5~10% 올렸을 때 무릎 부하가 줄었다는 결과예요(Heiderscheit 2011).{" "}
-              <a href="/injury/cadence" className="underline hover:text-blue-800">케이던스 맞추는 법 →</a>
-            </p>
-
+            {/* 2026-11-10 운영자 「왜 이렇게 길어」: 체형·「체중 반영 안 함」·케이던스 칩과 케이던스 설명 문단을 뺐다.
+                고른 조건으로 결과가 왜 이렇게 나왔는지 한두 줄만 남긴다(recommend.ts buildProfileComment). 케이던스는 가이드 글에 있다 */}
             {result.profileComment && (
-              <p className="text-base text-blue-900 leading-relaxed">{result.profileComment}</p>
+              <p className="text-base leading-relaxed text-blue-900">{result.profileComment}</p>
             )}
 
             {result.evidenceNote && (
-              <p className="mt-2.5 pt-2.5 border-t border-blue-200/70 text-xs text-blue-500 leading-relaxed">
-                {result.evidenceNote}
-              </p>
+              <p className="mt-2 text-sm text-blue-800">{result.evidenceNote}</p>
             )}
           </div>
 
@@ -800,7 +781,7 @@ export default function ShoeFinderPage() {
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
-              <p className="text-xs text-gray-400 mt-0.5">수십 개 중 딱 {result.primary.length}개만 골랐어요 — 발볼·용도 조건을 통과한 결과예요.</p>
+              <p className="text-xs text-gray-400 mt-0.5">발볼과 용도에 맞는 신발 중 {result.primary.length}켤레를 골랐어요.</p>
             </div>
             <div className="flex shrink-0 gap-1 self-start rounded-lg border border-gray-200 bg-gray-50 p-1">
               {([
@@ -817,14 +798,7 @@ export default function ShoeFinderPage() {
             </div>
           </div>
 
-          {sortedPrimary.length >= 2 && compareIds.length === 0 && (
-            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 mb-4">
-              <Scale size={18} strokeWidth={1.5} aria-hidden className="shrink-0 text-emerald-600" />
-              <p className="text-sm text-emerald-700">
-                각 카드 오른쪽 위 <strong>「비교」</strong> 버튼을 눌러 두 신발을 나란히 비교할 수 있어요.
-              </p>
-            </div>
-          )}
+          {/* 2026-11-10: 「비교 버튼을 누르면…」 안내 상자를 뺐다 — 카드마다 「비교」 버튼이 보여서 설명이 따로 필요 없다(운영자 「투머치」) */}
 
           <ul className="flex flex-col gap-4">
             {sortedPrimary.map((rec, i) => (
@@ -841,11 +815,10 @@ export default function ShoeFinderPage() {
               하단 ※문단에 「직접 신어보고」가 있지만 작고 맨 끝이라, 사기 직전에 보이게 목록 바로 아래에 둔다.
               드롭 문장은 /injury/achilles #drop 이 말하는 만큼만 — 그 글은 「흔히 이야기된다」이고 인용 연구는 드롭 연구가 아니다. */}
           <ul className="mt-5 space-y-1.5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
-            <li>· 착용감·사이즈는 화면으로 알 수 없습니다. 같은 브랜드도 모델마다 다르니 매장에서 신어 보고 고르세요.</li>
+            <li>· 사이즈와 착용감은 화면으로 알 수 없어요. 매장에서 신어 보고 고르세요.</li>
             <li>
-              · 지금 신는 신발과 드롭(뒤꿈치–앞발 높이 차) 차이가 크면 한 번에 바꾸지 말고 천천히 옮겨 가세요. 드롭이 낮아지면
-              아킬레스건·종아리가 더 일한다고 흔히 이야기됩니다(저희가 확인한 근거는 아닙니다).{" "}
-              <a href="/injury/achilles#drop" className="font-medium underline">아킬레스 글 →</a>
+              · 지금 신발보다 뒤꿈치가 많이 낮은 신발로 바꾼다면 천천히 옮겨 가라고 흔히 권해요(확인된 근거는 아니에요).{" "}
+              <a href="/injury/achilles#drop" className="font-medium underline">이유 보기</a>
             </li>
           </ul>
 
@@ -935,9 +908,10 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               {[
                 `쿠션 ${CUSH_DOTS[shoe.cushioning]}`,
                 STABILITY_LABEL[shoe.stability],
-                `드롭 ${shoe.heelDropMm}mm`,
+                `굽 차이 ${shoe.heelDropMm}mm`,
                 `${shoe.weightGramsM9}g`,
-                `폭 ${shoe.widthOptions.join("·")}`,
+                // 2026-11-10: B·D·2E 기호 대신 홈과 같은 말(좁게·보통·넓게)
+                `발볼 ${shoe.widthOptions.map(w => ({ B: "좁게", D: "보통", "2E": "넓게", "4E": "아주 넓게" } as Record<string, string>)[w] ?? w).join("·")}`,
                 shoe.uses.map(u => USE_LABEL[u]).join("·"),
               ].map((t, i) => <Tag key={i}>{t}</Tag>)}
             </div>
@@ -992,9 +966,12 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                   {inCompare ? "✓ 비교 중" : "비교 추가"}
                 </button>
               </div>
-              <p className="text-xs text-gray-400 mt-1.5">
-                공식몰 접속 후 위 모델명을 검색창에 붙여넣으세요.
-              </p>
+              {/* 2026-11-10: 공식몰 상품 페이지로 바로 가는 신발(수집기 확인)에는 이 안내가 필요 없다 */}
+              {!resolveBuyLinks(shoe.id, shoe.buyLinks).some(l => l.isProductPage) && (
+                <p className="text-xs text-gray-500 mt-1.5">
+                  공식몰에서 안 보이면 위 모델명을 복사해 검색창에 붙여 넣으세요.
+                </p>
+              )}
             </div>
           </div>
         </div>

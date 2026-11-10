@@ -1,3 +1,4 @@
+import { officialOf } from "./official";
 /**
  * 제휴(어필리에이트) 링크 — 여기 한 곳에만 넣는다.
  *
@@ -184,13 +185,31 @@ export function pickTwoBuyLinks<
   return picked;
 }
 
+/**
+ * 2026-11-10 운영자 「공식몰 링크가 없거나 안 열린다」.
+ *   data.ts 의 공식몰 링크는 대부분 사람이 만든 **검색 주소**였다(아식스 search_text=GT-2000 등) — 검색 결과가 비거나
+ *   엉뚱한 모델이 나오면 「안 열린다」로 보인다. 한편 수집기(official.json)는 아식스·써코니·브룩스·미즈노의
+ *   **상품 페이지 주소**를 매일 읽고, 서로 다른 날 2번 같은 값이 나올 때만 반영한다. 그 주소가 있으면 그쪽을 쓴다.
+ *   공식몰 목록에서 빠진(listed=false) 신발은 바꾸지 않는다. data.ts 는 그대로 둔다(사람 원장).
+ */
+const BRAND_KO: Record<string, string> = { Asics: "아식스", Saucony: "써코니", Brooks: "브룩스", Mizuno: "미즈노" };
+
 export function resolveBuyLinks<T extends { label: string; url: string; isOfficial: boolean }>(
   shoeId: string,
   links: readonly T[]
-): Array<T & { isAffiliate?: boolean }> {
+): Array<T & { isAffiliate?: boolean; isProductPage?: boolean }> {
+  const off = officialOf(shoeId);
+  const product = off?.listed && off.url ? off.url : null;
+  let out: Array<T & { isAffiliate?: boolean; isProductPage?: boolean }> = links.map((l) =>
+    product && l.isOfficial ? { ...l, url: product, isProductPage: true } : { ...l }
+  );
+  if (product && !links.some((l) => l.isOfficial)) {
+    const label = `${BRAND_KO[off!.brand] ?? off!.brand} 공식몰`;
+    out = [{ label, url: product, isOfficial: true, isProductPage: true } as T & { isProductPage: boolean }, ...out];
+  }
   const partner = affiliateFor(shoeId);
-  if (!partner) return links as Array<T & { isAffiliate?: boolean }>;
-  return links.map((l) =>
+  if (!partner) return out;
+  return out.map((l) =>
     l.url.includes("coupang.com") ? { ...l, url: partner, isAffiliate: true } : l
   );
 }
