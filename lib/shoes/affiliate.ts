@@ -188,11 +188,14 @@ export function pickTwoBuyLinks<
 /**
  * 2026-11-10 운영자 「공식몰 링크가 없거나 안 열린다」.
  *   data.ts 의 공식몰 링크는 대부분 사람이 만든 **검색 주소**였다(아식스 search_text=GT-2000 등) — 검색 결과가 비거나
- *   엉뚱한 모델이 나오면 「안 열린다」로 보인다. 한편 수집기(official.json)는 아식스·써코니·브룩스·미즈노의
+ *   엉뚱한 모델이 나오면 「안 열린다」로 보인다. 한편 수집기(official.json)는 공식몰 9곳(2026-11-10 뉴발란스·온·아디다스·푸마·나이키 추가)의
  *   **상품 페이지 주소**를 매일 읽고, 서로 다른 날 2번 같은 값이 나올 때만 반영한다. 그 주소가 있으면 그쪽을 쓴다.
  *   공식몰 목록에서 빠진(listed=false) 신발은 바꾸지 않는다. data.ts 는 그대로 둔다(사람 원장).
  */
-const BRAND_KO: Record<string, string> = { Asics: "아식스", Saucony: "써코니", Brooks: "브룩스", Mizuno: "미즈노" };
+const BRAND_KO: Record<string, string> = {
+  Asics: "아식스", Saucony: "써코니", Brooks: "브룩스", Mizuno: "미즈노",
+  "New Balance": "뉴발란스", On: "온", Adidas: "아디다스", Puma: "푸마", Nike: "나이키",
+};
 
 /**
  * 지금 열리지 않는 공식몰 (2026-11-10 크롬 확인: www.brooksrunning.co.kr 이 오류 페이지만 띄움, 운영자도 같은 판단).

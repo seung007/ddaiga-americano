@@ -11,7 +11,7 @@
  *  ③ checkedAt 형식 오류·미래 날짜
  *  ④ listed 가 true/false 가 아님. listed=true 인데 priceKrw 없음
  *  ⑤ priceKrw 가 정수가 아니거나 1만~200만 원 밖 — 자릿수 오류 방지
- *  ⑥ url 이 https 가 아니거나 네 공식몰 밖 주소
+ *  ⑥ url 이 https 가 아니거나 수집기가 읽는 공식몰 밖 주소 (2026-11-10 뉴발란스·온·아디다스·푸마·나이키 추가 — 파이프라인 sources.py 와 같은 목록)
  *  ⑦ brand 가 data.ts 의 그 신발 brand 와 다름
  *  ⑧ 알 수 없는 필드
  */
@@ -19,7 +19,10 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const HOSTS = new Set(["www.asics.co.kr", "saucony.co.kr", "www.brooksrunning.co.kr", "kor.mizuno.com"]);
+const HOSTS = new Set([
+  "www.asics.co.kr", "saucony.co.kr", "www.brooksrunning.co.kr", "kor.mizuno.com",
+  "www.nbkorea.com", "www.on.com", "www.adidas.co.kr", "kr.puma.com", "www.nike.com",
+]);
 const FIELDS = new Set(["brand", "priceKrw", "listed", "url", "widths", "newerModel", "checkedAt", "checkedBy"]);
 
 const official = JSON.parse(await readFile(path.join(ROOT, "lib/shoes/official.json"), "utf8"));
