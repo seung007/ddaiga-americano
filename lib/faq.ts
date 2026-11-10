@@ -74,6 +74,29 @@ export function raceFaq(r: Race): FaqItem[] {
     });
   }
 
+  // 2026-11-10 네이버 검색어 「2027 동아마라톤 추가접수·취소 기간」「MBN 서울마라톤」 — 값이 있는 대회만(lib/races.ts 필드 주석)
+  if (r.soldOut) {
+    items.push({
+      q: `${name}, 지금 신청할 수 있나요?`,
+      a: `${josa(r.soldOut.what ?? "참가권", "이", "가")} ${withWeekday(r.soldOut.on)}에 매진됐다고 대회 측이 공지했습니다.${r.extraRegistration ? ` 추가 접수는 ${r.extraRegistration}입니다.` : " 추가 접수 공지는 확인한 자료가 없습니다."}`,
+    });
+  }
+  if (r.extraRegistration && !r.soldOut) {
+    items.push({
+      q: `${name} 추가 접수가 있나요?`,
+      a: currentStatus(r) === "마감"
+        ? `대회 측 공지 기준으로 추가 접수(${r.extraRegistration})가 있었고, 지금은 접수가 모두 끝났습니다.`
+        : `대회 측 공지 기준으로 추가 접수는 ${r.extraRegistration}입니다.`,
+    });
+  }
+  if (r.refundDeadline) {
+    const [day, time] = r.refundDeadline.split(" ");
+    items.push({
+      q: `${name} 취소·환불은 언제까지 되나요?`,
+      a: `대회 측 공지 기준으로 ${withWeekday(day)}${time ? ` ${time}` : ""}까지입니다. 환불 금액·방법은 대회 측 공지를 확인하세요.`,
+    });
+  }
+
   const link = raceLink(r);
   if (link) {
     const host = (() => {
@@ -92,9 +115,10 @@ export function raceFaq(r: Race): FaqItem[] {
     }
   }
 
+  // 2026-11-10 운영자: 다른 사이트를 알리지 않는다 — 출처의 종류는 밝히되 사이트 이름은 쓰지 않는다
   const by =
     r.checkedBy === "수집기"
-      ? "자동 수집기가 대회 정보 모음 사이트(KorMarathon)의 공개 페이지를 서로 다른 날 두 번 읽어 같은 값일 때 반영했습니다"
+      ? "자동 수집기가 공개된 대회 일정 자료를 서로 다른 날 두 번 읽어 같은 값일 때 반영했습니다"
       : "운영자가 출처 페이지를 직접 열어 확인했습니다";
   items.push({
     q: "이 대회 정보는 언제, 누가 확인했나요?",
