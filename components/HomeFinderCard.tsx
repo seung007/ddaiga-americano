@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { gtagEvent } from "@/lib/gtag";
-import { shoePlaceholder } from "@/lib/shoes/placeholder";
 
 /**
  * 홈 첫 화면 — 추천기 입구 (2026-11-05 「H01 수정안」 → 2026-11-10 디자인 A안)
@@ -22,6 +21,8 @@ export type FinderShoe = {
   brand: string;
   model: string;
   imageUrl: string;
+  /** 공식몰 옆모습 제품 사진(배경 지움, public/shoes/photo/) — 없으면 undefined. 출처는 lib/shoes/photos.json */
+  photo?: { src: string; w: number; h: number };
   uses: string[];
   widthOptions: string[];
   /** 공식몰 자동 확인 정가 — 없으면 undefined */
@@ -35,15 +36,17 @@ type UseKey = "daily" | "long" | "racing";
 /**
  * 2026-11-10 운영자: 「발볼은 추천기 안에서 고르니 첫 화면에선 빼자」 → 디자인 캔버스 A안.
  * 첫 화면은 용도 타일 세 개뿐이고, 타일을 누르면 그 용도를 들고 바로 추천기로 간다(누르는 횟수 한 번).
- * 타일 그림: public/shoes/cutout/ — 2026-11-04 디자인 시안 작업 때 브랜드 공식몰 제품 사진(흰 배경)에서 배경을 지운 것.
- *   ⚠️ 원본 이미지 주소를 그때 기록하지 않았다. 사진 사용 권리는 아직 정하지 않았다(운영자 확인 대기, 다른 신발 사진과 같은 문제).
+ * 타일 그림: 공식몰 옆모습 제품 사진(public/shoes/photo/, 출처·확인 날짜는 lib/shoes/photos.json). 2026-11-10 교체.
+ *   이전 컷아웃(public/shoes/cutout/)은 원본 주소가 기록되지 않았고 신발 끝이 그림 테두리에서 잘려 연두 바탕에서 세로줄로 보였다 → 지웠다.
+ *   세 브랜드에서 하나씩 고른다(한 브랜드만 크게 보이면 광고처럼 읽힌다). 용도는 원장 uses 에 그 용도가 있는 모델.
+ *   사진 사용 권리는 아직 정하지 않았다(운영자 확인 대기, 다른 신발 사진과 같은 문제).
  * 움직임(globals.css 「홈 용도 타일」): 들어올 때 한 번 300ms, 마우스를 올리거나 키보드로 고르면 회색 → 연두 200ms·신발 8px 올라옴.
  *   마우스 올림은 (hover:hover) and (pointer:fine) 안에서만, 움직임 줄이기면 이동을 빼고 짧은 페이드만 남긴다.
  */
 const USE_TILES: { k: UseKey; label: string; desc: string; img: string; w: number; h: number }[] = [
-  { k: "daily", label: "일상", desc: "평소 조깅", img: "/shoes/cutout/brooks-ghost-18.webp", w: 560, h: 249 },
-  { k: "long", label: "장거리", desc: "하프·풀 준비", img: "/shoes/cutout/mizuno-wave-rider-30.webp", w: 560, h: 282 },
-  { k: "racing", label: "대회용", desc: "기록을 줄일 때", img: "/shoes/cutout/asics-metaspeed-sky-tokyo.webp", w: 560, h: 268 },
+  { k: "daily", label: "일상", desc: "평소 조깅", img: "/shoes/photo/saucony-ride-19.webp", w: 800, h: 410 },
+  { k: "long", label: "장거리", desc: "하프·풀 준비", img: "/shoes/photo/mizuno-wave-rider-30.webp", w: 800, h: 442 },
+  { k: "racing", label: "대회용", desc: "기록을 줄일 때", img: "/shoes/photo/asics-metaspeed-sky-tokyo.webp", w: 594, h: 317 },
 ];
 const USE_BADGE: Record<string, string> = { daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" };
 const WIDTH_WORD: Record<string, string> = { B: "좁게", D: "보통", "2E": "넓게", "4E": "아주 넓게" };
@@ -58,7 +61,18 @@ function Arrow({ size = 16 }: { size?: number }) {
 }
 
 export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; count: number }) {
-  const shown = shoes.slice(0, 4);
+  // 미리 보기: 공식몰 제품 사진이 있는 신발만, 브랜드를 돌아가며 4개 (패턴 15 — 사진 배경·각도를 맞춘다.
+  // 착용 사진은 목록에 넣지 않는다 — 패턴 35, 2026-11-10 운영자 「회색 칸이 두 겹」)
+  const TILE_IDS = new Set(USE_TILES.map((t) => t.img.split("/").pop()!.replace(".webp", "")));
+  const byBrand = new Map<string, FinderShoe[]>();
+  for (const s of shoes) {
+    if (!s.photo || TILE_IDS.has(s.id)) continue;
+    byBrand.set(s.brand, [...(byBrand.get(s.brand) ?? []), s]);
+  }
+  const shown: FinderShoe[] = [];
+  for (let i = 0; shown.length < 4 && [...byBrand.values()].some((l) => l[i]); i++) {
+    for (const l of byBrand.values()) if (l[i] && shown.length < 4) shown.push(l[i]);
+  }
 
   return (
     <>
@@ -140,21 +154,15 @@ export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; 
                   onClick={() => gtagEvent("home_shoe_click", { shoe: s.id, from: "finder_card" })}
                   className="press flex w-[300px] shrink-0 snap-start flex-col gap-1 text-[#111111]"
                 >
-                  <span className="grid h-[300px] place-items-center overflow-hidden rounded-2xl bg-[#F1F3F0]">
+                  <span className="grid h-[300px] place-items-center overflow-hidden rounded-2xl bg-[#F2F2F0] p-6">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={s.imageUrl}
+                      src={s.photo!.src}
                       alt={`${s.brand} ${s.model}`}
-                      width={258}
-                      height={258}
+                      width={s.photo!.w}
+                      height={s.photo!.h}
                       loading="lazy"
-                      referrerPolicy="no-referrer"
-                      className="h-auto w-[258px] object-contain mix-blend-multiply"
-                      onError={(e) => {
-                        const el = e.currentTarget as HTMLImageElement;
-                        el.onerror = null;
-                        el.src = shoePlaceholder(s.brand, 258, 180);
-                      }}
+                      className="h-auto w-full"
                     />
                   </span>
                   {badge && (

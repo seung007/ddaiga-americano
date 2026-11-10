@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 import HomeFinderCard, { type FinderShoe } from "@/components/HomeFinderCard";
 import { officialOf } from "@/lib/shoes/official";
+import { photoOf } from "@/lib/shoes/photos";
 import VERIFIED from "@/lib/shoes/verified.json";
 import { SHOES } from "@/lib/shoes/data";
 import { RECOMMENDABLE_COUNT } from "@/lib/shoes/recommend";
@@ -34,11 +35,13 @@ import { upcomingRaces, daysUntil, distanceLabel, currentStatus, type Race } fro
  */
 const FINDER_SHOES: FinderShoe[] = SHOES.map((s) => {
   const o = officialOf(s.id);
+  const ph = photoOf(s.id);
   return {
     id: s.id,
     brand: s.brand,
     model: s.model,
     imageUrl: s.imageUrl,
+    photo: ph ? { src: `/shoes/photo/${s.id}.webp`, w: ph.w, h: ph.h } : undefined,
     uses: s.uses,
     widthOptions: s.widthOptions,
     priceKrw: s.priceKrw,

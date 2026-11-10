@@ -31,7 +31,7 @@ MAX_W = 800
 PAD = 0.06
 
 
-def clear_white(im: Image.Image, tol: int = 18) -> Image.Image:
+def clear_white(im: Image.Image, tol: int = 4) -> Image.Image:
     """가장자리에서 이어진 흰 바탕만 투명하게 한다."""
     im = im.convert("RGBA")
     w, h = im.size
