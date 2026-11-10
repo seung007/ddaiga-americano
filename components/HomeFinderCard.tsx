@@ -138,8 +138,10 @@ export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; 
             <h2 id="list-h" className="text-xl font-semibold text-[#111111]">
               러닝화 미리 보기
             </h2>
-            <Link href="/shoes" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">
+            {/* 2026-11-10 운영자: 「→ 표시 여기 붙인 거 아니었어?」 — PC 에서는 줄 끝 「전체 보기 →」 카드가 화면 밖이라 안 보인다. 머리 링크에도 붙인다 */}
+            <Link href="/shoes" className="flex min-h-11 items-center gap-1 text-sm font-bold text-[#111111] underline">
               전체 보기
+              <Arrow />
             </Link>
           </div>
 
