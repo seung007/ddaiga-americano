@@ -419,7 +419,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
       {/* 2026-11-10 디자인 점검(패턴 34): 구매가 페이지 맨 아래였다 → 휴대폰은 아래 고정 버튼으로 구매 구역에 바로 간다 */}
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 px-5 py-3 backdrop-blur md:hidden">
         <a href="#buy" className="flex h-12 items-center justify-center rounded-full bg-emerald-600 text-base font-semibold text-white hover:bg-emerald-700">
-          구매처 보기
+          구매처 보기 →
         </a>
       </div>
       </main>

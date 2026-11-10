@@ -388,7 +388,7 @@ export default function HalfMarathonTrainingPage() {
         </Evidence>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury#stage-to-full" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            4단계에서 자주 겪는 문제
+            4단계에서 자주 겪는 문제 →
           </Link>
           <Link href="/injury/intermediate-guide" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">
             중급자 가이드

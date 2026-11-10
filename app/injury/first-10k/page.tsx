@@ -182,8 +182,8 @@ export default function Page() {
           부상 가운데 정강이와 무릎 앞이 많았습니다(부상당한 초보 254명을 본 한 연구). 부위별 대처는 아래 글에 있습니다.
         </P>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증</Link>
-          <Link href="/injury/knee-pain" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">무릎 앞 통증</Link>
+          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증 →</Link>
+          <Link href="/injury/knee-pain" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">무릎 앞 통증 →</Link>
         </div>
         <Evidence n={1}>
           <p>
@@ -358,21 +358,21 @@ export default function Page() {
             href="/injury/beginner-guide"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">초보 러너, 일주일에 몇 번 얼마나 뛰나요?</p>
+            <p className="text-sm font-semibold text-gray-900">초보 러너, 일주일에 몇 번 얼마나 뛰나요? →</p>
             <p className="mt-1 text-sm text-gray-600">준비 기간을 어떻게 짤지 더 자세히.</p>
           </Link>
           <Link
             href="/injury/cooldown"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">달리기 후 정적 스트레칭, 회복이 빨라지나요?</p>
+            <p className="text-sm font-semibold text-gray-900">달리기 후 정적 스트레칭, 회복이 빨라지나요? →</p>
             <p className="mt-1 text-sm text-gray-600">대회 끝나고 바로 앉지 마세요.</p>
           </Link>
           <Link
             href="/races"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">10km 대회 일정 보기</p>
+            <p className="text-sm font-semibold text-gray-900">10km 대회 일정 보기 →</p>
             <p className="mt-1 text-sm text-gray-600">접수 중인 대회를 확인한 날짜와 함께 모았습니다.</p>
           </Link>
         </div>

@@ -311,7 +311,7 @@ export default function HokaVsBrooks() {
                 className="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 text-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50"
               >
                 <span className="text-gray-900">{c.label}</span>
-                <span className="ml-2 shrink-0 text-xs font-semibold text-emerald-600">비교</span>
+                <span className="ml-2 shrink-0 text-xs font-semibold text-emerald-600">비교 →</span>
               </Link>
             </li>
           ))}

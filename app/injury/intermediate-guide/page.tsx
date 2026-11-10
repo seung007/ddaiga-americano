@@ -379,7 +379,7 @@ export default function IntermediateGuidePage() {
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6 text-center">
           <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼과 사이즈가 맞는지는 확인해 보세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            내 발에 맞는 신발 찾기
+            내 발에 맞는 신발 찾기 →
           </Link>
         </div>
 

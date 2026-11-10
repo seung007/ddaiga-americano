@@ -222,7 +222,7 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
                   href={r.href}
                   className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
                 >
-                  <p className="text-sm font-semibold text-gray-900">{r.title}</p>
+                  <p className="text-sm font-semibold text-gray-900">{r.title} →</p>
                   <p className="mt-1 break-keep text-sm text-gray-600">{r.desc}</p>
                 </Link>
               ))}

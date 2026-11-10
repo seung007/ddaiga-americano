@@ -91,7 +91,7 @@ export function Pager({ base, page, pages }: { base: string; page: number; pages
       ))}
       {page < pages && (
         <Link href={href(page + 1)} rel="next" className="flex min-h-11 items-center rounded-lg border border-gray-200 px-3 text-sm text-gray-700 hover:border-emerald-300">
-          다음
+          다음 →
         </Link>
       )}
     </nav>

@@ -126,7 +126,7 @@ export default function InlineAsk({
             href="/shoe-finder"
             className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
           >
-            내 신발 찾기
+            내 신발 찾기 →
           </Link>
           <Link
             href="/community"
@@ -176,7 +176,7 @@ export default function InlineAsk({
             disabled={tooShort || state === "sending"}
             className="shrink-0 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:bg-gray-300"
           >
-            {state === "sending" ? "올리는 중…" : "남기기"}
+            {state === "sending" ? "올리는 중…" : "남기기 →"}
           </button>
         </div>
 

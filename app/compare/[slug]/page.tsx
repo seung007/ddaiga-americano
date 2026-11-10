@@ -446,7 +446,7 @@ export default async function ComparePage({
           href="/shoe-finder"
           className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
         >
-          내 발에 맞는 러닝화 찾기
+          내 발에 맞는 러닝화 찾기 →
         </Link>
       </section>
 
@@ -536,7 +536,7 @@ function NotFound({ message }: { message: string }) {
         href="/shoe-finder"
         className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-emerald-700 transition-colors"
       >
-        내 발에 맞는 신발 찾기
+        내 발에 맞는 신발 찾기 →
       </Link>
     </main>
   );

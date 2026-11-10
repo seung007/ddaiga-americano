@@ -403,7 +403,7 @@ export default function MarathonTrainingPage() {
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury/get-faster" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            기록 단축
+            기록 단축 →
           </Link>
           <Link href="/injury/advanced-guide" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">
             숙련자 가이드

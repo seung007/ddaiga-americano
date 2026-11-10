@@ -85,7 +85,7 @@ export default function PacePage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-12">
+    <main className="w-full min-w-0 max-w-3xl mx-auto px-6 py-12">
       <nav className="mb-6 text-sm text-gray-500">
         <Link href="/" className="hover:text-gray-900">홈</Link>
         <span className="mx-2">/</span>

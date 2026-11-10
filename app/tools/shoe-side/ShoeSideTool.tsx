@@ -109,7 +109,7 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
       <div className="mt-6 flex flex-wrap gap-2 text-sm">
         {shoes.map((s) => (
           <Link key={s.id} href={`/shoes/${s.id}`} className="rounded-lg border border-gray-200 px-3 py-1.5 text-gray-700 hover:border-emerald-300">
-            {s.model} 상세·출처
+            {s.model} 상세·출처 →
           </Link>
         ))}
       </div>
@@ -134,7 +134,7 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
       <div className="mt-8 rounded-2xl bg-emerald-50 p-6">
         <p className="mb-2 font-medium text-emerald-900">어떤 신발을 비교할지 모르겠다면</p>
         <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white hover:bg-emerald-700">
-          나에게 맞는 신발 찾기
+          나에게 맞는 신발 찾기 →
         </Link>
       </div>
     </main>

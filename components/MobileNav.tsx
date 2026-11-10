@@ -42,18 +42,20 @@ import Link from "next/link";
  * 이 저장소는 *"클릭 한 번에서 대부분을 잃는다"* 를 여러 번 기록했다.
  *
  * ⚠️ **항목을 5개로 늘리지 마라.** 375px 에서 4개가 딱 1줄(높이 34px)이다.
- * 「코스」가 빠진 건 의도다 — 하나를 골라야 한다면 대회·게시판이 재방문 축이다.
+ * (예전) 「코스」를 뺐었다 — 2026-11-10 운영자 요청으로 다시 넣었다.
  *
  * ⚠️ **`sticky` 를 붙이지 마라.** 스크롤 내내 따라다니면 모바일 세로를 상시로 먹는다.
  * 헤더(`sticky top-0`)만 따라다니고 이 줄은 위로 흘려보낸다.
  */
 
-/** 헤더 메뉴 5개 중 4개. 순서는 홈 히어로에 있던 것을 그대로 옮겼다 */
+/** 헤더 메뉴와 같은 다섯 개. 순서는 홈 히어로에 있던 것을 그대로 옮겼다 */
 const LINKS: [string, string][] = [
   ["/shoes", "러닝화"],
   ["/races", "대회"],
   ["/injury", "가이드"],
   ["/community", "게시판"],
+  // 2026-11-10 운영자 「코스 페이지가 왜 화면에 없지?」 — 11-04 H01 적용 때 머리글에서 빠지고 바닥글에만 남았다. 다시 넣는다
+  ["/courses", "코스"],
 ];
 
 export default function MobileNav() {
@@ -64,7 +66,7 @@ export default function MobileNav() {
     >
       {/* px-5 는 SiteHeader 로고 왼쪽 여백(pl-5)과 같은 값이다 (좌측 정렬을 맞춘다) */}
       {/* 2026-11-05 디자인 「H01 수정안」: 알약 칩 → 글자 메뉴, 높이 44 · 간격 24 · 16px */}
-      <div className="mx-auto flex h-11 max-w-3xl gap-6 overflow-x-auto px-5">
+      <div className="mx-auto flex h-11 max-w-3xl gap-6 overflow-x-auto px-5 max-[359px]:gap-4">
         {LINKS.map(([href, label]) => (
           <Link
             key={href}

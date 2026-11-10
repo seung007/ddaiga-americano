@@ -605,7 +605,7 @@ export default function Page() {
             href="/tools/pace"
             className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
           >
-            페이스 계산기
+            페이스 계산기 →
           </Link>
         </div>
         <div className="space-y-3">
@@ -851,7 +851,7 @@ export default function Page() {
             체형과 발 조건을 넣으면 맞는 신발을 추려드립니다.
           </p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            나에게 맞는 신발 찾기
+            나에게 맞는 신발 찾기 →
           </Link>
         </div>
         <ShareButtons from="half-marathon-race-day" title="하프마라톤 당일, 페이스와 젤은 어떻게 하나요?" description="하프 대회 날 페이스는 어떻게 잡고 젤과 물은 얼마나 챙길지, 전날 음식과 복장까지 연구로 확인한 것과 직접 경험을 나눠 적었습니다." />

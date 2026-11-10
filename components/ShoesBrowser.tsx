@@ -246,7 +246,7 @@ export default function ShoesBrowser() {
               href="/shoe-finder"
               className="flex h-11 items-center rounded-full bg-emerald-600 px-4 text-sm font-semibold text-white hover:bg-emerald-700"
             >
-              질문에 답하기
+              질문 8개 답하기 →
             </Link>
           </div>
         )}
@@ -321,7 +321,7 @@ export default function ShoesBrowser() {
           href={`/tools/shoe-side?s=${liked.filter((id) => SHOES.some((x) => x.id === id)).slice(-3).join(",")}`}
           className="mt-3 inline-flex rounded-full border border-emerald-300 px-4 text-sm text-emerald-700 hover:bg-emerald-50"
         >
-          찜한 신발 두께 비교
+          찜한 신발 두께 비교 →
         </Link>
       )}
 

@@ -229,7 +229,7 @@ export default function StartRunningPage() {
           href="/tools/run-30"
           className="mt-4 flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-center text-base font-semibold text-white break-keep hover:bg-emerald-700"
         >
-          이 표대로 따라 하기
+          이 표대로 따라 하기 →
         </Link>
 
         <Todo
@@ -309,9 +309,9 @@ export default function StartRunningPage() {
           처음 달리는 사람이 많이 아픈 곳은 정강이와 무릎 앞입니다. 위치별 멈출 신호와 대처는 아래 글에 있습니다.
         </P>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증</Link>
-          <Link href="/injury/knee-pain" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">무릎 앞 통증</Link>
-          <Link href="/injury/plantar-fasciitis" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">발바닥 통증</Link>
+          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증 →</Link>
+          <Link href="/injury/knee-pain" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">무릎 앞 통증 →</Link>
+          <Link href="/injury/plantar-fasciitis" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">발바닥 통증 →</Link>
         </div>
         <Evidence n={3}>
           <p>
@@ -397,7 +397,7 @@ export default function StartRunningPage() {
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury#stage-to10k" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            2단계에서 자주 겪는 문제
+            2단계에서 자주 겪는 문제 →
           </Link>
           <Link href="/injury/first-10k" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">
             생애 첫 10km 대회

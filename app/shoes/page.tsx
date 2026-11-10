@@ -23,7 +23,7 @@ export default function ShoesPage() {
   return (
     <>
       <BreadcrumbJsonLd trail={[["러닝화", "/shoes"]]} />
-      <main className="mx-auto max-w-3xl px-6 py-12 text-gray-800">
+      <main className="mx-auto w-full min-w-0 max-w-3xl px-6 py-12 text-gray-800">
         <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">러닝화</h1>
         {/* 2026-09-17: 설명 문단·링크 3개를 뺐다. 목록과 필터가 첫 화면에 바로 보이게 */}
         <ShoesBrowser />

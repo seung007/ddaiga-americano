@@ -1,12 +1,14 @@
 import Link from "next/link";
 import HeaderFinderLink from "@/components/HeaderFinderLink";
 
-/** 768px 이상 머리글 글자 메뉴. 휴대폰은 MobileNav(같은 넷 + 순서). 코스·도구는 푸터에 있다 */
+/** 768px 이상 머리글 글자 메뉴. 휴대폰은 MobileNav(같은 다섯 + 순서). 도구는 푸터에 있다 */
 const NAV: [string, string][] = [
   ["/shoes", "러닝화"],
   ["/races", "대회"],
   ["/injury", "가이드"],
   ["/community", "게시판"],
+  // 2026-11-10 운영자 「코스 페이지가 왜 화면에 없지?」 — 11-04 H01 적용 때 머리글에서 빠지고 바닥글에만 남았다. 다시 넣는다
+  ["/courses", "코스"],
 ];
 
 export default function SiteHeader() {
