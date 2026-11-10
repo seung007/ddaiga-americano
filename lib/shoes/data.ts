@@ -1,4 +1,5 @@
 import type { Shoe } from "./types";
+import { withAutoNextGen } from "./auto";
 
 /**
  * 러닝화 DB v3 — 2025~2026 모델년 기준 (마지막 실사: 2026-06)
@@ -86,7 +87,8 @@ import type { Shoe } from "./types";
  *   tall_heavy   키178+ / 86kg+
  */
 
-export const SHOES: Shoe[] = [
+/** 사람이 확인해 적은 신발(원장). 자동 추가분은 아래 SHOES 에서 합친다 — lib/shoes/auto.ts */
+export const MANUAL_SHOES: Shoe[] = [
   {
     id: "saucony-kinvara-16",
     brand: "Saucony",
@@ -4045,3 +4047,6 @@ export const SHOES: Shoe[] = [
     ],
   },
 ];
+
+/** 화면·추천이 보는 전체 목록 = 사람 원장 + 공식몰 자동 확인 다음 세대 (2026-11-10, lib/shoes/auto.ts) */
+export const SHOES: Shoe[] = withAutoNextGen(MANUAL_SHOES);

@@ -51,7 +51,7 @@
  *    무작위 대조시험(RCT) 근거는 제한적. 본 로직은 '핏·생체역학 적합도' 보정이며 의료 조언이 아님.
  */
 
-import { SHOES } from "./data";
+import { MANUAL_SHOES, SHOES } from "./data";
 import type {
   BodyType, FootType, FootWidth, Gender, Recommendation,
   RecommendableShoe, RunnerProfile, Shoe, WidthOption,
@@ -67,7 +67,11 @@ import { getBodyType, INJURY_LABEL, isRecommendable, withFootTypes } from "./typ
  * 두 함수가 다른 배열을 쓰면 폼 결과와 목록 정렬이 어긋난다.
  */
 // 2026-11-10: 106종 전부 후보 — footTypes 가 빈 신발은 안정성 구조에서 정한다(types.ts footTypesFromStability 머리말)
-const RECOMMENDABLE: RecommendableShoe[] = SHOES.map(withFootTypes).filter(isRecommendable);
+// 2026-11-10: 공식몰 자동 확인 다음 세대(lib/shoes/auto.ts)도 후보다 — 이전 세대 분류를 물려받는다.
+//   단 추천 엔진 회귀 검사(scripts/check-engine.mjs)는 사람 원장만 본다(ENGINE_MANUAL_ONLY=1). 자동 신발이 들어올 때마다
+//   스냅샷이 바뀌어 수집기 푸시가 막히면 안 되기 때문이다. 화면(브라우저·빌드)에서는 이 값이 없어 전체를 본다
+const POOL = typeof process !== "undefined" && process.env?.ENGINE_MANUAL_ONLY === "1" ? MANUAL_SHOES : SHOES;
+const RECOMMENDABLE: RecommendableShoe[] = POOL.map(withFootTypes).filter(isRecommendable);
 /** 추천 계산에 들어가는 신발 수 — 화면 문구(「러닝화 N종의 스펙 데이터로…」)는 이 값을 쓴다. 손으로 숫자를 적지 않는다 */
 export const RECOMMENDABLE_COUNT = RECOMMENDABLE.length;
 

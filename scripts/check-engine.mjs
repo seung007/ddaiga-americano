@@ -27,6 +27,8 @@ import { createJiti } from "jiti";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const SNAP = process.env.SNAP_PATH || path.join(ROOT, "lib/shoes/engine-snapshot.json");
 const jiti = createJiti(import.meta.url);
+// 2026-11-10: 사람 원장(data.ts)만으로 잰다 — 수집기가 자동 추가하는 신발(lib/shoes/auto.json)이 스냅샷을 흔들지 않게
+process.env.ENGINE_MANUAL_ONLY = "1";
 const { recommendShoes } = await jiti.import(path.join(ROOT, "lib/shoes/recommend.ts"));
 
 const HEIGHTS = [158, 170, 182];

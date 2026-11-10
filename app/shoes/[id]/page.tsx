@@ -217,6 +217,17 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
       </div>
       <article className="mx-auto max-w-5xl px-6 pb-12 [&>*]:max-w-2xl">
 
+        {s.auto && (
+          <p className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
+            공식몰 목록에서 {s.auto.checkedAt} 자동으로 확인한 새 모델이에요. 가격·무게·드롭은 공식몰 값이고,
+            쿠션·안정성·용도·발볼·스택은 이전 세대{" "}
+            <Link href={`/shoes/${s.auto.basedOn}`} className="font-semibold underline underline-offset-2">
+              {s.auto.basedOnModel}
+            </Link>{" "}
+            기준이에요. 이 세대에서 바뀐 점은 아직 따로 확인하지 않았어요.
+          </p>
+        )}
+
         {s.successor && (() => {
           const next = successorOf(s);
           return (
@@ -290,7 +301,9 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           <h2 className="mb-3 text-xl font-bold text-gray-900">스펙</h2>
           <dl className="divide-y divide-gray-100 rounded-2xl border border-gray-200">
             <Row label="무게">
-              {s.weightGramsM9}g (남성 US9){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}
+              {s.auto
+                ? `${s.weightGramsM9}g (공식몰 표기${s.auto.weightBasis ? `, ${s.auto.weightBasis}` : ""})`
+                : <>{s.weightGramsM9}g (남성 US9){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}</>}
               <Position value={s.weightGramsM9} all={SHOES.map((x) => x.weightGramsM9)} unit="g" low="가벼운" high="무거운" />
             </Row>
             <Row label="힐 드롭">
@@ -298,7 +311,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               <Position value={s.heelDropMm} all={SHOES.map((x) => x.heelDropMm)} unit="mm" low="낮은" high="높은" />
             </Row>
             <Row label="스택 높이">
-              {s.stackHeightMm}mm
+              {s.stackHeightMm}mm{s.auto && " (이전 세대 기준)"}
               <Position value={s.stackHeightMm} all={SHOES.map((x) => x.stackHeightMm)} unit="mm" low="얇은" high="두꺼운" />
             </Row>
             <Row label="쿠셔닝">
