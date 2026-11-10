@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   // 네이버 실측(2026-08): "2e 와이드 뜻" 노출 134·CTR 0.7%, "런닝화 와이드 뜻" 노출 18·CTR 5.6%.
   // 둘 다 '뜻'을 찾는 질의인데 이전 제목엔 "2E"도 "뜻"도 없었다.
   // 반면 "발볼 와이드 기준"은 CTR 50% — 제목에 그 단어들이 있었기 때문이다.
-  title: "2E·4E 와이드 뜻과 내 발볼 재는 법 — 러닝화 와이드 규격 총정리 | 뛰다가 아메리카노",
-  description: "2E·4E가 무슨 뜻인지, 내 발볼이 와이드 기준에 해당하는지 재는 법, 브랜드별 폭 옵션까지 정리했습니다.",
+  title: "2E 와이드 뜻, 내 발볼도 넓은 편일까요? | 뛰다가 아메리카노",
+  description: "2E는 넓음, 4E는 매우 넓음을 뜻하는 폭 표시입니다. 내 발볼을 집에서 재는 법과 와이드가 필요한지 확인하는 법을 봅니다.",
   alternates: { canonical: "/injury/wide-foot" },
 };
 
@@ -43,8 +43,8 @@ export default function WideFootPage() {
   return (
     <>
       <ArticleJsonLd
-        headline="발볼 넓은 러너 와이드 규격 총정리"
-        description="2E·4E 규격이 필요한지 판단하는 방법과 발볼 넓은 러너에게 맞는 러닝화를 알려드립니다."
+        headline="2E 와이드 뜻, 내 발볼도 넓은 편일까요?"
+        description="2E는 넓음, 4E는 매우 넓음을 뜻하는 폭 표시입니다. 내 발볼을 집에서 재는 법과 와이드가 필요한지 확인하는 법을 봅니다."
         url={PAGE_URL}
         datePublished="2025-03-01"
       />
@@ -65,12 +65,12 @@ export default function WideFootPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
-          2E·4E 와이드 뜻과<br />내 발볼 재는 법
+          2E 와이드 뜻,<br />내 발볼도 넓은 편일까요?
         </h1>
         <ArticleMeta href="/injury/wide-foot" />
         <Lead>
-          달리고 나서 새끼발가락이 눌리거나 발 바깥쪽에 물집이 생긴다면 발볼 폭이 좁다는 신호일 수 있습니다. 2E·4E가 무슨
-          뜻인지, 내 발볼은 어떻게 재는지 정리했습니다.
+          달리고 나서 새끼발가락이 눌리거나 발 바깥쪽에 물집이 생긴다면 신발 폭이 좁다는 신호일 수 있습니다. 와이드 표시는 길이가
+          아니라 폭을 뜻합니다.
         </Lead>
 
         {/**
@@ -80,8 +80,8 @@ export default function WideFootPage() {
          *   2e 와이드 뜻 255 / 신발 2e 뜻 45 / 신발 와이드 뜻 33 / 런닝화 와이드 뜻 28 /
          *   2e 4e 5 / 발볼 와이드 기준 5 / 발볼 규격 4 / 발볼 와이드 러닝화 3
          *
-         * ⚠️ **제목·description 은 안 건드린다.** 「2e 와이드 뜻」이 9/25 판정 대상이다.
-         * 본문은 CTR 에 안 잡히므로 자유롭다.
+         * 제목: 9/25 판정은 AGENTS.md(2026-09-17)에서 날짜 판정을 폐기하며 사라졌다. 2026-11-10 제목을 질문형으로 바꾸면서
+         * 가장 큰 검색어 「2e 와이드 뜻」(255)은 제목 맨 앞에 그대로 뒀다. 빠진 말은 「4E」와 「재는 법」 — 노출이 줄면 이 둘을 의심한다.
          *
          * 고친 것: 제목이 「내 발볼 재는 법」을 약속하는데 **본문에 재는 법이 없었다.**
          * 있던 건 "밑창 밖으로 삐져나오나", "물집이 생기나" 같은 간접 확인법이다.
@@ -89,21 +89,21 @@ export default function WideFootPage() {
          */}
         <Summary
           items={[
-            <><strong>2E는 &ldquo;넓음&rdquo;, 4E는 &ldquo;매우 넓음&rdquo;</strong>. 아무것도 안 적혀 있으면 D(표준)입니다. 길이가 아니라 <strong>폭</strong> 표시입니다.</>,
-            <><strong>&ldquo;몇 mm부터 와이드&rdquo;라는 절대 기준은 없습니다.</strong> 같은 2E라도 브랜드마다 실제 너비가 달라, 재고 나면 <strong>브랜드 사이즈표와 비교</strong>합니다.<Basis kind="rule" /></>,
-            <>제일 빠른 판정법 — <strong>신발을 벗고 밑창을 보세요.</strong> 밑창 끝보다 발이 옆으로 삐져나와 있으면 폭이 좁은 겁니다.<Basis kind="rule" /></>,
+            <><strong>2E는 &ldquo;넓음&rdquo;, 4E는 &ldquo;매우 넓음&rdquo;</strong>입니다. 아무것도 안 적혀 있으면 D(표준)입니다. 길이가 아니라 <strong>폭</strong> 표시입니다.</>,
+            <><strong>&ldquo;몇 mm부터 와이드&rdquo;라는 절대 기준은 없습니다.</strong> 같은 2E라도 브랜드마다 실제 너비가 다릅니다. 그래서 재고 나면 <strong>브랜드 사이즈표와 비교</strong>합니다.<Basis kind="rule" /></>,
+            <>가장 빨리 확인하려면 <strong>신발을 벗고 밑창을 보세요.</strong> 밑창 끝보다 발이 옆으로 삐져나와 있으면 폭이 좁은 겁니다.<Basis kind="rule" /></>,
           ]}
         />
 
         {/* ── 뜻 ─────────────────────────────────────────── */}
         <h2 id="what" className={H2}>
-          2E·4E는 무슨 뜻인가요
+          2E, 4E는 무슨 뜻인가요?
         </h2>
         <P>
           러닝화는 같은 길이라도 폭이 다른 여러 규격으로 나옵니다. 미국 규격 기준으로 B(좁음) → D(표준) → 2E(넓음) → 4E(매우 넓음)
           순으로 넓어집니다.
         </P>
-        <P>국내에서 팔리는 대부분의 신발은 D 규격(표준)이고, 와이드 버전은 따로 사야 합니다.</P>
+        <P>국내에서 팔리는 대부분의 신발은 D 규격(표준)입니다. 와이드 버전은 따로 사야 합니다.</P>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-base">
             <thead className="bg-gray-50">
@@ -132,26 +132,26 @@ export default function WideFootPage() {
 
         {/* ── 필요한지 ─────────────────────────────────────── */}
         <h2 id="need" className={H2}>
-          나도 와이드가 필요할까
+          발볼 넓은 편이면 와이드를 사야 하나요?
         </h2>
         <P>세 가지로 확인합니다.</P>
         <Todo
           title="확인하는 법"
           basis="rule"
           items={[
-            <><strong>밑창 확인</strong> — 신발을 벗고 바닥을 보세요. 밑창 끝보다 발이 삐져나와 있다면 폭이 좁은 겁니다.</>,
-            <><strong>달린 뒤 체크</strong> — 5km 이상 달린 뒤 발 바깥쪽·새끼발가락 부위에 압박이나 발적이 생긴다면 와이드를 고려해 볼 신호입니다.</>,
-            <><strong>엄지 앞 여유</strong> — 앞코와 엄지 사이에 손가락 하나(1cm)가 들어가는데도 옆이 눌린다면 길이가 아닌 폭 문제입니다.</>,
+            <><strong>밑창을 확인합니다.</strong> 신발을 벗고 바닥을 보세요. 밑창 끝보다 발이 삐져나와 있다면 폭이 좁은 겁니다.</>,
+            <><strong>달린 뒤 발을 봅니다.</strong> 5km 이상 달린 뒤 발 바깥쪽이나 새끼발가락 부위에 압박이나 발적이 생긴다면 와이드를 고려해 볼 신호입니다.</>,
+            <><strong>엄지 앞 여유를 봅니다.</strong> 앞코와 엄지 사이에 손가락 하나(1cm)가 들어가는데도 옆이 눌린다면 길이가 아닌 폭 문제입니다.</>,
           ]}
         />
         <P>
-          폭이나 길이가 맞지 않는 신발을 신는 사람이 연구마다 63~72%였고, 맞지 않는 신발은 <strong>발 통증·티눈·굳은살</strong> 등과 연관돼 있었습니다.
+          맞지 않는 신발은 <strong>발 통증, 티눈, 굳은살</strong> 등과 연관돼 있었습니다. 폭이나 길이가 맞지 않는 신발을 신는 사람은 연구마다 63~72%였습니다.
         </P>
-        <Note>일반인·고령자 등을 대상으로 한 연구 18편 리뷰이고, 러너 대상 연구는 아닙니다.</Note>
+        <Note>일반인과 고령자 등을 대상으로 한 연구 18편 리뷰입니다. 러너 대상 연구는 아닙니다.</Note>
         <Evidence n={1}>
           <p>
-            발 폭이나 길이에 맞지 않는 신발을 신는 사람이 연구마다 63~72%였고, 맞지 않는 신발은 발 통증·작은발가락 변형·티눈·굳은살과
-            연관돼 있었습니다(일반인·고령자 등 대상 연구 18편 리뷰, 러너 대상은 아님).{" "}
+            발 폭이나 길이에 맞지 않는 신발을 신는 사람이 연구마다 63~72%였습니다. 맞지 않는 신발은 발 통증, 작은발가락 변형, 티눈,
+            굳은살과 연관돼 있었습니다(일반인·고령자 등 대상 연구 18편 리뷰, 러너 대상은 아님).{" "}
             <S>(Buldt et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/30065787/" />)</S>
           </p>
         </Evidence>
@@ -164,7 +164,7 @@ export default function WideFootPage() {
         <Note>남성 러너 19명을 본 작은 연구 하나라 단정할 수는 없습니다.</Note>
         <Evidence n={1}>
           <p>
-            남성 러너 19명이 10km를 달린 연구에서는 발 길이가 늘고 볼 둘레는 오히려 줄었는데, 차이는 둘 다 2mm 미만이었습니다.{" "}
+            10km를 달린 뒤 발 길이는 늘고 볼 둘레는 오히려 줄었습니다(남성 러너 19명). 차이는 둘 다 2mm 미만이었습니다.{" "}
             <S>(Mo et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39193231/" />)</S>
           </p>
         </Evidence>
@@ -181,7 +181,7 @@ export default function WideFootPage() {
          * 그래서 **재는 법만 주고 기준은 브랜드 사이즈표로 보낸다.** 그게 실제로도 정답이다.
          */}
         <h2 id="measure" className={H2}>
-          발볼, 집에서 재는 법
+          발볼은 집에서 어떻게 재나요?
         </h2>
         <P>
           종이 한 장과 자만 있으면 됩니다. <strong>저녁에 재는 것</strong>이 흔한 요령입니다.
@@ -191,11 +191,11 @@ export default function WideFootPage() {
         <ol className="mt-4 list-inside list-decimal space-y-2 break-keep text-base leading-[1.8] text-gray-800">
           <li>바닥에 종이를 놓고 그 위에 <strong>서서</strong> 체중을 싣습니다 (신발을 신고 달릴 때처럼 체중을 실은 상태로 잽니다)</li>
           <li>발 윤곽을 연필로 그립니다. 연필은 바닥과 <strong>수직</strong>으로 세웁니다</li>
-          <li>발볼이 가장 넓은 곳 — <strong>엄지발가락 아래 튀어나온 뼈에서 새끼발가락 아래 뼈까지</strong> 가로로 잽니다</li>
+          <li>발볼이 가장 넓은 곳, 곧 <strong>엄지발가락 아래 튀어나온 뼈에서 새끼발가락 아래 뼈까지</strong>를 가로로 잽니다</li>
           <li>양발 다 재서 <strong>더 넓은 쪽</strong>을 씁니다. 좌우가 다를 수 있습니다</li>
         </ol>
         <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3.5 break-keep text-base leading-[1.7] text-amber-900">
-          <strong>잰 숫자를 어디에 쓰나</strong> — 절대 기준은 없습니다. 사려는 브랜드의 사이즈표(보통 &ldquo;Width Guide&rdquo; 또는
+          <strong>잰 숫자는 어디에 쓰나요?</strong> 절대 기준은 없습니다. 사려는 브랜드의 사이즈표(보통 &ldquo;Width Guide&rdquo; 또는
           &ldquo;발 너비&rdquo;)에서 내 발 길이에 해당하는 줄을 찾아 비교하세요. <strong>폭 표기(2E 등)는 브랜드마다 실제 너비가
           다를 수 있습니다</strong>(브랜드별 실측 비교는 저희가 확인하지 못했습니다).
         </div>
@@ -215,20 +215,20 @@ export default function WideFootPage() {
          * 2026-10-08: KCI 논문이라 PubMed 재검증 범위 밖 — 이번에 원문 대조를 못 했다. 내용은 9/15 기록대로 유지.
          * 「나이가 들수록 늘어난다」는 횡단면 비교라 「나이 많은 그룹이 넓었다」로 낮추고 Reeves 2024 를 보탰다.
          */}
-        <h3 className={H3}>나이에 따라 발볼이 다를까</h3>
+        <h3 className={H3}>나이에 따라 발볼이 다른가요?</h3>
         <P>
-          한국인 발 스캔 연구와 스포츠를 하는 영국 여성 발 스캔 연구 모두 <strong>나이 많은 그룹의 발너비가 더 넓었습니다.</strong> 예전 사이즈를 그대로 쓰고
+          <strong>나이 많은 그룹의 발너비가 더 넓었습니다.</strong> 한국인 발 스캔 연구와 스포츠를 하는 영국 여성 발 스캔 연구 모두 그랬습니다. 예전 사이즈를 그대로 쓰고
           있다면 한 번 재 보실 만합니다.
         </P>
-        <Note>둘 다 같은 사람을 추적한 연구는 아닙니다. 또 &ldquo;몇 mm부터 2E&rdquo;를 정하지는 않습니다 — 유형 분류이지 규격 기준이 아닙니다.</Note>
+        <Note>둘 다 같은 사람을 추적한 연구는 아닙니다. 또 &ldquo;몇 mm부터 2E&rdquo;를 정하지는 않습니다. 유형 분류이지 규격 기준이 아닙니다.</Note>
         <Evidence n={1}>
           <p>
-            사이즈코리아 3D 스캔(남 2,000명·여 2,503명)을 분석한 연구에서 남성은 3개, 여성은 4개 유형으로 나뉘었고, 남녀 모두
-            &lsquo;보통 발&rsquo;이 가장 많고 &lsquo;넓고 두꺼운 큰 발&rsquo;이 가장 적었습니다. 그리고 연령대가 높을수록
-            발둘레·발너비가 컸습니다.
+            남성은 3개, 여성은 4개 유형으로 나뉘었습니다(사이즈코리아 3D 스캔, 남 2,000명·여 2,503명). 남녀 모두
+            &lsquo;보통 발&rsquo;이 가장 많고 &lsquo;넓고 두꺼운 큰 발&rsquo;이 가장 적었습니다. 연령대가 높을수록
+            발둘레와 발너비가 컸습니다.
           </p>
           <p>
-            영국에서 스포츠를 하는 여성 374명의 발을 스캔한 연구에서도 18~29세 그룹의 발너비가 더 나이 많은 그룹보다 좁았습니다.{" "}
+            18~29세 그룹의 발너비가 더 나이 많은 그룹보다 좁았습니다(영국에서 스포츠를 하는 여성 374명 발 스캔).{" "}
             <S>(Reeves et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39369693/" />)</S>
           </p>
         </Evidence>
@@ -249,11 +249,11 @@ export default function WideFootPage() {
         <FaqSection items={[
           {
             q: "와이드(2E·4E) 규격이 필요한지 어떻게 판단하나요?",
-            a: "세 가지로 확인합니다. ① 신발 밑창보다 발이 옆으로 삐져나와 있다 ② 5km 이상 달린 뒤 새끼발가락·발 바깥쪽에 압박이나 물집이 생긴다 ③ 앞코 길이는 여유가 있는데 옆이 눌린다 — 길이가 아닌 폭 문제입니다. 「달리면 발이 붓고 퍼진다」는 말은 흔하지만, 남성 러너 19명이 10km를 달린 연구에서는 볼 둘레가 오히려 줄었고 차이는 2mm 미만이었습니다(Mo 2024).",
+            a: "세 가지로 확인합니다. ① 신발 밑창보다 발이 옆으로 삐져나와 있다 ② 5km 이상 달린 뒤 새끼발가락·발 바깥쪽에 압박이나 물집이 생긴다 ③ 앞코 길이는 여유가 있는데 옆이 눌린다. 이때는 길이가 아닌 폭 문제입니다. 「달리면 발이 붓고 퍼진다」는 말은 흔합니다. 하지만 남성 러너 19명이 10km를 달린 뒤 볼 둘레는 오히려 줄었습니다. 차이는 2mm 미만이었습니다(Mo 2024).",
           },
           {
-            q: "러닝화 폭 규격 B·D·2E·4E는 무슨 뜻인가요?",
-            a: "미국 규격 기준 폭 표기입니다. B(좁음) → D(표준) → 2E(넓음) → 4E(매우 넓음) 순으로 넓어집니다. 국내에서 팔리는 대부분의 러닝화는 D 규격이며, 와이드 버전은 따로 구매해야 합니다.",
+            q: "러닝화 폭 규격 B, D, 2E, 4E는 무슨 뜻인가요?",
+            a: "미국 규격 기준 폭 표기입니다. B(좁음) → D(표준) → 2E(넓음) → 4E(매우 넓음) 순으로 넓어집니다. 국내에서 팔리는 대부분의 러닝화는 D 규격입니다. 와이드 버전은 따로 구매해야 합니다.",
           },
           {
             // 2026-11-04 네이버 검색어 「275mm 기준 일반적인 d 너비(표준) 발볼」 — 숫자를 지어내지 않고 확인 못 한 사실을 그대로
@@ -290,7 +290,7 @@ export default function WideFootPage() {
             <li className="flex gap-2"><span className="text-gray-400">•</span>
               <span><strong>Reeves et al. (2024)</strong> — 스포츠 활동 여성 374명 발 스캔. 18~29세 그룹의 발너비가 더 나이 많은 그룹보다 좁음. <a href="https://pubmed.ncbi.nlm.nih.gov/39369693/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">&ldquo;몇 mm부터 2E&rdquo; 기준 — KS 표준(M 6681 / G 3405)이 존재한다는 언급은 확인했으나 <strong>원문을 열어 확인하지 못했습니다.</strong> 그래서 본문에 수치 기준을 적지 않았습니다</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">&ldquo;몇 mm부터 2E&rdquo;를 정한 KS 표준(M 6681 / G 3405)이 존재한다는 언급은 확인했으나 <strong>원문을 열어 확인하지 못했습니다.</strong> 그래서 본문에 수치 기준을 적지 않았습니다</span></li>
           </ul>
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 발 통증이 지속되면 전문의 상담을 권장합니다.</p>

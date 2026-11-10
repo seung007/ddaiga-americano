@@ -282,7 +282,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // ── 9. 부상 이력 (PRD F-01 수용기준) ──────────────────────
   for (const inj of profile.injuryHistory ?? []) {
     if (inj === "knee") {
-      // 2026-08-31 축소(6 → 2). "안정화화가 슬개대퇴 부담을 완화한다"는 문장을
+      // 2026-08-31 축소(6 → 2). "안정화가 슬개대퇴 부담을 완화한다"는 문장을
       // 지지하는 근거가 이 저장소에 없다. 위 3번 블록과 같은 축인데 부상 이력에서
       // 한 번 더 가점되어 평발 + 무릎 이력 조합에 중복 누적되고 있었다.
       if (shoe.stability !== "neutral") { score += 2; }

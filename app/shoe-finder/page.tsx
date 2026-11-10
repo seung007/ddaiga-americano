@@ -1314,25 +1314,25 @@ type GuideItem = { href: string; tag: string; title: string; desc: string };
 
 const GUIDE_MAP: Record<string, GuideItem[]> = {
   flat: [
-    { href: "/injury/wide-foot",  tag: "발볼",    title: "2E·4E 와이드 뜻과 내 발볼 재는 법",       desc: "와이드 규격이 필요한지 판단하는 법." },
-    { href: "/injury/knee-pain",  tag: "무릎",    title: "러너 무릎(슬개대퇴 증후군)",              desc: "무릎 앞쪽이 아플 때 — 병원 갈 신호와 운동 2가지." },
-    { href: "/injury/it-band",    tag: "무릎",    title: "장경인대염 초기 대처법 3가지",             desc: "달릴 때 무릎 바깥쪽이 아플 때." },
+    { href: "/injury/wide-foot",  tag: "발볼",    title: "2E 와이드 뜻, 내 발볼도 넓은 편일까요?",       desc: "와이드 규격이 필요한지 판단하는 법." },
+    { href: "/injury/knee-pain",  tag: "무릎",    title: "달리면 무릎 앞이 아파요, 어떻게 해야 낫나요?",              desc: "무릎 앞쪽이 아플 때 — 병원 갈 신호와 운동 2가지." },
+    { href: "/injury/it-band",    tag: "무릎",    title: "달리면 무릎 바깥쪽이 아파요, 장경인대일까요?",             desc: "달릴 때 무릎 바깥쪽이 아플 때." },
   ],
   high_arch: [
-    { href: "/injury/achilles",   tag: "아킬레스", title: "아킬레스건·종아리 통증 스트레칭 3가지",   desc: "달린 뒤 종아리·아킬레스가 당길 때." },
-    { href: "/injury/midfoot",    tag: "착지",    title: "미드풋 착지란? 힐스트라이크와 차이",       desc: "초보가 착지법을 바꿔야 하는지." },
+    { href: "/injury/achilles",   tag: "아킬레스", title: "아킬레스건 통증, 달리기를 쉬어야 하나요?",   desc: "달린 뒤 종아리·아킬레스가 당길 때." },
+    { href: "/injury/midfoot",    tag: "착지",    title: "미드풋 착지란? 힐스트라이크면 바꿔야 할까요?",       desc: "초보가 착지법을 바꿔야 하는지." },
   ],
   neutral: [
-    { href: "/injury/cadence",    tag: "케이던스", title: "케이던스 180은 정답일까",                 desc: "지금보다 5~10% 올리면 무릎 부하가 줄었다는 연구(Heiderscheit 2011)." },
-    { href: "/injury/beginner-guide", tag: "입문", title: "초보 러너 완전 가이드",                  desc: "처음 달리기 시작할 때 꼭 알아야 할 것들." },
+    { href: "/injury/cadence",    tag: "케이던스", title: "케이던스 높을수록 좋나요? 꼭 180이어야 하나요",                 desc: "지금보다 5~10% 올리면 무릎 부하가 줄었다는 연구(Heiderscheit 2011)." },
+    { href: "/injury/beginner-guide", tag: "입문", title: "초보 러너, 일주일에 몇 번 얼마나 뛰나요?",                  desc: "처음 달리기 시작할 때 꼭 알아야 할 것들." },
   ],
 };
 
 const USE_GUIDE_MAP: Record<string, GuideItem> = {
-  long:   { href: "/injury/first-10k",  tag: "장거리", title: "첫 10km 완주 가이드",               desc: "하프·풀 준비 전 10km부터 완주하는 법." },
-  racing: { href: "/injury/advanced-guide", tag: "숙련", title: "숙련자 훈련 가이드",               desc: "기록 단축을 위한 고강도 훈련 전략." },
-  tempo:  { href: "/injury/intermediate-guide", tag: "중급", title: "중급자 훈련 가이드",           desc: "템포런·인터벌 훈련을 안전하게 시작하는 법." },
-  daily:  { href: "/injury/rest-day",   tag: "회복",  title: "회복일 관리 가이드",                  desc: "매일 달리고 싶다면 회복일이 더 중요합니다." },
+  long:   { href: "/injury/first-10k",  tag: "장거리", title: "첫 10km 대회, 준비 기간과 페이스는?",               desc: "하프·풀 준비 전 10km부터 완주하는 법." },
+  racing: { href: "/injury/advanced-guide", tag: "숙련", title: "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?",               desc: "기록 단축을 위한 고강도 훈련 전략." },
+  tempo:  { href: "/injury/intermediate-guide", tag: "중급", title: "러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?",           desc: "템포런·인터벌 훈련을 안전하게 시작하는 법." },
+  daily:  { href: "/injury/rest-day",   tag: "회복",  title: "러닝 쉬는 날, 가볍게라도 움직여야 하나요?",                  desc: "매일 달리고 싶다면 회복일이 더 중요합니다." },
 };
 
 /**
@@ -1342,15 +1342,15 @@ const USE_GUIDE_MAP: Record<string, GuideItem> = {
  * 발 타입보다 본인이 직접 고른 부상이 우선이므로 목록 맨 앞에 넣는다.
  */
 const INJURY_GUIDE_MAP: Partial<Record<InjuryArea, GuideItem>> = {
-  plantar:  { href: "/injury/plantar-fasciitis", tag: "족저근막", title: "족저근막염 — 아침 첫발이 아픈 이유", desc: "스트레칭보다 효과가 확인된 방법과 회복 기간." },
-  knee:     { href: "/injury/knee-pain",         tag: "무릎",     title: "러너 무릎(슬개대퇴 증후군) 예방법",   desc: "무릎 앞쪽이 계단에서 아프다면 확인할 것들." },
-  achilles: { href: "/injury/achilles",          tag: "아킬레스", title: "아킬레스건·종아리 통증 대처",        desc: "뒤꿈치 위쪽이 당길 때 읽어보세요." },
+  plantar:  { href: "/injury/plantar-fasciitis", tag: "족저근막", title: "족저근막염, 뭘 하면 낫고 얼마나 걸리나요?", desc: "스트레칭보다 효과가 확인된 방법과 회복 기간." },
+  knee:     { href: "/injury/knee-pain",         tag: "무릎",     title: "달리면 무릎 앞이 아파요, 어떻게 해야 낫나요?",   desc: "무릎 앞쪽이 계단에서 아프다면 확인할 것들." },
+  achilles: { href: "/injury/achilles",          tag: "아킬레스", title: "아킬레스건 통증, 달리기를 쉬어야 하나요?",        desc: "뒤꿈치 위쪽이 당길 때 읽어보세요." },
 };
 
 function RelatedGuides({ footType, footWidth, use, injuries }: { footType: FootType; footWidth: FootWidth; use: ShoeUse | ""; injuries: InjuryArea[] }) {
   const guides = [...(GUIDE_MAP[footType] ?? GUIDE_MAP["neutral"])];
   if (footWidth === "wide" && !guides.find(g => g.href === "/injury/wide-foot")) {
-    guides.unshift({ href: "/injury/wide-foot", tag: "발볼", title: "발볼 넓은 러너 와이드 규격 총정리", desc: "2E·4E 규격이 필요한지 판단하는 방법." });
+    guides.unshift({ href: "/injury/wide-foot", tag: "발볼", title: "2E 와이드 뜻, 내 발볼도 넓은 편일까요?", desc: "2E·4E 규격이 필요한지 판단하는 방법." });
   }
   // 본인이 고른 부상이 가장 강한 신호다 — 맨 앞으로.
   for (const area of injuries) {

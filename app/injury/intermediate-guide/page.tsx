@@ -27,12 +27,13 @@ import { pageUrl } from "@/lib/site";
  *   「과학적 근거 논문」 목록은 맨 끝 <References>(기본 접힘)로. 원래 화면에 대조 날짜 문구가 없어 note 는 비웠다.
  */
 const PAGE_URL = pageUrl("/injury/intermediate-guide");
-const TITLE = "중급자 부상 예방 가이드 (꾸준히 1년+)";
+// 2026-11-10: 채팅에서 「중급자」는 0명, 「오버트레이닝·과훈련」 0명. 「부상」 27명, 「쉬어야·휴식」 18명, 「마일리지」 16명.
+const TITLE = "러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?";
 const DESC =
-  "꾸준히 달린 지 1년이 넘었고 하프를 준비하는 러너를 위한 부상 예방 가이드. IT밴드, 아킬레스건, 오버트레이닝 징후.";
+  "달린 기간이 쌓이면 다치는 부위가 달라집니다. 어디를 조심하고 언제 쉬며 거리는 어디까지 늘릴지 연구와 저희 제안을 나눠 적었습니다.";
 
 export const metadata: Metadata = {
-  title: "중급자 부상 예방 가이드 (꾸준히 1년+) — 뛰다가 아메리카노",
+  title: "러닝 거리를 늘릴 때, 부상은 어떻게 피하나요? — 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/intermediate-guide" },
 };
@@ -57,17 +58,17 @@ export default function IntermediateGuidePage() {
           <span className="text-xs text-gray-400">꾸준히 1년+ · 주 1~5회 · 주 15~50km</span>
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
-        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">중급자 부상 예방 가이드</h1>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?</h1>
         <ArticleMeta href="/injury/intermediate-guide" />
         <Lead>
-          경력이 쌓이면 달린 시간당 부상은 줄어들지만, <strong>다치는 부위가 달라집니다.</strong> 무엇을 조심하고 언제 쉬어야
-          하는지 추렸습니다.
+          거리를 늘려 가는데 한 번씩 다친다면, 경력이 쌓인 만큼 <strong>다치는 부위도 달라졌을 수 있습니다.</strong> 경력자는 달린
+          시간당 부상이 초보보다 적었습니다. 대신 부상 가운데 아킬레스건 비중이 더 높았습니다.
         </Lead>
 
         <Summary
           items={[
             <>가장 일관된 위험 요인은 <strong>지난 12개월 안의 부상</strong>입니다. 다쳤던 부위부터 신경 쓰세요.<Basis kind="paper" /></>,
-            <>긴 날은 <strong>지난 30일 중 가장 긴 거리의 110%까지</strong>.<Basis kind="rule" /></>,
+            <>긴 날은 <strong>지난 30일 중 가장 긴 거리의 110%까지</strong>만 달립니다.<Basis kind="rule" /></>,
             <>3주 늘리고 <strong>1주 줄이는</strong> 방식이 흔합니다. 부상을 줄인다고 검증된 주기는 아닙니다.<Basis kind="rule" /></>,
             <>쉬어도 피곤하고 페이스가 갑자기 느려지면 <strong>부하를 줄이고 회복일을 늘리세요.</strong><Basis kind="rule" /></>,
           ]}
@@ -77,7 +78,7 @@ export default function IntermediateGuidePage() {
             공인 분류는 여전히 없어서, 가장 가까운 정의(Honert 2020 델파이, 본문 Table 3)의 세 축으로 바꿨다.
             페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <h2 id="who" className={H2}>
-          나는 중급자일까
+          중급자는 어느 정도 달린 러너인가요?
         </h2>
         <P>공인된 분류는 없습니다. 저희는 신발 연구 전문가 합의에서 쓴 취미 러너 정의를 따릅니다.</P>
         <div className="mt-4 rounded-xl bg-amber-50 px-4 py-3.5">
@@ -100,7 +101,7 @@ export default function IntermediateGuidePage() {
 
         {/* ── 원인 ─────────────────────────────────────────── */}
         <h2 id="why" className={H2}>
-          &lsquo;훈련 실수 때문에 다친다&rsquo;는데, 정말일까
+          &lsquo;훈련 실수 때문에 다친다&rsquo;는데, 정말인가요?
         </h2>
         <P>
           어떤 훈련 실수가 부상을 부르는지는 <strong>아직 가려지지 않았습니다.</strong> 지금까지 가장 일관된 위험 요인은 지난
@@ -113,29 +114,29 @@ export default function IntermediateGuidePage() {
             외(1981) 조사의 초록에서는 그 수치를 확인하지 못했습니다.
           </p>
           <p>
-            훈련 특성과 부상을 다룬 연구 31편을 모은 체계적 고찰도 어떤 훈련 오류가 부상과 이어지는지 가려내지 못했습니다.{" "}
+            어떤 훈련 오류가 부상과 이어지는지는 체계적 고찰도 가려내지 못했습니다(훈련 특성과 부상을 다룬 연구 31편).{" "}
             <S>(Nielsen et al. (2012) <Up h="https://pubmed.ncbi.nlm.nih.gov/22389869/" />)</S>
           </p>
           <p>
-            전향 연구를 모은 고찰에서 가장 일관된 위험 요인은 지난 12개월 안의 부상 이력이었습니다.{" "}
+            가장 일관된 위험 요인은 지난 12개월 안의 부상 이력이었습니다(전향 연구를 모은 고찰).{" "}
             <S>(Saragiotto et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24809248/" />)</S>
           </p>
         </Evidence>
 
         {/* ── 흔한 부상 ─────────────────────────────────────── */}
         <h2 id="common" className={H2}>
-          어디를 자주 다칠까 — 흔한 부상 세 가지
+          러너는 어디를 자주 다치나요?
         </h2>
         <P>
-          중급자만 따로 센 순위는 찾지 못했습니다. 한 스포츠의학 클리닉의 러닝 부상 2,002건 분석에서는 무릎 앞(슬개대퇴) 통증
-          다음으로 장경인대 증후군, 족저근막염 순이었습니다.{" "}
+          무릎 앞(슬개대퇴) 통증 다음으로 장경인대 증후군, 족저근막염 순으로 많았습니다(한 스포츠의학 클리닉의 러닝 부상 2,002건
+          분석). 중급자만 따로 센 순위는 찾지 못했습니다.{" "}
           {/* Taunton 출처를 <Evidence> 밖에 두는 이유: PMID 11916889 의 「119」를 check-guide-read 가 안전 문장(119)으로 잡는다 */}
           <S>(Taunton et al. (2002) <Up h="https://pubmed.ncbi.nlm.nih.gov/11916889/" />)</S>
         </P>
         <P>경력자는 초보보다 부상 가운데 아킬레스건 비중이 높았습니다.</P>
         <Evidence n={1}>
           <p>
-            네덜란드 러너 4,621명 조사에서 1,000시간당 부상은 1년 넘게 달린 러너 4.24건, 초보 8.78건이었습니다. 부상 가운데
+            1,000시간당 부상은 1년 넘게 달린 러너 4.24건, 초보 8.78건이었습니다(네덜란드 러너 4,621명 조사). 부상 가운데
             아킬레스건 비중은 경력자 8.4%, 초보 2.3%였습니다.{" "}
             <S>(Kemler et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/30071170/" />)</S>
           </p>
@@ -163,8 +164,8 @@ export default function IntermediateGuidePage() {
         <Note>원인으로 보고된 자세 소견은 연구 수가 적고 효과 크기도 작습니다.</Note>
         <Evidence n={1}>
           <p>
-            착지할 때 고관절이 안쪽으로 많이 모이고 무릎이 안쪽으로 많이 도는 여성 러너에게서 관련이 보고됐지만, 연구 수가 적고 효과
-            크기도 작습니다. <S>(Aderem &amp; Louw (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26573859/" />)</S>
+            착지할 때 고관절이 안쪽으로 많이 모이고 무릎이 안쪽으로 많이 도는 여성 러너에게서 관련이 보고됐습니다. 하지만 연구 수가
+            적고 효과 크기도 작습니다. <S>(Aderem &amp; Louw (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26573859/" />)</S>
           </p>
           <p>근거: 빈도·대처 Sanchez-Alvarado et al. (2024) Frontiers in Sports</p>
         </Evidence>
@@ -177,31 +178,31 @@ export default function IntermediateGuidePage() {
             Prudêncio 2023 초록에 그 프로토콜 수치가 없다. 수치를 빼고 방향만 남긴다. */}
         <h3 className={H3}>아킬레스건병증 (Achilles Tendinopathy)</h3>
         <P>
-          부상당한 초보 러너의 약 7%였고, 경력자는 부상 중 비중이 더 높습니다. 러너 2,378명을 추적한 한 연구에서 가장 강한 위험 요인은{" "}
-          <strong>지난 1년 안에 아킬레스건병증을 앓은 적</strong>이 있는지였습니다.
+          부상당한 초보 러너의 약 7%였습니다. 경력자는 부상 중 비중이 더 높습니다. 가장 강한 위험 요인은{" "}
+          <strong>지난 1년 안에 아킬레스건병증을 앓은 적</strong>이 있는지였습니다(러너 2,378명을 추적한 한 연구).
         </P>
         <Todo
           title="대처"
           items={[
             <>
-              편심성 힐드롭 운동 — 방법은{" "}
+              편심성 힐드롭 운동. 방법은{" "}
               <Link href="/injury/achilles" className="text-emerald-700 underline">아킬레스 전용 글</Link>
             </>,
           ]}
         />
         <P>
-          환자 38명을 나눈 한 무작위 시험에서는 통증을 지켜보며 달리기를 계속한 그룹도 쉰 그룹과 회복에 차이가 없었습니다.
+          통증을 지켜보며 달리기를 계속한 그룹도 쉰 그룹과 회복에 차이가 없었습니다(환자 38명을 나눈 한 무작위 시험).
         </P>
         <Note>훈련 방식과의 관련은 같은 연구 안에서도 해석이 엇갈립니다.</Note>
         <Evidence n={2}>
           <p>
-            러너 2,378명을 추적한 연구에서 가장 강한 위험 요인은 지난 1년 안의 아킬레스건병증 이력이었고(오즈비 6.3), 인구학·생활습관
-            요인은 관계가 없었습니다. 훈련 쪽에서는 훈련 계획표 사용(오즈비 1.8)만 유의하게 나왔는데, 같은 초록이 「훈련 관련 요인은
-            관련 없음」이라고도 적어 해석이 엇갈립니다.{" "}
+            가장 강한 위험 요인은 지난 1년 안의 아킬레스건병증 이력이었습니다(오즈비 6.3, 러너 2,378명을 추적한 연구). 인구학 요인과
+            생활습관 요인은 관계가 없었습니다. 훈련 쪽에서는 훈련 계획표 사용(오즈비 1.8)만 유의하게 나왔습니다. 그런데 같은 초록이
+            「훈련 관련 요인은 관련 없음」이라고도 적어 해석이 엇갈립니다.{" "}
             <S>(Lagas et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31892510/" />)</S>
           </p>
           <p>
-            환자 38명 무작위 시험에서 통증을 지켜보며 달리기를 계속한 그룹도 쉰 그룹과 회복에 차이가 없었습니다.{" "}
+            통증을 지켜보며 달리기를 계속한 그룹도 쉰 그룹과 회복에 차이가 없었습니다(환자 38명 무작위 시험).{" "}
             <S>(Silbernagel et al. (2007) <Up h="https://pubmed.ncbi.nlm.nih.gov/17307888/" />)</S>
           </p>
           {/* 저널명도 틀렸다 — 실제는 BMC Sports Sci Med Rehabil 이다. */}
@@ -220,12 +221,12 @@ export default function IntermediateGuidePage() {
           부상당한 초보 러너의 약 5%입니다. 아침 첫 발걸음 통증은 원인이 아니라 대표 증상입니다.
         </P>
         <P>
-          일관되게 관련된 것은 <strong>높은 체중(BMI)</strong>이었습니다(운동선수가 아닌 사람에게서 더 뚜렷). 평발·높은 아치 같은 발 구조와의 관련은 근거가 없습니다.
+          일관되게 관련된 것은 <strong>높은 체중(BMI)</strong>이었습니다(운동선수가 아닌 사람에게서 더 뚜렷). 평발이나 높은 아치 같은 발 구조와의 관련은 근거가 없습니다.
         </P>
         <Todo
           title="대처"
           items={[
-            "종아리·족저근막 스트레칭",
+            "종아리와 족저근막 스트레칭",
             <>
               신발 교체는 근거가 약합니다 →{" "}
               <Link href="/injury/plantar-fasciitis" className="text-emerald-700 underline">족저근막 전용 글</Link>
@@ -234,7 +235,7 @@ export default function IntermediateGuidePage() {
         />
         <Evidence n={1}>
           <p>
-            체중(BMI)이 높은 것이 일관되게 관련됩니다(BMI 27 초과 오즈비 3.7, 운동선수가 아닌 사람에게서 더 뚜렷). 평발·높은 아치 같은
+            체중(BMI)이 높은 것이 일관되게 관련됩니다(BMI 27 초과 오즈비 3.7, 운동선수가 아닌 사람에게서 더 뚜렷). 평발이나 높은 아치 같은
             발 구조와의 관련은 근거가 없습니다.{" "}
             <S>(van Leeuwen et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26644427/" />)</S>
           </p>
@@ -243,7 +244,7 @@ export default function IntermediateGuidePage() {
 
         {/* ── 오버트레이닝 ─────────────────────────────────── */}
         <h2 id="rest" className={H2}>
-          언제 쉬어야 할까 — 오버트레이닝 신호
+          언제 쉬어야 하는지 어떻게 아나요?
         </h2>
         <P>
           아래 신호가 이어지면 <strong>부하를 줄이고 회복일을 늘리세요.</strong>
@@ -261,7 +262,7 @@ export default function IntermediateGuidePage() {
           {[
             ["수행 능력 저하", "평소 페이스가 갑자기 느려짐"],
             ["지속되는 피로", "쉬어도 피곤함이 풀리지 않음"],
-            ["기분 변화", "짜증·의욕 저하"],
+            ["기분 변화", "짜증이나 의욕 저하"],
           ].map(([title, desc]) => (
             <div key={title} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
               <p className="mb-1 break-keep text-base font-semibold text-gray-900">{title}</p>
@@ -290,7 +291,7 @@ export default function IntermediateGuidePage() {
         <Note>이 셋은 합의문 초록에서 확인하지 못했습니다.</Note>
         <Evidence n={1}>
           <p>
-            Meeusen et al. (2013, MSSE)의 합의문은 과부하를 기능적 과부하(Functional Overreaching)·비기능적 과부하·오버트레이닝
+            Meeusen et al. (2013, MSSE)의 합의문은 과부하를 기능적 과부하(Functional Overreaching), 비기능적 과부하, 오버트레이닝
             증후군으로 나눕니다. 기능적 과부하는 회복하면 오히려 기록이 좋아지는 단계입니다. 뒤의 둘은 증상이 비슷해 구분이 매우
             어렵다고 적습니다.
           </p>
@@ -301,7 +302,7 @@ export default function IntermediateGuidePage() {
 
         {/* ── 부하 관리 ─────────────────────────────────────── */}
         <h2 id="load" className={H2}>
-          얼마나 늘려도 될까
+          거리는 얼마나 늘려도 되나요?
         </h2>
 
         <h3 className={H3}>
@@ -309,7 +310,7 @@ export default function IntermediateGuidePage() {
           <Basis kind="rule" />
         </h3>
         <P>
-          3주간 거리·강도를 조금씩 높인 뒤, 4주차는 이전 주보다 20~30% 줄이는 방식이 흔히 쓰입니다.
+          3주간 거리와 강도를 조금씩 높인 뒤 4주차는 이전 주보다 20~30% 줄이는 방식이 흔히 쓰입니다.
         </P>
         <Note>부상을 줄인다고 검증된 주기나 비율은 아닙니다.</Note>
 
@@ -324,26 +325,26 @@ export default function IntermediateGuidePage() {
         </P>
         <Evidence n={1}>
           <p>
-            성인 러너 5,205명을 18개월 추적한 연구에서 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 과사용 부상 비율이
-            1.52~2.28배였고, 전주 대비 주간 거리 비율은 관계가 없었습니다.{" "}
+            한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 과사용 부상 비율이 1.52~2.28배였습니다(성인 러너 5,205명을
+            18개월 추적한 연구). 전주 대비 주간 거리 비율은 관계가 없었습니다.{" "}
             <S>(Frandsen et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/40623829/" />)</S>
           </p>
         </Evidence>
 
         <h3 className={H3}>근력 훈련, 하면 덜 다칠까</h3>
         <P>
-          여러 종목 연구를 모아 보니 근력 훈련은 부상 위험을 줄였습니다. 하지만 <strong>첫 마라톤 러너 대상 한 무작위 시험</strong>
-          에서는 주 3회 10분 자가 근력 프로그램이 완주를 막은 과사용 부상을 줄이지 못했습니다.
+          근력 훈련은 부상 위험을 줄였습니다(여러 종목 연구를 모은 분석). 하지만 주 3회 10분 자가 근력 프로그램은 완주를 막은 과사용
+          부상을 줄이지 못했습니다(<strong>첫 마라톤 러너 대상 한 무작위 시험</strong>).
         </P>
         <Note>러너에서는 효과가 엇갈립니다. 스트레칭은 부상 예방 효과가 확인되지 않았습니다.</Note>
         <Evidence n={2}>
           <p>
-            여러 종목 무작위 시험을 모은 메타분석에서 근력 훈련군의 부상 위험비는 0.32였고, 스트레칭은 효과가 확인되지 않았습니다.{" "}
+            근력 훈련군의 부상 위험비는 0.32였습니다(여러 종목 무작위 시험을 모은 메타분석). 스트레칭은 효과가 확인되지 않았습니다.{" "}
             <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>
           </p>
           <p>
-            첫 마라톤 러너 720명 무작위 시험에서는 12주 자가 근력 프로그램(주 3회 10분)이 마라톤을 완주하지 못하게 만든 과사용
-            부상을 줄이지 못했습니다(7.1% 대 7.3%).{" "}
+            12주 자가 근력 프로그램(주 3회 10분)은 마라톤을 완주하지 못하게 만든 과사용 부상을 줄이지 못했습니다(7.1% 대 7.3%, 첫
+            마라톤 러너 720명 무작위 시험).{" "}
             <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
           </p>
         </Evidence>
@@ -361,7 +362,7 @@ export default function IntermediateGuidePage() {
           <FaqSection items={[
             {
               q: "중급자는 어느 단계의 러너를 말하나요?",
-              a: "공인된 정의는 없습니다. 저희는 신발 연구 전문가 합의(Honert 2020)의 레크리에이션 정의 — 꾸준히 1년 넘게, 주 1~5회, 주 15~50km — 를 따릅니다. 범위가 초심자·숙련자와 겹치므로, 지금 넘으려는 거리(10km → 하프)로 보는 편이 더 정확합니다.",
+              a: "공인된 정의는 없습니다. 저희는 신발 연구 전문가 합의(Honert 2020)의 레크리에이션 정의를 따릅니다. 꾸준히 1년 넘게, 주 1~5회, 주 15~50km 달리는 러너입니다. 범위가 초심자나 숙련자와 겹칩니다. 그래서 지금 넘으려는 거리(10km → 하프)로 보는 편이 더 정확합니다.",
             },
             {
               q: "중급자가 부상당하는 가장 흔한 원인은?",
@@ -375,7 +376,7 @@ export default function IntermediateGuidePage() {
         </div>
 
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6 text-center">
-          <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼·사이즈가 맞는지는 확인해 보세요</p>
+          <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼과 사이즈가 맞는지는 확인해 보세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
             내 발에 맞는 신발 찾기 →
           </Link>

@@ -21,4 +21,10 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddaiga-americano.vercel.app").replace(/\/+$/, "");
 export const SITE_HOST = SITE_URL.replace(/^https?:\/\//, "");
 /** `pageUrl("/injury/midfoot")` → 절대 주소 */
-export const pageUrl = (path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+/**
+ * 가이드 글 위에 보이는 글쓴이 소개 (사이트 주인 문구, 2026-11-09).
+ * GEO 「누가, 언제 썼는지 밝히기」. 사실만 적는다 — 전문 자격은 쓰지 않는다(AGENTS 출처 규칙)
+ */
+export const AUTHOR_NOTE = "글쓴이 · 러닝을 좋아하고 AI로 체계적으로 훈련하는 운영자. 누구나 편하게 달리도록 돕고 싶어 이 사이트를 만들었습니다.";
+
+export const pageUrl =(path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

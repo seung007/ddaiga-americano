@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ARTICLES } from "@/lib/guide/articles";
 import type { Metadata } from "next";
 
 // 2026-10-12 SEO 점검: 홈만 canonical 이 없었다(제목·설명은 layout 기본값을 쓴다)
@@ -46,16 +47,21 @@ const FINDER_SHOES: FinderShoe[] = SHOES.map((s) => {
 const HERO_SHOE = SHOES.find((s) => s.id === "asics-novablast-5");
 const FINDER_HERO = HERO_SHOE ? { src: HERO_SHOE.imageUrl, alt: "" } : undefined;
 
-/** 가이드 카드 — GA4 28일(2026-11-05 확인) 가이드 착지 상위 셋: 미드풋 18 · 첫 10km 17 · 넓은 발볼 15명. 제목은 각 페이지 제목에서 줄였다 */
-const HOME_GUIDES = [
-  { href: "/injury/wide-foot", tag: "발볼", title: "내 발볼 재는 법과 넓은 발볼 러닝화" },
-  { href: "/injury/midfoot", tag: "착지", title: "미드풋 착지란? 힐스트라이크와 차이" },
-  { href: "/injury/first-10k", tag: "첫 대회", title: "생애 첫 10km 대회 준비물과 페이스 전략" },
+/** 가이드 카드 — GA4 28일(2026-11-05 확인) 가이드 착지 상위 셋: 미드풋 18 · 첫 10km 17 · 넓은 발볼 15명.
+ * 제목은 원장(lib/guide/articles.ts)에서 가져온다 — 2026-11-10 가이드 제목을 모두 바꿨을 때 여기 손으로 적은 옛 제목 6개가 남았다 */
+const HOME_GUIDE_TAGS: [string, string][] = [
+  ["/injury/wide-foot", "발볼"],
+  ["/injury/midfoot", "착지"],
+  ["/injury/first-10k", "첫 대회"],
   // 2026-11-09: 홈 본문 링크가 134개 → 16개로 줄어 구글이 들를 길이 줄었다(색인 대기 227개). 지금 홈에서 빠진 주제를 되살린다
-  { href: "/injury/flat-feet", tag: "평발", title: "평발 러닝화, 안정화화가 정답일까" },
-  { href: "/injury/carbon-plate", tag: "카본화", title: "카본화 살까 말까 — 논문이 시험한 속도" },
-  { href: "/injury/heart-rate-zones", tag: "심박", title: "심박존 훈련이란? 최대심박 공식과 쉬운 달리기 비율" },
+  ["/injury/flat-feet", "평발"],
+  ["/injury/carbon-plate", "카본화"],
+  ["/injury/heart-rate-zones", "심박"],
 ];
+const HOME_GUIDES = HOME_GUIDE_TAGS.flatMap(([href, tag]) => {
+  const a = ARTICLES.find((x) => x.href === href);
+  return a ? [{ href, tag, title: a.title }] : [];
+});
 
 /** 넘으려는 단계별 가이드 — 지금 홈(main)의 「단계별」 줄과 같다. 근거는 lib/guide/stages.ts 머리말 */
 const LEVEL_GUIDES = [

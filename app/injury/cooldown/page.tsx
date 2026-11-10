@@ -29,12 +29,14 @@ import { pageUrl } from "@/lib/site";
  *   「경험칙」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
  */
 const PAGE_URL = pageUrl("/injury/cooldown");
-const TITLE = "달리기 후 10분 정적 스트레칭 루틴";
+// 2026-11-10 제목: 검색어는 아래 주석의 「정적 스트레칭」「달리기 후 스트레칭」을 앞에 둔다.
+// 오픈채팅 21,649건에서 이 주제의 걱정은 「회복」 32명(넓은 말)·「근육통·뭉침·뻐근」 10명, 「쿨다운」은 4명·「스트레칭」 3명뿐이라 걱정 쪽으로 물었다.
+const TITLE = "달리기 후 정적 스트레칭, 회복이 빨라지나요?";
 const DESC =
-  "종아리·햄스트링·엉덩이 정적 스트레칭 루틴. 달리고 멈춰 서 있으면 왜 어지러울 수 있는지, 스트레칭이 회복에 어디까지 도움이 되는지 정리했습니다.";
+  "달린 뒤 스트레칭이 회복을 앞당긴다는 근거는 확인되지 않았습니다. 유연성을 위해 할 다섯 동작과 멈춰 서 있다 어지러울 때 할 일을 담았습니다.";
 
 export const metadata: Metadata = {
-  title: "달리기 후 10분 정적 스트레칭 루틴 — 뛰다가 아메리카노",
+  title: "달리기 후 정적 스트레칭, 회복이 빨라지나요? — 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/cooldown" },
 };
@@ -56,7 +58,7 @@ const STRETCHES = [
     n: "3",
     name: "고관절 굴근",
     how: "한 발을 크게 앞으로 내딛고 뒤쪽 무릎을 바닥에 댑니다. 상체를 세운 채 골반만 앞으로 밉니다.",
-    feel: "뒤쪽 다리의 사타구니·허벅지 앞이 당기면 맞습니다",
+    feel: "뒤쪽 다리의 사타구니와 허벅지 앞이 당기면 맞습니다",
   },
   {
     n: "4",
@@ -96,8 +98,8 @@ export default function Page() {
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/cooldown" />
         <Lead>
-          달리고 나서 하는 정적 스트레칭 다섯 가지와, 그게 실제로 어디까지 도움이 되는지 정리했습니다. 멈춰 서 있다가 어지러울
-          때의 대처도 함께 적었습니다.
+          달리고 나서 스트레칭을 해야 회복이 빨라진다고 믿고 있었다면, 근거부터 볼 만합니다. 운동 후 스트레칭과 그냥 쉬기를 비교한
+          시험들에서 근력 회복과 근육통 모두 차이가 없었습니다.
         </Lead>
 
         {/**
@@ -112,13 +114,13 @@ export default function Page() {
             <>달리기 전엔 동적, <strong>달리고 나서는 정적</strong> 스트레칭이 흔한 권고입니다.<Basis kind="rule" /></>,
             <>달린 뒤 스트레칭이 <strong>회복을 앞당긴다는 근거는 확인되지 않았습니다.</strong> 유연성 유지용으로 하세요.<Basis kind="paper" /></>,
             <>멈춰 서 있다 어지러우면 <strong>누워서 다리를 올리세요.</strong><Basis kind="paper" /></>,
-            <>장거리 뒤 <strong>두통·구토·혼란</strong>이 있으면 물을 더 마시지 말고 119를 부르세요.<Basis kind="rule" /></>,
+            <>장거리 뒤 <strong>두통이나 구토, 혼란</strong>이 있으면 물을 더 마시지 말고 119를 부르세요.<Basis kind="rule" /></>,
           ]}
         />
 
         {/* ── ① 어지럼 ─────────────────────────────────────── */}
         <h2 id="dizzy" className={H2}>
-          달리고 멈춰 서 있으면 어지러워요
+          달리고 멈춰 서 있으면 왜 어지러운가요?
         </h2>
         <P>
           달리다 갑자기 멈춰 서 있으면 혈액이 다리에 머물러 어지러울 수 있습니다.{" "}
@@ -126,13 +128,13 @@ export default function Page() {
           <Basis kind="paper" />
         </P>
         <P>
-          장거리 대회 직후 쓰러진 경우, 리뷰가 드는 처치는 누워서 다리를 높이는 것입니다. 물 마시기도 처치에 들어가지만 생명을
+          장거리 대회 직후 쓰러졌다면 리뷰가 드는 처치는 누워서 다리를 높이는 것입니다. 물 마시기도 처치에 들어갑니다. 다만 생명을
           위협하는 다른 원인, 특히 <strong>운동 관련 저나트륨혈증을 먼저 배제한 뒤</strong>입니다.
         </P>
         <Warn title="이럴 땐 119 (대회라면 의료진)">
           <ul className="list-disc space-y-1 pl-5">
             <li>
-              장거리를 달린 뒤 <strong>두통·구토·혼란·손발 부기</strong>가 있다 → <strong>물을 더 마시지 말고</strong> 119를
+              장거리를 달린 뒤 <strong>두통, 구토, 혼란, 손발 부기</strong>가 있다 → <strong>물을 더 마시지 말고</strong> 119를
               부르세요.{" "}
               <Link href="/injury/half-marathon-race-day" className="underline">
                 저나트륨혈증 신호
@@ -151,8 +153,8 @@ export default function Page() {
         <Evidence n={3}>
           <p>
             장거리 대회를 마친 직후 쓰러지는 경우의 대부분은 달리기를 멈춘 뒤 다리에 혈액이 고여 생기는 일시적 저혈압으로
-            설명됩니다. 대처는 누워서 다리를 높이는 것이고, 같은 리뷰는 물 마시기도 처치에 넣습니다 — 단 생명을 위협하는 다른 원인,
-            특히 운동 관련 저나트륨혈증을 먼저 배제한 뒤입니다.{" "}
+            설명됩니다. 대처는 누워서 다리를 높이는 것입니다. 같은 리뷰는 물 마시기도 처치에 넣습니다. 단, 생명을 위협하는 다른
+            원인, 특히 운동 관련 저나트륨혈증을 먼저 배제한 뒤입니다.{" "}
             <S>(Asplund et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21948122/" />)</S>
           </p>
           <p>
@@ -161,18 +163,18 @@ export default function Page() {
           </p>
           <p>
             걷기 같은 가벼운 쿨다운은 혈중 젖산을 더 빨리 낮추고 심혈관 회복을 앞당길 수 있습니다. 하지만 같은 리뷰는 쿨다운이
-            부상을 막거나 근육통을 줄이지는 않는 것으로 보고, 어지럼·실신을 막는지는 알 수 없다고 정리합니다.{" "}
+            부상을 막거나 근육통을 줄이지는 않는 것으로 봅니다. 어지럼이나 실신을 막는지는 알 수 없다고 정리합니다.{" "}
             <S>(Van Hooren &amp; Peake (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29663142/" />)</S>
           </p>
         </Evidence>
 
         {/* ── ② 회복 ─────────────────────────────────────── */}
         <h2 id="recover" className={H2}>
-          스트레칭하면 회복이 빨라질까
+          스트레칭하면 회복이 빨라지나요?
         </h2>
         <P>
-          <strong>근거는 확인되지 않았습니다.</strong> 운동 후 스트레칭과 그냥 쉬기를 비교한 무작위 시험 10편을 모아 보니, 근력
-          회복과 24~72시간 뒤 근육통 모두 차이가 없었습니다.
+          <strong>근거는 확인되지 않았습니다.</strong> 근력 회복과 24~72시간 뒤 근육통 모두 차이가 없었습니다(운동 후 스트레칭과
+          그냥 쉬기를 비교한 무작위 시험 10편).
         </P>
         <Note>참가자는 주로 17~38세 남성이었습니다.</Note>
         <P>
@@ -180,12 +182,12 @@ export default function Page() {
         </P>
         <Evidence n={2}>
           <p>
-            운동 후 스트레칭과 그냥 쉬기를 비교한 무작위 시험 10편(229명, 주로 17~38세 남성)을 모은 분석에서 근력 회복과 24~72시간
-            뒤 근육통 모두 차이가 없었습니다.{" "}
+            운동 후 스트레칭과 그냥 쉬기는 근력 회복과 24~72시간 뒤 근육통 모두 차이가 없었습니다(무작위 시험 10편을 모은 분석,
+            229명, 주로 17~38세 남성).{" "}
             <S>(Afonso et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34025459/" />)</S>
           </p>
           <p>
-            스트레칭이 다음 날 근육통을 줄인다는 근거도 약합니다 — 코크란 리뷰는 의미 있는 감소를 찾지 못했습니다.{" "}
+            스트레칭이 다음 날 근육통을 줄인다는 근거도 약합니다. 코크란 리뷰는 의미 있는 감소를 찾지 못했습니다.{" "}
             <S>(Herbert et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21735398/" />)</S>
           </p>
         </Evidence>
@@ -236,12 +238,12 @@ export default function Page() {
           <Link href="/injury/warmup" className="font-medium text-emerald-700 underline">
             준비운동 글
           </Link>
-          에 도식과 함께 정리해 뒀습니다. 이 글은 <strong>달리고 나서</strong> 하는 쪽입니다.
+          에서 도식과 함께 볼 수 있습니다. 아래는 <strong>달리고 나서</strong> 하는 동작입니다.
         </P>
 
         {/* ── ④ 루틴 ─────────────────────────────────────── */}
         <h2 id="routine" className={H2}>
-          10분 정적 스트레칭 루틴
+          10분 정적 스트레칭, 어떻게 하나요?
         </h2>
         <P>
           정적 스트레칭은 <strong>한 자세로 멈춰서 30초 버티는 것</strong>입니다. 아래 다섯 동작을 30초씩 2번, 양쪽 다 합니다.
@@ -273,7 +275,7 @@ export default function Page() {
         />
         <Note>동작 순서와 시간(30초 × 2)은 통용 관행입니다. 이 루틴이 회복을 앞당긴다는 근거는 확인되지 않았습니다.</Note>
 
-        <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다 — 흔히 500~800km를 교체 시점으로 말하지만, 연구로 정해진 기준은 아닙니다." />
+        <FinderCta from="cooldown" variant="inline" headline="쿠션이 닳은 신발은 스트레칭으로 못 메웁니다. 흔히 500~800km를 교체 시점으로 말하지만 연구로 정해진 기준은 아닙니다." />
         <Evidence n={1} label="500~800km는 어디서 나온 숫자일까">
           <p>
             1985년 실험에서 러너들이 실제로 신은 신발은 500마일(약 800km)에 처음 충격흡수 능력의 약 70%가 남아 있었습니다.{" "}
@@ -286,11 +288,11 @@ export default function Page() {
         {/* ⚠️ 2026-09-14: "섭취하면 근육 회복 속도가 빨라집니다" 였다. 받치던 인용이 무관한 논문으로 판명돼
             내려간 뒤 근거 없이 단정만 남아 있었다. */}
         <h2 id="nutrition" className={H2}>
-          회복에 좋다는 음식·잠은?
+          회복에 좋다는 음식이나 잠은 어떤가요?
         </h2>
         <P>운동 뒤 단백질과 탄수화물을 같이 먹는 것, 그리고 충분히 자는 것이 흔히 권해집니다.</P>
         <P>
-          다만 <strong>이 글에는 그 효과를 받치는 인용이 없습니다.</strong> 예전에 달았던 자료가 무관한 논문으로 판명돼 내렸고,
+          다만 <strong>이 글에는 그 효과를 받치는 인용이 없습니다.</strong> 예전에 달았던 자료는 무관한 논문으로 판명돼 내렸습니다.
           아직 대체하지 못했습니다.
         </P>
 
@@ -303,7 +305,7 @@ export default function Page() {
         <FaqSection items={[
           {
             q: "달리고 나서 바로 앉거나 누우면 안 되나요?",
-            a: "앉거나 눕는 것 자체가 문제는 아닙니다. 오래 달리다 갑자기 멈춰 서 있으면 혈액이 다리에 머물러 어지러울 수 있는데, 그럴 땐 오히려 누워서 다리를 올리는 것이 대처법입니다(Asplund 2011). 바로 멈추기보다 가볍게 걸으며 마무리하면 심박과 호흡이 더 빨리 돌아올 수 있지만, 이것이 어지럼을 막는지는 확인되지 않았습니다(Van Hooren 2018). 달리는 도중에 쓰러졌거나 의식이 흐리면 119를 부르세요. 장거리 후 두통·구토·혼란이 있으면 물을 더 마시지 마세요(저나트륨혈증 가능성).",
+            a: "앉거나 눕는 것 자체가 문제는 아닙니다. 오래 달리다 갑자기 멈춰 서 있으면 혈액이 다리에 머물러 어지러울 수 있습니다. 그럴 땐 오히려 누워서 다리를 올리는 것이 대처법입니다(Asplund 2011). 바로 멈추기보다 가볍게 걸으며 마무리하면 심박과 호흡이 더 빨리 돌아올 수 있습니다. 다만 이것이 어지럼을 막는지는 확인되지 않았습니다(Van Hooren 2018). 달리는 도중에 쓰러졌거나 의식이 흐리면 119를 부르세요. 장거리 후 두통이나 구토, 혼란이 있으면 물을 더 마시지 마세요(저나트륨혈증 가능성).",
           },
           {
             q: "쿨다운 정적 스트레칭은 어떤 순서로 하나요?",
@@ -311,7 +313,7 @@ export default function Page() {
           },
           {
             q: "회복을 더 빠르게 하려면 뭘 하면 되나요?",
-            a: "운동 뒤 단백질과 탄수화물을 같이 먹고 충분히 자는 것이 흔히 권해집니다. 다만 이 글에는 그 효과를 받치는 인용이 없습니다 — 예전에 달았던 자료가 무관한 논문으로 판명돼 내렸습니다. 운동 후 스트레칭은 그냥 쉬는 것과 비교해 회복 차이가 확인되지 않았습니다(Afonso 2021).",
+            a: "운동 뒤 단백질과 탄수화물을 같이 먹고 충분히 자는 것이 흔히 권해집니다. 다만 이 글에는 그 효과를 받치는 인용이 없습니다. 예전에 달았던 자료는 무관한 논문으로 판명돼 내렸습니다. 운동 후 스트레칭은 그냥 쉬는 것과 비교해 회복 차이가 확인되지 않았습니다(Afonso 2021).",
           },
         ]} />
 
@@ -324,14 +326,14 @@ export default function Page() {
             href="/injury/warmup"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">달리기 전 준비운동 — 동적 스트레칭 →</p>
+            <p className="text-sm font-semibold text-gray-900">러닝 전 스트레칭, 정적으로 해도 되나요? →</p>
             <p className="mt-1 text-sm text-gray-600">이 글의 반대편. 도식으로 동작을 볼 수 있습니다.</p>
           </Link>
           <Link
             href="/injury/rest-day"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">휴식일에 뭘 해야 할까? 액티브 리커버리 →</p>
+            <p className="text-sm font-semibold text-gray-900">러닝 쉬는 날, 가볍게라도 움직여야 하나요? →</p>
             <p className="mt-1 text-sm text-gray-600">쉬는 날 가볍게 움직여도 되는지, 근거는 어디까지인지.</p>
           </Link>
         </div>
@@ -378,8 +380,8 @@ export default function Page() {
         {/* 2026-09-06: 글 안에서 바로 묻게 한다. /community 로 보내면 두 달간 질문 0건이었다. */}
         <InlineAsk from="cooldown" tag="기타" placeholder="예) 쿨다운을 얼마나 해야 하는지 매번 헷갈려요" />
 
-        <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형·발볼·부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
-        <ShareButtons from="cooldown" title="달리기 후 쿨다운" description="쿨다운 루틴과, 그 효과에 대해 연구가 실제로 말하는 것을 정리했습니다." />
+        <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형과 발볼, 부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
+        <ShareButtons from="cooldown" title="달리기 후 정적 스트레칭, 회복이 빨라지나요?" description="달린 뒤 스트레칭이 회복을 앞당긴다는 근거는 확인되지 않았습니다. 유연성을 위해 할 다섯 동작과 멈춰 서 있다 어지러울 때 할 일을 담았습니다." />
       </article>
     </>
   );

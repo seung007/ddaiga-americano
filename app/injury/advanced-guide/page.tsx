@@ -27,12 +27,12 @@ import { pageUrl } from "@/lib/site";
  *   `/injury#levels` 링크는 유지(허브에 있음).
  */
 const PAGE_URL = pageUrl("/injury/advanced-guide");
-const TITLE = "숙련자 부상 예방 가이드 (3년+·주 50km+)";
+const TITLE = "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?";
 const DESC =
-  "꾸준히 3년 넘게, 주 50km 넘게 달리며 풀코스·기록을 준비하는 러너를 위한 부상 예방 가이드. 피로 골절, 건병증, 주기화 훈련.";
+  "마일리지를 많이 쌓는 러너가 조심할 부상 세 가지를 다룹니다. 기록을 노릴 때 훈련을 나누는 법과 심박변이도를 보고 훈련을 바꿀지도 함께 봅니다.";
 
 export const metadata: Metadata = {
-  title: "숙련자 부상 예방 가이드 (3년+·주 50km+) — 뛰다가 아메리카노",
+  title: "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요? — 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/advanced-guide" },
 };
@@ -61,24 +61,23 @@ export default function AdvancedGuidePage() {
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700"><span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-red-500 align-middle" />숙련자</span>
-          <span className="text-xs text-gray-400">꾸준히 3년+ · 주 5회+ · 주 50km+</span>
+          <span className="text-xs text-gray-400">꾸준히 3년+, 주 5회+, 주 50km+</span>
           <span className="text-xs text-gray-400">· 5분 읽기</span>
         </div>
-        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">숙련자 부상 예방 가이드</h1>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?</h1>
         <ArticleMeta href="/injury/advanced-guide" />
         {/* ⚠️ 2026-09-14: "Bahr & Mæhlum (2004)에 따르면" 이었다. 확인 불가 인용의 이름을 뺐다.
             2026-10-08: 「누적 부하가 한 번의 사고보다 흔한 부상 경로」도 비율 자료를 찾지 못해 낮췄다. */}
         <Lead>
-          숙련자는 고강도·고볼륨 훈련을 감당할 수 있지만, 그만큼 반복 부하도 커집니다. 훈련량이 큰 러너가 알아 둘 부상 세 가지와
-          훈련 배치·HRV 보는 법을 추렸습니다.
+          고강도 훈련과 많은 마일리지(쌓은 달리기 거리)를 감당하게 됐다면, 그만큼 몸이 받는 반복 부하도 커졌습니다.
         </Lead>
 
         <Summary
           items={[
-            <>피로 골절은 <strong>일반 엑스레이로 놓칠 수 있습니다.</strong><Basis kind="paper" /> 의심되면 러닝을 멈추고 진단부터.<Basis kind="rule" /></>,
+            <>피로 골절은 <strong>일반 엑스레이로 놓칠 수 있습니다.</strong><Basis kind="paper" /> 의심되면 러닝을 멈추고 진단부터 받습니다.<Basis kind="rule" /></>,
             <>지친 상태(오버리칭)를 확실히 가려내는 <strong>진단 지표는 아직 없습니다.</strong><Basis kind="paper" /></>,
-            <>경쟁 선수 연구에서 테이퍼는 <strong>약 2주, 볼륨 41~60%↓·강도 유지</strong>가 기록에 가장 좋았습니다.<Basis kind="paper" /></>,
-            <>한 소규모 연구에서 HRV는 <strong>하루 수치보다 일주일 평균</strong>이 수행 변화와 잘 맞았습니다.<Basis kind="paper" /></>,
+            <>대회 전 훈련량을 줄이는 테이퍼는 <strong>약 2주 동안 볼륨을 41~60% 줄이고 강도는 유지</strong>할 때 기록에 가장 좋았습니다(경쟁 선수 연구).<Basis kind="paper" /></>,
+            <>심박변이도(HRV, 심장 박동 사이 간격이 달라지는 정도)는 <strong>하루 수치보다 일주일 평균</strong>이 수행 변화와 잘 맞았습니다(소규모 연구 한 편).<Basis kind="paper" /></>,
           ]}
         />
 
@@ -86,7 +85,7 @@ export default function AdvancedGuidePage() {
             공인 분류는 여전히 없어서, 가장 가까운 정의(Honert 2020 델파이, 본문 Table 3)의 세 축으로 바꿨다.
             페이스는 뺐다 — 그 정의에서 속도 기준은 입문 수준에만 있다. 자세한 이유: lib/guide/stages.ts */}
         <section className="mt-8 rounded-2xl border border-red-100 bg-red-50 p-5">
-          <h2 id="who" className="break-keep text-base font-bold text-red-900">이 글은 누구를 위한 글인가 — 고수준(high caliber) 정의</h2>
+          <h2 id="who" className="break-keep text-base font-bold text-red-900">이 글은 어떤 러너를 위한 글인가요?</h2>
           <ul className="mt-3 space-y-1.5 text-base text-red-800">
             <li>• 주 1회 이상 꾸준히 달린 기간 <strong>3년 초과</strong></li>
             <li>• 일주일에 <strong>5회 이상</strong></li>
@@ -97,7 +96,7 @@ export default function AdvancedGuidePage() {
             <Link href="/injury#levels" className="underline">세 수준 비교 표</Link>
           </p>
           <p className="mt-2 break-keep text-xs text-red-700">
-            공인된 분류는 없습니다. 신발 연구 전문가 합의에서 쓴 정의를 옮겼고(출처: Honert et al. (2020) PLOS ONE 15(7):e0236047{" "}
+            공인된 분류는 없습니다. 신발 연구 전문가 합의에서 쓴 고수준(high caliber) 러너 정의를 옮겼고(출처: Honert et al. (2020) PLOS ONE 15(7):e0236047{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/32673375/" target="_blank" rel="noopener noreferrer" className="underline">↗</a>),
             범위가 다른 수준과 겹칩니다.
           </p>
@@ -107,20 +106,20 @@ export default function AdvancedGuidePage() {
         <h2 id="injuries" className={H2}>
           훈련량이 큰 러너가 조심할 부상 세 가지
         </h2>
-        <P>러닝은 걷기·수영·자전거 같은 다른 유산소 운동보다 <strong>과사용 부상</strong> 위험이 높은 운동으로 보고됩니다.</P>
+        <P>러닝은 걷기나 수영, 자전거 같은 다른 유산소 운동보다 <strong>과사용 부상</strong> 위험이 높은 운동으로 보고됩니다.</P>
         <Note>
-          숙련자에게만 해당하는 부상 원인을 수치로 보여 준 연구, 숙련자에게만 생기거나 가장 많다는 순위 자료는 찾지 못했습니다.
-          훈련량·강도가 큰 러너가 알아 둘 부상을 골랐습니다.
+          숙련자에게만 해당하는 부상 원인을 수치로 보여 준 연구는 찾지 못했습니다. 숙련자에게만 생기거나 가장 많다는 순위 자료도
+          찾지 못했습니다. 그래서 훈련량과 강도가 큰 러너가 알아 둘 부상을 골랐습니다.
         </Note>
         <Evidence n={1}>
           <p>
-            러닝 부상 부위·진단별 비율을 모은 체계적 고찰(36편)에서 러닝은 다른 유산소 운동보다 과사용 부상 위험이 높은 운동으로
-            보고됩니다. 숙련자에게만 해당하는 부상 원인을 수치로 보여 준 연구는 확인하지 못했습니다.{" "}
+            러닝은 다른 유산소 운동보다 과사용 부상 위험이 높은 운동으로 보고됩니다(러닝 부상의 부위별, 진단별 비율을 모은 체계적
+            고찰 36편). 숙련자에게만 해당하는 부상 원인을 수치로 보여 준 연구는 확인하지 못했습니다.{" "}
             <S>(Francis et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30787648/" />)</S>
           </p>
         </Evidence>
 
-        <h3 className={H3}>피로 골절</h3>
+        <h3 className={H3}>피로 골절은 왜 생기나요?</h3>
         <P>
           한 번에 부러질 만큼 크지 않은 힘이 <strong>반복되면서</strong> 생깁니다. 사람마다 소인이 달라 미리 가려내기 어렵습니다.
         </P>
@@ -129,50 +128,51 @@ export default function AdvancedGuidePage() {
         <Warn title="피로 골절이 의심되면">
           <ul className="list-disc space-y-1 pl-5">
             <li>진단부터 받습니다. 일반 엑스레이는 민감도가 낮아 놓칠 수 있습니다.</li>
-            <li>러닝을 중단하고, 의사와 상의해 단계적으로 복귀합니다.</li>
-            <li>그동안 수영·자전거로 대체훈련을 합니다(저희 제안).</li>
+            <li>러닝을 중단합니다. 의사와 상의해 단계적으로 복귀합니다.</li>
+            <li>그동안 수영이나 자전거로 대체훈련을 합니다(저희 제안).</li>
           </ul>
         </Warn>
         <Evidence n={1}>
           <p>
             {/* ⚠️ 2026-09-14 서지 정정: "Fredericson & Jennings (2000) Clin Sports Med" → Top Magn Reson Imaging 2006;17:309-325 */}
-            운동선수 피로골절 리뷰(Top Magn Reson Imaging 17(5):309-325)에서 피로 골절은 스포츠의학 클리닉 부상 중 0.7~20%였습니다.
-            생체역학적 소인·훈련 방식·식사·근력·유연성이 사람마다 달라 미리 가려내기 어렵다고 적었습니다.{" "}
+            피로 골절은 스포츠의학 클리닉 부상 중 0.7~20%였습니다(운동선수 피로골절 리뷰, Top Magn Reson Imaging 17(5):309-325).
+            생체역학적 소인, 훈련 방식, 식사, 근력, 유연성이 사람마다 달라 미리 가려내기 어렵다고 적었습니다.{" "}
             <S>(Fredericson et al. (2006) <Up h="https://pubmed.ncbi.nlm.nih.gov/17414993/" />)</S>
           </p>
         </Evidence>
 
-        <h3 className={H3}>비기능적 오버리칭 — 회복이 훈련을 못 따라갈 때</h3>
+        <h3 className={H3}>비기능적 오버리칭은 무엇인가요?</h3>
         <P>
-          훈련 부하에 비해 <strong>회복이 부족한 상태가 이어지는 것</strong>입니다. 수행 저하·심박변이도·호르몬 변화는 원인이 아니라
-          징후이고, 진단 지표로 인정된 것은 아직 없습니다.
+          회복이 훈련을 못 따라가는 상태입니다. 훈련 부하에 비해 <strong>회복이 부족한 상태가 이어지는 것</strong>을 말합니다.
+          수행 저하, 심박변이도, 호르몬 변화는 원인이 아니라 징후입니다. 진단 지표로 인정된 것은 아직 없습니다.
         </P>
         <P className="text-sm text-gray-500">
-          훈련 목표 달성을 방해한다고 알려져 있으나 근거는 확립되지 않았습니다.
+          훈련 목표 달성을 방해한다고 알려져 있습니다. 하지만 그 근거는 확립되지 않았습니다.
         </P>
         <Todo
           basis="rule"
           items={["부하를 크게 줄이고 수면을 확보합니다.", "회복될 때까지 강도 훈련을 쉽니다."]}
         />
-        <Note>기간·수면 시간 기준은 근거로 확인된 값이 아닙니다.</Note>
+        <Note>기간과 수면 시간 기준은 근거로 확인된 값이 아닙니다.</Note>
         <Evidence n={2}>
           <p>
             {/* ⚠️ 2026-09-14: "연간 훈련 목표 달성 실패의 주요 원인" 이었다. Meeusen 2013 초록은 그 주장을 확인할 근거가 없다고 적는다. */}
-            오버트레이닝 증후군 합의문(MSSE 45(1):186)은 비기능적 오버리칭을 훈련 부하에 비해 회복이 부족한 상태가 이어지는 것으로 보고,
-            수행 저하·심박변이도·호르몬 변화는 원인이 아니라 징후이고, 진단 지표로 인정된 것은 아직 없다고 정리합니다.{" "}
+            오버트레이닝 증후군 합의문(MSSE 45(1):186)은 비기능적 오버리칭을 훈련 부하에 비해 회복이 부족한 상태가 이어지는 것으로
+            봅니다. 수행 저하, 심박변이도, 호르몬 변화는 원인이 아니라 징후로 정리합니다. 진단 지표로 인정된 것은 아직 없다고
+            적었습니다.{" "}
             <S>(Meeusen et al. (2013) <Up h="https://pubmed.ncbi.nlm.nih.gov/23247672/" />)</S>
           </p>
           <p>
-            심하게 과훈련된 선수 12명 연구에서도 수면 중 심박변이도는 대조군과 차이가 없었고 기상 직후에만 조금 낮았습니다.{" "}
+            수면 중 심박변이도는 대조군과 차이가 없었습니다. 기상 직후에만 조금 낮았습니다(심하게 과훈련된 선수 12명 연구).{" "}
             <S>(Hynynen et al. (2006) <Up h="https://pubmed.ncbi.nlm.nih.gov/16531900/" />)</S>
           </p>
         </Evidence>
 
         {/* 2026-10-08: 「스피드 훈련 러너의 부상 Top 3」였다. 출처를 찾지 못했다. */}
-        <h3 className={H3}>근위 햄스트링 건병증</h3>
+        <h3 className={H3}>근위 햄스트링 건병증은 어떻게 관리하나요?</h3>
         <P>
-          러너에게 보고되는 부상이지만 빈도 자료와 원인을 밝힌 연구는 확인하지 못했습니다. 재활 초기에는 앉기처럼 힘줄이 눌리는 자세를
-          피하게 합니다.
+          재활 초기에는 앉기처럼 힘줄이 눌리는 자세를 피하게 합니다. 엉덩이 쪽 햄스트링 힘줄이 아픈 이 부상은 러너에게 보고되지만,
+          빈도 자료와 원인을 밝힌 연구는 확인하지 못했습니다.
         </P>
         <Todo
           items={[
@@ -181,22 +181,23 @@ export default function AdvancedGuidePage() {
             "딱딱한 자리에 오래 앉지 않기",
           ]}
         />
-        <Note>전문 물리치료사 인터뷰에서 나온 방법입니다. 단일 최선 중재를 가릴 근거는 아직 불충분합니다.</Note>
+        <Note>전문 물리치료사 인터뷰에서 나온 방법입니다. 어느 한 방법이 가장 낫다고 가릴 근거는 아직 불충분합니다.</Note>
         <P>
-          노르딕 햄스트링 운동은 여러 종목에서 햄스트링 <strong>부상 예방</strong> 근거가 있지만, 건병증 치료 근거는 아닙니다.
+          노르딕 햄스트링 운동은 여러 종목에서 햄스트링 <strong>부상 예방</strong> 근거가 있습니다. 하지만 건병증 치료 근거는 아닙니다.
         </P>
         <Evidence n={3}>
           <p>
-            원인을 밝힌 연구는 확인하지 못했습니다. 전문 물리치료사 13명 인터뷰에서는 앉기처럼 힘줄이 눌리는 자세가 통증을 키운다고 보고
-            재활 초기에 피하게 합니다. <S>(Nasser et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/33378733/" />)</S>
+            원인을 밝힌 연구는 확인하지 못했습니다. 물리치료사들은 앉기처럼 힘줄이 눌리는 자세가 통증을 키운다고 보고 재활 초기에
+            피하게 합니다(전문 물리치료사 13명 인터뷰). <S>(Nasser et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/33378733/" />)</S>
           </p>
           <p>
             {/* 2026-08-28에 "Beyer et al. (2015) AJSM"이 붙어 있던 자리다(아킬레스건 RCT라 내렸다). */}
-            보존적 중재를 비교한 체계적 고찰의 결론은 &ldquo;이게 최선이다&rdquo;가 아니라 단일 최선 중재를 가릴 근거가 불충분하다는 쪽에
+            보존적 중재(수술 없이 하는 치료)를 비교한 체계적 고찰의 결론은 &ldquo;이게 최선이다&rdquo;가 아니라 단일 최선 중재를 가릴 근거가 불충분하다는 쪽에
             가깝습니다. <S>(Dizon et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/36976939/" />)</S>
           </p>
           <p>
-            노르딕 햄스트링 운동은 여러 종목에서 햄스트링 부상을 절반으로 줄인 예방 근거가 있지만 건병증 치료 근거는 아닙니다.{" "}
+            노르딕 햄스트링 운동은 여러 종목에서 햄스트링 부상을 절반으로 줄인 예방 근거가 있습니다. 하지만 건병증 치료 근거는
+            아닙니다.{" "}
             <S>(van Dyk et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30808663/" />)</S>
           </p>
         </Evidence>
@@ -205,11 +206,11 @@ export default function AdvancedGuidePage() {
         {/* ⚠️ 2026-09-14: "Bompa & Haff (2009)의 주기화 이론에 따르면 … 3단계로 구성해야" 였다. 확인할 수 없는 인용이었다.
             2026-10-08: 제목의 「부상 없이」를 뺐다 — 주기화가 부상을 줄인다는 연구를 찾지 못했다. */}
         <h2 id="periodization" className={H2}>
-          기록을 노린다면 훈련을 어떻게 나눌까 — 주기화
+          기록을 노린다면 훈련을 어떻게 나누나요?
         </h2>
         <P>
           주기화(periodization)는 훈련을 <strong>단계로 나눠 강도와 볼륨을 번갈아 배치</strong>하는 방식입니다. 아래는 널리 쓰이는
-          4단계 구성이고, 특정 문헌의 프로토콜은 아닙니다.
+          4단계 구성입니다. 특정 문헌의 프로토콜은 아닙니다.
         </P>
         <Note>주기화가 부상을 줄인다는 연구는 찾지 못했습니다.</Note>
         <div className="mt-4 overflow-x-auto">
@@ -239,14 +240,14 @@ export default function AdvancedGuidePage() {
         </P>
         <Evidence n={1}>
           <p>
-            경쟁 선수 연구 27편 메타분석에서 2주 동안 훈련 볼륨을 41~60% 줄이고 강도·빈도는 유지한 방식이 경기력을 가장
-            높였습니다(부상이 아니라 기록 기준). <S>(Bosquet et al. (2007) <Up h="https://pubmed.ncbi.nlm.nih.gov/17762369/" />)</S>
+            2주 동안 훈련 볼륨을 41~60% 줄이고 강도와 빈도는 유지한 방식이 경기력을 가장 높였습니다(경쟁 선수 연구 27편
+            메타분석, 부상이 아니라 기록 기준). <S>(Bosquet et al. (2007) <Up h="https://pubmed.ncbi.nlm.nih.gov/17762369/" />)</S>
           </p>
         </Evidence>
 
         {/* ── ③ ─────────────────────────────────────────── */}
         <h2 id="hrv" className={H2}>
-          HRV(심박변이도), 오늘 수치를 보고 훈련을 바꿔야 할까
+          오늘 HRV 수치를 보고 훈련을 바꿔야 하나요?
         </h2>
         <P>
           <strong>오늘 하루 수치에 반응하지 마세요.</strong>
@@ -255,15 +256,15 @@ export default function AdvancedGuidePage() {
         <Note>
           러너 10명짜리 상관 연구입니다. &ldquo;HRV를 보고 훈련을 조절하면 더 좋아진다&rdquo;는 개입 효과를 증명한 논문이 아닙니다.
         </Note>
-        <P>HRV는 수면·음주·측정 자세에 따라서도 흔들릴 수 있습니다.<Basis kind="rule" /></P>
+        <P>HRV는 수면이나 음주, 측정 자세에 따라서도 흔들릴 수 있습니다.<Basis kind="rule" /></P>
         <Todo
-          title="참고용 운영 규칙 — 논문이 검증한 프로토콜이 아닙니다"
+          title="참고용 운영 규칙(논문이 검증한 프로토콜이 아닙니다)"
           basis="rule"
           items={[
             "매일 아침 기상 직후 1~3분 측정 (Elite HRV, HRV4Training 앱)",
             <>매일 못 재도 주 3회 이상 재면 주 평균으로 쓸 만합니다<Basis kind="paper" /></>,
             "7일 평균 대비 당일 값 비교",
-            "평균 대비 5% 이상 저하 → 저강도 조깅 or 휴식",
+            "평균 대비 5% 이상 저하 → 저강도 조깅 또는 휴식",
             <><strong>2주 이상 지속 저하 → 의사 상담</strong></>,
           ]}
         />
@@ -272,12 +273,12 @@ export default function AdvancedGuidePage() {
           <p>
             {/* 2026-08-28 전면 수정. 이전 문장은 "5ms 이상 하락 시 … VO₂max 향상폭 2배"라고 썼는데, 인용한 Plews 2013은
                 그런 실험을 한 논문이 아니다(러너 10명 상관 연구, 서지도 8(6):688-691 이 맞다). */}
-            러너 10명의 9주 훈련을 추적해, HRV를 하루치로 보는 것과 일주일 평균으로 보는 것 중 어느 쪽이 수행능력 변화와 잘 맞는지
-            비교했습니다. 결과는 일주일 평균 쪽이었습니다(Int J Sports Physiol Perform).{" "}
+            HRV를 일주일 평균으로 본 쪽이 하루치로 본 쪽보다 수행능력 변화와 잘 맞았습니다(러너 10명의 9주 훈련 추적, Int J Sports
+            Physiol Perform).{" "}
             <S>(Plews et al. (2013) <Up h="https://doi.org/10.1123/ijspp.8.6.688" />)</S>
           </p>
           <p>
-            훈련된 철인3종 선수 연구에서, 매일 못 재도 주 3회 이상 재면 주 평균으로 쓸 만했습니다.{" "}
+            매일 못 재도 주 3회 이상 재면 주 평균으로 쓸 만했습니다(훈련된 철인3종 선수 연구).{" "}
             <S>(Plews et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24334285/" />)</S>
           </p>
         </Evidence>
@@ -295,15 +296,15 @@ export default function AdvancedGuidePage() {
         <FaqSection items={[
           {
             q: "숙련 러너의 부상 주원인은 무엇인가요?",
-            a: "숙련자에게만 해당하는 원인을 수치로 보여 준 연구는 확인하지 못했습니다. 러닝은 다른 유산소 운동보다 과사용 부상 위험이 높은 운동으로 보고되고(Francis 2019), 훈련량이 많을수록 반복 부하도 커집니다. 여러 연구에서 가장 일관된 위험 요인은 지난 1년 안의 부상 이력입니다(Saragiotto 2014).",
+            a: "숙련자에게만 해당하는 원인을 수치로 보여 준 연구는 확인하지 못했습니다. 러닝은 다른 유산소 운동보다 과사용 부상 위험이 높은 운동으로 보고됩니다(Francis 2019). 훈련량이 많을수록 반복 부하도 커집니다. 여러 연구에서 가장 일관된 위험 요인은 지난 1년 안의 부상 이력입니다(Saragiotto 2014).",
           },
           {
             q: "HRV(심박변이도)는 어떻게 활용하나요?",
-            a: "매일 아침 기상 직후 1~3분 측정(Elite HRV, HRV4Training 등)해서 7일 평균 대비 뚜렷하게 떨어진 날은 저강도 조깅이나 휴식으로 강도를 낮춥니다. 다만 이건 본문에 적어 둔 대로 참고용 운영 규칙이지 논문이 검증한 프로토콜이 아닙니다 — 근거로 든 Plews 2013은 러너 10명짜리 상관 연구이고, 개입 효과를 증명한 논문이 아닙니다.",
+            a: "매일 아침 기상 직후 1~3분 측정합니다(Elite HRV, HRV4Training 등). 7일 평균 대비 뚜렷하게 떨어진 날은 저강도 조깅이나 휴식으로 강도를 낮춥니다. 다만 이건 본문에 적어 둔 대로 참고용 운영 규칙이고, 논문이 검증한 프로토콜이 아닙니다. 근거로 든 Plews 2013은 러너 10명짜리 상관 연구입니다. 개입 효과를 증명한 논문이 아닙니다.",
           },
           {
             q: "기록을 높이면서 부상을 막으려면?",
-            a: "주기화(periodization)로 고강도·고볼륨과 회복 구간을 번갈아 배치하는 것이 일반적이지만, 주기화가 부상을 줄인다는 연구는 찾지 못했습니다. 근력 훈련은 여러 종목을 모은 메타분석에서 부상을 줄였지만(Lauersen 2014), 첫 마라톤 러너 720명 무작위 시험에서는 12주 근력 프로그램이 완주를 막은 과사용 부상을 줄이지 못했습니다(Toresdahl 2020).",
+            a: "주기화(periodization)로 고강도, 고볼륨 구간과 회복 구간을 번갈아 배치하는 것이 일반적입니다. 하지만 주기화가 부상을 줄인다는 연구는 찾지 못했습니다. 근력 훈련은 여러 종목을 모은 메타분석에서 부상을 줄였습니다(Lauersen 2014). 하지만 첫 마라톤 러너 720명 무작위 시험에서는 12주 근력 프로그램이 완주를 막은 과사용 부상을 줄이지 못했습니다(Toresdahl 2020).",
           },
         ]} />
 
@@ -326,7 +327,7 @@ export default function AdvancedGuidePage() {
         <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다.</p>
 
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6 text-center">
-          <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼·사이즈가 맞는지는 확인해 보세요</p>
+          <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼과 사이즈가 맞는지는 확인해 보세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
             내 발에 맞는 신발 찾기 →
           </Link>

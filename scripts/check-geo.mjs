@@ -28,7 +28,7 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const LIST_PAGES = new Set(["all", "topic"]);
 /** 2026-11-02 기준 질문형 소제목이 없는 글. 고치면 여기서 뺀다 */
-const DEBT = new Set(["hwang-young-jo", "knee-pain", "start-running"]);
+const DEBT = new Set/*<string>*/([]); // 2026-11-10 가이드 개편으로 세 편(hwang-young-jo·knee-pain·start-running) 모두 질문형 소제목이 생겨 비웠다
 /** 규칙 이전에 쓴 블로그 원고 (2026-11-02 노트북 목록). 새 원고는 여기 넣지 않는다 */
 const LEGACY_POSTS = new Set([
   "네이버블로그_11월마라톤_2026-10-15.md", "네이버블로그_2편.md", "네이버블로그_3편_2026-09-15.md",
