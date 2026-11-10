@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gtagEvent } from "@/lib/gtag";
 
 /**
@@ -61,7 +62,7 @@ function Arrow({ size = 16 }: { size?: number }) {
 }
 
 export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; count: number }) {
-  // 미리 보기: 공식몰 제품 사진이 있는 신발만, 브랜드를 돌아가며 4개 (패턴 15 — 사진 배경·각도를 맞춘다.
+  // 미리 보기: 공식몰 제품 사진이 있는 신발만, 브랜드를 돌아가며 최대 12개(2026-11-10 운영자 「옆으로 쭉쭉 볼 수 있게」 — 4 → 12) (패턴 15 — 사진 배경·각도를 맞춘다.
   // 착용 사진은 목록에 넣지 않는다 — 패턴 35, 2026-11-10 운영자 「회색 칸이 두 겹」)
   const TILE_IDS = new Set(USE_TILES.map((t) => t.img.split("/").pop()!.replace(".webp", "")));
   const byBrand = new Map<string, FinderShoe[]>();
@@ -69,10 +70,37 @@ export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; 
     if (!s.photo || TILE_IDS.has(s.id)) continue;
     byBrand.set(s.brand, [...(byBrand.get(s.brand) ?? []), s]);
   }
+  const MAX = 12;
   const shown: FinderShoe[] = [];
-  for (let i = 0; shown.length < 4 && [...byBrand.values()].some((l) => l[i]); i++) {
-    for (const l of byBrand.values()) if (l[i] && shown.length < 4) shown.push(l[i]);
+  for (let i = 0; shown.length < MAX && [...byBrand.values()].some((l) => l[i]); i++) {
+    for (const l of byBrand.values()) if (l[i] && shown.length < MAX) shown.push(l[i]);
   }
+
+  /**
+   * 2026-11-10 운영자: 신발 줄 양옆에 ← → 버튼 — PC 에서는 마우스로 옆으로 넘기기 어렵다.
+   * 휴대폰은 손가락으로 넘기니 버튼을 숨긴다(md 이상만). 처음·끝에서는 그쪽 버튼을 숨긴다.
+   * 한 번에 카드 두 장(312px × 2)씩. 움직임 줄이기 설정이면 부드럽게 넘기지 않고 바로 옮긴다.
+   */
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ start: true, end: false });
+  const sync = useCallback(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    setEdge({ start: el.scrollLeft <= 4, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4 });
+  }, []);
+  useEffect(() => {
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, [sync]);
+  const slide = (dir: 1 | -1) => {
+    const el = rowRef.current;
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollBy({ left: dir * 624, behavior: reduce ? "auto" : "smooth" });
+  };
+  const navBtn =
+    "absolute top-[144px] z-10 hidden size-11 place-items-center rounded-full bg-[#111111] text-white shadow-md transition-opacity duration-200 md:grid";
 
   return (
     <>
@@ -138,14 +166,23 @@ export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; 
             <h2 id="list-h" className="text-xl font-semibold text-[#111111]">
               러닝화 미리 보기
             </h2>
-            {/* 2026-11-10 운영자: 「→ 표시 여기 붙인 거 아니었어?」 — PC 에서는 줄 끝 「전체 보기 →」 카드가 화면 밖이라 안 보인다. 머리 링크에도 붙인다 */}
-            <Link href="/shoes" className="flex min-h-11 items-center gap-1 text-sm font-bold text-[#111111] underline">
+            <Link href="/shoes" className="flex min-h-11 items-center text-sm font-bold text-[#111111] underline">
               전체 보기
-              <Arrow />
             </Link>
           </div>
 
-          <div className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
+          <div className="relative">
+          {!edge.start && (
+            <button type="button" onClick={() => slide(-1)} aria-label="이전 신발 보기" className={`${navBtn} left-1 xl:-left-14`}>
+              <span className="inline-flex rotate-180"><Arrow size={20} /></span>
+            </button>
+          )}
+          {!edge.end && (
+            <button type="button" onClick={() => slide(1)} aria-label="다음 신발 보기" className={`${navBtn} right-1 xl:-right-14`}>
+              <Arrow size={20} />
+            </button>
+          )}
+          <div ref={rowRef} onScroll={sync} className="finder-row flex gap-3 overflow-x-auto px-5 pb-2 pt-4">
             {shown.map((s) => {
               const badge = s.uses.map((x) => USE_BADGE[x]).filter(Boolean).join("·");
               const widths = WIDTH_ORDER.filter((x) => s.widthOptions.includes(x)).map((x) => WIDTH_WORD[x]).join("·");
@@ -194,6 +231,7 @@ export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; 
                 <Arrow size={20} />
               </Link>
             )}
+          </div>
           </div>
         </div>
       </section>
