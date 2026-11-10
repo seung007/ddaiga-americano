@@ -26,11 +26,11 @@ import { pageUrl } from "@/lib/site";
  *   「경험칙」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
  */
 const PAGE_URL = pageUrl("/injury/warmup");
-const TITLE = "달리기 전 5분 동적 스트레칭 루틴";
-const DESC = "정적 스트레칭이 아닌 동적 워밍업이 필요한 이유와 구체적인 5분 루틴을 알려드립니다.";
+const TITLE = "러닝 전 스트레칭, 정적으로 해도 되나요?";
+const DESC = "오래 붙들고 늘리는 정적 스트레칭은 짧게, 아프지 않게 하면 됩니다. 몸을 데우는 5분 동적 루틴과 워밍업이 부상을 줄이는지까지 근거와 함께 봅니다.";
 
 export const metadata: Metadata = {
-  title: "달리기 전 5분 동적 스트레칭 루틴 — 뛰다가 아메리카노",
+  title: "러닝 전 스트레칭, 정적으로 해도 되나요? — 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/warmup" },
 };
@@ -55,26 +55,26 @@ export default function Page() {
             {/* 규약은 app/injury/page.tsx 상단 주석 */}
             <span className="text-xs text-gray-400">4분 읽기</span>
           </div>
-          <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">달리기 전 5분 동적 스트레칭 루틴</h1>
+          <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">러닝 전 스트레칭, 정적으로 해도 되나요?</h1>
           <ArticleMeta href="/injury/warmup" />
           <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-500">
             <span className="text-emerald-600">✓</span>
-            협찬 없이 작성 — 연구로 확인된 것과 저희 제안을 구분해 적었습니다
+            협찬 없이 작성했습니다. 연구로 확인된 것과 저희 제안을 구분해 적었습니다
           </p>
         </header>
         <Lead>
-          달리기 전에는 오래 붙들고 늘리는 정적 스트레칭보다 <strong>관절을 움직이는 동적 워밍업</strong>을 주로 합니다. 5분 루틴을
-          그림으로 정리했습니다.
+          뛰기 전에 다리를 붙잡고 늘리는 게 맞는지 헷갈린다면, 얼마나 오래 붙드는지부터 보면 됩니다. 달리기 전에는 오래 붙들고 늘리는
+          정적 스트레칭보다 <strong>관절을 움직이는 동적 워밍업</strong>을 주로 합니다.
         </Lead>
 
         <Summary
           items={[
             <>
-              달리기 전 정적 스트레칭은 <strong>짧게, 아프지 않게</strong>. 한 근육군을 60초 이상 붙들면 출력이 더 떨어졌습니다.
+              달리기 전 정적 스트레칭은 <strong>짧게, 아프지 않게</strong> 합니다. 한 근육군을 60초 이상 붙들면 출력이 더 떨어졌습니다.
               <Basis kind="paper" />
             </>,
             <>
-              달리기 전에는 <strong>정적보다 동적</strong>. 근거가 있는 것은 이 방향까지입니다.
+              달리기 전에는 <strong>정적보다 동적</strong> 스트레칭을 주로 합니다. 근거가 있는 것은 이 방향까지입니다.
               <Basis kind="paper" />
             </>,
             <>
@@ -82,7 +82,7 @@ export default function Page() {
               <Basis kind="paper" />
             </>,
             <>
-              추운 날엔 <strong>몸이 데워질 때까지</strong> 평소보다 길게.
+              추운 날엔 <strong>몸이 데워질 때까지</strong> 평소보다 길게 합니다.
               <Basis kind="rule" />
             </>,
           ]}
@@ -96,10 +96,10 @@ export default function Page() {
             ⚠️ 2026-09-14 — Behm & Chaouachi 2011 초록의 조건은 **총 시간 90초 미만**이지 **자세당 60초**가 아니다.
             2026-10-08: 「근육군당 60초」 기준은 다른 논문(Behm 2016)에 실제로 있다. 출처를 나눠 적는다. */}
         <h2 id="static" className={H2}>
-          달리기 전에 스트레칭하면 안 되나요?
+          러닝 전에 정적 스트레칭하면 안 되나요?
         </h2>
         <P>
-          하면 안 된다기보다 <strong>오래 붙들지 않는 것</strong>이 요점입니다. 전체를 짧게(총 90초 미만), 아프지 않은 강도로 하면
+          하면 안 된다기보다 <strong>오래 붙들지 않는 것</strong>이 요점입니다. 전체를 짧게(총 90초 미만) 아프지 않은 강도로 하면
           영향이 거의 없다고 보고됩니다.
         </P>
         <P>
@@ -113,7 +113,7 @@ export default function Page() {
             <S>(Behm &amp; Chaouachi (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21373870/" />)</S>
           </p>
           <p>
-            여러 연구를 모은 고찰에서는 한 근육군을 60초 이상 늘렸을 때 평균 −4.6%, 60초 미만이면 −1.1%였습니다. 같은 고찰에서 정적
+            한 근육군을 60초 이상 늘렸을 때는 평균 −4.6%, 60초 미만이면 −1.1%였습니다(여러 연구를 모은 고찰). 같은 고찰에서 정적
             스트레칭은 평균 −3.7%, 동적 스트레칭은 +1.3%였습니다. 동적 스트레칭은 관절 가동범위를 늘리고(대개 30분 안쪽 지속), 활동 직전 몇
             분 안에 하면 수행능력이 조금 오른다는 보고가 있습니다.{" "}
             <S>(Behm et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26642915/" />)</S>
@@ -128,29 +128,29 @@ export default function Page() {
           충분하지 않지만 줄이는 쪽에 무게가 있다고 정리했습니다.
         </P>
         <P>
-          여러 종목의 무작위 시험을 모은 분석에서, 스트레칭만으로는 부상 예방 효과가 확인되지 않았습니다. 같은 분석에서 근력운동은
+          스트레칭만으로는 부상 예방 효과가 확인되지 않았습니다(여러 종목의 무작위 시험을 모은 분석). 같은 분석에서 근력운동은
           부상 위험을 낮췄습니다.
         </P>
         <Evidence n={2}>
           <p>
-            워밍업과 부상을 본 무작위 시험 5편 중 3편은 줄었다고, 2편은 차이가 없다고 보고했고, 검토한 연구진은 근거가 충분하지 않지만 줄이는
-            쪽에 무게가 있다고 정리했습니다. <S>(Fradkin et al. (2006) <Up h="https://pubmed.ncbi.nlm.nih.gov/16679062/" />)</S>
+            워밍업과 부상을 본 무작위 시험 5편 중 3편은 줄었다고, 2편은 차이가 없다고 보고했습니다. 검토한 연구진은 근거가 충분하지 않지만
+            줄이는 쪽에 무게가 있다고 정리했습니다. <S>(Fradkin et al. (2006) <Up h="https://pubmed.ncbi.nlm.nih.gov/16679062/" />)</S>
           </p>
           <p>
-            여러 종목의 무작위 시험 25편(26,610명)을 모은 메타분석에서 스트레칭은 부상 예방 효과가 확인되지 않았습니다(RR 0.96). 같은
+            스트레칭은 부상 예방 효과가 확인되지 않았습니다(RR 0.96). 여러 종목의 무작위 시험 25편(26,610명)을 모은 메타분석입니다. 같은
             분석에서 근력운동은 부상 위험을 1/3 아래로 낮췄습니다.{" "}
             <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>
           </p>
         </Evidence>
 
         <h2 id="routine" className={H2}>
-          5분 동적 루틴
+          뛰기 전 5분, 어떤 동작을 하면 되나요?
         </h2>
         <P>
-          위에서부터 순서대로 하고, 마지막 1분은 천천히 조깅으로 마무리합니다. <Basis kind="rule" />
+          아래 동작을 위에서부터 순서대로 합니다. 마지막 1분은 천천히 조깅으로 마무리합니다. <Basis kind="rule" />
         </P>
         <Note>
-          그림은 동작을 알아보게 하는 도식이지 자세를 교정해주는 자료가 아닙니다 — 아래 &ldquo;이 동작들의 근거&rdquo;를 함께 읽어주세요.
+          그림은 동작을 알아보게 하는 도식이지 자세를 교정해주는 자료가 아닙니다. 아래 &ldquo;이 동작들은 근거가 있나요?&rdquo;를 함께 읽어주세요.
         </Note>
 
         <div className="mt-5 space-y-3">
@@ -165,7 +165,7 @@ export default function Page() {
                 move="legSwing"
                 title="② 레그 스윙 (앞뒤·옆)"
                 reps="각 10회"
-                cue="벽이나 기둥을 짚고 합니다. 흔한 실수는 반동으로 크게 차는 것 — 허리가 같이 젖혀지면 범위를 줄이세요. 골반은 정면에 고정합니다."
+                cue="벽이나 기둥을 짚고 합니다. 흔한 실수는 반동으로 크게 차는 것입니다. 허리가 같이 젖혀지면 범위를 줄이세요. 골반은 정면에 고정합니다."
               />
               <ExerciseFigure
                 move="hipCircle"
@@ -195,7 +195,7 @@ export default function Page() {
         </div>
 
         <h2 id="basis" className={H2}>
-          이 동작들의 근거
+          이 동작들은 근거가 있나요?
         </h2>
         <div className="mt-4 rounded-2xl border border-gray-200 bg-gray-50 p-5">
           <div className="mb-3 flex flex-wrap gap-2">
@@ -209,7 +209,7 @@ export default function Page() {
           </p>
           <p className="mt-3 break-keep text-[15px] leading-[1.75] text-gray-700">
             근거가 있는 쪽은 <strong className="text-gray-900">&ldquo;달리기 전에는 정적보다 동적&rdquo;이라는 방향</strong>까지입니다. 그
-            이상으로 &ldquo;이 순서가 최적&rdquo;이라거나 &ldquo;이 루틴이 부상을 줄인다&rdquo;고는 말하지 않겠습니다 — 동적 스트레칭과
+            이상으로 &ldquo;이 순서가 최적&rdquo;이라거나 &ldquo;이 루틴이 부상을 줄인다&rdquo;고는 말하지 않겠습니다. 동적 스트레칭과
             부상의 관계는 위 고찰(Behm 2016)에도 자료가 없었습니다.
           </p>
         </div>
@@ -222,17 +222,16 @@ export default function Page() {
         </P>
         <Note>몇 배로 늘려야 하는지 보여주는 연구는 찾지 못했습니다.</Note>
         <P>
-          영하 15도 아래에서 강하게 달리면 기관지가 좁아질 수 있습니다. 작은 연구들에서 열교환 마스크가 달린 뒤 폐 기능 저하를
-          줄였습니다.
+          영하 15도 아래에서 강하게 달리면 기관지가 좁아질 수 있습니다. 열교환 마스크는 달린 뒤 폐 기능 저하를 줄였습니다(작은
+          연구들).
         </P>
         <Note>영하 20도 실험실의 동계 종목 선수 13명, 천식이 있는 15명을 본 소규모 연구입니다. 일반 마스크로 같은 효과가 나는지는 확인하지 못했습니다.</Note>
         <Evidence n={2}>
           <p>
-            영하 20도 실험실에서 동계 종목 선수 13명을 본 연구에서, 열·수분 교환 마스크를 쓰면 달린 뒤 폐 기능 저하와 기침 같은 증상이
-            줄었습니다. <S>(Frischhut et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31755166/" />)</S>
+            열·수분 교환 마스크를 쓰면 달린 뒤 폐 기능 저하와 기침 같은 증상이 줄었습니다(영하 20도 실험실, 동계 종목 선수 13명). <S>(Frischhut et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31755166/" />)</S>
           </p>
           <p>
-            천식이 있는 15명을 본 소규모 연구에서도 열교환 마스크가 찬 공기 운동 뒤 폐 기능 저하를 줄였습니다.{" "}
+            찬 공기 운동 뒤의 폐 기능 저하를 열교환 마스크가 줄였다는 소규모 연구도 있습니다(천식이 있는 15명).{" "}
             <S>(Beuther &amp; Martin (2006) <Up h="https://pubmed.ncbi.nlm.nih.gov/16685008/" />)</S>
           </p>
         </Evidence>
@@ -245,8 +244,8 @@ export default function Page() {
 
           <FaqSection items={[
             {
-              q: "달리기 전에 정적 스트레칭을 하면 안 되나요?",
-              a: "\"하면 안 된다\"보다는 \"오래 붙들지 마라\"가 정확합니다. Behm & Chaouachi(2011) 리뷰는 정적 스트레칭이 근육 출력을 떨어뜨릴 수 있다고 정리하면서, 전체를 짧게(총 90초 미만) 하고 아프지 않은 강도로 하면 저하가 없을 수 있다고 봅니다. Behm 등(2016) 고찰에서는 한 근육군을 60초 이상 늘리면 평균 −4.6%, 60초 미만이면 −1.1%였습니다. 그러니 달리기 전에는 관절을 움직이는 동적 워밍업을 주로 하고, 유연성을 늘리려는 정적 스트레칭은 달린 뒤나 따로 하세요.",
+              q: "러닝 전에 정적 스트레칭을 하면 안 되나요?",
+              a: "\"하면 안 된다\"보다는 \"오래 붙들지 마라\"가 정확합니다. Behm & Chaouachi(2011) 리뷰는 정적 스트레칭이 근육 출력을 떨어뜨릴 수 있다고 정리합니다. 다만 전체를 짧게(총 90초 미만) 하고 아프지 않은 강도로 하면 저하가 없을 수 있다고 봅니다. Behm 등(2016) 고찰에서는 한 근육군을 60초 이상 늘리면 평균 −4.6%, 60초 미만이면 −1.1%였습니다. 그러니 달리기 전에는 관절을 움직이는 동적 워밍업을 주로 하세요. 유연성을 늘리려는 정적 스트레칭은 달린 뒤나 따로 하세요.",
             },
             {
               // 2026-09-03: 본문을 동작 카드 6개로 바꾸면서 이 답변은 그대로 뒀다.
@@ -256,7 +255,7 @@ export default function Page() {
             },
             {
               q: "추운 날에는 워밍업을 어떻게 해야 하나요?",
-              a: "몸이 데워졌다고 느낄 때까지 평소보다 길게 하세요(저희 제안 — 몇 배로 늘려야 하는지 보여주는 연구는 찾지 못했습니다). 영하 15도 아래에서 강하게 달리면 기관지가 좁아질 수 있고, 동계 종목 선수와 천식 환자를 본 소규모 연구에서는 열교환 마스크가 이를 줄였습니다(Frischhut 2020, Beuther 2006). 일반 마스크로 같은 효과가 나는지는 확인하지 못했습니다.",
+              a: "몸이 데워졌다고 느낄 때까지 평소보다 길게 하세요(저희 제안입니다. 몇 배로 늘려야 하는지 보여주는 연구는 찾지 못했습니다). 영하 15도 아래에서 강하게 달리면 기관지가 좁아질 수 있습니다. 동계 종목 선수와 천식 환자를 본 소규모 연구에서는 열교환 마스크가 이를 줄였습니다(Frischhut 2020, Beuther 2006). 일반 마스크로 같은 효과가 나는지는 확인하지 못했습니다.",
             },
           ]} />
         </div>
@@ -287,7 +286,7 @@ export default function Page() {
             <li className="flex gap-2"><span className="text-gray-400">•</span>
               <span><strong>Beuther &amp; Martin (2006)</strong> — 찬 공기(−25~−15°C) 운동 유발 천식 15명. 열교환 마스크가 폐 기능 저하를 막음. <a href="https://pubmed.ncbi.nlm.nih.gov/16685008/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span>
             </li>
-            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">개별 동작의 폼과 겨울 워밍업 시간은 통용 관행·저희 제안이며 논문 출처가 없습니다. 위 &ldquo;이 동작들의 근거&rdquo; 참고</span></li>
+            <li className="flex gap-2"><span className="text-gray-400">•</span><span className="text-gray-500">개별 동작의 폼과 겨울 워밍업 시간은 통용 관행·저희 제안이며 논문 출처가 없습니다. 위 &ldquo;이 동작들은 근거가 있나요?&rdquo; 참고</span></li>
           </ul>
         </References>
 
@@ -299,7 +298,7 @@ export default function Page() {
             나에게 맞는 신발 찾기 →
           </Link>
         </div>
-        <ShareButtons from="warmup" title="달리기 전 5분 동적 스트레칭" description="동작 6개를 그림으로 정리했습니다." />
+        <ShareButtons from="warmup" title="러닝 전 스트레칭, 정적으로 해도 되나요?" description="동작 6개를 그림으로 정리했습니다." />
 
       </article>
     </>
