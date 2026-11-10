@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { History, Search, TriangleAlert, Scale, Store, ShoppingCart } from "lucide-react";
 import AffiliateNotice from "@/components/AffiliateNotice";
+import ChipRow, { Why } from "@/components/finder/ChipRow";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes } from "@/lib/shoes/recommend";
@@ -18,6 +19,35 @@ import { gtagEvent } from "@/lib/gtag";
 
 // 옵션표·저장 프로필·GA 헬퍼는 `/shoes`(내 조건으로 보기)와 같이 쓰려고 lib 로 옮겼다 (2026-09-16).
 
+/*
+ * 2026-11-10 — 8화면을 4화면으로 묶었다. **질문 8개는 그대로다.**
+ *
+ * 운영자 판단: 한 화면에 질문 하나씩 8번 넘기다 보면 방문자가 중간에 그만둔다. 질문을 빼면 추천 품질이 떨어지니
+ * 질문은 두고 화면 수만 줄인다. ⚠️ 이탈이 화면 수 때문인지는 잰 적이 없다(아래 GA 주석) — 측정이 아니라 운영자 결정이다.
+ * 2026-09-14 STEP 0 주석에 「Warby Parker·ThirdLove 도 8단계라 길이는 문제가 아니다」라고 적었는데,
+ * 그건 남의 성공 사례였지 우리 이탈을 잰 것이 아니었다. 그 주석은 지웠다.
+ *
+ * 화면별 질문 (값·필수 여부는 바꾸지 않았다. 필수 = 용도·키·체중):
+ *   0 어떻게 달려요?       용도(필수) · 경험 · 주간 거리
+ *   1 몸에 대해 알려 주세요  성별 · 키(필수) · 체중(필수)
+ *   2 발은 어떤가요?        발볼 · 발바닥 모양
+ *   3 아픈 곳과 예산        부상 이력 · 예산 → 제출
+ *
+ * 같은 날 1화면의 「빠르게 시작」 프리셋 4개(2026-10-13)도 걷었다. 운영자가 「직접 고르기」와 뭐가 다르냐고 물었다 —
+ * 한 화면에 고르는 방식이 두 개라 오히려 고를 게 많아 보였다.
+ */
+
+/**
+ * 화면에 보이는 선택지 이름은 처음 달리는 사람이 읽을 수 있는 말로 쓴다(2026-11-10).
+ * 값(value)은 공유 URL·저장 프로필·추천 엔진이 쓰므로 바꾸지 않았다. 이름만 바꿨다.
+ */
+const USE_OPTIONS: { value: ShoeUse; label: string }[] = [
+  { value: "daily",  label: "일상 달리기" },
+  { value: "long",   label: "장거리" },
+  { value: "tempo",  label: "빠른 훈련" },
+  { value: "racing", label: "대회용" },
+];
+
 // ── PRD F-01 추가 문항 옵션 ────────────────────────────────────────
 const BUDGETS: { value: number; label: string }[] = [
   { value: 0,      label: "상관없음" },
@@ -27,62 +57,56 @@ const BUDGETS: { value: number; label: string }[] = [
 ];
 
 // ── PRD F-01 추가 문항: 경험 · 주간 거리 · 부상 이력 ──────────────
-const LEVEL_OPTIONS: { value: RunnerLevel; label: string; desc: string }[] = [
-  { value: "beginner",     label: "입문",  desc: "5km를 편하게 달린 적 없어요" },
-  { value: "intermediate", label: "중급",  desc: "5km는 쉽게, 하프마라톤도 완주했어요" },
-  { value: "advanced",     label: "숙련",  desc: "하프 이상 꾸준히 · 기록 단축 중" },
+// 2026-11-10: 「입문·중급·숙련」은 기준을 따로 읽어야 해서, 그 기준(예전 설명 문구)을 이름으로 올렸다.
+const LEVEL_OPTIONS: { value: RunnerLevel; label: string }[] = [
+  { value: "beginner",     label: "이제 막 시작했어요" },     // 예전 설명: 5km를 편하게 달린 적 없어요
+  { value: "intermediate", label: "하프까지 뛰어 봤어요" },   // 예전 설명: 5km는 쉽게, 하프마라톤도 완주했어요
+  { value: "advanced",     label: "기록을 줄이는 중이에요" }, // 예전 설명: 하프 이상 꾸준히, 기록 단축 중
 ];
 
-const DISTANCE_OPTIONS: { value: RunDistance; label: string; desc: string }[] = [
-  { value: "short", label: "주 10km 미만",  desc: "가볍게 달려요" },
-  { value: "mid",   label: "주 10 – 30km", desc: "꾸준히 달려요" },
-  { value: "long",  label: "주 30km 이상",  desc: "많이 달려요" },
+const DISTANCE_OPTIONS: { value: RunDistance; label: string }[] = [
+  { value: "short", label: "10km 미만" },
+  { value: "mid",   label: "10~30km" },
+  { value: "long",  label: "30km 이상" },
 ];
 
-const INJURY_OPTIONS: { value: InjuryArea; label: string; desc: string }[] = [
-  { value: "none",     label: "없음",            desc: "다친 적 없어요" },
-  { value: "knee",     label: "무릎",            desc: "무릎 앞·바깥쪽 통증" },
-  { value: "ankle",    label: "발목",            desc: "접질림 · 불안정한 느낌" },
-  { value: "achilles", label: "아킬레스·종아리", desc: "뒤꿈치 위쪽이 당김" },
-  { value: "plantar",  label: "족저근막",        desc: "아침 첫발에 발바닥 통증" },
+const INJURY_OPTIONS: { value: InjuryArea; label: string }[] = [
+  { value: "none",     label: "없어요" },
+  { value: "knee",     label: "무릎" },
+  { value: "ankle",    label: "발목" },
+  { value: "achilles", label: "종아리·뒤꿈치 위" },
+  { value: "plantar",  label: "발바닥" },
 ];
+
+/** 발 특성 칩 이름 — FOOT_OPTIONS(lib) 의 「넓은 발볼 2E/4E」「중립 아치」는 처음 보는 사람이 읽기 어렵다 */
+const FOOT_CHIP: Record<string, string> = {
+  narrow: "좁아요", normal: "보통이에요", wide: "넓어요",
+  flat: "평발 쪽이에요", neutral: "보통이에요", high_arch: "아치가 높아요",
+};
+/** 결과 화면 조건 칩·홈 안내 줄에 쓰는 이름 */
+const FOOT_NAME: Record<string, string> = {
+  narrow: "좁은 발볼", normal: "보통 발볼", wide: "넓은 발볼",
+  flat: "평발 쪽", neutral: "보통 아치", high_arch: "높은 아치",
+};
 
 type SortKey = "score" | "price_asc" | "price_desc";
 
-/**
- * 원탭 시작 프리셋 (2026-10-13)
- *
- * Rundida 가 「Beginner road runner」「Wide-foot daily」 같은 묶음으로 시작하게 하는 것을 보고 넣었다.
- * 8단계 중 용도·경험·거리·발볼은 「나는 이런 러너」 한마디로 정해지는 경우가 많다.
- *
- * - **기존 선택지 값만** 쓴다. 정한 항목만 덮고 나머지(성별·아치·부상·예산)는 건드리지 않는다.
- * - **체중 묶음은 만들지 않는다** — 체중은 순위에 안 쓴다(recommend.ts v4).
- * - 키·체중은 추천 계산에 필수라 프리셋이 대신 고를 수 없다. 이미 골라져 있으면 바로 결과로,
- *   아니면 키 단계로 보내고 체중을 고르는 순간 결과를 낸다(`presetPending`).
- */
-const PRESETS: {
-  id: string; label: string;
-  use: ShoeUse; level?: RunnerLevel; distance?: RunDistance; width?: "wide";
-}[] = [
-  { id: "beginner_daily", label: "처음 시작하는 데일리", use: "daily",  level: "beginner",     distance: "short" },
-  { id: "wide_daily",     label: "발볼이 넓어요",        use: "daily",  width: "wide" },
-  { id: "half_prep",      label: "하프 준비 중",          use: "long",   level: "intermediate", distance: "mid" },
-  { id: "racing",         label: "기록 단축·레이싱",      use: "racing", level: "advanced",     distance: "long" },
-];
+const SCREENS = ["어떻게 달려요?", "몸에 대해 알려 주세요", "발은 어떤가요?", "아픈 곳과 예산"];
+const TOTAL_STEPS = SCREENS.length;
 
-const TOTAL_STEPS = 8;
-// 2026-09-14: 첫 문항을 「예산」 → 「용도」로 바꿨다(마지막과 자리 교환).
-// 관측한 추천 서비스 5곳 중 예산을 첫 문항에 둔 곳은 0곳이었다. 경위는 STEP 0 주석에.
-const STEP_LABELS = ["용도", "성별", "키", "체중", "발 특성", "경험·거리", "부상 이력", "예산"];
-const STEP_MICROCOPY = [
-  "어떤 달리기를 하세요?",
-  "성별을 알려주시면 발형에 맞게 추천해드려요",
-  "키가 어떻게 되세요?",
-  "체중도 알려주세요 — 쿠션 두께가 달라져요",
-  "내 발 특성이 어때요?",
-  "달린 지 얼마나 됐어요?",
-  "달리다 다쳐본 적 있어요?",
-  "마지막 — 예산이 어느 정도예요?",
+/**
+ * 결과 화면의 조건 칩 — 질문 하나에 칩 하나, 누르면 그 질문이 있는 화면이 열린다.
+ * `label` 은 GA `recommend_inline_edit` 의 field 값이다. 8화면 시절과 같은 이름을 써서 이전 기록과 이어 본다.
+ */
+const FIELDS: { label: string; screen: number }[] = [
+  { label: "용도", screen: 0 },
+  { label: "경험·거리", screen: 0 },
+  { label: "성별", screen: 1 },
+  { label: "키", screen: 1 },
+  { label: "체중", screen: 1 },
+  { label: "발 특성", screen: 2 },
+  { label: "부상 이력", screen: 3 },
+  { label: "예산", screen: 3 },
 ];
 
 // ── 재방문 · 공유: 프로필 저장/복원 ─────────────────────────────
@@ -102,9 +126,9 @@ export default function ShoeFinderPage() {
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   /**
-   * 결과 화면에서 조건 하나만 고쳐보는 모드. null이면 평소의 8단계 마법사.
+   * 결과 화면에서 조건을 고쳐보는 모드. 값은 열린 **화면** 번호(0~3), null이면 평소의 마법사.
    *
-   * 이게 없을 때는 예산 하나 바꾸려고 「조건 다시 고르기」로 8단계를 전부 다시 돌아야 했다.
+   * 이게 없을 때는 예산 하나 바꾸려고 「조건 다시 고르기」로 처음부터 다시 돌아야 했다.
    * 추천 결과는 이미 useMemo라 입력이 바뀌면 자동으로 다시 계산되므로,
    * `submitted`만 유지하면 재제출 없이 결과가 그 자리에서 갱신된다.
    */
@@ -120,6 +144,10 @@ export default function ShoeFinderPage() {
    * 완주율을 계산하려면 분모가 필요한데 지금까지 그게 없었다. session_start를 분모로 쓰면
    * /shoe-finder를 밟지도 않은 세션이 전부 들어가 값이 무의미해진다.
    * recommend_form_start를 심어 "폼을 실제로 시작한 사람" 대비 완주율을 재도록 한다.
+   *
+   * ⚠️ 2026-11-10 화면을 8개 → 4개로 줄였다. `recommend_form_start` 는 여전히 「첫 화면에서 다음을 누른 순간」인데,
+   * 첫 화면에 이제 질문이 셋(용도·경험·거리)이다. 시작의 무게와 완주까지의 화면 수가 둘 다 바뀌었으므로
+   * **2026-11-10 이전과 이후의 시작→완주 비율·elapsed_sec 를 한 줄로 이어 비교하지 않는다.**
    */
   const startFiredRef = useRef(false);
   const completeFiredRef = useRef(false);
@@ -149,22 +177,23 @@ export default function ShoeFinderPage() {
    * 새 매개변수 이름을 쓰면 또 등록해야 하고 **소급 적용이 안 된다.**
    */
   const restoredRef = useRef(false);
-  /** 2026-10-13 — 프리셋으로 들어온 완주는 from=preset. 분모는 finder_preset 이다(start 를 안 쏘므로) */
-  const presetRef = useRef(false);
+  /*
+   * 2026-11-10 — 프리셋을 걷으면서 `finder_preset` 이벤트와 complete 의 `from=preset` 도 더는 나오지 않는다.
+   * 2026-10-13 ~ 11-10 사이 기록에는 남아 있다. 그 기간 from=form 완주율을 볼 때는 여전히 preset 을 분자에서 빼야 한다
+   * (프리셋 경로는 start 를 안 쐈다).
+   */
   /** 2026-10-13 — 「1분」 문구를 뺐다(잰 적이 없었다). 시작→완주 시간을 재서 다시 쓸지 정한다 */
   const startedAtRef = useRef<number | null>(null);
-  /** 프리셋을 눌렀고 키·체중만 남았다 — 체중이 골라지는 순간 결과를 낸다 */
-  const [presetPending, setPresetPending] = useState<string | null>(null);
   /**
    * 2026-11-05 — 홈 추천 카드에서 발볼·용도를 고르고 들어온 사람 (`?from=home&f=wide&u=long`).
-   * 홈에서 이미 답한 것을 다시 묻지 않는다. 프리셋과 같은 이유로 `recommend_form_start` 를 쏘지 않는다 —
-   * 1단계를 안 밟았으니 from=form 완주율의 분모를 부풀린다. 이 경로의 분모는 `finder_from_home` 이다.
+   * 홈에서 이미 답한 것을 다시 묻지 않는다. `recommend_form_start` 를 쏘지 않는다 —
+   * 첫 화면을 안 밟을 수 있으니 from=form 완주율의 분모를 부풀린다. 이 경로의 분모는 `finder_from_home` 이다.
    */
   const homeRef = useRef(false);
   const [fromHome, setFromHome] = useState<{ f: string; u: ShoeUse | "" } | null>(null);
 
   function goNext() {
-    // 1단계에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
+    // 첫 화면에서 다음으로 넘어가는 순간 = 폼을 실제로 시작한 것
     if (!startFiredRef.current) {
       startFiredRef.current = true;
       startedAtRef.current = Date.now();
@@ -172,26 +201,7 @@ export default function ShoeFinderPage() {
     }
     setCurrentStep(s => Math.min(s + 1, TOTAL_STEPS - 1));
   }
-  function goPrev() { setPresetPending(null); setCurrentStep(s => Math.max(s - 1, 0)); }
-
-  function applyPreset(p: (typeof PRESETS)[number]) {
-    gtagEvent("finder_preset", { preset: p.id });
-    // 프리셋 경로는 goNext 를 거의 안 거친다. 여기서 start 를 쏘면 from=form 완주율의 분모가 부풀므로
-    // 쏘지 않고, 이후 goNext 에서도 안 쏘게 막아 둔다. 이 경로의 분모는 finder_preset 이다.
-    startFiredRef.current = true;
-    presetRef.current = true;
-    setUse(p.use);
-    if (p.level) setLevel(p.level);
-    if (p.distance) setDistance(p.distance);
-    if (p.width) {
-      const wid = p.width;
-      setFootSelections(prev => [...prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== "width"), wid]);
-    }
-    setError("");
-    setPresetPending(p.id);
-    if (heightRange && weightRange) return; // 키·체중이 이미 있으면 아래 effect 가 바로 제출한다
-    setCurrentStep(heightRange ? 3 : 2);
-  }
+  function goPrev() { setError(""); setCurrentStep(s => Math.max(s - 1, 0)); }
 
   // 저장된 프로필을 상태에 적용 (공유 URL · 지난 추천 다시보기 공용)
   function applyProfile(p: SavedProfile, submit: boolean) {
@@ -242,7 +252,8 @@ export default function ShoeFinderPage() {
           if (u) setUse(u);
           if (f) setFootSelections([f]);
           setFromHome({ f, u });
-          // 용도를 골라 왔으면 1번(용도)을 건너뛰고 성별부터. 발볼만 골라 왔으면 용도부터 묻는다
+          // 필수 질문이 남은 첫 화면을 연다. 첫 화면의 필수는 용도 하나라, 용도를 골라 왔으면 몸(키·체중) 화면부터.
+          // 발볼만 골라 왔으면 용도가 남았으니 첫 화면. 발볼은 3번째 화면에서 골라진 채로 보인다
           if (u) setCurrentStep(1);
         }
       }
@@ -322,24 +333,14 @@ export default function ShoeFinderPage() {
   }
 
   function submitNow() {
-    setPresetPending(null);
     /**
-     * ⚠️ 2026-09-14 — **오류가 해당 단계로 데려가게 했다.**
-     *
-     * 「다음」 버튼은 선택을 강제하지 않아서 어느 단계든 건너뛸 수 있다.
-     * 예전에는 필수 항목(키·체중·용도)이 전부 마지막 화면 근처에 있어서
-     * 오류 문구가 뜨면 그 자리에서 고칠 수 있었다.
-     *
-     * 그런데 오늘 **용도를 1번 문항으로 옮기면서** 상황이 바뀌었다 —
-     * 용도를 건너뛴 사람은 마지막(예산) 화면에서 *"달리기 목적을 골라주세요"* 를
-     * 보게 되고, **그 화면엔 목적을 고를 데가 없다.**
-     * 8단계를 다 온 사람을 막다른 곳에 세우는 것이다.
-     *
-     * `setCurrentStep` 으로 그 단계까지 데려간다. 인덱스는 `STEP_LABELS` 기준이다.
+     * ⚠️ 2026-09-14 — **오류가 해당 화면으로 데려가게 했다.**
+     * 필수 질문을 건너뛴 채 마지막 화면까지 오면, 그 화면엔 고칠 데가 없다. 그래서 그 질문이 있는 화면으로 보낸다.
+     * 2026-11-10 부터 번호는 화면 번호다(용도 = 0, 키·체중 = 1).
      */
-    if (!use)         { setCurrentStep(0); setError("어떤 달리기를 하시는지 먼저 골라주세요!"); return; }
-    if (!heightRange) { setCurrentStep(2); setError("키를 먼저 골라주세요!"); return; }
-    if (!weightRange) { setCurrentStep(3); setError("체중도 골라주세요!"); return; }
+    if (!use)         { setCurrentStep(0); setError("어떤 달리기를 하시는지 먼저 골라 주세요."); return; }
+    if (!heightRange) { setCurrentStep(1); setError("키를 골라 주세요."); return; }
+    if (!weightRange) { setCurrentStep(1); setError("체중도 골라 주세요."); return; }
     setError("");
     setSubmitted(true);
     setExpandedId(null);
@@ -353,16 +354,15 @@ export default function ShoeFinderPage() {
     // 이벤트 20건 / 사용자 15명(1.33배)으로 그 중복이 실제로 관측됐다.
     if (!completeFiredRef.current) {
       completeFiredRef.current = true;
-      // from=form  → 1단계부터 8단계를 밟은 진짜 완주 (완주율의 분자)
+      // from=form    → 첫 화면부터 밟은 진짜 완주 (완주율의 분자). 2026-11-10 부터 4화면, 그 전은 8화면
       // from=restore → 공유 링크·지난 추천으로 결과 화면부터 시작한 뒤 재제출
-      // from=preset  → 원탭 프리셋으로 시작 (2026-10-13). 분모는 finder_preset
-      //                start 가 없으므로 분자에서 빼야 한다
+      // from=home    → 홈 추천 카드에서 발볼·용도를 넘겨받음 (2026-11-05). 분모는 finder_from_home
+      // (from=preset 은 2026-10-13 ~ 11-10 에만 있었다. 프리셋을 걷었다)
       gtagEvent("recommend_form_complete", {
         gender: gender || "unset",
         level: level || "unset",
-        // from=home → 홈 추천 카드에서 발볼·용도를 넘겨받음 (2026-11-05). 분모는 finder_from_home
-        from: presetRef.current ? "preset" : homeRef.current ? "home" : restoredRef.current ? "restore" : "form",
-        // 1단계부터 밟은 완주만 걸린 시간(초)을 붙인다. 30분 넘게 걸린 건 자리를 비운 것으로 보고 뺀다
+        from: homeRef.current ? "home" : restoredRef.current ? "restore" : "form",
+        // 첫 화면부터 밟은 완주만 걸린 시간(초)을 붙인다. 30분 넘게 걸린 건 자리를 비운 것으로 보고 뺀다
         ...(startedAtRef.current && Date.now() - startedAtRef.current < 30 * 60_000
           ? { elapsed_sec: Math.round((Date.now() - startedAtRef.current) / 1000) }
           : {}),
@@ -371,67 +371,46 @@ export default function ShoeFinderPage() {
   }
 
   /**
-   * 단계 8개가 값이 바뀔 때마다 전부 이 함수를 부른다.
+   * 질문 8개가 값이 바뀔 때마다 전부 이 함수를 부른다.
    *
    * 인라인 편집 중에는 `submitted`를 내리지 않는 것이 이 모드의 전부다.
-   * 그래서 단계 JSX는 한 줄도 고치지 않고 두 모드에서 같이 쓴다.
+   * 그래서 화면 JSX는 한 줄도 고치지 않고 두 모드에서 같이 쓴다.
    */
   function handleChange() {
     if (editingStep === null) setSubmitted(false);
     setError("");
   }
 
-  /** 결과 화면의 조건 칩에서 특정 단계만 열기 */
-  function startInlineEdit(step: number) {
-    setEditingStep(step);
+  /** 결과 화면의 조건 칩에서 그 질문이 있는 화면만 열기 */
+  function startInlineEdit(field: (typeof FIELDS)[number]) {
+    setEditingStep(field.screen);
     setError("");
     setExpandedId(null);
-    gtagEvent("recommend_inline_edit", { field: STEP_LABELS[step] ?? String(step) });
+    gtagEvent("recommend_inline_edit", { field: field.label });
   }
 
   function finishInlineEdit() {
+    // 키를 바꾸면 체중 구간이 달라져 체중이 비워진다. 그대로 닫으면 결과가 통째로 사라지므로 막는다
+    if (!heightRange || !weightRange) { setError("체중도 골라 주세요. 키에 따라 체중 구간이 달라져요."); return; }
     setEditingStep(null);
     setError("");
   }
 
-  /** 지금 화면에 그릴 단계 — 인라인 편집 중이면 그 단계, 아니면 마법사의 현재 단계 */
+  /** 지금 화면에 그릴 화면 번호 — 인라인 편집 중이면 그 화면, 아니면 마법사의 현재 화면 */
   const activeStep = editingStep ?? currentStep;
   const isEditing = editingStep !== null;
 
-  /**
-   * 키를 바꾸면 STEP 2의 onClick이 체중을 비운다(체중 구간이 키에 따라 다르므로).
-   * 인라인 편집에서는 그 순간 weightKg가 없어져 결과가 통째로 사라진다.
-   * 그래서 키를 고친 직후에는 체중 단계로 자동으로 넘겨준다 —
-   * 사용자가 "결과가 왜 없어졌지" 하고 헤매지 않도록.
-   */
-  useEffect(() => {
-    if (editingStep === 2 && heightRange && !weightRange) setEditingStep(3);
-  }, [editingStep, heightRange, weightRange]);
-
-  // 2026-10-13 프리셋: 키·체중이 갖춰지는 순간 제출. 프리셋 값이 상태에 반영된 뒤의 렌더에서 돈다
-  useEffect(() => {
-    if (presetPending && heightRange && weightRange && !submitted) submitNow();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presetPending, heightRange, weightRange, submitted]);
-
-  /**
-   * 조건 칩에 띄울 현재 값. null이면 아직 안 고른 것.
-   * ⚠️ **이 배열의 순서는 `STEP_LABELS` 와 1:1로 맞아야 한다.**
-   * 2026-09-14 에 0번(예산)과 7번(용도)을 맞바꿨으므로 여기도 같이 바꿨다.
-   * 안 바꾸면 칩에 「용도: 17만원 이하」 같은 값이 뜬다.
-   */
-  const stepSummaries: (string | null)[] = [
-    USES.find(o => o.value === use)?.label ?? null,
+  /** 조건 칩에 띄울 현재 값. null이면 아직 안 고른 것. ⚠️ 순서는 `FIELDS` 와 1:1 */
+  const fieldSummaries: (string | null)[] = [
+    USE_OPTIONS.find(o => o.value === use)?.label ?? null,
+    [LEVEL_OPTIONS.find(o => o.value === level)?.label, distance ? `주 ${DISTANCE_OPTIONS.find(o => o.value === distance)?.label}` : null]
+      .filter(Boolean).join(", ") || null,
     gender === "male" ? "남성" : gender === "female" ? "여성" : null,
     HEIGHT_OPTIONS.find(o => o.value === heightRange)?.label ?? null,
     (heightRange && WEIGHT_OPTIONS[heightRange].find(o => o.value === weightRange)?.label) || null,
-    footSelections.length
-      ? footSelections.map(id => FOOT_OPTIONS.find(x => x.id === id)?.label).filter(Boolean).join(" · ")
-      : null,
-    [LEVEL_OPTIONS.find(o => o.value === level)?.label, DISTANCE_OPTIONS.find(o => o.value === distance)?.label]
-      .filter(Boolean).join(" · ") || null,
+    footSelections.length ? footSelections.map(id => FOOT_NAME[id]).filter(Boolean).join(", ") : null,
     injuries.length
-      ? injuries.map(v => INJURY_OPTIONS.find(o => o.value === v)?.label).filter(Boolean).join(" · ")
+      ? injuries.map(v => INJURY_OPTIONS.find(o => o.value === v)?.label).filter(Boolean).join(", ")
       : null,
     BUDGETS.find(o => o.value === budget)?.label ?? null,
   ];
@@ -448,35 +427,45 @@ export default function ShoeFinderPage() {
     // 새 퍼널 진행이므로 시작·완주를 다시 셀 수 있게 되돌린다.
     startFiredRef.current = false;
     completeFiredRef.current = false;
-    presetRef.current = false;
     homeRef.current = false;
     setFromHome(null);
-    setPresetPending(null);
   }
+
+  /** 발 특성: 같은 줄(발볼 / 발바닥 모양) 안에서는 하나만, 다시 누르면 해제 */
+  function pickFoot(id: string) {
+    handleChange();
+    setFootSelections(prev => {
+      if (prev.includes(id)) return prev.filter(x => x !== id);
+      const cat = FOOT_OPTIONS.find(x => x.id === id)?.category;
+      return [...prev.filter(x => FOOT_OPTIONS.find(o => o.id === x)?.category !== cat), id];
+    });
+  }
+
+  const homeWidth = fromHome?.f ? footSelections.find(id => FOOT_OPTIONS.some(o => o.id === id && o.category === "width")) : undefined;
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
         <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-          질문 8개에 답하면 내 발에 맞는 신발 3개를 골라드려요.
+          네 화면에 답하면 내 발에 맞는 신발 3개를 골라드려요.
         </p>
       </header>
 
       {!submitted && savedProfile && (
         <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
           <p className="text-sm text-emerald-800">
-            <History size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />지난번에 받은 추천이 있어요 — 입력 없이 바로 다시 볼 수 있어요.
+            <History size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />지난번에 받은 추천이 있어요. 다시 답하지 않고 바로 볼 수 있어요.
           </p>
           <div className="flex shrink-0 gap-2">
             <button type="button"
               onClick={() => { applyProfile(savedProfile, true); setSavedProfile(null); }}
-              className="text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
-              다시 보기 →
+              className="min-h-11 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 rounded-lg transition-colors">
+              다시 보기
             </button>
             <button type="button"
               onClick={() => { setSavedProfile(null); try { localStorage.removeItem(STORAGE_KEY); } catch {} }}
-              className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1.5 transition-colors">
+              className="min-h-11 text-xs text-gray-500 hover:text-gray-700 px-2 transition-colors">
               지우기
             </button>
           </div>
@@ -488,13 +477,13 @@ export default function ShoeFinderPage() {
           <div className="flex gap-1.5 items-center">
             {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
               <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${
-                i < currentStep ? "w-5 bg-emerald-500" :
-                i === currentStep ? "w-7 bg-emerald-500" :
-                "w-5 bg-gray-200"
+                i < currentStep ? "w-8 bg-emerald-500" :
+                i === currentStep ? "w-12 bg-emerald-500" :
+                "w-8 bg-gray-200"
               }`} />
             ))}
           </div>
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-gray-400" aria-label={`${TOTAL_STEPS}개 중 ${currentStep + 1}번째 화면`}>
             <span className="font-semibold text-gray-700">{currentStep + 1}</span> / {TOTAL_STEPS}
           </span>
         </div>
@@ -504,29 +493,30 @@ export default function ShoeFinderPage() {
 
       {/* ── 조건 칩 바 ──────────────────────────────────────────
           이전에는 여기에 「← 조건 다시 고르기」 하나만 있었고, 그게 handleReset()이라
-          예산 하나 바꾸려면 8단계를 전부 다시 돌아야 했다. 이제 칩을 누르면
-          그 항목만 열리고, 고치는 즉시 아래 결과가 갱신된다. */}
-      {submitted && result && (
+          예산 하나 바꾸려면 처음부터 다시 돌아야 했다. 이제 칩을 누르면
+          그 질문이 있는 화면만 열리고, 고치는 즉시 아래 결과가 갱신된다.
+          키를 바꾸면 체중이 비어 결과가 잠시 없어지므로, 편집 중에는 결과가 없어도 바를 남긴다. */}
+      {submitted && (result || isEditing) && (
         <div className="mb-4">
           <div className="mb-2 flex items-center justify-between">
             <p className="text-xs font-semibold text-gray-500">
-              내 조건 <span className="font-normal text-gray-400">— 눌러서 바로 고치기</span>
+              내 조건 <span className="font-normal text-gray-400">(눌러서 고치기)</span>
             </p>
             <ShareResultButton buildUrl={buildShareUrl} />
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {STEP_LABELS.map((label, i) => {
-              const val = stepSummaries[i];
-              const open = editingStep === i;
+            {FIELDS.map((f, i) => {
+              const val = fieldSummaries[i];
+              const open = editingStep === f.screen;
               return (
-                <button key={label} type="button"
-                  onClick={() => (open ? finishInlineEdit() : startInlineEdit(i))}
+                <button key={f.label} type="button"
+                  onClick={() => (open ? finishInlineEdit() : startInlineEdit(f))}
                   aria-expanded={open}
                   className={`flex items-baseline gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors
                     ${open
                       ? "border-emerald-500 bg-emerald-600 text-white"
                       : "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"}`}>
-                  <span className={open ? "text-emerald-100" : "text-gray-400"}>{label}</span>
+                  <span className={open ? "text-emerald-100" : "text-gray-400"}>{f.label}</span>
                   <span className="font-semibold">{val ?? "선택 안 함"}</span>
                 </button>
               );
@@ -541,331 +531,190 @@ export default function ShoeFinderPage() {
 
       {(!submitted || isEditing) && (
       <form onSubmit={handleSubmit} noValidate
-        className={`flex flex-col gap-5 rounded-2xl border bg-white p-6 ${
+        className={`flex flex-col gap-6 rounded-2xl border bg-white p-6 ${
           isEditing ? "border-emerald-300 ring-2 ring-emerald-100 shadow-md" : "border-gray-200 shadow-sm"
         }`}>
 
-        {isEditing && (
-          <div className="-mt-1 -mb-1 flex items-center justify-between gap-3">
-            <p className="text-base font-semibold text-gray-900">
-              {STEP_LABELS[activeStep]} 고치기
-            </p>
+        <div className="-mb-1 flex items-center justify-between gap-3">
+          <h2 className="text-lg font-bold text-gray-900">{SCREENS[activeStep]}</h2>
+          {isEditing && (
             <button type="button" onClick={finishInlineEdit}
-              className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
+              className="min-h-11 shrink-0 rounded-lg bg-emerald-600 px-4 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors">
               완료
             </button>
-          </div>
-        )}
+          )}
+        </div>
 
-        {fromHome && !submitted && !isEditing && (
-          <div className="-mt-1 flex items-center justify-between gap-3 rounded-lg bg-emerald-50 px-3 py-2">
-            <p className="text-xs leading-relaxed text-emerald-900">
-              홈에서 고른 「
-              <strong className="font-semibold">
-                {[
-                  FOOT_OPTIONS.find(o => o.id === fromHome.f)?.label.replace(" 2E/4E", ""),
-                  // 홈 칩 이름 그대로 (components/HomeFinderCard.tsx USE_CHIPS)
-                  fromHome.u ? ({ daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" } as const)[fromHome.u] : "",
-                ].filter(Boolean).join(" · ")}
-              </strong>
-              」 조건을 넣어 뒀어요. 나머지만 답하면 돼요.
-            </p>
-            {/* 용도는 1번 문항이라 되돌아가 바꾼다. 발볼은 5번(발 특성)에서 골라진 채로 보이니 거기서 바꾼다 */}
-            {fromHome.u && activeStep !== 0 && (
+        {/* 2026-11-10 홈에서 넘겨받은 답. 그 질문이 다른 화면에 있어도 여기서 바로 눌러 고칠 수 있게 칩으로 보인다.
+            값은 넘겨받은 값이 아니라 **지금 값**을 보인다(첫 화면에서 용도를 바꾸면 여기도 바뀐다). */}
+        {fromHome && !submitted && !isEditing && (use && fromHome.u || homeWidth) && (
+          <div className="-mt-2 flex flex-wrap items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2">
+            <span className="text-xs text-emerald-900">홈에서 고른 것</span>
+            {homeWidth && (
+              <button type="button" onClick={() => setCurrentStep(2)}
+                aria-label={`${FOOT_NAME[homeWidth]}, 눌러서 바꾸기`}
+                className="min-h-11 rounded-full border border-emerald-500 bg-white px-3 text-xs font-semibold text-emerald-800">
+                {FOOT_NAME[homeWidth]}
+              </button>
+            )}
+            {fromHome.u && use && (
               <button type="button" onClick={() => setCurrentStep(0)}
-                className="shrink-0 min-h-11 px-2 text-xs font-semibold text-emerald-800 underline underline-offset-2">
-                용도 바꾸기
+                aria-label={`${USE_OPTIONS.find(o => o.value === use)?.label}, 눌러서 바꾸기`}
+                className="min-h-11 rounded-full border border-emerald-500 bg-white px-3 text-xs font-semibold text-emerald-800">
+                {USE_OPTIONS.find(o => o.value === use)?.label}
               </button>
             )}
+            <span className="text-xs text-emerald-900">누르면 바꿀 수 있어요.</span>
           </div>
         )}
 
-        {!submitted && (
-          <p className="text-base font-semibold text-gray-800 -mb-1">
-            {STEP_MICROCOPY[activeStep]}
-          </p>
-        )}
-
-        {/**
-         * ── STEP 0: 용도 ──  (2026-09-14: 예산과 자리를 맞바꿈)
-         *
-         * 원래 1번 문항이 **「예산이 어느 정도예요?」** 였다.
-         *
-         * 추천 서비스 5곳의 퀴즈를 직접 열어 첫 문항을 확인한 결과
-         * **예산을 첫 문항에 둔 곳은 0곳**이었다:
-         *   Warby Parker = 제품 종류 / ThirdLove = 현재 사이즈 /
-         *   Brooks = 용도 / Road Runner = 용도·주간거리 / Casper = 이메일
-         *
-         * 처음 온 사람에게 돈부터 묻는 것은 "뭘 파는 곳"이라는 신호가 되고,
-         * 아직 뭘 받을지 모르는 상태에서 답하기도 어렵다.
-         * 용도는 자기가 이미 아는 것이라 진입 장벽이 가장 낮다.
-         *
-         * ⚠️ 단계 수(8)는 그대로 둔다. 벤치마킹에서 **길이가 문제가 아니라는 게 확인**됐다 —
-         * Warby Parker·ThirdLove 둘 다 정확히 8단계이고 둘 다 성공 사례다.
-         *
-         * 제출 버튼은 마지막 단계에 있어야 하므로, 용도에 붙어 있던 제출을
-         * 예산 쪽(이제 STEP 7)으로 같이 옮겼다.
-         */}
-        {/* 2026-10-13 원탭 시작 — 경위는 PRESETS 주석. 인라인 편집 중에는 안 보인다 */}
-        {activeStep === 0 && !isEditing && (
-          <div className="-mt-1">
-            <p className="mb-1.5 text-xs text-gray-500">빠르게 시작 — 누르면 답을 채웁니다. 나중에 고칠 수 있습니다.</p>
-            <div className="grid grid-cols-2 gap-1.5">
-              {PRESETS.map(p => (
-                <button key={p.id} type="button" onClick={() => applyPreset(p)}
-                  className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-left text-xs font-semibold text-emerald-800 transition-colors hover:border-emerald-400">
-                  {p.label}
-                </button>
-              ))}
-            </div>
-            <p className="mt-3 text-xs text-gray-400">또는 직접 고르기</p>
-          </div>
-        )}
-
+        {/* ── 화면 0: 어떻게 달려요? (용도 · 경험 · 주간 거리) ──
+            2026-09-14: 첫 질문을 예산 → 용도로 바꿨다. 추천 서비스 5곳(Warby Parker·ThirdLove·Brooks·Road Runner·Casper)의
+            첫 문항을 직접 열어 봤을 때 예산을 첫 문항에 둔 곳은 0곳이었다. 처음 온 사람에게 돈부터 묻지 않는다. */}
         {activeStep === 0 && (
-          <div className="flex flex-col gap-2">
-            {([
-              { value: "daily" as ShoeUse,   label: "데일리",      desc: "매일 달리기 · 처음 시작이라면 이걸로!" },
-              { value: "long" as ShoeUse,    label: "장거리",      desc: "하프·풀 마라톤 준비 중" },
-              { value: "tempo" as ShoeUse,   label: "템포·인터벌", desc: "빠른 훈련이 주목적" },
-              { value: "racing" as ShoeUse,  label: "레이싱",      desc: "기록 단축이 목표예요" },
-            ]).map(o => (
-              <button key={o.value} type="button"
-                onClick={() => { setUse(o.value); handleChange(); }}
-                className={`flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-colors
-                  ${use === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                <span className={`shrink-0 whitespace-nowrap font-semibold text-sm ${use === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                <span className="text-xs text-gray-400">{o.desc}</span>
-              </button>
-            ))}
-          </div>
+          <>
+            <ChipRow title="어디에 신을 신발인가요?"
+              hint="처음이라면 일상 달리기를 고르세요. 빠른 훈련은 평소보다 빠르게 달리는 연습이에요."
+              options={USE_OPTIONS}
+              isActive={v => use === v}
+              onPick={v => { setUse(v); handleChange(); }} />
+            {/* 2026-11-10: 예전 문구 「입문이면 부상 위험이 큰 카본화를 빼드려요」는 엔진과 달랐다.
+                엔진은 카본화를 빼지 않고 점수를 낮추며(-12), 이유도 부상 위험이 아니라 안정감·수명·가격이라고 적는다
+                (recommend.ts 「7. 경험 수준」, 2026-10-06 「부상 위험도 근거 없음」). 엔진이 하는 만큼만 적는다. */}
+            <ChipRow title="달리기 경험은요?" optional
+              why="이제 막 시작했다면 카본(탄소 섬유 판)이 든 대회용 신발은 점수를 낮춰요. 사이트가 정한 기준이에요."
+              options={LEVEL_OPTIONS}
+              isActive={v => level === v}
+              onPick={v => { setLevel(prev => prev === v ? "" : v); handleChange(); }} />
+            <ChipRow title="일주일에 얼마나 달려요?" optional
+              options={DISTANCE_OPTIONS}
+              isActive={v => distance === v}
+              onPick={v => { setDistance(prev => prev === v ? "" : v); handleChange(); }} />
+          </>
         )}
 
-        {/* ── STEP 1: 성별 ── */}
+        {/* ── 화면 1: 몸에 대해 알려 주세요 (성별 · 키 · 체중) ──
+            왜 묻는지 한 줄은 recommend.ts v4 가 실제로 하는 것만 적는다:
+            키 → 드롭(앞뒤 높이 차) 가점, 근거 논문 없는 사이트 기준 / 체중 → 순위에 안 씀, 체형 표시만 /
+            성별 → 남성·여성 기준 라스트 가점, 여성 전용 라스트는 여성을 골랐을 때만 후보. */}
         {activeStep === 1 && (
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              {([
-                { value: "male" as Gender,   label: "남성", desc: "남성 발형 기준으로 추천해요" },
-                { value: "female" as Gender, label: "여성", desc: "여성 전용 라스트 신발 우선 추천해요" },
-              ]).map(g => (
-                <button key={g.value} type="button"
-                  onClick={() => { setGender(prev => prev === g.value ? "" : g.value); handleChange(); }}
-                  className={`flex-1 flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                    ${gender === g.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                  <span className="font-semibold text-sm text-gray-900">{g.label}</span>
-                  <span className="text-xs text-gray-500">{g.desc}</span>
-                </button>
-              ))}
-            </div>
-            <button type="button"
-              onClick={() => { setGender(""); handleChange(); }}
-              className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors text-left
-                ${gender === "" ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 font-semibold text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-500"}`}>
-              선택 안 함
-            </button>
-            <p className="text-xs text-gray-400 mt-1">선택 안 해도 추천 받을 수 있어요.</p>
-          </div>
-        )}
-
-        {presetPending && !isEditing && (activeStep === 2 || activeStep === 3) && (
-          <p className="-mt-2 rounded-lg bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
-            「{PRESETS.find(p => p.id === presetPending)?.label}」로 나머지 답을 채웠습니다. 키·체중만 고르면 바로 결과를 보여 드립니다.
-          </p>
-        )}
-
-        {/* ── STEP 2: 키 ── */}
-        {activeStep === 2 && (
-          <div className="grid grid-cols-3 gap-2">
-            {HEIGHT_OPTIONS.map(o => (
-              <button key={o.value} type="button"
-                onClick={() => { setHeightRange(o.value); setWeightRange(""); handleChange(); }}
-                className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                  ${heightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* ── STEP 3: 체중 ── */}
-        {activeStep === 3 && (
-          <div className="flex flex-col gap-2">
-            {!heightRange ? (
-              <p className="text-sm text-amber-600">키를 먼저 골라주세요!</p>
+          <>
+            <ChipRow title="성별" optional
+              options={[
+                { value: "male" as const, label: "남성" },
+                { value: "female" as const, label: "여성" },
+                { value: "none" as const, label: "선택 안 함" },
+              ]}
+              isActive={v => (v === "none" ? gender === "" : gender === v)}
+              onPick={v => { setGender(v === "none" ? "" : v); handleChange(); }} />
+            <ChipRow title="키"
+              options={HEIGHT_OPTIONS.map(o => ({ value: o.value, label: o.label.replace(" – ", "~") }))}
+              isActive={v => heightRange === v}
+              onPick={v => {
+                // 체중 구간이 키마다 다르다. 키가 바뀌면 체중을 비운다
+                if (v !== heightRange) setWeightRange("");
+                setHeightRange(v);
+                handleChange();
+              }} />
+            {heightRange ? (
+              <ChipRow title="체중"
+                options={WEIGHT_OPTIONS[heightRange].map(o => ({ value: o.value, label: o.label.replace(" – ", "~") }))}
+                isActive={v => weightRange === v}
+                onPick={v => { setWeightRange(v); handleChange(); }} />
             ) : (
-              <div className={`grid gap-2 ${WEIGHT_OPTIONS[heightRange].length <= 2 ? "grid-cols-2" : "grid-cols-2"}`}>
-                {WEIGHT_OPTIONS[heightRange].map(o => (
-                  <button key={o.value} type="button"
-                    onClick={() => { setWeightRange(o.value); handleChange(); }}
-                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${weightRange === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className="font-semibold text-sm text-gray-900">{o.label}</span>
-                    {o.desc && <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>}
-                  </button>
-                ))}
+              <div>
+                <p className="mb-2 text-sm font-semibold text-gray-800">체중</p>
+                <p className="text-xs text-gray-500">키를 고르면 체중 구간이 나와요.</p>
               </div>
             )}
-            <p className="text-xs text-gray-500 leading-relaxed">
-              체중은 「내 체형」 표시에만 쓰고 신발 순위에는 넣지 않아요 — 체중별로 쿠션을 달리해야 한다는 근거가 확인되지 않았어요.
-            </p>
-          </div>
+            <Why text="키는 신발 앞뒤 높이 차이를 고를 때 참고해요(사이트가 정한 기준이에요). 체중은 체형 표시에만 쓰고 신발 순위에는 넣지 않아요. 성별을 고르면 그 성별에 맞춰 만든 신발에 점수를 더 줘요." />
+          </>
         )}
 
-        {/* ── STEP 4: 발 특성 ── */}
-        {activeStep === 4 && (
-          <div className="flex flex-col gap-2">
-            <div className="grid grid-cols-3 gap-2">
-              {FOOT_OPTIONS.map(o => {
-                const active = footSelections.includes(o.id);
-                return (
-                  <button key={o.id} type="button"
-                    onClick={() => {
-                      handleChange();
-                      setFootSelections(prev => {
-                        if (prev.includes(o.id)) return prev.filter(id => id !== o.id);
-                        const filtered = prev.filter(id => FOOT_OPTIONS.find(x => x.id === id)?.category !== o.category);
-                        return [...filtered, o.id];
-                      });
-                    }}
-                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <p className="text-xs text-gray-400">발볼이랑 발 모양 각각 하나씩 고르면 더 잘 맞는 신발을 찾아드려요.</p>
-            <p className="text-xs text-gray-400">선택 안 해도 추천 받을 수 있어요.</p>
-          </div>
+        {/* ── 화면 2: 발은 어떤가요? (발볼 · 발바닥 모양) ── 안 고르면 보통 발볼·보통 아치로 계산한다(selectedWidth·selectedType 기본값) */}
+        {activeStep === 2 && (
+          <>
+            <ChipRow title="발볼 (발 앞쪽 너비)" optional
+              hint="신발 옆이 자주 눌리거나 물집이 생기면 넓은 쪽이에요."
+              options={FOOT_OPTIONS.filter(o => o.category === "width").map(o => ({ value: o.id, label: FOOT_CHIP[o.id] ?? o.label }))}
+              isActive={v => footSelections.includes(v)}
+              onPick={pickFoot} />
+            <ChipRow title="발바닥 모양" optional
+              hint="평발 쪽은 발이 안쪽으로 쏠리는 편, 아치가 높으면 발바닥 가운데가 뜨는 편이에요."
+              options={FOOT_OPTIONS.filter(o => o.category === "type").map(o => ({ value: o.id, label: FOOT_CHIP[o.id] ?? o.label }))}
+              isActive={v => footSelections.includes(v)}
+              onPick={pickFoot} />
+            <p className="text-xs text-gray-500">잘 모르면 넘어가도 돼요. 안 고르면 보통으로 계산해요.</p>
+          </>
         )}
 
-        {/* ── STEP 5: 경험 · 주간 거리 (PRD F-01) ── */}
-        {activeStep === 5 && (
-          <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-3 gap-2">
-              {LEVEL_OPTIONS.map(o => (
-                <button key={o.value} type="button"
-                  onClick={() => { setLevel(prev => prev === o.value ? "" : o.value); handleChange(); }}
-                  className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                    ${level === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                  <span className={`font-semibold text-sm ${level === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                  <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                </button>
-              ))}
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-700 mb-2">일주일에 얼마나 달려요?</p>
-              <div className="grid grid-cols-3 gap-2">
-                {DISTANCE_OPTIONS.map(o => (
-                  <button key={o.value} type="button"
-                    onClick={() => { setDistance(prev => prev === o.value ? "" : o.value); handleChange(); }}
-                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${distance === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className={`font-semibold text-sm ${distance === o.value ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-            <p className="text-xs text-gray-400 -mt-1">선택 안 해도 추천 받을 수 있어요. 입문이면 부상 위험이 큰 카본화를 빼드려요.</p>
-          </div>
-        )}
-
-        {/* ── STEP 6: 부상 이력 (PRD F-01) ── */}
-        {activeStep === 6 && (
-          <div className="flex flex-col gap-2">
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {INJURY_OPTIONS.map(o => {
-                const active = injuries.includes(o.value);
-                return (
-                  <button key={o.value} type="button"
-                    onClick={() => {
-                      handleChange();
-                      setInjuries(prev => {
-                        if (prev.includes(o.value)) return prev.filter(i => i !== o.value);
-                        if (o.value === "none") return ["none"];
-                        return [...prev.filter(i => i !== "none"), o.value];
-                      });
-                    }}
-                    className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border text-left transition-colors
-                      ${active ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100" : "border-gray-200 bg-white hover:border-gray-300"}`}>
-                    <span className={`font-semibold text-sm ${active ? "text-emerald-700" : "text-gray-900"}`}>{o.label}</span>
-                    <span className="text-xs text-gray-500 leading-snug">{o.desc}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <p className="text-xs text-gray-400 mt-1">여러 개 골라도 돼요. 다친 부위에 부담이 덜한 신발을 우선 추천해드려요.</p>
-            <p className="text-xs text-gray-400">※ 참고용이에요. 지금 아프다면 신발보다 병원 진료가 먼저예요.</p>
-          </div>
-        )}
-
-        {/* ── STEP 7: 예산 + 추천 받기 ──  (2026-09-14: 용도와 자리를 맞바꿈. 경위는 STEP 0 주석에) */}
-        {activeStep === 7 && (
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <div className="grid grid-cols-2 gap-2">
-                {BUDGETS.map(o => (
-                  <button key={o.value} type="button"
-                    onClick={() => { setBudget(o.value); handleChange(); }}
-                    className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors text-left
-                      ${budget === o.value ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100 text-gray-900" : "border-gray-200 bg-white hover:border-gray-300 text-gray-600"}`}>
-                    {o.label}
-                  </button>
-                ))}
-              </div>
-              <p className="text-xs text-gray-400 mt-1">선택 안 해도 괜찮아요 — 그냥 넘어가도 됩니다.</p>
-            </div>
-
-            {/* 2026-09-14: 오류 문구를 여기(7단계 안)에서 아래 전역 위치로 옮겼다.
-                제출 검증이 사용자를 0·2·3단계로 데려갈 수 있게 되면서,
-                7단계 안에만 있으면 데려간 화면에서 오류가 안 보인다. */}
+        {/* ── 화면 3: 아픈 곳과 예산 + 추천 받기 ── */}
+        {activeStep === 3 && (
+          <>
+            {/* 2026-11-10: 「다친 부위에 부담이 덜한 신발을 우선 추천」은 엔진 주석(「근거는 확인 못 함」)보다 센 말이라 바꿨다 */}
+            <ChipRow title="달리다 아팠던 곳이 있나요?" optional
+              hint="여러 개 골라도 돼요. 지금 아프다면 신발보다 병원 진료가 먼저예요."
+              why="고른 부위에 따라 사이트 기준으로 점수를 조정해요."
+              options={INJURY_OPTIONS}
+              isActive={v => injuries.includes(v)}
+              onPick={v => {
+                handleChange();
+                setInjuries(prev => {
+                  if (prev.includes(v)) return prev.filter(i => i !== v);
+                  if (v === "none") return ["none"];
+                  return [...prev.filter(i => i !== "none"), v];
+                });
+              }} />
+            <ChipRow title="예산은요?"
+              options={BUDGETS.map(o => ({ value: String(o.value), label: o.label }))}
+              isActive={v => budget === Number(v)}
+              onPick={v => { setBudget(Number(v)); handleChange(); }} />
 
             {!isEditing && (
             <button type="submit"
-              className="w-full rounded-xl bg-emerald-600 px-5 py-3.5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
-              추천 결과 보기 →
+              className="min-h-12 w-full rounded-xl bg-emerald-600 px-5 font-semibold text-white hover:bg-emerald-700 transition-colors text-base">
+              추천 결과 보기
             </button>
             )}
 
-            <p className="text-center text-xs text-gray-400 leading-relaxed -mt-1">
+            <p className="text-center text-xs text-gray-400 leading-relaxed -mt-2">
               키·체중·발 정보는 <strong className="font-medium text-gray-500">이 화면 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
               「추천 결과 보기」를 누르면{" "}
               <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
             </p>
-          </div>
+          </>
         )}
 
-        {/* 제출 검증 오류 — 어느 단계에 있든 보여야 한다 (2026-09-14) */}
-        {error && !submitted && (
-          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600">{error}</p>
+        {/* 제출 검증 오류 — 어느 화면에 있든 보여야 한다 (2026-09-14). 인라인 편집의 「완료」 막힘도 여기 뜬다 */}
+        {error && (!submitted || isEditing) && (
+          <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600">{error}</p>
         )}
 
         {/* ── 이전 / 다음 버튼 ── */}
         {!submitted && (
-          <div className="flex gap-2 mt-1">
+          <div className="flex gap-2">
             {currentStep > 0 && (
               <button type="button" onClick={goPrev}
-                className="px-4 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-colors">
-                ← 이전
+                className="min-h-11 px-4 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+                이전
               </button>
             )}
             {currentStep < TOTAL_STEPS - 1 && (
               <button type="button" onClick={() => {
-                // 2026-09-14: 용도가 0번이 되면서 관문이 필요해졌다.
-                // 키·체중은 원래 막고 있었는데 용도는 마지막 단계라 막을 일이 없었다.
-                // 여기서 안 막으면 8단계를 다 온 뒤 0번으로 되돌려 보내야 한다.
-                if (currentStep === 0 && !use) { setError("어떤 달리기를 하시는지 먼저 골라주세요!"); return; }
-                if (currentStep === 2 && !heightRange) { setError("키를 먼저 골라주세요!"); return; }
-                if (currentStep === 3 && !weightRange) { setError("체중도 골라주세요!"); return; }
+                // 화면마다 필수 질문이 답해졌을 때만 넘어간다. 안 막으면 마지막 화면에서 되돌려 보내야 한다
+                if (currentStep === 0 && !use) { setError("어떤 달리기를 하시는지 먼저 골라 주세요."); return; }
+                if (currentStep === 1 && !heightRange) { setError("키를 골라 주세요."); return; }
+                if (currentStep === 1 && !weightRange) { setError("체중도 골라 주세요."); return; }
                 setError("");
                 goNext();
               }}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">
-                다음 →
+                aria-disabled={(currentStep === 0 && !use) || (currentStep === 1 && (!heightRange || !weightRange))}
+                className={`min-h-11 flex-1 px-4 rounded-lg text-sm font-semibold transition-colors ${
+                  (currentStep === 0 && !use) || (currentStep === 1 && (!heightRange || !weightRange))
+                    ? "bg-gray-200 text-gray-500"
+                    : "bg-emerald-600 text-white hover:bg-emerald-700"
+                }`}>
+                다음
               </button>
             )}
           </div>
@@ -877,7 +726,9 @@ export default function ShoeFinderPage() {
             실시간 갱신은 의미가 없으므로, 1순위만 패널 안에 붙여둔다. */}
         {isEditing && (
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5">
-            {topPick ? (
+            {!weightRange ? (
+              <p className="text-sm text-amber-700">체중을 고르면 결과가 다시 나와요.</p>
+            ) : topPick ? (
               <>
                 <p className="text-xs font-bold tracking-wide text-emerald-700">지금 1순위</p>
                 <p className="mt-0.5 truncate text-sm font-bold text-gray-900">
@@ -891,7 +742,7 @@ export default function ShoeFinderPage() {
               </>
             ) : (
               <p className="text-sm text-amber-700">
-                이 조건에 맞는 신발이 없어요 — 예산이나 발 조건을 조금 넓혀보세요.
+                이 조건에 맞는 신발이 없어요. 예산이나 발 조건을 조금 넓혀 보세요.
               </p>
             )}
           </div>

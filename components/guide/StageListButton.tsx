@@ -20,7 +20,7 @@ export default function StageListButton({ stage, n }: { stage: string; n: number
         window.dispatchEvent(new CustomEvent("guide:stage", { detail: stage }));
         document.getElementById("articles")?.scrollIntoView({ block: "start" });
       }}
-      className="mt-3 text-sm font-medium text-emerald-700 underline underline-offset-2"
+      className="mt-2 flex min-h-11 items-center text-sm font-bold text-emerald-700 underline underline-offset-2"
     >
       이 단계에 맞는 글 전체 ({n}) ↓
     </button>

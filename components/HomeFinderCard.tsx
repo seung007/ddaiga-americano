@@ -47,6 +47,18 @@ const USE_CHIPS: { k: UseKey; l: string }[] = [
   { k: "long", l: "장거리" },
   { k: "racing", l: "대회용" },
 ];
+/**
+ * 2026-11-10 운영자: 첫 화면 다리 사진(맨다리가 크게 보이는 착용 컷)이 보기 좋지 않다, 「신발 하나만 넣지 말고 잘 해 봐」.
+ * → 용도 칩을 **신발 그림이 있는 타일**로 바꿨다. 고른 용도의 신발이 올라오고 나머지는 흐려진다 — 사진이 장식이 아니라 답이 된다.
+ * 예시 신발은 원장(lib/shoes/data.ts)에서 그 용도를 가진 모델이다. 「예시」라고 적는다 — 추천 결과가 아니다.
+ * 사진: public/shoes/cutout/ — 2026-11-04 디자인 시안 작업 때 브랜드 공식몰 제품 사진(흰 배경)에서 배경을 지운 것.
+ *   ⚠️ 원본 이미지 주소를 그때 기록하지 않았다. 사진 사용 권리는 아직 정하지 않았다(운영자 확인 대기, 다른 신발 사진과 같은 문제).
+ */
+const USE_TILES: Record<UseKey, { img: string; w: number; h: number; ex: string }> = {
+  daily: { img: "/shoes/cutout/brooks-ghost-18.webp", w: 560, h: 249, ex: "브룩스 고스트 18" },
+  long: { img: "/shoes/cutout/mizuno-wave-rider-30.webp", w: 560, h: 282, ex: "미즈노 웨이브 라이더 30" },
+  racing: { img: "/shoes/cutout/asics-metaspeed-sky-tokyo.webp", w: 560, h: 268, ex: "아식스 메타스피드 스카이 도쿄" },
+};
 const USE_BADGE: Record<string, string> = { daily: "일상", long: "장거리", tempo: "템포", racing: "대회용" };
 const WIDTH_WORD: Record<string, string> = { B: "좁게", D: "보통", "2E": "넓게", "4E": "아주 넓게" };
 const WIDTH_ORDER = ["B", "D", "2E", "4E"];
@@ -70,7 +82,58 @@ function Arrow({ size = 16 }: { size?: number }) {
   );
 }
 
-export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; hero?: { src: string; alt: string } }) {
+/**
+ * 용도 고르기 = 신발 타일. 누르면 그 타일이 검은 테두리로 바뀌고 신발이 살짝 올라온다(누름 피드백 M02·선택 강조).
+ * 고르지 않은 타일은 흐리게 하지 않는다 — 연두 바탕에서 투명도를 낮추면 신발이 연두로 물들어 보였다(2026-11-10 화면 확인). 고른 것만 테두리·체크로 구분한다.
+ * 움직임: transform·opacity 만, 200ms, 움직임 줄이기 설정이면 끈다(globals 의 .press 와 같은 규칙).
+ */
+function UseTiles({ u, pick, wide = false }: { u: UseKey | null; pick: (k: UseKey) => void; wide?: boolean }) {
+  return (
+    <>
+      <p className={`mb-2 text-sm font-bold text-[#2F3414] ${wide ? "" : "mt-4"}`}>용도</p>
+      <div className={wide ? "flex flex-col gap-3" : "grid grid-cols-3 gap-2"}>
+        {USE_CHIPS.map((c) => {
+          const t = USE_TILES[c.k];
+          const on = u === c.k;
+          return (
+            <button
+              key={c.k}
+              type="button"
+              aria-pressed={on}
+              onClick={() => pick(c.k)}
+              className={`press group relative flex overflow-hidden rounded-2xl border-2 bg-white text-left ${
+                on ? "border-[#111111]" : "border-transparent"
+              } ${wide ? "h-[104px] items-center gap-4 px-4" : "flex-col items-center px-2 pb-3 pt-2"}`}
+            >
+              <span className={`flex shrink-0 items-end justify-center ${wide ? "w-[168px]" : "h-14 w-full"}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={t.img}
+                alt=""
+                width={t.w}
+                height={t.h}
+                fetchPriority={c.k === "daily" ? "high" : undefined}
+                className={`h-auto shrink-0 transition-transform duration-200 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
+                  on ? "-translate-y-1 scale-105" : ""
+                } ${wide ? "w-[168px]" : "max-h-14 w-full max-w-[120px] object-contain"}`}
+              />
+              </span>
+              <span className={wide ? "min-w-0" : "mt-1 text-center"}>
+                <span className="flex items-center justify-center gap-1 text-sm font-bold md:justify-start md:text-base">
+                  {on && <Check />}
+                  {c.l}
+                </span>
+                {wide && <span className="mt-0.5 block break-keep text-sm text-[#4B5059]">예: {t.ex}</span>}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+export default function HomeFinderCard({ shoes }: { shoes: FinderShoe[] }) {
   const [w, setW] = useState<WidthKey | null>(null);
   const [u, setU] = useState<UseKey | null>(null);
 
@@ -115,36 +178,19 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
   return (
     <>
       {/**
-        * 2026-11-06 운영자: 「내 러닝화 찾기」를 한 줄로, PC 에서 카드가 화면에 비해 작아 보인다.
-        *   전에는 max-w-xl(576px) 한 칸이라 PC 1280px 에서 머리글·아래 목록(max-w-5xl)과 폭이 안 맞고 칩·버튼이 작게 보였다.
-        *   PC(768px~): 머리글과 같은 폭의 2칸 — 왼쪽 고르기, 오른쪽 사진. 비율 약 2.2:1 은 스포츠 브랜드 PC 첫 화면 실측
-        *   (나이키 2.1 · 뉴발란스 2.2 · 아디다스 2.4 · 호카·아식스 2.7, 스킬 sports-ui-from-references 2026-11-05) 범위 안.
-        *   제목 64px 는 호카 PC 실측(64/40px). 글자 단계(최대 40)를 PC 에서만 일부러 넘긴다 — 휴대폰은 40px 그대로.
-        *   사진은 PC 에서 돌리지도 섞지도 않는다(넓게 보이면 multiply 가 사진을 연두로 물들인다).
+        * 2026-11-06 운영자: PC 에서 카드가 화면에 비해 작아 보인다 → 머리글과 같은 폭(max-w-5xl)의 2칸.
+        * 2026-11-10 운영자: 「제목 글자가 너무 크다」, 다리 사진 교체.
+        *   제목 PC 64px → 40px, 휴대폰 40px → 32px(13자 이하 큰 제목 규칙의 아래 단계). 한 화면에 큰 글자 하나는 그대로.
+        *   PC 2칸: 왼쪽 = 제목·발볼·버튼, 오른쪽 = 용도 신발 타일 3개(세로). 휴대폰은 한 줄로 이어진다(타일 3개 가로).
         */}
       <section aria-labelledby="finder-h" className="px-5 pt-2 sm:pt-8">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-[#C8F031] text-[#111111] md:grid md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-          <div className="relative p-5 sm:p-8 md:p-12">
-            {hero && (
-              // 휴대폰: 첫 화면 연출이라 회전을 허용한다(목록 카드 사진은 돌리지 않는다). 흰 바탕을 multiply 로 카드 색에 녹인다.
-              // 제목이 한 줄이 되면서 사진을 줄여 제목 끝과 겹치지 않게 했다(390px 에서 확인).
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={hero.src}
-                alt=""
-                width={180}
-                height={120}
-                referrerPolicy="no-referrer"
-                className="pointer-events-none absolute -right-6 -top-1 w-28 -rotate-[14deg] mix-blend-multiply sm:w-40 md:hidden"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-              />
-            )}
-            {/* 2026-11-09: 영문 대문자 머리말 「SHOE FINDER」를 뺐다 — 한국어 화면에서 뜻을 더하지 않는 장식(unslop 점검 「uppercase tracked label」) */}
-            <h1 id="finder-h" className="relative mt-1 whitespace-nowrap text-[40px] font-bold leading-[1.1] tracking-[-1.2px] md:text-[64px] md:tracking-[-2px]">
+        <div className="mx-auto max-w-5xl rounded-3xl bg-[#C8F031] p-5 text-[#111111] sm:p-8 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-10 md:p-10">
+          <div className="flex min-w-0 flex-col">
+            <h1 id="finder-h" className="whitespace-nowrap text-[32px] font-bold leading-[1.15] tracking-[-0.8px] md:text-[40px] md:tracking-[-1.2px]">
               내 러닝화 찾기
             </h1>
 
-            <p className="mb-2 mt-4 text-xs font-bold text-[#2F3414] md:mt-8 md:text-sm">발볼</p>
+            <p className="mb-2 mt-5 text-sm font-bold text-[#2F3414] md:mt-8">발볼</p>
             <div className="flex gap-2">
               {WIDTH_CHIPS.map((c) => (
                 <button key={c.k} type="button" aria-pressed={w === c.k} onClick={() => pickW(c.k)} className={chipCls(w === c.k)}>
@@ -163,17 +209,12 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
               </Link>
             )}
 
-            <p className="mb-2 mt-3 text-xs font-bold text-[#2F3414] md:mt-4 md:text-sm">용도</p>
-            <div className="flex gap-2">
-              {USE_CHIPS.map((c) => (
-                <button key={c.k} type="button" aria-pressed={u === c.k} onClick={() => pickU(c.k)} className={chipCls(u === c.k)}>
-                  {u === c.k && <Check />}
-                  {c.l}
-                </button>
-              ))}
+            {/* 휴대폰: 용도 타일이 발볼 바로 아래. PC 에서는 오른쪽 칸으로 간다 */}
+            <div className="md:hidden">
+              <UseTiles u={u} pick={pickU} />
             </div>
 
-            <p role="status" className="mt-4 text-sm font-bold md:mt-6 md:text-base">{countLine}</p>
+            <p role="status" className="mt-5 text-sm font-bold md:mt-auto md:pt-8 md:text-base">{countLine}</p>
             <Link
               href={finderHref}
               onClick={() => gtagEvent("home_finder_cta", { width: fw ?? "unset", use: u ?? "unset" })}
@@ -183,21 +224,9 @@ export default function HomeFinderCard({ shoes, hero }: { shoes: FinderShoe[]; h
               <Arrow />
             </Link>
           </div>
-          {hero && (
-            <div className="relative hidden md:block" aria-hidden="true">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={hero.src}
-                alt=""
-                width={720}
-                height={480}
-                fetchPriority="high"
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 h-full w-full object-cover"
-                onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
-              />
-            </div>
-          )}
+          <div className="hidden min-w-0 md:block">
+            <UseTiles u={u} pick={pickU} wide />
+          </div>
         </div>
       </section>
 

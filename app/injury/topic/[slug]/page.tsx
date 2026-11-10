@@ -52,9 +52,7 @@ export default async function TopicPage({
         ← 러닝 가이드
       </Link>
       <h1 className="flex items-center gap-3 text-[28px] font-bold text-gray-900">
-        <span aria-hidden className={`flex h-10 w-10 items-center justify-center rounded-xl text-xl ${L.tile}`}>
-          {L.icon}
-        </span>
+        <L.Icon aria-hidden className={`h-7 w-7 shrink-0 ${L.text}`} />
         {t}
       </h1>
       <p className="mb-6 mt-2 text-gray-600">글 {all.length}개{p.pages > 1 ? ` · ${p.page}/${p.pages}쪽` : ""}</p>

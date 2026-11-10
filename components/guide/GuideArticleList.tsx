@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ARTICLES, topicOf, type GuideArticle } from "@/lib/guide/articles";
 import { STAGES, type StageId } from "@/lib/guide/stages";
-import { TOPIC_ORDER, TOPIC_SLUG, topicPreview, latestEnabled, byLatest, look } from "@/lib/guide/listRules";
+import { X } from "lucide-react";
+import { TOPIC_ORDER, TOPIC_SLUG, TOPIC_NOTE, topicPreview, latestEnabled, byLatest, look } from "@/lib/guide/listRules";
+import { GuideRow } from "@/components/guide/ArticleRows";
 
 /**
  * 허브 글 목록 — 단계 칩 × 주제 칩 (AND).
@@ -29,6 +31,12 @@ import { TOPIC_ORDER, TOPIC_SLUG, topicPreview, latestEnabled, byLatest, look } 
  * 2026-10-13 (4차): 글이 늘면 저절로 나뉜다 — 규칙과 숫자는 lib/guide/listRules.ts 한 곳.
  *   한 주제가 넘치면 앞 몇 개 + 「모두 보기」(주제 페이지), 전체가 많아지면 「최신 글」 띠. 지금(27개)은 둘 다 안 보인다.
  * 2026-10-13 (5차): 목록 오른쪽 「4분」을 뺐다 — 운영자 "분은 왜 넣은 거야? 굳이?". 글을 고르는 데 쓰이지 않는 정보였다.
+ * 2026-11-10 (6차): 사이트 주인 — 「신발 고르기 3」 같은 묶음이 제목+설명 줄만 이어져 "들어가면 구분이 안 된다, 표처럼".
+ *   · 묶음: 테두리 상자 대신 굵은 윗선(2px #111) + 20px 제목 + 선 아이콘 + 「글 N개」 + 무엇을 찾는 묶음인지 한 줄(TOPIC_NOTE)
+ *   · 줄: GuideRow(ArticleRows.tsx) — [부위·주제 칩 · 단계] / 질문 제목 16px 굵게 / 화살표. 줄 전체가 링크, 높이 56px 이상
+ *   · 설명은 허브에서 뺐다 — 제목이 이미 독자 질문이라 설명 한 줄(잘린 문장)이 줄 사이 경계를 흐렸다. 주제 페이지에서는 두 줄까지 보인다
+ *   · 이모지 + 파스텔 타일 → lucide 선 아이콘(홈과 같은 묶음)
+ *   ⚠️ 휴대폰 실기 화면은 이 세션에서 열지 못했다(npm run dev 금지) — 320px 넘침은 클래스(min-w-0·break-keep·flex-wrap)로만 막았다
  *
  * 칩마다 개수를 붙이는 이유(9/03): 개수가 화면에 있으면 그 자체가 검사기다.
  * 「전체」를 빼지 않는 이유(9/03): 빼면 되돌아올 길이 막힌다.
@@ -75,88 +83,72 @@ export default function GuideArticleList() {
   return (
     <>
       {stageInfo && (
-        <p className="mb-4 flex flex-wrap items-center gap-2 text-sm text-gray-700">
-          <span className="rounded-full bg-emerald-50 px-2.5 py-1 font-medium text-emerald-800">
-            {stageInfo.step}단계 · {stageInfo.from} → {stageInfo.to}에 맞는 글만
+        <div className="mb-6 flex flex-wrap items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2 text-sm text-emerald-900">
+          <span className="min-w-0 flex-1 break-keep font-bold">
+            {stageInfo.step}단계 · {stageInfo.from} → {stageInfo.to}에 맞는 글만 보는 중
           </span>
           <button
+            type="button"
             onClick={() => {
               setStage("전체");
               const u = new URL(location.href);
               u.searchParams.delete("stage");
               history.replaceState(null, "", u);
             }}
-            className="text-emerald-700 underline underline-offset-2"
+            className="flex min-h-11 items-center gap-1 font-bold text-emerald-700 underline underline-offset-2"
           >
+            <X aria-hidden className="h-4 w-4" />
             전체 보기
           </button>
-        </p>
+        </div>
       )}
 
       {stage === "전체" && latestEnabled() && (
-        <section aria-label="최신 글" className="mb-4 rounded-2xl border border-emerald-200 bg-emerald-50/40 px-4 pb-1 pt-4">
-          <h3 className="flex items-center justify-between font-bold text-gray-900">
-            최신 글
-            <Link href="/injury/all" className="text-sm font-medium text-emerald-700 hover:underline">
-              모든 글 →
+        <section aria-label="최신 글" className="mb-8">
+          <div className="flex items-end justify-between gap-3 border-t-2 border-[#111111] pt-3">
+            <h3 className="text-xl font-bold text-[#111111]">최신 글</h3>
+            <Link href="/injury/all" className="flex min-h-11 items-center text-sm font-bold text-emerald-700 hover:underline">
+              모든 글 보기
             </Link>
-          </h3>
-          <ul className="mt-2 divide-y divide-emerald-100">
+          </div>
+          <ul className="divide-y divide-gray-200">
             {byLatest().slice(0, 5).map((a, i) => (
               <li key={a.href}>
-                <Link
-                  href={a.href}
-                  onClick={() => track("injury_list_click", { topic: "최신 글", pos: i + 1, to: a.href })}
-                  className="group flex items-start gap-3 py-3"
-                >
-                  <span className="min-w-0 flex-1 break-keep text-base font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
-                    {a.title}
-                  </span>
-                </Link>
+                <GuideRow a={a} onClick={() => track("injury_list_click", { topic: "최신 글", pos: i + 1, to: a.href })} />
               </li>
             ))}
           </ul>
         </section>
       )}
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         {groups.map(({ t, items }) => {
           const L = look(t);
           // 단계로 거른 상태에서는 다 보여 준다(이미 좁혀졌다)
           const { shown, rest } = stage === "전체" ? topicPreview(items) : { shown: items, rest: 0 };
           return (
-            <section key={t} aria-label={t} className="rounded-2xl border border-gray-200 bg-white px-4 pb-1 pt-4">
-              <h3 className="flex items-center gap-2.5">
-                <span aria-hidden className={`flex h-8 w-8 items-center justify-center rounded-lg text-base ${L.tile}`}>
-                  {L.icon}
-                </span>
-                <span className="font-bold text-gray-900">{t}</span>
-                <span className="text-sm text-gray-400">{items.length}</span>
-              </h3>
-              <ul className="mt-2 divide-y divide-gray-100">
+            <section key={t} aria-label={t}>
+              <div className="border-t-2 border-[#111111] pt-3">
+                <h3 className="flex items-center gap-2 text-xl font-bold text-[#111111]">
+                  <L.Icon aria-hidden className={`h-5 w-5 shrink-0 ${L.text}`} />
+                  <span className="break-keep">{t}</span>
+                  <span className="text-sm font-normal text-[#4B5059]">글 {items.length}개</span>
+                </h3>
+                <p className="mt-1 break-keep text-sm text-[#4B5059]">{TOPIC_NOTE[t]}</p>
+              </div>
+              <ul className="mt-1 divide-y divide-gray-200">
                 {shown.map((a, i) => (
                   <li key={a.href}>
-                    <Link
-                      href={a.href}
-                      onClick={() => track("injury_list_click", { topic: t, pos: i + 1, to: a.href })}
-                      className="group flex items-start gap-3 py-3"
-                    >
-                      <span className="min-w-0 flex-1">
-                        <span className="block break-keep text-base font-semibold leading-snug text-gray-900 group-hover:text-emerald-700">
-                          {a.title}
-                        </span>
-                        <span className="mt-0.5 line-clamp-1 break-all text-sm text-gray-500">{a.desc}</span>
-                      </span>
-                    </Link>
+                    <GuideRow a={a} onClick={() => track("injury_list_click", { topic: t, pos: i + 1, to: a.href })} />
                   </li>
                 ))}
               </ul>
               {rest > 0 && (
                 <Link
                   href={`/injury/topic/${TOPIC_SLUG[t]}`}
-                  className="mb-3 mt-1 block rounded-xl bg-gray-50 py-2.5 text-center text-sm font-medium text-gray-700 hover:text-emerald-700"
+                  className="mt-2 flex min-h-11 items-center justify-center rounded-xl bg-[#F5F5F5] text-sm font-bold text-[#111111] hover:text-emerald-700"
                 >
-                  {t} 글 {items.length}개 모두 보기 →
+                  {t} 글 {items.length}개 모두 보기
                 </Link>
               )}
             </section>
