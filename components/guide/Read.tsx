@@ -15,7 +15,7 @@
 
 /** 글 맨 위 한 문단 — 이 글이 무엇에 답하는지 두 문장 안에 */
 export function Lead({ children }: { children: React.ReactNode }) {
-  return <p className="mt-4 break-keep text-lg leading-[1.75] text-gray-700">{children}</p>;
+  return <p className="mt-4 break-keep text-base leading-[1.8] text-gray-700">{children}</p>;
 }
 
 /** 본문 단락 — 16px·줄간격 1.8·어절 단위 줄바꿈 */
@@ -25,7 +25,7 @@ export function P({ children, className = "" }: { children: React.ReactNode; cla
 
 /** 섹션 제목 — id 는 목차 검사(check:toc)가 문자열로 찾으므로 각 페이지에서 h2 를 직접 쓴다. 이건 스타일만 */
 export const H2 = "mt-14 scroll-mt-20 break-keep text-2xl font-bold leading-snug text-gray-900";
-export const H3 = "mt-8 break-keep text-lg font-bold text-gray-900";
+export const H3 = "mt-8 break-keep text-xl font-bold text-gray-900";
 
 /** 「한눈에」 — 글 전체 요약 3~4줄 */
 export function Summary({ items, title = "한눈에" }: { items: React.ReactNode[]; title?: string }) {
@@ -123,7 +123,7 @@ export function References({
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
           {/* summary 안 h2 — 제목 목록(스크린리더·목차)에서 「참고 문헌」이 빠지지 않게 (council Dev 지적) */}
           <div className="min-w-0">
-            <h2 className="text-lg font-bold text-gray-900">
+            <h2 className="text-xl font-bold text-gray-900">
               {title}
               {n ? <span className="ml-1.5 text-sm font-normal text-gray-400">{n}개</span> : null}
             </h2>

@@ -66,7 +66,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
         <span className="text-gray-900">러닝화 수명 계산기</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-3">러닝화 수명 계산기</h1>
+      <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900 mb-3">러닝화 수명 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
         480km에서 뒤꿈치 쿠셔닝이 <strong className="text-gray-900">16~33% 줄어듭니다.</strong>{" "}
         그런데 연구에 참여한 러너들은 <strong className="text-gray-900">640km까지 달린 뒤에도
@@ -142,7 +142,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
           {/* 눈금은 연구 측정 지점 그대로다 */}
           <div className="relative mb-2 h-3 w-full rounded-full bg-gray-200">
             <div
-              className={`h-3 rounded-full transition-all ${total >= KEY_KM ? "bg-amber-500" : "bg-emerald-500"}`}
+              className={`h-3 rounded-full transition-[width] ${total >= KEY_KM ? "bg-amber-500" : "bg-emerald-500"}`}
               style={{ width: `${pct}%` }}
             />
           </div>

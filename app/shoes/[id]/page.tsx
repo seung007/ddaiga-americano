@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import BuyLinkButtons from "@/components/BuyLinkButtons";
+import { photoOf } from "@/lib/shoes/photos";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import ShoeThumb from "@/components/ShoeThumb";
 import FinderCta from "@/components/FinderCta";
@@ -142,18 +143,35 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
     <>
       <BreadcrumbJsonLd trail={[["러닝화", "/shoes"], [name, `/shoes/${s.id}`]]} />
       <ShoeJsonLd shoes={[s]} name={name} url={PAGE(s.id)} />
-      <article className="mx-auto max-w-2xl px-6 py-12 text-gray-800">
+      <main className="pb-24 text-gray-800 md:pb-0">
+      <div className="mx-auto max-w-5xl px-6 pt-8 md:pt-12">
         <AffiliateNotice show={!!affiliateFor(s.id)} />
-        <Link href="/shoes" className="mb-6 inline-block text-sm text-emerald-600 hover:underline">
+        <Link href="/shoes" className="mb-4 inline-flex min-h-11 items-center text-sm font-bold text-[#111111]">
           ← 러닝화 목록
         </Link>
 
-        <header className="flex flex-col gap-5 sm:flex-row sm:items-center">
-          {/* 2026-11-09: 휴대폰에서 정사각 220px 상자 + 위아래 빈 띠라 사진이 작게 보였다 — 휴대폰은 화면 폭 4:3(자르지 않음, object-contain), 넓은 화면은 그대로 */}
-          <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="aspect-[4/3] w-full rounded-2xl bg-gray-50 sm:aspect-square sm:max-w-[220px]" />
-          <div>
+        {/**
+          * 2026-11-10 디자인 점검(패턴 30): PC 에서 사진이 220px 칸 하나라 작았다.
+          * → 넓은 화면은 사진 왼쪽 크게(약 55%)·정보 오른쪽, 휴대폰은 화면 폭 4:3.
+          *   공식몰 옆모습 사진(lib/shoes/photos.json)이 있으면 그것을 쓴다. 여러 장(3~5장)은 아직 모으지 않았다.
+          */}
+        <header className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+          {(() => {
+            const ph = photoOf(s.id);
+            return (
+              <div className="grid aspect-[4/3] w-full shrink-0 place-items-center overflow-hidden rounded-2xl bg-[#F2F2F0] p-6 md:w-[55%] md:p-10">
+                {ph ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={`/shoes/photo/${s.id}.webp`} alt={name} width={ph.w} height={ph.h} fetchPriority="high" className="h-auto w-full" />
+                ) : (
+                  <ShoeThumb src={s.imageUrl} alt={name} model={s.model} className="h-full w-full mix-blend-multiply" />
+                )}
+              </div>
+            );
+          })()}
+          <div className="min-w-0">
             <p className="text-sm text-gray-500">{s.brand}</p>
-            <h1 className="text-3xl font-bold leading-tight text-gray-900">{s.model}</h1>
+            <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">{s.model}</h1>
             {nicknamesOf(s.model).length > 0 && (
               // 2026-09-26 — 러닝 오픈채팅에서 실제로 쓰인 애칭만 (lib/shoes/aliases.ts)
               <p className="mt-1 text-sm text-gray-500">
@@ -162,7 +180,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               </p>
             )}
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <p className="text-lg text-gray-800">약 {won(s.priceKrw)}</p>
+              <p className="text-xl font-bold tabular-nums text-[#111111]">약 {won(s.priceKrw)}</p>
               <LikeButton id={s.id} name={name} />
             </div>
             {official && (
@@ -196,6 +214,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </div>
           </div>
         </header>
+      </div>
+      <article className="mx-auto max-w-5xl px-6 pb-12 [&>*]:max-w-2xl">
 
         {s.successor && (() => {
           const next = successorOf(s);
@@ -264,7 +284,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           );
         })()}
 
-        <p className="mt-6 text-lg leading-relaxed text-gray-700">{s.blurb}</p>
+        <p className="mt-6 text-base leading-relaxed text-gray-700">{s.blurb}</p>
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">스펙</h2>
@@ -357,7 +377,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           />
         </div>
 
-        <section className="mt-8">
+        <section id="buy" className="mt-8 scroll-mt-20">
           <h2 className="mb-3 text-xl font-bold text-gray-900">구매</h2>
           <BuyLinkButtons shoeId={s.id} shoeName={name} links={s.buyLinks} from="shoe-detail" />
           <p className="mt-2 text-xs text-gray-400">가격은 국내 권장소비자가 기준 추산이고 판매처마다 다릅니다.</p>
@@ -396,6 +416,13 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           />
         </div>
       </article>
+      {/* 2026-11-10 디자인 점검(패턴 34): 구매가 페이지 맨 아래였다 → 휴대폰은 아래 고정 버튼으로 구매 구역에 바로 간다 */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E5E3] bg-white/95 px-5 py-3 backdrop-blur md:hidden">
+        <a href="#buy" className="press flex h-12 items-center justify-center rounded-full bg-[#111111] text-base font-bold text-white no-underline">
+          구매처 보기
+        </a>
+      </div>
+      </main>
     </>
   );
 }

@@ -85,7 +85,7 @@ export default function WideShoeList() {
 
       <div className="mt-3 flex flex-wrap gap-2 text-sm">
         <Link href="/shoes?wide=1" className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 font-medium text-emerald-800">
-          2E·4E 있는 신발만 전체 목록에서 보기 →
+          2E·4E 있는 신발만 전체 목록에서 보기
         </Link>
         <Link href="/tools/shoe-side" className="rounded-lg border border-gray-300 px-3 py-1.5 text-gray-700">
           고른 신발 두께 겹쳐 보기

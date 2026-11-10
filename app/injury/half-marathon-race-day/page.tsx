@@ -127,6 +127,7 @@ export default function Page() {
           ["하프 대회 당일", "/injury/half-marathon-race-day"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -270,7 +271,7 @@ export default function Page() {
           </p>
         </Evidence>
 
-        <h3 className="mt-8 break-keep text-lg font-bold text-gray-900">더운 날에도 목마름을 참아야 하나요?</h3>
+        <h3 className="mt-8 break-keep text-xl font-bold text-gray-900">더운 날에도 목마름을 참아야 하나요?</h3>
         <P>
           더운 날 갈증이 오면 <b>참지 말고 마셔야 합니다.</b> 덥고 습한 날 열린 한 하프마라톤에서는 적게, 드물게 마신 쪽의
           문제가 관찰됐습니다.
@@ -287,7 +288,7 @@ export default function Page() {
           </p>
         </Evidence>
 
-        <h3 className="mt-8 break-keep text-lg font-bold text-gray-900">어떤 사람이 더 위험했나요?</h3>
+        <h3 className="mt-8 break-keep text-xl font-bold text-gray-900">어떤 사람이 더 위험했나요?</h3>
         <P>
           보스턴 연구에서는 레이스 중 체중이 늘 만큼 마신 경우, 완주 시간이 긴 경우, 체질량지수가 아주 낮거나 높은 경우 위험이
           높았습니다.
@@ -604,7 +605,7 @@ export default function Page() {
             href="/tools/pace"
             className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
           >
-            페이스 계산기 →
+            페이스 계산기
           </Link>
         </div>
         <div className="space-y-3">
@@ -850,12 +851,13 @@ export default function Page() {
             체형과 발 조건을 넣으면 맞는 신발을 추려드립니다.
           </p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            나에게 맞는 신발 찾기 →
+            나에게 맞는 신발 찾기
           </Link>
         </div>
         <ShareButtons from="half-marathon-race-day" title="하프마라톤 당일, 페이스와 젤은 어떻게 하나요?" description="하프 대회 날 페이스는 어떻게 잡고 젤과 물은 얼마나 챙길지, 전날 음식과 복장까지 연구로 확인한 것과 직접 경험을 나눠 적었습니다." />
 
       </article>
+      </main>
     </>
   );
 }

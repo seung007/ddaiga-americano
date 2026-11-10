@@ -13,24 +13,163 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   색 토큰 (2026-11-09) — 홈 새 디자인과 세부 페이지를 한 벌로 맞춘다.
-   왜: 운영 화면을 재 보니 초록 글자·초록 버튼이 흰 바탕에서 3.65:1, 출처·확인 날짜에 쓰는
-   gray-400 이 2.60:1 이었다(WCAG 본문 기준 4.5:1). 이 사이트가 파는 것은 「근거」인데 근거가 가장 흐렸다.
-   클래스 1,000여 곳을 하나씩 바꾸는 대신 값을 한 단계 진하게 바꾼다 — 이름(emerald-600)과 실제 색이
-   한 단계 어긋나니 새 코드는 아래 표를 보고 쓴다.
-     emerald-600 → 원래 emerald-700 값 (흰 바탕 글자 약 5.5:1)
-     emerald-700 → 원래 emerald-800 값 (마우스 올림 등 한 단계 더 진한 자리)
-     gray-400    → 원래 gray-500 값  (흰 바탕 4.8:1 — 날짜·출처·보조 글씨)
-     ink         → #111111 (홈 라임 카드 안의 버튼처럼 라임 위에 올리는 검정)
-   주 버튼은 초록(emerald-600 = 진한 초록 #007a55, 흰 글자 5.37:1)이다 — 운영자 결정(2026-11-09): 누르는 곳은 원래처럼 초록이 낫다.
-   예외: 홈 라임 카드 안 버튼은 검정(초록은 라임 위에서 4.08:1 이고 두 초록이 섞여 보인다)
+   색 토큰 (2026-11-10) — 사이트 전체를 홈 디자인 A안 한 벌로 맞춘다.
+   경위
+     2026-11-09: 초록 글자 대비(3.65:1)·gray-400(2.60:1)이 낮아 값을 한 단계 진하게 바꿨다. 그때 운영자 결정은
+       「누르는 곳은 초록」이었다.
+     2026-11-10: 홈을 A안(흰 바탕·검정 버튼·회색 타일·연두는 마우스 올림/선택에만)으로 바꾼 뒤 디자인 점검에서
+       홈만 검정이고 나머지 13개 화면이 초록·노랑·파랑 상자로 남아 두 벌로 보였다.
+       운영자 결정(2026-11-10): 「검정으로 통일」 — 11-09 의 초록 주 버튼 결정을 대신한다.
+   방법 — 클래스 1,000여 곳을 하나씩 바꾸지 않고 테마 값을 바꾼다. 이름과 실제 색이 어긋나니 새 코드는 아래 표를 보고 쓴다.
+     emerald-500·600·800~950 → #111 (주 버튼·선택 칩·링크 글자)   emerald-700 → #2F3238 (검정 버튼 마우스 올림)
+     emerald-50~400          → 회색 (#F5F5F5 상자 · #E5E5E3/#D5D8DD 테두리 · #8A8F98)
+     amber·blue·sky·orange·yellow·green·teal·indigo·violet·purple·cyan → 같은 회색 단계
+       (안내 상자·주제 꼬리표가 색마다 달라 「색 상자가 많다」는 점검 결과의 원인이었다. 글자로 이미 구분된다)
+     amber-500 은 남긴다 — 신발 수명 막대의 「교체 시점」 경고 한 곳뿐이다.
+     red·rose 는 남긴다 — 빨강은 오류·마감에만 쓴다(패턴 42).
+     gray-400 → 원래 gray-500 값 (흰 바탕 4.8:1 — 날짜·출처·보조 글씨, 11-09 그대로)
+   새 코드는 이름 대신 값(#111111 · #F5F5F5 · #4B5059 · #C8F031)을 직접 쓴다 — 홈 컴포넌트와 같다.
    ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-emerald-600: oklch(50.8% 0.118 165.612);
-  --color-emerald-700: oklch(43.2% 0.095 166.913);
+  --color-emerald-50: #F5F5F5;
+  --color-emerald-100: #EDEDEB;
+  --color-emerald-200: #E5E5E3;
+  --color-emerald-300: #D5D8DD;
+  --color-emerald-400: #8A8F98;
+  --color-emerald-500: #111111;
+  --color-emerald-600: #111111;
+  --color-emerald-700: #2F3238;
+  --color-emerald-800: #111111;
+  --color-emerald-900: #111111;
+  --color-emerald-950: #111111;
+  --color-amber-50: #F5F5F5;
+  --color-amber-100: #EDEDEB;
+  --color-amber-200: #E5E5E3;
+  --color-amber-300: #D5D8DD;
+  --color-amber-400: #8A8F98;
+  --color-amber-600: #2F3238;
+  --color-amber-700: #1F2125;
+  --color-amber-800: #111111;
+  --color-amber-900: #111111;
+  --color-amber-950: #111111;
+  --color-blue-50: #F5F5F5;
+  --color-blue-100: #EDEDEB;
+  --color-blue-200: #E5E5E3;
+  --color-blue-300: #D5D8DD;
+  --color-blue-400: #8A8F98;
+  --color-blue-500: #4B5059;
+  --color-blue-600: #2F3238;
+  --color-blue-700: #1F2125;
+  --color-blue-800: #111111;
+  --color-blue-900: #111111;
+  --color-blue-950: #111111;
+  --color-sky-50: #F5F5F5;
+  --color-sky-100: #EDEDEB;
+  --color-sky-200: #E5E5E3;
+  --color-sky-300: #D5D8DD;
+  --color-sky-400: #8A8F98;
+  --color-sky-500: #4B5059;
+  --color-sky-600: #2F3238;
+  --color-sky-700: #1F2125;
+  --color-sky-800: #111111;
+  --color-sky-900: #111111;
+  --color-sky-950: #111111;
+  --color-orange-50: #F5F5F5;
+  --color-orange-100: #EDEDEB;
+  --color-orange-200: #E5E5E3;
+  --color-orange-300: #D5D8DD;
+  --color-orange-400: #8A8F98;
+  --color-orange-500: #4B5059;
+  --color-orange-600: #2F3238;
+  --color-orange-700: #1F2125;
+  --color-orange-800: #111111;
+  --color-orange-900: #111111;
+  --color-orange-950: #111111;
+  --color-yellow-50: #F5F5F5;
+  --color-yellow-100: #EDEDEB;
+  --color-yellow-200: #E5E5E3;
+  --color-yellow-300: #D5D8DD;
+  --color-yellow-400: #8A8F98;
+  --color-yellow-500: #4B5059;
+  --color-yellow-600: #2F3238;
+  --color-yellow-700: #1F2125;
+  --color-yellow-800: #111111;
+  --color-yellow-900: #111111;
+  --color-yellow-950: #111111;
+  --color-green-50: #F5F5F5;
+  --color-green-100: #EDEDEB;
+  --color-green-200: #E5E5E3;
+  --color-green-300: #D5D8DD;
+  --color-green-400: #8A8F98;
+  --color-green-500: #4B5059;
+  --color-green-600: #2F3238;
+  --color-green-700: #1F2125;
+  --color-green-800: #111111;
+  --color-green-900: #111111;
+  --color-green-950: #111111;
+  --color-teal-50: #F5F5F5;
+  --color-teal-100: #EDEDEB;
+  --color-teal-200: #E5E5E3;
+  --color-teal-300: #D5D8DD;
+  --color-teal-400: #8A8F98;
+  --color-teal-500: #4B5059;
+  --color-teal-600: #2F3238;
+  --color-teal-700: #1F2125;
+  --color-teal-800: #111111;
+  --color-teal-900: #111111;
+  --color-teal-950: #111111;
+  --color-indigo-50: #F5F5F5;
+  --color-indigo-100: #EDEDEB;
+  --color-indigo-200: #E5E5E3;
+  --color-indigo-300: #D5D8DD;
+  --color-indigo-400: #8A8F98;
+  --color-indigo-500: #4B5059;
+  --color-indigo-600: #2F3238;
+  --color-indigo-700: #1F2125;
+  --color-indigo-800: #111111;
+  --color-indigo-900: #111111;
+  --color-indigo-950: #111111;
+  --color-violet-50: #F5F5F5;
+  --color-violet-100: #EDEDEB;
+  --color-violet-200: #E5E5E3;
+  --color-violet-300: #D5D8DD;
+  --color-violet-400: #8A8F98;
+  --color-violet-500: #4B5059;
+  --color-violet-600: #2F3238;
+  --color-violet-700: #1F2125;
+  --color-violet-800: #111111;
+  --color-violet-900: #111111;
+  --color-violet-950: #111111;
+  --color-purple-50: #F5F5F5;
+  --color-purple-100: #EDEDEB;
+  --color-purple-200: #E5E5E3;
+  --color-purple-300: #D5D8DD;
+  --color-purple-400: #8A8F98;
+  --color-purple-500: #4B5059;
+  --color-purple-600: #2F3238;
+  --color-purple-700: #1F2125;
+  --color-purple-800: #111111;
+  --color-purple-900: #111111;
+  --color-purple-950: #111111;
+  --color-cyan-50: #F5F5F5;
+  --color-cyan-100: #EDEDEB;
+  --color-cyan-200: #E5E5E3;
+  --color-cyan-300: #D5D8DD;
+  --color-cyan-400: #8A8F98;
+  --color-cyan-500: #4B5059;
+  --color-cyan-600: #2F3238;
+  --color-cyan-700: #1F2125;
+  --color-cyan-800: #111111;
+  --color-cyan-900: #111111;
+  --color-cyan-950: #111111;
   --color-gray-400: oklch(55.1% 0.027 264.364);
   --color-ink: #111111;
 }
+
+/* 링크가 검정이 되면서 색으로만 구분되던 본문 링크(WCAG 1.4.1)에 밑줄을 붙인다 */
+a:is(.text-emerald-600, .text-emerald-700, .text-emerald-800):not([class*="rounded"]) { text-decoration: underline; text-underline-offset: 3px; }
+/* 키보드 초점 — 회색이 된 ring-emerald-300 대신 모든 화면에 같은 3px 검정 테두리 */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 3px solid #111111; outline-offset: 2px; }
 
 /* 라이트모드 고정 — 다크모드 비활성화 */
 
@@ -75,7 +214,7 @@ body {
 .leaflet-control-attribution {
   background: rgb(255 255 255 / 0.85);
   border-radius: 6px 0 0 0;
-  font-size: 10px;
+  font-size: 12px;
   color: #64748b;
 }
 .leaflet-control-attribution a {
@@ -161,4 +300,19 @@ body {
   .use-shoe, .use-go { transition: none; }
   .use-tile:hover .use-shoe, .use-tile:focus-visible .use-shoe, .use-tile:hover .use-go, .use-tile:focus-visible .use-go { transform: none; }
   .use-in { animation: use-fade 150ms linear both; }
+}
+
+/* 아래에서 올라오는 필터 창 (ShoesBrowser·RaceFilterList, 2026-11-10) — 들어옴 250ms(패턴 25·6-1 시트 기준) */
+.sheet-up { animation: sheet-up 250ms cubic-bezier(0.05, 0.7, 0.1, 1) both; }
+.sheet-fade { animation: use-fade 200ms linear both; }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sheet-up { animation: use-fade 150ms linear both; } }
+
+/* 누르는 영역 44px (WCAG 2.5.5 · 패턴 28, 2026-11-10 디자인 점검)
+   알약 모양 링크·버튼(칩) 수십 곳이 26~36px 이었다. base 층에 두어 h-·flex 같은 유틸리티가 이긴다 —
+   min-height 만 강제하고 모양은 각자 클래스대로 둔다. */
+@layer base {
+  a.rounded-full, button.rounded-full { min-height: 44px; }
+  a.rounded-full:not([class*="flex"]):not([class*="block"]):not([class*="grid"]) { display: inline-flex; align-items: center; }
+  footer a { display: inline-flex; align-items: center; min-height: 32px; }
 }

@@ -66,6 +66,7 @@ export default function BeginnerGuidePage() {
           ["초보 러너 뛰는 법", "/injury/beginner-guide"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -340,7 +341,7 @@ export default function BeginnerGuidePage() {
             <S>(Relph et al. (2022) <Up h="https://pubmed.ncbi.nlm.nih.gov/35993829/" />)</S>
           </p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            나에게 맞는 신발 찾기 →
+            나에게 맞는 신발 찾기
           </Link>
         </div>
 
@@ -381,6 +382,7 @@ export default function BeginnerGuidePage() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 의학적 진단을 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
       </article>
+      </main>
     </>
   );
 }

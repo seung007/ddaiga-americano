@@ -180,7 +180,7 @@ export default function HokaVsBrooks() {
           url={pageUrl("/compare/hoka-vs-brooks")}
         />
         <BreadcrumbJsonLd trail={[["호카 vs 브룩스", "/compare/hoka-vs-brooks"]]} />
-        <h1 className="text-3xl font-bold text-gray-900">호카 vs 브룩스</h1>
+        <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">호카 vs 브룩스</h1>
         <p className="mt-3 text-gray-600">
           브랜드 인상이 아니라 <strong>이 사이트가 검증한 스펙을 집계</strong>했습니다.
           호카 {HOKA.sampleSize}개, 브룩스 {BROOKS.sampleSize}개 기준입니다.
@@ -220,7 +220,7 @@ export default function HokaVsBrooks() {
         {/* ── 스펙 집계 표 ─────────────────────────────────── */}
         <h2 className="mt-10 text-2xl font-bold text-gray-900">스펙 집계</h2>
         <div className="mt-4 overflow-hidden rounded-2xl border border-gray-200">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm [overflow-wrap:normal]">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-4 py-3 text-left font-semibold text-gray-700">항목</th>
@@ -231,19 +231,20 @@ export default function HokaVsBrooks() {
             <tbody className="divide-y divide-gray-100">
               {ROWS.map((r) => (
                 <tr key={r.label}>
-                  <td className="px-4 py-3">
+                  <td className="w-[38%] px-4 py-3">
                     <div className="font-medium text-gray-900">{r.label}</div>
                     <div className="text-xs text-gray-500">{r.note}</div>
                   </td>
                   {/**
-                   * whitespace-nowrap — 390px 에서 `234,167 원` 이 두 줄로 쪼개졌다.
-                   * `globals.css` 의 `overflow-wrap: anywhere` 가 숫자 뒤 단위를 넘겨 버린다.
-                   * 값 칸은 짧으니 줄바꿈을 아예 막는 편이 낫다.
+                   * 2026-11-10 390px 에서 「항목」 칸이 한 글자씩 세로로 쌓였다 — 값 칸을 nowrap 으로 막아 둔 사이
+                   * 「안정성 분류」 값이 길어 표가 넓어졌고, 남은 폭을 `overflow-wrap: anywhere` 가 항목 칸을 글자 단위로 쪼개 메웠다.
+                   * → 표 전체를 overflow-wrap:normal 로 두고(낱말 단위로만 줄바꿈 — `234,167원` 같은 한 낱말은 안 쪼개진다),
+                   *   항목 칸은 38% 폭을 잡는다.
                    */}
-                  <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums text-gray-900">
+                  <td className="px-3 py-3 text-right tabular-nums text-gray-900">
                     {r.a}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums text-gray-900">
+                  <td className="px-3 py-3 text-right tabular-nums text-gray-900">
                     {r.b}
                   </td>
                 </tr>
@@ -310,7 +311,7 @@ export default function HokaVsBrooks() {
                 className="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 text-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50"
               >
                 <span className="text-gray-900">{c.label}</span>
-                <span className="ml-2 shrink-0 text-xs font-semibold text-emerald-600">비교 →</span>
+                <span className="ml-2 shrink-0 text-xs font-semibold text-emerald-600">비교</span>
               </Link>
             </li>
           ))}

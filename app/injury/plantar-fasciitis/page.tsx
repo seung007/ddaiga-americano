@@ -51,6 +51,7 @@ export default function Page() {
           ["족저근막염", "/injury/plantar-fasciitis"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -326,7 +327,7 @@ export default function Page() {
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
           <p className="mb-2 break-keep font-medium text-emerald-900">신발로 족저근막염이 낫는다는 근거는 없습니다. 발볼·사이즈가 맞는지는 확인하세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            나에게 맞는 신발 찾기 →
+            나에게 맞는 신발 찾기
           </Link>
         </div>
         {/* 2026-09-06: 글 안에서 바로 묻게 한다. 클릭 한 번이 이탈을 만든다. */}
@@ -335,6 +336,7 @@ export default function Page() {
         <ShareButtons from="plantar-fasciitis" title="족저근막염, 뭘 하면 낫고 얼마나 걸리나요?" description="효과가 확인된 방법과 신발로 낫는다는 근거가 없는 이유." />
 
       </article>
+      </main>
     </>
   );
 }

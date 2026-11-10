@@ -73,6 +73,7 @@ export default function ReturnToRunningPage() {
           ["부상 후 복귀", "/injury/return-to-running"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -150,15 +151,15 @@ export default function ReturnToRunningPage() {
           <p className="text-sm font-semibold text-gray-900">통증 모니터링 모델 (0~10점)</p>
           <div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
             <div className="rounded-lg bg-emerald-50 p-3">
-              <p className="text-lg font-bold text-emerald-700">2 미만</p>
+              <p className="text-xl font-bold text-emerald-700">2 미만</p>
               <p className="text-xs text-emerald-800">안전</p>
             </div>
             <div className="rounded-lg bg-amber-50 p-3">
-              <p className="text-lg font-bold text-amber-700">2~5</p>
+              <p className="text-xl font-bold text-amber-700">2~5</p>
               <p className="text-xs text-amber-800">허용</p>
             </div>
             <div className="rounded-lg bg-red-50 p-3">
-              <p className="text-lg font-bold text-red-700">5 초과</p>
+              <p className="text-xl font-bold text-red-700">5 초과</p>
               <p className="text-xs text-red-800">위험</p>
             </div>
           </div>
@@ -437,6 +438,7 @@ export default function ReturnToRunningPage() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
+      </main>
     </>
   );
 }

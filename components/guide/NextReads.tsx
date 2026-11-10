@@ -87,7 +87,7 @@ export default function NextReads() {
                 className="group flex items-baseline gap-2 rounded-lg px-2 py-1.5 hover:bg-emerald-50"
               >
                 <span className="shrink-0 text-xs text-gray-400">{l.kind}</span>
-                <span className="text-sm text-gray-800 group-hover:text-emerald-800">{l.label} →</span>
+                <span className="text-sm text-gray-800 group-hover:text-emerald-800">{l.label}</span>
               </Link>
             </li>
           ))}

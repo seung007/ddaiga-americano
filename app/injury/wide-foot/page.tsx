@@ -54,6 +54,7 @@ export default function WideFootPage() {
           ["발볼 와이드 규격", "/injury/wide-foot"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -299,6 +300,7 @@ export default function WideFootPage() {
           <ShareButtons from="wide-foot" title="발볼 넓은 러너 와이드 규격 총정리" description="2E·4E가 필요한지 판단하는 법과 브랜드별 옵션." />
         </div>
       </article>
+      </main>
     </>
   );
 }

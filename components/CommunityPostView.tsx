@@ -249,7 +249,7 @@ export default function CommunityPostView({ id }: { id: string }) {
                       <span className="text-xs text-gray-500">
                         <span className="font-medium text-gray-700">{c.nickname}</span>
                         {c.is_author && (
-                          <span className="ml-1.5 rounded bg-emerald-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                          <span className="ml-1.5 rounded bg-emerald-600 px-1.5 py-0.5 text-xs font-semibold text-white">
                             글쓴이
                           </span>
                         )}

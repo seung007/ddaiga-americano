@@ -11,7 +11,8 @@ import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from 
 import { rankAllShoes } from "@/lib/shoes/recommend";
 import type { Shoe, ShoeUse } from "@/lib/shoes/types";
 import { matchesQuery, searchKeyOf } from "@/lib/shoes/aliases";
-import { Heart } from "lucide-react";
+import { Heart, SlidersHorizontal, X } from "lucide-react";
+import { photoOf } from "@/lib/shoes/photos";
 
 /** 검색 키는 한 번만 만든다 — 52켤레라 싸지만 매 입력마다 다시 만들 이유가 없다 */
 const SEARCH_KEY = new Map(SHOES.map((s) => [s.id, searchKeyOf(s.brand, s.model)]));
@@ -43,18 +44,16 @@ function Chips<T extends string>({
   render?: (o: T) => string;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <span className="w-12 shrink-0 text-xs font-medium text-gray-500">{label}</span>
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="w-full shrink-0 text-sm font-bold text-[#111111] md:w-14 md:text-xs md:font-medium md:text-[#4B5059]">{label}</span>
       {options.map((o) => (
         <button
           key={o}
           type="button"
           aria-pressed={value === o}
           onClick={() => onChange(o)}
-          className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
-            value === o
-              ? "border-emerald-500 bg-emerald-50 font-semibold text-emerald-700"
-              : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+          className={`press h-11 rounded-full border px-4 text-sm ${
+            value === o ? "bg-[#111111] font-bold text-white border-[#111111]" : "border-[#D5D8DD] bg-white text-[#111111]"
           }`}
         >
           {render(o)}
@@ -70,9 +69,7 @@ function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; c
       type="button"
       aria-pressed={on}
       onClick={onClick}
-      className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
-        on ? "border-emerald-500 bg-emerald-50 font-semibold text-emerald-700" : "border-gray-200 bg-white text-gray-600"
-      }`}
+      className={`press h-11 rounded-full border px-4 text-sm ${on ? "bg-[#111111] font-bold text-white border-[#111111]" : "border-[#D5D8DD] bg-white text-[#111111]"}`}
     >
       {children}
     </button>
@@ -168,15 +165,63 @@ export default function ShoesBrowser() {
 
   const firstMisfit = ranking && sort === "default" ? shown.findIndex((s) => !ranking.get(s.id)?.fits) : -1;
 
+  /**
+   * 2026-11-10 디자인 점검: 휴대폰에서 필터가 첫 화면을 다 차지해 신발이 830px 아래에서 시작했다.
+   * → 휴대폰은 「필터 (N)」 버튼 + 아래에서 올라오는 창 + 고정 「결과 N개 보기」(패턴 25),
+   *   걸린 조건은 목록 위에 × 칩으로(패턴 26). PC(md 이상)는 지금처럼 펼쳐 둔다.
+   */
+  const [sheet, setSheet] = useState(false);
+  useEffect(() => {
+    if (!sheet) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSheet(false);
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [sheet]);
+
+  const active: { label: string; clear: () => void }[] = [
+    ...(brand !== "전체" ? [{ label: brand, clear: () => setBrand("전체") }] : []),
+    ...(use !== "전체" ? [{ label: USE_KO[use as ShoeUse], clear: () => setUse("전체") }] : []),
+    ...(cush !== "전체" ? [{ label: `쿠션 ${cush}`, clear: () => setCush("전체") }] : []),
+    ...(price !== "전체" ? [{ label: price, clear: () => setPrice("전체") }] : []),
+    ...(wide ? [{ label: "넓은 발볼", clear: () => setWide(false) }] : []),
+    ...(stability ? [{ label: "안정화", clear: () => setStability(false) }] : []),
+    ...(carbon ? [{ label: "카본 플레이트", clear: () => setCarbon(false) }] : []),
+    ...(hideOld ? [{ label: "후속 나온 모델 숨김", clear: () => setHideOld(false) }] : []),
+    ...(likedOnly ? [{ label: "찜한 신발", clear: () => setLikedOnly(false) }] : []),
+  ];
+  const clearAll = () => active.forEach((a) => a.clear());
+
+  const filters = (
+    <>
+      <Chips label="브랜드" options={BRANDS} value={brand} onChange={setBrand} />
+      <Chips label="용도" options={USES} value={use} onChange={setUse} render={(o) => (o === "전체" ? o : USE_KO[o])} />
+      <Chips label="쿠셔닝" options={CUSH} value={cush} onChange={setCush} />
+      <Chips label="가격" options={PRICE} value={price} onChange={setPrice} />
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="w-full shrink-0 text-sm font-bold text-[#111111] md:w-14 md:text-xs md:font-medium md:text-[#4B5059]">조건</span>
+        <Toggle on={wide} onClick={() => setWide((v) => !v)}>넓은 발볼(2E·4E)</Toggle>
+        <Toggle on={stability} onClick={() => setStability((v) => !v)}>안정화</Toggle>
+        <Toggle on={carbon} onClick={() => setCarbon((v) => !v)}>카본 플레이트</Toggle>
+        <Toggle on={hideOld} onClick={() => setHideOld((v) => !v)}>후속 나온 모델 숨기기</Toggle>
+        <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}><Heart size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />찜 {liked.length}</Toggle>
+      </div>
+    </>
+  );
+
   return (
     <>
       {/* 내 조건으로 보기 */}
-      <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+      <div className="mt-6 rounded-2xl bg-[#F5F5F5] p-4">
         {saved ? (
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold text-emerald-900">내 조건으로 보기</p>
-              <p className="mt-0.5 text-xs text-emerald-800">{describeSaved(saved)}</p>
+              <p className="text-sm font-bold text-[#111111]">내 조건으로 보기</p>
+              <p className="mt-0.5 text-xs text-[#4B5059]">{describeSaved(saved)}</p>
             </div>
             <button
               type="button"
@@ -185,8 +230,8 @@ export default function ShoesBrowser() {
                 setMine((m) => !m);
                 if (!mine) gtagEvent("shoes_my_filter", { from: "shoes" });
               }}
-              className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-                mine ? "bg-emerald-600 text-white" : "border border-emerald-400 bg-white text-emerald-700"
+              className={`press h-11 rounded-full px-5 text-sm font-bold ${
+                mine ? "bg-[#111111] text-white" : "border border-[#111111] bg-white text-[#111111]"
               }`}
             >
               {mine ? "켜짐" : "켜기"}
@@ -194,20 +239,20 @@ export default function ShoesBrowser() {
           </div>
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-emerald-900">
+            <p className="text-sm text-[#111111]">
               키·체중·발볼을 알려주시면 <strong>내 몸에 맞는 순서</strong>로 줄 세워 드려요.
             </p>
             <Link
               href="/shoe-finder"
-              className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
+              className="press flex h-11 items-center rounded-full bg-[#111111] px-5 text-sm font-bold text-white no-underline"
             >
-              질문 8개 답하기 →
+              질문에 답하기
             </Link>
           </div>
         )}
       </div>
 
-      <div className="mt-4 space-y-2 rounded-2xl border border-gray-200 p-4">
+      <div className="mt-4 flex gap-2">
         <label htmlFor="shoe-q" className="sr-only">
           러닝화 검색
         </label>
@@ -216,31 +261,69 @@ export default function ShoesBrowser() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="모델명·애칭으로 찾기 (예: 슈블, 노블, 프로4, 카야노)"
-          className="mb-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300"
+          placeholder="모델명·애칭 (예: 슈블, 노블, 카야노)"
+          className="h-11 min-w-0 flex-1 rounded-full border border-[#D5D8DD] px-4 text-base"
         />
-        <Chips label="브랜드" options={BRANDS} value={brand} onChange={setBrand} />
-        <Chips label="용도" options={USES} value={use} onChange={setUse} render={(o) => (o === "전체" ? o : USE_KO[o])} />
-        <Chips label="쿠셔닝" options={CUSH} value={cush} onChange={setCush} />
-        <Chips label="가격" options={PRICE} value={price} onChange={setPrice} />
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="w-12 shrink-0 text-xs font-medium text-gray-500">조건</span>
-          <Toggle on={wide} onClick={() => setWide((v) => !v)}>넓은 발볼(2E·4E)</Toggle>
-          <Toggle on={stability} onClick={() => setStability((v) => !v)}>안정화</Toggle>
-          <Toggle on={carbon} onClick={() => setCarbon((v) => !v)}>카본 플레이트</Toggle>
-          <Toggle on={hideOld} onClick={() => setHideOld((v) => !v)}>후속 나온 모델 숨기기</Toggle>
-          <Toggle on={likedOnly} onClick={() => setLikedOnly((v) => !v)}><Heart size={14} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-2px]" />찜 {liked.length}</Toggle>
-          {/* 2026-10-13: 찜한 신발을 바로 견주는 길 — 두께 비교 도구는 3켤레까지(?s=a,b,c) */}
-          {liked.length >= 2 && (
-            <Link
-              href={`/tools/shoe-side?s=${liked.filter((id) => SHOES.some((x) => x.id === id)).slice(-3).join(",")}`}
-              className="rounded-full border border-emerald-300 px-3 py-1 text-sm text-emerald-700 hover:bg-emerald-50"
-            >
-              찜한 신발 두께 비교 →
-            </Link>
-          )}
-        </div>
+        <button
+          type="button"
+          onClick={() => setSheet(true)}
+          aria-haspopup="dialog"
+          className="press flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-[#111111] px-4 text-sm font-bold text-[#111111] md:hidden"
+        >
+          <SlidersHorizontal size={16} aria-hidden />
+          필터{active.length > 0 && ` (${active.length})`}
+        </button>
       </div>
+
+      {/* PC: 펼쳐 둔다 */}
+      <div className="mt-4 hidden space-y-3 rounded-2xl border border-[#E5E5E3] p-4 md:block">{filters}</div>
+
+      {/* 휴대폰: 아래에서 올라오는 창 */}
+      {sheet && (
+        <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
+          <button type="button" aria-label="필터 닫기" onClick={() => setSheet(false)} className="sheet-fade absolute inset-0 bg-black/40" />
+          <div className="sheet-up absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col rounded-t-3xl bg-white">
+            <div className="flex items-center justify-between px-5 pt-4">
+              <h2 id="sheet-h" className="text-xl font-bold">필터</h2>
+              <button type="button" onClick={() => setSheet(false)} aria-label="닫기" className="grid size-11 place-items-center rounded-full">
+                <X size={20} aria-hidden />
+              </button>
+            </div>
+            <div className="flex-1 space-y-5 overflow-y-auto px-5 pb-4 pt-2">{filters}</div>
+            <div className="flex gap-2 border-t border-[#E5E5E3] px-5 py-3">
+              {active.length > 0 && (
+                <button type="button" onClick={clearAll} className="press h-12 rounded-full bg-[#F5F5F5] px-5 text-base font-bold">
+                  초기화
+                </button>
+              )}
+              <button type="button" onClick={() => setSheet(false)} className="press h-12 flex-1 rounded-full bg-[#111111] text-base font-bold text-white">
+                결과 {shown.length}개 보기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {active.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          {active.map((a) => (
+            <button key={a.label} type="button" onClick={a.clear} aria-label={`${a.label} 조건 빼기`}
+              className="press flex h-11 items-center gap-1 rounded-full bg-[#F5F5F5] px-4 text-sm font-bold">
+              {a.label}<X size={14} aria-hidden />
+            </button>
+          ))}
+          <button type="button" onClick={clearAll} className="h-11 px-2 text-sm text-[#4B5059] underline">모두 지우기</button>
+        </div>
+      )}
+      {liked.length >= 2 && (
+        /* 2026-10-13: 찜한 신발을 바로 견주는 길 — 두께 비교 도구는 3켤레까지(?s=a,b,c) */
+        <Link
+          href={`/tools/shoe-side?s=${liked.filter((id) => SHOES.some((x) => x.id === id)).slice(-3).join(",")}`}
+          className="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-[#111111] underline"
+        >
+          찜한 신발 두께 비교
+        </Link>
+      )}
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-gray-600">
@@ -249,7 +332,7 @@ export default function ShoesBrowser() {
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as typeof sort)}
-          className="rounded-lg border border-gray-200 px-2 py-1 text-sm text-gray-700"
+          className="h-11 rounded-full border border-[#D5D8DD] bg-white px-4 text-sm text-[#111111]"
           aria-label="정렬"
         >
           {SORTS.map(([v, l]) => (
@@ -265,7 +348,7 @@ export default function ShoesBrowser() {
           조건에 맞는 러닝화가 없습니다. 필터를 하나 풀어 보세요.
         </p>
       ) : (
-        <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <ul className="mt-4 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3">
           {shown.map((s, i) => {
             const r = ranking?.get(s.id);
             return (
@@ -275,44 +358,48 @@ export default function ShoesBrowser() {
                     조건과 덜 맞는 신발 — 발볼·용도·예산 중 하나가 어긋납니다
                   </p>
                 )}
-                <div className="relative flex flex-col rounded-2xl border border-gray-200 p-3 transition-colors hover:border-emerald-400">
+                <div className="relative flex flex-col">
                   <button
                     type="button"
                     onClick={() => toggleLike(s.id)}
-                    aria-label={liked.includes(s.id) ? "찜 해제" : "찜하기"}
-                    className={`absolute right-2 top-2 z-10 text-lg ${liked.includes(s.id) ? "text-red-500" : "text-gray-500 hover:text-gray-400"}`}
+                    aria-label={liked.includes(s.id) ? `${s.model} 찜 해제` : `${s.model} 찜하기`}
+                    className={`absolute right-1 top-1 z-10 grid size-11 place-items-center ${liked.includes(s.id) ? "text-red-500" : "text-[#4B5059]"}`}
                   >
                     <Heart size={20} strokeWidth={1.5} aria-hidden fill={liked.includes(s.id) ? "currentColor" : "none"} />
                   </button>
-                  <Link href={`/shoes/${s.id}`} className="flex flex-1 flex-col">
-                    <ShoeThumb src={s.imageUrl} alt={`${s.brand} ${s.model}`} model={s.model} className="aspect-square w-full" />
-                    <p className="mt-2 text-xs text-gray-500">{s.brand}</p>
-                    <p className="font-bold leading-snug text-gray-900">{s.model}</p>
+                  <Link href={`/shoes/${s.id}`} className="press flex flex-1 flex-col text-[#111111]">
+                    {/* 2026-11-10: 공식몰 옆모습 사진이 있으면 그것(패턴 15 — 배경·각도 통일), 없으면 기존 사진. 둘 다 크기를 적는다(패턴 50) */}
+                    <span className="grid aspect-square w-full place-items-center overflow-hidden rounded-2xl bg-[#F2F2F0] p-3">
+                      {(() => {
+                        const ph = photoOf(s.id);
+                        return ph ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={`/shoes/photo/${s.id}.webp`} alt={`${s.brand} ${s.model}`} width={ph.w} height={ph.h} loading={i < 4 ? "eager" : "lazy"} className="h-auto w-full" />
+                        ) : (
+                          <ShoeThumb src={s.imageUrl} alt={`${s.brand} ${s.model}`} model={s.model} className="aspect-square w-full mix-blend-multiply" />
+                        );
+                      })()}
+                    </span>
+                    {/* 배지는 하나만(패턴 20): 후속 출시 > 카본 > 와이드. 용도는 아래 글줄로 */}
+                    {(() => {
+                      const b = s.successor ? "후속 출시" : s.hasCarbon ? "카본" : hasWide(s) ? "와이드" : null;
+                      return b ? <span className="mt-2 self-start rounded bg-[#F5F5F5] px-2 py-1 text-xs font-bold">{b}</span> : null;
+                    })()}
+                    <p className="mt-2 text-xs text-[#4B5059]">{s.brand}</p>
+                    <p className="font-bold leading-snug">{s.model}</p>
                     {/* 2026-11-06: 홈은 「159,000원 공식몰 정가」, 여기는 「약 159,000원」으로 같은 신발이 달랐다 — 홈과 같은 규칙(공식몰 목록에 있고 값이 있을 때만) */}
                     {(() => {
                       const o = officialOf(s.id);
                       return o?.listed && o.priceKrw ? (
-                        <p className="mt-1 text-sm text-gray-800">{won(o.priceKrw)} <span className="text-xs text-gray-500">공식몰 정가</span></p>
+                        <p className="mt-1 text-sm font-bold tabular-nums">{won(o.priceKrw)} <span className="text-xs font-normal text-[#4B5059]">공식몰 정가</span></p>
                       ) : (
-                        <p className="mt-1 text-sm text-gray-800">약 {won(s.priceKrw)}</p>
+                        <p className="mt-1 text-sm font-bold tabular-nums">약 {won(s.priceKrw)}</p>
                       );
                     })()}
-                    <p className="mt-1 text-xs text-gray-500">
-                      {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
+                    <p className="mt-1 text-xs text-[#4B5059]">
+                      {s.uses.map((u) => USE_KO[u]).join("·")} · {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
                     </p>
-                    <div className="mt-2 flex flex-wrap gap-1">
-                      {s.uses.map((u) => (
-                        <span key={u} className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600">
-                          {USE_KO[u]}
-                        </span>
-                      ))}
-                      {hasWide(s) && <span className="rounded bg-blue-50 px-1.5 py-0.5 text-xs text-blue-700">와이드</span>}
-                      {s.hasCarbon && <span className="rounded bg-gray-900 px-1.5 py-0.5 text-xs text-white">카본</span>}
-                      {s.successor && (
-                        <span className="rounded bg-amber-50 px-1.5 py-0.5 text-xs text-amber-700">후속 출시</span>
-                      )}
-                    </div>
-                    {r?.reason && <p className="mt-2 text-xs leading-snug text-emerald-800">{r.reason}</p>}
+                    {r?.reason && <p className="mt-2 text-xs leading-snug text-[#111111]">{r.reason}</p>}
                   </Link>
                 </div>
               </li>

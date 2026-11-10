@@ -446,7 +446,7 @@ export default async function ComparePage({
           href="/shoe-finder"
           className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
         >
-          내 발에 맞는 러닝화 찾기 →
+          내 발에 맞는 러닝화 찾기
         </Link>
       </section>
 
@@ -530,13 +530,13 @@ function OtherCompares({ currentA, currentB }: { currentA: Shoe; currentB: Shoe 
 function NotFound({ message }: { message: string }) {
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-24 text-center text-gray-900">
-      <p className="text-lg font-semibold mb-2">신발을 찾을 수 없어요</p>
+      <p className="text-xl font-semibold mb-2">신발을 찾을 수 없어요</p>
       <p className="text-sm text-gray-500 mb-6">{message}</p>
       <Link
         href="/shoe-finder"
         className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-emerald-700 transition-colors"
       >
-        내 발에 맞는 신발 찾기 →
+        내 발에 맞는 신발 찾기
       </Link>
     </main>
   );

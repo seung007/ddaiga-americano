@@ -237,7 +237,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
       {/* 헤더 */}
       <header className="mb-8">
         {/* 2026-09-23 사이트 주인 판단: 「런린이 이야기방 / 뭐든 남겨주세요」보다 「러닝 게시판」이 낫다 — 무엇을 하는 곳인지 바로 읽힘 */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">러닝 게시판</h1>
+        <h1 className="text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900 mb-2">러닝 게시판</h1>
         <p className="text-gray-500 text-sm leading-relaxed">
           질문도 좋고, 후기도 좋고, &ldquo;이런 게 있으면 좋겠다&rdquo;도 좋아요. 가입도, 닉네임도 필요 없어요.
         </p>
@@ -256,7 +256,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
                 href="/shoe-finder"
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
               >
-                내 신발 찾기 →
+                내 신발 찾기
               </Link>
               <Link
                 href="/injury"
@@ -417,7 +417,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
               type="submit" disabled={submitting}
               className="w-full rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors disabled:bg-gray-200 disabled:text-gray-400"
             >
-              {submitting ? "올리는 중…" : "남기기 →"}
+              {submitting ? "올리는 중…" : "남기기"}
             </button>
             <p className="text-xs text-gray-400 text-center -mt-1">
               닉네임을 비우면 &lsquo;{DEFAULT_NICKNAME}&rsquo;으로 표시돼요. 개인정보는 입력하지 마세요.
@@ -432,7 +432,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
           href={`/community/${newOnMine[0].id}`}
           className="mb-4 block rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 hover:bg-red-100"
         >
-          <MessageCircle size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />내 글에 새 댓글이 {newOnMine.reduce((n, m) => n + (m.now - m.seen), 0)}개 달렸어요 →
+          <MessageCircle size={16} strokeWidth={1.5} aria-hidden className="mr-1 inline align-[-3px]" />내 글에 새 댓글이 {newOnMine.reduce((n, m) => n + (m.now - m.seen), 0)}개 달렸어요
         </Link>
       )}
 

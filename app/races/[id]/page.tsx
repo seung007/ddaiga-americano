@@ -116,6 +116,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
   return (
     <>
       <BreadcrumbJsonLd trail={[["대회 일정", "/races"], [r.name, `/races/${r.id}`]]} />
+      <main>
       <article className="mx-auto max-w-2xl px-6 py-10 text-gray-800">
         <Link href="/races" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 대회 일정
@@ -130,7 +131,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
               <span className="text-sm font-semibold text-emerald-700">{d === 0 ? "대회 오늘" : `대회 D-${d}`}</span>
             )}
           </div>
-          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900">{r.name}</h1>
+          <h1 className="mb-4 text-[32px] tracking-[-0.5px] md:text-[40px] font-black leading-tight text-gray-900">{r.name}</h1>
           <RaceSourceCta race={r} />
         </header>
 
@@ -182,7 +183,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
 
         {others.length > 0 && (
           <section className="mb-10">
-            <h2 className="mb-3 text-lg font-bold text-gray-900">같은 달 다른 대회</h2>
+            <h2 className="mb-3 text-xl font-bold text-gray-900">같은 달 다른 대회</h2>
             <ul className="grid gap-2 sm:grid-cols-2">
               {others.map((o) => (
                 <li key={o.id}>
@@ -207,6 +208,7 @@ export default async function RaceDetailPage({ params }: { params: Promise<{ id:
           sub="질문 8개에 답하면 3개를 골라드려요."
         />
       </article>
+      </main>
     </>
   );
 }
