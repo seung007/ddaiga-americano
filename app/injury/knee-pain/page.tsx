@@ -51,6 +51,7 @@ export default function Page() {
           ["러너 무릎", "/injury/knee-pain"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -106,7 +107,7 @@ export default function Page() {
               href="/injury/it-band"
               className="block rounded-xl border border-emerald-200 bg-white p-3 transition-colors hover:border-emerald-400"
             >
-              <p className="text-sm font-semibold text-gray-900">무릎 바깥쪽 (옆) →</p>
+              <p className="text-sm font-semibold text-gray-900">무릎 바깥쪽 (옆)</p>
               <p className="mt-0.5 break-keep text-sm text-gray-600">
                 일정 거리를 지나면 옆이 아프고, 멈추면 괜찮아짐 → 장경인대염 글로
               </p>
@@ -115,7 +116,7 @@ export default function Page() {
               href="/injury/shin-splints"
               className="block rounded-xl border border-emerald-200 bg-white p-3 transition-colors hover:border-emerald-400"
             >
-              <p className="text-sm font-semibold text-gray-900">무릎 아래, 정강이 안쪽 →</p>
+              <p className="text-sm font-semibold text-gray-900">무릎 아래, 정강이 안쪽</p>
               <p className="mt-0.5 break-keep text-sm text-gray-600">
                 뼈를 따라 길게 아픔 → 정강이 통증 글로
               </p>
@@ -408,6 +409,7 @@ export default function Page() {
         <ShareButtons from="knee-pain" title={TITLE} description={DESC} />
 
       </article>
+      </main>
     </>
   );
 }

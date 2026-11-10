@@ -54,6 +54,7 @@ export default function AdvancedGuidePage() {
           ["숙련자 부상 예방", "/injury/advanced-guide"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -329,11 +330,12 @@ export default function AdvancedGuidePage() {
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6 text-center">
           <p className="mb-2 break-keep font-medium text-emerald-900">신발이 부상을 막는다는 근거는 약합니다. 발볼과 사이즈가 맞는지는 확인해 보세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            내 발에 맞는 신발 찾기 →
+            내 발에 맞는 신발 찾기
           </Link>
         </div>
 
       </article>
+      </main>
     </>
   );
 }

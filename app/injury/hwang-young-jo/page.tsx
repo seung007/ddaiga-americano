@@ -71,6 +71,7 @@ export default function HwangYoungJoPage() {
           ["황영조", "/injury/hwang-young-jo"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -240,10 +241,11 @@ export default function HwangYoungJoPage() {
         <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
           <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 신발 찾기</p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            나에게 맞는 신발 찾기 →
+            나에게 맞는 신발 찾기
           </Link>
         </div>
       </article>
+      </main>
     </>
   );
 }

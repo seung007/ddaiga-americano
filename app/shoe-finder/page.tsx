@@ -447,7 +447,7 @@ export default function ShoeFinderPage() {
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12 text-gray-900">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">내 발에 맞는 러닝화 찾기</h1>
+        <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">내 발에 맞는 러닝화 찾기</h1>
         <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
           네 화면에 답하면 내 발에 맞는 신발 3개를 골라드려요.
         </p>
@@ -477,7 +477,7 @@ export default function ShoeFinderPage() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-1.5 items-center">
             {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-              <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${
+              <div key={i} className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ${
                 i < currentStep ? "w-8 bg-emerald-500" :
                 i === currentStep ? "w-12 bg-emerald-500" :
                 "w-8 bg-gray-200"
@@ -537,7 +537,7 @@ export default function ShoeFinderPage() {
         }`}>
 
         <div className="-mb-1 flex items-center justify-between gap-3">
-          <h2 className="text-lg font-bold text-gray-900">{SCREENS[activeStep]}</h2>
+          <h2 className="text-xl font-bold text-gray-900">{SCREENS[activeStep]}</h2>
           {isEditing && (
             <button type="button" onClick={finishInlineEdit}
               className="min-h-11 shrink-0 rounded-lg bg-emerald-600 px-4 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors">
@@ -883,11 +883,11 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                   {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">여성 전용 라스트</span>}
                   {rec.isFallback && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">근접 추천</span>}
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 leading-tight">{shoe.brand} {shoe.model}</h3>
+                <h3 className="text-xl font-bold text-gray-900 leading-tight">{shoe.brand} {shoe.model}</h3>
                 <p className="text-sm text-gray-500 mt-0.5 leading-relaxed">{shoe.blurb}</p>
               </div>
               <div className="shrink-0 text-right flex flex-col items-end gap-1.5">
-                <div className="text-3xl font-bold tabular-nums text-emerald-600">{score}</div>
+                <div className="text-[40px] leading-none font-bold tabular-nums text-emerald-600">{score}</div>
                 <div className="text-xs text-gray-400">적합도</div>
                 <button
                   onClick={onToggleCompare}
@@ -1201,11 +1201,11 @@ function RelatedGuides({ footType, footWidth, use, injuries }: { footType: FootT
 
   return (
     <div className="mt-12 pt-8 border-t border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">내 발 타입에 맞는 부상 예방 가이드</h3>
+      <h3 className="text-xl font-semibold text-gray-900 mb-4">내 발 타입에 맞는 부상 예방 가이드</h3>
       <div className="grid gap-4 sm:grid-cols-3">
         {shown.map(g => (
           <a key={g.href} href={g.href}
-            className="block border border-gray-100 rounded-xl p-4 hover:border-emerald-300 hover:shadow-sm transition-all bg-white">
+            className="block border border-gray-100 rounded-xl p-4 hover:border-emerald-300 transition-colors bg-white">
             <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full mb-2">
               {g.tag}
             </span>
@@ -1234,7 +1234,7 @@ function ComparePanel({
   return (
     <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-bold text-gray-900 text-lg">
+        <h3 className="font-bold text-gray-900 text-xl">
           {compareIds.length === 1 ? "비교할 신발을 하나 더 선택하세요" : "신발 비교"}
         </h3>
         <button onClick={onClear} className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors">

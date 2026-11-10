@@ -51,6 +51,7 @@ export default function Page() {
           ["미드풋 착지", "/injury/midfoot"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -288,21 +289,21 @@ export default function Page() {
             href="/injury/cadence"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">케이던스 높을수록 좋나요? 꼭 180이어야 하나요 →</p>
+            <p className="text-sm font-semibold text-gray-900">케이던스 높을수록 좋나요? 꼭 180이어야 하나요</p>
             <p className="mt-1 text-sm text-gray-600">착지법 대신 먼저 만져야 할 것.</p>
           </Link>
           <Link
             href="/injury/achilles"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">미드풋으로 바꾼 뒤 아킬레스건이 아프다면 →</p>
+            <p className="text-sm font-semibold text-gray-900">미드풋으로 바꾼 뒤 아킬레스건이 아프다면</p>
             <p className="mt-1 text-sm text-gray-600">전환 속도가 너무 빨랐을 때 생기는 일.</p>
           </Link>
           <Link
             href="/injury/knee-pain"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">달릴 때 무릎이 아프다면 →</p>
+            <p className="text-sm font-semibold text-gray-900">달릴 때 무릎이 아프다면</p>
             <p className="mt-1 text-sm text-gray-600">착지법을 의심하기 전에 볼 것들.</p>
           </Link>
         </div>
@@ -346,10 +347,11 @@ export default function Page() {
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
           <p className="mb-2 font-medium text-emerald-900">내 발에 맞는 러닝화를 찾으세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            나에게 맞는 신발 찾기 →
+            나에게 맞는 신발 찾기
           </Link>
         </div>
       </article>
+      </main>
     </>
   );
 }

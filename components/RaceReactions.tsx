@@ -112,7 +112,7 @@ export default function RaceReactions({
 
   return (
     <section className="mb-10 rounded-2xl border border-gray-200 p-5" aria-labelledby="race-react-h">
-      <h2 id="race-react-h" className="text-lg font-bold text-gray-900">
+      <h2 id="race-react-h" className="text-xl font-bold text-gray-900">
         {ended ? "다녀오셨나요?" : "이 대회 나가세요?"}
       </h2>
 

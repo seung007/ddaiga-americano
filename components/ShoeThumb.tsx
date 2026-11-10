@@ -9,6 +9,8 @@ export default function ShoeThumb({ src, alt, model, className = "" }: { src: st
     <img
       src={src}
       alt={alt}
+      width={280}
+      height={280}
       loading="lazy"
       referrerPolicy="no-referrer"
       className={`object-contain ${className}`}

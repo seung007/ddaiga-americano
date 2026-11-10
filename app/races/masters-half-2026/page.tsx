@@ -44,13 +44,14 @@ const FACTS: { label: string; value: string }[] = [
 
 export default function RacePage() {
   return (
+    <main>
     <article className="max-w-2xl mx-auto px-6 py-12 text-gray-800">
       <Link href="/races" className="text-sm text-emerald-600 hover:underline mb-6 inline-block">
         ← 대회 일정
       </Link>
 
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">{race.name}</h1>
+        <h1 className="text-[32px] md:text-[40px] font-bold text-gray-900 leading-tight mb-4">{race.name}</h1>
         <p className="text-gray-600 text-sm">
           {race.date} · {race.region} · {race.distancesKm.map(distanceLabel).join(" / ")}
         </p>
@@ -59,7 +60,7 @@ export default function RacePage() {
         </div>
       </header>
 
-      <p className="text-lg leading-relaxed mb-8 text-gray-700">
+      <p className="text-base leading-relaxed mb-8 text-gray-700">
         개천절 아침, 상암 월드컵공원에서 출발하는 대회입니다. 5km부터 하프까지 세 종목이 있고
         <strong> 참가비가 종목과 상관없이 같습니다.</strong>
       </p>
@@ -107,5 +108,6 @@ export default function RacePage() {
         distances={race.distancesKm.map(distanceLabel)}
       />
     </article>
+    </main>
   );
 }

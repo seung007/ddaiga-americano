@@ -70,6 +70,7 @@ export default function AchillesPage() {
           ["아킬레스·종아리 통증", "/injury/achilles"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -464,6 +465,7 @@ export default function AchillesPage() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
       </article>
+      </main>
     </>
   );
 }

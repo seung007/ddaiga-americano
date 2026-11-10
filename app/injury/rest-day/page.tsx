@@ -48,6 +48,7 @@ export default function Page() {
           ["휴식일", "/injury/rest-day"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -235,7 +236,7 @@ export default function Page() {
         <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
           <p className="mb-2 font-medium text-emerald-900">내 발에 맞는 러닝화를 찾으세요</p>
           <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            나에게 맞는 신발 찾기 →
+            나에게 맞는 신발 찾기
           </Link>
         </div>
 
@@ -273,6 +274,7 @@ export default function Page() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
       </article>
+      </main>
     </>
   );
 }

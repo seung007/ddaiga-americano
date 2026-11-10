@@ -245,7 +245,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
             <li key={s.id} className="rounded-xl border border-gray-200 bg-white p-4">
               <div className="mb-2 flex items-baseline justify-between gap-3">
                 <p className="font-medium text-gray-900">{s.name}</p>
-                <p className="shrink-0 font-mono text-lg font-bold text-gray-900">
+                <p className="shrink-0 font-mono text-xl font-bold text-gray-900">
                   {total.toLocaleString()}<span className="ml-0.5 text-sm font-normal text-gray-500">km</span>
                 </p>
               </div>

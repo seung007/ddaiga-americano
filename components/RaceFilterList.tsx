@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { SlidersHorizontal, X } from "lucide-react";
 import type { DisplayStatus, Race } from "@/lib/races";
 import RaceStatusBadge from "@/components/RaceStatusBadge";
 
@@ -37,15 +38,15 @@ function Chips<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <span className="w-10 shrink-0 text-xs font-medium text-gray-500">{label}</span>
+    <div className="flex flex-wrap items-center gap-2">
+      {label && <span className="w-full shrink-0 text-sm font-semibold text-gray-700 md:w-10 md:text-xs md:font-medium md:text-gray-500">{label}</span>}
       {options.map((o) => (
         <button
           key={o}
           type="button"
           onClick={() => onChange(o)}
           aria-pressed={value === o}
-          className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
+          className={`h-11 shrink-0 rounded-full border px-4 text-sm transition-colors ${
             value === o
               ? "border-emerald-500 bg-emerald-50 font-semibold text-emerald-700"
               : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
@@ -104,19 +105,76 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
   /** 마감 7일 이내(`currentStatus` 가 「마감임박」으로 계산한 것) */
   const closingSoon = items.filter((i) => i.status === "마감임박").length;
 
+  /** 2026-11-10 디자인 점검: 휴대폰에서 필터 4줄이 첫 화면을 차지했다 → 상태는 빠른 칩(패턴 28)으로 남기고
+   *  월·지역·거리는 「필터 (N)」 아래 창으로(패턴 25). PC 는 펼쳐 둔다. */
+  const [sheet, setSheet] = useState(false);
+  useEffect(() => {
+    if (!sheet) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSheet(false);
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [sheet]);
+  const more = [month, group, dist].filter((v) => v !== "전체").length;
+  const moreFilters = (
+    <>
+      <Chips label="월" options={months} value={month} onChange={setMonth} />
+      <Chips label="지역" options={GROUPS} value={group} onChange={setGroup} />
+      <Chips label="거리" options={DISTANCES} value={dist} onChange={setDist} />
+    </>
+  );
+
   return (
     <>
-      <div className="mt-8 space-y-2 rounded-2xl border border-gray-200 p-4">
+      <div className="mt-8 hidden space-y-2 rounded-2xl border border-gray-200 p-4 md:block">
         <Chips label="상태" options={STATUS_FILTERS} value={status} onChange={setStatus} />
-        <Chips
-          label="월"
-          options={months}
-          value={month}
-          onChange={setMonth}
-        />
-        <Chips label="지역" options={GROUPS} value={group} onChange={setGroup} />
-        <Chips label="거리" options={DISTANCES} value={dist} onChange={setDist} />
+        {moreFilters}
       </div>
+      <div className="-mx-6 mt-6 flex gap-2 overflow-x-auto px-6 pb-1 md:hidden">
+        <button
+          type="button"
+          onClick={() => setSheet(true)}
+          aria-haspopup="dialog"
+          className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 text-sm font-semibold text-gray-700"
+        >
+          <SlidersHorizontal size={16} aria-hidden />
+          필터{more > 0 && ` (${more})`}
+        </button>
+        {STATUS_FILTERS.map((o) => (
+          <button key={o} type="button" onClick={() => setStatus(o)} aria-pressed={status === o}
+            className={`h-11 shrink-0 rounded-full border px-4 text-sm transition-colors ${status === o ? "border-emerald-500 bg-emerald-50 font-semibold text-emerald-700" : "border-gray-200 bg-white text-gray-600"}`}>
+            {o}
+          </button>
+        ))}
+      </div>
+      {sheet && (
+        <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true" aria-labelledby="race-sheet-h">
+          <button type="button" aria-label="필터 닫기" onClick={() => setSheet(false)} className="sheet-fade absolute inset-0 bg-black/40" />
+          <div className="sheet-up absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col rounded-t-3xl bg-white">
+            <div className="flex items-center justify-between px-5 pt-4">
+              <h2 id="race-sheet-h" className="text-xl font-bold text-gray-900">필터</h2>
+              <button type="button" onClick={() => setSheet(false)} aria-label="닫기" className="grid size-11 place-items-center rounded-full">
+                <X size={20} aria-hidden />
+              </button>
+            </div>
+            <div className="flex-1 space-y-5 overflow-y-auto px-5 pb-4 pt-2">{moreFilters}</div>
+            <div className="flex gap-2 border-t border-gray-200 px-5 py-3">
+              {more > 0 && (
+                <button type="button" onClick={() => { setMonth("전체"); setGroup("전체"); setDist("전체"); }} className="h-12 rounded-full border border-gray-200 bg-white px-5 text-base font-semibold text-gray-700">
+                  초기화
+                </button>
+              )}
+              <button type="button" onClick={() => setSheet(false)} className="h-12 flex-1 rounded-full bg-emerald-600 text-base font-semibold text-white hover:bg-emerald-700">
+                결과 {shown.length}개 보기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/**
         * 마감 임박 바로가기 (2026-09-22)
@@ -131,7 +189,7 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
         <button
           type="button"
           onClick={() => setStatus("마감임박")}
-          className="mt-4 flex w-full items-center justify-between rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-left transition-colors hover:border-amber-400"
+          className="mt-4 flex min-h-12 w-full items-center justify-between rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-left transition-colors hover:border-amber-400"
         >
           <span className="text-sm font-semibold text-amber-900">
             일주일 안에 접수가 닫히는 대회 {closingSoon}개

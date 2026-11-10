@@ -99,6 +99,7 @@ export default function MarathonTrainingPage() {
           ["풀코스 준비", "/injury/marathon-training"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -402,7 +403,7 @@ export default function MarathonTrainingPage() {
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury/get-faster" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            기록 단축 →
+            기록 단축
           </Link>
           <Link href="/injury/advanced-guide" className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:border-gray-300">
             숙련자 가이드
@@ -464,6 +465,7 @@ export default function MarathonTrainingPage() {
         </References>
         <p className="mt-6 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다.</p>
       </article>
+      </main>
     </>
   );
 }

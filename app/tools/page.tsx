@@ -49,7 +49,7 @@ const TOOLS = [
 export default function ToolsPage() {
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-3">러닝 계산기</h1>
+      <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
         논문에서 실제로 측정한 수치만 씁니다. 근거가 없는 항목은{" "}
         <strong className="text-gray-900">그럴듯한 계수를 지어내는 대신 없다고 적습니다.</strong>
@@ -62,7 +62,7 @@ export default function ToolsPage() {
             href={t.href}
             className="block rounded-2xl border border-gray-200 p-6 transition-colors hover:border-emerald-300 hover:bg-emerald-50/40"
           >
-            <h2 className="mb-2 text-lg font-semibold text-gray-900">{t.title}</h2>
+            <h2 className="mb-2 text-xl font-semibold text-gray-900">{t.title}</h2>
             <p className="mb-3 text-sm leading-relaxed text-gray-600">{t.desc}</p>
             {/* 논문 근거와 단순 산수를 같은 배지로 쓰면 안 된다.
                 파란 배지는 "논문에서 옮긴 수치"라는 뜻으로 사이트 전체에서 쓰이고 있어서,

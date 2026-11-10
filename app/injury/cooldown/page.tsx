@@ -84,6 +84,7 @@ export default function Page() {
           ["쿨다운", "/injury/cooldown"],
         ]}
       />
+      <main>
       <article className="mx-auto max-w-2xl px-5 py-10 text-gray-800">
         <Link href="/injury" className="mb-5 inline-block text-sm text-emerald-600 hover:underline">
           ← 러닝 가이드
@@ -326,14 +327,14 @@ export default function Page() {
             href="/injury/warmup"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">러닝 전 스트레칭, 정적으로 해도 되나요? →</p>
+            <p className="text-sm font-semibold text-gray-900">러닝 전 스트레칭, 정적으로 해도 되나요?</p>
             <p className="mt-1 text-sm text-gray-600">이 글의 반대편. 도식으로 동작을 볼 수 있습니다.</p>
           </Link>
           <Link
             href="/injury/rest-day"
             className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
-            <p className="text-sm font-semibold text-gray-900">러닝 쉬는 날, 가볍게라도 움직여야 하나요? →</p>
+            <p className="text-sm font-semibold text-gray-900">러닝 쉬는 날, 가볍게라도 움직여야 하나요?</p>
             <p className="mt-1 text-sm text-gray-600">쉬는 날 가볍게 움직여도 되는지, 근거는 어디까지인지.</p>
           </Link>
         </div>
@@ -383,6 +384,7 @@ export default function Page() {
         <FinderCta from="cooldown" headline="신발 교체 시기가 됐다면" sub="체형과 발볼, 부상 이력을 넣으면 지금 발에 맞는 신발을 추려드립니다." />
         <ShareButtons from="cooldown" title="달리기 후 정적 스트레칭, 회복이 빨라지나요?" description="달린 뒤 스트레칭이 회복을 앞당긴다는 근거는 확인되지 않았습니다. 유연성을 위해 할 다섯 동작과 멈춰 서 있다 어지러울 때 할 일을 담았습니다." />
       </article>
+      </main>
     </>
   );
 }
