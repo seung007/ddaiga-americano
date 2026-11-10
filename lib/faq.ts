@@ -1,5 +1,5 @@
 import type { FaqItem } from "@/components/FaqSection";
-import { currentStatus, distanceLabel, raceLink, type Race } from "@/lib/races";
+import { currentStatus, daysUntil, distanceLabel, raceLink, type Race } from "@/lib/races";
 import type { OfficialCheck } from "@/lib/shoes/official";
 import type { Shoe } from "@/lib/shoes/types";
 
@@ -31,6 +31,16 @@ const josa = (word: string, withB: string, withoutB: string) => word + (hasBatch
 
 /** 한 번만 쓰는 용어 뜻 — 처음 나오는 곳에서 한 문장으로 */
 const HALF = "하프는 21.0975km, 풀코스는 42.195km입니다.";
+
+/** 「9/18~9/22 선착순」·「10/27~11/9」에서 끝 날짜(YYYY-MM-DD). 해는 대회 날짜에서 — 끝 달이 대회 달보다 크면 전 해. 못 읽으면 null */
+function extraEnd(r: Race): string | null {
+  const m = r.extraRegistration?.match(/(\d{1,2})\/(\d{1,2})\s*~\s*(\d{1,2})\/(\d{1,2})/);
+  if (!m || !r.date) return null;
+  const [y, raceMonth] = [Number(r.date.slice(0, 4)), Number(r.date.slice(5, 7))];
+  const month = Number(m[3]);
+  const year = month > raceMonth ? y - 1 : y;
+  return `${year}-${String(month).padStart(2, "0")}-${String(Number(m[4])).padStart(2, "0")}`;
+}
 
 export function raceFaq(r: Race): FaqItem[] {
   const items: FaqItem[] = [];
@@ -82,11 +92,17 @@ export function raceFaq(r: Race): FaqItem[] {
     });
   }
   if (r.extraRegistration && !r.soldOut) {
+    // 2026-11-10 수집기도 이 칸을 채운다(ddaiga-pipeline 「추가 접수」 칸). 출처에 맞게 말한다 —
+    //   수집기 값은 대회 측 공지가 아니라 공개된 대회 일정 자료에서 읽은 것이다.
+    const basis = r.checkedBy === "수집기" ? "공개된 대회 일정 자료" : "대회 측 공지";
+    // 끝났는지는 대회 상태(본 접수 기준)가 아니라 추가 접수의 끝 날짜로 판단한다
+    const end = extraEnd(r);
+    const over = end !== null && (daysUntil(end) ?? 0) < 0;
     items.push({
       q: `${name} 추가 접수가 있나요?`,
-      a: currentStatus(r) === "마감"
-        ? `대회 측 공지 기준으로 추가 접수(${r.extraRegistration})가 있었고, 지금은 접수가 모두 끝났습니다.`
-        : `대회 측 공지 기준으로 추가 접수는 ${r.extraRegistration}입니다.`,
+      a: over
+        ? `${basis} 기준으로 추가 접수(${r.extraRegistration})가 있었고, 지금은 끝났습니다.`
+        : `${basis} 기준으로 추가 접수는 ${r.extraRegistration}입니다. 신청 조건은 대회 측 공지를 확인하세요.`,
     });
   }
   if (r.refundDeadline) {
