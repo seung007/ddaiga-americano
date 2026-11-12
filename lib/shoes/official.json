@@ -15,11 +15,12 @@
     "brand": "Asics",
     "priceKrw": 199000,
     "listed": true,
-    "url": "https://www.asics.co.kr/goods/view?no=20944",
+    "url": "https://www.asics.co.kr/goods/view?no=20921",
     "widths": [
-      "2E"
+      "2E",
+      "4E"
     ],
-    "checkedAt": "2026-11-09",
+    "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
   "asics-gt-2000-15": {
@@ -184,6 +185,256 @@
       "SW"
     ],
     "checkedAt": "2026-11-02",
+    "checkedBy": "수집기"
+  },
+  "nb-1080-v15": {
+    "brand": "New Balance",
+    "priceKrw": 209000,
+    "listed": true,
+    "url": "https://www.nbkorea.com/product/productDetail.action?styleCode=NBPFGF701Y&colCode=30&cIdx=1288",
+    "widths": [
+      "2E",
+      "4E"
+    ],
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nb-860-v15": {
+    "brand": "New Balance",
+    "priceKrw": 189000,
+    "listed": true,
+    "url": "https://www.nbkorea.com/product/productDetail.action?styleCode=NBPFGF703L&colCode=16&cIdx=1288",
+    "widths": [
+      "2E",
+      "4E"
+    ],
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nb-fuelcell-rebel-v5": {
+    "brand": "New Balance",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://www.nbkorea.com/product/productDetail.action?styleCode=NBPFGF722K&colCode=19&cIdx=1288",
+    "widths": [
+      "2E"
+    ],
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nb-supercomp-elite-v6": {
+    "brand": "New Balance",
+    "priceKrw": 389000,
+    "listed": true,
+    "url": "https://www.nbkorea.com/product/productDetail.action?styleCode=NBPFGF718Y&colCode=80&cIdx=1288",
+    "widths": [
+      "2E",
+      "D"
+    ],
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-downshifter-14": {
+    "brand": "Nike",
+    "priceKrw": 99000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%8B%A4%EC%9A%B4%EC%8B%9C%ED%94%84%ED%84%B0-14-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-96nR4eLJ/IB1895-101",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-journey-run": {
+    "brand": "Nike",
+    "priceKrw": 119000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%A0%80%EB%8B%88-%EB%9F%B0-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-8HXfWyyi/FN0228-113",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-pegasus-42": {
+    "brand": "Nike",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-XuHjeH83/IB1873-102",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-pegasus-42-w": {
+    "brand": "Nike",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EC%97%AC%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-wsTF7yIV/IB1881-400",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-pegasus-plus": {
+    "brand": "Nike",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-R2UnfgKC/FQ7262-403",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-pegasus-premium": {
+    "brand": "Nike",
+    "priceKrw": 289000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-rqFZ3AUC/HQ2592-022",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-revolution-8": {
+    "brand": "Nike",
+    "priceKrw": 89000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%A0%88%EB%B3%BC%EB%A3%A8%EC%85%98-8-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-Dqzv22Cs/HJ9198-002",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-streakfly-2": {
+    "brand": "Nike",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4-2-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-w32dkLBj/HF6416-601",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-structure-26": {
+    "brand": "Nike",
+    "priceKrw": 169000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-26-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-7dh5Vy5s/HJ1102-009",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-structure-plus": {
+    "brand": "Nike",
+    "priceKrw": 209000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-xhR97O1N/HQ3048-005",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-vaporfly-4": {
+    "brand": "Nike",
+    "priceKrw": 319000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-LgISdyo8/IM8203-400",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-vomero-18": {
+    "brand": "Nike",
+    "priceKrw": 189000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-18-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-sUlilE2b/HM6803-116",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-vomero-plus": {
+    "brand": "Nike",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-SUmL0LYm/IQ6942-001",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-vomero-premium": {
+    "brand": "Nike",
+    "priceKrw": 299000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-Kz76Wr9V/HQ2050-200",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-winflo-12": {
+    "brand": "Nike",
+    "priceKrw": 109000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%9C%88%ED%94%8C%EB%A1%9C-12-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-UdLfXcPF/HV9272-002",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "nike-zoom-fly-6": {
+    "brand": "Nike",
+    "priceKrw": 209000,
+    "listed": true,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%A4%8C-%ED%94%8C%EB%9D%BC%EC%9D%B4-6-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-r5abpTB8/FN8454-404",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudboom-max": {
+    "brand": "On",
+    "priceKrw": 279000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudboom-max-m-3mf3031/mens/white-pearl-shoes-3MF30310590",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudmonster-3": {
+    "brand": "On",
+    "priceKrw": 229000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudmonster-3-m-3mg1005/mens/ivory-topaz-shoes-3MG10055261",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudmonster-3-hyper": {
+    "brand": "On",
+    "priceKrw": 259000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudmonster-3-hyper-3mg1006/mens/ivory-flurry-shoes-3MG10065262",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudrunner-3": {
+    "brand": "On",
+    "priceKrw": 199000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudrunner-3-m-3mg1007/mens/grain-saffron-shoes-3MG10075160",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudsurfer-2": {
+    "brand": "On",
+    "priceKrw": 199000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudsurfer-2-3mf1012/mens/black-flurry-shoes-3MF10125172",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudsurfer-max": {
+    "brand": "On",
+    "priceKrw": 219000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudsurfer-max-m-3mf3043/mens/saffron-squash-shoes-3MF30435168",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudsurfer-next": {
+    "brand": "On",
+    "priceKrw": 189000,
+    "listed": true,
+    "url": "https://www.on.com/ko-kr/products/cloudsurfer-next-3me3002/mens/sailor-iceberg-shoes-3ME30024476",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "puma-magmax-nitro-2": {
+    "brand": "Puma",
+    "priceKrw": 239000,
+    "listed": true,
+    "url": "https://kr.puma.com/kr/ko/pd/%EB%A7%A4%EA%B7%B8%EB%A7%A5%EC%8A%A4-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-2-%3Cbr%3Emagmax-nitro-2/312125.html",
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "puma-velocity-nitro-5": {
+    "brand": "Puma",
+    "priceKrw": 179000,
+    "listed": true,
+    "url": "https://kr.puma.com/kr/ko/pd/%EB%B2%A8%EB%A1%9C%EC%8B%9C%ED%8B%B0-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-5-%3Cbr%3Evelocity-nitro-5/312944.html",
+    "widths": [
+      "WIDE"
+    ],
+    "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
   "saucony-endorphin-azura": {

@@ -1,1 +1,69 @@
-{}
+{
+  "nike-alphafly-4": {
+    "kind": "nextGen",
+    "brand": "Nike",
+    "model": "ZoomX Alphafly 4",
+    "gender": "male",
+    "basedOn": "nike-alphafly-3",
+    "priceKrw": 349000,
+    "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-BxYAEFvI/IM5546-800",
+    "imageUrl": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/caf7967c-6ee3-4907-88a5-58738f0eb2bb/AIR+ZOOM+ALPHAFLY+NEXT%25+4.png",
+    "weightG": 188,
+    "weightBasis": "265mm 기준",
+    "dropMm": 8,
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloud-x-5": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloud X 5",
+    "gender": "unisex",
+    "priceKrw": 209000,
+    "url": "https://www.on.com/ko-kr/products/cloud-x-5-m-3mg3008/mens/white-black-shoes-3MG30080462",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/38yGyfk6RZ1HY4pV7F5Rit/cdf0e26b8c8376f180a632bafc3462fc/e74d8a335f3ec4b839e8c4cb73817f541b164c1b.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 290,
+    "dropMm": 8,
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudboom-strike-2": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudboom Strike 2",
+    "gender": "unisex",
+    "priceKrw": 329000,
+    "url": "https://www.on.com/ko-kr/products/cloudboom-strike-2-u-3ug3005/unisex/white-camellia-shoes-3UG30055076",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/4iTXLV476QCDizK6WtNwqO/9ee0a53b947a4a85aa9acd31a43eca6a/5f8432a41664b6c0fa43cff4fb7d27e017d9c2d0.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 191,
+    "dropMm": 5,
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudboom-volt": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudboom Volt",
+    "gender": "unisex",
+    "priceKrw": 259000,
+    "url": "https://www.on.com/ko-kr/products/cloudboom-volt-m-3mf3098/mens/celeste-isle-shoes-3MF30985531",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/3bs7NJUhYeD7vdDApOjhgW/bc7d092f2fe8fe75f4fb63eadc831109/51bbb2e079ffc43426a526a6ff0b6258fe5bdaff.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 210,
+    "dropMm": 5,
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudflow-5-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudflow 5",
+    "gender": "female",
+    "priceKrw": 219000,
+    "url": "https://www.on.com/ko-kr/products/cloudflow-5-w-3wf1009/womens/white-lime-shoes-3WF10092929",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/4BYVawVi1saWzqhCjVzwjD/ab7b89b44b99d2d743852bf14a629a92/47ad1e1acd78049ec219946078a957224a909d25.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 231,
+    "dropMm": 8,
+    "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  }
+}

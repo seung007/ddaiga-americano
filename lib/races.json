@@ -2703,7 +2703,7 @@
       10,
       42.195
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "인천아시아드주경기장 (예정)",
     "registrationStart": "2026-10-22",
     "registrationEnd": "2026-11-12",
@@ -2727,7 +2727,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2027-incheon-k-marathon-c53cbb223bb9445cbb7fc04f7e752160",
     "officialUrl": "https://k-player.or.kr/incheon2027",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-09",
     "checkedBy": "수집기"
   },
   {
@@ -3677,6 +3677,28 @@
     "officialUrl": "https://mara1080.com/event/92394e8e-a27c-4c3a-b286-7233340a9e7a",
     "factsFrom": "모음",
     "checkedAt": "2026-11-07",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "incheon-marathon-2026",
+    "name": "2026 인천마라톤",
+    "date": "2026-11-22",
+    "region": "인천",
+    "distancesKm": [
+      5,
+      10,
+      42.195
+    ],
+    "status": "마감",
+    "venue": "아시아드주경기장",
+    "registrationStart": "2026-09-07",
+    "registrationEnd": "2026-09-07",
+    "extraRegistration": "10/27~10/27",
+    "organizer": "인천광역시, 대한육상연맹",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/incheon-marathon-2026",
+    "officialUrl": "http://incheonmarathon.or.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   }
 ]
