@@ -1703,7 +1703,7 @@
     "distancesKm": [
       7
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "갑천생태호수공원",
     "registrationStart": "2026-09-10",
     "registrationEnd": "2026-11-13",
@@ -1718,7 +1718,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-daejeon-reed-forest-ecox-trekking-3dee79218b9e4dbc95f263a57ab7034b",
     "officialUrl": "https://komta.org/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
   {
@@ -3699,6 +3699,39 @@
     "officialUrl": "http://incheonmarathon.or.kr/",
     "factsFrom": "모음",
     "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "run-together-with-bithumb-sharing-2026",
+    "name": "2026 우리함께런 with 빗썸나눔",
+    "date": "2026-11-15",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "마감",
+    "venue": "여의도한강공원 물빛무대앞 광장",
+    "registrationStart": "2026-10-06",
+    "registrationEnd": "2026-10-26",
+    "extraRegistration": "10/27~11/9",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "빗썸나눔, 이투데이",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-run-together-with-bithumb-sharing-d143977b11474a9298a6da27680e7a06",
+    "officialUrl": "https://bithumbnanumrun.com",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-14",
     "checkedBy": "수집기"
   }
 ]
