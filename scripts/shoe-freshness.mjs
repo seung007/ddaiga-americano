@@ -30,6 +30,12 @@
  *   npm run check:shoes -- --json  기계용
  *
  * 마지막 확인일이 STALE_DAYS를 넘긴 모델이 있으면 exit 1.
+ *
+ * 두 가지 확인일은 섞지 않는다 (2026-11-17)
+ *   사람 확인일   lib/shoes/verified.json — 사람이 스펙을 확인한 날. 이 스크립트도 기계 날짜로 덮어쓰지 않는다
+ *   공식몰 확인일 lib/shoes/official.json 의 checkedAt — 수집기가 공식몰 목록에서 읽은 날(값이 바뀌었거나 14일이 지났을 때 갱신)
+ * 공식몰 자동 확인이 없는 신발(수집기가 못 맞춘 모델·수집 대상 밖)은 사람 확인에만 기대므로 큐에서 먼저 보여 준다.
+ * 큐에 오르는 기준(CHECK_DAYS)과 실패 기준(STALE_DAYS)은 그대로다 — 순서와 안내만 바뀌었다.
  */
 
 import { readFile, writeFile } from "node:fs/promises";
@@ -38,6 +44,7 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DATA = path.join(ROOT, "lib", "shoes", "data.ts");
 const LEDGER = path.join(ROOT, "lib", "shoes", "verified.json");
+const OFFICIAL = path.join(ROOT, "lib", "shoes", "official.json");
 
 /** 이 날짜를 넘기면 확인 큐에 올린다 */
 const CHECK_DAYS = 90;
@@ -91,13 +98,25 @@ try {
   // 처음 실행이면 비어 있다. 아래에서 만들어준다.
 }
 
+// 공식몰 자동 확인(수집기). 읽지 못하면 비어 있는 것으로 본다 — 그러면 전부 「공식몰 확인 없음」으로 보이니 아래에서 알린다.
+let official = {};
+let officialReadable = true;
+try {
+  official = JSON.parse(await readFile(OFFICIAL, "utf8"));
+} catch {
+  officialReadable = false;
+}
+
 const rows = shoes.map((s) => {
   const last = ledger[s.id] ?? null;
   const age = daysSince(last);
+  const off = official[s.id] ?? null;
   return {
     ...s,
     lastVerified: last,
     ageDays: age === Infinity ? null : age,
+    officialCheckedAt: off?.checkedAt ?? null,
+    officialListed: off ? off.listed !== false : null,
     // 후속작 표기가 있으면 이미 구형으로 처리된 것이라 우선순위가 낮다.
     // 표기가 없는 것(= "현행"이라고 주장하는 것)이 틀렸을 때 손해가 크다.
     priority: s.successor ? 2 : 1,
@@ -105,14 +124,18 @@ const rows = shoes.map((s) => {
   };
 });
 
-const needCheck = rows
-  .filter((r) => r.ageDays === null || r.ageDays >= CHECK_DAYS)
-  .sort((a, b) => a.priority - b.priority || (b.ageDays ?? 1e9) - (a.ageDays ?? 1e9));
+const byAge = (a, b) => (b.ageDays ?? 1e9) - (a.ageDays ?? 1e9);
+// 공식몰 확인이 없는 것 먼저 → 후속작 표기 없는 것 먼저 → 오래된 것 먼저
+const queueOrder = (a, b) => Number(!!a.officialCheckedAt) - Number(!!b.officialCheckedAt) || a.priority - b.priority || byAge(a, b);
+
+const needCheck = rows.filter((r) => r.ageDays === null || r.ageDays >= CHECK_DAYS).sort(queueOrder);
+// 큐에 오르는 나이와 상관없이, 사람 확인에만 기대는 신발 — 날짜가 지나기 전에 미리 보이게 한다
+const humanOnly = rows.filter((r) => !r.officialCheckedAt).sort(queueOrder);
 
 const stale = rows.filter((r) => r.ageDays === null || r.ageDays >= STALE_DAYS);
 
 if (AS_JSON) {
-  console.log(JSON.stringify({ total: rows.length, needCheck: needCheck.length, stale: stale.length, rows }, null, 2));
+  console.log(JSON.stringify({ total: rows.length, needCheck: needCheck.length, stale: stale.length, humanOnly: humanOnly.length, rows }, null, 2));
 } else {
   console.log(C.bold(`\n신발 최신성 — 총 ${rows.length}종`));
   console.log(C.dim(`  확인 주기 ${CHECK_DAYS}일 · 실패 기준 ${STALE_DAYS}일\n`));
@@ -121,14 +144,15 @@ if (AS_JSON) {
     for (const r of rows) {
       const mark = r.ageDays === null ? C.red("?") : r.ageDays >= STALE_DAYS ? C.red("✗") : r.ageDays >= CHECK_DAYS ? C.yellow("!") : C.green("✓");
       const age = r.ageDays === null ? "확인 기록 없음" : `${r.ageDays}일 전`;
-      console.log(`${mark} ${(r.brand + " " + r.model).padEnd(38)} ${age.padStart(14)}  ${r.successor ? C.dim("후속 " + r.successor) : ""}`);
+      const off = r.officialCheckedAt ? `공식몰 ${r.officialCheckedAt}` : "공식몰 확인 없음";
+      console.log(`${mark} ${(r.brand + " " + r.model).padEnd(38)} ${age.padStart(14)}  ${C.dim(off.padEnd(18))} ${r.successor ? C.dim("후속 " + r.successor) : ""}`);
     }
     console.log();
   }
 
   if (needCheck.length) {
     console.log(C.bold("확인이 필요한 모델 — 위에서부터 처리하세요"));
-    console.log(C.dim('  후속작 표기가 없는 것("현행"이라 주장하는 것)이 먼저입니다.\n  그게 틀렸을 때 손해가 가장 큽니다.\n'));
+    console.log(C.dim('  순서: 공식몰 자동 확인이 없는 것 → 후속작 표기가 없는 것("현행"이라 주장하는 것) → 오래된 것.\n  자동 확인이 없으면 사람 확인이 유일한 날짜이고, 현행이라 적은 게 틀렸을 때 손해가 가장 큽니다.'));
     for (const r of needCheck.slice(0, 15)) {
       console.log(`  ${r.priority === 1 ? C.yellow("●") : C.dim("○")} ${r.brand} ${r.model}`);
       console.log(C.dim(`      검색: ${r.query}`));
@@ -138,8 +162,23 @@ if (AS_JSON) {
     console.log(C.green("  모든 모델이 확인 주기 안에 있습니다."));
   }
 
+  // 사람 확인에만 기대는 신발. 확인 필요 큐가 비어 있어도 따로 보인다 — 사람 확인일이 지나면 이 신발들은 확인할 다른 날짜가 없다
+  if (humanOnly.length) {
+    console.log(C.bold(`\n공식몰 자동 확인이 없는 신발 ${humanOnly.length}종 — 사람 확인에만 기대고 있습니다`));
+    if (!officialReadable) console.log(C.red("  official.json 을 읽지 못했습니다 — 아래 숫자를 믿지 마세요"));
+    console.log(C.dim("  (수집기가 이름을 못 맞췄거나 수집 대상이 아닌 모델. 이유는 이 스크립트가 알 수 없습니다)"));
+    for (const r of humanOnly.slice(0, 15)) {
+      const age = r.ageDays === null ? "확인 기록 없음" : `${r.ageDays}일 전`;
+      console.log(`  ${r.priority === 1 ? C.yellow("●") : C.dim("○")} ${r.brand} ${r.model} ${C.dim("· 사람 확인 " + age)}`);
+    }
+    if (humanOnly.length > 15) console.log(C.dim(`  … 외 ${humanOnly.length - 15}종 (전체는 --all)`));
+  }
+
   console.log(C.bold("\n─────────────────────────────"));
-  console.log(`총 ${rows.length}종 · ${C.yellow(`확인 필요 ${needCheck.length}`)} · ${C.red(`기한 초과 ${stale.length}`)}`);
+  console.log(
+    `총 ${rows.length}종 · ${C.yellow(`확인 필요 ${needCheck.length}`)} · ${C.red(`기한 초과 ${stale.length}`)}` +
+      ` · 공식몰 자동 확인 ${rows.length - humanOnly.length}종 · 없음 ${humanOnly.length}종`,
+  );
 
   // 다 통과했는데 "확인을 마쳤으면 날짜를 적으세요"가 뜨면 안 된다.
   // 할 일이 없는데 할 일 안내가 나오면 출력 전체를 대충 보게 된다 —
