@@ -96,7 +96,7 @@ export const MANUAL_SHOES: Shoe[] = [
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40882/saucony-kinvara-16-24182303-720.jpg",
     colorways: ["화이트/비사이드", "네온 옐로우"],
     widthOptions: ["D"],
-    heelDropMm: 5,
+    heelDropMm: 4, // 2026-11-17 브랜드 공식몰 확인: 공식 4mm (runrepeat 실측 5mm) — https://www.saucony.com/en/kinvara-16/60309M.html
     stackHeightMm: 28,
     weightGramsM9: 207,
     priceUsd: 140,
@@ -170,6 +170,7 @@ export const MANUAL_SHOES: Shoe[] = [
     id: "adidas-adizero-adios-pro-4",
     brand: "Adidas",
     model: "Adizero Adios Pro 4",
+    successor: "Adizero Adios Pro 5", // 2026-11-17 브랜드 공식몰 확인 — https://www.adidas.com/us/search?q=adios%20pro
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40584/adidas-adizero-adios-pro-4-22483965-720.jpg",
     colorways: ["클라우드 화이트/코어 블랙"],
     widthOptions: ["D"],
@@ -361,6 +362,7 @@ export const MANUAL_SHOES: Shoe[] = [
     id: "saucony-endorphin-speed-5",
     brand: "Saucony",
     model: "Endorphin Speed 5",
+    successor: "Endorphin Speed 6", // 2026-11-17 브랜드 공식몰 확인 — https://www.saucony.com/en/search?q=endorphin
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40830/saucony-endorphin-speed-5-23261039-720.jpg",
     colorways: ["블루/화이트", "블랙/골드"],
     widthOptions: ["D"],
@@ -629,7 +631,7 @@ export const MANUAL_SHOES: Shoe[] = [
     id: "asics-gel-nimbus-27",
     brand: "Asics",
     model: "Gel-Nimbus 27",
-    successor: "Gel-Nimbus 28",
+    successor: "Gel-Nimbus 29", // 2026-11-17 브랜드 공식몰 확인: 28·29 모두 판매, 최신 29 — https://www.asics.com/us/en-us/search/?q=nimbus
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40620/asics-gel-nimbus-27-22584818-720.jpg",
     colorways: ["블루/화이트", "블랙/카본"],
     widthOptions: ["D", "2E", "4E"],
@@ -1736,11 +1738,11 @@ export const MANUAL_SHOES: Shoe[] = [
     brand: "Puma",
     model: "Velocity NITRO 3",
     // 2026-10-04: 「NITRO 5」였는데 푸마 공식몰 검색에 **NITRO 4**(「벨로시티 나이트로 4 우먼스」)가 있다 — 바로 다음 세대는 4
-    successor: "Velocity NITRO 4",
+    successor: "Velocity NITRO 5", // 2026-11-17 브랜드 공식몰 확인: 4·5 모두 판매, 최신 5 — https://us.puma.com/us/en/search?q=velocity%20nitro
     imageUrl: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/377748/01/sv01/fnd/PNA/fmt/png/Velocity-NITRO-3-Mens-Running-Shoes",
     colorways: ["블랙/화이트", "쿨 블루"],
     widthOptions: ["D"],
-    heelDropMm: 10,
+    heelDropMm: 8, // 2026-11-17 브랜드 공식몰 확인: 공식 8mm (runrepeat 실측 10mm) — https://us.puma.com/us/en/pd/velocity-nitro-3-mens-running-shoes/377748
     stackHeightMm: 30,
     weightGramsM9: 280,
     priceUsd: 110,
@@ -1952,6 +1954,7 @@ export const MANUAL_SHOES: Shoe[] = [
     id: "nike-alphafly-3",
     brand: "Nike",
     model: "ZoomX Alphafly 3",
+    successor: "ZoomX Alphafly 4", // 2026-11-17 브랜드 공식몰 확인 — https://www.nike.com/w?q=alphafly
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40255/nike-alphafly-3-2-21208136-720.jpg",
     colorways: ["화이트/블랙", "네온 그린"],
     widthOptions: ["D"],
@@ -2036,7 +2039,7 @@ export const MANUAL_SHOES: Shoe[] = [
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/39959/adidas-adizero-boston-12-21158467-720.jpg",
     colorways: ["코어 블랙/화이트", "화이트/블루"],
     widthOptions: ["D"],
-    heelDropMm: 6,
+    heelDropMm: 7, // 2026-11-17 브랜드 공식몰 확인: 공식 7mm (runrepeat 실측 6mm) — https://www.adidas.com/us/adizero-boston-12-running-shoes/HQ2171.html
     stackHeightMm: 37,
     weightGramsM9: 261,
     priceUsd: 160,
