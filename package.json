@@ -20,6 +20,7 @@
     "hooks:on": "git config core.hooksPath .githooks",
     "check:citations": "node scripts/verify-citations.mjs",
     "check:engine": "node scripts/check-engine.mjs",
+    "dump:shoes": "node scripts/dump-shoe-catalog.mjs",
     "engine:snapshot": "node scripts/check-engine.mjs --write",
     "check:citations:dry": "node scripts/verify-citations.mjs --dry",
     "check:youtube": "node scripts/verify-youtube.mjs",
