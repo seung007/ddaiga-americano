@@ -14,6 +14,19 @@
     "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
+  "on-cloud-6-coast-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloud 6 Coast",
+    "gender": "female",
+    "priceKrw": 209000,
+    "url": "https://www.on.com/ko-kr/products/cloud-6-coast-3wf1002/womens/white-glacier-shoes-3WF10020813",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1BaXnzP1T3it0Q3aty86nw/6b443479a26105dbecf22a8c25e164e6/1c784b5dd3ac5ffb7659c819d2697055e0e6ffe4.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 185,
+    "dropMm": 8,
+    "checkedAt": "2026-11-17",
+    "checkedBy": "수집기"
+  },
   "on-cloud-x-5": {
     "kind": "newFamily",
     "brand": "On",
@@ -64,6 +77,19 @@
     "weightG": 231,
     "dropMm": 8,
     "checkedAt": "2026-11-13",
+    "checkedBy": "수집기"
+  },
+  "on-cloudsoma-paf-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudsoma PAF",
+    "gender": "female",
+    "priceKrw": 239000,
+    "url": "https://www.on.com/ko-kr/products/cloudsoma-paf-w-3wg3065/womens/haze-linen-shoes-3WG30656223",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1RUHCGbqH1vTO83GdtWWbR/e5c7855c228a9a8e9469df5dc068b012/2abfc6d23a191c9fc885b743e6f643625c037ab2.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 195,
+    "dropMm": 6,
+    "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
   "on-cloudtilt-moon-w": {
