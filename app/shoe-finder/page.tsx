@@ -1310,89 +1310,102 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
 
   void footTypeLabel; void userWidth; void userFootType;
 
-  // 2026-11-18: 다른 값이 한눈에 보이게 한다(친구 피드백 — 두 신발의 차이가 구분이 안 됐다).
-  // 색만 바꾸면 구분이 약하고 색각에 따라 안 보인다. 그래서 같은 줄은 흐리게, 다른 줄은 굵게 + 글자 딱지.
-  // 딱지는 **사실만** 적는다. 「더 저렴」「더 가벼움」은 방향이 분명하지만, 굽 차이·두께·쿠션은
-  // 큰 쪽이 좋다는 근거를 이 사이트가 확인하지 못했다 — 그래서 「더 큼」「더 두꺼움」「더 푹신」이라고만 쓴다.
+  // 2026-11-18 (2차): 다른 점을 먼저, 같은 점은 한 번만.
+  // 1차는 3열 표(항목·신발 A·신발 B)였는데 390px 에서 값 칸이 100px 남짓이라 「중립 (보통 발)」「보통·넓음·매우넓음」
+  // 「국내 공식 판매」와 딱지까지 두 줄로 쪼개졌고, 같은 값은 회색으로 두 번씩 반복돼 읽을 거리만 늘었다(운영자 지적).
+  // 그래서 표를 버리고: 항목 이름을 위 한 줄에, 두 값은 그 아래 반씩(390px 에서 값 칸 약 150px).
+  // 같은 항목은 아래 「같은 점」에 값 하나로 모은다. 비교의 목적은 차이를 보는 것이다.
+  // 딱지는 사실만 — 「더 저렴」「더 가벼움」은 방향이 분명하지만, 굽 차이·두께·쿠션은 큰 쪽이 좋다는 근거를
+  // 이 사이트가 확인하지 못해 「더 두꺼움」처럼 무엇이 다른지만 적는다. 색만으로 구분하지 않는다(글자 딱지).
+  // 글자 단계 12·14·16, 간격 8·12·16·24 (sports-ui-from-references 토큰).
   const tagFor = (x: number, y: number, low: string | null, high: string | null): [string | null, string | null] =>
     x === y ? [null, null] : x < y ? [low, high] : [high, low];
-  type Row = { label: string; help?: string; va: string; vb: string; tags?: [string | null, string | null] };
+  const widthText = (opts: string[]) => opts.map(w => ({ B: "좁음", D: "보통", "2E": "넓음", "4E": "아주 넓음" } as Record<string, string>)[w] ?? w).join("·");
+  const stabShort: Record<string, string> = { neutral: "중립", stability: "안정화", motion_control: "모션컨트롤" };
+  type Row = { label: string; va: string; vb: string; tags?: [string | null, string | null] };
   const rows: Row[] = [
     { label: "가격", va: a.priceKrw.toLocaleString() + "원", vb: b.priceKrw.toLocaleString() + "원",
       tags: tagFor(a.priceKrw, b.priceKrw, "더 저렴", null) },
-    { label: "쿠션", help: SPEC_HELP.cushioning, va: cushDots[a.cushioning] ?? "", vb: cushDots[b.cushioning] ?? "",
-      tags: tagFor(a.cushioning, b.cushioning, null, "더 푹신") },
-    { label: "안정화", help: SPEC_HELP.stability, va: stabLabel[a.stability] ?? "", vb: stabLabel[b.stability] ?? "" },
-    { label: "앞뒤 굽 차이", help: SPEC_HELP.heelDrop, va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm",
-      tags: tagFor(a.heelDropMm, b.heelDropMm, null, "굽 차이 더 큼") },
-    { label: "밑창 두께", help: SPEC_HELP.stack, va: a.stackHeightMm + "mm", vb: b.stackHeightMm + "mm",
-      tags: tagFor(a.stackHeightMm, b.stackHeightMm, null, "더 두꺼움") },
-    { label: "무게", help: SPEC_HELP.weight, va: a.weightGramsM9 + "g", vb: b.weightGramsM9 + "g",
+    { label: "무게", va: a.weightGramsM9 + "g", vb: b.weightGramsM9 + "g",
       tags: tagFor(a.weightGramsM9, b.weightGramsM9, "더 가벼움", null) },
-    { label: "발볼 폭", va: toWidthText(a.widthOptions), vb: toWidthText(b.widthOptions),
+    { label: "쿠션", va: `${a.cushioning} / 5`, vb: `${b.cushioning} / 5`,
+      tags: tagFor(a.cushioning, b.cushioning, null, "더 푹신") },
+    { label: "밑창 두께", va: a.stackHeightMm + "mm", vb: b.stackHeightMm + "mm",
+      tags: tagFor(a.stackHeightMm, b.stackHeightMm, null, "더 두꺼움") },
+    { label: "앞뒤 굽 차이", va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm",
+      tags: tagFor(a.heelDropMm, b.heelDropMm, null, "굽 차이 더 큼") },
+    { label: "발볼 폭", va: widthText(a.widthOptions), vb: widthText(b.widthOptions),
       tags: tagFor(a.widthOptions.length, b.widthOptions.length, null, "폭 더 다양") },
+    { label: "안정화", va: stabShort[a.stability] ?? "", vb: stabShort[b.stability] ?? "" },
     // 2026-11-10: 발 타입이 빈 신발은 안정성 구조로 정한다(types.ts footTypesFromStability) — 「판단 전」은 더 나오지 않는다
-    { label: "발 타입", va: toFootText(withFootTypes(a).footTypes), vb: toFootText(withFootTypes(b).footTypes) },
-    { label: "추천 용도", va: a.uses.map(u => useLabel[u] ?? u).join("·"), vb: b.uses.map(u => useLabel[u] ?? u).join("·") },
-    { label: "국내구매", va: KR_AVAILABILITY_LABEL[a.krAvailability], vb: KR_AVAILABILITY_LABEL[b.krAvailability] },
+    { label: "맞는 발", va: toFootText(withFootTypes(a).footTypes), vb: toFootText(withFootTypes(b).footTypes) },
+    { label: "용도", va: a.uses.map(u => useLabel[u] ?? u).join("·"), vb: b.uses.map(u => useLabel[u] ?? u).join("·") },
+    { label: "국내 구매", va: KR_AVAILABILITY_LABEL[a.krAvailability], vb: KR_AVAILABILITY_LABEL[b.krAvailability] },
   ];
-  const diffCount = rows.filter(r => r.va !== r.vb).length;
+  const diffRows = rows.filter(r => r.va !== r.vb);
+  const sameRows = rows.filter(r => r.va === r.vb);
+  void stabLabel; void cushDots;
 
   return (
     <div>
-      <p className="mb-3 text-xs text-gray-600">
-        {diffCount > 0 ? `${rows.length}개 항목 중 ${diffCount}개가 달라요. 다른 항목은 흰 줄에 굵게 표시했어요.` : "모든 항목이 같아요."}
-      </p>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr>
-              <th className="text-left pb-3 w-24 sm:w-48 text-xs text-gray-400 font-normal" />
-              <th className="text-center pb-3 px-2">
-                <p className="font-bold text-gray-900">{a.brand}</p>
-                <p className="text-xs text-gray-500">{a.model}</p>
-              </th>
-              <th className="text-center pb-3 px-2">
-                <p className="font-bold text-gray-900">{b.brand}</p>
-                <p className="text-xs text-gray-500">{b.model}</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(({ label, help, va, vb, tags }) => {
-              const diff = va !== vb;
-              const cell = (v: string, tag: string | null | undefined) => (
-                <td className={"py-2.5 text-center text-sm px-2 " + (diff ? "font-semibold text-gray-900" : "font-normal text-gray-500")}>
-                  {v}
-                  {diff && tag && (
-                    <span className="mt-1 block">
-                      <span className="inline-block rounded-full bg-emerald-700 px-2 py-0.5 text-xs font-semibold text-white">{tag}</span>
-                    </span>
-                  )}
-                </td>
-              );
-              return (
-                <tr key={label} className={"border-t border-emerald-100 " + (diff ? "bg-white" : "")}>
-                  <td className="py-2.5 pr-3 pl-2 align-top">
-                    <p className={"text-xs font-semibold whitespace-nowrap " + (diff ? "text-gray-900" : "text-gray-500")}>{label}</p>
-                    {help && <p className="mt-0.5 hidden text-xs leading-snug text-gray-500 sm:block">{help}</p>}
-                  </td>
-                  {cell(va, tags?.[0])}
-                  {cell(vb, tags?.[1])}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      {/* 신발 이름 — 아래 두 값 칸과 같은 반반 격자 */}
+      {/* 넓은 화면은 항목 이름을 왼쪽 열로 — 한 줄에 「이름 · 값 · 값」 */}
+      <div className="grid grid-cols-2 gap-3 border-b border-emerald-200 pb-3 sm:grid-cols-[8rem_1fr_1fr]">
+        <div className="hidden sm:block" />
+        {[a, b].map(s => (
+          <div key={s.id}>
+            <p className="text-xs text-gray-600">{s.brand}</p>
+            <p className="text-base font-semibold leading-snug text-gray-900">{s.model}</p>
+          </div>
+        ))}
       </div>
-      <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
-        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">용어 설명 보기</summary>
+
+      <h4 className="mt-4 text-sm font-semibold text-gray-900">다른 점 {diffRows.length}개</h4>
+      {diffRows.length === 0 ? (
+        <p className="mt-2 text-sm text-gray-700">비교한 항목이 모두 같아요.</p>
+      ) : (
+        <ul className="mt-1">
+          {diffRows.map(({ label, va, vb, tags }) => (
+            <li key={label} className="border-b border-emerald-100 py-3 last:border-b-0 sm:grid sm:grid-cols-[8rem_1fr_1fr] sm:items-start sm:gap-3">
+              <p className="text-xs font-medium text-gray-600 sm:pt-1 sm:text-sm">{label}</p>
+              <div className="mt-1 grid grid-cols-2 gap-3 sm:contents">
+                {[va, vb].map((v, i) => (
+                  <div key={i}>
+                    <p className="text-base font-semibold leading-snug text-gray-900">{v}</p>
+                    {tags?.[i] && (
+                      <span className="mt-1 inline-block whitespace-nowrap rounded-full border border-emerald-300 bg-white px-2 py-0.5 text-xs font-semibold text-emerald-800">
+                        {tags[i]}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {sameRows.length > 0 && (
+        <>
+          <h4 className="mt-4 text-sm font-semibold text-gray-900">같은 점 {sameRows.length}개</h4>
+          <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 rounded-xl bg-white px-4 py-3">
+            {sameRows.map(({ label, va }) => (
+              <div key={label} className="contents">
+                <dt className="text-xs text-gray-600 leading-5">{label}</dt>
+                <dd className="text-sm text-gray-900 leading-5">{va}</dd>
+              </div>
+            ))}
+          </dl>
+        </>
+      )}
+      <details className="mt-4 text-xs text-gray-600 border-t border-emerald-200 pt-1">
+        <summary className="flex min-h-11 cursor-pointer items-center text-sm font-medium text-emerald-800 hover:text-emerald-900">용어 설명 보기</summary>
         <ul className="mt-2 space-y-1 leading-relaxed">
           <li><strong>쿠션</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
           <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이도록 만든 구조. 평발에 도움이 되는지는 연구가 갈림(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>
           <li><strong>앞뒤 굽 차이(힐 드롭)</strong> — 뒤꿈치와 앞발의 높이 차이(mm). 낮은 쪽(0–4mm)과 높은 쪽(8mm+) 중 부상에 유리한 쪽이 있다는 근거는 확인하지 못함.</li>
           <li><strong>밑창 두께(스택)</strong> — 밑창 두께. 높을수록 쿠션이 많고, 낮을수록 지면 감각이 살아있음.</li>
-          <li><strong>발볼 폭</strong> — D=표준, 2E=넓음(와이드), 4E=매우 넓음. 발이 넓으면 2E 이상 권장.</li>
+          <li><strong>발볼 폭</strong> — D=보통, 2E=넓음, 4E=아주 넓음. 발이 넓으면 2E 이상 권장.</li>
         </ul>
       </details>
       <div className="mt-4 grid grid-cols-2 gap-2">
@@ -1412,7 +1425,7 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
                 store: link.label,
                 affiliate: link.isAffiliate ? "yes" : "no",
               })}
-              className="block text-center text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl transition-colors"
+              className="flex min-h-11 items-center justify-center rounded-xl bg-emerald-700 px-3 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-emerald-800"
             >
               {shoe.brand} {shoe.model} 구매 ↗
             </a>
