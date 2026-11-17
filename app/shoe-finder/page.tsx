@@ -784,11 +784,11 @@ export default function ShoeFinderPage() {
               <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
               <p className="text-xs text-gray-400 mt-0.5">발볼과 용도에 맞는 신발 중 {result.primary.length}켤레를 골랐어요.</p>
               {/* 2026-11-18: 숫자의 뜻을 숫자 가까이에 적는다. 100 은 「완벽한 신발」이 아니라 「고른 조건에 모두 맞음」이다 (recommend.ts scoreShoe) */}
-              <p className="text-xs text-gray-400 mt-0.5">숫자는 고른 조건에 얼마나 맞는지예요. 100%면 모두 맞는 신발이에요(사이트 기준).</p>
+              <p className="text-xs text-gray-400 mt-0.5">적합도는 고른 조건에 얼마나 맞는지예요. 100%면 모두 맞는 신발이에요(사이트 기준).</p>
             </div>
             <div className="flex shrink-0 gap-1 self-start rounded-lg border border-gray-200 bg-gray-50 p-1">
               {([
-                { key: "score" as SortKey,      label: "잘 맞는 순" },
+                { key: "score" as SortKey,      label: "적합도순" },
                 { key: "price_asc" as SortKey,  label: "가격 낮은순" },
                 { key: "price_desc" as SortKey, label: "가격 높은순" },
               ] as { key: SortKey; label: string }[]).map(o => (
@@ -890,7 +890,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               </div>
               <div className="shrink-0 text-right flex flex-col items-end gap-1.5">
                 <div className="text-[40px] leading-none font-bold tabular-nums text-emerald-600">{score}<span className="text-xl font-semibold">%</span></div>
-                <div className="text-xs text-gray-400">내 조건 일치</div>
+                <div className="text-xs text-gray-400">적합도</div>
                 <button
                   onClick={onToggleCompare}
                   disabled={!canAddCompare}
