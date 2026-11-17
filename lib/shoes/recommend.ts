@@ -142,6 +142,9 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 이 프로필이 받을 수 있는 최고점. 규칙마다 그 자리에서 같이 더한다 — 가점을 고치면 바로 옆 줄도 같이 고친다.
   // **프로필만 보고 정한다(신발 값을 보지 않는다).** 그래야 한 사람의 모든 신발이 같은 값으로 나뉘어 순위가 안 바뀐다.
   let possible = 0;
+  // 맞춰 보지 않고 모든 신발에 똑같이 주는 점수(보통 발 +4, 용도 미선택 +6). 순위에는 영향이 없고,
+  // % 에 넣으면 「그냥 받는 점수」가 숫자를 올린다 — 그래서 화면 점수 계산에서는 뺀다(2026-11-18).
+  let free = 0;
 
   // ── 1. 체형 분류 매칭 — 2026-10-06 점수에서 뺐다 ───────────
   // 체형 태그는 키×체중 조합이고 출처 기록이 없다(types.ts 판단 필드). 키 부분만 남기는 안도 봤지만
@@ -178,7 +181,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 그래서 이 축의 가중치를 약 1/3로 줄이고, 사용자에게 보이는 문구도
   // 확정된 사실("과회내 제어 안정화 구조")에서 갈리는 사항으로 바꾼다.
   // 발볼(20점)·체형(25점)은 물리적 치수 매칭이라 근거의 성질이 다르므로 유지한다.
-  possible += 12 + (profile.footType === "flat" || profile.footType === "high_arch" ? 3 : 4);
+  possible += 12 + (profile.footType === "flat" || profile.footType === "high_arch" ? 3 : 0);
   if (shoe.footTypes.includes(profile.footType)) {
     score += 12;
     reasons.push(`${profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : "보통"} 발에 맞춘 신발(사이트 분류)`);
@@ -192,6 +195,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     else { score -= 2; }
   } else {
     score += 4;
+    free += 4;
   }
 
   // ── 3b. 성별 골격·생체역학 보정 (최대 ±18점) ───────────────
@@ -263,13 +267,14 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 6. 용도 (15점) ────────────────────────────────────────
   let useOk = true;
-  possible += profile.use ? 15 : 6;
+  possible += profile.use ? 15 : 0;
   if (profile.use) {
     useOk = shoe.uses.includes(profile.use);
     if (useOk) { score += 15; reasons.push("고른 용도에 맞아요"); }
     else score -= 5;
   } else {
     score += 6;
+    free += 6;
   }
 
   // ── 7. 경험 수준 (PRD F-01) ───────────────────────────────
@@ -338,8 +343,8 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     // 이전에는 가점 합계를 그대로 보여 줬다. 근거가 약한 가점을 줄여 오면서(안정화 +8→+3, 체중 점수 삭제 등)
     // 조건이 다 맞아도 60~75 에 머물렀다(648 프로필 1위 점수: 최고 75·중앙값 66·80 이상 0건). 추천이 나빠진 게 아니라 눈금이 틀어진 것.
     // 100 은 「완벽한 신발」이 아니라 「고른 조건에 모두 맞음(사이트 기준)」이다 — 화면 문구도 그렇게 쓴다.
-    // 순위는 rawScore 로 정한다(byRank). possible 이 프로필 고정값이라 % 순서와 같다.
-    score: Math.max(0, Math.min(100, Math.round((score / possible) * 100))),
+    // 순위는 rawScore 로 정한다(byRank). possible·free 가 프로필 고정값이라 % 순서와 같다.
+    score: Math.max(0, Math.min(100, Math.round(((score - free) / possible) * 100))),
     rawScore: score,
     possible,
     reasons,
