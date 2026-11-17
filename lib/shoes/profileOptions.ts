@@ -95,3 +95,24 @@ export function describeSaved(p: SavedProfile): string {
   const feet = (Array.isArray(p.f) ? p.f : []).map((id) => FOOT_OPTIONS.find((o) => o.id === id)?.label).filter(Boolean);
   return [h?.label, w?.label, ...feet, p.u ? USE_LABEL[p.u as ShoeUse] : null].filter(Boolean).join(" · ");
 }
+
+/**
+ * 스펙 이름 옆에 붙이는 한 줄 뜻 (2026-11-18).
+ *
+ * 추천 결과의 「세부 스펙」 칸은 이름과 값만 있어서 처음 보는 사람이 뜻을 알 수 없었고,
+ * 용어 설명은 비교표 아래 접힌 곳에만 있었다. 뜻을 **값 바로 옆**에 두고, 두 화면이 이 문구를 같이 쓴다.
+ * 좋다·나쁘다는 적지 않는다 — 드롭·두께가 부상에 어느 쪽이 유리한지는 이 사이트가 확인하지 못했다
+ * (app/compare/[slug] 의 2026-10-12 주석과 같은 이유). 무엇을 잰 값인지만 말한다.
+ */
+export const SPEC_HELP = {
+  heelDrop: "뒤꿈치가 앞발보다 높은 정도",
+  stack: "뒤꿈치 쪽 밑창 두께",
+  weight: "한 짝 무게",
+  weightMens: "남성 270mm(US 9) 한 짝",
+  cushioning: "밑창 두께로 나눈 사이트 분류(1~5)",
+  stability: "발이 안쪽으로 쏠리는 걸 잡는 구조가 있는지",
+  width: "D 보통 · 2E 넓음 · 4E 아주 넓음",
+  priceEstimated: "달러 정가로 추산",
+  priceOfficial: "한국 공식몰 정가",
+} as const;
+

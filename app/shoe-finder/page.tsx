@@ -14,8 +14,7 @@ import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/sho
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
   CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USES, WEIGHT_OPTIONS,
-  type HeightRange, type SavedProfile, type WeightRange,
-} from "@/lib/shoes/profileOptions";
+  type HeightRange, type SavedProfile, type WeightRange, SPEC_HELP } from "@/lib/shoes/profileOptions";
 import { gtagEvent } from "@/lib/gtag";
 
 // 옵션표·저장 프로필·GA 헬퍼는 `/shoes`(내 조건으로 보기)와 같이 쓰려고 lib 로 옮겼다 (2026-09-16).
@@ -1017,21 +1016,23 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
           <div>
             <p className="text-xs font-semibold text-gray-500 mb-2">세부 스펙</p>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {[
-                ["힐 드롭",   `${shoe.heelDropMm}mm`],
-                ["스택 높이", `${shoe.stackHeightMm}mm`],
-                ["무게 (M9)", `${shoe.weightGramsM9}g`],
-                ["쿠셔닝",   `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}`],
-                ["안정화",   STABILITY_LABEL[shoe.stability]],
-                ["폭 옵션",  shoe.widthOptions.join(" · ")],
+              {/* 2026-11-18: 칸마다 뜻 한 줄(SPEC_HELP). 「M9」「D·2E·4E」 같은 기호만 있으면 처음 보는 사람이 읽지 못한다 */}
+              {([
+                ["앞뒤 굽 차이", `${shoe.heelDropMm}mm`, SPEC_HELP.heelDrop],
+                ["밑창 두께", `${shoe.stackHeightMm}mm`, SPEC_HELP.stack],
+                ["무게", `${shoe.weightGramsM9}g`, shoe.gender === "female" ? SPEC_HELP.weight : SPEC_HELP.weightMens],
+                ["쿠션", `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}`, SPEC_HELP.cushioning],
+                ["안정화", STABILITY_LABEL[shoe.stability], SPEC_HELP.stability],
+                ["발볼 폭", shoe.widthOptions.join(" · "), SPEC_HELP.width],
                 // 2026-09-21: 판단 필드가 선택이 됐다. 추천 결과에는 값이 있는 신발만
                 // 오지만(recommend.ts 의 RECOMMENDABLE), 타입상 없을 수 있어 방어한다
                 // 2026-10-06: 「권장 체중」「권장 신장」 행을 뺐다 — 출처 없는 사이트 분류이고 체중은 추천에 안 쓴다.
-                ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`],
-              ].map(([label, value]) => (
+                ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`, shoe.auto ? SPEC_HELP.priceOfficial : SPEC_HELP.priceEstimated],
+              ] as [string, string, string][]).map(([label, value, help]) => (
                 <div key={label} className="bg-white rounded-lg border border-gray-200 px-3 py-2">
-                  <p className="text-xs text-gray-400">{label}</p>
+                  <p className="text-xs text-gray-500">{label}</p>
                   <p className="text-sm font-medium text-gray-900 mt-0.5">{value}</p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-snug">{help}</p>
                 </div>
               ))}
             </div>
@@ -1309,28 +1310,44 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
 
   void footTypeLabel; void userWidth; void userFootType;
 
-  type Row = [string, string, string];
+  // 2026-11-18: 다른 값이 한눈에 보이게 한다(친구 피드백 — 두 신발의 차이가 구분이 안 됐다).
+  // 색만 바꾸면 구분이 약하고 색각에 따라 안 보인다. 그래서 같은 줄은 흐리게, 다른 줄은 굵게 + 글자 딱지.
+  // 딱지는 **사실만** 적는다. 「더 저렴」「더 가벼움」은 방향이 분명하지만, 굽 차이·두께·쿠션은
+  // 큰 쪽이 좋다는 근거를 이 사이트가 확인하지 못했다 — 그래서 「더 큼」「더 두꺼움」「더 푹신」이라고만 쓴다.
+  const tagFor = (x: number, y: number, low: string | null, high: string | null): [string | null, string | null] =>
+    x === y ? [null, null] : x < y ? [low, high] : [high, low];
+  type Row = { label: string; help?: string; va: string; vb: string; tags?: [string | null, string | null] };
   const rows: Row[] = [
-    ["가격",      a.priceKrw.toLocaleString() + "원",               b.priceKrw.toLocaleString() + "원"],
-    ["쿠셔닝",    cushDots[a.cushioning] ?? "",                      cushDots[b.cushioning] ?? ""],
-    ["안정화",    stabLabel[a.stability] ?? "",                      stabLabel[b.stability] ?? ""],
-    ["힐드롭",    a.heelDropMm + "mm",                               b.heelDropMm + "mm"],
-    ["스택높이",  a.stackHeightMm + "mm",                            b.stackHeightMm + "mm"],
-    ["무게",      a.weightGramsM9 + "g",                             b.weightGramsM9 + "g"],
-    ["발볼 옵션", toWidthText(a.widthOptions),                       toWidthText(b.widthOptions)],
+    { label: "가격", va: a.priceKrw.toLocaleString() + "원", vb: b.priceKrw.toLocaleString() + "원",
+      tags: tagFor(a.priceKrw, b.priceKrw, "더 저렴", null) },
+    { label: "쿠션", help: SPEC_HELP.cushioning, va: cushDots[a.cushioning] ?? "", vb: cushDots[b.cushioning] ?? "",
+      tags: tagFor(a.cushioning, b.cushioning, null, "더 푹신") },
+    { label: "안정화", help: SPEC_HELP.stability, va: stabLabel[a.stability] ?? "", vb: stabLabel[b.stability] ?? "" },
+    { label: "앞뒤 굽 차이", help: SPEC_HELP.heelDrop, va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm",
+      tags: tagFor(a.heelDropMm, b.heelDropMm, null, "굽 차이 더 큼") },
+    { label: "밑창 두께", help: SPEC_HELP.stack, va: a.stackHeightMm + "mm", vb: b.stackHeightMm + "mm",
+      tags: tagFor(a.stackHeightMm, b.stackHeightMm, null, "더 두꺼움") },
+    { label: "무게", help: SPEC_HELP.weight, va: a.weightGramsM9 + "g", vb: b.weightGramsM9 + "g",
+      tags: tagFor(a.weightGramsM9, b.weightGramsM9, "더 가벼움", null) },
+    { label: "발볼 폭", va: toWidthText(a.widthOptions), vb: toWidthText(b.widthOptions),
+      tags: tagFor(a.widthOptions.length, b.widthOptions.length, null, "폭 더 다양") },
     // 2026-11-10: 발 타입이 빈 신발은 안정성 구조로 정한다(types.ts footTypesFromStability) — 「판단 전」은 더 나오지 않는다
-    ["발 타입",   toFootText(withFootTypes(a).footTypes),            toFootText(withFootTypes(b).footTypes)],
-    ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),       b.uses.map(u => useLabel[u] ?? u).join("·")],
-    ["국내구매",  KR_AVAILABILITY_LABEL[a.krAvailability],           KR_AVAILABILITY_LABEL[b.krAvailability]],
+    { label: "발 타입", va: toFootText(withFootTypes(a).footTypes), vb: toFootText(withFootTypes(b).footTypes) },
+    { label: "추천 용도", va: a.uses.map(u => useLabel[u] ?? u).join("·"), vb: b.uses.map(u => useLabel[u] ?? u).join("·") },
+    { label: "국내구매", va: KR_AVAILABILITY_LABEL[a.krAvailability], vb: KR_AVAILABILITY_LABEL[b.krAvailability] },
   ];
+  const diffCount = rows.filter(r => r.va !== r.vb).length;
 
   return (
     <div>
+      <p className="mb-3 text-xs text-gray-600">
+        {diffCount > 0 ? `${rows.length}개 항목 중 ${diffCount}개가 달라요. 다른 항목은 흰 줄에 굵게 표시했어요.` : "모든 항목이 같아요."}
+      </p>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr>
-              <th className="text-left pb-3 w-24 text-xs text-gray-400 font-normal" />
+              <th className="text-left pb-3 w-24 sm:w-48 text-xs text-gray-400 font-normal" />
               <th className="text-center pb-3 px-2">
                 <p className="font-bold text-gray-900">{a.brand}</p>
                 <p className="text-xs text-gray-500">{a.model}</p>
@@ -1342,24 +1359,40 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
             </tr>
           </thead>
           <tbody>
-            {rows.map(([label, va, vb]) => (
-              <tr key={label} className="border-t border-emerald-100">
-                <td className="py-2.5 text-xs font-semibold text-gray-600 whitespace-nowrap pr-3">{label}</td>
-                <td className={"py-2.5 text-center font-medium text-sm px-2 " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
-                <td className={"py-2.5 text-center font-medium text-sm px-2 " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
-              </tr>
-            ))}
+            {rows.map(({ label, help, va, vb, tags }) => {
+              const diff = va !== vb;
+              const cell = (v: string, tag: string | null | undefined) => (
+                <td className={"py-2.5 text-center text-sm px-2 " + (diff ? "font-semibold text-gray-900" : "font-normal text-gray-500")}>
+                  {v}
+                  {diff && tag && (
+                    <span className="mt-1 block">
+                      <span className="inline-block rounded-full bg-emerald-700 px-2 py-0.5 text-xs font-semibold text-white">{tag}</span>
+                    </span>
+                  )}
+                </td>
+              );
+              return (
+                <tr key={label} className={"border-t border-emerald-100 " + (diff ? "bg-white" : "")}>
+                  <td className="py-2.5 pr-3 pl-2 align-top">
+                    <p className={"text-xs font-semibold whitespace-nowrap " + (diff ? "text-gray-900" : "text-gray-500")}>{label}</p>
+                    {help && <p className="mt-0.5 hidden text-xs leading-snug text-gray-500 sm:block">{help}</p>}
+                  </td>
+                  {cell(va, tags?.[0])}
+                  {cell(vb, tags?.[1])}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
       <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
         <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">용어 설명 보기</summary>
         <ul className="mt-2 space-y-1 leading-relaxed">
-          <li><strong>쿠셔닝</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
+          <li><strong>쿠션</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
           <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이도록 만든 구조. 평발에 도움이 되는지는 연구가 갈림(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>
-          <li><strong>힐드롭</strong> — 뒤꿈치와 앞발의 높이 차이(mm). 낮은 쪽(0–4mm)과 높은 쪽(8mm+) 중 부상에 유리한 쪽이 있다는 근거는 확인하지 못함.</li>
-          <li><strong>스택높이</strong> — 밑창 두께. 높을수록 쿠션이 많고, 낮을수록 지면 감각이 살아있음.</li>
-          <li><strong>발볼</strong> — D=표준, 2E=넓음(와이드), 4E=매우 넓음. 발이 넓으면 2E 이상 권장.</li>
+          <li><strong>앞뒤 굽 차이(힐 드롭)</strong> — 뒤꿈치와 앞발의 높이 차이(mm). 낮은 쪽(0–4mm)과 높은 쪽(8mm+) 중 부상에 유리한 쪽이 있다는 근거는 확인하지 못함.</li>
+          <li><strong>밑창 두께(스택)</strong> — 밑창 두께. 높을수록 쿠션이 많고, 낮을수록 지면 감각이 살아있음.</li>
+          <li><strong>발볼 폭</strong> — D=표준, 2E=넓음(와이드), 4E=매우 넓음. 발이 넓으면 2E 이상 권장.</li>
         </ul>
       </details>
       <div className="mt-4 grid grid-cols-2 gap-2">
