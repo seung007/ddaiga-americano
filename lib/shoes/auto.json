@@ -79,6 +79,19 @@
     "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
+  "on-cloudmuse": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudmuse",
+    "gender": "unisex",
+    "priceKrw": 209000,
+    "url": "https://www.on.com/ko-kr/products/cloudmuse-m-3mg3110/mens/black-black-shoes-3MG31101043",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/6Go3uAEhi4JbeBJpFk5uXk/aa8b02717ece79b12a47db9068085308/2eabe5906a819819e5d00702e2261917e642d33c.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 235,
+    "dropMm": 8,
+    "checkedAt": "2026-11-17",
+    "checkedBy": "수집기"
+  },
   "on-cloudsoma-paf-w": {
     "kind": "newFamily",
     "brand": "On",
@@ -103,6 +116,19 @@
     "weightG": 242,
     "dropMm": 7,
     "checkedAt": "2026-11-14",
+    "checkedBy": "수집기"
+  },
+  "on-cloudultra-3-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudultra 3",
+    "gender": "female",
+    "priceKrw": 229000,
+    "url": "https://www.on.com/ko-kr/products/cloudultra-3-w-3wf3011/womens/black-black-shoes-3WF30111043",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1fNhtetCM7ffZrNaw6Ct16/6365263fd426171c566767d770f16fd3/e6fa3b3afbffc7979e30ad0b30c556fe2cbb582c.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 235,
+    "dropMm": 6,
+    "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   }
 }
