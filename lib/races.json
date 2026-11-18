@@ -817,7 +817,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2027-jeonmahyeop-new-year-s-marathon-11c05e58816d4e8bb0cb12d44266ca0e",
     "officialUrl": "https://mara1080.com/event/2c881231-b5dd-4ae8-a587-c02d539566af",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -855,7 +855,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-korea-season-race",
     "officialUrl": "https://k-run.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1001,7 +1001,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-hanam-misa-lake-energy-run",
     "officialUrl": "https://energyrun.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1064,7 +1064,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/bathrun-2026",
     "officialUrl": "https://mokyokrun.shop/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1102,7 +1102,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/seoul-love-marathon-2026",
     "officialUrl": "https://seoulloverun.com",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1129,7 +1129,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-autumn-breeze-u-running-festa",
     "officialUrl": "https://urfesta.com/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1143,13 +1143,14 @@
       15,
       28
     ],
-    "status": "접수예정",
+    "status": "접수중",
     "venue": "미사경정공원 및 하남시 일대",
-    "registrationStart": "2026-11-23",
+    "registrationStart": "2026-11-17",
+    "registrationEnd": "2026-11-23",
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yonhap-news-hanam-international-trail-run-festival-44ea415725f745708495f2cc23bd8810",
     "officialUrl": "https://yhitf.co.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1251,7 +1252,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/3rd-positive-power-marathon",
     "officialUrl": "https://www.powerrun.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1463,7 +1464,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-wonju-chiak-marathon-7f764242a3364d45abb444a8af69b83f",
     "officialUrl": "https://wonju.raceplan.co.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-02",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1556,7 +1557,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-brave-run-with-shinhan-bank-9edc04bbd258458981cc3ce6544614b0",
     "officialUrl": "https://www.kclf.org/braverun",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1594,7 +1595,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2nd-youth-relay-marathon",
     "officialUrl": "https://youngrun.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1658,7 +1659,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-long-run-aafaeb7ee8e740cc999eedd4ec700e1f",
     "officialUrl": "https://fest.kakaopay.com/esg/longrun/about",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1743,7 +1744,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/23rd-miryang-arirang-marathon-b52dfaee00764f3fb29bf70f808ec49a",
     "officialUrl": "https://www.miryangmarathon.com/home.php",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1755,9 +1756,10 @@
       5,
       10
     ],
-    "status": "접수예정",
+    "status": "접수중",
     "venue": "여의도공원 문화의마당",
-    "registrationStart": "2026-11-22",
+    "registrationStart": "2026-11-17",
+    "registrationEnd": "2026-11-22",
     "fees": [
       {
         "label": "5km",
@@ -1774,7 +1776,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/14th-ahn-jung-geun-peace-marathon",
     "officialUrl": "https://ajgrun.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1875,7 +1877,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/9th-ocean-view-gijang-sea-marathon-cae5abe02a6546479380104382cf9d18",
     "officialUrl": "https://www.badarun.co.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -1951,7 +1953,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2027-jeonmahyeop-goheung-nuriho-marathon-cd28112a28d04ab7ac9141a02a466473",
     "officialUrl": "https://mara1080.com/event/c0c0a4a4-eb54-4f93-a0b8-f21d9b2bd168",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -2055,7 +2057,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-positive-half-marathon",
     "officialUrl": "https://www.goodrunner.co.kr/race/race.html?id=111",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -2156,7 +2158,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-cheonan-hope-sharing-marathon-f5e887b0df1d4bbdb046f7b0ae6aa98e",
     "officialUrl": "https://runwithus.co.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -2562,9 +2564,10 @@
       10,
       21.0975
     ],
-    "status": "접수예정",
+    "status": "접수중",
     "venue": "신정교 하부 영롱이억새구장",
-    "registrationStart": "2027-01-17",
+    "registrationStart": "2026-11-17",
+    "registrationEnd": "2027-01-17",
     "fees": [
       {
         "label": "5km",
@@ -2586,7 +2589,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2027-polar-bear-marathon-a34e9e8dd5bc4899bd3503b5aabda316",
     "officialUrl": "https://polarbearrun.kr/join/register.asp",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -2662,7 +2665,7 @@
       5,
       10
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "영산강 자전거길 (전남광주통합특별시 서구 서창둑길 377, 극락교~서창교)",
     "registrationStart": "2026-10-15",
     "registrationEnd": "2026-11-17",
@@ -2682,7 +2685,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-kind-seo-gu-study-room-give-run-dfe28bfd5a4a46dcaac5d0334a35d1c2",
     "officialUrl": "https://www.xn--ok0by8pbse4oj.kr:9021/run/1100.asp?T=5&wgu=1",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },
   {
@@ -2809,6 +2812,58 @@
     "officialUrl": "https://bithumbnanumrun.com",
     "factsFrom": "모음",
     "checkedAt": "2026-11-14",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "muju-firefly-half-marathon-2027",
+    "name": "2027 무주 반딧불 하프 마라톤",
+    "date": "2027-03-07",
+    "region": "전북",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "무주 등나무운동장",
+    "registrationStart": "2026-11-04",
+    "registrationEnd": "2027-01-27",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 35000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "무주군체육회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-muju-firefly-half-marathon-26741c145eca4c9390b7cfb256c78f3d",
+    "officialUrl": "https://mara1080.com/event/6b68a627-24cf-4844-ac1d-9358b2a54227",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-18",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "new-years-sunrise-run-2027",
+    "name": "2027 새해일출런",
+    "date": "2027-01-01",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "접수중",
+    "venue": "신정교하부육상트랙구장",
+    "registrationStart": "2026-10-28",
+    "registrationEnd": "2026-12-31",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-new-years-sunrise-run",
+    "officialUrl": "http://새해일출런.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   }
 ]
