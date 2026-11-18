@@ -6,7 +6,7 @@ import ArticleJsonLd from "@/components/ArticleJsonLd";
 import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Lead, P, H2, H3, Basis, Warn, Note, Num, KeyPoints, Steps, OneLine, Cite, Sources, Src, Found } from "@/components/guide/Read";
+import { Lead, P, H2, H3, Basis, Warn, Caveat, Num, KeyPoints, Steps, OneLine, Sources, Src, Found } from "@/components/guide/Read";
 import { WALK_RUN } from "@/lib/guide/walkRun";
 import { pageUrl } from "@/lib/site";
 
@@ -35,6 +35,8 @@ import { pageUrl } from "@/lib/site";
  *   · 「이렇게 하세요」 상자 → 본문 안 ①②③(<Steps>). 「저희 제안」 표시는 그대로
  *   · 「근거 보기」 접힘 9개 → 문장 끝 [n] + 글 끝 「근거와 출처」 13개(펼침). 접혀 있던 숫자는 각 출처의 「확인한 것」으로 옮겼다 — 지운 숫자 없음
  *   · 절 끝 「한 줄 요약」
+ *   · (같은 날 사용자 지적) 「[7] · 따옴표 · ※ 다 빼는 게 낫지 않을까」 → 문장 끝 [n]·따옴표·※·문장 속 → 를 뺐다.
+ *     어느 연구가 어디에 쓰였는지는 「근거와 출처」 각 항목의 「쓰인 곳」으로 옮겼다(문장→출처 대신 출처→절). 단서는 <Caveat>(※ 없이 회색 작은 글씨)
  *   · 문장 끝 「~요」(사이트 화면 문구·토스·닥터나우와 같게)
  *   · 첫 문단에는 숫자·예고 문장을 쓰지 않는다(running-guide-writing 규칙)
  */
@@ -56,23 +58,23 @@ export const metadata: Metadata = {
 const FAQ: FaqItem[] = [
   {
     q: "처음엔 하루에 얼마나, 일주일에 몇 번 달려야 하나요?",
-    a: "연구로 정해진 최적값은 찾지 못했어요. 저희는 걷기를 섞어 20~30분, 주 3회, 달리는 날 사이 하루 쉬기를 기본으로 둬요. 다음 단계로 넘어가는 기준은 횟수가 아니에요. '달리는 동안 대화가 됐는가'와 '다음 날 통증이 없는가'예요.",
+    a: "연구로 정해진 최적값은 찾지 못했어요. 저희는 걷기를 섞어 20~30분, 주 3회, 달리는 날 사이 하루 쉬기를 기본으로 둬요. 다음 단계로 넘어가는 기준은 횟수가 아니라, 달리는 동안 대화가 됐는지와 다음 날 통증이 없는지예요.",
   },
   {
     q: "10% 규칙을 지켜야 하나요?",
-    a: "일반 8주 프로그램과 10% 규칙 기반 13주 프로그램의 부상률은 20.3%와 20.8%로 차이가 없었어요. 6.7km 대회를 준비하는 초보 532명을 무작위로 나눈 시험이에요(Buist 2008). 숫자 하나보다 근거가 있는 쪽은 한 번에 길게 뛰는 날을 지난 30일 최장 거리의 110% 안에서 늘리고 다음 날 통증을 확인하는 방법이에요.",
+    a: "일반 8주 프로그램과 10% 규칙 기반 13주 프로그램의 부상률은 20.3%와 20.8%로 차이가 없었어요. 6.7km 대회를 준비하는 초보 532명을 무작위로 나눈 시험이에요. 숫자 하나보다 근거가 있는 쪽은 한 번에 길게 뛰는 날을 지난 30일 최장 거리의 110% 안에서 늘리고 다음 날 통증을 확인하는 방법이에요.",
   },
   {
     q: "조금만 뛰어도 숨이 너무 차요.",
-    a: "속도가 빠른 거예요. 처음엔 짧은 문장을 끊지 않고 편하게 말할 수 있는 속도(말하기 테스트)가 기준이에요. 걷는 속도와 비슷해져도 괜찮아요. 그래도 숨이 차면 걷기 구간을 늘려요.",
+    a: "속도가 빠른 거예요. 처음엔 짧은 문장을 끊지 않고 편하게 말할 수 있는 속도가 기준이에요. 이걸 말하기 테스트라고 해요. 걷는 속도와 비슷해져도 괜찮아요. 그래도 숨이 차면 걷기 구간을 늘려요.",
   },
   {
     q: "달리면 옆구리가 결려요.",
-    a: "흔해요. 러너의 약 70%가 지난 1년 사이 겪었다고 답했어요. 대회 한 번에는 약 5명 중 1명이 겪어요(Morton & Callister 2015). 먹은 직후, 특히 진한 음료 뒤에 심해져요. 달리기 2시간 전에는 많이 먹고 마시지 않는 것이 흔한 조언이에요. 다만 관리법 대부분은 아직 경험담 수준이에요.",
+    a: "흔해요. 러너의 약 70%가 지난 1년 사이 겪었다고 답했어요. 대회 한 번에는 약 5명 중 1명이 겪어요. 먹은 직후, 특히 진한 음료 뒤에 심해져요. 달리기 2시간 전에는 많이 먹고 마시지 않는 것이 흔한 조언이에요. 다만 관리법 대부분은 아직 경험담 수준이에요.",
   },
   {
     q: "체중이 많이 나가도 달리기를 시작해도 되나요?",
-    a: "돼요. 다만 시작 첫 주의 양을 낮게 잡으세요. BMI 30 초과인 사람이 첫 주에 3km 넘게 달리면 부상이 더 많았어요(초보 749명 3주 관찰). 저자들은 첫 주 3km 미만으로 시작하라고 권했어요(Nielsen 2014). 탐색적 연구라 더 큰 연구로 확인이 필요해요.",
+    a: "돼요. 다만 시작 첫 주의 양을 낮게 잡으세요. BMI 30 초과인 사람이 첫 주에 3km 넘게 달리면 부상이 더 많았어요(초보 749명 3주 관찰). 저자들은 첫 주 3km 미만으로 시작하라고 권했어요. 탐색적 연구라 더 큰 연구로 확인이 필요해요.",
   },
 ];
 
@@ -135,10 +137,10 @@ export default function StartRunningPage() {
           <Num n={1} />처음 달리면 왜 금방 그만두게 될까요?
         </h2>
         <P>
-          <strong>가장 큰 이유는 부상이에요.</strong> 6주 초보 프로그램 참가자 거의 셋 중 하나가 반년 안에 그만뒀어요.<Cite n={[1, 2]} />
+          <strong>가장 큰 이유는 부상이에요.</strong> 6주 초보 프로그램 참가자 거의 셋 중 하나가 반년 안에 그만뒀어요. 
         </P>
         <P>
-          같은 시간을 달려도 초보가 더 많이 다쳐요.<Cite n={3} /> 숨이 편해졌다고 다리도 준비된 것은 아니에요.
+          같은 시간을 달려도 초보가 더 많이 다쳐요.  숨이 편해졌다고 다리도 준비된 것은 아니에요.
         </P>
 
         <h3 className={H3}>정해진 프로그램을 따라야 하나요, 내 마음대로 해도 되나요?</h3>
@@ -147,9 +149,9 @@ export default function StartRunningPage() {
           <Basis kind="rule" />
         </P>
         <P>
-          스스로 짠 계획은 부상이 더 많았어요.<Cite n={4} /> 반대로 정해진 진도는 중간에 그만두는 것과 관련이 있었어요.<Cite n={2} />
+          스스로 짠 계획은 부상이 더 많았어요.  반대로 정해진 진도는 중간에 그만두는 것과 관련이 있었어요. 
         </P>
-        <Note>연구끼리 엇갈려서 두 결과를 합친 저희 결론이에요.</Note>
+        <Caveat>연구끼리 엇갈려서 두 결과를 합친 저희 결론이에요.</Caveat>
 
         <OneLine>숨보다 다리가 늦게 따라와요. 그래서 처음엔 다치지 않는 것이 먼저예요.</OneLine>
 
@@ -158,8 +160,8 @@ export default function StartRunningPage() {
           <Num n={2} />조금만 뛰어도 숨이 너무 차요, 어떡하나요?
         </h2>
         <P>
-          <strong>짧은 문장을 끊지 않고 말할 수 있는 속도</strong>로 뛰세요.<Cite n={[5, 6]} /> 이걸 &lsquo;말하기 테스트&rsquo;라고 해요.
-          처음엔 &lsquo;숨이 찰 만큼 뛰어야 운동&rsquo;이라고 생각하기 쉽지만 기준은 반대예요.
+          <strong>짧은 문장을 끊지 않고 말할 수 있는 속도</strong>로 뛰세요.  이걸 말하기 테스트라고 해요.
+          처음엔 숨이 찰 만큼 뛰어야 운동이 된다고 생각하기 쉽지만 기준은 반대예요.
         </P>
         <Steps
           basis="rule"
@@ -172,7 +174,7 @@ export default function StartRunningPage() {
 
         <h3 id="stitch" className={`${H3} scroll-mt-20`}>달리면 옆구리가 결려요, 왜 그런가요?</h3>
         <P>
-          흔한 일이에요.<Cite n={7} /> 먹은 직후, 특히 진한 음료를 마신 뒤에 심해져요.
+          흔한 일이에요.  먹은 직후, 특히 진한 음료를 마신 뒤에 심해져요.
         </P>
         <Steps
           basis="rule"
@@ -181,7 +183,7 @@ export default function StartRunningPage() {
             { t: "결리면 속도를 줄이거나 걸어요." },
           ]}
         />
-        <Note>예방법과 완화법 대부분은 아직 경험담 수준이에요. 결렸을 때 푸는 방법은 근거가 엇갈려요.</Note>
+        <Caveat>예방법과 완화법 대부분은 아직 경험담 수준이에요. 결렸을 때 푸는 방법은 근거가 엇갈려요.</Caveat>
 
         <OneLine>숨이 찰 만큼이 아니라, 말할 수 있을 만큼 뛰어요.</OneLine>
 
@@ -231,9 +233,9 @@ export default function StartRunningPage() {
             { t: "H까지 최소 8주예요.", d: "더 걸려도 정상이에요." },
           ]}
         />
-        <Note>이 표와 조건은 저희 예시예요. 특정 진도표나 &lsquo;주 3회가 최적&rsquo;이라는 근거는 찾지 못했어요.</Note>
+        <Caveat>이 표와 조건은 저희 예시예요. 특정 진도표가 낫다거나 주 3회가 가장 좋다는 근거는 찾지 못했어요.</Caveat>
         <P>
-          기간을 길게 잡는다고 덜 다치지는 않았어요.<Cite n={8} /> 그래서 저희는 기간보다 지금 단계를 몸이 받아들였는지 확인하고 넘어가는 쪽에
+          기간을 길게 잡는다고 덜 다치지는 않았어요.  그래서 저희는 기간보다 지금 단계를 몸이 받아들였는지 확인하고 넘어가는 쪽에
           무게를 둬요.
         </P>
 
@@ -241,18 +243,18 @@ export default function StartRunningPage() {
         <P>
           저희 기준은 <strong>지난 30일 중 가장 길게 뛴 기록의 110%</strong>까지예요. <Basis kind="rule" />
         </P>
-        <P>그보다 길게 뛴 날에 부상이 더 많았어요(성인 러너를 따라간 한 관찰 연구).<Cite n={9} /></P>
+        <P>그보다 길게 뛴 날에 부상이 더 많았어요(성인 러너를 따라간 한 관찰 연구). </P>
         <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-base leading-[1.7] text-emerald-900">
-          예) 지난 한 달 가장 오래 달린 날이 <strong>20분</strong> → 다음 긴 날은 <strong>22분까지</strong>.
+          예를 들어 지난 한 달 가장 오래 달린 날이 <strong>20분</strong>이었다면, 다음 긴 날은 <strong>22분까지</strong>예요.
         </div>
-        <Note>초보만 모은 연구가 아니에요(평균 45.8세). 연구는 거리로 쟀어요. 시간으로 바꿔 쓰는 것은 저희의 단순화예요.</Note>
+        <Caveat>초보만 모은 연구가 아니에요(평균 45.8세). 연구는 거리로 쟀어요. 시간으로 바꿔 쓰는 것은 저희의 단순화예요.</Caveat>
 
         <h3 className={H3}>체중이 많이 나가도 시작해도 되나요?</h3>
         <P>
           시작해도 돼요. 다만 첫 주는 더 적게 뛰어요. 연구진은 BMI(체질량지수) 30이 넘으면 <strong>첫 주를 3km 미만</strong>으로 시작하라고
-          권했어요.<Cite n={10} />
+          권했어요. 
         </P>
-        <Note>3주만 관찰한 탐색적 연구라, 저자들도 더 큰 연구로 확인이 필요하다고 적었어요.</Note>
+        <Caveat>3주만 관찰한 탐색적 연구라, 저자들도 더 큰 연구로 확인이 필요하다고 적었어요.</Caveat>
 
         <OneLine>기간이 아니라, 지금 단계를 몸이 받아들였는지 보고 넘어가요.</OneLine>
 
@@ -270,11 +272,10 @@ export default function StartRunningPage() {
           <p className="mt-2">이런 신호가 며칠 이어지면 진료를 받으세요.</p>
         </Warn>
         <P>
-          아파도 참고 뛰는 사람이 대부분이에요.<Cite n={4} /> 하지만 <strong>최근 1년 안에 다친 적이 있으면 또 다치기 쉬워요.</strong>
-          <Cite n={11} />
+          아파도 참고 뛰는 사람이 대부분이에요.  하지만 <strong>최근 1년 안에 다친 적이 있으면 또 다치기 쉬워요.</strong> 
         </P>
         <P>
-          처음 달리는 사람이 많이 아픈 곳은 정강이와 무릎 앞이에요.<Cite n={12} /> 위치별 멈출 신호와 대처는 아래 글에 있어요.
+          처음 달리는 사람이 많이 아픈 곳은 정강이와 무릎 앞이에요.  위치별 멈출 신호와 대처는 아래 글에 있어요.
         </P>
         <div className="mt-3 flex flex-wrap gap-2">
           <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증 →</Link>
@@ -296,8 +297,7 @@ export default function StartRunningPage() {
               t: "주간 거리 10% 규칙",
               d: (
                 <>
-                  한 무작위 시험에서 부상을 줄이지 못했어요.<Cite n={8} /> (위의 110%는 &lsquo;가장 긴 하루&rsquo; 기준이라 다른
-                  이야기예요.)
+                  한 무작위 시험에서 부상을 줄이지 못했어요. 위의 110%는 가장 긴 하루를 보는 기준이라 다른 이야기예요.
                 </>
               ),
             },
@@ -305,7 +305,7 @@ export default function StartRunningPage() {
               t: "예방 정보를 읽기만 하기",
               d: (
                 <>
-                  한 무작위 시험에서 부상이 줄지 않았어요.<Cite n={13} /> 이 글도 마찬가지예요. 위 기준을 지키면 줄어드는지도 아직 시험되지
+                  한 무작위 시험에서 부상이 줄지 않았어요.  이 글도 마찬가지예요. 위 기준을 지키면 줄어드는지도 아직 시험되지
                   않았어요.
                 </>
               ),
@@ -314,7 +314,7 @@ export default function StartRunningPage() {
               t: "스트레칭으로 근육통 막기",
               d: (
                 <>
-                  근거가 약해요 → <Link href="/injury/cooldown" className={linkCls}>쿨다운 글</Link>
+                  근거가 약해요. 자세한 내용은 <Link href="/injury/cooldown" className={linkCls}>쿨다운 글</Link>에 있어요.
                 </>
               ),
             },
@@ -322,7 +322,7 @@ export default function StartRunningPage() {
               t: "비싼 신발로 부상 막기",
               d: (
                 <>
-                  근거가 약해요. 발볼과 사이즈부터 보세요 → <Link href="/injury/wide-foot" className={linkCls}>발볼 재는 법</Link>
+                  근거가 약해요. 발볼과 사이즈부터 보세요. 재는 법은 <Link href="/injury/wide-foot" className={linkCls}>발볼 글</Link>에 있어요.
                 </>
               ),
             },
@@ -341,7 +341,7 @@ export default function StartRunningPage() {
         </h2>
         <P>
           대화가 되는 속도로 <strong>30분을 쉬지 않고</strong> 달렸고 <strong>다음 날 아프지 않았고</strong>, 그걸 주 2~3회씩 2주 넘게
-          유지했다면 2단계(30분 → 10km)로 넘어가요. <Basis kind="rule" />
+          유지했다면 2단계(30분에서 10km까지)로 넘어가요. <Basis kind="rule" />
         </P>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury#stage-to10k" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
@@ -359,8 +359,8 @@ export default function StartRunningPage() {
           <FaqSection items={FAQ} />
         </div>
 
-        <Sources note="2026-10-06 PubMed 초록과 대조했어요. 번호는 본문 [1]~[13]과 같아요.">
-          <Src n={1}>
+        <Sources note="이 글에 쓴 연구 13편이에요. 2026-10-06 PubMed 초록과 대조했어요.">
+          <Src n={1} where="1절">
             <strong>Fokkema et al. (2019)</strong> J Sci Med Sport 22(1):106-111{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/29934211/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -368,7 +368,7 @@ export default function StartRunningPage() {
               없던 사람은 그만둘 가능성이 약 2배(OR 2.06)였어요.
             </Found>
           </Src>
-          <Src n={2}>
+          <Src n={2} where="1절">
             <strong>Relph et al. (2023)</strong> Int J Environ Res Public Health 20(17):6682{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/37681822/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -378,7 +378,7 @@ export default function StartRunningPage() {
               더 유연한 설계를 권했어요. 표본이 작은 연구예요.
             </Found>
           </Src>
-          <Src n={3}>
+          <Src n={3} where="1절">
             <strong>Videbæk et al. (2015)</strong> Sports Med 45(7):1017-26{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/25951917/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -386,7 +386,7 @@ export default function StartRunningPage() {
               배수보다는 방향으로 읽으세요.
             </Found>
           </Src>
-          <Src n={4}>
+          <Src n={4} where="1절과 4절">
             <strong>Linton &amp; Valentin (2018)</strong> J Sci Med Sport 21(12):1221-1225{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -394,7 +394,7 @@ export default function StartRunningPage() {
               사람보다 부상이 많았어요. 지금 부상이 있는 570명 중 86%가 통증을 안고 기록이 떨어지고 거리를 줄여 가면서도 달리고 있었어요.
             </Found>
           </Src>
-          <Src n={5}>
+          <Src n={5} where="2절">
             <strong>Reed &amp; Pipe (2014)</strong> Curr Opin Cardiol 29(5):475-80{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/25010379/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -402,12 +402,12 @@ export default function StartRunningPage() {
               건강한 성인부터 심장질환자, 선수까지 타당하고 재현성 있는 방법으로 평가돼요.
             </Found>
           </Src>
-          <Src n={6}>
+          <Src n={6} where="2절">
             <strong>Bok et al. (2022)</strong> Sports Med 52(9):2085-2109{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/35507232/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>말하기 테스트는 환기역치를 가려내는 데 타당하다고 평가됐어요(운동 강도를 나누는 주관적 방법을 검토한 고찰).</Found>
           </Src>
-          <Src n={7}>
+          <Src n={7} where="2절">
             <strong>Morton &amp; Callister (2015)</strong> Sports Med 45(1):23-35{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/25178498/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -417,7 +417,7 @@ export default function StartRunningPage() {
               편이에요.
             </Found>
           </Src>
-          <Src n={8}>
+          <Src n={8} where="3절과 5절">
             <strong>Buist et al. (2008)</strong> Am J Sports Med 36(1):33-9{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -425,7 +425,7 @@ export default function StartRunningPage() {
               20.8%로 차이가 없었어요.
             </Found>
           </Src>
-          <Src n={9}>
+          <Src n={9} where="3절">
             <strong>Frandsen et al. (2025)</strong> Br J Sports Med 59(17):1203-1210{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -434,7 +434,7 @@ export default function StartRunningPage() {
               주간 거리 비율은 부상과 관계가 없었어요.
             </Found>
           </Src>
-          <Src n={10}>
+          <Src n={10} where="3절">
             <strong>Nielsen et al. (2014)</strong> Int J Sports Phys Ther 9(3):338-45{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/24944852/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -443,17 +443,17 @@ export default function StartRunningPage() {
               큰 연구가 필요하다고도 적었어요.
             </Found>
           </Src>
-          <Src n={11}>
+          <Src n={11} where="4절">
             <strong>Saragiotto et al. (2014)</strong> Sports Med 44(8):1153-63{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>전향 코호트 11편 체계적 고찰이에요. 지난 12개월 안의 부상이 여러 전향 연구에서 가장 일관된 부상 위험 요인이었어요.</Found>
           </Src>
-          <Src n={12}>
+          <Src n={12} where="4절">
             <strong>Nielsen et al. (2014)</strong> PLOS ONE 9(6):e99877{" "}
             <a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className={linkCls}>DOI ↗</a>
             <Found>부상당한 초보 254명 중 정강이 통증이 15%, 무릎 앞(슬개대퇴) 통증이 10%였어요. 부상 종류별 회복 기간도 봤어요.</Found>
           </Src>
-          <Src n={13}>
+          <Src n={13} where="5절">
             <strong>Fokkema et al. (2019)</strong> Br J Sports Med 53(23):1479-1485{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/30954948/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
             <Found>
@@ -463,7 +463,7 @@ export default function StartRunningPage() {
           </Src>
         </Sources>
         <AuthorNote />
-        <p className="mt-3 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>

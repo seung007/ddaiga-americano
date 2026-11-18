@@ -171,7 +171,7 @@ export function Warn({ title, children }: { title: string; children: React.React
  * 왜: 우리 글은 절 하나에 굵은 첫 문장 + 「이렇게 하세요」 상자 + 「근거 보기」 접힘이 매번 붙었다.
  *   러닝위키는 절마다 요약 상자 하나, 브런치는 결론 한 줄, 토스는 「1️⃣ 굵은 소제목 + 설명」, 러너스레터는 부분 끝 「한 줄 요약」.
  *   → 상자·접힘을 걷어내고, 할 일은 본문 안 번호 목록, 근거는 문장 끝 [n] + 글 끝 「근거와 출처」 한 곳(펼친 채로).
- * 안전 정보(<Warn>)·단서(<Note>)는 그대로 접지 않는다. 출처는 하나도 빼지 않는다 — 「근거 보기」에 있던 숫자는 출처 항목의 「확인한 것」으로 옮긴다.
+ * 안전 정보(<Warn>)·단서(<Caveat>)는 그대로 접지 않는다. 출처는 하나도 빼지 않는다 — 「근거 보기」에 있던 숫자는 출처 항목의 「확인한 것」으로 옮긴다.
  * ───────────────────────────────────────────────────────────── */
 
 /** 큰 제목 앞 번호 — 목차 번호와 같다 */
@@ -229,14 +229,23 @@ export function Steps({
   );
 }
 
-/** 한 줄 요약 — 절 끝(러너스레터 「✉️ 한 줄 요약」) */
+/**
+ * 한 줄 요약 — 절 끝(러너스레터 「✉️ 한 줄 요약」).
+ * 2026-11-18 사용자 「한 줄 요약도 저 글씨체가 맞을까?」 — 회색 작은 꼬리표와 굵은 문장이 한 줄에 섞여 꼬리표가 본문 일부처럼 읽혔다.
+ * → 꼬리표는 윗줄로 따로, 문장은 본문과 같은 16px 에 굵기만 한 단계(medium). 왼쪽 초록 선은 「여기서 절이 끝난다」 표시.
+ */
 export function OneLine({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-6 break-keep border-l-4 border-emerald-500 pl-3 text-base font-semibold leading-[1.7] text-gray-900">
-      <span className="mr-1.5 text-sm font-normal text-gray-500">한 줄 요약</span>
-      {children}
-    </p>
+    <div className="mt-8 border-l-[3px] border-emerald-500 pl-4">
+      <p className="text-xs font-semibold text-emerald-700">한 줄 요약</p>
+      <p className="mt-1 break-keep text-base font-medium leading-[1.7] text-gray-900">{children}</p>
+    </div>
   );
+}
+
+/** 단서 — <Note> 와 같은 역할, ※ 없이(2026-11-18 사용자 「※ 같은 표시 빼자」). 접지 않는다 */
+export function Caveat({ children }: { children: React.ReactNode }) {
+  return <p className="mt-2 break-keep text-sm leading-[1.7] text-gray-500">{children}</p>;
 }
 
 /** 문장 끝 출처 번호 — 글 끝 「근거와 출처」의 같은 번호로 간다 */
@@ -271,16 +280,20 @@ export function Sources({ note, children }: { note?: string; children: React.Rea
   );
 }
 
-export function Src({ n, children }: { n: number; children: React.ReactNode }) {
+export function Src({ n, where, children }: { n: number; where?: string; children: React.ReactNode }) {
   return (
     <li id={`ref-${n}`} className="flex scroll-mt-24 gap-2">
-      <span className="shrink-0 tabular-nums text-gray-400">[{n}]</span>
-      <div className="min-w-0">{children}</div>
+      <span className="w-5 shrink-0 tabular-nums text-gray-400">{n}.</span>
+      <div className="min-w-0">
+        {children}
+        {/* 문장 끝 [n] 대신 출처 쪽에서 「어디에 쓰였나」를 적는다(2026-11-18 사용자 「[7] 표시 빼자」) */}
+        {where && <p className="mt-1 text-xs text-gray-400">본문 {where}에서 썼어요.</p>}
+      </div>
     </li>
   );
 }
 
 /** 출처 항목 안 「확인한 것」 — 예전 「근거 보기」에 있던 숫자·대상·설계 */
 export function Found({ children }: { children: React.ReactNode }) {
-  return <p className="mt-1 text-gray-600"><span className="text-gray-400">확인한 것 · </span>{children}</p>;
+  return <p className="mt-1 text-gray-600">{children}</p>;
 }
