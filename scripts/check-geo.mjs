@@ -19,7 +19,9 @@
  *     2026-11-02 고침: 처음엔 폴더의 .md 전부를 봐서 노트북에서 기존 원고 15편 + 발행 일정이 41건으로 실패했다
  *     (샌드박스에는 원고 폴더가 없어 통과로 보였다)
  *
- * 「한 문단 한 내용」「개념은 뜻부터」는 기계로 판정하지 않는다 — 작성 규칙(AGENTS.md)으로만 지킨다.
+ * 「한 문단 한 내용」은 기계로 판정하지 않는다 — 작성 규칙(AGENTS.md)으로만 지킨다.
+ * 「어려운 말은 뜻부터」는 2026-11-18 부터 새 틀 글에 한해 기계로 본다(아래 TERMS·checkTerms).
+ *   계기: 견본 글에서 체중 소제목을 FAQ 로 옮기다 「체질량지수(BMI)」 풀이가 빠졌는데 검사는 통과했다.
  * 대회·러닝화 상세의 FAQ 는 데이터에서 자동으로 만들어진다(lib/faq.ts) — 여기서 보지 않는다.
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
@@ -51,6 +53,49 @@ const NEW_TEMPLATE = new Set(["start-running"]);
 const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<Src n=", "<AuthorNote", "ArticleMeta href", "compact"];
 const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite", "분 읽기"];
 
+/**
+ * 「어려운 말은 뜻부터」 (2026-11-18). 아래 말이나 영문 약어(BMI·HRV처럼 대문자 2~5자)가 글에서 처음 나올 때
+ * 그 자리 근처(앞 60자·뒤 160자)에 풀이가 있어야 한다. 인정하는 풀이 모양은 셋뿐이다 — 쓰는 사람도 이 모양으로 쓴다.
+ *   ㄱ. 괄호      체질량지수(BMI) · 피로골절(뼈에 생기는 가는 금)
+ *   ㄴ. ~은/는    피로골절은 같은 충격이 반복돼 뼈에 생기는 가는 금이에요.   (끝: 이에요·예요·거예요·말해요·뜻해요·가리켜요)
+ *   ㄷ. ~라고     이걸 말하기 테스트라고 해요.
+ * 읽는 순서대로 본다: 3줄 요약 → 목차 → 본문(출처 목록 앞까지). FAQ 는 답 하나만 따로 인용되므로 문항마다 따로 본다.
+ * 한계: 목록에 없는 한글 전문어는 못 잡는다. 새 글을 바꿀 때 나오는 전문어를 여기에 더한다. 약어는 목록 없이 잡는다.
+ */
+const TERMS = [
+  "말하기 테스트", "피로골절", "10% 규칙", "케이던스", "드롭", "스택", "2E", "4E", "환기역치", "젖산역치", "최대산소섭취량",
+  "심박존", "존2", "템포런", "인터벌", "테이퍼", "과회내", "회내", "장경인대", "족저근막", "심박변이도", "마일리지", "VO2max",
+];
+const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function defined(text, idx, term) {
+  const w = text.slice(Math.max(0, idx - 60), idx + term.length + 160);
+  const e = esc(term);
+  return new RegExp(`[가-힣]\\s*\\(${e}\\)|${e}\\s*\\([가-힣]`).test(w)
+    || new RegExp(`${e}(은|는|이란|란)\\s[^.?!]{2,120}?(이에요|예요|거예요|말해요|뜻해요|가리켜요)`).test(w)
+    || new RegExp(`${e}(이)?라고\\s*(해요|불러요|부르)`).test(w);
+}
+/** 화면에 보이는 글자만 읽는 순서대로 — JSX 글자 조각과 한글이 든 문자열(Steps 항목·제목 속성)을 원본 위치 순으로 잇는다 */
+function readable(src) {
+  const s = src.replace(/\{?\/\*[\s\S]*?\*\/\}?/g, (m) => " ".repeat(m.length));
+  const pieces = [];
+  for (const m of s.matchAll(/>([^<>]+)</g)) pieces.push([m.index, m[1]]);
+  for (const m of s.matchAll(/"([^"\\\n]*)"/g)) pieces.push([m.index, m[1]]);
+  return pieces.filter(([, t]) => /[가-힣]/.test(t)).sort((a, b) => a[0] - b[0]).map(([, t]) => t.replace(/\{" "\}/g, " ").trim()).join("\n");
+}
+function checkTerms(s, bad) {
+  const units = [];
+  const start = s.indexOf("return ("), end = s.indexOf("<Sources");
+  if (start > 0 && end > start) units.push(["본문", readable(s.slice(start, end))]);
+  const faq = s.match(/const FAQ[\s\S]*?\n\];/);
+  if (faq) for (const m of faq[0].matchAll(/q:\s*"([^"]*)",\s*a:\s*"([^"]*)"/g)) units.push([`FAQ 「${m[1]}」`, `${m[1]}\n${m[2]}`]);
+  for (const [where, text] of units) {
+    const found = new Map();
+    for (const t of TERMS) { const i = text.indexOf(t); if (i >= 0) found.set(t, i); }
+    for (const m of text.matchAll(/(?<![A-Za-z0-9])([A-Z]{2,5})(?![A-Za-z])/g)) if (!found.has(m[1])) found.set(m[1], m.index);
+    for (const [t, i] of found) if (!defined(text, i, t)) bad(`${where}: 「${t}」 처음 나오는 곳에 풀이 없음 — 괄호 풀이, 「…은/는 ~예요」, 「…라고 해요」 중 하나로 (AGENTS.md 「가이드 글 틀」)`);
+  }
+}
+
 const guideDir = path.join(ROOT, "app/injury");
 let guides = 0;
 for (const slug of readdirSync(guideDir)) {
@@ -75,6 +120,7 @@ for (const slug of readdirSync(guideDir)) {
   if (NEW_TEMPLATE.has(slug)) {
     for (const m of MUST) if (!s.includes(m)) bad(`확정 틀 부품 없음: ${m} (AGENTS.md 「가이드 글 틀」)`);
     for (const m of BANNED) if (s.includes(m)) bad(`확정 틀에서 뺀 부품이 남음: ${m}`);
+    checkTerms(s, bad);
     // 날짜 줄 「연구 N편과 대조했어요」의 N 은 손으로 적는다 — 출처 개수와 어긋나면 막는다(2026-11-18)
     const checked = s.match(/checked=\{(\d+)\}/);
     const srcs = (s.match(/<Src n=\{/g) || []).length;
