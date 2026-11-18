@@ -14,32 +14,6 @@
     "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
-  "on-cloud-6-coast-w": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloud 6 Coast",
-    "gender": "female",
-    "priceKrw": 209000,
-    "url": "https://www.on.com/ko-kr/products/cloud-6-coast-3wf1002/womens/white-glacier-shoes-3WF10020813",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1BaXnzP1T3it0Q3aty86nw/6b443479a26105dbecf22a8c25e164e6/1c784b5dd3ac5ffb7659c819d2697055e0e6ffe4.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 185,
-    "dropMm": 8,
-    "checkedAt": "2026-11-17",
-    "checkedBy": "수집기"
-  },
-  "on-cloud-x-5": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloud X 5",
-    "gender": "unisex",
-    "priceKrw": 209000,
-    "url": "https://www.on.com/ko-kr/products/cloud-x-5-m-3mg3008/mens/white-black-shoes-3MG30080462",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/38yGyfk6RZ1HY4pV7F5Rit/cdf0e26b8c8376f180a632bafc3462fc/e74d8a335f3ec4b839e8c4cb73817f541b164c1b.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 290,
-    "dropMm": 8,
-    "checkedAt": "2026-11-13",
-    "checkedBy": "수집기"
-  },
   "on-cloudboom-strike-2": {
     "kind": "newFamily",
     "brand": "On",
@@ -105,19 +79,6 @@
     "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
-  "on-cloudtilt-moon-w": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloudtilt Moon",
-    "gender": "female",
-    "priceKrw": 259000,
-    "url": "https://www.on.com/ko-kr/products/cloudtilt-moon-w-3wf3042/womens/white-frost-shoes-3WF30420664",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/43d4BwBc67CLXAcPKJsh2L/f2a6b8e6a79d2435ab3ba5a1ddd13284/97760d7f711b04dc3e294506a35181f0dc3638a2.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 242,
-    "dropMm": 7,
-    "checkedAt": "2026-11-14",
-    "checkedBy": "수집기"
-  },
   "on-cloudultra-3-w": {
     "kind": "newFamily",
     "brand": "On",
@@ -129,6 +90,71 @@
     "weightG": 235,
     "dropMm": 6,
     "checkedAt": "2026-11-17",
+    "checkedBy": "수집기"
+  },
+  "on-cloudvista-3-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudvista 3",
+    "gender": "female",
+    "priceKrw": 199000,
+    "url": "https://www.on.com/ko-kr/products/cloudvista-3-w-3wg3019/womens/pearl-cinder-shoes-3WG30195428",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/4e2kpjGM1JU0hVdHBsr1Ye/57178b0bd867823e0917b0628434a411/e0b537c304260014d51907bb55024cef29b9a6f6.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 240,
+    "dropMm": 5,
+    "checkedAt": "2026-11-18",
+    "checkedBy": "수집기"
+  },
+  "on-cloudzone-99": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudzone 99",
+    "gender": "unisex",
+    "priceKrw": 219000,
+    "url": "https://www.on.com/ko-kr/products/cloudzone-99-m-3mf3119/mens/white-black-shoes-3MF31190462",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/3wIwt22OOzz5nGUHF1IYLk/739585acd4f4ec28b9c1846f8855732b/f9bab6edd1b0812c7c44d8d67c7e3b3cc12c1cb1.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 293,
+    "dropMm": 6,
+    "checkedAt": "2026-11-18",
+    "checkedBy": "수집기"
+  },
+  "on-cloudzone-moon-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudzone Moon",
+    "gender": "female",
+    "priceKrw": 259000,
+    "url": "https://www.on.com/ko-kr/products/cloudzone-moon-w-3wf3061/womens/black-black-shoes-3WF30611043",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1g0JWxW7vWue4kXMIkz2IT/a5aa7958ea535cd23755d8801369f796/d158f994949661639466213054e8871a41921689.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 259,
+    "dropMm": 8,
+    "checkedAt": "2026-11-18",
+    "checkedBy": "수집기"
+  },
+  "on-lightspray-cloudboom-strike-2": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "LightSpray Cloudboom Strike 2",
+    "gender": "unisex",
+    "priceKrw": 419000,
+    "url": "https://www.on.com/ko-kr/products/cloudboom-strike-2-ls-u-3ug3002/unisex/white-verdite-shoes-3UG30025363",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/Bw1ZVLnb57AZvQ43o8kgC/2095abe54d37d0e88497e70bc7538ae8/e58ff68cb8503ad505ddf81101e9909092189081.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 158,
+    "dropMm": 5,
+    "checkedAt": "2026-11-18",
+    "checkedBy": "수집기"
+  },
+  "on-lightspray-cloudmonster-3-hyper": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "LightSpray Cloudmonster 3 Hyper",
+    "gender": "unisex",
+    "priceKrw": 319000,
+    "url": "https://www.on.com/ko-kr/products/cloudmonster-3-hyper-ls-u-3ug1001/unisex/limelight-bloom-shoes-3UG10014837",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/3yuXe3G2fz3TYfLdzWa8ma/5d7a0aaf6233027bd1fd96f00243df5b/905ff6bf2bbc2e744c70d714913755af995692b9.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 205,
+    "dropMm": 6,
+    "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   }
 }
