@@ -90,7 +90,6 @@ export default function GetFasterPage() {
           <Link href="/injury#stage-faster" className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800">
             5단계 · 완주 → 기록
           </Link>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/get-faster" />

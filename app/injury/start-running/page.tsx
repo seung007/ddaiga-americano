@@ -123,7 +123,6 @@ export default function StartRunningPage() {
           >
             1단계 · 처음 → 30분
           </Link>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/start-running" compact checked={15} />

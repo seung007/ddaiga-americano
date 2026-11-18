@@ -116,7 +116,6 @@ export default function HalfMarathonTrainingPage() {
           >
             3단계 · 10km → 하프
           </Link>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/half-marathon-training" />

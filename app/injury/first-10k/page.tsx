@@ -63,7 +63,6 @@ export default function Page() {
             2단계 · 30분 → 10km
           </Link>
           {/* 2026-09-22: 2,846자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
-          <span className="text-xs text-gray-400">5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/first-10k" />

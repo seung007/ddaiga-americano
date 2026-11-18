@@ -61,8 +61,7 @@ export default function Page() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-600">착지법</span>
           {/* 규약은 app/injury/page.tsx 상단 주석 */}
-          <span className="text-xs text-gray-400">4분 읽기</span>
-          <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
+          <span className="text-xs text-gray-400">협찬 없이 작성</span>
         </div>
         {/* h1은 <title>과 같은 말을 해야 한다. 검색결과에서 "미드풋 착지란?"을 보고 들어왔는데
             화면에 "무조건 좋은 게 아닌 이유"가 있으면 약속한 답이 아니라 반박부터 만나게 된다. */}

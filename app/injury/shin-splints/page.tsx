@@ -52,7 +52,6 @@ export default function Page() {
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-600">부상 부위</span>
             {/* 규약은 app/injury/page.tsx 상단 주석 */}
-            <span className="text-xs text-gray-400">4분 읽기</span>
           </div>
           <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">정강이가 아파요, 신스플린트일까 피로골절일까?</h1>
           <ArticleMeta href="/injury/shin-splints" />

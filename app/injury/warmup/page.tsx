@@ -54,7 +54,6 @@ export default function Page() {
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-600">준비운동</span>
             {/* 규약은 app/injury/page.tsx 상단 주석 */}
-            <span className="text-xs text-gray-400">4분 읽기</span>
           </div>
           <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">러닝 전 스트레칭, 정적으로 해도 되나요?</h1>
           <ArticleMeta href="/injury/warmup" />

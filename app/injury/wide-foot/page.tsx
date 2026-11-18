@@ -64,7 +64,6 @@ export default function WideFootPage() {
         {/* 규약은 app/injury/page.tsx 상단 주석 */}
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600">발볼</span>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           2E 와이드 뜻,<br />내 발볼도 넓은 편일까요?

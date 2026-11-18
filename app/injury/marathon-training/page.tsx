@@ -112,7 +112,6 @@ export default function MarathonTrainingPage() {
           >
             4단계 · 하프 → 풀
           </Link>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/marathon-training" />

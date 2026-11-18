@@ -53,8 +53,7 @@ export default function Page() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-cyan-50 px-2.5 py-1 text-xs font-semibold text-cyan-600">자세</span>
           {/* 규약은 app/injury/page.tsx 상단 주석 */}
-          <span className="text-xs text-gray-400">3분 읽기</span>
-          <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
+          <span className="text-xs text-gray-400">협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/posture" />

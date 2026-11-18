@@ -49,7 +49,7 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  */
 const NEW_TEMPLATE = new Set(["start-running"]);
 const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<Src n=", "<AuthorNote", "ArticleMeta href", "compact"];
-const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite"];
+const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite", "분 읽기"];
 
 const guideDir = path.join(ROOT, "app/injury");
 let guides = 0;

@@ -57,7 +57,6 @@ export default function IntermediateGuidePage() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700"><span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-amber-500 align-middle" />중급자</span>
           <span className="text-xs text-gray-400">꾸준히 1년+ · 주 1~5회 · 주 15~50km</span>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?</h1>
         <ArticleMeta href="/injury/intermediate-guide" />

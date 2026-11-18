@@ -62,7 +62,6 @@ export default function Page() {
             {/* 2026-09-14: 「5분」인데 본문이 383자였다. 위치별 분기·감별 신호를 넣어 1,472자.
                 분당 500자로 3분. */}
             {/* 2026-09-22: 2,028자 ÷ 600. 규약은 app/injury/page.tsx 상단 주석 */}
-            <span className="text-xs text-gray-400">5분 읽기</span>
           </div>
           <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
           <ArticleMeta href="/injury/knee-pain" />

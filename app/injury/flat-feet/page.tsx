@@ -128,7 +128,6 @@ export default function FlatFeetPage() {
         {/* 태그·읽기 시간은 허브 카드(lib/guide/articles.ts)의 값 그대로 */}
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600">평발</span>
-          <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           평발 러닝화, 안정화를 꼭 신어야 하나요?

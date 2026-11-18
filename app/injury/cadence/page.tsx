@@ -53,8 +53,7 @@ export default function CadencePage() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">케이던스</span>
           {/* 규약은 app/injury/page.tsx 상단 주석 */}
-          <span className="text-xs text-gray-400">3분 읽기</span>
-          <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
+          <span className="text-xs text-gray-400">협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           케이던스 높을수록 좋나요?<br />꼭 180이어야 하나요

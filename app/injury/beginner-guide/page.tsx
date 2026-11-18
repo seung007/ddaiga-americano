@@ -75,7 +75,6 @@ export default function BeginnerGuidePage() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700"><span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-green-500 align-middle" />초심자</span>
           <span className="text-xs text-gray-400">꾸준히 1년 미만 · 주 0~3회 · 주 5~20km</span>
-          <span className="text-xs text-gray-400">· 5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/beginner-guide" />
