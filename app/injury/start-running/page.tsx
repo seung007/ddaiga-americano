@@ -51,6 +51,10 @@ import { pageUrl } from "@/lib/site";
  *     → 본문의 주어를 연구에서 「독자가 할 일」로. 연구 대상·인원·나라는 접힌 출처로 내리고, 근거의 무게는 말의 세기로만
  *       (단정 / 「~경향이 있었어요·많아요」 / 「해 보세요·권해요」). 굵은 글씨는 할 일과 핵심 숫자에만.
  *       본문에서 내린 숫자: 532·749·5천여·18개월·2천여(연구 규모) — 주장 숫자(셋 중 하나·2배·110%·3km·20.8/20.3%)는 그대로.
+ *   · (같은 날) 냉정한 점검에서 나온 것: 판정 「근거 있음」인데 단정한 3곳의 세기를 낮춤(셋 중 하나 → 「한 연구에서」, 2배 → 「더 많이 다치는 편」,
+ *     열 명 중 일곱 → 「~쯤 … 겪는다고 해요」). 수집한 양식 중 안 넣었던 것 적용: 작은 제목을 결론형으로(GQ·러닝위키, 큰 제목은 질문형 유지),
+ *     아픈 곳별 상황 문장 링크(브런치), 쉬운 말 먼저 「체질량지수(BMI)」(러너스레터).
+ *     「첫 주 3km」를 하루 분량으로 환산하는 예시는 넣지 않았다 — 연구에 없는 값이라.
  *     어느 연구가 어디에 쓰였는지는 「근거와 출처」 각 항목의 「쓰인 곳」으로 옮겼다(문장→출처 대신 출처→절). 단서는 <Caveat>(※ 없이 회색 작은 글씨)
  *   · 문장 끝 「~요」(사이트 화면 문구·토스·닥터나우와 같게)
  *   · 첫 문단에는 숫자·예고 문장을 쓰지 않는다(running-guide-writing 규칙)
@@ -152,15 +156,15 @@ export default function StartRunningPage() {
           <Num n={1} />처음 달리면 왜 금방 그만두게 될까요?
         </h2>
         <P>
-          처음엔 기록보다 <strong>안 다치는 게 먼저</strong>예요. 연구에서 초보 러너 거의 셋 중 하나가 반년 안에 그만뒀고, 가장 큰 이유가 부상이었어요.
+          처음엔 기록보다 <strong>안 다치는 게 먼저</strong>예요. 한 연구에서 초보 러너 거의 셋 중 하나가 반년 안에 그만뒀고, 가장 큰 이유가 부상이었어요.
         </P>
         <P>
-          같은 시간을 달려도 초보가 약 2배 더 다쳐요. 숨이 편해졌다고 다리도 준비된 건 아니에요.
+          같은 시간을 달려도 초보가 더 많이 다치는 편이에요. 숨이 편해졌다고 다리도 준비된 건 아니에요.
         </P>
 
-        <h3 className={H3}>정해진 프로그램을 따라야 하나요, 내 마음대로 해도 되나요?</h3>
+        <h3 className={H3}>처음엔 정해진 프로그램을 따라가 보세요</h3>
         <P>
-          <strong>처음엔 정해진 프로그램을 따라가 보세요.</strong> 혼자 계획을 짠 사람이 더 많이 다치는 경향이 있었어요.
+          혼자 계획을 짠 사람이 <strong>더 많이 다치는 경향</strong>이 있었어요.
         </P>
         <P>
           다만 진도가 버거우면 <strong>늦춰도 돼요.</strong> 프로그램을 그만둔 사람들은 부상과 너무 빠른 진도를 이유로 들었어요.
@@ -184,9 +188,9 @@ export default function StartRunningPage() {
           ]}
         />
 
-        <h3 id="stitch" className={`${H3} scroll-mt-20`}>달리면 옆구리가 결려요, 왜 그런가요?</h3>
+        <h3 id="stitch" className={`${H3} scroll-mt-20`}>옆구리 결림은 흔하고, 먹은 직후에 심해져요</h3>
         <P>
-          흔한 일이에요. 러너 <strong>열 명 중 일곱</strong>이 1년 안에 겪어요. 먹은 직후, 특히 진한 음료를 마신 뒤에 심해져요.
+          러너 <strong>열 명 중 일곱쯤</strong>이 1년 안에 겪는다고 해요. 특히 진한 음료를 마신 뒤에 심해져요.
         </P>
         <Steps
           title="흔히 쓰는 방법"
@@ -247,18 +251,18 @@ export default function StartRunningPage() {
           기간을 길게 잡는다고 덜 다치지는 않았어요. 그래서 날짜보다 <strong>몸이 지금 단계를 받아들였는지</strong> 보고 넘어가세요.
         </P>
 
-        <h3 id="long-day" className={`${H3} scroll-mt-20`}>가장 길게 뛰는 날은 얼마나 늘려도 되나요?</h3>
+        <h3 id="long-day" className={`${H3} scroll-mt-20`}>가장 길게 뛰는 날은 한 달 최장 기록의 110%까지</h3>
         <P>
-          <strong>지난 30일 중 가장 길게 뛴 기록의 110%</strong> 안에서 늘려 보세요. 그보다 길게 뛴 날에 부상이 늘었어요.
+          <strong>지난 30일 중 가장 길게 뛴 기록의 110%</strong> 안에서 늘려 보세요. 한 대형 연구에서 그보다 길게 뛴 날에 부상이 늘었어요.
         </P>
         <P>원래는 거리 기준이지만, 처음엔 시간으로 봐도 돼요.</P>
         <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-base leading-[1.7] text-emerald-900">
           예를 들어 지난 한 달 가장 오래 달린 날이 <strong>20분</strong>이었다면, 다음 긴 날은 <strong>22분까지</strong>예요.
         </div>
 
-        <h3 className={H3}>체중이 많이 나가도 시작해도 되나요?</h3>
+        <h3 className={H3}>체중이 많이 나가면 첫 주는 더 적게 시작해요</h3>
         <P>
-          시작해도 돼요. 다만 BMI(체질량지수)가 30을 넘으면 <strong>첫 주는 3km 미만</strong>으로 시작하길 권해요.
+          시작해도 돼요. 다만 체질량지수(BMI)가 30을 넘으면 <strong>첫 주는 3km 미만</strong>으로 시작하길 권해요.
         </P>
 
         <OneLine>기간이 아니라, 지금 단계를 몸이 받아들였는지 보고 넘어가요.</OneLine>
@@ -283,12 +287,12 @@ export default function StartRunningPage() {
           아파도 참고 뛰는 러너가 많아요. 하지만 <strong>최근 1년 안에 다친 적이 있으면 또 다치기 쉬워요.</strong>
         </P>
         <P>
-          초보는 정강이와 무릎 앞이 아픈 경우가 많아요. 위치별 멈출 신호와 대처는 아래 글에 있어요.
+          초보는 정강이와 무릎 앞이 아픈 경우가 많아요. 아픈 곳에 따라 멈출 신호와 대처가 달라요.
         </P>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이 통증 →</Link>
-          <Link href="/injury/knee-pain" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">무릎 앞 통증 →</Link>
-          <Link href="/injury/plantar-fasciitis" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">발바닥 통증 →</Link>
+          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이가 아프다면 →</Link>
+          <Link href="/injury/knee-pain" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">무릎 앞이 아프다면 →</Link>
+          <Link href="/injury/plantar-fasciitis" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">발바닥이 아프다면 →</Link>
         </div>
 
         <OneLine>걸음이 바뀔 만큼 아프면, 참지 말고 그날은 멈춰요.</OneLine>
