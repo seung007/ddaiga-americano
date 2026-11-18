@@ -306,6 +306,8 @@ export default function StartRunningPage() {
           ]}
         />
 
+        <OneLine>네 가지 모두 부상을 줄이지 못했어요. 진도와 멈출 신호를 먼저 챙겨요.</OneLine>
+
         <FinderCta
           from="start-running"
           variant="inline"
@@ -331,6 +333,8 @@ export default function StartRunningPage() {
             초보 러너 뛰는 법
           </Link>
         </div>
+
+        <OneLine>30분을 편하게 달리고 다음 날 아프지 않으면, 다음 단계로 넘어가요.</OneLine>
 
         <div className="mt-14">
           <FaqSection items={FAQ} />

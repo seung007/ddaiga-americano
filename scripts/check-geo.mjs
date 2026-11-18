@@ -115,6 +115,43 @@ function checkTerms(s, bad) {
   }
 }
 
+/**
+ * 틀 규칙 중 기계로 셀 수 있는 것 전부 (2026-11-18, hyun 님: 「정한 규칙이 강제로 다 적용되게」).
+ * AGENTS.md 「가이드 글 틀」의 줄마다 하나씩. 못 세는 것(말의 세기·한 문단 한 내용·요약이 사람 말인지)은 여기 없다 — 사람과 화면 비교가 본다.
+ */
+function checkTemplateRules(s, bad, entry) {
+  const start = s.indexOf("return ("), end = s.indexOf("<Sources");
+  const body = start > 0 && end > start ? s.slice(start, end) : "";
+  const text = readable(body);
+  const nums = (body.match(/<Num n=\{/g) || []).length;
+  if (nums < 4 || nums > 6) bad(`번호 붙은 큰 질문 ${nums}개 — 틀은 4~6개`);
+  const ones = (body.match(/<OneLine>/g) || []).length;
+  if (ones !== nums) bad(`한 줄 요약(<OneLine>) ${ones}개인데 큰 질문은 ${nums}개 — 절마다 끝에 하나`);
+  const kp = body.match(/<KeyPoints[\s\S]*?\]\}\s*\/>/);
+  const kpItems = kp ? (kp[0].match(/<>/g) || []).length : 0;
+  if (kpItems !== 3) bad(`3줄 요약(<KeyPoints>) 항목 ${kpItems}개 — 3개`);
+  const lead = body.match(/<Lead>([\s\S]*?)<\/Lead>/);
+  if (!lead) bad("<Lead> 없음");
+  else if (/\d/.test(lead[1].replace(/\{[^}]*\}/g, ""))) bad("<Lead>(첫 문단)에 숫자가 있음 — 숫자·예고 문장 없이");
+  const faq = s.match(/const FAQ[\s\S]*?\n\];/)?.[0] ?? "";
+  const all = `${text}\n${[...faq.matchAll(/[qa]:\s*"([^"]*)"/g)].map((m) => m[1]).join("\n")}`;
+  const hit = (re, msg) => { const m = all.match(re); if (m) bad(`${msg}: 「…${all.slice(Math.max(0, m.index - 12), m.index + m[0].length + 6).replace(/\n/g, " ")}…」`); };
+  hit(/(합니다|입니다|습니다|됩니다|십시오)(?=[.!?\s]|$)/, "말투는 「~요」 — 「~니다」가 있음");
+  hit(/추천해요|추천합니다|추천드려요/, "사이트가 정한 기준의 말끝은 「권해요」");
+  hit(/\[\d+\]/, "문장 끝 [n] 표시");
+  hit(/※/, "※ 표시");
+  hit(/[“”‘’]/, "따옴표 표시");
+  hit(/를 통해|을 통해|앞서 말했듯|앞에서 말했듯/, "번역투·군더더기");
+  hit(/저희 제안|연구 근거|연구끼리 엇갈/, "딱지·엇갈림 표시");
+  hit(/[가-힣] *→ *[가-힣][^\n]*[.요]/, "문장 속 →");
+  // FAQ 가 큰 질문과 같은 질문이면 본문 반복이다(견본에서 5문항 중 3개가 겹쳐 글이 길게 읽혔다)
+  const norm = (t) => t.replace(/[\s?.,!]/g, "");
+  const h2q = [...body.matchAll(/<Num\b[^>]*\/>\s*([^<{]+)/g)].map((m) => norm(m[1]));
+  for (const m of faq.matchAll(/q:\s*"([^"]*)"/g)) if (h2q.includes(norm(m[1]))) bad(`FAQ 「${m[1]}」가 큰 질문과 같은 질문 — 한 곳에만`);
+  const up = entry?.match(/updated:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+  if (up && up < "2026-11-18") bad(`원장 updated(${up})가 틀 확정일보다 앞 — 글을 고쳤으면 updated 도 고친다`);
+}
+
 const guideDir = path.join(ROOT, "app/injury");
 let guides = 0;
 for (const slug of readdirSync(guideDir)) {
@@ -141,6 +178,7 @@ for (const slug of readdirSync(guideDir)) {
     for (const m of MUST) if (!s.includes(m)) bad(`확정 틀 부품 없음: ${m} (AGENTS.md 「가이드 글 틀」)`);
     for (const m of BANNED) if (s.includes(m)) bad(`확정 틀에서 뺀 부품이 남음: ${m}`);
     checkTerms(s, bad);
+    checkTemplateRules(s, bad, entry);
     // 날짜 줄 「연구 N편과 대조했어요」의 N 은 손으로 적는다 — 출처 개수와 어긋나면 막는다(2026-11-18)
     const checked = s.match(/checked=\{(\d+)\}/);
     const srcs = (s.match(/<Src n=\{/g) || []).length;
