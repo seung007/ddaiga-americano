@@ -49,7 +49,7 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  * 2026-11-18 확정 틀(AGENTS.md 「가이드 글 틀」)로 바꾼 글. 롤아웃하면서 한 편씩 넣는다 — 다 넣으면 이 목록을 없애고 전체에 적용한다.
  * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
  */
-const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training"]);
+const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types"]);
 /**
  * 바꾸는 순서 (2026-11-18 Claude 제안 — hyun 님 확인 전). 앞에서부터 한 편씩 바꾸고 NEW_TEMPLATE 에 넣는다 — 검사가 끝에 「다음」을 알려 준다.
  * 0. 견본에서 정정한 주장(환기역치·OR 7.56·86%)이 그대로 남아 있을 수 있는 글 — 틀보다 정정이 먼저(AGENTS 신뢰 규칙 3)
@@ -93,6 +93,8 @@ const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Not
 const TERMS = [
   "말하기 테스트", "피로골절", "10% 규칙", "케이던스", "드롭", "스택", "2E", "4E", "환기역치", "젖산역치", "최대산소섭취량",
   "심박존", "존2", "템포런", "인터벌", "테이퍼", "과회내", "회내", "장경인대", "족저근막", "심박변이도", "마일리지", "VO2max",
+  // 2026-11-18 training-types 를 확정 틀로 바꾸며 더함 — 그 글에 처음 나오는 전문어다
+  "파틀렉", "스트라이드", "크로스 트레이닝",
 ];
 const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 function defined(text, idx, term) {

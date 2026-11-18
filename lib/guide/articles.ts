@@ -67,7 +67,7 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/advanced-guide", tag: "단계 가이드", tagColor: "text-emerald-700 bg-emerald-50", title: "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?", desc: "마일리지를 많이 쌓는 러너가 조심할 부상 세 가지를 다룹니다. 기록을 노릴 때 훈련을 나누는 법과 심박변이도를 보고 훈련을 바꿀지도 함께 봅니다.", stages: ["to-full", "faster"], updated: "2026-11-10" },
 
   // ── 훈련 방법 (2026-10-07) ─────────────────────────
-  { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "인터벌과 템포런, 뭐가 다르고 언제부터 하나요?", desc: "쉬었다 다시 달릴 때부터 인터벌과 템포런까지, 훈련마다 무엇이고 어떻게 하는지, 연구로 확인된 것과 언제부터 하면 되는지 담았습니다.", stages: "all", published: "2026-10-07", updated: "2026-11-10" },
+  { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "인터벌과 템포런, 뭐가 다르고 언제부터 하나요?", desc: "쉬었다 다시 달릴 때부터 인터벌과 템포런까지, 훈련마다 무엇이고 어떻게 하는지, 연구로 확인된 것과 언제부터 하면 되는지 담았습니다.", stages: "all", published: "2026-10-07", updated: "2026-11-18" },
   // 2026-11-07: 첫 내용 파일 글(lib/guide/content/heart-rate-zones.json) — AI 초안, 판정 2회 검증. 읽기 시간은 같은 규약(보이는 글자 1,958 ÷ 600)
   { href: "/injury/heart-rate-zones", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "달릴 때 심박수가 너무 높아요, 괜찮을까요?", desc: "달리기만 하면 심박수가 높게 나와 불안하다면. 워치와 나이 공식이 얼마나 틀리는지, 존2를 어떻게 정하는지, 쉬운 달리기를 얼마나 섞는지 연구로 확인했습니다.", stages: "all", published: "2026-11-07", updated: "2026-11-10" },
   // 2026-11-09 다시 씀: 제목·소제목을 오픈채팅 심박 질문(질문자 20명, 질문 71건 — 「걷기만 해도 높다」 「존2가 어디까지」 「워치가 튄다」)의 말로 바꾸고,
