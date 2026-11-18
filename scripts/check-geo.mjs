@@ -59,7 +59,8 @@ for (const slug of readdirSync(guideDir)) {
   const entry = articles.split("\n").find((l) => l.includes(`href: "/injury/${slug}"`));
   if (!entry) bad("원장 lib/guide/articles.ts 에 없음");
   else if (!/updated:\s*"\d{4}-\d{2}-\d{2}"/.test(entry)) bad("원장에 updated 날짜 없음");
-  const h2 = [...s.matchAll(/<h2[^>]*>\s*([^<{]+)/g)].map((m) => m[1].trim());
+  // 2026-11-18 새 틀: 제목 앞 번호 <Num n={1} /> 를 건너뛰고 질문 글자를 본다(없으면 번호에서 끊겨 질문형을 0개로 셌다)
+  const h2 = [...s.matchAll(/<h2[^>]*>\s*(?:<Num\b[^>]*\/>\s*)?([^<{]+)/g)].map((m) => m[1].trim());
   const q = h2.filter((h) => QUESTION.test(h)).length;
   if (q === 0 && !DEBT.has(slug)) bad("질문형 소제목(<h2> …?/~나요/~까요) 없음");
   if (q > 0 && DEBT.has(slug)) bad("질문형 소제목이 생겼으니 scripts/check-geo.mjs 의 DEBT 에서 빼세요");
