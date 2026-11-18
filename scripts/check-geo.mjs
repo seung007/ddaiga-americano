@@ -43,6 +43,14 @@ const articles = readFileSync(path.join(ROOT, "lib/guide/articles.ts"), "utf8");
 const errors = [];
 const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
 
+/**
+ * 2026-11-18 확정 틀(AGENTS.md 「가이드 글 틀」)로 바꾼 글. 롤아웃하면서 한 편씩 넣는다 — 다 넣으면 이 목록을 없애고 전체에 적용한다.
+ * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
+ */
+const NEW_TEMPLATE = new Set(["start-running"]);
+const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<AuthorNote", "ArticleMeta href", "compact"];
+const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite"];
+
 const guideDir = path.join(ROOT, "app/injury");
 let guides = 0;
 for (const slug of readdirSync(guideDir)) {
@@ -64,6 +72,10 @@ for (const slug of readdirSync(guideDir)) {
   const q = h2.filter((h) => QUESTION.test(h)).length;
   if (q === 0 && !DEBT.has(slug)) bad("질문형 소제목(<h2> …?/~나요/~까요) 없음");
   if (q > 0 && DEBT.has(slug)) bad("질문형 소제목이 생겼으니 scripts/check-geo.mjs 의 DEBT 에서 빼세요");
+  if (NEW_TEMPLATE.has(slug)) {
+    for (const m of MUST) if (!s.includes(m)) bad(`확정 틀 부품 없음: ${m} (AGENTS.md 「가이드 글 틀」)`);
+    for (const m of BANNED) if (s.includes(m)) bad(`확정 틀에서 뺀 부품이 남음: ${m}`);
+  }
 }
 
 const blogDir = path.join(ROOT, "docs/블로그");
