@@ -116,7 +116,7 @@ export default function StartRunningPage() {
           <span className="text-xs text-gray-400">4분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
-        <ArticleMeta href="/injury/start-running" compact />
+        <ArticleMeta href="/injury/start-running" compact checked={15} />
 
         <KeyPoints
           items={[
@@ -362,112 +362,81 @@ export default function StartRunningPage() {
           <FaqSection items={FAQ} />
         </div>
 
-        <Sources note="이 글에 쓴 연구 15편이에요. 2026-11-18 주장마다 다시 판정해, 여러 연구가 같은 결론인 것만 단정해서 썼어요.">
-          <Src n={1} where="1절">
+        <Sources>
+          <Src n={1}>
             <strong>Fokkema et al. (2019)</strong> J Sci Med Sport 22(1):106-111{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/29934211/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              6주 초보 프로그램 참가자 774명 중 29.5%가 26주 안에 그만뒀어요. 그만둔 이유의 48%가 부상이었어요. 프로그램 뒤에도 계속할지 확신이
-              없던 사람은 그만둘 가능성이 약 2배(OR 2.06)였어요.
-            </Found>
+            <Found>초보 774명 중 29.5%가 반년 안에 그만뒀고, 이유의 48%가 부상이었어요.</Found>
           </Src>
-          <Src n={2} where="1절">
+          <Src n={2}>
             <strong>Relph et al. (2023)</strong> Int J Environ Res Public Health 20(17):6682{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/37681822/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              영국 9주 걷기-달리기 프로그램(Couch-to-5k 변형, 참가자 110명)을 끝까지 마친 사람은 27.3%였어요. 19%가 부상을 보고했어요.
-              면담에서는 부상, 그만둔 데 따른 부정적 감정, 프로그램 짜임이 주제로 나왔어요. 저자들은 더 유연한 설계를 권했어요.
-            </Found>
+            <Found>9주 걷기-달리기 프로그램을 끝까지 마친 사람은 27.3%였어요(110명).</Found>
           </Src>
-          <Src n={3} where="1절">
+          <Src n={3}>
             <strong>Videbæk et al. (2015)</strong> Sports Med 45(7):1017-26{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/25951917/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              달린 시간 1,000시간당 부상은 초보 17.8건, 취미 러너 7.7건이었어요(13개 연구를 모은 메타분석). 부상 정의가 연구마다 달라 정확한
-              배수보다는 방향으로 읽으세요.
-            </Found>
+            <Found>1,000시간당 부상은 초보 17.8건, 취미 러너 7.7건이었어요.</Found>
           </Src>
-          <Src n={4} where="1절과 4절">
+          <Src n={4}>
             <strong>Linton &amp; Valentin (2018)</strong> J Sci Med Sport 21(12):1221-1225{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              영국 파크런 러너 1,145명에게 한 번 물은 설문이에요. 달리기 첫해에 스스로 짠 계획을 따른 사람이 Couch to 5K 같은 정해진
-              프로그램을 따른 사람보다 부상이 많은 경향이 있었어요. 지금 부상이 있는 570명 중 86%가 통증을 안고 기록이 떨어지고 거리를 줄여 가면서도 달리고 있었어요.
-            </Found>
+            <Found>지금 다친 러너 570명 중 86%가 아픈 채로 계속 달렸어요.</Found>
           </Src>
-          <Src n={5} where="2절">
+          <Src n={5}>
             <strong>Reed &amp; Pipe (2014)</strong> Curr Opin Cardiol 29(5):475-80{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/25010379/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              말하기 테스트는 운동 강도를 가늠하는 타당하고 믿을 만한 방법으로 평가돼요. 건강한 성인부터 심장질환자, 선수까지 해당돼요.
-            </Found>
+            <Found>말하기 테스트는 타당하고 믿을 만한 강도 기준이에요.</Found>
           </Src>
-          <Src n={6} where="2절">
+          <Src n={6}>
             <strong>Bok et al. (2022)</strong> Sports Med 52(9):2085-2109{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/35507232/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>말하기 테스트처럼 몸의 느낌으로 운동 강도를 나누는 방법들을 검토한 고찰이에요. 말하기 테스트를 타당한 방법으로 봤어요.</Found>
+            <Found>몸의 느낌으로 강도를 나누는 방법들을 검토한 고찰이에요.</Found>
           </Src>
-          <Src n={7} where="2절">
+          <Src n={7}>
             <strong>Morton &amp; Callister (2015)</strong> Sports Med 45(1):23-35{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/25178498/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              운동 중 옆구리 통증(ETAP) 고찰이에요. 러너의 약 70%가 지난 1년 사이 겪었다고 답했어요. 대회 한 번에는 약 5명 중 1명이 겪어요.
-              먹은 직후, 특히 진한(고장성) 음료를 마신 뒤에 심해져요. 흔히 권하는 예방법은 달리기 2시간 전 많은 음식과 음료를 피하는 거예요.
-              관리법 대부분은 경험에서 나온 것이고, 결렸을 때 푸는 확실한 방법은 아직 밝혀지지 않았어요.
-            </Found>
+            <Found>러너의 약 70%가 1년 안에 옆구리 통증을 겪었어요.</Found>
           </Src>
-          <Src n={8} where="3절과 5절">
+          <Src n={8}>
             <strong>Buist et al. (2008)</strong> Am J Sports Med 36(1):33-9{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              6.7km 대회를 준비하는 초보 532명을 무작위로 나눴어요. 일반 8주 프로그램과 10% 규칙에 맞춘 13주 프로그램의 부상률은 20.3% 대
-              20.8%로 차이가 없었어요.
-            </Found>
+            <Found>10% 규칙 13주와 일반 8주의 부상률은 20.8% 대 20.3%였어요.</Found>
           </Src>
-          <Src n={9} where="3절">
+          <Src n={9}>
             <strong>Frandsen et al. (2025)</strong> Br J Sports Med 59(17):1203-1210{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              성인 러너 5,205명(평균 45.8세)의 가민 기록 58만여 회를 18개월 동안 추적했어요. 한 번 달린 거리가 지난 30일 중 가장 긴 거리보다
-              10% 넘게 길면 과사용 부상 비율이 올라갔어요. 10~30% 길면 1.64배, 30~100%는 1.52배, 두 배가 넘으면 2.28배였어요. 반면 전주 대비
-              주간 거리 비율은 부상과 관계가 없었어요.
-            </Found>
+            <Found>30일 최장 거리보다 10% 넘게 길게 뛴 날 부상이 늘었어요(5,205명).</Found>
           </Src>
-          <Src n={10} where="3절">
+          <Src n={10}>
             <strong>Nielsen et al. (2014)</strong> Int J Sports Phys Ther 9(3):338-45{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/24944852/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              초보 749명을 3주 관찰한 탐색 연구예요. BMI 30 초과인 사람이 첫 주에 3~6km를 달리면 부상 위험이 14.3%p, 6km를 넘기면 16.2%p
-              높았어요(비교 기준은 BMI 30 이하이면서 첫 주 3km 미만). 저자들은 BMI 30 초과라면 첫 주를 3km 미만으로 시작하라고 권했어요.
-            </Found>
+            <Found>BMI 30 초과면 첫 주를 3km 미만으로 권했어요(초보 749명).</Found>
           </Src>
-          <Src n={11} where="4절">
+          <Src n={11}>
             <strong>Saragiotto et al. (2014)</strong> Sports Med 44(8):1153-63{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>전향 코호트 11편 체계적 고찰이에요. 지난 12개월 안의 부상이 여러 전향 연구에서 가장 일관된 부상 위험 요인이었어요.</Found>
+            <Found>지난 12개월 안의 부상이 가장 일관된 위험 요인이었어요.</Found>
           </Src>
-          <Src n={12} where="4절">
+          <Src n={12}>
             <strong>Nielsen et al. (2014)</strong> PLOS ONE 9(6):e99877{" "}
             <a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className={linkCls}>DOI ↗</a>
-            <Found>부상당한 초보 254명 중 정강이 통증이 15%, 무릎 앞(슬개대퇴) 통증이 10%였어요. 부상 종류별 회복 기간도 봤어요.</Found>
+            <Found>다친 초보 254명 중 정강이 15%, 무릎 앞 10%였어요.</Found>
           </Src>
-          <Src n={13} where="5절">
+          <Src n={13}>
             <strong>Fokkema et al. (2019)</strong> Br J Sports Med 53(23):1479-1485{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/30954948/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>
-              대회 참가자 2,378명을 무작위로 나눴어요. 온라인 예방 프로그램(위험 요인 정보와 조언)을 받은 쪽과 받지 않은 쪽의 부상률은 37.5%
-              대 36.7%였어요.
-            </Found>
+            <Found>예방 정보를 받은 쪽과 안 받은 쪽의 부상률은 37.5% 대 36.7%였어요.</Found>
           </Src>
-          <Src n={14} where="5절">
+          <Src n={14}>
             <strong>Herbert et al. (2011)</strong> Cochrane Database Syst Rev (7):CD004577{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/21735398/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>코크런 고찰이에요. 운동 전후 스트레칭은 지연성 근육통을 임상적으로 의미 있게 줄이지 않았어요.</Found>
+            <Found>스트레칭은 근육통을 임상적으로 의미 있게 줄이지 못했어요.</Found>
           </Src>
-          <Src n={15} where="5절">
+          <Src n={15}>
             <strong>Relph et al. (2022)</strong> Cochrane Database Syst Rev{" "}
             <a href="https://pubmed.ncbi.nlm.nih.gov/35993829/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>러닝화와 부상 예방 코크런 고찰이에요. 발 모양에 맞춰 신발을 고른 쪽과 그렇지 않은 쪽의 부상에 거의 차이가 없었어요.</Found>
+            <Found>발 모양에 맞춰 고른 신발도 부상에 거의 차이가 없었어요.</Found>
           </Src>
         </Sources>
         <AuthorNote />

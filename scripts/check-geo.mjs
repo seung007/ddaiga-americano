@@ -48,7 +48,7 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
  */
 const NEW_TEMPLATE = new Set(["start-running"]);
-const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<AuthorNote", "ArticleMeta href", "compact"];
+const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<Src n=", "<AuthorNote", "ArticleMeta href", "compact"];
 const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite"];
 
 const guideDir = path.join(ROOT, "app/injury");
@@ -75,6 +75,11 @@ for (const slug of readdirSync(guideDir)) {
   if (NEW_TEMPLATE.has(slug)) {
     for (const m of MUST) if (!s.includes(m)) bad(`확정 틀 부품 없음: ${m} (AGENTS.md 「가이드 글 틀」)`);
     for (const m of BANNED) if (s.includes(m)) bad(`확정 틀에서 뺀 부품이 남음: ${m}`);
+    // 날짜 줄 「연구 N편과 대조했어요」의 N 은 손으로 적는다 — 출처 개수와 어긋나면 막는다(2026-11-18)
+    const checked = s.match(/checked=\{(\d+)\}/);
+    const srcs = (s.match(/<Src n=\{/g) || []).length;
+    if (!checked) bad("날짜 줄 checked={N}(연구 N편과 대조) 없음");
+    else if (Number(checked[1]) !== srcs) bad(`날짜 줄은 연구 ${checked[1]}편인데 출처 목록은 ${srcs}편`);
   }
 }
 

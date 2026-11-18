@@ -1,3 +1,4 @@
+import React from "react";
 /**
  * 가이드 글 읽기 부품 (2026-10-13 가독성 재설계)
  *
@@ -272,30 +273,37 @@ export function Cite({ n }: { n: number | number[] }) {
  * ⚠️ 인용 검사기는 「저자 (연도)」 뒤 300자 안의 URL 을 짝짓는다. <Src> 안에서 저자·연도 → 학술지 → 링크 순서로 적고,
  *    긴 설명(<Found>)은 링크 **뒤에** 둔다.
  */
-export function Sources({ note, children }: { note?: string; children: React.ReactNode }) {
+export function Sources({ children }: { children: React.ReactNode }) {
+  // 2026-11-18 사용자 「근거와 출처가 너무 길어. 한두 줄로 끝내야지」 — 보이는 건 두 줄, 목록은 접는다(토스 「○○를 참고했어요」 한 줄).
+  // 편수는 손으로 적지 않고 <Src> 개수에서 센다.
+  const n = React.Children.toArray(children).length;
   return (
     <section id="refs" aria-label="근거와 출처" className="mt-14 scroll-mt-20 border-t border-gray-200 pt-6">
       <h2 className="text-xl font-bold text-gray-900">근거와 출처</h2>
-      {note && <p className="mt-1 break-keep text-xs text-gray-500">{note}</p>}
-      <ol className="mt-4 space-y-4 break-keep text-sm leading-[1.7] text-gray-700">{children}</ol>
+      <p className="mt-2 break-keep text-sm leading-[1.7] text-gray-600">
+        연구 {n}편과 하나씩 대조했어요. 연구가 적거나 정해지지 않은 내용은 본문에 그렇다고 밝혔어요.
+      </p>
+      <details className="group/src mt-3">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-emerald-800 [&::-webkit-details-marker]:hidden">
+          출처 {n}편 보기
+          <span aria-hidden className="text-gray-400 transition-transform group-open/src:rotate-90">›</span>
+        </summary>
+        <ol className="mt-2 space-y-3 break-keep text-sm leading-[1.6] text-gray-700">{children}</ol>
+      </details>
     </section>
   );
 }
 
-export function Src({ n, where, children }: { n: number; where?: string; children: React.ReactNode }) {
+export function Src({ n, children }: { n: number; where?: string; children: React.ReactNode }) {
   return (
     <li id={`ref-${n}`} className="flex scroll-mt-24 gap-2">
       <span className="w-5 shrink-0 tabular-nums text-gray-400">{n}.</span>
-      <div className="min-w-0">
-        {children}
-        {/* 문장 끝 [n] 대신 출처 쪽에서 「어디에 쓰였나」를 적는다(2026-11-18 사용자 「[7] 표시 빼자」) */}
-        {where && <p className="mt-1 text-xs text-gray-400">본문 {where}에서 썼어요.</p>}
-      </div>
+      <div className="min-w-0">{children}</div>
     </li>
   );
 }
 
 /** 출처 항목 안 「확인한 것」 — 예전 「근거 보기」에 있던 숫자·대상·설계 */
 export function Found({ children }: { children: React.ReactNode }) {
-  return <p className="mt-1 text-gray-600">{children}</p>;
+  return <p className="text-gray-500">{children}</p>;
 }

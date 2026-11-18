@@ -14,14 +14,16 @@ export function articleDates(href: string): { updated?: string; published?: stri
   return { updated: a?.updated, published: a?.published };
 }
 
-export default function ArticleMeta({ href, compact = false }: { href: string; compact?: boolean }) {
+export default function ArticleMeta({ href, compact = false, checked }: { href: string; compact?: boolean; checked?: number }) {
   const { updated, published } = articleDates(href);
   if (!updated && !published) return null;
   // 2026-11-18 새 틀: 제목 아래는 날짜 한 줄만. 글쓴이 소개는 글 끝 <AuthorNote> 로(첫 화면이 소개로 차던 문제 — 현명내과 실측과 같은 모양)
   if (compact)
     return (
       <p className="mt-2 mb-4 text-xs text-gray-500">
-        {updated ? <>최종 수정 {updated}</> : <>작성 {published}</>} · 뛰다가 아메리카노
+        {updated ? <>최종 수정 {updated}</> : <>작성 {published}</>}
+        {/* 2026-11-18 사용자 선택 C안: 자격 대신 확인한 방법 — 숫자는 check:geo 가 글의 <Src> 개수와 대조 */}
+        {checked ? <> · 연구 {checked}편과 대조했어요</> : <> · 뛰다가 아메리카노</>}
       </p>
     );
   return (
