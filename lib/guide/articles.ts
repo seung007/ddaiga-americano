@@ -76,7 +76,7 @@ export const ARTICLES: GuideArticle[] = [
 
   // ── 나머지 (2026-09-22 순서 유지) ─────────────────────
   // 2026-10-06: 커뮤니티 부상 글 1위 부위라 전면 개편(3분 → 아래 실측). 복귀 글 신설.
-  { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 러닝, 언제까지 쉬어야 하나요?", desc: "다친 뒤 꼭 완전히 쉬어야 하는지, 통증이 어느 정도면 달려도 되는지, 다시 뛸 때 얼마부터 시작할지 다룹니다. 회복은 생각보다 오래 걸립니다.", stages: "all", published: "2026-10-06", updated: "2026-11-10" },
+  { href: "/injury/return-to-running", tag: "복귀", tagColor: "text-orange-600 bg-orange-50", title: "부상 후 러닝, 언제까지 쉬어야 하나요?", desc: "다친 뒤 꼭 완전히 쉬어야 하는지, 통증이 어느 정도면 달려도 되는지, 다시 뛸 때 얼마부터 시작할지 다룹니다. 회복은 생각보다 오래 걸립니다.", stages: "all", published: "2026-10-06", updated: "2026-11-18" },
   { href: "/injury/it-band", tag: "무릎", tagColor: "text-red-600 bg-red-50", title: "달리면 무릎 바깥쪽이 아파요, 장경인대일까요?", desc: "무릎 바깥이 아프고 내리막에서 심해진다면 장경인대 증후군일 수 있습니다. 내 증상인지 확인하는 법과 스트레칭보다 근거가 있는 엉덩이 근력 운동을 다룹니다.", stages: ["to-half", "to-full"], published: "2025-03-01", updated: "2026-11-10" },
   { href: "/injury/wide-foot", tag: "발볼", tagColor: "text-blue-600 bg-blue-50", title: "2E 와이드 뜻, 내 발볼도 넓은 편일까요?", desc: "2E는 넓음, 4E는 매우 넓음을 뜻하는 폭 표시입니다. 내 발볼을 집에서 재는 법과 와이드가 필요한지 확인하는 법을 봅니다.", stages: "all", published: "2025-03-01", updated: "2026-11-10" },
   // 2026-09-08 추가. 네이버 실측에서 '발 조건 + 브랜드' 질의가 33%인데 평발 페이지가 없었다.

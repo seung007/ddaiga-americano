@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
+import { Lead, P, H2, H3, Warn, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
 /**
@@ -18,14 +17,41 @@ import { pageUrl } from "@/lib/site";
  *   (집계는 건수만 남겼다. 원 제목·닉네임은 저장하지 않는다.)
  *
  * 규칙
- *   · 숫자는 PubMed 초록(또는 PMC 본문)에서 확인한 값만. 2026-10-06 대조.
- *   · 통증 모니터링 모델의 0~2/2~5/5 기준은 **임상 경험으로 정한 값이고 검증된 적이 없다**는 것까지 적는다
- *     (Ullern 2025 스코핑 리뷰 본문). 숫자만 옮기면 검증된 기준처럼 읽힌다.
+ *   · 숫자는 초록에서 직접 확인한 값만. 복귀 진도는 사이트 예시라고 적는다.
  *   · 그 모델은 힘줄·무릎 통증 연구에서 쓰였다. 뼈 부상(피로골절)에 쓰라는 근거는 없어서 따로 떼어 적는다.
- *   · 복귀 진도는 사이트 예시라고 표시한다.
  *
- * 2026-10-13 가독성 재설계 — 섹션마다 답 → 할 일 → 근거(접힘). 숫자는 <Evidence> 안으로 옮겼다.
- *   통증 점수 기준·넘어가는 조건·멈출 신호(뼈 부상 포함)는 접지 않는다(<Warn>·표). 「검증된 적 없음」은 <Note>.
+ * 2026-10-13 가독성 재설계 — 섹션마다 답 → 할 일 → 근거(접힘).
+ *
+ * 2026-11-18 확정 틀로 바꿈 (AGENTS.md 「가이드 글 틀 — 2026-11-18 확정」, 견본 app/injury/start-running/page.tsx)
+ *   · 말투 「~니다」 → 「~요」. 날짜 한 줄 · 3줄 요약 · 번호 붙은 큰 질문 · 절 끝 한 줄 요약 · 글 끝 접힌 「근거와 출처」.
+ *     옛 부품(한눈에 상자 · 이렇게 하세요 상자 · 근거 보기 접힘 · 참고 문헌 · ※ 단서 · 근거 딱지) 여섯 개를 걷어냈다.
+ *     (옛 부품 이름을 주석에 적으면 check:geo 가 글에 남은 것으로 세므로 풀어서 적는다.)
+ *   · 큰 절 6개 → 5개. id 는 그대로 유지했다(다른 글이 #bone·#rest-or-run·#comeback 을 건다).
+ *     체력 절과 「근력운동을 하면 덜 다치나요?」 소제목은 곁가지라 FAQ 로 내렸다(본문과 FAQ 중복 금지).
+ *
+ *   고친 것 — 주장을 초록으로 다시 판정한 결과(판정 기준: Project 문서 「처음 달리기 글 근거 판정」 + 견본 머리 주석)
+ *   · **통증 모니터링 모델 0~2 / 2~5 / 5 초과 표를 지웠다.** 2026-11-18 Ullern 2025 초록을 직접 열어 확인한 결과
+ *     초록에는 숫자 구간이 없다. 있는 말은 「허용 기준이 연구마다 제각각이고 합의와 근거가 없다」까지다.
+ *     견본 판정표의 「통증 감시 모델의 숫자 규칙(예: 10점 중 5점) — 초록에 없음, 쓰지 않는다」와 같은 판정이다.
+ *     대신 멈출 신호를 사이트 기준(「권해요」 말투)으로 적었다. 숫자를 뺀 자리를 다른 숫자로 메우지 않았다.
+ *   · **Relph 2023 OR 7.56 을 뺐다.** 논문 안에서 뜻이 둘(완주 예측 / 새 부상 위험)이고 신뢰구간 2.06–27.75 로 넓다.
+ *     방향 진술도 하지 않았고, 이 글에서 Relph 출처 자체를 뺐다(같은 자리를 Saragiotto 2014 가 받친다).
+ *   · **Linton 2018 「86%」의 분모를 문장에 넣었다.** 「지금 다친 러너 대부분」으로, 모든 러너가 아니다.
+ *     숫자(570명 중 86%)는 접힌 출처에만 뒀다 — 견본이 2026-11-18 에 출판본 초록에서 86% 로 확인한 값이다.
+ *   · **엑스레이가 초기에 안 보인다는 문장을 뺐다.** 이번에 초록으로 확인하지 못했다. 대체 설명을 만들지 않았다.
+ *   · **「쉬어도 2주 넘게 나아지지 않으면 진료」의 날짜 숫자를 뺐다.** 멈춤 신호의 기간은 판정 보류여서
+ *     날짜 숫자를 쓰지 않는다(견본과 같은 판정). 「나아지는 느낌이 없으면」으로 바꿨다.
+ *   · 한 연구에 기댄 단정문의 세기를 낮췄다: 회복 기간·아킬레스 시험·110%·부위별 복귀 기간에 「한 연구에서」
+ *     「한 무작위 시험에서」「한 메타분석에서」를 붙였다. 지난 12개월 부상(Saragiotto, 확실)만 단정으로 뒀다.
+ *   · Silbernagel 2011(5년 추적 80%)·Wilber 1996(물속 달리기)은 같은 결론을 두 번 말해서 뺐다 — 숫자를 고친 게 아니라 덜어낸 것이다.
+ *
+ *   확인 못 한 것 (2026-11-18, 다음에 네트워크가 되면 여기부터) — 비워 두지 않고 적어 둔다
+ *   · 출처의 **숫자와 주장은 전부 이번에 초록을 직접 열어 대조했다**(QxMD·Europe PMC). 다만 아래 여섯 편은
+ *     권·호·쪽까지는 다시 못 열었다 — PubMed 가 봇 확인 페이지로 막혔고 Europe PMC 는 요청 한도에 걸렸다.
+ *     Fokkema 2019 · Hoenig 2023 · Lauersen 2014 · Toresdahl 2020 · Mujika 2000 · Eyestone 1993.
+ *     서지는 이 저장소가 2026-10-06 에 대조해 둔 값을 그대로 뒀다(새로 지어낸 값이 아니다). 다음에 한 번 더 대조한다.
+ *   · Ullern 2025 는 권·호·쪽을 아예 확인하지 못해 **학술지 이름까지만 적었다.** 숫자를 지어내 채우지 않는다.
+ *   · Schroeder 2024(AAFP)는 이번에 직접 열지 않았다 — 판정 보고서 「처음 달리기 글 근거 판정」에서 확인된 서지를 그대로 썼다.
  */
 
 const PAGE_URL = pageUrl("/injury/return-to-running");
@@ -39,29 +65,27 @@ export const metadata: Metadata = {
   alternates: { canonical: "/injury/return-to-running" },
 };
 
+// 2026-11-18: FAQ 는 본문 큰 질문과 겹치지 않는 것만 둔다. 체력·근력운동은 본문에서 내려온 곁가지다.
+// 전문어는 문항마다 다시 풀이한다 — 답 하나만 따로 인용되기 때문이다(check:geo 가 본다)
+
 const FAQ: FaqItem[] = [
   {
-    q: "아프면 무조건 완전히 쉬어야 하나요?",
-    a: "부상 종류에 따라 다릅니다. 통증을 기준으로 달리기를 계속한 그룹과 6주 동안 쉰 그룹의 회복이 같았습니다(아킬레스건병증 환자 38명 무작위 시험, Silbernagel 2007). 반면 피로골절이 의심되면(뼈 한 지점을 누르면 아픔, 쉬어도 아픔) 통증 기준으로 달리지 않습니다. 진단부터 받아야 합니다.",
+    q: "쉬는 동안 체력이 다 빠지나요?",
+    a: "다 빠지지는 않았어요. 훈련된 사람을 물속 달리기, 자전거, 달리기로 나눠 여섯 주 훈련한 한 연구에서 최대산소섭취량(운동할 때 몸이 1분에 쓸 수 있는 산소의 최대량)은 세 쪽 모두 조금 줄었지만 2마일 기록은 그대로였어요. 다만 꾸준히 훈련해 온 사람은 네 주 안쪽만 쉬어도 이 수치가 빠르게 떨어지는 편이고, 최근에 달리기를 시작한 사람은 변화가 더 작았어요. 쉬는 동안에는 아픈 곳이 아프지 않은 운동을 골라 보세요.",
+  },
+  {
+    q: "근력운동을 하면 덜 다치나요?",
+    a: "달리기에서는 효과가 뚜렷하지 않았어요. 여러 종목을 모은 한 메타분석에서는 근력운동을 한 쪽의 부상이 3분의 1 수준이었어요. 하지만 첫 풀마라톤을 준비하는 러너에게 짧은 근력 프로그램을 준 한 무작위 시험에서는 부상으로 완주하지 못한 비율이 7.1%와 7.3%로 거의 같았어요. 하고 싶으면 해도 되지만, 근력운동을 했으니 괜찮다고 보고 거리를 늘리지는 마세요.",
   },
   {
     q: "통증이 몇 점이면 달려도 되나요?",
-    a: "연구에서 자주 쓰는 통증 모니터링 모델은 0~10점 중 2 미만을 안전, 2~5를 허용, 5 초과를 위험으로 봅니다. 다음 날 아침에는 통증이 가라앉아 있어야 한다는 조건도 붙습니다. 다만 이 기준은 임상 경험으로 정한 값이고 검증된 적은 없습니다(Ullern 2025). 힘줄과 무릎 통증 연구에서 쓰였고 뼈 부상에는 쓰지 않습니다.",
+    a: "몇 점까지 괜찮다고 정해진 기준은 없어요. 운동할 때 통증을 어디까지 허용하는지 모아 정리한 한 리뷰에서 기준이 연구마다 제각각이었고, 합의된 근거가 없다고 적혀 있었어요. 그래서 저희는 점수 대신 이렇게 권해요. 달리는 중에 아픔이 커지면 그날은 멈추고, 다음 날 아침에 전날보다 아프면 다음 번에 거리를 줄여요.",
   },
   {
-    q: "쉬는 동안 체력이 다 빠지나요?",
-    a: "훈련된 사람은 4주 안쪽만 쉬어도 최대산소섭취량이 빠르게 떨어집니다. 최근에 훈련을 시작한 사람은 변화가 더 완만합니다(Mujika 2000). 6주 동안 물속 달리기나 자전거로 훈련한 러너는 2마일 기록이 달리기 그룹과 차이가 없었습니다(Eyestone 1993).",
-  },
-  {
-    q: "복귀하면 부상 전 거리로 바로 돌아가도 되나요?",
-    a: "권하지 않습니다. 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 부상 비율이 올라갔습니다(Frandsen 2025). 오래 쉬었다면 지난 30일 최장 거리가 짧거나 0입니다. 그래서 이 기준만 따라도 자연스럽게 조금씩 늘리게 됩니다. 그리고 예전에 다친 적이 있으면 회복이 더 오래 걸렸습니다(Fokkema 2019, 오즈비 2.31).",
-  },
-  {
-    q: "언제 병원에 가야 하나요?",
-    a: "걸음걸이가 바뀔 만큼 아프거나, 붓거나 열이 나거나, 뼈의 한 지점을 누르면 콕 집어 아프거나, 쉬어도 2주 넘게 나아지지 않으면 진료를 받으세요. 이 기준은 저희가 정한 것이며 진단을 대신하지 않습니다.",
+    q: "다시 뛰기 시작했는데 같은 곳이 또 아파요.",
+    a: "한 단계 뒤로 돌아가는 편이 좋아요. 다친 곳이 또 아픈 건 아직 덜 나았다는 쪽에 가까워요. 지난 12개월 안에 다친 적이 있으면 또 다치기 쉽다는 것은 여러 연구에서 가장 꾸준히 나온 결과예요. 쉬는데도 나아지는 느낌이 없으면 진료를 받아 보세요.",
   },
 ];
-
 
 export default function ReturnToRunningPage() {
   return (
@@ -83,187 +107,110 @@ export default function ReturnToRunningPage() {
           <span className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-orange-700">회복 · 모든 단계</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
-        <ArticleMeta href="/injury/return-to-running" />
-        <Lead>
-          다친 뒤 언제 다시 뛸 수 있을지 조바심이 난다면, 회복이 <strong>생각보다 오래 걸린다</strong>는 것부터 알아 두세요. 초보
-          러너를 따라간 두 연구에서 회복 기간 중앙값은 두 달 안팎이었습니다.
-        </Lead>
+        <ArticleMeta href="/injury/return-to-running" compact checked={13} />
 
-        <Summary
+        <KeyPoints
           items={[
-            <>생각보다 오래 걸립니다. 부상당한 초보 러너의 회복 기간 중앙값은 <strong>71일</strong>이었습니다.<Basis kind="paper" /></>,
-            <>
-              아킬레스 힘줄 부상이면 <strong>꼭 완전히 쉬어야 하는 것은 아니었습니다</strong>(한 무작위 시험, 38명). 뼈 부상은 예외입니다.
-              <Basis kind="paper" />
-            </>,
-            <>쉬는 동안 <strong>물속 달리기나 자전거</strong>로 6주 훈련해도 2마일 기록이 유지됐습니다(훈련된 러너 연구).<Basis kind="paper" /></>,
-            <>돌아올 때는 <strong>지난 30일 최장 거리의 110%</strong>까지 늘립니다. 부상 전 기록은 기준이 되지 않습니다.<Basis kind="rule" /></>,
+            <>낫는 데 <strong>두 달쯤</strong> 걸린 사람이 절반이었어요. 한두 주로 계획을 잡으면 조바심만 나요.</>,
+            <>힘줄이 아픈 거라면 꼭 완전히 쉬지 않아도 괜찮았어요. 뼈가 콕 집어 아프면 <strong>달리기를 멈추고 진료부터</strong> 받으세요.</>,
+            <>다시 뛸 때는 다치기 전 거리를 기준으로 삼지 말고, <strong>요즘 뛴 거리에서</strong> 늘리기를 권해요.</>,
           ]}
         />
+
+        <Lead>
+          다친 뒤 언제 다시 뛸 수 있을지 조바심이 난다면, 회복이 <strong>생각보다 오래 걸린다</strong>는 것부터 알아 두세요. 초보
+          러너를 따라간 한 연구에서 낫는 데 걸린 기간은 주 단위가 아니라 달 단위였어요.
+        </Lead>
 
         <TableOfContents
           items={[
-            { id: "how-long", label: "얼마나 걸리나" },
-            { id: "rest-or-run", label: "쉬어야 하나, 달려도 되나" },
-            { id: "bone", label: "뼈 부상은 다르다" },
-            { id: "fitness", label: "쉬는 동안 체력" },
-            { id: "comeback", label: "복귀 진도" },
-            { id: "again", label: "다시 다치지 않으려면" },
+            { id: "how-long", label: "얼마나 걸리나요?" },
+            { id: "rest-or-run", label: "무조건 쉬어야 하나요?" },
+            { id: "bone", label: "뼈가 아픈 거라면" },
+            { id: "comeback", label: "다시 뛸 때 얼마부터" },
+            { id: "again", label: "또 다치지 않으려면" },
           ]}
         />
 
-        {/* ── ① 얼마나 ─────────────────────────────────────── */}
+        {/* ── 1 ─────────────────────────────────────────── */}
         <h2 id="how-long" className={H2}>
-          다 나으려면 얼마나 걸리나요?
+          <Num n={1} />다 나으려면 얼마나 걸리나요?
         </h2>
         <P>
-          초보 러너를 따라간 두 연구 모두 회복 기간 중앙값이 <strong>두 달 안팎</strong>이었습니다.
+          <strong>복귀 날짜를 먼저 못 박지 말고, 달 단위로 생각해 보세요.</strong> 다친 초보 러너를 나을 때까지 따라간 한 연구에서
+          낫는 데 <strong>두 달쯤</strong> 걸린 사람이 절반이었고, 한 해 넘게 걸린 사람도 있었어요.
         </P>
         <P>
-          예전에 다친 적이 있으면 더 오래 가는 경우가 많았습니다. 일주일 단위보다 두 달 단위로 계획을 잡는 편이 현실에 가깝습니다.
-          <Basis kind="rule" />
+          예전에 다친 적이 있으면 더 오래 가는 편이었어요. 그래서 같은 곳을 또 다친 거라면 처음보다 느긋하게 봐야 해요.
         </P>
-        <Evidence n={2}>
-          <p>
-            회복한 220명의 회복 기간 중앙값은 71일(최소 9일, 최대 617일)이었습니다. 10주가 지나도 절반은 500m를 두 번 통증 없이
-            달리지 못했습니다. 약 5%는 수술을 받았습니다(초보 러너 933명 중 다친 254명을 진찰하고 회복할 때까지 따라간 연구).{" "}
-            <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>
-          </p>
-          <p>
-            부상 기간 중앙값은 8주(1~52주)였습니다(6주 초보 프로그램 참가자 중 다친 347명). 예전에 다친 적이 있으면 10주 넘게 가는
-            경우가 더 많았습니다(오즈비 2.31). 종아리 부상은 빨리 낫는 경향이었습니다.{" "}
-            <S>(Fokkema et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30268637/" />)</S>
-          </p>
-        </Evidence>
+        <Steps
+          items={[
+            { t: "다음 대회 날짜부터 바꿔요.", d: "날짜를 지키려고 진도를 당기면 그 자리에서 다시 다쳐요." },
+            { t: "아픈 정도를 날마다 한 줄씩 적어요.", d: "좋아지는 중인지는 기억보다 기록이 정확해요." },
+            { t: "쉬는데도 나아지는 느낌이 없으면 진료를 받아요." },
+          ]}
+        />
 
-        {/* ── ② 쉬기 vs 달리기 ─────────────────────────────── */}
+        <OneLine>복귀 날짜를 먼저 정하지 말고, 낫는 속도를 보고 정해요.</OneLine>
+
+        {/* ── 2 ─────────────────────────────────────────── */}
         <h2 id="rest-or-run" className={H2}>
-          아프면 무조건 쉬어야 하나요?
+          <Num n={2} />아프면 무조건 쉬어야 하나요?
         </h2>
         <P>
-          <strong>아킬레스 힘줄 부상이라면 꼭 그렇지는 않습니다.</strong> 통증을 보며 달리기를 이어간 그룹과 6주 쉰 그룹의 회복
-          속도가 같았습니다(아킬레스건병증 환자 38명을 나눈 한 무작위 시험).
+          <strong>힘줄이 아픈 거라면 꼭 완전히 쉬지 않아도 괜찮아요.</strong> 아킬레스 힘줄이 아픈 사람을 두 쪽으로 나눈 한 무작위
+          시험에서, 아픈 정도를 보면서 달리기와 점프를 이어간 쪽과 여섯 주 쉰 쪽의 회복이 비슷했어요.
         </P>
-        <P>아래 통증 점수는 이런 힘줄 연구에서 널리 쓰인 기준입니다. 뼈 부상에는 쓰지 않습니다(아래).</P>
+        <P>
+          그렇다고 아픈 걸 참고 뛰라는 말은 아니에요. 아픔이 커지는 날에 멈추는 것이 이어가는 조건이에요.
+        </P>
+        <Steps
+          items={[
+            { t: "달리는 중에 아픔이 커지면 그날은 멈춰요.", d: "참고 더 뛰어서 얻는 건 없어요." },
+            { t: "다음 날 아침에 전날보다 아프면 다음 번에 거리를 줄여요." },
+            { t: "통증 때문에 걸음걸이가 바뀌면 그날은 그만둬요." },
+          ]}
+        />
+        <Caveat>이 세 가지는 저희가 정한 기준이고, 진단을 대신하지 않아요.</Caveat>
 
-        <div className="mt-5 rounded-xl border border-gray-200 bg-white p-4">
-          <p className="text-sm font-semibold text-gray-900">통증 모니터링 모델 (0~10점)</p>
-          <div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
-            <div className="rounded-lg bg-emerald-50 p-3">
-              <p className="text-xl font-bold text-emerald-700">2 미만</p>
-              <p className="text-xs text-emerald-800">안전</p>
-            </div>
-            <div className="rounded-lg bg-amber-50 p-3">
-              <p className="text-xl font-bold text-amber-700">2~5</p>
-              <p className="text-xs text-amber-800">허용</p>
-            </div>
-            <div className="rounded-lg bg-red-50 p-3">
-              <p className="text-xl font-bold text-red-700">5 초과</p>
-              <p className="text-xs text-red-800">위험</p>
-            </div>
-          </div>
-          <p className="mt-3 text-base leading-relaxed text-gray-700">
-            조건: <strong>다음 날 아침에는 가라앉아 있을 것.</strong>
-          </p>
-        </div>
-        <Note>
-          이 구간은 임상 경험으로 정한 값입니다. 기준 자체를 검증한 연구는 없습니다. 힘줄과 무릎 통증 연구에서 쓰였습니다.
-        </Note>
+        <OneLine>힘줄이 아픈 거라면 완전히 멈추지 않아도 괜찮았어요. 대신 아픔이 커지는 날은 쉬어요.</OneLine>
 
-        <Warn title="실제로 쓸 때의 저희 기준">
+        {/* ── 3 ─────────────────────────────────────────── */}
+        <h2 id="bone" className={H2}>
+          <Num n={3} />뼈가 아픈 거라면 어떻게 하나요?
+        </h2>
+        <P>
+          <strong>뼈의 한 지점을 누르면 콕 집어 아프면, 달리기를 멈추고 진료부터 받으세요.</strong> 피로골절은 같은 충격이 반복돼
+          뼈에 생기는 가는 금이에요. 누르면 콕 집어 아픈 그 한 점이 피로골절을 의심하는 핵심 신호예요.
+        </P>
+        <Warn title="이럴 땐 달리기를 멈추고 진료를 받으세요">
           <ul className="list-disc space-y-1 pl-5">
-            <li>달리는 중 5를 넘으면 그날은 멈춥니다.</li>
-            <li>다음 날 아침이 전날보다 아프면 거리를 줄입니다.</li>
-            <li>걸음걸이가 바뀔 만큼 아프면 점수와 상관없이 멈춥니다.</li>
+            <li>뼈의 한 지점을 누르면 콕 집어 아프다</li>
+            <li>쉬어도 아프다, 밤에도 아프다</li>
+            <li>붓거나 열감이 있다</li>
           </ul>
         </Warn>
-
-        <Evidence n={3}>
-          <p>
-            12개월 동안 두 그룹의 회복 속도에 차이가 없었습니다. 달리기를 계속한 쪽에서 나쁜 영향은 보이지 않았습니다. 아킬레스건병증
-            환자 38명을 두 그룹으로 나눈 시험입니다. 한쪽은 통증을 보며 달리기와 점프를 계속했고 다른 쪽은 6주 동안 쉬었습니다. 재활
-            운동은 똑같이 했습니다.{" "}
-            <S>(Silbernagel et al. (2007) <Up h="https://pubmed.ncbi.nlm.nih.gov/17307888/" />)</S>
-          </p>
-          <p>
-            80%가 완전히 회복했습니다(같은 연구진이 운동 치료만 받은 34명을 5년 추적). 움직이는 것을 두려워할수록 종아리 기능 회복이
-            더뎠습니다. <S>(Silbernagel et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21084657/" />)</S>
-          </p>
-          <p>
-            통증 구간은 1997년 슬개대퇴 통증 재활 연구자가 임상 경험으로 정한 값입니다. 이후 아킬레스와 슬개건 연구에서 널리
-            쓰였습니다. 다만 기준 자체를 검증한 연구는 없다고 정리돼 있습니다. <S>(Ullern et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/39987051/" />)</S>
-          </p>
-        </Evidence>
-
-        {/* ── ③ 뼈 ─────────────────────────────────────────── */}
-        <h2 id="bone" className={H2}>
-          뼈가 아픈 거라면 어떻게 하나요?
-        </h2>
         <P>
-          <strong>피로골절(뼈 스트레스 부상)이 의심되면</strong> 통증을 참고 달리는 방식으로 다루지 않습니다. 위 통증 점수는 힘줄과
-          무릎 통증에서 쓰인 것입니다.
+          낫는 기간은 뼈의 위치에 따라 크게 달랐어요. 한 메타분석에서 운동으로 돌아가기까지 정강이뼈 뒤안쪽은{" "}
+          <strong>44일</strong>, 발 주상골은 <strong>127일</strong>이었어요. 전체로는 열 명 중 아홉 넘게 운동으로 돌아갔어요.
         </P>
-        <Warn title="이러면 달리기를 멈추고 진료부터 (저희 기준)">
-          <p>
-            뼈의 한 지점을 누르면 콕 집어 아프다, 쉬어도 아프다, 밤에도 아프다 → 달리기를 멈추고 진료부터. 엑스레이는 초기에 안 보일 수
-            있습니다.
-          </p>
-          <p className="mt-2">
-            정강이라면{" "}
-            <Link href="/injury/shin-splints" className="font-medium underline">
-              정강이 통증 글
-            </Link>
-            의 구별법을 보세요.
-          </p>
-        </Warn>
-        <P>복귀까지 걸리는 기간은 뼈 위치에 따라 크게 달랐습니다. 전체로는 90% 넘게 복귀했습니다.</P>
-        <Evidence n={1}>
-          <p>
-            운동 복귀까지 걸린 기간은 위치에 따라 크게 달랐습니다(뼈 스트레스 부상 2,974건을 모은 메타분석). 정강이뼈 뒤안쪽은 44일,
-            종아리뼈는 56일, 대퇴골 경부는 107일, 발 주상골은 127일이었습니다. 대퇴골 경부와 정강이뼈 앞쪽, 주상골은 합병증 위험도
-            높았습니다. 전체로는 90% 넘게 복귀했습니다. <S>(Hoenig et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/36720584/" />)</S>
-          </p>
-        </Evidence>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/shin-splints" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">정강이가 아픈 거라면 →</Link>
+          <Link href="/injury/achilles" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">아킬레스가 아픈 거라면 →</Link>
+        </div>
 
-        {/* ── ④ 체력 ─────────────────────────────────────────── */}
-        <h2 id="fitness" className={H2}>
-          쉬는 동안 체력이 다 빠지나요?
-        </h2>
-        <P>
-          <strong>물속 달리기나 자전거로 상당 부분 지킬 수 있습니다.</strong> 6주 동안 그렇게 훈련한 러너는 최대산소섭취량(운동할 때 몸이 분당 쓸 수 있는 산소의 최대량)은 조금 줄었지만 2마일 기록은 그대로였습니다.
-        </P>
-        <P>최근에 훈련을 시작한 사람은 짧게 쉬어도 체력 변화가 더 완만합니다.</P>
-        <Note>체력 유지 연구들은 훈련된 사람이 대상이었고 기간은 6주였습니다.</Note>
-        <Todo
-          basis="rule"
-          items={["아픈 부위에 통증이 없는 운동을 고르세요.", "자전거가 무릎 바깥을 자극하면 물속 달리기로."]}
-        />
-        <Evidence n={3}>
-          <p>
-            잘 훈련된 선수는 4주 안쪽의 짧은 휴식에도 최대산소섭취량과 혈액량이 빠르게 줄어듭니다. 최근에 훈련을 시작한 사람은 변화가
-            더 완만합니다. <S>(Mujika &amp; Padilla (2000) <Up h="https://pubmed.ncbi.nlm.nih.gov/10966148/" />)</S>
-          </p>
-          <p>
-            세 그룹 모두 최대산소섭취량이 조금 줄었고 2마일 기록은 그대로였습니다(훈련된 32명을 물속 달리기, 자전거, 달리기로 나눠
-            6주 훈련). 그룹 사이 차이는 없었습니다.{" "}
-            <S>(Eyestone et al. (1993) <Up h="https://pubmed.ncbi.nlm.nih.gov/8427367/" />)</S>
-          </p>
-          <p>
-            최대산소섭취량과 숨이 갑자기 가빠지는 지점(환기역치), 러닝 이코노미가 두 그룹 모두 유지됐습니다(훈련된 남성 러너 16명을
-            6주 동안 물속 달리기와 트레드밀로 나눈 연구). <S>(Wilber et al. (1996) <Up h="https://pubmed.ncbi.nlm.nih.gov/8871917/" />)</S>
-          </p>
-        </Evidence>
+        <OneLine>뼈 한 점이 콕 집어 아프면 기다리지 말고 진료부터 받아요.</OneLine>
 
-        {/* ── ⑤ 복귀 진도 ─────────────────────────────────── */}
+        {/* ── 4 ─────────────────────────────────────────── */}
         <h2 id="comeback" className={H2}>
-          다시 뛸 때 얼마부터 시작하나요?
+          <Num n={4} />다시 뛸 때 얼마부터 시작하나요?
         </h2>
         <P>
-          <strong>기준은 부상 전 기록이 아니라 지난 30일입니다.</strong> 한 번에 뛰는 거리를 지난 30일 최장 거리의 110% 안에서 늘리세요.
-          <Basis kind="rule" />
+          <strong>기준은 다치기 전 기록이 아니라 요즘 뛴 거리예요.</strong> 한 번에 뛰는 거리를 지난 30일 가장 길게 뛴 거리의{" "}
+          <strong>110%</strong> 안에서 늘려 보세요. 한 대형 연구에서 그보다 10% 넘게 길게 뛴 날에 부상이 늘었어요.
         </P>
         <P>
-          한 달을 쉬었다면 &lsquo;지난 30일 최장 거리&rsquo;는 0에 가깝습니다. 부상 전 15km를 달렸어도 기준은 지금입니다.
+          한 달을 쉬었다면 지난 30일 가장 길게 뛴 거리는 0에 가까워요. 다치기 전에 15km를 뛰었어도 기준은 지금이에요.
         </P>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full border-collapse text-base">
@@ -276,10 +223,10 @@ export default function ReturnToRunningPage() {
             </thead>
             <tbody>
               {[
-                ["1", "빠르게 걷기 30분", "걷는 동안·다음 날 아침 통증 2 미만"],
-                ["2", "걷기-달리기 섞기 (1분 달리기 + 2분 걷기부터)", "같은 조건으로 3회"],
-                ["3", "달리는 구간 늘리기 → 20~30분 연속", "같은 조건으로 3회"],
-                ["4", "긴 날을 지난 30일 최장 거리의 110% 안에서", "부상 전 거리까지"],
+                ["1", "빠르게 걷기 30분", "걷는 동안·다음 날 아침 아프지 않음"],
+                ["2", "걷기와 달리기 섞기 (1분 달리고 2분 걷기부터)", "같은 조건으로 3회"],
+                ["3", "달리는 구간을 늘려 20~30분 이어 달리기", "같은 조건으로 3회"],
+                ["4", "가장 긴 날을 지난 30일 최장 거리의 110% 안에서", "다치기 전 거리까지"],
               ].map(([k, what, cond]) => (
                 <tr key={k} className="border-t border-gray-100">
                   <td className="p-2.5 font-semibold text-gray-900">{k}</td>
@@ -290,152 +237,110 @@ export default function ReturnToRunningPage() {
             </tbody>
           </table>
         </div>
-        <P className="text-sm text-gray-500">
-          표는 저희 예시입니다. 복귀 진도를 검증한 연구는 찾지 못했습니다. 2~3단계는{" "}
-          <Link href="/injury/start-running#progression" className="underline">
-            처음 달리기 글의 걷기-달리기 표
-          </Link>
-          를 그대로 써도 됩니다. 진료를 받았다면 의료진의 계획이 먼저입니다.
+        <Caveat>
+          표는 저희가 만든 예시예요. 복귀 진도를 검증한 연구는 찾지 못했어요. 110% 연구도 복귀하는 러너만 모은 것이 아니라,
+          복귀에 적용하는 건 저희 판단이에요. 진료를 받았다면 의료진의 계획이 먼저예요.
+        </Caveat>
+        <P>
+          2~3단계는 처음 달리기 글의 <Link href="/injury/start-running#progression" className="text-emerald-700 underline">걷기와 달리기를 섞는 표</Link>를 그대로 써도 돼요.
         </P>
-        <Note>110% 연구는 복귀하는 러너만 모은 연구가 아닙니다. 복귀에 적용하는 것은 저희 판단입니다.</Note>
-        <Evidence n={1}>
-          <p>
-            한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 과사용 부상 비율이 1.52~2.28배였습니다(성인 러너 5,205명을
-            18개월 추적한 연구). <S>(Frandsen et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/40623829/" />)</S>
-          </p>
-        </Evidence>
 
-        {/* ── ⑥ 다시 다치지 않으려면 ──────────────────────── */}
+        <OneLine>다치기 전 거리가 아니라, 요즘 뛴 거리에서 조금씩 늘려요.</OneLine>
+
+        {/* ── 5 ─────────────────────────────────────────── */}
         <h2 id="again" className={H2}>
-          다시 다치지 않으려면 어떻게 하나요?
+          <Num n={5} />또 다치지 않으려면 어떻게 하나요?
         </h2>
         <P>
-          <strong>지난 12개월 안에 다친 적이 있으면 또 다치기 쉽습니다.</strong> 여러 연구에서 가장 일관된 부상 위험 요인이었습니다.
+          <strong>다 낫기 전에 돌아가지 마세요.</strong> 지난 12개월 안에 다친 적이 있으면 또 다치기 쉬워요. 여러 연구를 모은
+          고찰에서 가장 꾸준한 위험 요인이었어요.
         </P>
         <P>
-          그런데 파크런 러너 설문에서는 지금 다친 사람 대부분이 아픈 채 계속 달렸습니다. 연구진은 이전 부상에서 완전히 회복하는 것이 다음 부상을 막을 수 있다고 봤습니다.
+          그런데 한 설문에서는 지금 다친 러너 대부분이 아픈 채로 계속 달리고 있었어요. 조바심이 드는 게 보통이라는 뜻이기도 해요.
         </P>
-        <Evidence n={3}>
-          <p>
-            가장 일관된 부상 위험 요인은 지난 12개월 안의 부상이었습니다(전향 연구 11편을 모은 고찰).{" "}
-            <S>(Saragiotto et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24809248/" />)</S>
-          </p>
-          {/* 2026-11-07 검증기 재검사: OR 7.56 은 초록에는 「새 부상 위험」으로, 본문 회귀분석에는 「완주 여부 예측」으로 적혀 있다. 본문은 다친 사람과 안 다친 사람의 부상 이력이 차이 없다(p>0.05)고 했다 → 새 부상 위험으로 쓰지 않는다 */}
-          <p>
-            예전에 다친 적이 있는 사람은 프로그램을 끝까지 마치지 못한 경우가 많았습니다(오즈비 7.56, 걷기-달리기 프로그램 110명
-            연구). 초록은 이 숫자를 새 부상 위험으로 적었습니다. 하지만 본문 분석은 완주 여부를 본 것입니다.{" "}
-            <S>(Relph et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/37681822/" />)</S>
-          </p>
-          <p>
-            지금 부상이 있는 570명 중 86%가 아픈 채 계속 달렸습니다(파크런 러너 설문). 같은 연구의 저자들은 이전 부상에서 완전히 회복하는
-            것이 다음 부상을 막을 수 있다고 봤습니다.{" "}
-            <S>(Linton &amp; Valentin (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29853263/" />)</S>
-          </p>
-        </Evidence>
+        <Steps
+          items={[
+            { t: "아프지 않은 날이 이어진 다음에 거리를 늘려요.", d: "한 번 괜찮았다고 늘리지 않아요." },
+            { t: "다친 곳이 다시 아프면 한 단계 뒤로 가요." },
+            { t: "속도는 가장 마지막에 올려요.", d: "거리와 속도를 같은 주에 같이 올리지 않는 것을 권해요." },
+          ]}
+        />
 
-        <h3 className={H3}>근력운동을 하면 덜 다치나요?</h3>
+        <h3 className={H3}>아픈 곳별 대처는 그 글에서 더 자세히</h3>
         <P>
-          <strong>기대만큼 단순하지 않습니다.</strong> 스포츠 전반을 모은 분석에서는 부상이 줄었습니다. 첫 풀마라톤 러너에게 짧은 자가
-          근력 프로그램을 준 한 무작위 시험에서는 차이가 없었습니다.
+          <Link href="/injury/it-band" className="text-emerald-700 underline">무릎 바깥이 아프다면 →</Link>
+          {" · "}
+          <Link href="/injury/knee-pain" className="text-emerald-700 underline">무릎 앞이 아프다면 →</Link>
+          {" · "}
+          <Link href="/injury/shin-splints" className="text-emerald-700 underline">정강이가 아프다면 →</Link>
+          {" · "}
+          <Link href="/injury/plantar-fasciitis" className="text-emerald-700 underline">발바닥이 아프다면 →</Link>
+          {" · "}
+          <Link href="/injury/achilles" className="text-emerald-700 underline">아킬레스가 아프다면 →</Link>
         </P>
-        <Evidence n={2}>
-          <p>
-            근력운동이 부상을 3분의 1 수준으로 줄였습니다(스포츠 전반 무작위 시험 25편 메타분석, RR 0.315).{" "}
-            <S>(Lauersen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24100287/" />)</S>
-          </p>
-          <p>
-            완주를 막은 과사용 부상이 7.1% 대 7.3%로 차이가 없었습니다(첫 풀마라톤 러너 720명에게 12주 동안 주 3회 10분짜리 자가 근력
-            프로그램을 준 시험). <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
-          </p>
-        </Evidence>
 
-        <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
-          <p className="font-semibold text-gray-900">부위별로 더 보기</p>
-          <p className="mt-1">
-            <Link href="/injury/it-band" className="text-emerald-700 underline">무릎 바깥(장경인대)</Link>
-            {" · "}
-            <Link href="/injury/knee-pain" className="text-emerald-700 underline">무릎 앞</Link>
-            {" · "}
-            <Link href="/injury/shin-splints" className="text-emerald-700 underline">정강이</Link>
-            {" · "}
-            <Link href="/injury/plantar-fasciitis" className="text-emerald-700 underline">발바닥</Link>
-            {" · "}
-            <Link href="/injury/achilles" className="text-emerald-700 underline">아킬레스·종아리</Link>
-          </p>
-        </div>
+        <OneLine>덜 다치려면, 다 낫고 나서 돌아가는 편이 좋아요.</OneLine>
 
         <div className="mt-14">
           <FaqSection items={FAQ} />
         </div>
 
-        <References n={15} note="2026-10-06 PubMed 초록과 대조했습니다(Ullern 2025 는 PMC 본문).">
-          <ul>
-          <li>
-            <strong>Nielsen et al. (2014)</strong> — 부상당한 초보 254명 회복 기간 전향 연구, 중앙값 71일. PLOS ONE 9(6):e99877.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Fokkema et al. (2019)</strong> — 초보 러너 부상 예후, 기간 중앙값 8주·이전 부상 OR 2.31. J Sci Med Sport 22(3):259-263.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/30268637/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Silbernagel et al. (2007)</strong> — 아킬레스건병증 38명 무작위 시험, 통증 모니터링 하 활동 지속 대 6주 휴식. Am J Sports
-            Med 35(6):897-906.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Silbernagel et al. (2011)</strong> — 운동 치료만 받은 아킬레스건병증 34명 5년 추적, 80% 완전 회복. Am J Sports Med 39(3):607-13.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/21084657/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Ullern et al. (2025)</strong> — 운동 중 통증 허용 기준을 정리한 스코핑 리뷰(통증 모니터링 모델의 유래와 한계). BMC
-            Musculoskelet Disord 26(1):180.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/39987051/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Hoenig et al. (2023)</strong> — 뼈 스트레스 부상 2,974건 위치별 복귀 기간 메타분석. Br J Sports Med 57(7):427-432.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/36720584/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Mujika &amp; Padilla (2000)</strong> — 단기(4주 미만) 디트레이닝 고찰. Sports Med 30(2):79-87.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/10966148/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Eyestone et al. (1993)</strong> — 물속 달리기·자전거·달리기 6주 비교, 2마일 기록 유지. Am J Sports Med 21(1):41-4.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/8427367/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Wilber et al. (1996)</strong> — 훈련된 러너 16명 6주 물속 달리기, 유산소 능력 유지. Med Sci Sports Exerc 28(8):1056-62.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/8871917/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Frandsen et al. (2025)</strong> — 5,205명 18개월, 30일 최장 거리 대비 10% 초과 시 부상 증가. Br J Sports Med
-            59(17):1203-1210.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Saragiotto et al. (2014)</strong> — 부상 위험 요인 체계적 고찰, 지난 12개월 부상. Sports Med 44(8):1153-63.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Relph et al. (2023)</strong> — Couch-to-5k 변형 110명, 이전 부상이 완주 여부를 예측(OR 7.56, 본문 분석 기준). Int J Environ Res Public Health 20(17):6682.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/37681822/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Linton &amp; Valentin (2018)</strong> — 파크런 러너 1,145명 설문, 부상 중 86% 계속 달림. J Sci Med Sport 21(12):1221-1225.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Lauersen et al. (2014)</strong> — 운동 중재 부상 예방 메타분석(무작위 시험 25편). Br J Sports Med 48(11):871-7.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Toresdahl et al. (2020)</strong> — 첫 풀마라톤 러너 720명 근력 프로그램 무작위 시험. Sports Health 12(1):74-79.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          </ul>
-        </References>
-        <p className="mt-6 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다. 통증이 이어지면 전문의와 상담하세요.</p>
+        <Sources>
+          <Src n={1}>
+            <strong>Nielsen et al. (2014)</strong> 다친 초보 러너 254명 중 나은 220명의 회복 기간 중앙값은 71일(9~617일)이었어요. 10주가 지나도 절반은 통증 없이 500m를 두 번 달리지 못했고, 약 5%는 수술을 받았어요.
+            <Ref>PLOS ONE 9(6):e99877 · <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Fokkema et al. (2019)</strong> 초보 프로그램 참가자 중 다친 347명의 부상 기간 중앙값은 8주(1~52주)였어요. 예전에 다친 적이 있으면 10주 넘게 가는 쪽이 많았어요(오즈비 2.31, 1.12~4.79).
+            <Ref>J Sci Med Sport 22(3):259-263 · <a href="https://pubmed.ncbi.nlm.nih.gov/30268637/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Silbernagel et al. (2007)</strong> 아킬레스 힘줄이 아픈 38명을 나눠, 아픈 정도를 보며 달리기와 점프를 이어간 쪽과 여섯 주 쉰 쪽을 12개월 비교했어요. 두 쪽 모두 좋아졌고 차이는 없었어요.
+            <Ref>Am J Sports Med 35(6):897-906 · <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>Ullern et al. (2025)</strong> 운동 중 통증을 어디까지 허용하는지 모은 리뷰예요. 기준이 연구마다 넓게 갈렸고, 합의와 근거가 없다고 적혀 있어요. 초록에는 점수 구간이 없어서 이 글은 숫자를 쓰지 않았어요.
+            <Ref>BMC Musculoskelet Disord · <a href="https://read.qxmd.com/read/39987051" target="_blank" rel="noopener noreferrer">초록</a></Ref>
+          </Src>
+          <Src n={5}>
+            <strong>Schroeder et al. (2024)</strong> 뼈의 한 지점을 누를 때 아픈 것이 피로골절 진찰에서 가장 중요한 소견이에요. 그냥 두면 완전 골절로 갈 수 있어요.
+            <Ref>Am Fam Physician 110(6):592-600 · <a href="https://www.aafp.org/afp/2024/1200/bone-stress-injuries" target="_blank" rel="noopener noreferrer">AAFP</a></Ref>
+          </Src>
+          <Src n={6}>
+            <strong>Hoenig et al. (2023)</strong> 뼈 스트레스 부상 2,974건을 모은 메타분석이에요. 운동 복귀까지 정강이뼈 뒤안쪽 44일, 종아리뼈 56일, 대퇴골 경부 107일, 발 주상골 127일이었고, 전체로는 90%가 넘게 복귀했어요.
+            <Ref>Br J Sports Med 57(7):427-432 · <a href="https://pubmed.ncbi.nlm.nih.gov/36720584/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={7}>
+            <strong>Frandsen et al. (2025)</strong> 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 부상이 늘었어요(성인 러너 5,205명, 평균 45.8세 — 복귀하는 러너만 모은 연구가 아니에요).
+            <Ref>Br J Sports Med 59(17):1203-1210 · <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={8}>
+            <strong>Saragiotto et al. (2014)</strong> 가장 일관된 부상 위험 요인은 지난 12개월 안의 부상이었어요.
+            <Ref>Sports Med 44(8):1153-63 · <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={9}>
+            <strong>Linton &amp; Valentin (2018)</strong> 지금 다친 러너 570명 중 86%가 아픈 채로 계속 달렸어요(파크런 러너 설문).
+            <Ref>J Sci Med Sport 21(12):1221-1225 · <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={10}>
+            <strong>Eyestone et al. (1993)</strong> 훈련된 32명을 물속 달리기, 자전거, 달리기로 나눠 여섯 주 훈련했어요. 세 쪽 모두 최대산소섭취량이 조금 줄었지만 2마일 기록은 그대로였고, 쪽끼리 차이도 없었어요.
+            <Ref>Am J Sports Med 21(1):41-4 · <a href="https://pubmed.ncbi.nlm.nih.gov/8427367/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={11}>
+            <strong>Mujika &amp; Padilla (2000)</strong> 네 주 안쪽 휴식을 다룬 고찰이에요. 잘 훈련된 사람은 최대산소섭취량과 혈액량이 빠르게 줄고, 최근에 훈련을 시작한 사람은 변화가 더 작았어요.
+            <Ref>Sports Med 30(2):79-87 · <a href="https://pubmed.ncbi.nlm.nih.gov/10966148/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={12}>
+            <strong>Lauersen et al. (2014)</strong> 여러 종목의 무작위 시험 25편(26,610명)을 모은 메타분석이에요. 근력운동을 한 쪽의 부상이 3분의 1 수준이었어요(상대위험 0.315, 0.207~0.480). 달리기만 모은 분석은 아니에요.
+            <Ref>Br J Sports Med 48(11):871-7 · <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={13}>
+            <strong>Toresdahl et al. (2020)</strong> 첫 풀마라톤 러너 720명에게 12주 동안 주 3회 10분짜리 근력 프로그램을 준 무작위 시험이에요. 부상으로 완주하지 못한 비율이 7.1%와 7.3%로 차이가 없었어요(상대위험 0.97, 0.57~1.63).
+            <Ref>Sports Health 12(1):74-79 · <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>
