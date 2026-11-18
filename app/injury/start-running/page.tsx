@@ -6,7 +6,7 @@ import ArticleJsonLd from "@/components/ArticleJsonLd";
 import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Lead, P, H2, H3, Warn, Num, KeyPoints, Steps, OneLine, Sources, Src, Found } from "@/components/guide/Read";
+import { Lead, P, H2, H3, Warn, Num, KeyPoints, Steps, OneLine, Sources, Src, Ref } from "@/components/guide/Read";
 import { WALK_RUN } from "@/lib/guide/walkRun";
 import { pageUrl } from "@/lib/site";
 
@@ -364,79 +364,64 @@ export default function StartRunningPage() {
 
         <Sources>
           <Src n={1}>
-            <strong>Fokkema et al. (2019)</strong> J Sci Med Sport 22(1):106-111{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/29934211/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>초보 774명 중 29.5%가 반년 안에 그만뒀고, 이유의 48%가 부상이었어요.</Found>
+            <strong>Fokkema et al. (2019)</strong> 초보 774명 중 29.5%가 반년 안에 그만뒀고, 이유의 48%가 부상이었어요.
+            <Ref>J Sci Med Sport 22(1):106-111 · <a href="https://pubmed.ncbi.nlm.nih.gov/29934211/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={2}>
-            <strong>Relph et al. (2023)</strong> Int J Environ Res Public Health 20(17):6682{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/37681822/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>9주 걷기-달리기 프로그램을 끝까지 마친 사람은 27.3%였어요(110명).</Found>
+            <strong>Relph et al. (2023)</strong> 9주 걷기-달리기 프로그램을 끝까지 마친 사람은 27.3%였어요(110명).
+            <Ref>Int J Environ Res Public Health 20(17):6682 · <a href="https://pubmed.ncbi.nlm.nih.gov/37681822/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={3}>
-            <strong>Videbæk et al. (2015)</strong> Sports Med 45(7):1017-26{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/25951917/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>1,000시간당 부상은 초보 17.8건, 취미 러너 7.7건이었어요.</Found>
+            <strong>Videbæk et al. (2015)</strong> 1,000시간당 부상은 초보 17.8건, 취미 러너 7.7건이었어요.
+            <Ref>Sports Med 45(7):1017-26 · <a href="https://pubmed.ncbi.nlm.nih.gov/25951917/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={4}>
-            <strong>Linton &amp; Valentin (2018)</strong> J Sci Med Sport 21(12):1221-1225{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>지금 다친 러너 570명 중 86%가 아픈 채로 계속 달렸어요.</Found>
+            <strong>Linton &amp; Valentin (2018)</strong> 지금 다친 러너 570명 중 86%가 아픈 채로 계속 달렸어요.
+            <Ref>J Sci Med Sport 21(12):1221-1225 · <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={5}>
-            <strong>Reed &amp; Pipe (2014)</strong> Curr Opin Cardiol 29(5):475-80{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/25010379/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>말하기 테스트는 타당하고 믿을 만한 강도 기준이에요.</Found>
+            <strong>Reed &amp; Pipe (2014)</strong> 말하기 테스트는 타당하고 믿을 만한 강도 기준이에요.
+            <Ref>Curr Opin Cardiol 29(5):475-80 · <a href="https://pubmed.ncbi.nlm.nih.gov/25010379/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={6}>
-            <strong>Bok et al. (2022)</strong> Sports Med 52(9):2085-2109{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/35507232/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>몸의 느낌으로 강도를 나누는 방법들을 검토한 고찰이에요.</Found>
+            <strong>Bok et al. (2022)</strong> 몸의 느낌으로 강도를 나누는 방법들을 검토한 고찰이에요.
+            <Ref>Sports Med 52(9):2085-2109 · <a href="https://pubmed.ncbi.nlm.nih.gov/35507232/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={7}>
-            <strong>Morton &amp; Callister (2015)</strong> Sports Med 45(1):23-35{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/25178498/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>러너의 약 70%가 1년 안에 옆구리 통증을 겪었어요.</Found>
+            <strong>Morton &amp; Callister (2015)</strong> 러너의 약 70%가 1년 안에 옆구리 통증을 겪었어요.
+            <Ref>Sports Med 45(1):23-35 · <a href="https://pubmed.ncbi.nlm.nih.gov/25178498/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={8}>
-            <strong>Buist et al. (2008)</strong> Am J Sports Med 36(1):33-9{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>10% 규칙 13주와 일반 8주의 부상률은 20.8% 대 20.3%였어요.</Found>
+            <strong>Buist et al. (2008)</strong> 10% 규칙 13주와 일반 8주의 부상률은 20.8% 대 20.3%였어요.
+            <Ref>Am J Sports Med 36(1):33-9 · <a href="https://pubmed.ncbi.nlm.nih.gov/17940147/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={9}>
-            <strong>Frandsen et al. (2025)</strong> Br J Sports Med 59(17):1203-1210{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>30일 최장 거리보다 10% 넘게 길게 뛴 날 부상이 늘었어요(5,205명).</Found>
+            <strong>Frandsen et al. (2025)</strong> 30일 최장 거리보다 10% 넘게 길게 뛴 날 부상이 늘었어요(5,205명).
+            <Ref>Br J Sports Med 59(17):1203-1210 · <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={10}>
-            <strong>Nielsen et al. (2014)</strong> Int J Sports Phys Ther 9(3):338-45{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/24944852/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>BMI 30 초과면 첫 주를 3km 미만으로 권했어요(초보 749명).</Found>
+            <strong>Nielsen et al. (2014)</strong> BMI 30 초과면 첫 주를 3km 미만으로 권했어요(초보 749명).
+            <Ref>Int J Sports Phys Ther 9(3):338-45 · <a href="https://pubmed.ncbi.nlm.nih.gov/24944852/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={11}>
-            <strong>Saragiotto et al. (2014)</strong> Sports Med 44(8):1153-63{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>지난 12개월 안의 부상이 가장 일관된 위험 요인이었어요.</Found>
+            <strong>Saragiotto et al. (2014)</strong> 지난 12개월 안의 부상이 가장 일관된 위험 요인이었어요.
+            <Ref>Sports Med 44(8):1153-63 · <a href="https://pubmed.ncbi.nlm.nih.gov/24809248/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={12}>
-            <strong>Nielsen et al. (2014)</strong> PLOS ONE 9(6):e99877{" "}
-            <a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer" className={linkCls}>DOI ↗</a>
-            <Found>다친 초보 254명 중 정강이 15%, 무릎 앞 10%였어요.</Found>
+            <strong>Nielsen et al. (2014)</strong> 다친 초보 254명 중 정강이 15%, 무릎 앞 10%였어요.
+            <Ref>PLOS ONE 9(6):e99877 · <a href="https://doi.org/10.1371/journal.pone.0099877" target="_blank" rel="noopener noreferrer">DOI</a></Ref>
           </Src>
           <Src n={13}>
-            <strong>Fokkema et al. (2019)</strong> Br J Sports Med 53(23):1479-1485{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/30954948/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>예방 정보를 받은 쪽과 안 받은 쪽의 부상률은 37.5% 대 36.7%였어요.</Found>
+            <strong>Fokkema et al. (2019)</strong> 예방 정보를 받은 쪽과 안 받은 쪽의 부상률은 37.5% 대 36.7%였어요.
+            <Ref>Br J Sports Med 53(23):1479-1485 · <a href="https://pubmed.ncbi.nlm.nih.gov/30954948/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={14}>
-            <strong>Herbert et al. (2011)</strong> Cochrane Database Syst Rev (7):CD004577{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/21735398/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>스트레칭은 근육통을 임상적으로 의미 있게 줄이지 못했어요.</Found>
+            <strong>Herbert et al. (2011)</strong> 스트레칭은 근육통을 임상적으로 의미 있게 줄이지 못했어요.
+            <Ref>Cochrane Database Syst Rev (7):CD004577 · <a href="https://pubmed.ncbi.nlm.nih.gov/21735398/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={15}>
-            <strong>Relph et al. (2022)</strong> Cochrane Database Syst Rev{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/35993829/" target="_blank" rel="noopener noreferrer" className={linkCls}>PubMed ↗</a>
-            <Found>발 모양에 맞춰 고른 신발도 부상에 거의 차이가 없었어요.</Found>
+            <strong>Relph et al. (2022)</strong> 발 모양에 맞춰 고른 신발도 부상에 거의 차이가 없었어요.
+            <Ref>Cochrane Database Syst Rev · <a href="https://pubmed.ncbi.nlm.nih.gov/35993829/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
         </Sources>
         <AuthorNote />

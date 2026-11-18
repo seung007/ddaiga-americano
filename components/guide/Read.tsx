@@ -274,33 +274,43 @@ export function Cite({ n }: { n: number | number[] }) {
  *    긴 설명(<Found>)은 링크 **뒤에** 둔다.
  */
 export function Sources({ children }: { children: React.ReactNode }) {
-  // 2026-11-18 사용자 「근거와 출처가 너무 길어. 한두 줄로 끝내야지」 — 보이는 건 두 줄, 목록은 접는다(토스 「○○를 참고했어요」 한 줄).
-  // 편수는 손으로 적지 않고 <Src> 개수에서 센다.
+  // 2026-11-18 사용자 「근거와 출처가 너무 길어. 한두 줄로」 → 「부수적인 거니까 글씨 작게, 한 줄로」.
+  // 접힌 상태는 제목·「연구 N편과 대조」·펼치기를 작은 글씨 한 줄로. 편수는 <Src> 개수에서 센다.
   const n = React.Children.toArray(children).length;
   return (
-    <section id="refs" aria-label="근거와 출처" className="mt-14 scroll-mt-20 border-t border-gray-200 pt-6">
-      <h2 className="text-xl font-bold text-gray-900">근거와 출처</h2>
-      <p className="mt-2 break-keep text-sm leading-[1.7] text-gray-600">
-        연구 {n}편과 하나씩 대조했어요. 연구가 적거나 정해지지 않은 내용은 본문에 그렇다고 밝혔어요.
-      </p>
-      <details className="group/src mt-3">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-emerald-800 [&::-webkit-details-marker]:hidden">
-          출처 {n}편 보기
-          <span aria-hidden className="text-gray-400 transition-transform group-open/src:rotate-90">›</span>
+    <section id="refs" aria-label="근거와 출처" className="mt-14 scroll-mt-20 border-t border-gray-200 pt-3">
+      <details className="group/src">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+          <span className="flex min-w-0 items-baseline gap-2 whitespace-nowrap">
+            <h2 className="text-sm font-bold text-gray-900">근거와 출처</h2>
+            <span className="text-xs text-gray-500">연구 {n}편과 하나씩 대조했어요</span>
+          </span>
+          <span className="shrink-0 text-xs text-emerald-800">
+            <span className="group-open/src:hidden">펼치기 ›</span>
+            <span className="hidden group-open/src:inline">접기</span>
+          </span>
         </summary>
-        <ol className="mt-2 space-y-3 break-keep text-sm leading-[1.6] text-gray-700">{children}</ol>
+        <ol className="mt-2 space-y-3 break-keep text-sm leading-[1.6]">{children}</ol>
       </details>
     </section>
   );
 }
 
+/**
+ * 출처 한 항목(①안, 2026-11-18): 1줄 「저자 (연도) + 확인한 결과」 / 2줄 작은 회색 「학술지 권(호):쪽 · 링크」.
+ * ⚠️ 인용 검사기는 <p>·<li> 를 경계로 본다 — 저자와 링크 사이에 <p> 를 두지 않게 <Ref> 는 <span> 으로 그린다.
+ */
 export function Src({ n, children }: { n: number; where?: string; children: React.ReactNode }) {
   return (
     <li id={`ref-${n}`} className="flex scroll-mt-24 gap-2">
       <span className="w-5 shrink-0 tabular-nums text-gray-400">{n}.</span>
-      <div className="min-w-0">{children}</div>
+      <div className="min-w-0 text-gray-800">{children}</div>
     </li>
   );
+}
+
+export function Ref({ children }: { children: React.ReactNode }) {
+  return <span className="mt-0.5 block text-xs text-gray-500 [&_a]:text-emerald-700 [&_a]:underline">{children}</span>;
 }
 
 /** 출처 항목 안 「확인한 것」 — 예전 「근거 보기」에 있던 숫자·대상·설계 */
