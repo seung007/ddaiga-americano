@@ -32,9 +32,9 @@ export function wideSummary(): string {
   const r = rows();
   const top4 = r.filter((x) => x.e4.length > 0).map((x) => `${x.brand} ${x.e4.length}개`);
   const no4 = r.filter((x) => x.e4.length === 0 && x.total >= 3).map((x) => x.brand);
-  return `이 사이트에 등록된 ${SHOES.length}개 모델 기준으로 4E 옵션이 있는 모델은 ${top4.join(", ")}입니다.${
-    no4.length ? ` ${no4.join("·")}는 등록 모델 중 4E가 없고 2E까지입니다.` : ""
-  } 폭 옵션은 해외 출시 기준일 수 있어, 국내 판매처에 그 폭이 들어오는지는 구매 전에 확인하세요.`;
+  return `이 사이트에 등록된 ${SHOES.length}개 모델 기준으로 4E 옵션이 있는 모델은 ${top4.join(", ")}예요.${
+    no4.length ? ` ${no4.join("·")}는 등록 모델 중 4E가 없고 2E까지예요.` : ""
+  } 폭 옵션은 해외 출시 기준일 수 있어, 국내 판매처에 그 폭이 들어오는지는 사기 전에 확인하세요.`;
 }
 
 export default function WideShoeList() {
@@ -44,7 +44,7 @@ export default function WideShoeList() {
     <section className="mb-8">
       <h2 className="mb-2 text-xl font-bold text-gray-900">와이드 옵션이 있는 러닝화</h2>
       <p className="mb-4 text-sm leading-relaxed text-gray-600">
-        이 사이트에 등록된 {SHOES.length}개 모델의 폭 옵션을 브랜드별로 셌습니다. 숫자는 신발 목록에서 바로 계산하므로 목록이 바뀌면 같이 바뀝니다.
+        이 사이트에 등록된 {SHOES.length}개 모델의 폭 옵션을 브랜드별로 셌어요. 숫자는 신발 목록에서 바로 계산하니 목록이 바뀌면 같이 바뀌어요.
       </p>
       <div className="overflow-hidden rounded-xl border border-gray-200">
         <table className="w-full text-sm">
