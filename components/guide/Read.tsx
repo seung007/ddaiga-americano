@@ -19,12 +19,14 @@ export function Lead({ children }: { children: React.ReactNode }) {
 }
 
 /** 본문 단락 — 16px·줄간격 1.8·어절 단위 줄바꿈 */
+// 2026-11-18 국내 7곳 실측(「한국어 웹 글 가독성 기준」): 문단 간격 중앙값 24px(행간의 0.78배). 우리는 16px(0.56배)이라 문단이 붙어 보였다 → mt-6
 export function P({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <p className={`mt-4 break-keep text-base leading-[1.8] text-gray-800 ${className}`}>{children}</p>;
+  return <p className={`mt-6 break-keep text-base leading-[1.8] text-gray-800 ${className}`}>{children}</p>;
 }
 
 /** 섹션 제목 — id 는 목차 검사(check:toc)가 문자열로 찾으므로 각 페이지에서 h2 를 직접 쓴다. 이건 스타일만 */
-export const H2 = "mt-14 scroll-mt-20 break-keep text-2xl font-bold leading-snug text-gray-900";
+// 같은 실측: 소제목 위 여백 중앙값 30px(범위 16~40). 우리는 56px 이라 절끼리 끊겨 보였다 → mt-10(40px). 문단 간격과의 비율 3.5배 → 1.7배
+export const H2 = "mt-10 scroll-mt-20 break-keep text-2xl font-bold leading-snug text-gray-900";
 export const H3 = "mt-8 break-keep text-xl font-bold text-gray-900";
 
 /** 「한눈에」 — 글 전체 요약 3~4줄 */
