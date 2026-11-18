@@ -50,6 +50,25 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
  */
 const NEW_TEMPLATE = new Set(["start-running"]);
+/**
+ * 바꾸는 순서 (2026-11-18 hyun 님과 정함). 앞에서부터 한 편씩 바꾸고 NEW_TEMPLATE 에 넣는다 — 검사가 끝에 「다음」을 알려 준다.
+ * 0. 견본에서 정정한 주장(환기역치·OR 7.56·86%)이 그대로 남아 있을 수 있는 글 — 틀보다 정정이 먼저(AGENTS 신뢰 규칙 3)
+ * 1~4. 독자가 실제로 거치는 단계 순서(처음 → 10km → 하프 → 풀·기록). 다치는 글은 그 부상이 많이 생기는 단계에 붙였다
+ * 5. 인물 글 — 이야기 글이라 질문형 틀이 안 맞을 수 있다. 차례가 오면 틀을 그대로 씌울지 먼저 묻는다
+ * 새 가이드를 만들면 이 목록에도 넣는다(빠지면 검사가 막는다).
+ * heart-rate-zones 는 page.tsx 가 아니라 내용 파일(lib/guide/content/heart-rate-zones.json) + 공용 GuideArticle 로 그려진다.
+ *   차례가 오면 GuideArticle 을 새 틀 부품으로 바꾸는 일이 따로 있다 — 이 검사의 NEW_TEMPLATE 은 page.tsx 만 본다.
+ * 한 편 바꿀 때마다: npm run check → npm run guide:compare -- <글> 로 견본과 같은 휴대폰 화면에서 비교(scripts/guide-compare.mjs).
+ */
+const ROLLOUT = [
+  "start-running",
+  "return-to-running", "half-marathon-training", "training-types",
+  "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture",
+  "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet",
+  "intermediate-guide", "it-band", "achilles", "half-marathon-race-day",
+  "marathon-training", "advanced-guide", "get-faster", "heart-rate-zones", "carbon-plate",
+  "hwang-young-jo", "kwon-eun-ju",
+];
 const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<Src n=", "<AuthorNote", "ArticleMeta href", "compact"];
 const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite", "분 읽기"];
 
@@ -102,6 +121,7 @@ for (const slug of readdirSync(guideDir)) {
   const file = path.join(guideDir, slug, "page.tsx");
   if (LIST_PAGES.has(slug) || slug.startsWith("[") || !existsSync(file)) continue;
   guides++;
+  if (!ROLLOUT.includes(slug)) errors.push(`app/injury/${slug}: 바꾸는 순서(scripts/check-geo.mjs ROLLOUT)에 없음`);
   const s = readFileSync(file, "utf8");
   const bad = (m) => errors.push(`app/injury/${slug}: ${m}`);
   const faqCount = (s.match(/\bq:\s*["`']/g) || []).length;
@@ -148,4 +168,6 @@ if (errors.length) {
   for (const e of errors) console.error("  - " + e);
   process.exit(1);
 }
+const next = ROLLOUT.find((x) => !NEW_TEMPLATE.has(x));
+console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편${next ? ` · 다음: ${next}` : " · 끝"}`);
 console.log(`글 구조: 가이드 ${guides}편 · 새 블로그 원고 ${posts}편 통과 (질문형 소제목 보강 대기 ${DEBT.size}편 · 규칙 이전 원고 ${legacy}편 제외)`);
