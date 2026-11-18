@@ -129,9 +129,9 @@ export default function StartRunningPage() {
 
         <KeyPoints
           items={[
-            <>속도는 <strong>말하면서 뛸 수 있을 만큼</strong>이에요. 숨이 차면 걸어도 돼요.</>,
-            <>걷기와 달리기를 섞어 조금씩 늘려요. <strong>다음 날 아프면</strong> 그 단계를 한 번 더 해요.</>,
-            <>걸음이 바뀔 만큼 아프면 <strong>그날은 멈춰요.</strong></>,
+            <>옆 사람과 <strong>이야기할 수 있을 만큼 천천히</strong> 뛰어요. 숨이 차면 걸어도 괜찮아요.</>,
+            <>걷기와 달리기를 섞어 조금씩 늘려요. 다음 날 아프면 <strong>더 늘리지 말고, 같은 양으로 다시</strong> 뛰어요.</>,
+            <>걸을 때도 아프면 <strong>그날은 쉬는 걸 권해요.</strong></>,
           ]}
         />
 
@@ -260,7 +260,7 @@ export default function StartRunningPage() {
           <Link href="/injury/plantar-fasciitis" className="rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400">발바닥이 아프다면 →</Link>
         </div>
 
-        <OneLine>걸음이 바뀔 만큼 아프면, 참지 말고 그날은 멈춰요.</OneLine>
+        <OneLine>걸을 때도 아프면, 참지 말고 그날은 쉬는 걸 권해요.</OneLine>
 
         {/* ── 4 ─────────────────────────────────────────── */}
         <h2 id="not-proven" className={H2}>
