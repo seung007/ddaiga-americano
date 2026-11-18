@@ -66,9 +66,18 @@ const ROLLOUT = [
   "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture",
   "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet",
   "intermediate-guide", "it-band", "achilles", "half-marathon-race-day",
-  "marathon-training", "advanced-guide", "get-faster", "heart-rate-zones", "carbon-plate",
+  "marathon-training", "advanced-guide", "get-faster", "carbon-plate",
   "hwang-young-jo", "kwon-eun-ju",
+  "heart-rate-zones", // 맨 마지막 — 공용 부품 GuideArticle 을 새 틀로 바꾸는 일이라 다른 글이 끝난 뒤에
 ];
+/**
+ * 보류 — 지금은 바꾸지 않는 글과 이유. 「다음」을 고를 때 건너뛴다(없으면 보류 글에서 순서가 멈춘다).
+ * 사람이 없을 때 막힌 글(틀을 바꿔야 함 · 검사가 계속 실패)도 여기에 이유와 함께 넣고 다음 글로 간다. 보류는 끝이 아니다 — 보고에 남긴다.
+ */
+const HOLD = new Map([
+  ["hwang-young-jo", "인물 글 — 이야기 글에 질문형 틀을 씌울지 hyun 님이 정하지 않음"],
+  ["kwon-eun-ju", "인물 글 — 위와 같음"],
+]);
 const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<Src n=", "<AuthorNote", "ArticleMeta href", "compact"];
 const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite", "분 읽기"];
 
@@ -206,6 +215,7 @@ if (errors.length) {
   for (const e of errors) console.error("  - " + e);
   process.exit(1);
 }
-const next = ROLLOUT.find((x) => !NEW_TEMPLATE.has(x));
-console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편${next ? ` · 다음: ${next}` : " · 끝"}`);
+const next = ROLLOUT.find((x) => !NEW_TEMPLATE.has(x) && !HOLD.has(x));
+console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편 · 보류 ${HOLD.size}편${next ? ` · 다음: ${next}` : " · 남은 글 없음"}`);
+for (const x of NEW_TEMPLATE) if (HOLD.has(x)) errors.length || console.error(`참고: ${x} 는 새 틀로 바꿨으니 HOLD 에서 빼세요`);
 console.log(`글 구조: 가이드 ${guides}편 · 새 블로그 원고 ${posts}편 통과 (질문형 소제목 보강 대기 ${DEBT.size}편 · 규칙 이전 원고 ${legacy}편 제외)`);
