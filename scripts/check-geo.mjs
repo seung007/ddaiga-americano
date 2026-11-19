@@ -60,6 +60,9 @@ const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marath
  *   차례가 오면 GuideArticle 을 새 틀 부품으로 바꾸는 일이 따로 있다 — 이 검사의 NEW_TEMPLATE 은 page.tsx 만 본다.
  * 한 편 바꿀 때마다: npm run check → npm run guide:compare -- <글> 로 견본과 같은 휴대폰 화면에서 비교(scripts/guide-compare.mjs).
  */
+/** 새 틀로 바꿨지만 본문이 아직 문장 규칙(docs/운영/가이드_문장_규칙.md)에 걸리는 글 — 고칠 때마다 뺀다. 2026-11-20 규칙을 검사로 옮긴 날의 상태 */
+const WORDING_TODO = new Set([]);
+let wordingLeft = 0;
 /** 새 틀로 바꿨지만 FAQ 를 아직 본문 규칙(굵게·답 먼저)으로 못 고친 글 — 고칠 때마다 뺀다. 2026-11-18 규칙이 생기기 전에 바꾼 글들 */
 const FAQ_TODO = new Set([]);
 const slugOf = (entry, s) => (s.match(/ArticleMeta href="\/injury\/([^"]+)"/) || [])[1];
@@ -139,6 +142,41 @@ function checkTerms(s, bad) {
  * 틀 규칙 중 기계로 셀 수 있는 것 전부 (2026-11-18, hyun 님: 「정한 규칙이 강제로 다 적용되게」).
  * AGENTS.md 「가이드 글 틀」의 줄마다 하나씩. 못 세는 것(말의 세기·한 문단 한 내용·요약이 사람 말인지)은 여기 없다 — 사람과 화면 비교가 본다.
  */
+/**
+ * 문장 규칙 (2026-11-20) — 원본은 docs/운영/가이드_문장_규칙.md. 조사한 규칙 중 기계로 셀 수 있는 것과 용어 통일표를 여기서 막는다.
+ * 계기: 11-18 조사 뒤 규칙을 문서에만 두어, hyun 님이 화면을 캡처해 어색한 말을 하나씩 짚어야 했다.
+ * 통일표는 그 파일 3절의 첫 칸을 그대로 읽는다(같은 말을 두 곳에 적지 않는다). 「~」·괄호가 든 칸은 사람이 본다.
+ */
+const RULES_MD = path.join(ROOT, "docs/운영/가이드_문장_규칙.md");
+const BANNED_TERMS = (() => {
+  if (!existsSync(RULES_MD)) return null;
+  const md = readFileSync(RULES_MD, "utf8");
+  const a = md.indexOf("## 3."), b = md.indexOf("## 4.", a);
+  if (a < 0 || b < 0) return null;
+  const out = [];
+  for (const line of md.slice(a, b).split("\n")) {
+    if (!line.startsWith("| ") || line.startsWith("| 쓰지 않는 말") || line.startsWith("|---")) continue;
+    const [bad, good] = line.split("|").slice(1, 3).map((x) => x.trim());
+    for (const t of bad.split(" · ").map((x) => x.trim())) if (t && !/[~(]|^주 \d/.test(t)) out.push([t, good]);
+  }
+  return out;
+})();
+/** 글에 보이는 글자(text)에 문장 규칙을 건다. where = 오류 앞에 붙일 자리 이름 */
+function checkWording(text, bad, where = "") {
+  const at = (i, n) => text.slice(Math.max(0, i - 10), i + n + 8).replace(/\n/g, " ");
+  if (!BANNED_TERMS) bad("문장 규칙 파일(docs/운영/가이드_문장_규칙.md)의 용어 통일표를 못 읽음 — 규칙 없이 통과시키지 않는다");
+  for (const [t, good] of BANNED_TERMS ?? []) { const i = text.indexOf(t); if (i >= 0) bad(`${where}쓰지 않는 말 「${t}」 → ${good}: 「…${at(i, t.length)}…」`); }
+  const rule = (re, msg) => { const m = text.match(re); if (m) bad(`${where}${msg}: 「…${at(m.index, m[0].length)}…」`); };
+  rule(/수행(합니다|해요|하는)|진행합니다|진행해요/, "영어식 명사형(수행·진행) — 그냥 동사로");
+  rule(/되어지|되어집니다|되어져/, "이중 피동 — 능동형으로");
+  rule(/아시다시피|말씀드린 것처럼|앞서 살펴본|살펴보겠|알아보겠/, "메타 담화·예고 문장");
+  rule(/\d{4,}(원|명|건|보|걸음|회|개)(?![가-힣]*년)/, "네 자리 이상 숫자는 세 자리마다 쉼표");
+  for (const sent of text.split(/(?<=[.?!])\s+|\n/)) {
+    const n = sent.replace(/\s/g, "").length;
+    if (n > 110) { bad(`${where}문장이 김(${n}자) — 한 문장에 생각 하나: 「${sent.slice(0, 36)}…」`); break; }
+  }
+}
+
 function checkTemplateRules(s, bad, entry) {
   const start = s.indexOf("return ("), end = s.indexOf("<Sources");
   const body = start > 0 && end > start ? s.slice(start, end) : "";
@@ -214,6 +252,15 @@ for (const slug of readdirSync(guideDir)) {
     for (const m of BANNED) if (s.includes(m)) bad(`확정 틀에서 뺀 부품이 남음: ${m}`);
     checkTerms(s, bad);
     checkTemplateRules(s, bad, entry);
+    {
+      const st = s.indexOf("return ("), en = s.indexOf("<Sources");
+      const faqT = [...(s.match(/const FAQ[\s\S]*?\n\];/)?.[0] ?? "").matchAll(/[qa]:\s*"([^"]*)"/g)].map((m) => m[1]).join("\n");
+      const found = [];
+      checkWording(`${st > 0 && en > st ? readable(s.slice(st, en)) : ""}\n${faqT}`.replace(/\*\*/g, ""), (m) => found.push(m));
+      if (WORDING_TODO.has(slug)) wordingLeft += found.length ? 1 : 0;
+      else found.forEach(bad);
+      if (WORDING_TODO.has(slug) && !found.length) errors.push(`app/injury/${slug}: 문장 규칙을 통과했으니 WORDING_TODO 에서 빼세요`);
+    }
     // 날짜 줄 「연구 N편과 대조했어요」의 N 은 손으로 적는다 — 출처 개수와 어긋나면 막는다(2026-11-18)
     const checked = s.match(/checked=\{(\d+)\}/);
     const srcs = (s.match(/<Src n=\{/g) || []).length;
@@ -241,7 +288,24 @@ if (errors.length) {
   for (const e of errors) console.error("  - " + e);
   process.exit(1);
 }
+// 글 밖의 자리 — 가이드 첫 화면과 여러 글이 함께 쓰는 단계 데이터(2026-11-20: 여기가 검사 밖이라 「저희 제안」「가장 긴 날」이 남아 있었다)
+{
+  const hub = readFileSync(path.join(ROOT, "app/injury/page.tsx"), "utf8");
+  const hs = hub.indexOf("return (");
+  const hubText = readable(hub.slice(hs > 0 ? hs : 0));
+  const stages = readFileSync(path.join(ROOT, "lib/guide/stages.ts"), "utf8");
+  const stText = [...stages.matchAll(/(?:todo|title|who):\s*"([^"]*)"/g)].map((m) => m[1]).join("\n");
+  for (const [where, text] of [["app/injury/page.tsx: ", hubText], ["lib/guide/stages.ts: ", stText]]) {
+    const bad = (m) => errors.push(`${where}${m}`);
+    checkWording(text, bad);
+    for (const [re, msg] of [[/저희 제안|연구로 확인/, "딱지"], [/[가-힣] *→ *[가-힣][^\n]*[.요]/, "문장 속 →"], [/[“”]/, "따옴표"]]) {
+      const m = text.match(re); if (m) bad(`${msg}: 「…${text.slice(Math.max(0, m.index - 10), m.index + 16).replace(/\n/g, " ")}…」`);
+    }
+    if (where.startsWith("lib")) { const m = text.match(/(합니다|입니다|습니다|됩니다)(?=[.!?\s]|$)/); if (m) bad(`말투는 「~요」: 「…${text.slice(Math.max(0, m.index - 14), m.index + 6)}…」`); }
+  }
+}
+
 const next = ROLLOUT.find((x) => !NEW_TEMPLATE.has(x) && !HOLD.has(x));
-console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편 · FAQ 고칠 글 ${FAQ_TODO.size}편 · 보류 ${HOLD.size}편${next ? ` · 다음: ${next}` : " · 남은 글 없음"}`);
+console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편 · 문장 고칠 글 ${WORDING_TODO.size}편 · FAQ 고칠 글 ${FAQ_TODO.size}편 · 보류 ${HOLD.size}편${next ? ` · 다음: ${next}` : " · 남은 글 없음"}`);
 for (const x of NEW_TEMPLATE) if (HOLD.has(x)) errors.length || console.error(`참고: ${x} 는 새 틀로 바꿨으니 HOLD 에서 빼세요`);
 console.log(`글 구조: 가이드 ${guides}편 · 새 블로그 원고 ${posts}편 통과 (질문형 소제목 보강 대기 ${DEBT.size}편 · 규칙 이전 원고 ${legacy}편 제외)`);
