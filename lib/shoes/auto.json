@@ -79,6 +79,19 @@
     "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
+  "on-cloudsoma-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloudsoma",
+    "gender": "female",
+    "priceKrw": 219000,
+    "url": "https://www.on.com/ko-kr/products/cloudsoma-w-3wf3037/womens/black-black-shoes-3WF30371043",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/4UwZFlVLuOiDllAA6qx6h0/34036017077cbeaaf697e41d393e51cc/0d60fe8958feaf744114fe50b40694a2f909acf8.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 195,
+    "dropMm": 6,
+    "checkedAt": "2026-11-19",
+    "checkedBy": "수집기"
+  },
   "on-cloudultra-3-w": {
     "kind": "newFamily",
     "brand": "On",
