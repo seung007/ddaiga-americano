@@ -61,10 +61,7 @@ const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marath
  * 한 편 바꿀 때마다: npm run check → npm run guide:compare -- <글> 로 견본과 같은 휴대폰 화면에서 비교(scripts/guide-compare.mjs).
  */
 /** 새 틀로 바꿨지만 FAQ 를 아직 본문 규칙(굵게·답 먼저)으로 못 고친 글 — 고칠 때마다 뺀다. 2026-11-18 규칙이 생기기 전에 바꾼 글들 */
-const FAQ_TODO = new Set([
-  "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture",
-  "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet",
-]);
+const FAQ_TODO = new Set([]);
 const slugOf = (entry, s) => (s.match(/ArticleMeta href="\/injury\/([^"]+)"/) || [])[1];
 const ROLLOUT = [
   "start-running",
@@ -169,7 +166,7 @@ function checkTemplateRules(s, bad, entry) {
   hit(/[가-힣] *→ *[가-힣][^\n]*[.요]/, "문장 속 →");
   // 한국에서 쓰는 말로 (2026-11-19, hyun 님: 「네 주 안쪽」「2마일」은 보통 안 쓴다)
   hit(/(세|네|다섯|여섯|일곱|여덟|아홉|열|스무) ?(주|달|개월|시간|분|일|킬로)(?![가-힣]*리)|(석|넉|여섯|열두) 달/, "기간·사람 수는 숫자로(「여섯 주」 ✗ → 「6주」). 「한 번·한 달·두 배」 같은 일상어는 그대로");
-  hit(/(주|달|개월|일) 안쪽/, "「~ 안쪽」 ✗ → 「4주만 쉬어도」「4주 안에」처럼");
+  hit(/(주|달|개월|일|분|시간) 안쪽/, "「~ 안쪽」 ✗ → 「4주만 쉬어도」「4주 안에」처럼");
   hit(/마일(?!리지)|파운드|인치|피트|야드|온스/, "단위는 km·kg·cm 로 환산(환산은 계산이다). 원래 단위는 접힌 출처에만");
   // FAQ 가 큰 질문과 같은 질문이면 본문 반복이다(견본에서 5문항 중 3개가 겹쳐 글이 길게 읽혔다)
   const norm = (t) => t.replace(/[\s?.,!]/g, "");
@@ -182,6 +179,8 @@ function checkTemplateRules(s, bad, entry) {
     if (bolds < 1 || bolds > 3) bad(`FAQ 「${m[1]}」 굵은 곳 ${bolds}개 — 할 일·핵심 숫자 1~3곳을 **…** 로`);
     const len = m[2].replace(/\*\*|\s/g, "").length, sents = (m[2].match(/[.?!](\s|$)/g) || []).length;
     if (len > 130 || sents > 4) bad(`FAQ 「${m[1]}」 답이 김(${len}자·${sents}문장) — 130자·4문장 안으로. 견본은 62~110자`);
+    const j = m[2].match(/무작위|메타분석|환자-대조군|중앙값|유의[하한]|예후|코크런|응답률|관찰 연구|확실성|체계적 고찰/);
+    if (j) bad(`FAQ 「${m[1]}」 논문 용어 「${j[0]}」 — 쉬운 말로(「시험」「여러 연구를 모아 보니」「회복」「절반이 ~일 안에」)`);
     if ((m[2].match(/연구/g) || []).length > 1) bad(`FAQ 「${m[1]}」 연구 언급이 두 번 이상 — 답과 할 일이 먼저, 연구는 한 번 짧게`);
   }
   const up = entry?.match(/updated:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
