@@ -1,55 +1,131 @@
-import Link from "next/link";
-import MidNext from "@/components/guide/MidNext";
-import YoutubeSection from "@/components/YoutubeSection";
-import FaqSection from "@/components/FaqSection";
-import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
-import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, Summary, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import Link from "next/link";
+import FinderCta from "@/components/FinderCta";
+import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection, { type FaqItem } from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import TableOfContents from "@/components/TableOfContents";
+import { Lead, P, H2, H3, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
 /**
- * 2026-10-08 재검증 — 초록과 대조
- *   · 「핵심은 착지 부위가 아니라 발이 몸 앞에서 닿는지」 → 둘 다 부하와 관련, 어느 쪽이 더 중요한지는 미정
- *     (Lieberman 2015, 14명). 「착지 위치가 더 중요」 단정 삭제
- *   · 「억지로 미드풋 → 아킬레스건이 아픕니다」 → 확인된 것은 부하 증가(Almonroeder 2013, Rice 2017)
- *   · 「5~10% 올리면 아킬레스 장력 감소」 → Lyght 2016 은 ±5%만 시험(여성 19명). 5%까지로
- *   · 「퍽 소리 = 발이 몸 앞」 → 반대 근거(Hung Au 2021: 앞쪽 착지가 더 시끄럽고, 소리와 부하율 무관)
- *   · 「2023년 기준 연구들」·「보폭이 길지 않으면 부상률 차이 없음」 → 근거 못 찾음.
- *     체계적 고찰(Anderson 2020, Burke 2021)은 「관계 불분명」. Burke 2023 전향 연구 추가
- *   · Lieberman 2010 → 비교 대상은 맨발 포어풋 vs 신발 신은 뒤꿈치 착지. 미드풋은 비교하지 않음
- *   · Almeida 2015 인용 안 JSX 주석이 저자명을 URL 에서 488자 밀어내 검사기가 「미검출」 → 주석을 <li> 위로
- *   · 밑창 마모 확인법 → (경험칙) 표기
+ * 착지 방식 — 뒤꿈치로 닿는 게 잘못된 건지 신경 쓰여서 찾아온 사람이 읽는 글
  *
- * 2026-10-13 가독성 재설계 — 「먼저 결론」 → <Summary>. 섹션마다 답 → 근거(접힘).
- *   숫자·인원·인용은 <Evidence> 안으로. 「경험칙」 → 「저희 제안」 배지. 참고 자료는 기본 접힘.
- *   표본 크기(14명·19명)는 보이는 본문/<Note> 에 남겼다.
+ * 2026-10-08 재검증 — 「착지 위치가 더 중요」 단정 삭제 · 「억지로 바꾸면 아킬레스가 아프다」를 부하 증가로 낮춤 ·
+ *   「퍽 소리 = 발이 몸 앞」 삭제(반대 근거) · 「2023년 기준 연구들」·「보폭이 길지 않으면 부상률 차이 없음」 삭제(근거 못 찾음)
+ *
+ * 2026-11-18 확정 틀로 바꿈 (AGENTS.md 「가이드 글 틀 — 2026-11-18 확정」, 견본 app/injury/start-running/page.tsx)
+ *   말투 「~니다」 → 「~요」. 날짜 한 줄 · 3줄 요약 · 번호 붙은 큰 질문 4개 · 절 끝 한 줄 요약 · 글 끝 접힌 「근거와 출처」 11편.
+ *   걷어낸 옛 부품 여섯 종: 머리 요약 상자 · 접히는 근거 상자 · 근거 수준 딱지 · 별표 단서 줄 · 글 끝 문헌 목록 · 글 중간 이어서 볼 글 카드.
+ *   (옛 부품 이름을 주석에 그대로 적으면 check:geo 가 글에 남은 것으로 세므로 풀어서 적는다.)
+ *   · 큰 절 5개(세 착지 비교 · 확인법 · 무릎 · 오버스트라이드 · 바꾸는 법) → 번호 붙은 큰 질문 4개.
+ *     세 착지의 뜻은 표 대신 첫 문단으로 올렸고(제목이 약속한 답이 첫 화면에 있게), 「무릎이 망가지나요」는 1절과 FAQ 로 합쳤다.
+ *     오버스트라이드와 걸음 수는 할 일이 하나라서 3절로 묶었다 — 「할 일이 먼저, 이유는 뒤」
+ *   · id 는 check·how-to 를 그대로 두고 change·transition 을 더했다. compare·injury·overstride·next 는 없앴다
+ *     (grep -rn "midfoot#" app lib components → 0건, 2026-11-18 확인)
+ *   · 빵부스러기(구조화 데이터) 이름을 「미드풋 착지」에서 「착지 방식」으로 바꿨다 — 본문 첫 등장보다 먼저 나와
+ *     풀이 검사를 통과할 자리가 없었다(발뒤꿈치 통증·걸음 수 글 선례). 제목 아래 「협찬 없이 작성」 띠는 글 끝 글쓴이 소개와 겹쳐서 뺐다
+ *   · 글 중간 이어서 볼 글 카드를 상황 문장 링크로 바꿨다. 그 카드의 자세 글 설명이 「상체·팔 자세가 착지에 미치는 것」으로
+ *     단정형이었는데, 자세가 착지를 바꾼다는 판정은 자세 글이 하지 않는다 — 주장을 없애고 상황 문장만 남겼다.
+ *     GA 계측(guide_mid_next_click)이 이 글에서는 빠진다. 걸음 수·자세 글도 같은 선택을 했다
+ *
+ *   고친 것 — 주장을 초록으로 다시 판정한 결과 (QxMD read.qxmd.com/read/<PMID>, 2026-11-18 직접 열어 대조)
+ *   · **착지 방식 판정은 이 글이 전담한다** — 걸음 수 글과 자세 글은 주장하지 않고 링크만 건다. 그래서 여기서 답이 끝나게 썼다
+ *   · **「미드풋·포어풋이 더 좋다」·「뒤꿈치 착지는 나쁘다」·「바꾸면 덜 다친다」는 쓰지 않았다.**
+ *     Anderson 2020(53편)은 착지 방식과 부상 위험의 관계를 결정할 수 없었다고 적었고, 그 이유가 후향 연구뿐이었다는 것이다.
+ *     Burke 2021(13편)은 관계의 근거 수준을 낮게 봤다. 확인되는 것은 부담이 어디로 옮겨 가는지까지다
+ *   · **걸음 수 5~10% 의 세기를 걸음 수 글과 맞췄다.** 연구가 시험한 폭이 평소보다 5~10% 올린 조건이라 그대로 따라 쓰는 것이고,
+ *     더 올리면 어떻게 되는지를 잰 자료는 없다. 무릎 쪽 효과는 이 글에서 말하지 않고 걸음 수 글로 보낸다 —
+ *     그 고찰(Anderson 2022)이 무릎·고관절 흡수 에너지 감소를 「근거 제한적」으로 등급 지었다.
+ *     **「부담이 무릎에서 고관절로 옮겨 간다」로는 쓰지 않았다** — 두 지표는 다른 양이다
+ *   · **아킬레스 쪽은 숫자를 받치는 쪽으로 바꿨다.** Lyght 2016 초록에서 새로 확인: 앞꿈치 착지가 아킬레스 최대 응력·변형·변형률이
+ *     모두 더 컸다(P<.001). 그리고 걸음 수 5% 증가는 **두 착지 모두에서** 응력·변형을 줄였다 — 이 글의 할 일과 바로 이어지는 결과다
+ *   · **Almonroeder 2013 의 표본을 적었다** — 여성 러너 19명(뒤꿈치 11 · 비뒤꿈치 8), 맨발. 걸음당 충격량 11% 는 p=0.05 이고
+ *     마일당 충격량(p=0.06)·부하율(p=0.06)은 통계적으로 분명하지 않아 본문에 쓰지 않았다
+ *   · **Almeida 2015 를 부하 근거로 쓰지 않았다.** 초록에 있는 것은 뒤꿈치 착지의 수직 부하율이 더 높다는 것과
+ *     발목·무릎의 각도·가동범위 차이까지다. 발목·종아리 쪽 부담 증가는 Anderson 2020 초록의 서술이다(최대 발목 족저굴곡 모멘트)
+ *   · **Lieberman 2010 을 「힐스트라이크가 무릎을 망가뜨린다」의 근거로 읽지 않게 적었다.** 비교한 것은 맨발 앞꿈치 착지와
+ *     신발 뒤꿈치 착지이고, 발바닥 중간 착지는 따로 비교하지 않았으며 **부상이 얼마나 생기는지는 재지 않았다**
+ *   · **밑창 마모는 사이트의 눈대중이라고 적었다.** 연구로 확인한 자료를 찾지 못했다. 표의 「밑창이 닳는 곳」 열은 없앴다 —
+ *     근거 없는 열은 표로 만들지 않는다(AGENTS 신뢰 규칙 4)
+ *   · **하이닥 기사(걸음 수와 아킬레스 부담)를 내렸다.** 같은 내용을 Lyght 2016 초록이 더 정확하게 받친다.
+ *     현대건강신문 기사는 논문이 아니므로 출처 목록(연구 N편 대조)에서 내리고 본문에 링크와 누가 한 말인지를 남겼다
+ *     (정리운동·자세·첫 10km 글 선례)
+ *
+ *   확인한 초록 (2026-11-18, 11편 전부 직접 열어서 대조)
+ *   · Anderson 2020 — 체계적 고찰·메타분석 53편. 다치지 않은 뒤꿈치 착지 러너에게 착지 방식 변경을 권할 수 없다.
+ *     착지 방식과 부상 위험의 관계는 결정 불가(부상 근거가 후향 연구뿐). 후향 연구에서 비뒤꿈치 착지가 반복 부상 보고가 적었으나 근거 제한적.
+ *     생체역학: 수직 부하율·무릎 굽힘 가동범위·슬개대퇴 응력 감소. 바꾼 직후 느린·중간 속도에서 러닝 이코노미 저하, 개선 근거 없음.
+ *     발목·족저굴곡근 쪽으로 부하 이동(최대 내적 발목 족저굴곡 모멘트 증가)
+ *   · Burke 2021 — 체계적 고찰 13편, GRADE. 착지 기술과 부상 관계의 근거 수준 낮음. 관계를 보고한 연구들은 후향·소표본·측정 부실로 질이 매우 낮다고 평가
+ *   · Burke 2023 — 레크리에이션 러너 258명 1년 전향(RISC). 단변량에서 비뒤꿈치 착지가 부상과 유의하게 연관.
+ *     다변량에서는 빠지고 이전 부상·마라톤 훈련·무릎 외반 작음·반대쪽 흉부 하강 큼이 남았다. 가장 많이 다친 곳은 종아리
+ *   · Almeida 2015 — 체계적 고찰·메타분석 16편. 뒤꿈치 착지가 앞꿈치 착지보다 수직 부하율 높음. 접지 순간 발목·무릎 각도와
+ *     무릎 굽힘 가동범위 차이. 발목 족저굴곡근 부하·슬개대퇴 부하에 대한 서술은 초록에 없음
+ *   · Lieberman 2010 — 습관적 맨발 러너(대부분 앞꿈치) vs 습관적 신발 러너(대부분 뒤꿈치). 단단한 바닥에서도 맨발 앞꿈치 쪽 충돌력이 작음.
+ *     발바닥 중간 착지는 별도 비교군이 아니고, 부상률은 측정하지 않았다(앞꿈치·중간 착지가 보호적일 수 있다는 추정만)
+ *   · Lieberman 2015 — 러너 14명, 초속 3.0m, 분당 75·80·85·90·95 스트라이드. 고관절보다 앞에 착지할 때 제동력 커짐(P=0.0005,
+ *     무릎 기준은 P=0.54 로 아님). 무릎보다 앞에 착지할 때 수직 충격 정점 커짐(P<0.0001), 부하율은 P=0.07 로 유의하지 않음.
+ *     스트라이드 5 증가마다 최대 고관절 굽힘 모멘트 +5.8%, 고관절 기준 착지 위치 -5.9%
+ *   · Heiderscheit 2011 — 건강한 일반 러너 45명, 같은 속도 트레드밀, 평소와 ±5%·±10%. 걸음 수가 오르자 보폭·무게중심 상하 이동·제동 충격량 감소.
+ *     무릎 흡수 에너지는 +5%·+10%에서, 고관절은 +10%에서만 감소
+ *   · Lyght 2016 — 여성 러너 19명, 두 착지(뒤꿈치·앞꿈치) × 세 걸음 수(평소·+5%·-5%). 뒤꿈치 착지가 앞꿈치보다 아킬레스 최대 응력·
+ *     변형·변형률 모두 낮음(P<.001). +5%는 두 착지 모두에서 응력·변형 감소(뒤꿈치 P<.001, 앞꿈치 P=.005). -5% 결과는 초록에 없음
+ *   · Almonroeder 2013 — 여성 러너 19명(뒤꿈치 11 · 비뒤꿈치 8), 맨발. 비뒤꿈치 쪽 걸음당 아킬레스 충격량 11% 큼(p=0.05),
+ *     마일당 p=0.06(마일당 체중 47.7배 추가), 부하율 약 15% 큼(p=0.06), 최대 힘 발생 시점이 더 이름(p=0.007)
+ *   · Rice 2017 — 습관적 뒤꿈치 착지 22명(남 11), 초속 3.6m 지면 주행, 신발 3조건(일반·미니멀·맨발) × 착지 2조건.
+ *     미니멀 신발에서 앞꿈치 착지가 아킬레스 충격량 더 큼. 미니멀·맨발은 착지 방식과 무관하게 아킬레스 부하율 더 큼.
+ *     무릎·슬개대퇴 결과는 초록에 없음
+ *   · Hung Au 2021 — 러너 30명(여 15 · 남 15) 지면 주행. 발바닥 중간·앞꿈치 착지가 뒤꿈치보다 소리 최대 진폭 큼(P<.001),
+ *     소리 길이는 짧고 중간 주파수는 높음. 수직 부하율과 소리 특성 사이에 유의한 관계 없음(P>.115).
+ *     저자 결론: 소리만으로 충격 부하를 추정하지 말 것
+ *
+ *   확인 못 한 것 — 권·호·쪽. QxMD 는 학술지 이름까지만 보여 준다. 저장소에 값이 있던 세 편(Almeida 2015 과, 아킬레스 글에 적혀 있던 Almonroeder 2013·Lyght 2016)만 옮기고,
+ *   나머지 여덟 편은 학술지 이름까지만 적었다. 지어내지 않았다
  */
+
 const PAGE_URL = pageUrl("/injury/midfoot");
 const TITLE = "미드풋 착지란? 힐스트라이크면 바꿔야 할까요?";
-// 2026-11-04 네이버 30일: 「미드풋」 노출 421 · CTR 1.2%, 「힐스트라이크」 148 · 1.4% — 설명을 「정리했습니다」 예고에서 답으로 바꿨다
-const DESC = "미드풋은 발바닥 중간이 먼저 닿는 착지입니다. 부상 없는 뒤꿈치 착지라면 굳이 바꾸지 않아도 된다는 연구가 있고, 바꾸려면 케이던스부터 올려 봅니다.";
+// 2026-11-04 네이버 30일: 「미드풋」 노출 421 · CTR 1.2%, 「힐스트라이크」 148 · 1.4% — 설명은 예고가 아니라 답으로 둔다
+const DESC =
+  "미드풋은 발바닥 중간이 먼저 닿는 착지입니다. 지금 뒤꿈치로 닿아도 아픈 데가 없다면 바꾸지 않아도 된다는 고찰이 있고, 바꾸면 아킬레스와 종아리가 받는 부담이 커집니다.";
 
 export const metadata: Metadata = {
   // 네이버 서치어드바이저 실측(2026-08): "미드풋" 질의로 노출 329 · 클릭 2 · CTR 0.6%.
   // 전체 키워드 중 노출 1위인데 CTR은 최하위였다. 이전 제목이 "무조건 좋은 게 아닌 이유"로
   // 부정부터 시작해, "미드풋이 뭔지" 알고 싶어 검색한 사람에게 답을 약속하지 못했다.
-  // 질의어를 앞에 두고 무엇을 알게 되는지 먼저 밝히는 쪽으로 교체.
-  title: "미드풋 착지란? 힐스트라이크면 바꿔야 할까요? — 뛰다가 아메리카노",
+  title: "미드풋 착지란? 힐스트라이크면 바꿔야 할까요? | 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/midfoot" },
 };
 
-export default function Page() {
+const FAQ: FaqItem[] = [
+  {
+    q: "포어풋이 미드풋보다 좋은가요?",
+    a: "어느 쪽이 더 좋다고 말할 근거는 아직 없어요. 포어풋은 앞꿈치부터, 미드풋은 발바닥 중간부터 닿는 착지예요. 확인된 것은 **닿는 곳이 앞으로 갈수록 발목과 종아리 부담이 커진다**는 것까지예요.",
+  },
+  {
+    q: "무릎이 아픈데 착지를 바꾸면 나아질까요?",
+    a: "덜 아파진다고 말하기는 어려워요. 착지를 바꿔서 통증이 줄었는지 시험한 자료는 찾지 못했어요. **먼저 할 일은 무릎 앞 통증 글**에 있어요.",
+  },
+  {
+    q: "맨발이나 미니멀 신발로 달리면 착지가 저절로 좋아지나요?",
+    a: "그렇게 말할 근거는 찾지 못했어요. 뒤꿈치로 닿던 러너가 미니멀 신발과 맨발로 달린 실험에서는 **아킬레스에 부담이 걸리는 속도가 올라갔어요.**",
+  },
+];
+
+const pill = "rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400";
+
+export default function MidfootPage() {
   return (
     <>
       <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} />
       <BreadcrumbJsonLd
         trail={[
           ["러닝 가이드", "/injury"],
-          ["미드풋 착지", "/injury/midfoot"],
+          ["착지 방식", "/injury/midfoot"],
         ]}
       />
       <main>
@@ -60,302 +136,237 @@ export default function Page() {
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-600">착지법</span>
-          {/* 규약은 app/injury/page.tsx 상단 주석 */}
-          <span className="text-xs text-gray-400">4분 읽기</span>
-          <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
         </div>
-        {/* h1은 <title>과 같은 말을 해야 한다. 검색결과에서 "미드풋 착지란?"을 보고 들어왔는데
-            화면에 "무조건 좋은 게 아닌 이유"가 있으면 약속한 답이 아니라 반박부터 만나게 된다. */}
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
-        <ArticleMeta href="/injury/midfoot" />
-        {/**
-         * 먼저 결론 (2026-09-13 추가) → 2026-10-13 <Lead>·<Summary> 로
-         *
-         * 감사에서 나온 것: **이 페이지에 "미드풋이 무엇인가"가 없었다.**
-         * 「미드풋」은 이 사이트 노출 1위 검색어다. 제목은 더 만지지 않고,
-         * 검색한 사람이 찾던 한 문장을 맨 위에 둔다.
-         */}
-        <Lead>
-          뒤꿈치부터 닿는 내 착지가 잘못된 건 아닌지 신경 쓰인다면, 이름부터 구분해 볼 만합니다.{" "}
-          <strong>미드풋 착지는 발바닥 중간이 먼저 땅에 닿는 방식</strong>입니다. 뒤꿈치부터 닿으면 힐스트라이크, 앞꿈치부터 닿으면
-          포어풋입니다.
-        </Lead>
+        <ArticleMeta href="/injury/midfoot" compact checked={11} />
 
-        <Summary
+        <KeyPoints
           items={[
-            <>초보라면 <strong>굳이 바꾸지 않아도 됩니다.</strong> 부상 없는 뒤꿈치 착지 러너에게 착지법 변경을 권할 수 없다는 결론이 있습니다(연구 53편을 모은 고찰).<Basis kind="paper" /></>,
-            <>바꾸고 싶다면 착지법보다 <strong>케이던스(분당 걸음 수)를 지금보다 조금(5~10%) 올려 보세요.</strong><Basis kind="rule" /></>,
-            <>억지로 미드풋으로 바꾸면 <strong>아킬레스건과 종아리가 받는 부하가 커집니다.</strong><Basis kind="paper" /></>,
-            <>발소리로는 착지가 잘됐는지 판단하기 어렵습니다.<Basis kind="paper" /></>,
+            <>지금 뒤꿈치로 닿아도 아픈 데가 없다면 <strong>착지를 바꾸지 않아도 돼요.</strong></>,
+            <>바꾸면 좋아지는 것만 있는 게 아니에요. <strong>아킬레스와 종아리가 받는 부담이 커져요.</strong></>,
+            <>바꾸기 전에 <strong>걸음 수를 조금 올려</strong> 발이 몸에서 멀리 앞에 닿지 않게 해 보길 권해요.</>,
           ]}
         />
 
-        {/**
-         * 세 착지법 비교표 (2026-09-14 추가). 2026-09-14 에 근거 없는 「부하가 몰리는 곳」 열을 뺐다.
-         * 남은 두 열은 정의와 관찰(밑창)이다.
-         */}
-        <h2 id="compare" className={H2}>
-          힐스트라이크, 미드풋, 포어풋은 뭐가 달라요?
+        <Lead>
+          뒤꿈치부터 닿는 내 착지가 잘못된 건 아닌지 신경 쓰인다면, 이름부터 구분해 볼 만해요. 미드풋은 발바닥 중간이 먼저 땅에
+          닿는 착지예요. 뒤꿈치부터 닿는 것은 힐스트라이크라고 해요. 앞꿈치부터 닿는 것은 포어풋이라고 해요.
+        </Lead>
+
+        <TableOfContents
+          items={[
+            { id: "change", label: "꼭 바꿔야 하나요?" },
+            { id: "check", label: "내 착지 확인하는 법" },
+            { id: "how-to", label: "바꾸는 대신 할 것" },
+            { id: "transition", label: "바꿀 때 조심할 것" },
+          ]}
+        />
+
+        {/* ── 1 ─────────────────────────────────────────── */}
+        <h2 id="change" className={H2}>
+          <Num n={1} />뒤꿈치로 닿는데 꼭 바꿔야 하나요?
         </h2>
-        <div className="mt-5 overflow-x-auto">
-          <table className="w-full border-collapse text-base">
-            <thead>
-              <tr className="border-b border-gray-200 text-left">
-                <th className="py-2 pr-3 font-semibold text-gray-900">착지법</th>
-                <th className="py-2 pr-3 font-semibold text-gray-900">먼저 닿는 곳</th>
-                <th className="py-2 font-semibold text-gray-900">
-                  밑창이 닳는 곳<Basis kind="rule" />
-                </th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-700">
-              <tr className="border-b border-gray-100">
-                <td className="py-2 pr-3 font-medium text-gray-900">힐스트라이크</td>
-                <td className="break-keep py-2 pr-3">뒤꿈치</td>
-                <td className="break-keep py-2">뒤꿈치 바깥쪽</td>
-              </tr>
-              <tr className="border-b border-gray-100 bg-violet-50">
-                <td className="py-2 pr-3 font-medium text-gray-900">미드풋</td>
-                <td className="break-keep py-2 pr-3">발바닥 중간</td>
-                <td className="break-keep py-2">중간~앞쪽이 고르게</td>
-              </tr>
-              <tr>
-                <td className="py-2 pr-3 font-medium text-gray-900">포어풋</td>
-                <td className="break-keep py-2 pr-3">앞꿈치</td>
-                <td className="break-keep py-2">앞쪽</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
         <P>
-          <strong>어느 쪽이 더 좋다는 표가 아닙니다.</strong> 착지 부위를 바꾸면 몸이 받는 부담의 <strong>위치도 바뀝니다</strong>.
-        </P>
-        <P>
-          앞쪽 착지는 수직 부하율이 낮은 대신 발목(종아리) 쪽 부하가 컸습니다(여러 연구를 모은 체계적 고찰). 어디로 얼마나 옮겨 가는지는
-          연구마다 다릅니다. 그래서 저희가 숫자 하나로 말할 수는 없습니다.
+          아니요. <strong>지금 아픈 데가 없다면 그대로 달려도 돼요.</strong> 연구 53편을 모은 고찰은 다치지 않은 뒤꿈치 착지
+          러너에게 착지 방식을 바꾸라고 권할 수 없다고 결론 냈어요.
         </P>
 
-        {/* 「미드풋」 검색자가 다음으로 묻는 것 — 그럼 나는 지금 뭘로 뛰고 있나 */}
+        <h3 className={H3}>착지 방식과 부상의 관계는 아직 정리되지 않았어요</h3>
+        <P>
+          그 고찰은 착지 방식이 부상 위험을 바꾸는지 자체를 결정할 수 없었어요. 부상을 본 연구가 다친 뒤에 거꾸로 물은 것뿐이었기
+          때문이에요. 연구 13편을 모은 다른 고찰도 관계의 근거 수준을 낮게 봤어요.
+        </P>
+        <P>
+          러너 258명을 1년 따라간 연구에서는 오히려 뒤꿈치가 아닌 착지가 부상과 연관된 결과가 나왔어요. 이 결과는 요인을 하나씩
+          본 분석에서만 나왔고, 여러 요인을 함께 넣은 분석에서는 빠졌어요.
+        </P>
+        <Caveat>
+          뒤꿈치 착지가 무릎을 망가뜨린다는 말의 출처로 자주 꼽히는 연구는 맨발로 앞꿈치로 닿는 사람과 신발을 신고 뒤꿈치로 닿는
+          사람을 비교한 것이에요. 발바닥 중간으로 닿는 경우는 따로 비교하지 않았고, 부상이 얼마나 생기는지도 재지 않았어요.
+        </Caveat>
+
+        <h3 className={H3}>바꾸면 부담이 다른 곳으로 옮겨 가요</h3>
+        <P>
+          어느 쪽이 더 좋다는 이야기가 아니에요. <strong>닿는 곳을 바꾸면 몸이 받는 부담의 위치가 바뀌어요.</strong> 발 앞쪽으로
+          닿으면 땅에 닿는 순간 충격이 올라가는 속도는 낮았고, <strong>발목과 종아리가 받는 부담은 커졌어요.</strong>
+        </P>
+        <P>어디로 얼마나 옮겨 가는지는 연구마다 달라서, 저희가 숫자 하나로 말할 수는 없어요.</P>
+
+        <OneLine>지금 아픈 데가 없으면 그대로 달려요. 바꿔서 덜 다친다는 근거는 아직 없어요.</OneLine>
+
+        {/* ── 2 ─────────────────────────────────────────── */}
         <h2 id="check" className={H2}>
-          내 착지는 어떻게 확인하나요?
-        </h2>
-        <div className="mt-5 space-y-3">
-          <div className="rounded-xl border border-gray-200 p-4">
-            <p className="mb-1 text-base font-semibold text-gray-900">
-              1. 신발 밑창을 본다 (제일 쉬움)
-              <Basis kind="rule" />
-            </p>
-            <p className="break-keep text-base leading-[1.7] text-gray-700">
-              오래 신은 러닝화를 뒤집어 보세요. <strong>뒤꿈치 바깥쪽만 닳아 있으면 힐스트라이크에 가깝다</strong>고 흔히 봅니다.
-              연구로 확인된 방법은 아닙니다. 대략의 단서입니다. 그렇다고 잘못 뛰고 있는 건 아닙니다.
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 p-4">
-            <p className="mb-1 text-base font-semibold text-gray-900">2. 옆에서 영상을 찍는다</p>
-            <p className="break-keep text-base leading-[1.7] text-gray-700">
-              누군가에게 옆에서 슬로우모션으로 찍어 달라고 하세요. 요즘 폰은 대부분 됩니다. 어디로 닿는지와 함께 발이{" "}
-              <strong>몸보다 얼마나 앞에서 닿는지</strong>도 보세요.
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 p-4">
-            <p className="mb-1 text-base font-semibold text-gray-900">3. 발소리로는 판단하기 어렵습니다</p>
-            <p className="break-keep text-base leading-[1.7] text-gray-700">
-              발소리가 크면 착지가 잘못됐다고 생각하기 쉽습니다. 하지만 미드풋과 포어풋 착지가 뒤꿈치 착지보다 소리가 더
-              컸습니다(러너 30명 실험). <strong>소리만으로 착지 위치나 충격을 판단하지 마세요.</strong>
-            </p>
-            <Evidence n={1}>
-              <p>
-                미드풋과 포어풋 착지가 뒤꿈치 착지보다 소리가 더 컸습니다. 소리 크기와 수직 부하율은 관련이 없었습니다(러너
-                30명 실험). <S>(Hung Au et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34911076/" />)</S>
-              </p>
-            </Evidence>
-          </div>
-        </div>
-
-        <MidNext from="midfoot" links={[
-          { href: "/injury/cadence", sub: "착지법 대신 먼저 만져 볼 것" },
-          { href: "/injury/posture", sub: "상체·팔 자세가 착지에 미치는 것" },
-        ]} />
-
-        <h2 id="injury" className={H2}>
-          힐스트라이크로 달리면 무릎이 망가지나요?
+          <Num n={2} />내 착지는 어떻게 확인하나요?
         </h2>
         <P>
-          &ldquo;힐스트라이크로 달리면 무릎이 망가진다&rdquo;는 말, 한 번쯤 들어보셨을 겁니다.{" "}
-          <strong>착지법과 부상의 관계는 아직 연구로 정리되지 않았습니다.</strong>
+          <strong>옆에서 찍은 영상이 가장 분명해요.</strong> 발이 어디로 닿는지와 함께, 발이 몸보다 얼마나 앞에서 닿는지도 같이
+          보세요.
+        </P>
+        <Steps
+          items={[
+            { t: "누군가에게 옆에서 느린 영상으로 찍어 달라고 해요.", d: "요즘 휴대폰은 대부분 돼요." },
+            { t: "발의 어느 쪽이 먼저 땅에 닿는지 보세요.", d: "뒤꿈치, 발바닥 중간, 앞꿈치 중 하나예요." },
+            { t: "발이 무릎보다 앞에서 닿는지 보세요.", d: "몸 가까이 닿을수록 충격과 제동이 작았어요." },
+          ]}
+        />
+        <P>
+          오래 신은 러닝화를 뒤집어 보는 것도 단서가 돼요. <strong>뒤꿈치 바깥쪽만 닳아 있으면 뒤꿈치로 닿는 편</strong>이라고
+          흔히 봐요. 저희가 쓰는 눈대중이고, 연구로 확인한 자료는 찾지 못했어요.
         </P>
         <P>
-          체계적 고찰 두 편 모두 근거가 부족하다고 봤습니다(각각 연구 13편, 53편을 모음). 1년간 추적한 연구에서는 오히려
-          뒤꿈치가 아닌 착지가 부상과 연관된 결과가 나왔습니다(일반 러너 258명).
+          <strong>발소리로는 판단하기 어려워요.</strong> 러너 30명이 달린 실험에서 발바닥 중간이나 앞꿈치로 닿을 때 소리가 더
+          컸고, 소리 크기는 착지 충격과 관련이 없었어요. 소리가 크다고 잘못 뛰는 것이 아니에요.
         </P>
-        <Note>그 연구에서도 여러 요인을 함께 넣은 분석에서는 착지법이 빠졌습니다.</Note>
-        <Evidence n={4}>
-          <p>
-            맨발로 앞꿈치 착지하는 러너가 신발 신고 뒤꿈치 착지하는 러너보다 충돌력이 작았습니다(하버드 대학교 다니엘 리버만
-            교수팀의 2010년 연구). <S>(Lieberman et al. (2010) <Up h="https://pubmed.ncbi.nlm.nih.gov/20111000/" />)</S> 이 연구는
-            미드풋을 따로 비교하지 않았습니다. 충돌력 차이가 부상률 차이로 이어지는지도 별개의 문제입니다.
-          </p>
-          <p>
-            착지법과 부상의 관계를 뒷받침하는 근거 수준은 낮았습니다(관련 연구 13편을 모은 체계적 고찰).{" "}
-            <S>(Burke et al. (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34527750/" />)</S>
-          </p>
-          <p>
-            다른 체계적 고찰도 착지법과 부상 위험의 관계를 판단하지 못했습니다(연구 53편을 모음). 전향 연구가 부족했기
-            때문입니다. 전향 연구는 사람들을 먼저 정해 두고 앞으로 추적하는 연구입니다. 이 고찰은 부상 없는 뒤꿈치 착지 러너에게
-            착지법 변경을 권할 수 없다고 결론 냈습니다.{" "}
-            <S>(Anderson et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31823338/" />)</S>
-          </p>
-          <p>
-            1년간 추적한 연구에서는 오히려 뒤꿈치가 아닌 착지가 부상과 연관된 결과가 나왔습니다(일반 러너 258명). 이 결과는 요인을
-            하나씩 본 단변량 분석에서 나왔고, 여러 요인을 함께 넣은 분석에서는 빠졌습니다. 가장 많이 다친 부위는 종아리였습니다.{" "}
-            <S>(Burke et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/37310517/" />)</S>
-          </p>
-        </Evidence>
 
-        <h2 id="overstride" className={H2}>
-          발이 몸보다 멀리 앞에서 닿으면 안 좋나요?
-        </h2>
-        <P>
-          발이 몸보다 멀리 앞에서 닿을수록 충격과 제동이 컸습니다(러너 14명 실험). 이렇게 닿는 것을 오버스트라이드라고 부릅니다.
-          다만{" "}
-          <strong>착지 위치와 착지 부위 중 어느 쪽이 더 중요한지는 아직 정해지지 않았습니다.</strong>
-        </P>
-        <Evidence n={1}>
-          <p>
-            발이 무릎보다 앞에서 닿을수록 충격 피크가 컸습니다. 엉덩이보다 앞에서 닿을수록 제동력이 컸습니다(러너 14명이 같은
-            속도에서 케이던스를 바꿔 달린 실험).{" "}
-            <S>(Lieberman et al. (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26538175/" />)</S>
-          </p>
-        </Evidence>
+        <OneLine>옆에서 찍은 영상으로 보세요. 발소리가 큰지 작은지는 답을 알려 주지 않아요.</OneLine>
 
+        {/* ── 3 ─────────────────────────────────────────── */}
         <h2 id="how-to" className={H2}>
-          초보라면 착지를 어떻게 바꾸면 되나요?
+          <Num n={3} />바꾸는 대신 먼저 뭘 해 볼까요?
         </h2>
         <P>
-          착지 방식을 바꾸기보다 <strong>케이던스를 지금보다 5~10% 높이는 것</strong>을 먼저 시도해 보세요.
-          <Basis kind="rule" /> 케이던스를 올리면 보폭이 줄고 착지 위치가 몸 쪽으로 가까워졌다는 실험이 있습니다.
+          <strong>걸음 수를 지금보다 5~10%쯤 올려 보길 권해요.</strong> 발이 몸에서 멀리 앞에 닿는 게 마음에 걸릴 때 먼저 해
+          볼 수 있는 일이에요. 발을 몸보다 한참 앞에 놓는 것을 오버스트라이드라고 해요.
         </P>
         <P>
-          앞쪽 착지는 아킬레스건 부하를 키웁니다. 그래서 저희는 착지법을 바꾸더라도 <strong>한꺼번에 바꾸지 않기</strong>를
-          권합니다.
-          <Basis kind="rule" />
+          러너 14명이 같은 속도로 달린 실험에서 <strong>발이 무릎보다 앞에서 닿을수록 충격이 컸고,</strong> 엉덩이보다 앞에서
+          닿을수록 제동이 컸어요. 그리고 걸음 수를 올리자 보폭이 줄고 착지 위치가 몸 쪽으로 가까워졌어요.
         </P>
-        <Note>아킬레스건 부하 근거는 여성 러너 맨발 실험과 뒤꿈치 착지 러너 22명 실험입니다. 부하가 커졌다는 것이지 부상이 늘었다는 결과는 아닙니다.</Note>
-        <P>
-          {/* 2026-10-08: 「5~10% 올리면 아킬레스건 장력이 준다」는 따옴표 인용을 뺐다. 실험(Lyght 2016)은 +5%만 시험했다. */}
-          정형외과 전문의도 <strong>&ldquo;착지 방식을 억지로 바꾸기보다 훈련량을 점진적으로&rdquo;</strong>라고 말합니다(아래 참고
-          자료).
-        </P>
-        <Note>걸음 수를 올렸을 때 아킬레스건 최대 응력이 줄었다는 실험은 5% 증가만 시험했습니다(여성 러너 19명).</Note>
-        <Evidence n={5}>
-          <p>
-            케이던스를 올리면 보폭이 줄었습니다.{" "}
-            <S>(Heiderscheit et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/20581720/" />)</S> 분당 5보폭(10걸음) 올릴
-            때마다 엉덩이 대비 착지 위치가 5.9% 가까워졌습니다.{" "}
-            <S>(Lieberman et al. (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26538175/" />)</S>
-          </p>
-          <p>
-            걸음 수를 5% 올리자 아킬레스건 최대 응력이 줄었습니다(여성 러너 19명 실험).{" "}
-            <S>(Lyght et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26955843/" />)</S>
-          </p>
-          <p>
-            뒤꿈치가 아닌 착지를 쓰는 러너는 걸음당 아킬레스건 충격량이 11% 컸습니다(여성 러너를 비교한 맨발 실험).{" "}
-            <S>(Almonroeder et al. (2013) <Up h="https://pubmed.ncbi.nlm.nih.gov/23640524/" />)</S> 미니멀 신발을 신고 앞꿈치로
-            착지시켰을 때는 아킬레스건 충격량이 커졌습니다(뒤꿈치 착지 러너 22명 실험).{" "}
-            <S>(Rice et al. (2017) <Up h="https://pubmed.ncbi.nlm.nih.gov/28460179/" />)</S>
-          </p>
-        </Evidence>
+        <Steps
+          items={[
+            { t: "지금 내 걸음 수를 세고, 거기서 5~10% 올린 숫자를 목표로 적어요.", d: "분당 160보라면 168~176보예요." },
+            { t: "달리기 전체가 아니라 짧은 구간에서만 해 봐요.", d: "한 번에 몇 분이면 충분해요." },
+            { t: "다음 날 아프면 되돌려요.", d: "원래 걸음 수로 달리고, 다음에 더 작게 올려요." },
+          ]}
+        />
+        <Caveat>
+          5~10% 는 연구에서 시험한 폭이라 그대로 따라 쓰는 거예요. 더 올리면 어떻게 되는지를 잰 자료는 찾지 못했어요.
+        </Caveat>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/cadence" className={pill}>걸음 수를 얼마로 맞출지 모르겠다면 →</Link>
+          <Link href="/injury/posture" className={pill}>상체가 숙여지는 게 신경 쓰이면 →</Link>
+        </div>
 
-        <YoutubeSection links={[
-          { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "러닝비하인드 RunningBehind 쟐쌤", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
-          { label: "수십 년째 논쟁 — 힐스트라이크 vs 미드풋 vs 포어풋", channel: "애슬레틱 라이프 Athletic Life", url: "https://www.youtube.com/watch?v=b20-GrHPMWI" },
-        ]} />
+        <OneLine>착지를 바꾸는 것보다, 걸음 수를 조금 올려 발을 몸 가까이 놓는 쪽이 쉬워요.</OneLine>
 
-        <FaqSection items={[
-          {
-            q: "미드풋 착지가 힐스트라이크보다 무조건 좋은가요?",
-            a: "아니요. 착지법과 부상의 관계는 아직 연구로 정리되지 않았습니다. 체계적 고찰 두 편은 근거가 부족하다고 결론 냈습니다. 부상 없는 뒤꿈치 착지 러너에게는 착지법 변경을 권할 수 없다고 봤습니다.",
-          },
-          {
-            q: "그럼 착지에서 신경 쓸 건 뭔가요?",
-            a: "발이 몸보다 멀리 앞에서 닿지 않게 하는 것입니다. 발이 무릎보다 앞에서 닿을수록 충격 피크가 컸습니다. 엉덩이보다 앞에서 닿을수록 제동력이 컸습니다(러너 14명 실험). 다만 착지 위치와 착지 부위 중 어느 쪽이 더 중요한지는 정해지지 않았습니다.",
-          },
-          {
-            q: "초보는 착지법을 어떻게 바꿔야 하나요?",
-            a: "착지법을 강제로 바꾸기보다 케이던스를 현재보다 5~10% 높여 보세요. 케이던스를 올리면 보폭이 줄고 착지 위치가 몸 쪽으로 가까워졌다는 실험이 있습니다. 앞쪽 착지는 아킬레스건 부하를 키웁니다. 그래서 강제로 한꺼번에 바꾸지 않는 편이 낫습니다(저희 기준).",
-          },
-        ]} />
-
-        {/* 다음에 읽을 것 — first-10k 에 이어 두 번째 시험. from=midfoot 으로 계측된다. */}
-        <h2 id="next" className={H2}>
-          다음에 읽을 것
+        {/* ── 4 ─────────────────────────────────────────── */}
+        <h2 id="transition" className={H2}>
+          <Num n={4} />그래도 바꾸고 싶다면 뭘 조심해야 하나요?
         </h2>
-        <div className="mt-4 space-y-2">
-          <Link
-            href="/injury/cadence"
-            className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
-          >
-            <p className="text-sm font-semibold text-gray-900">케이던스 높을수록 좋나요? 꼭 180이어야 하나요 →</p>
-            <p className="mt-1 text-sm text-gray-600">착지법 대신 먼저 만져야 할 것.</p>
-          </Link>
-          <Link
-            href="/injury/achilles"
-            className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
-          >
-            <p className="text-sm font-semibold text-gray-900">미드풋으로 바꾼 뒤 아킬레스건이 아프다면 →</p>
-            <p className="mt-1 text-sm text-gray-600">전환 속도가 너무 빨랐을 때 생기는 일.</p>
-          </Link>
-          <Link
-            href="/injury/knee-pain"
-            className="block rounded-xl border border-gray-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
-          >
-            <p className="text-sm font-semibold text-gray-900">달릴 때 무릎이 아프다면 →</p>
-            <p className="mt-1 text-sm text-gray-600">착지법을 의심하기 전에 볼 것들.</p>
-          </Link>
+        <P>
+          <strong>아킬레스와 종아리예요.</strong> 여성 러너 19명이 두 착지를 번갈아 달린 실험에서 앞꿈치로 닿을 때 아킬레스가
+          받는 힘이 더 컸어요. 맨발로 달린 다른 실험에서는 뒤꿈치가 아닌 착지 쪽이 <strong>걸음당 아킬레스 충격량이 11%</strong>{" "}
+          컸어요. 부담이 커졌다는 것이지, 더 많이 다쳤다는 결과는 아니에요.
+        </P>
+        <Steps
+          items={[
+            { t: "한꺼번에 바꾸지 말고 짧은 구간에서만 새 착지로 달려 보길 권해요.", d: "나머지는 평소대로 달려요." },
+            { t: "신발까지 한꺼번에 바꾸지 마세요.", d: "뒤꿈치로 닿던 러너 22명 실험에서 착지와 상관없이 아킬레스가 부하를 받는 속도가 올라갔어요." },
+            { t: "종아리나 발뒤꿈치 위쪽이 아프면 바꾸던 것을 멈춰요.", d: "다음 날 아침에 더 아프면 그 주는 늘리지 않아요." },
+          ]}
+        />
+        <P>
+          바꾸면 더 잘 달려진다는 기대는 접어 두는 편이 좋아요. 고찰에 따르면 바꾼 직후에는 같은 속도로 달리는 데 드는 힘이
+          오히려 늘었고, 좋아졌다는 근거는 없었어요.
+        </P>
+        <P>
+          정형외과 전문의도 착지 방식을 억지로 바꾸기보다 훈련량을 조금씩 늘리는 쪽을 권해요(서울부민병원 안지용 실장,{" "}
+          <a href="https://www.hnews.kr/news/view.php?no=68992" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">
+            현대건강신문
+          </a>
+          ).
+        </P>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/achilles" className={pill}>발뒤꿈치 위쪽이 아프다면 →</Link>
+          <Link href="/injury/knee-pain" className={pill}>무릎 앞이 아프다면 →</Link>
         </div>
 
-        <References
-          n={14}
-          title="참고 자료"
-          note="추천 순서는 광고비로 바뀌지 않습니다. 연구로 확인한 문장에는 출처를 붙였고, 저희 제안은 그렇게 표시했습니다."
-        >
-          <ul>
-            {/* ⚠️ 2026-09-14 정정 — Almeida 설명문이 초록보다 세게 말하고 있었다(「무릎·슬개대퇴 부하」는 논문에 없는 말).
-                2026-10-08: 이 주석이 <a> 안에 있어 저자명이 URL 에서 488자 밀려 검사기가 「미검출」로 잡았다 → <li> 위로 옮김. */}
-            <li><strong>Almeida et al. (2015)</strong> J Orthop Sports Phys Ther 45(10):738-755 — 착지 패턴별 생체역학 메타분석(16편). 뒤꿈치 착지는 수직 부하율이 앞발 착지보다 높았고, 발목·무릎 각도와 가동범위에도 차이. <a href="https://pubmed.ncbi.nlm.nih.gov/26304644/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Anderson et al. (2020)</strong> — 착지법 변경의 이득과 위험 체계적 고찰(53편). 부상 없는 뒤꿈치 착지 러너에게 변경 권고 불가. <a href="https://pubmed.ncbi.nlm.nih.gov/31823338/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Burke et al. (2021)</strong> — 착지법과 러닝 부상 체계적 고찰(13편). 관계의 근거 수준 낮음. <a href="https://pubmed.ncbi.nlm.nih.gov/34527750/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Burke et al. (2023)</strong> — 일반 러너 258명 1년 전향 추적. <a href="https://pubmed.ncbi.nlm.nih.gov/37310517/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Lieberman et al. (2010)</strong> — 맨발 러너와 신발 신은 러너의 착지와 충돌력(Nature). <a href="https://pubmed.ncbi.nlm.nih.gov/20111000/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Lieberman et al. (2015)</strong> — 보빈도·착지 위치와 제동력·충격 피크(14명). <a href="https://pubmed.ncbi.nlm.nih.gov/26538175/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Heiderscheit et al. (2011)</strong> — 케이던스 조작과 하지 관절 역학(일반 러너 45명). <a href="https://pubmed.ncbi.nlm.nih.gov/20581720/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Lyght et al. (2016)</strong> — 착지법·걸음 수(±5%)와 아킬레스건 응력(여성 러너 19명). <a href="https://pubmed.ncbi.nlm.nih.gov/26955843/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Almonroeder et al. (2013)</strong> — 착지법과 아킬레스건 부하(여성 러너, 맨발). <a href="https://pubmed.ncbi.nlm.nih.gov/23640524/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Rice et al. (2017)</strong> — 착지법·신발 조작과 아킬레스건 부하(뒤꿈치 착지 러너 22명). <a href="https://pubmed.ncbi.nlm.nih.gov/28460179/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            <li><strong>Hung Au et al. (2021)</strong> — 착지법별 발소리와 수직 부하율(30명). <a href="https://pubmed.ncbi.nlm.nih.gov/34911076/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed ↗</a></li>
-            {/* 2026-09-15 추가 — 한국어 · 정형외과 전문의. */}
-            <li>
-              <a href="https://www.hnews.kr/news/view.php?no=68992" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
-                안지용 (서울부민병원 정형외과 실장) — <strong>&ldquo;착지 방식을 억지로 바꾸기보다 훈련량을 점진적으로 늘리는 것이 중요&rdquo;</strong>. 현대건강신문 ↗
-              </a>
-            </li>
-            <li>
-              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=61267" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">
-                선상규 (코끼리정형외과의원 정형외과 전문의) — 걸음 수를 늘리면 아킬레스건 부담이 줄어든다는 설명. 하이닥 ↗
-              </a>
-            </li>
-            <li className="text-gray-500">오버스트라이드 관련 자료 — 검증기가 무관한 논문을 가리키는 것을 확인해 링크를 내렸습니다 (2026-08-31)</li>
-          </ul>
-        </References>
+        <OneLine>바꾸기로 했다면 짧은 구간부터, 신발은 그대로 두고 해 보세요.</OneLine>
 
-        <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
+        <FinderCta
+          from="midfoot"
+          variant="inline"
+          headline="착지를 바꾸는 것보다 발볼과 사이즈가 맞는 신발이 먼저예요."
+        />
 
-        <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
-          <p className="mb-2 font-medium text-emerald-900">내 발에 맞는 러닝화를 찾으세요</p>
-          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
-            나에게 맞는 신발 찾기 →
-          </Link>
+        <div className="mt-14">
+          <YoutubeSection links={[
+            { label: "착지법 전쟁 종결 — 미드풋 vs 리어풋 vs 힐스트라이크", channel: "러닝비하인드 RunningBehind 쟐쌤", url: "https://www.youtube.com/watch?v=FWXS4q-34w8" },
+            { label: "수십 년째 논쟁 — 힐스트라이크 vs 미드풋 vs 포어풋", channel: "애슬레틱 라이프 Athletic Life", url: "https://www.youtube.com/watch?v=b20-GrHPMWI" },
+          ]} />
         </div>
+
+        <div className="mt-14">
+          <FaqSection items={FAQ} />
+        </div>
+
+        <Sources>
+          <Src n={1}>
+            <strong>Anderson et al. (2020)</strong> 연구 53편을 모은 체계적 고찰이에요. 다치지 않은 뒤꿈치 착지 러너에게 착지
+            방식 변경을 권할 수 없고, 착지 방식과 부상 위험의 관계는 결정할 수 없다고 적었어요(부상을 본 연구가 후향 연구뿐).
+            바꾼 직후 러닝 이코노미는 떨어졌고, 부하는 발목과 족저굴곡근 쪽으로 옮겨 갔어요.
+            <Ref>Sports Med · <a href="https://pubmed.ncbi.nlm.nih.gov/31823338/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Burke et al. (2021)</strong> 연구 13편을 모은 체계적 고찰이에요. 착지 기술과 러닝 부상의 관계를 받치는 근거
+            수준이 낮았어요. 관계를 보고한 연구들은 후향 설계·작은 표본·부실한 착지 측정으로 질이 매우 낮다고 평가했어요.
+            <Ref>Orthop J Sports Med · <a href="https://pubmed.ncbi.nlm.nih.gov/34527750/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Burke et al. (2023)</strong> 레크리에이션 러너 258명을 1년 따라간 전향 연구예요. 요인을 하나씩 본 분석에서는
+            뒤꿈치가 아닌 착지가 부상과 유의하게 연관됐지만, 여러 요인을 함께 넣은 분석에서는 빠졌어요(남은 것은 이전 부상·마라톤
+            훈련 등). 가장 많이 다친 곳은 종아리였어요.
+            <Ref>Sports Med Open · <a href="https://pubmed.ncbi.nlm.nih.gov/37310517/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>Almeida et al. (2015)</strong> 연구 16편을 모은 메타분석이에요. 뒤꿈치 착지가 앞꿈치 착지보다 수직 부하율이
+            높았고, 접지 순간의 발목·무릎 각도와 무릎 굽힘 가동범위도 달랐어요. 발목이나 무릎이 받는 힘에 대한 서술은 초록에
+            없어요.
+            <Ref>J Orthop Sports Phys Ther 45(10):738-755 · <a href="https://pubmed.ncbi.nlm.nih.gov/26304644/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={5}>
+            <strong>Lieberman et al. (2010)</strong> 습관적으로 맨발로 달리는 러너와 신발을 신고 달리는 러너를 비교했어요. 맨발
+            앞꿈치 착지 쪽이 충돌력이 작았어요. 발바닥 중간 착지는 별도 비교군이 아니고, 부상이 얼마나 생기는지는 재지 않았어요.
+            <Ref>Nature · <a href="https://pubmed.ncbi.nlm.nih.gov/20111000/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={6}>
+            <strong>Lieberman et al. (2015)</strong> 러너 14명이 초속 3.0m 로 달린 실험이에요. 엉덩이보다 앞에 닿을수록 제동력이
+            커졌고(무릎 기준으로는 아님), 무릎보다 앞에 닿을수록 수직 충격 정점이 커졌어요. 충격이 올라가는 속도는 통계적으로
+            분명하지 않았어요. 분당 스트라이드 5 를 올릴 때마다 착지 위치가 엉덩이 쪽으로 5.9% 가까워졌어요.
+            <Ref>J Exp Biol · <a href="https://pubmed.ncbi.nlm.nih.gov/26538175/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={7}>
+            <strong>Heiderscheit et al. (2011)</strong> 건강한 일반 러너 45명이 같은 속도 트레드밀에서 평소 걸음 수와 ±5%·±10%로
+            달렸어요. 걸음 수가 오르자 보폭·무게중심 상하 이동·제동 충격량이 줄었어요. 이 글이 쓰는 5~10% 라는 폭은 이 실험이
+            시험한 조건이에요.
+            <Ref>Med Sci Sports Exerc · <a href="https://pubmed.ncbi.nlm.nih.gov/20581720/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={8}>
+            <strong>Lyght et al. (2016)</strong> 여성 러너 19명이 두 착지와 세 가지 걸음 수로 달렸어요. 앞꿈치 착지가 뒤꿈치
+            착지보다 아킬레스 최대 응력과 변형이 더 컸어요. 걸음 수를 5% 올렸을 때는 두 착지 모두에서 응력과 변형이 줄었어요.
+            <Ref>J Appl Biomech 32(4):365-72 · <a href="https://pubmed.ncbi.nlm.nih.gov/26955843/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={9}>
+            <strong>Almonroeder et al. (2013)</strong> 여성 러너 19명(뒤꿈치 11명 · 뒤꿈치가 아닌 착지 8명)이 맨발로 달렸어요.
+            뒤꿈치가 아닌 착지 쪽이 걸음당 아킬레스 충격량이 11% 컸어요(p=0.05). 마일당 충격량과 부하율 차이는 통계적으로
+            분명하지 않았어요(p=0.06).
+            <Ref>Ann Biomed Eng 41(8):1758-66 · <a href="https://pubmed.ncbi.nlm.nih.gov/23640524/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={10}>
+            <strong>Rice et al. (2017)</strong> 습관적으로 뒤꿈치로 닿는 러너 22명이 일반 신발·미니멀 신발·맨발로, 각각 두 착지로
+            달렸어요. 미니멀 신발에서 앞꿈치로 닿을 때 아킬레스 충격량이 더 컸고, 미니멀 신발과 맨발은 착지 방식과 무관하게
+            아킬레스 부하율이 더 컸어요.
+            <Ref>Am J Sports Med · <a href="https://pubmed.ncbi.nlm.nih.gov/28460179/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={11}>
+            <strong>Hung Au et al. (2021)</strong> 러너 30명이 지면에서 달렸어요. 발바닥 중간과 앞꿈치 착지가 뒤꿈치 착지보다
+            소리 최대 진폭이 컸어요. 수직 부하율과 소리 특성 사이에는 유의한 관계가 없었고, 저자들은 소리만으로 충격 부하를
+            추정하지 말라고 적었어요.
+            <Ref>J Athl Train · <a href="https://pubmed.ncbi.nlm.nih.gov/34911076/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>

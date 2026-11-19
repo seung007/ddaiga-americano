@@ -1,6 +1,17 @@
 export type FaqItem = { q: string; a: string };
 
 /**
+ * 답 안의 **굵게** (2026-11-18): 본문처럼 할 일과 핵심 숫자를 굵게 — FAQ 만 맨글이라 읽기 어려웠다.
+ * 화면에서는 <strong>, 구조화 데이터(JSON-LD)에서는 표시만 지운다(AI·검색 인용에 별표가 섞이지 않게).
+ */
+const plain = (t: string) => t.replace(/\*\*(.+?)\*\*/g, "$1");
+function rich(t: string) {
+  return t.split(/(\*\*.+?\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong> : part,
+  );
+}
+
+/**
  * FAQ 섹션 + FAQPage JSON-LD (schema.org)
  * 구글 리치 결과 및 AI 검색(ChatGPT 등) 인용 노출을 위한 구조화 데이터.
  */
@@ -24,7 +35,7 @@ export default function FaqSection({ items, schemaNote = SCHEMA_DISCLAIMER, titl
     mainEntity: items.map((i) => ({
       "@type": "Question",
       name: i.q,
-      acceptedAnswer: { "@type": "Answer", text: i.a + schemaNote },
+      acceptedAnswer: { "@type": "Answer", text: plain(i.a) + schemaNote },
     })),
   };
 
@@ -50,12 +61,14 @@ export default function FaqSection({ items, schemaNote = SCHEMA_DISCLAIMER, titl
              * 하나만 펼쳐 두면 "여기 답이 들어 있다"는 신호가 되면서 목록도 남는다.
              */
             open={idx === 0}
-            className="rounded-xl border border-gray-200 bg-white px-4 py-3"
+            className="group/faq rounded-xl border border-gray-200 bg-white px-4 py-3"
           >
-            <summary className="cursor-pointer font-semibold text-sm text-gray-900 hover:text-emerald-700">
-              {i.q}
+            {/* 2026-11-18: 질문(14px)이 답(16px)보다 작았고 ▶▼ 기본 표시가 붙었다 — 목차와 같은 오른쪽 › 로, 질문도 16px */}
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 break-keep text-base font-semibold text-gray-900 hover:text-emerald-700 [&::-webkit-details-marker]:hidden">
+              <span>{i.q}</span>
+              <span aria-hidden className="shrink-0 text-gray-400 transition-transform group-open/faq:rotate-90">›</span>
             </summary>
-            <p className="mt-2 text-base text-gray-700 leading-relaxed">{i.a}</p>
+            <p className="mt-2 text-base text-gray-700 leading-relaxed">{rich(i.a)}</p>
           </details>
         ))}
       </div>

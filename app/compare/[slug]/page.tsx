@@ -1,9 +1,10 @@
 import ShoeSideProfile from "@/components/ShoeSideProfile";
+import ShoeCompareSpecs from "@/components/ShoeCompareSpecs";
 import { SELLER_NOTE } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
-import { KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
+import { withFootTypes } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
 import AffiliateNotice from "@/components/AffiliateNotice";
 import { affiliateFor, resolveBuyLinks, pickTwoBuyLinks } from "@/lib/shoes/affiliate";
@@ -60,94 +61,6 @@ export async function generateStaticParams() {
 
 // 사전 렌더링 목록에 없는 URL도 허용 — 요청 시 서버에서 렌더링
 export const dynamicParams = true;
-
-// ── 스펙 비교 항목 정의 ─────────────────────────────────────────
-type SpecRow = {
-  label: string;
-  explain: string;
-  getValue: (s: Shoe) => string | number;
-  unit?: string;
-  lowerIsBetter?: boolean;
-  higherIsBetter?: boolean;
-};
-
-const STABILITY_LABEL: Record<string, string> = {
-  neutral: "중립",
-  stability: "안정화",
-  motion_control: "모션컨트롤",
-};
-
-const SPEC_ROWS: SpecRow[] = [
-  {
-    label: "가격",
-    explain: "한국 기준 권장소비자가격",
-    getValue: (s) => s.priceKrw.toLocaleString() + "원",
-    lowerIsBetter: true,
-  },
-  {
-    label: "무게 (M9)",
-    explain: "남성 9사이즈 기준 한 짝 무게(공개된 실측값)",
-    getValue: (s) => s.weightGramsM9,
-    unit: "g",
-    lowerIsBetter: true,
-  },
-  {
-    label: "힐 드롭",
-    explain: "뒤꿈치 두께 − 앞꿈치 두께(공개된 실측값)",
-    getValue: (s) => s.heelDropMm,
-    unit: "mm",
-  },
-  {
-    label: "스택 높이",
-    // 2026-10-12: 「높을수록 충격 흡수 좋음」과 ✓(higherIsBetter)를 뺐다. 두께와 부상·충격의 관계를
-    // 이 사이트는 확인하지 못했다. 드롭의 「힐스트라이커 친화·미드풋 유도」도 같은 이유로 뺐다.
-    explain: "뒤꿈치 쪽 미드솔 두께(공개된 실측값)",
-    getValue: (s) => s.stackHeightMm,
-    unit: "mm",
-  },
-  {
-    label: "쿠셔닝",
-    explain: "1(미니멀) ~ 5(맥시멀). 뒤꿈치 스택 높이로 나눈 사이트 분류",
-    getValue: (s) => `${s.cushioning}/5`,
-  },
-  {
-    label: "안정화 유형",
-    explain: "중립=과회내 없음, 안정화=과회내(평발) 제어, 모션컨트롤=심한 과회내 제어",
-    getValue: (s) => STABILITY_LABEL[s.stability],
-  },
-  {
-    label: "발볼 옵션",
-    explain: "D=보통, 2E=넓음, 4E=아주 넓음",
-    getValue: (s) => s.widthOptions.join(" · "),
-  },
-  // 2026-10-06: 「권장 체중 — 쿠션 밀도가 최적인 체중 범위」 행을 뺐다. 출처 없는 사이트 분류였고
-  // 체중별 쿠션 처방은 근거와 반대 방향이었다(recommend.ts v4).
-  {
-    label: "용도",
-    explain: "daily=매일 달리기, long=장거리, tempo=속도훈련, racing=레이싱",
-    getValue: (s) => s.uses.join(" · "),
-  },
-  {
-    label: "국내 구매",
-    explain: "국내 공식판매=정품+AS 보장, 병행수입=가격 저렴하나 AS 제한",
-    getValue: (s) => KR_AVAILABILITY_LABEL[s.krAvailability],
-  },
-];
-
-// ── 수치 비교 헬퍼 ──────────────────────────────────────────────
-function numericWinner(
-  a: Shoe,
-  b: Shoe,
-  row: SpecRow
-): "a" | "b" | "tie" | null {
-  const va = row.getValue(a);
-  const vb = row.getValue(b);
-  if (typeof va !== "number" || typeof vb !== "number") return null;
-  if (va === vb) return "tie";
-  if (row.lowerIsBetter) return va < vb ? "a" : "b";
-  if (row.higherIsBetter) return va > vb ? "a" : "b";
-  return null;
-}
 
 // ── 메인 페이지 ─────────────────────────────────────────────────
 export default async function ComparePage({
@@ -243,86 +156,11 @@ export default async function ComparePage({
         ))}
       </div>
 
-      {/* ── 스펙 비교 테이블 ── */}
+      {/* ── 스펙 비교 ── 2026-11-18: 3열 표를 러닝화 찾기와 같은 화면(components/ShoeCompareSpecs.tsx)으로 바꿨다.
+          옛 표는 가격을 문자열로 비교해 「더 저렴」 ✓ 가 한 번도 안 떴다(numericWinner 가 숫자만 봤다). */}
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 mb-3">
-          스펙 비교
-        </h2>
-        <div className="rounded-2xl border border-gray-200 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 w-[30%]">
-                  항목
-                </th>
-                <th className="text-center px-3 py-3 text-xs font-semibold text-gray-700 w-[35%]">
-                  {shoeA.brand} {shoeA.model}
-                </th>
-                <th className="text-center px-3 py-3 text-xs font-semibold text-gray-700 w-[35%]">
-                  {shoeB.brand} {shoeB.model}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {SPEC_ROWS.map((row, i) => {
-                const winner = numericWinner(shoeA, shoeB, row);
-                const va = row.getValue(shoeA);
-                const vb = row.getValue(shoeB);
-                const displayA =
-                  typeof va === "number" ? `${va}${row.unit ?? ""}` : va;
-                const displayB =
-                  typeof vb === "number" ? `${vb}${row.unit ?? ""}` : vb;
-
-                return (
-                  <tr
-                    key={row.label}
-                    className={`border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
-                  >
-                    <td className="px-4 py-3">
-                      <p className="font-medium text-gray-800 text-xs">
-                        {row.label}
-                      </p>
-                      <p className="text-gray-400 text-xs mt-0.5 leading-relaxed hidden sm:block">
-                        {row.explain}
-                      </p>
-                    </td>
-                    <td className="px-3 py-3 text-center">
-                      <span
-                        className={`inline-block text-xs font-semibold px-2 py-1 rounded-lg ${
-                          winner === "a"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "text-gray-700"
-                        }`}
-                      >
-                        {displayA}
-                        {winner === "a" && (
-                          <span className="ml-1 text-emerald-500">✓</span>
-                        )}
-                      </span>
-                    </td>
-                    <td className="px-3 py-3 text-center">
-                      <span
-                        className={`inline-block text-xs font-semibold px-2 py-1 rounded-lg ${
-                          winner === "b"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "text-gray-700"
-                        }`}
-                      >
-                        {displayB}
-                        {winner === "b" && (
-                          <span className="ml-1 text-emerald-500">✓</span>
-                        )}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-xs text-gray-400 mt-2">
-          ✓ 표시는 가격이 낮거나 무게가 가벼운 쪽이에요. 두께·드롭은 많고 적음에 좋고 나쁨을 매기지 않았어요.
-        </p>
+        <h2 className="text-lg font-bold text-gray-900 mb-1">스펙 비교</h2>
+        <ShoeCompareSpecs shoes={[shoeA, shoeB]} />
       </section>
 
       {/* ── 두께 그림 (2026-10-12) — 표의 숫자를 같은 축척으로 겹쳐 본다 ── */}

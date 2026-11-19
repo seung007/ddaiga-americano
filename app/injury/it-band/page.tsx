@@ -82,7 +82,6 @@ export default function ITBandPage() {
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-600">무릎 바깥 · 3~4단계</span>
-          <span className="text-xs text-gray-400">5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
         <ArticleMeta href="/injury/it-band" />

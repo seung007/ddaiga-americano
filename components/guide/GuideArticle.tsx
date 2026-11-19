@@ -171,8 +171,7 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
         </Link>
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${entry.tagColor}`}>{entry.tag}</span>
-          <span className="text-xs text-gray-400">{entry.readTime} 읽기</span>
-          <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
+          <span className="text-xs text-gray-400">협찬 없이 작성</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{entry.title}</h1>
         {/* ArticleMeta 와 같은 줄. 날짜는 원장에서만.

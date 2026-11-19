@@ -124,6 +124,8 @@ interface Scored {
   score: number;
   /** 정렬용 — 자르기 전 점수. 100점 동점을 줄이려고 둔다(2026-10-06) */
   rawScore: number;
+  /** 이 프로필이 받을 수 있는 최고점 (화면 점수의 분모) */
+  possible: number;
   reasons: string[];
   widthOk: boolean;
   useOk: boolean;
@@ -137,6 +139,12 @@ interface Scored {
 function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: BodyType): Scored {
   const reasons: string[] = [];
   let score = 0;
+  // 이 프로필이 받을 수 있는 최고점. 규칙마다 그 자리에서 같이 더한다 — 가점을 고치면 바로 옆 줄도 같이 고친다.
+  // **프로필만 보고 정한다(신발 값을 보지 않는다).** 그래야 한 사람의 모든 신발이 같은 값으로 나뉘어 순위가 안 바뀐다.
+  let possible = 0;
+  // 맞춰 보지 않고 모든 신발에 똑같이 주는 점수(보통 발 +4, 용도 미선택 +6). 순위에는 영향이 없고,
+  // % 에 넣으면 「그냥 받는 점수」가 숫자를 올린다 — 그래서 화면 점수 계산에서는 뺀다(2026-11-18).
+  let free = 0;
 
   // ── 1. 체형 분류 매칭 — 2026-10-06 점수에서 뺐다 ───────────
   // 체형 태그는 키×체중 조합이고 출처 기록이 없다(types.ts 판단 필드). 키 부분만 남기는 안도 봤지만
@@ -147,6 +155,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 2. 발볼 (20점) ─────────────────────────────────────────
   const widthOk = hasMatchingWidth(shoe, profile.footWidth);
+  possible += 20;
   if (widthOk) {
     score += 20;
     reasons.push(`${profile.footWidth === "wide" ? "넓은" : profile.footWidth === "narrow" ? "좁은" : "보통"} 발볼에 맞는 폭이 있어요`);
@@ -172,6 +181,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 그래서 이 축의 가중치를 약 1/3로 줄이고, 사용자에게 보이는 문구도
   // 확정된 사실("과회내 제어 안정화 구조")에서 갈리는 사항으로 바꾼다.
   // 발볼(20점)·체형(25점)은 물리적 치수 매칭이라 근거의 성질이 다르므로 유지한다.
+  possible += 12 + (profile.footType === "flat" || profile.footType === "high_arch" ? 3 : 0);
   if (shoe.footTypes.includes(profile.footType)) {
     score += 12;
     reasons.push(`${profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : "보통"} 발에 맞춘 신발(사이트 분류)`);
@@ -185,6 +195,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     else { score -= 2; }
   } else {
     score += 4;
+    free += 4;
   }
 
   // ── 3b. 성별 골격·생체역학 보정 (최대 ±18점) ───────────────
@@ -194,6 +205,8 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   let genderFitMatch = false;
   let genderFitNote: string | undefined;
 
+  if (profile.gender === "female") possible += 12 + (profile.footWidth === "wide" ? 4 : 0);
+  else if (profile.gender === "male") possible += 3;
   if (profile.gender === "female") {
     // (1) 여성 전용 라스트 — 가장 큰 가점
     if (fit === "womens_last") {
@@ -229,6 +242,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 3c. 한국인 발 매칭 (최대 6점) ──────────────────────────
   // 사이즈코리아·아시아 스캔: 한국인 발 = 넓은 앞볼·높은 발등 경향.
+  possible += (profile.footWidth !== "narrow" ? 4 : 0) + 2;
   if (isWideForefoot(shoe) && profile.footWidth !== "narrow") {
     score += 4;
     reasons.push("앞쪽이 넉넉한 편이에요");
@@ -243,6 +257,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 5. 신장 × 드롭 (10점) ─────────────────────────────────
   const [dMin, dMax] = idealDropRange(profile.heightCm);
+  possible += 10;
   if (shoe.heelDropMm >= dMin && shoe.heelDropMm <= dMax) {
     score += 10;
     reasons.push(`키에 맞춘 앞뒤 굽 차이 ${shoe.heelDropMm}mm(사이트 기준)`);
@@ -252,15 +267,18 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 6. 용도 (15점) ────────────────────────────────────────
   let useOk = true;
+  possible += profile.use ? 15 : 0;
   if (profile.use) {
     useOk = shoe.uses.includes(profile.use);
     if (useOk) { score += 15; reasons.push("고른 용도에 맞아요"); }
     else score -= 5;
   } else {
     score += 6;
+    free += 6;
   }
 
   // ── 7. 경험 수준 (PRD F-01) ───────────────────────────────
+  possible += profile.level === "beginner" ? 4 : profile.level === "advanced" ? 3 : 0;
   if (profile.level === "beginner") {
     // 카본화 감점.
     //
@@ -279,6 +297,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   }
 
   // ── 8. 주 평균 거리 (PRD F-01) ────────────────────────────
+  possible += profile.distance === "long" ? 6 : profile.distance === "short" ? 3 : 0;
   if (profile.distance === "long") {
     if (shoe.cushioning >= 4 || shoe.uses.includes("long")) { score += 6; reasons.push("오래 달려도 버티는 쿠션이에요"); }
     if (shoe.cushioning <= 2) { score -= 6; reasons.push("쿠션이 얇아 장거리엔 덜 맞아요(사이트 기준)"); }
@@ -288,6 +307,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 9. 부상 이력 (PRD F-01 수용기준) ──────────────────────
   for (const inj of profile.injuryHistory ?? []) {
+    possible += inj === "knee" ? 5 : inj === "achilles" ? 6 : inj === "plantar" ? 7 : inj === "ankle" ? 2 : 0;
     if (inj === "knee") {
       // 2026-08-31 축소(6 → 2). "안정화가 슬개대퇴 부담을 완화한다"는 문장을
       // 지지하는 근거가 이 저장소에 없다. 위 3번 블록과 같은 축인데 부상 이력에서
@@ -311,6 +331,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   // ── 10. 예산 (PRD F-01 수용기준) — 하드 필터는 recommendShoes에서 처리 ──
   // 여기서는 예산 내 모델에 소폭 가점만 (초과 모델은 이미 후보에서 제외됨)
+  if (profile.budgetKrw && profile.budgetKrw > 0) possible += 5;
   if (profile.budgetKrw && profile.budgetKrw > 0 && shoe.priceKrw <= profile.budgetKrw) {
     score += 5;
     reasons.push(`예산 ${profile.budgetKrw.toLocaleString()}원 안이에요`);
@@ -318,8 +339,14 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
 
   return {
     shoe,
-    score: Math.max(0, Math.min(100, score)),
+    // 2026-11-18: 화면 점수 = 받을 수 있는 최고점 대비 %.
+    // 이전에는 가점 합계를 그대로 보여 줬다. 근거가 약한 가점을 줄여 오면서(안정화 +8→+3, 체중 점수 삭제 등)
+    // 조건이 다 맞아도 60~75 에 머물렀다(648 프로필 1위 점수: 최고 75·중앙값 66·80 이상 0건). 추천이 나빠진 게 아니라 눈금이 틀어진 것.
+    // 100 은 「완벽한 신발」이 아니라 「고른 조건에 모두 맞음(사이트 기준)」이다 — 화면 문구도 그렇게 쓴다.
+    // 순위는 rawScore 로 정한다(byRank). possible·free 가 프로필 고정값이라 % 순서와 같다.
+    score: Math.max(0, Math.min(100, Math.round(((score - free) / possible) * 100))),
     rawScore: score,
+    possible,
     reasons,
     widthOk,
     useOk,
