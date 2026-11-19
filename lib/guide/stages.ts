@@ -68,7 +68,7 @@ export const STAGES: Stage[] = [
         fact: "6주 초보 프로그램 참가자 774명 중 29.5%가 26주 안에 달리기를 그만뒀고, 그만둔 이유 1위가 부상(48%)이었습니다.",
         cite: "Fokkema et al. (2019) J Sci Med Sport 22(1):106-111",
         href: "https://pubmed.ncbi.nlm.nih.gov/29934211/",
-        todo: "늘리는 기준을 '다음 날 아프지 않은가'로 둡니다. 아프면 그 단계를 반복합니다.",
+        todo: "다음 날 아프지 않으면 늘려요. 아프면 더 늘리지 말고 같은 양으로 다시 뛰어요.",
         basis: "rule",
       },
       {
@@ -76,7 +76,7 @@ export const STAGES: Stage[] = [
         fact: "9주 걷기-달리기 프로그램(Couch-to-5k 변형) 참가자 110명 중 끝까지 마친 사람은 27.3%. 그만둔 사람들은 부상과 '정해진 진도'를 이유로 꼽았고, 저자들은 더 유연한 설계를 권했습니다.",
         cite: "Relph et al. (2023) Int J Environ Res Public Health 20(17):6682",
         href: "https://pubmed.ncbi.nlm.nih.gov/37681822/",
-        todo: "순서는 프로그램을 따르되, 넘어가는 시점은 달력이 아니라 몸으로 정합니다.",
+        todo: "순서는 프로그램대로 하되, 다음으로 넘어갈지는 날짜가 아니라 몸 상태를 보고 정해요.",
         basis: "rule",
       },
       {
@@ -86,7 +86,7 @@ export const STAGES: Stage[] = [
         //   판정 출처: Project 문서 「처음 달리기 글 근거 판정」 8번 · 견본 app/injury/start-running/page.tsx 머리 주석.
         cite: "Reed & Pipe (2014) Curr Opin Cardiol 29(5):475-80",
         href: "https://pubmed.ncbi.nlm.nih.gov/25010379/",
-        todo: "문장으로 대화가 되는 속도로 달립니다. 안 되면 걷기를 섞습니다.",
+        todo: "옆 사람과 이야기할 수 있을 만큼 천천히 달려요. 안 되면 걷기를 섞어요.",
         basis: "paper",
       },
     ],
@@ -113,7 +113,7 @@ export const STAGES: Stage[] = [
         fact: "성인 러너 5,205명을 18개월 추적한 결과, 한 번 달린 거리가 최근 30일 최장 거리보다 10% 넘게 긴 날에 부상이 늘었습니다. 전주 대비 주간 거리 비율은 부상과 관계가 없었습니다. 초보나 복귀 러너만 모은 연구는 아닙니다(평균 45.8세).",
         cite: "Frandsen et al. (2025) Br J Sports Med 59(17):1203-1210",
         href: "https://pubmed.ncbi.nlm.nih.gov/40623829/",
-        todo: "가장 긴 날을 지난 한 달 최장 거리의 110% 안에서 늘립니다.",
+        todo: "한 번에 가장 길게 뛰는 거리는, 지난 한 달 중 가장 길게 뛴 거리의 110%까지만 늘려요. 10km였다면 11km까지예요.",
         // 2026-10-13: paper → rule. 관찰 연구 한 편(Frandsen 2025)의 연관을 지시로 바꾼 것이라 — 가이드 글 검증과 같은 판단
         basis: "rule",
       },
@@ -122,7 +122,7 @@ export const STAGES: Stage[] = [
         fact: "부상당한 초보 러너 254명 중 정강이 통증이 15%, 무릎 앞(슬개대퇴) 통증이 10%였습니다.",
         cite: "Nielsen et al. (2014) PLOS ONE 9(6):e99877",
         href: "https://doi.org/10.1371/journal.pone.0099877",
-        todo: "통증 위치별 글에서 멈춰야 하는 신호부터 확인합니다.",
+        todo: "아픈 곳에 맞는 글에서 멈춰야 하는 신호부터 확인해요.",
         basis: "rule",
       },
       {
@@ -130,7 +130,7 @@ export const STAGES: Stage[] = [
         fact: "13개 연구를 모은 메타분석에서 달린 시간 1,000시간당 부상은 초보 17.8건, 레크리에이션 러너 7.7건이었습니다(부상 정의가 연구마다 달라 비교에 한계).",
         cite: "Videbæk et al. (2015) Sports Med 45(7):1017-26",
         href: "https://pubmed.ncbi.nlm.nih.gov/25951917/",
-        todo: "숨이 편해졌다고 다리도 준비된 건 아닙니다. 거리는 천천히 늘립니다.",
+        todo: "숨이 편해졌다고 다리도 준비된 건 아니에요. 거리는 천천히 늘려요.",
         basis: "rule",
       },
     ],
@@ -155,7 +155,7 @@ export const STAGES: Stage[] = [
         fact: "하프 참가자 556명의 준비량 중앙값은 주 26km, 주 3회, 가장 긴 달리기 18.5km였습니다. 주 32km 초과·최장 21km 초과 그룹이 더 빨랐고 후반 감속이 적었으며, 훈련량과 부상의 관련은 없었습니다(관찰 연구).",
         cite: "Fokkema et al. (2020) Scand J Med Sci Sports 30(9):1692-1704",
         href: "https://pubmed.ncbi.nlm.nih.gov/32421886/",
-        todo: "완주가 목표면 주 26km·최장 18km 안팎을 기준점으로, 기록이 목표면 주 32km·최장 21km 이상을 목표로 천천히 늘립니다.",
+        todo: "완주가 목표면 일주일에 26km, 한 번에 가장 길게 18km쯤을 기준으로 잡아요. 기록이 목표면 일주일 32km, 가장 길게 21km 이상까지 천천히 늘려요.",
         basis: "rule",
       },
       {
@@ -163,7 +163,7 @@ export const STAGES: Stage[] = [
         fact: "하프를 준비하는 러너 261명을 14주 추적한 연구에서 21일 시점, 주간 거리를 20~60% 늘린 사람이 20% 미만으로 늘린 사람보다 부상 위험이 22.6%p 높았습니다(56·98일 시점에는 차이 없음). 같은 지표가 다른 대규모 연구(Frandsen 2025)에서는 관계가 없었습니다.",
         cite: "Damsted et al. (2019) J Orthop Sports Phys Ther 49(4):230-238",
         href: "https://pubmed.ncbi.nlm.nih.gov/30526231/",
-        todo: "준비 첫 3주는 주간 거리를 20% 미만으로 늘리고, 긴 달리기는 최근 최장 거리의 110% 안에서.",
+        todo: "준비 첫 3주는 일주일 거리를 20% 미만으로 늘려요. 한 번에 가장 길게 뛰는 거리는 최근 가장 길게 뛴 거리의 110%까지만 늘려요.",
         basis: "rule",
       },
       {
@@ -171,7 +171,7 @@ export const STAGES: Stage[] = [
         fact: "영국 파크런 러너 1,145명 설문에서 현재 부상이 있는 570명 중 86%가 통증을 안고 계속 달리고 있었습니다.",
         cite: "Linton & Valentin (2018) J Sci Med Sport 21(12):1221-1225",
         href: "https://pubmed.ncbi.nlm.nih.gov/29853263/",
-        todo: "통증 때문에 자세가 바뀌거나 다음 날 더 아프면 그날은 멈춥니다.",
+        todo: "걸을 때도 아프거나 다음 날 더 아프면 그날은 멈춰요.",
         basis: "rule",
       },
       {
@@ -179,7 +179,7 @@ export const STAGES: Stage[] = [
         fact: "전향 코호트 11편을 모은 체계적 고찰에서 가장 일관된 위험 요인은 지난 12개월 안의 부상이었습니다(조사한 8편 중 5편).",
         cite: "Saragiotto et al. (2014) Sports Med 44(8):1153-63",
         href: "https://pubmed.ncbi.nlm.nih.gov/24809248/",
-        todo: "다 나은 뒤 돌아오고, 복귀 첫 몇 주는 거리를 낮게 잡습니다.",
+        todo: "다 나은 뒤에 다시 시작하고, 처음 몇 주는 거리를 짧게 잡아요.",
         basis: "rule",
       },
     ],
@@ -205,7 +205,7 @@ export const STAGES: Stage[] = [
         fact: "풀코스 참가자 441명의 준비량 중앙값은 주 40km, 주 3회, 가장 긴 달리기 32km였습니다. 주 40km 미만과 최장 25km 미만은 더 느린 완주와 관련 있었고, 훈련량과 부상의 관련은 없었습니다(관찰 연구).",
         cite: "Fokkema et al. (2020) Scand J Med Sci Sports 30(9):1692-1704",
         href: "https://pubmed.ncbi.nlm.nih.gov/32421886/",
-        todo: "주 40km·최장 25~32km를 기준점으로, 긴 달리기는 최근 30일 최장 거리의 110% 안에서 늘립니다.",
+        todo: "일주일에 40km, 한 번에 가장 길게 25~32km를 기준으로 잡아요. 가장 길게 뛰는 거리는 최근 30일 중 가장 길게 뛴 거리의 110%까지만 늘려요.",
         basis: "rule",
       },
       {
@@ -213,7 +213,7 @@ export const STAGES: Stage[] = [
         fact: "뉴욕마라톤 참가자 735명을 16주 추적했더니 40.0%가 훈련 중 다쳤습니다. 최근 7일과 28일 거리로 계산한 급성:만성 비율(ACWR)이 1.5 이상인 날이 많을수록 부상이 많았습니다(하루당 OR 1.06). 다만 다른 대규모 연구(Frandsen 2025)에서는 이 지표가 반대 방향으로 나왔습니다.",
         cite: "Toresdahl et al. (2023) Br J Sports Med 57(3):146-152",
         href: "https://pubmed.ncbi.nlm.nih.gov/36113976/",
-        todo: "주간 거리를 갑자기 끌어올리는 주를 만들지 않습니다. 지표 하나에 기대기보다 긴 달리기 증가폭을 함께 봅니다.",
+        todo: "일주일 거리를 갑자기 확 늘리는 주를 만들지 않아요. 숫자 하나만 보지 말고, 가장 길게 뛰는 거리가 얼마나 늘었는지도 같이 봐요.",
         basis: "rule",
       },
       {
@@ -221,7 +221,7 @@ export const STAGES: Stage[] = [
         fact: "400만 건 넘는 기록을 분석한 결과, 후반에 크게 느려지는 '벽'을 겪은 비율이 남성 28%, 여성 17%였습니다.",
         cite: "Smyth (2021) PLOS ONE 16(5):e0251513",
         href: "https://pubmed.ncbi.nlm.nih.gov/34010308/",
-        todo: "초반 페이스를 목표보다 빠르게 잡지 않고, 젤·물 계획을 긴 달리기에서 미리 연습합니다.",
+        todo: "초반을 목표보다 빠르게 달리지 않아요. 젤과 물을 언제 먹을지는 길게 뛰는 날에 미리 연습해요.",
         basis: "rule",
       },
     ],
@@ -246,7 +246,7 @@ export const STAGES: Stage[] = [
         fact: "레크리에이션 러너 2,303명 분석에서 널리 쓰이는 리겔 공식은 하프까지는 잘 맞았지만, 풀코스는 러너 절반에게서 실제보다 10분 이상 빠르게 예측했습니다.",
         cite: "Vickers & Vertosick (2016) BMC Sports Sci Med Rehabil 8(1):26",
         href: "https://pubmed.ncbi.nlm.nih.gov/27570626/",
-        todo: "풀코스 목표 페이스는 공식 값보다 보수적으로 잡고, 전반을 목표보다 빠르게 달리지 않습니다.",
+        todo: "풀코스 목표 페이스는 계산기 값보다 여유 있게 잡고, 전반을 목표보다 빠르게 달리지 않아요.",
         basis: "rule",
       },
       {
@@ -254,7 +254,7 @@ export const STAGES: Stage[] = [
         fact: "13개 연구 348명의 개별 자료를 모은 메타분석에서 양극화형과 피라미드형 강도 배분은 전체로는 최대산소섭취량·기록 차이가 없었습니다. 최대산소섭취량만 따로 보면 레크리에이션 선수는 피라미드형에서 더 좋아졌을 가능성이 있었습니다.",
         cite: "Rosenblat et al. (2025) Sports Med 55(3):655-673",
         href: "https://pubmed.ncbi.nlm.nih.gov/39888556/",
-        todo: "대부분은 쉽게, 일부만 중·고강도로. 특정 비율 공식에 매달릴 필요는 없습니다.",
+        todo: "대부분은 쉽게, 일부만 힘들게 달려요. 정해진 비율 공식에 매달릴 필요는 없어요.",
         basis: "rule",
       },
       {
@@ -262,7 +262,7 @@ export const STAGES: Stage[] = [
         fact: "중장거리 러너 근력운동 메타분석에서 고중량(1RM 80% 이상) 근력운동은 기록에 중간 크기 효과, 여러 방법을 섞으면 큰 효과가 있었습니다. 근거 확실성은 매우 낮음~중간.",
         cite: "Llanos-Lagos et al. (2024) Sports Med 54(7):1801-1833",
         href: "https://pubmed.ncbi.nlm.nih.gov/38627351/",
-        todo: "기록이 목표라면 무거운 하체 근력운동을 더하는 것을 고려합니다.",
+        todo: "기록이 목표라면 무거운 하체 근력운동을 더해 볼 만해요.",
         basis: "paper",
       },
     ],
