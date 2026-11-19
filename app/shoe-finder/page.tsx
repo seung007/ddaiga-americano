@@ -1,5 +1,6 @@
 "use client";
 
+import ShoeCompareSpecs, { COMPARE_BUTTON_COLORS } from "@/components/ShoeCompareSpecs";
 import ShoeSideProfile from "@/components/ShoeSideProfile";
 import { SELLER_NOTE } from "@/lib/site";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -10,12 +11,11 @@ import ChipRow, { Why } from "@/components/finder/ChipRow";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes } from "@/lib/shoes/recommend";
-import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
+import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
   CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USES, WEIGHT_OPTIONS,
-  type HeightRange, type SavedProfile, type WeightRange,
-} from "@/lib/shoes/profileOptions";
+  type HeightRange, type SavedProfile, type WeightRange, SPEC_HELP } from "@/lib/shoes/profileOptions";
 import { gtagEvent } from "@/lib/gtag";
 
 // 옵션표·저장 프로필·GA 헬퍼는 `/shoes`(내 조건으로 보기)와 같이 쓰려고 lib 로 옮겼다 (2026-09-16).
@@ -1017,21 +1017,23 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
           <div>
             <p className="text-xs font-semibold text-gray-500 mb-2">세부 스펙</p>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {[
-                ["힐 드롭",   `${shoe.heelDropMm}mm`],
-                ["스택 높이", `${shoe.stackHeightMm}mm`],
-                ["무게 (M9)", `${shoe.weightGramsM9}g`],
-                ["쿠셔닝",   `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}`],
-                ["안정화",   STABILITY_LABEL[shoe.stability]],
-                ["폭 옵션",  shoe.widthOptions.join(" · ")],
+              {/* 2026-11-18: 칸마다 뜻 한 줄(SPEC_HELP). 「M9」「D·2E·4E」 같은 기호만 있으면 처음 보는 사람이 읽지 못한다 */}
+              {([
+                ["앞뒤 굽 차이", `${shoe.heelDropMm}mm`, SPEC_HELP.heelDrop],
+                ["밑창 두께", `${shoe.stackHeightMm}mm`, SPEC_HELP.stack],
+                ["무게", `${shoe.weightGramsM9}g`, shoe.gender === "female" ? SPEC_HELP.weight : SPEC_HELP.weightMens],
+                ["쿠션", `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}`, SPEC_HELP.cushioning],
+                ["안정화", STABILITY_LABEL[shoe.stability], SPEC_HELP.stability],
+                ["발볼 폭", shoe.widthOptions.join(" · "), SPEC_HELP.width],
                 // 2026-09-21: 판단 필드가 선택이 됐다. 추천 결과에는 값이 있는 신발만
                 // 오지만(recommend.ts 의 RECOMMENDABLE), 타입상 없을 수 있어 방어한다
                 // 2026-10-06: 「권장 체중」「권장 신장」 행을 뺐다 — 출처 없는 사이트 분류이고 체중은 추천에 안 쓴다.
-                ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`],
-              ].map(([label, value]) => (
+                ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`, shoe.auto ? SPEC_HELP.priceOfficial : SPEC_HELP.priceEstimated],
+              ] as [string, string, string][]).map(([label, value, help]) => (
                 <div key={label} className="bg-white rounded-lg border border-gray-200 px-3 py-2">
-                  <p className="text-xs text-gray-400">{label}</p>
+                  <p className="text-xs text-gray-500">{label}</p>
                   <p className="text-sm font-medium text-gray-900 mt-0.5">{value}</p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-snug">{help}</p>
                 </div>
               ))}
             </div>
@@ -1234,7 +1236,7 @@ function ComparePanel({
   userFootType: FootType;
 }) {
   return (
-    <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+    <div className="mt-10 rounded-2xl border border-gray-200 bg-white p-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-gray-900 text-xl">
           {compareIds.length === 1 ? "비교할 신발을 하나 더 선택하세요" : "신발 비교"}
@@ -1250,7 +1252,7 @@ function ComparePanel({
           <div className="mt-4">
             <ShoeSideProfile shoes={shoes} />
           </div>
-          <div className="mt-4 pt-4 border-t border-emerald-200 flex items-center justify-between">
+          <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
             <p className="text-xs text-gray-500">이 비교를 저장하거나 친구에게 공유하고 싶다면?</p>
             <Link
               href={`/compare/${compareIds[0]}-vs-${compareIds[1]}`}
@@ -1285,85 +1287,14 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
   const a = shoes[0];
   const b = shoes[1];
   if (!a || !b) return null;
-  const cushDots = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"];
-  const stabLabel: Record<string, string> = {
-    neutral: "중립 (보통 발)",
-    // 2026-10-06: 「(평발용)」「(심한 평발)」을 뺐다. 라벨이 처방이 되면 안 된다 — 발 타입별 처방 근거는
-    // 갈린다(Richards 2009 지지 연구 없음 / Malisoux 2016 회내 발에서 모션컨트롤화 이득).
-    stability: "안정화",
-    motion_control: "모션컨트롤",
-  };
-  const footTypeLabel: Record<string, string> = {
-    flat: "평발", neutral: "중립", high_arch: "높은 아치",
-  };
-  const useLabel: Record<string, string> = {
-    daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱",
-  };
-  const widthKr: Record<string, string> = { narrow: "좁음", normal: "보통", wide: "넓음", B: "좁음", D: "보통", "2E": "넓음", "4E": "매우넓음" };
-  const footTypeKr: Record<string, string> = { flat: "평발", neutral: "중립 아치", high_arch: "높은 아치" };
-  const toWidthText = (opts: string[]) => opts.map(w => widthKr[w] ?? w).join(" · ");
-  // 2026-09-21: footTypes 가 선택 필드가 됐다. 비어 있으면 「판단 전」으로 적는다 —
-  // 빈 칸은 "해당 없음"으로 읽히는데 실제로는 "아직 안 정했다"다
-  const toFootText = (types?: string[]) =>
-    types && types.length > 0 ? types.map(f => footTypeKr[f] ?? f).join(" · ") : "판단 전";
-
-  void footTypeLabel; void userWidth; void userFootType;
-
-  type Row = [string, string, string];
-  const rows: Row[] = [
-    ["가격",      a.priceKrw.toLocaleString() + "원",               b.priceKrw.toLocaleString() + "원"],
-    ["쿠셔닝",    cushDots[a.cushioning] ?? "",                      cushDots[b.cushioning] ?? ""],
-    ["안정화",    stabLabel[a.stability] ?? "",                      stabLabel[b.stability] ?? ""],
-    ["힐드롭",    a.heelDropMm + "mm",                               b.heelDropMm + "mm"],
-    ["스택높이",  a.stackHeightMm + "mm",                            b.stackHeightMm + "mm"],
-    ["무게",      a.weightGramsM9 + "g",                             b.weightGramsM9 + "g"],
-    ["발볼 옵션", toWidthText(a.widthOptions),                       toWidthText(b.widthOptions)],
-    // 2026-11-10: 발 타입이 빈 신발은 안정성 구조로 정한다(types.ts footTypesFromStability) — 「판단 전」은 더 나오지 않는다
-    ["발 타입",   toFootText(withFootTypes(a).footTypes),            toFootText(withFootTypes(b).footTypes)],
-    ["추천 용도", a.uses.map(u => useLabel[u] ?? u).join("·"),       b.uses.map(u => useLabel[u] ?? u).join("·")],
-    ["국내구매",  KR_AVAILABILITY_LABEL[a.krAvailability],           KR_AVAILABILITY_LABEL[b.krAvailability]],
-  ];
-
+  void userWidth; void userFootType;
+  // 2026-11-18 (3차): 표는 components/ShoeCompareSpecs.tsx 로 옮겼다 — /compare 페이지와 같은 화면을 쓴다.
+  // 경위(1차 3열 표 → 2차 딱지 → 3차 이름 띠·색·차이 딱지)는 그 파일 머리말.
   return (
     <div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr>
-              <th className="text-left pb-3 w-24 text-xs text-gray-400 font-normal" />
-              <th className="text-center pb-3 px-2">
-                <p className="font-bold text-gray-900">{a.brand}</p>
-                <p className="text-xs text-gray-500">{a.model}</p>
-              </th>
-              <th className="text-center pb-3 px-2">
-                <p className="font-bold text-gray-900">{b.brand}</p>
-                <p className="text-xs text-gray-500">{b.model}</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(([label, va, vb]) => (
-              <tr key={label} className="border-t border-emerald-100">
-                <td className="py-2.5 text-xs font-semibold text-gray-600 whitespace-nowrap pr-3">{label}</td>
-                <td className={"py-2.5 text-center font-medium text-sm px-2 " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{va}</td>
-                <td className={"py-2.5 text-center font-medium text-sm px-2 " + (va !== vb ? "text-emerald-700" : "text-gray-700")}>{vb}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <details className="mt-4 text-xs text-gray-500 border-t border-emerald-100 pt-3">
-        <summary className="cursor-pointer font-medium text-emerald-700 hover:text-emerald-900">용어 설명 보기</summary>
-        <ul className="mt-2 space-y-1 leading-relaxed">
-          <li><strong>쿠셔닝</strong> — 밑창의 두께·푹신함. 많을수록 푹신하지만 무거워짐. 쿠션이 관절을 지켜 준다는 근거는 생각보다 약함.</li>
-          <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이도록 만든 구조. 평발에 도움이 되는지는 연구가 갈림(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>
-          <li><strong>힐드롭</strong> — 뒤꿈치와 앞발의 높이 차이(mm). 낮은 쪽(0–4mm)과 높은 쪽(8mm+) 중 부상에 유리한 쪽이 있다는 근거는 확인하지 못함.</li>
-          <li><strong>스택높이</strong> — 밑창 두께. 높을수록 쿠션이 많고, 낮을수록 지면 감각이 살아있음.</li>
-          <li><strong>발볼</strong> — D=표준, 2E=넓음(와이드), 4E=매우 넓음. 발이 넓으면 2E 이상 권장.</li>
-        </ul>
-      </details>
+      <ShoeCompareSpecs shoes={[a, b]} />
       <div className="mt-4 grid grid-cols-2 gap-2">
-        {[a, b].map((shoe) => {
+        {[a, b].map((shoe, i) => {
           // 2026-09-16: 여기도 제휴 치환을 안 거치고 있었다(1151행과 같은 사고).
           // 공식 우선 규칙은 `pickTwoBuyLinks` 가 이미 갖고 있으므로 그대로 쓰고,
           // **치환을 먼저 한 뒤에** 고른다 — 순서가 바뀌면 제휴 링크가 안 뽑힌다.
@@ -1379,9 +1310,10 @@ function CompareTable({ shoes, userWidth, userFootType }: { shoes: Shoe[]; userW
                 store: link.label,
                 affiliate: link.isAffiliate ? "yes" : "no",
               })}
-              className="block text-center text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl transition-colors"
+              aria-label={`${shoe.brand} ${shoe.model} 구매 (새 창)`}
+              className={`flex min-h-11 items-center justify-center rounded-xl px-3 py-2 text-center text-sm font-semibold text-white transition-colors ${COMPARE_BUTTON_COLORS[i]}`}
             >
-              {shoe.brand} {shoe.model} 구매 ↗
+              구매하기 ↗
             </a>
           ) : null;
         })}
