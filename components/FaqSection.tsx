@@ -1,6 +1,17 @@
 export type FaqItem = { q: string; a: string };
 
 /**
+ * 답 안의 **굵게** (2026-11-18): 본문처럼 할 일과 핵심 숫자를 굵게 — FAQ 만 맨글이라 읽기 어려웠다.
+ * 화면에서는 <strong>, 구조화 데이터(JSON-LD)에서는 표시만 지운다(AI·검색 인용에 별표가 섞이지 않게).
+ */
+const plain = (t: string) => t.replace(/\*\*(.+?)\*\*/g, "$1");
+function rich(t: string) {
+  return t.split(/(\*\*.+?\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong> : part,
+  );
+}
+
+/**
  * FAQ 섹션 + FAQPage JSON-LD (schema.org)
  * 구글 리치 결과 및 AI 검색(ChatGPT 등) 인용 노출을 위한 구조화 데이터.
  */
@@ -24,7 +35,7 @@ export default function FaqSection({ items, schemaNote = SCHEMA_DISCLAIMER, titl
     mainEntity: items.map((i) => ({
       "@type": "Question",
       name: i.q,
-      acceptedAnswer: { "@type": "Answer", text: i.a + schemaNote },
+      acceptedAnswer: { "@type": "Answer", text: plain(i.a) + schemaNote },
     })),
   };
 
@@ -57,7 +68,7 @@ export default function FaqSection({ items, schemaNote = SCHEMA_DISCLAIMER, titl
               <span>{i.q}</span>
               <span aria-hidden className="shrink-0 text-gray-400 transition-transform group-open/faq:rotate-90">›</span>
             </summary>
-            <p className="mt-2 text-base text-gray-700 leading-relaxed">{i.a}</p>
+            <p className="mt-2 text-base text-gray-700 leading-relaxed">{rich(i.a)}</p>
           </details>
         ))}
       </div>

@@ -60,6 +60,12 @@ const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marath
  *   차례가 오면 GuideArticle 을 새 틀 부품으로 바꾸는 일이 따로 있다 — 이 검사의 NEW_TEMPLATE 은 page.tsx 만 본다.
  * 한 편 바꿀 때마다: npm run check → npm run guide:compare -- <글> 로 견본과 같은 휴대폰 화면에서 비교(scripts/guide-compare.mjs).
  */
+/** 새 틀로 바꿨지만 FAQ 를 아직 본문 규칙(굵게·답 먼저)으로 못 고친 글 — 고칠 때마다 뺀다. 2026-11-18 규칙이 생기기 전에 바꾼 글들 */
+const FAQ_TODO = new Set([
+  "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture",
+  "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet",
+]);
+const slugOf = (entry, s) => (s.match(/ArticleMeta href="\/injury\/([^"]+)"/) || [])[1];
 const ROLLOUT = [
   "start-running",
   "return-to-running", "half-marathon-training", "training-types",
@@ -165,6 +171,13 @@ function checkTemplateRules(s, bad, entry) {
   const norm = (t) => t.replace(/[\s?.,!]/g, "");
   const h2q = [...body.matchAll(/<Num\b[^>]*\/>\s*([^<{]+)/g)].map((m) => norm(m[1]));
   for (const m of faq.matchAll(/q:\s*"([^"]*)"/g)) if (h2q.includes(norm(m[1]))) bad(`FAQ 「${m[1]}」가 큰 질문과 같은 질문 — 한 곳에만`);
+  // FAQ 답도 본문처럼 (2026-11-18): 답마다 굵은 할 일·핵심 숫자 1~3곳(**…**), 연구 언급은 많아야 한 번.
+  // 이미 새 틀로 바꾼 글 중 아직 FAQ 를 못 고친 글은 FAQ_TODO 에서 빼 가며 고친다.
+  if (!FAQ_TODO.has(slugOf(entry, s))) for (const m of faq.matchAll(/q:\s*"([^"]*)",\s*a:\s*"([^"]*)"/g)) {
+    const bolds = (m[2].match(/\*\*.+?\*\*/g) || []).length;
+    if (bolds < 1 || bolds > 3) bad(`FAQ 「${m[1]}」 굵은 곳 ${bolds}개 — 할 일·핵심 숫자 1~3곳을 **…** 로`);
+    if ((m[2].match(/연구/g) || []).length > 1) bad(`FAQ 「${m[1]}」 연구 언급이 두 번 이상 — 답과 할 일이 먼저, 연구는 한 번 짧게`);
+  }
   const up = entry?.match(/updated:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
   if (up && up < "2026-11-18") bad(`원장 updated(${up})가 틀 확정일보다 앞 — 글을 고쳤으면 updated 도 고친다`);
 }
@@ -224,6 +237,6 @@ if (errors.length) {
   process.exit(1);
 }
 const next = ROLLOUT.find((x) => !NEW_TEMPLATE.has(x) && !HOLD.has(x));
-console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편 · 보류 ${HOLD.size}편${next ? ` · 다음: ${next}` : " · 남은 글 없음"}`);
+console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편 · FAQ 고칠 글 ${FAQ_TODO.size}편 · 보류 ${HOLD.size}편${next ? ` · 다음: ${next}` : " · 남은 글 없음"}`);
 for (const x of NEW_TEMPLATE) if (HOLD.has(x)) errors.length || console.error(`참고: ${x} 는 새 틀로 바꿨으니 HOLD 에서 빼세요`);
 console.log(`글 구조: 가이드 ${guides}편 · 새 블로그 원고 ${posts}편 통과 (질문형 소제목 보강 대기 ${DEBT.size}편 · 규칙 이전 원고 ${legacy}편 제외)`);
