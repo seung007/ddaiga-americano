@@ -71,11 +71,11 @@ export const metadata: Metadata = {
 const FAQ: FaqItem[] = [
   {
     q: "쉬는 동안 체력이 다 빠지나요?",
-    a: "다 빠지지는 않았어요. 쉬는 동안에는 **아픈 곳이 아프지 않은 운동**을 골라 보세요. 물속 달리기나 자전거로 여섯 주를 대신한 한 연구에서 최대산소섭취량(운동할 때 몸이 1분에 쓸 수 있는 산소의 최대량)은 조금 줄었지만 **2마일 기록은 그대로**였어요. 꾸준히 훈련해 온 사람은 **네 주 안쪽만 쉬어도** 이 수치가 빠르게 떨어지는 편이고, 최근에 달리기를 시작한 사람은 변화가 더 작았어요.",
+    a: "다 빠지지는 않아요. 쉬는 동안 **아프지 않은 운동**(물속 달리기, 자전거)을 해 보세요. 그렇게 6주를 대신한 연구에서 **약 3.2km 달리기 기록은 그대로**였어요. 다만 꾸준히 훈련해 온 사람은 **4주만 쉬어도** 심폐 체력 수치가 빠르게 떨어지는 편이에요.",
   },
   {
     q: "근력운동을 하면 덜 다치나요?",
-    a: "달리기에서는 효과가 뚜렷하지 않았어요. 하고 싶으면 해도 되지만, **근력운동을 했다고 거리를 더 늘리지는 마세요.** 여러 종목을 모은 메타분석에서는 근력운동을 한 쪽의 부상이 3분의 1 수준이었지만, 첫 풀마라톤을 준비하는 러너에게 짧은 근력 프로그램을 준 시험에서는 부상으로 완주하지 못한 비율이 7.1%와 7.3%로 거의 같았어요.",
+    a: "달리기에서는 효과가 뚜렷하지 않았어요. 해도 되지만 **근력운동을 했다고 거리를 더 늘리지는 마세요.** 첫 풀마라톤을 준비하는 러너에게 근력 프로그램을 준 시험에서, 부상으로 완주하지 못한 비율이 7.1%와 7.3%로 거의 같았어요.",
   },
   {
     q: "통증이 몇 점이면 달려도 되나요?",
@@ -159,7 +159,7 @@ export default function ReturnToRunningPage() {
         </h2>
         <P>
           <strong>힘줄이 아픈 거라면 꼭 완전히 쉬지 않아도 괜찮아요.</strong> 아킬레스 힘줄이 아픈 사람을 두 쪽으로 나눈 한 무작위
-          시험에서, 아픈 정도를 보면서 달리기와 점프를 이어간 쪽과 여섯 주 쉰 쪽의 회복이 비슷했어요.
+          시험에서, 아픈 정도를 보면서 달리기와 점프를 이어간 쪽과 6주 쉰 쪽의 회복이 비슷했어요.
         </P>
         <P>
           그렇다고 아픈 걸 참고 뛰라는 말은 아니에요. 아픔이 커지는 날에 멈추는 것이 이어가는 조건이에요.
@@ -295,7 +295,7 @@ export default function ReturnToRunningPage() {
             <Ref>J Sci Med Sport 22(3):259-263 · <a href="https://pubmed.ncbi.nlm.nih.gov/30268637/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={3}>
-            <strong>Silbernagel et al. (2007)</strong> 아킬레스 힘줄이 아픈 38명을 나눠, 아픈 정도를 보며 달리기와 점프를 이어간 쪽과 여섯 주 쉰 쪽을 12개월 비교했어요. 두 쪽 모두 좋아졌고 차이는 없었어요.
+            <strong>Silbernagel et al. (2007)</strong> 아킬레스 힘줄이 아픈 38명을 나눠, 아픈 정도를 보며 달리기와 점프를 이어간 쪽과 6주 쉰 쪽을 12개월 비교했어요. 두 쪽 모두 좋아졌고 차이는 없었어요.
             <Ref>Am J Sports Med 35(6):897-906 · <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={4}>
@@ -323,11 +323,11 @@ export default function ReturnToRunningPage() {
             <Ref>J Sci Med Sport 21(12):1221-1225 · <a href="https://pubmed.ncbi.nlm.nih.gov/29853263/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={10}>
-            <strong>Eyestone et al. (1993)</strong> 훈련된 32명을 물속 달리기, 자전거, 달리기로 나눠 여섯 주 훈련했어요. 세 쪽 모두 최대산소섭취량이 조금 줄었지만 2마일 기록은 그대로였고, 쪽끼리 차이도 없었어요.
+            <strong>Eyestone et al. (1993)</strong> 훈련된 32명을 물속 달리기, 자전거, 달리기로 나눠 6주 훈련했어요. 세 쪽 모두 최대산소섭취량이 조금 줄었지만 약 3.2km(2마일) 달리기 기록은 그대로였고, 쪽끼리 차이도 없었어요.
             <Ref>Am J Sports Med 21(1):41-4 · <a href="https://pubmed.ncbi.nlm.nih.gov/8427367/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={11}>
-            <strong>Mujika &amp; Padilla (2000)</strong> 네 주 안쪽 휴식을 다룬 고찰이에요. 잘 훈련된 사람은 최대산소섭취량과 혈액량이 빠르게 줄고, 최근에 훈련을 시작한 사람은 변화가 더 작았어요.
+            <strong>Mujika &amp; Padilla (2000)</strong> 4주가 안 되는 휴식을 다룬 고찰이에요. 잘 훈련된 사람은 최대산소섭취량과 혈액량이 빠르게 줄고, 최근에 훈련을 시작한 사람은 변화가 더 작았어요.
             <Ref>Sports Med 30(2):79-87 · <a href="https://pubmed.ncbi.nlm.nih.gov/10966148/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={12}>

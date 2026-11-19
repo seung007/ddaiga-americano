@@ -388,7 +388,7 @@ export default function TrainingTypesPage() {
         <h3 id="cross" className={`${H3} scroll-mt-20`}>못 뛰는 동안은 자전거나 물속 달리기로 버텨요</h3>
         <P>
           크로스 트레이닝은 자전거나 물속 달리기로 달리기를 대신하는 거예요. <strong>아픈 곳에 통증이 없는 운동을</strong>
-          고르세요. 훈련된 사람을 6주 따라간 두 연구에서 2마일 기록과 유산소 능력이 유지됐어요.
+          고르세요. 훈련된 사람을 6주 따라간 두 연구에서 약 3.2km 달리기 기록과 유산소 능력이 유지됐어요.
         </P>
 
         <OneLine>무거운 하체 운동을 주 한두 번 넣어요. 못 뛰는 동안은 자전거나 물속 달리기로 버텨요.</OneLine>
@@ -479,7 +479,7 @@ export default function TrainingTypesPage() {
             <Ref>Sports Health 12(1):74-79 · <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={21}>
-            <strong>Eyestone et al. (1993)</strong> 훈련된 32명을 물속 달리기, 자전거, 달리기로 나눠 6주 훈련한 시험이에요. 세 쪽 모두 최대산소섭취량이 조금 줄었고 2마일 기록은 그대로였어요.
+            <strong>Eyestone et al. (1993)</strong> 훈련된 32명을 물속 달리기, 자전거, 달리기로 나눠 6주 훈련한 시험이에요. 세 쪽 모두 최대산소섭취량이 조금 줄었고 약 3.2km(2마일) 달리기 기록은 그대로였어요.
             <Ref>Am J Sports Med 21(1):41-4 · <a href="https://pubmed.ncbi.nlm.nih.gov/8427367/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={22}>

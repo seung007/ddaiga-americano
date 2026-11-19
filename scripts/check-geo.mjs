@@ -167,6 +167,10 @@ function checkTemplateRules(s, bad, entry) {
   hit(/를 통해|을 통해|앞서 말했듯|앞에서 말했듯/, "번역투·군더더기");
   hit(/저희 제안|연구 근거|연구끼리 엇갈/, "딱지·엇갈림 표시");
   hit(/[가-힣] *→ *[가-힣][^\n]*[.요]/, "문장 속 →");
+  // 한국에서 쓰는 말로 (2026-11-19, hyun 님: 「네 주 안쪽」「2마일」은 보통 안 쓴다)
+  hit(/(세|네|다섯|여섯|일곱|여덟|아홉|열|스무) ?(주|달|개월|시간|분|일|킬로)(?![가-힣]*리)|(석|넉|여섯|열두) 달/, "기간·사람 수는 숫자로(「여섯 주」 ✗ → 「6주」). 「한 번·한 달·두 배」 같은 일상어는 그대로");
+  hit(/(주|달|개월|일) 안쪽/, "「~ 안쪽」 ✗ → 「4주만 쉬어도」「4주 안에」처럼");
+  hit(/마일(?!리지)|파운드|인치|피트|야드|온스/, "단위는 km·kg·cm 로 환산(환산은 계산이다). 원래 단위는 접힌 출처에만");
   // FAQ 가 큰 질문과 같은 질문이면 본문 반복이다(견본에서 5문항 중 3개가 겹쳐 글이 길게 읽혔다)
   const norm = (t) => t.replace(/[\s?.,!]/g, "");
   const h2q = [...body.matchAll(/<Num\b[^>]*\/>\s*([^<{]+)/g)].map((m) => norm(m[1]));
@@ -176,6 +180,8 @@ function checkTemplateRules(s, bad, entry) {
   if (!FAQ_TODO.has(slugOf(entry, s))) for (const m of faq.matchAll(/q:\s*"([^"]*)",\s*a:\s*"([^"]*)"/g)) {
     const bolds = (m[2].match(/\*\*.+?\*\*/g) || []).length;
     if (bolds < 1 || bolds > 3) bad(`FAQ 「${m[1]}」 굵은 곳 ${bolds}개 — 할 일·핵심 숫자 1~3곳을 **…** 로`);
+    const len = m[2].replace(/\*\*|\s/g, "").length, sents = (m[2].match(/[.?!](\s|$)/g) || []).length;
+    if (len > 130 || sents > 4) bad(`FAQ 「${m[1]}」 답이 김(${len}자·${sents}문장) — 130자·4문장 안으로. 견본은 62~110자`);
     if ((m[2].match(/연구/g) || []).length > 1) bad(`FAQ 「${m[1]}」 연구 언급이 두 번 이상 — 답과 할 일이 먼저, 연구는 한 번 짧게`);
   }
   const up = entry?.match(/updated:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
