@@ -70,6 +70,8 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/training-types", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "인터벌과 템포런, 뭐가 다르고 언제부터 하나요?", desc: "쉬었다 다시 달릴 때부터 인터벌과 템포런까지, 훈련마다 무엇이고 어떻게 하는지, 연구로 확인된 것과 언제부터 하면 되는지 담았습니다.", stages: "all", published: "2026-10-07", updated: "2026-11-18" },
   // 2026-11-07: 첫 내용 파일 글(lib/guide/content/heart-rate-zones.json) — AI 초안, 판정 2회 검증. 읽기 시간은 같은 규약(보이는 글자 1,958 ÷ 600)
   { href: "/injury/heart-rate-zones", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "달릴 때 심박수가 너무 높아요, 괜찮을까요?", desc: "달리기만 하면 심박수가 높게 나와 불안하다면. 워치와 나이 공식이 얼마나 틀리는지, 존2를 어떻게 정하는지, 쉬운 달리기를 얼마나 섞는지 연구로 확인했습니다.", stages: "all", published: "2026-11-07", updated: "2026-11-10" },
+  // 2026-11-19: 내용 파일 글(lib/guide/content/cold-weather-running.json) — AI 초안(예약 작업), 판정 2회 검증
+  { href: "/injury/cold-weather-running", tag: "훈련 방법", tagColor: "text-indigo-700 bg-indigo-50", title: "추운 날 달릴 때 무엇을 조심해야 하나요?", desc: "찬 공기에 기침이 나고 숨이 막힌다면. 겹쳐 입는 법, 준비운동 뒤 바로 나가야 하는 이유, 입을 가리는 마스크의 득실, 빙판길과 멈출 신호를 연구로 확인했습니다.", stages: "all", published: "2026-11-19", updated: "2026-11-19" },
   // 2026-11-09 다시 씀: 제목·소제목을 오픈채팅 심박 질문(질문자 20명, 질문 71건 — 「걷기만 해도 높다」 「존2가 어디까지」 「워치가 튄다」)의 말로 바꾸고,
   //   2026-11-10 제목 다시: 채팅 21,649건에서 「심박존」은 1건(1명). 사람들은 「심박·심박수」(28명)·「존2」(16명)라 부르고, 가장 많은 걱정은 「심박이 너무 높다」(13명)
   //   연구 문장은 결과를 앞에, 한 문장에 사실 하나로 나눴다. 근거·숫자는 그대로. 표 머리글 「엘리트」 → 「주니어」(Seiler & Kjerland 2006 원문 대상)
