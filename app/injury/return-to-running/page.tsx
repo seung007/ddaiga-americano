@@ -168,7 +168,7 @@ export default function ReturnToRunningPage() {
           items={[
             { t: "달리는 중에 아픔이 커지면 그날은 멈춰요.", d: "참고 더 뛰어서 얻는 건 없어요." },
             { t: "다음 날 아침에 전날보다 아프면 다음 번에 거리를 줄여요." },
-            { t: "통증 때문에 걸음걸이가 바뀌면 그날은 그만둬요." },
+            { t: "걸을 때도 아프면 그날은 그만둬요." },
           ]}
         />
         <Caveat>이 세 가지는 저희가 정한 기준이고, 진단을 대신하지 않아요.</Caveat>
@@ -191,7 +191,7 @@ export default function ReturnToRunningPage() {
           </ul>
         </Warn>
         <P>
-          낫는 기간은 뼈의 위치에 따라 크게 달랐어요. 한 메타분석에서 운동으로 돌아가기까지 정강이뼈 뒤안쪽은{" "}
+          낫는 기간은 뼈의 위치에 따라 크게 달랐어요. 여러 연구를 모은 한 분석에서 운동으로 돌아가기까지 정강이뼈 뒤안쪽은{" "}
           <strong>44일</strong>, 발 주상골은 <strong>127일</strong>이었어요. 전체로는 열 명 중 아홉 넘게 운동으로 돌아갔어요.
         </P>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export default function ReturnToRunningPage() {
                 ["1", "빠르게 걷기 30분", "걷는 동안·다음 날 아침 아프지 않음"],
                 ["2", "걷기와 달리기 섞기 (1분 달리고 2분 걷기부터)", "같은 조건으로 3회"],
                 ["3", "달리는 구간을 늘려 20~30분 이어 달리기", "같은 조건으로 3회"],
-                ["4", "가장 긴 날을 지난 30일 최장 거리의 110% 안에서", "다치기 전 거리까지"],
+                ["4", "가장 길게 뛰는 날을 지난 30일 가장 길게 뛴 거리의 110% 안에서", "다치기 전 거리까지"],
               ].map(([k, what, cond]) => (
                 <tr key={k} className="border-t border-gray-100">
                   <td className="p-2.5 font-semibold text-gray-900">{k}</td>

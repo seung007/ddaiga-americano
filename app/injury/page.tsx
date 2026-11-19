@@ -7,7 +7,6 @@ import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import OpenOnHash from "@/components/guide/OpenOnHash";
 import StageListButton from "@/components/guide/StageListButton";
 import { ARTICLES } from "@/lib/guide/articles";
-import { Basis } from "@/components/guide/Read";
 import { ChevronRight } from "lucide-react";
 
 /**
@@ -116,12 +115,8 @@ export default function InjuryHubPage() {
                 <ul className="divide-y divide-gray-100">
                   {s.bottlenecks.map((b) => (
                     <li key={b.title} className="py-3.5">
-                      <h3 className="break-keep font-semibold text-gray-900">&ldquo;{b.title}&rdquo;</h3>
-                      <p className="mt-1.5 break-keep text-base leading-[1.7] text-gray-800">
-                        <span className="mr-1 font-semibold text-emerald-700">→</span>
-                        {b.todo}
-                        <Basis kind={b.basis} />
-                      </p>
+                      <h3 className="break-keep font-semibold text-gray-900">{b.title}</h3>
+                      <p className="mt-1.5 break-keep text-base leading-[1.7] text-gray-800">{b.todo}</p>
                       <details className="group/e mt-1.5">
                         <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm text-gray-400 hover:text-gray-600 [&::-webkit-details-marker]:hidden">
                           <ChevronRight aria-hidden className="h-4 w-4 transition-transform group-open/e:rotate-90" /> 근거
@@ -182,7 +177,7 @@ export default function InjuryHubPage() {
         </div>
         {/* 안전 문장은 접지 않고 눈에 띄게 (council Steward 지적 — 회색 작은 글씨였다) */}
         <p className="mt-3 break-keep rounded-lg bg-red-50 px-3 py-2 text-sm text-red-900">
-          걸음이 바뀔 만큼 아프거나, 쉬어도 아프거나, 붓고 열이 나면 <strong>달리기보다 진료가 먼저</strong>입니다.
+          걸을 때도 아프거나, 쉬어도 아프거나, 붓고 열이 나면 <strong>달리기보다 진료가 먼저</strong>예요.
         </p>
       </section>
 
@@ -222,7 +217,7 @@ export default function InjuryHubPage() {
             <p className="mt-6 text-sm font-semibold text-gray-900">기준표</p>
             <p className="mt-1 break-keep text-sm leading-relaxed text-gray-600">
               러닝 경력이나 거리로 수준을 나누는 <strong>공인된 분류는 없습니다.</strong> 가장 가까운 것은 신발 연구 전문가들이 합의
-              과정에서 쓴 정의로, <strong>경력·횟수·주간 거리 세 가지</strong>를 함께 봅니다. 범위가 서로 겹치는 것도 그대로
+              과정에서 쓴 정의로, <strong>경력·횟수·일주일 거리 세 가지</strong>를 함께 봅니다. 범위가 서로 겹치는 것도 그대로
               옮겼습니다.
             </p>
             <div className="mt-3 overflow-x-auto">
@@ -232,7 +227,7 @@ export default function InjuryHubPage() {
                     <th className="py-2 pr-3 font-medium">수준</th>
                     <th className="py-2 pr-3 font-medium">꾸준히 달린 기간</th>
                     <th className="py-2 pr-3 font-medium">주 횟수</th>
-                    <th className="py-2 font-medium">주간 거리</th>
+                    <th className="py-2 font-medium">일주일 거리</th>
                   </tr>
                 </thead>
                 <tbody>
