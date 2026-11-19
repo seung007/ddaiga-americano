@@ -283,11 +283,6 @@ if (existsSync(blogDir)) {
   }
 }
 
-if (errors.length) {
-  console.error(`글 구조 검사 실패 ${errors.length}건 (규칙: AGENTS.md 「새 글·페이지 규칙」)`);
-  for (const e of errors) console.error("  - " + e);
-  process.exit(1);
-}
 // 글 밖의 자리 — 가이드 첫 화면과 여러 글이 함께 쓰는 단계 데이터(2026-11-20: 여기가 검사 밖이라 「저희 제안」「가장 긴 날」이 남아 있었다)
 {
   const hub = readFileSync(path.join(ROOT, "app/injury/page.tsx"), "utf8");
@@ -305,6 +300,11 @@ if (errors.length) {
   }
 }
 
+if (errors.length) {
+  console.error(`글 구조 검사 실패 ${errors.length}건 (규칙: AGENTS.md 「새 글·페이지 규칙」)`);
+  for (const e of errors) console.error("  - " + e);
+  process.exit(1);
+}
 const next = ROLLOUT.find((x) => !NEW_TEMPLATE.has(x) && !HOLD.has(x));
 console.log(`가이드 새 틀 ${NEW_TEMPLATE.size}/${ROLLOUT.length}편 · 문장 고칠 글 ${WORDING_TODO.size}편 · FAQ 고칠 글 ${FAQ_TODO.size}편 · 보류 ${HOLD.size}편${next ? ` · 다음: ${next}` : " · 남은 글 없음"}`);
 for (const x of NEW_TEMPLATE) if (HOLD.has(x)) errors.length || console.error(`참고: ${x} 는 새 틀로 바꿨으니 HOLD 에서 빼세요`);

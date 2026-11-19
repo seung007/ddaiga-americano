@@ -217,7 +217,7 @@ export default function InjuryHubPage() {
             <p className="mt-6 text-sm font-semibold text-gray-900">기준표</p>
             <p className="mt-1 break-keep text-sm leading-relaxed text-gray-600">
               러닝 경력이나 거리로 수준을 나누는 <strong>공인된 분류는 없습니다.</strong> 가장 가까운 것은 신발 연구 전문가들이 합의
-              과정에서 쓴 정의로, <strong>경력·횟수·주간 거리 세 가지</strong>를 함께 봅니다. 범위가 서로 겹치는 것도 그대로
+              과정에서 쓴 정의로, <strong>경력·횟수·일주일 거리 세 가지</strong>를 함께 봅니다. 범위가 서로 겹치는 것도 그대로
               옮겼습니다.
             </p>
             <div className="mt-3 overflow-x-auto">
@@ -227,7 +227,7 @@ export default function InjuryHubPage() {
                     <th className="py-2 pr-3 font-medium">수준</th>
                     <th className="py-2 pr-3 font-medium">꾸준히 달린 기간</th>
                     <th className="py-2 pr-3 font-medium">주 횟수</th>
-                    <th className="py-2 font-medium">주간 거리</th>
+                    <th className="py-2 font-medium">일주일 거리</th>
                   </tr>
                 </thead>
                 <tbody>
