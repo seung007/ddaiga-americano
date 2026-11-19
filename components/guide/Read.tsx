@@ -1,3 +1,4 @@
+import React from "react";
 /**
  * 가이드 글 읽기 부품 (2026-10-13 가독성 재설계)
  *
@@ -19,12 +20,14 @@ export function Lead({ children }: { children: React.ReactNode }) {
 }
 
 /** 본문 단락 — 16px·줄간격 1.8·어절 단위 줄바꿈 */
+// 2026-11-18 국내 7곳 실측(「한국어 웹 글 가독성 기준」): 문단 간격 중앙값 24px(행간의 0.78배). 우리는 16px(0.56배)이라 문단이 붙어 보였다 → mt-6
 export function P({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <p className={`mt-4 break-keep text-base leading-[1.8] text-gray-800 ${className}`}>{children}</p>;
+  return <p className={`mt-6 break-keep text-base leading-[1.8] text-gray-800 ${className}`}>{children}</p>;
 }
 
 /** 섹션 제목 — id 는 목차 검사(check:toc)가 문자열로 찾으므로 각 페이지에서 h2 를 직접 쓴다. 이건 스타일만 */
-export const H2 = "mt-14 scroll-mt-20 break-keep text-2xl font-bold leading-snug text-gray-900";
+// 같은 실측: 소제목 위 여백 중앙값 30px(범위 16~40). 우리는 56px 이라 절끼리 끊겨 보였다 → mt-10(40px). 문단 간격과의 비율 3.5배 → 1.7배
+export const H2 = "mt-10 scroll-mt-20 break-keep text-2xl font-bold leading-snug text-gray-900";
 export const H3 = "mt-8 break-keep text-xl font-bold text-gray-900";
 
 /** 「한눈에」 — 글 전체 요약 3~4줄 */
@@ -163,4 +166,154 @@ export function Warn({ title, children }: { title: string; children: React.React
       <div className="mt-1.5 break-keep text-base leading-[1.7]">{children}</div>
     </div>
   );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * 2026-11-18 새 틀 — 국내 한국어 글 실측(docs/조사/벤치마킹_2026-09-12.md 「가이드 글 부분 구성」 1·2)
+ *
+ * 왜: 우리 글은 절 하나에 굵은 첫 문장 + 「이렇게 하세요」 상자 + 「근거 보기」 접힘이 매번 붙었다.
+ *   러닝위키는 절마다 요약 상자 하나, 브런치는 결론 한 줄, 토스는 「1️⃣ 굵은 소제목 + 설명」, 러너스레터는 부분 끝 「한 줄 요약」.
+ *   → 상자·접힘을 걷어내고, 할 일은 본문 안 번호 목록, 근거는 문장 끝 [n] + 글 끝 「근거와 출처」 한 곳(펼친 채로).
+ * 안전 정보(<Warn>)·단서(<Caveat>)는 그대로 접지 않는다. 출처는 하나도 빼지 않는다 — 「근거 보기」에 있던 숫자는 출처 항목의 「확인한 것」으로 옮긴다.
+ * ───────────────────────────────────────────────────────────── */
+
+/** 큰 제목 앞 번호 — 목차 번호와 같다 */
+export function Num({ n }: { n: number }) {
+  return <span className="mr-2 tabular-nums text-emerald-700">{n}.</span>;
+}
+
+/** 3줄 요약 — 제목 바로 아래 번호 목록(토스 「📌 3줄 요약」) */
+export function KeyPoints({ items, title = "3줄 요약" }: { items: React.ReactNode[]; title?: string }) {
+  return (
+    <div className="mt-6 rounded-2xl bg-emerald-50 px-5 py-4">
+      <p className="text-sm font-bold text-emerald-800">{title}</p>
+      <ol className="mt-2 space-y-2">
+        {items.map((it, i) => (
+          <li key={i} className="flex gap-2.5 break-keep text-base leading-[1.65] text-emerald-950">
+            <span aria-hidden className="w-4 shrink-0 font-bold tabular-nums text-emerald-700">{i + 1}.</span>
+            <span>{it}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+const CIRCLED = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧"];
+
+/** 할 일 — 상자 없이 「① 굵은 한 줄 + 설명」(토스 1️⃣·러너스레터 1위·2위). 근거 수준 표시는 그대로 둔다 */
+export function Steps({
+  items,
+  basis,
+  title = "이렇게 해 보세요",
+}: {
+  items: { t: React.ReactNode; d?: React.ReactNode }[];
+  basis?: "paper" | "rule";
+  title?: string;
+}) {
+  return (
+    <div className="mt-5">
+      <p className="text-sm font-semibold text-gray-500">
+        {title}
+        {basis && <Basis kind={basis} />}
+      </p>
+      <ol className="mt-2 space-y-3">
+        {items.map((it, i) => (
+          <li key={i} className="flex gap-2.5 break-keep text-base leading-[1.7] text-gray-800">
+            <span aria-hidden className="shrink-0 font-bold text-emerald-700">{CIRCLED[i] ?? `${i + 1}.`}</span>
+            <span>
+              <strong className="text-gray-900">{it.t}</strong>
+              {it.d && <> {it.d}</>}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/**
+ * 한 줄 요약 — 절 끝(러너스레터 「✉️ 한 줄 요약」).
+ * 2026-11-18 사용자 「한 줄 요약도 저 글씨체가 맞을까?」 — 회색 작은 꼬리표와 굵은 문장이 한 줄에 섞여 꼬리표가 본문 일부처럼 읽혔다.
+ * → 꼬리표는 윗줄로 따로, 문장은 본문과 같은 16px 에 굵기만 한 단계(medium). 왼쪽 초록 선은 「여기서 절이 끝난다」 표시.
+ */
+export function OneLine({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mt-8 border-l-[3px] border-emerald-500 pl-4">
+      <p className="text-xs font-semibold text-emerald-700">한 줄 요약</p>
+      <p className="mt-1 break-keep text-base font-medium leading-[1.7] text-gray-900">{children}</p>
+    </div>
+  );
+}
+
+/** 단서 — <Note> 와 같은 역할, ※ 없이(2026-11-18 사용자 「※ 같은 표시 빼자」). 접지 않는다 */
+export function Caveat({ children }: { children: React.ReactNode }) {
+  return <p className="mt-2 break-keep text-sm leading-[1.7] text-gray-500">{children}</p>;
+}
+
+/** 문장 끝 출처 번호 — 글 끝 「근거와 출처」의 같은 번호로 간다 */
+export function Cite({ n }: { n: number | number[] }) {
+  const list = Array.isArray(n) ? n : [n];
+  return (
+    <sup className="ml-0.5 mr-1 whitespace-nowrap text-xs">
+      [
+      {list.map((k, i) => (
+        <span key={k}>
+          {i > 0 && ","}
+          <a href={`#ref-${k}`} className="text-emerald-700 hover:underline">{k}</a>
+        </span>
+      ))}
+      ]
+    </sup>
+  );
+}
+
+/**
+ * 근거와 출처 — 글 끝 한 곳, **펼친 채로**(브런치 「참고문헌」: 번호 · 저자 · 학술지 · 연도 · 「관련: 한 줄」).
+ * ⚠️ 인용 검사기는 「저자 (연도)」 뒤 300자 안의 URL 을 짝짓는다. <Src> 안에서 저자·연도 → 학술지 → 링크 순서로 적고,
+ *    긴 설명(<Found>)은 링크 **뒤에** 둔다.
+ */
+export function Sources({ children }: { children: React.ReactNode }) {
+  // 2026-11-18 사용자 「근거와 출처가 너무 길어. 한두 줄로」 → 「부수적인 거니까 글씨 작게, 한 줄로」.
+  // 접힌 상태는 제목·「연구 N편과 대조」·펼치기를 작은 글씨 한 줄로. 편수는 <Src> 개수에서 센다.
+  const n = React.Children.toArray(children).length;
+  return (
+    <section id="refs" aria-label="근거와 출처" className="mt-14 scroll-mt-20 border-t border-gray-200 pt-3">
+      <details className="group/src">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+          <span className="flex min-w-0 items-baseline gap-2 whitespace-nowrap">
+            <h2 className="text-sm font-bold text-gray-900">근거와 출처</h2>
+            <span className="text-xs text-gray-500">연구 {n}편과 하나씩 대조했어요</span>
+          </span>
+          <span className="shrink-0 text-xs text-emerald-800">
+            <span className="group-open/src:hidden">펼치기 ›</span>
+            <span className="hidden group-open/src:inline">접기</span>
+          </span>
+        </summary>
+        <ol className="mt-2 space-y-3 break-keep text-sm leading-[1.6]">{children}</ol>
+      </details>
+    </section>
+  );
+}
+
+/**
+ * 출처 한 항목(①안, 2026-11-18): 1줄 「저자 (연도) + 확인한 결과」 / 2줄 작은 회색 「학술지 권(호):쪽 · 링크」.
+ * ⚠️ 인용 검사기는 <p>·<li> 를 경계로 본다 — 저자와 링크 사이에 <p> 를 두지 않게 <Ref> 는 <span> 으로 그린다.
+ */
+export function Src({ n, children }: { n: number; where?: string; children: React.ReactNode }) {
+  return (
+    <li id={`ref-${n}`} className="flex scroll-mt-24 gap-2">
+      <span className="w-5 shrink-0 tabular-nums text-gray-400">{n}.</span>
+      <div className="min-w-0 text-gray-800">{children}</div>
+    </li>
+  );
+}
+
+export function Ref({ children }: { children: React.ReactNode }) {
+  return <span className="mt-0.5 block text-xs text-gray-500 [&_a]:text-emerald-700 [&_a]:underline">{children}</span>;
+}
+
+/** 출처 항목 안 「확인한 것」 — 예전 「근거 보기」에 있던 숫자·대상·설계 */
+export function Found({ children }: { children: React.ReactNode }) {
+  return <p className="text-gray-500">{children}</p>;
 }

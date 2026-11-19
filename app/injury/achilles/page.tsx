@@ -79,7 +79,6 @@ export default function AchillesPage() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-orange-600">아킬레스</span>
           {/* 규약은 app/injury/page.tsx 상단 주석. 허브 카드(lib/guide/articles.ts)도 같이 고친다 */}
-          <span className="text-xs text-gray-400">5분 읽기</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
           아킬레스건 통증,<br />달리기를 쉬어야 하나요?

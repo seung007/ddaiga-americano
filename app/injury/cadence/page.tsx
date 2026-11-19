@@ -1,38 +1,103 @@
-import Link from "next/link";
-import YoutubeSection from "@/components/YoutubeSection";
-import FaqSection from "@/components/FaqSection";
-import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
-import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
 import type { Metadata } from "next";
+import Link from "next/link";
+import FinderCta from "@/components/FinderCta";
+import YoutubeSection from "@/components/YoutubeSection";
+import FaqSection, { type FaqItem } from "@/components/FaqSection";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
+import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
+import TableOfContents from "@/components/TableOfContents";
+import { Lead, P, H2, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
 /**
- * 2026-10-08 재검증 — 초록과 대조
- *   · 키별 기준표 삭제 — Cavanagh & Kram 1989: 키·다리 길이와 선호 보빈도 상관이 낮고 유의하지 않음,
- *     신체 치수로 개인 보빈도를 처방할 수 없다고 결론. 제목·h1·meta 의 「키별 적정 기준값」 전제도 버림
- *   · 「180 = 키 175cm 남성 엘리트 평균」 → 원 기록 확인 못 함. 「다니엘스 1984」는 「알려져 있다」로 낮춤
- *   · 「±5 spm 편차는 정상」 → 근거 못 찾음, 삭제
- *   · Heiderscheit 2011 → 「충격」이 아니라 「무릎이 흡수하는 에너지」. 고관절은 +10%에서만
- *   · Van Oeveren 2019 → 「속도가 빠를수록 케이던스가 올라간다」까지만. 다리 길이는 「연구마다 다르다」
- *   · Anderson 2022 체계적 고찰 추가 — 부하 지표는 줄거나 변화 없음, 부상·성능 효과는 근거 부족
+ * 걸음 수(케이던스) — 워치 숫자가 낮아 보여 찾아온 사람이 읽는 글
  *
- * 2026-10-13 가독성 재설계 — 섹션마다 답 → 할 일 → 근거(접힘). 숫자·출처는 <Evidence> 안으로.
- *   「다리 길이는 연구마다 다름」「대부분 그 자리 효과만 봄」「근거가 매우 제한적」 단서는 본문에 남겼다.
- *   「현재 값에서 조금씩 올려라」는 원래 「연구에 더 가까운 조언」(저희 해석) → 「저희 제안」 배지.
+ * 2026-10-08 재검증 — 키별 기준표를 내렸다(Cavanagh & Kram 1989: 신체 치수로 개인 걸음 수를 처방할 수 없다).
+ *   제목·메타의 「키별 적정 기준값」 전제도 같이 버렸다.
+ *
+ * 2026-11-18 확정 틀로 바꿈 (AGENTS.md 「가이드 글 틀 — 2026-11-18 확정」, 견본 app/injury/start-running/page.tsx)
+ *   말투 「~니다」 → 「~요」. 날짜 한 줄 · 3줄 요약 · 번호 붙은 큰 질문 4개 · 절 끝 한 줄 요약 · 글 끝 접힌 「근거와 출처」 5편.
+ *   옛 부품 여섯 개(머리 요약 상자 · 접히는 근거 상자 · 할 일 상자 · 근거 수준 딱지 · 별표 단서 줄 · 글 끝 문헌 목록)를 걷어냈다.
+ *   (옛 부품 이름을 주석에 그대로 적으면 check:geo 가 글에 남은 것으로 세므로 풀어서 적는다.)
+ *   · 큰 절 3개(180은 어디서 · 키 · 높을수록 좋나) → 번호 붙은 큰 질문 4개. 재는 법을 1절 안의 할 일로 올렸고
+ *     「어떻게 올리나요」를 절로 세웠다 — 「할 일이 먼저, 이유는 뒤」. id 는 where-180·height·raise 를 그대로 두고 how-to 를 더했다
+ *     (grep -rn "cadence#" app lib components → 0건, 2026-11-18 확인)
+ *   · 빵부스러기(구조화 데이터) 이름을 「케이던스」에서 「걸음 수」로 바꿨다 — 본문 첫 등장보다 먼저 나와 풀이 검사를 통과할 자리가 없었고,
+ *     일상어 이름이 읽기도 쉽다(발뒤꿈치 통증 글 선례). 제목 아래 「협찬 없이 작성」 띠는 글 끝 글쓴이 소개와 같은 내용이라 뺐다
+ *
+ *   고친 것 — 주장을 초록으로 다시 판정한 결과 (QxMD read.qxmd.com/read/<PMID>, 2026-11-18 직접 열어 대조)
+ *   · **180의 유래(1984년 · 잭 다니엘스 · 올림픽 선수 관찰)를 뺐다.** 2026-10-08 에 「원 기록을 확인하지 못했다」고 적어 두고
+ *     41일을 그대로 넘겼다(AGENTS 신뢰 규칙 5가 말하는 그 상황이다). 이름·연도·대회는 확인되지 않은 채 구체적이라
+ *     작화 신호에 해당한다 → 유래를 지우고, 초록에서 확인되는 것만 남겼다: 분당 180보를 권하는 조언이 흔하다는 서술
+ *     (Lieberman 2015 초록 "Endurance runners are often advised to use 90 strides min(-1)").
+ *     **대체 유래를 만들지 않았다.**
+ *   · **180 대신 쓸 수 있는 확인된 숫자를 넣었다.** Lieberman 2015 에서 에너지가 가장 적게 드는 값의 평균이
+ *     분당 84.8 스트라이드(표준편차 3.6) = 걸음으로 약 170보였다. 분당 보폭을 걸음으로 바꾼 2배는 계산이지 추정이 아니다
+ *     (코스 왕복 거리와 같은 처리). 개인차는 표준편차까지만 근거라서 「사람마다 달라요」로 쓰고 범위를 지어내지 않았다
+ *   · **무릎 쪽 결과의 세기를 낮췄다.** Heiderscheit 2011 의 결과는 맞지만, 그것을 포함한 고찰(Anderson 2022)이
+ *     무릎·고관절이 흡수하는 에너지 감소를 「근거 제한적」으로 등급 지었다 → 「한 트레드밀 실험에서」 + 고찰 등급을 단서로
+ *   · **부하가 어디로 옮겨 가는지를 적었다.** Lieberman 2015: 분당 보폭 5 증가마다 고관절을 굽히는 최대 힘 +5.8%,
+ *     착지 위치는 고관절 기준 -5.9%. 「부담이 무릎에서 고관절로 옮겨 간다」로는 쓰지 않았다 — Heiderscheit 의 고관절 지표는
+ *     오히려 줄었고(흡수 에너지·모음 모멘트), 둘은 다른 양이다. 두 결과를 각각 적고 합치지 않았다
+ *   · **「걸음 수를 올리면 덜 다친다」를 쓰지 않았다.** Anderson 2022 결론은 부상·기록 모두 「결론 낼 근거 부족」이다.
+ *     고찰 안에 무릎 앞 통증 러너에서 4·12주 통증·기능이 나아졌다는 보고가 있지만 등급이 「매우 제한적」이고,
+ *     무릎 앞 통증 글이 이미 한 무작위 시험으로 「통증이 더 줄지는 않았다」고 판정했다. 더 센 쪽으로 쓰지 않고 그 판정을 따랐다
+ *   · **Van Oeveren 2019 의 다리 길이 방향을 쓰지 않았다.** 같은 쪽 초록과 요약이 음·양으로 엇갈려서 방향을 확인할 수 없다.
+ *     키·다리 길이 질문의 답은 Cavanagh & Kram 이 지고, 다리 길이에 대한 방향 진술은 넣지 않았다
+ *   · **착지 방식(앞발·중간발·뒤꿈치) 주장은 이 글에서 하지 않는다** — 미드풋 글 차례가 받는다. 상황 문장 링크만 둔다.
+ *     걸음 수를 올리면 보폭이 줄고 착지 위치가 몸 쪽으로 가까워지는 것까지는 이 글의 답이다
+ *   · 영상 목록에서 두 편을 내렸다 — 제3자 제목·채널명에 이 글에서 풀이할 자리가 없는 글자가 들어 있어 풀이 검사에 걸렸다.
+ *     하나는 제목 속 심박 구간 이름, 하나는 채널 이름 속 영문 대문자다. 검사는 채널 이름과 전문어를 가리지 못한다 —
+ *     채널 이름을 고치면 실제 업로더와 어긋나므로(영상 검사가 대조한다) 영상을 내리는 쪽을 골랐다. 검사는 느슨하게 고치지 않았다
+ *
+ *   확인한 초록 (2026-11-18, 직접 열어서 대조)
+ *   · Heiderscheit 2011 — 건강한 일반 러너 45명, 같은 속도 트레드밀, 평소 걸음 수와 ±5%·±10%. 무릎 흡수 에너지는 +5%·+10%에서 감소,
+ *     고관절은 +10%에서만 감소. -10%에서는 모든 관절이 더 많이 흡수. 보폭·무게중심 상하 이동·제동 충격량·최대 무릎 굽힘 각도 감소.
+ *     +10%에서 최대 고관절 모음 각도와 모음·내회전 모멘트 감소
+ *   · Anderson 2022 — 체계적 고찰 37편(부상 2 · 기록 5 · 생체역학 36). 걸음 수를 올릴 때 최대 무릎 굽힘 각도 감소는 근거 강함,
+ *     보폭·최대 고관절 모음·무릎 신전 모멘트·착지 각도 감소는 중간, 제동 충격량·슬개대퇴 관절 응력·고관절·무릎 음의 일 감소는 제한적.
+ *     부상·기록은 "insufficient evidence to conclusively determine the effects". 대부분 즉각 효과만 측정
+ *   · Cavanagh & Kram 1989 — 남성 일반 러너, 트레드밀 초속 3.15~4.12m. 키·다리 길이·분절 질량과 선호 보빈도·보폭의 상관 r≤0.36,
+ *     0과 유의하게 다르지 않음. 속도 증가 시 보빈도 약 4% · 보폭 약 28% 증가. 발목 양쪽 1.1kg 추가는 변화 없음.
+ *     결론: 개인 단위로 보빈도·보폭을 예측하거나 처방할 수 없다. 참가자 수는 초록에 없음
+ *   · Van Oeveren 2019 — 러너 256명(남 85.5%), 평균 44.1±9.8세, 가민 기록 16,128시간. 집단 수준에서 분당 보빈도 72.82~94.73 이
+ *     속도 초속 1.64~4.68m 에 직선 비례(SF = 75.01 + 3.006V), 개인 수준은 2차식이 더 맞음. 다리 길이 방향은 초록과 요약이 엇갈림
+ *   · Lieberman 2015 — 키·체중이 다양한 러너 14명, 초속 3.0m 에서 분당 보빈도 75·80·85·90·95. 에너지가 가장 적게 드는 보빈도
+ *     평균 84.8±3.6. 보빈도 5 증가마다 최대 고관절 굽힘 모멘트 +5.8% · 고관절 기준 착지 위치 -5.9%. 제동력은 고관절보다 앞에
+ *     착지할 때 커지고(무릎 기준으로는 아님), 무릎보다 앞에 착지하면 수직 충격 정점이 커짐(부하율은 P=0.07 로 유의하지 않음)
+ *
+ *   확인 못 한 것 — 권·호·쪽. QxMD 는 학술지 이름까지만 보여 주고, Europe PMC 는 오늘 첫 호출부터 한도에 걸렸다.
+ *   저장소에도 이 다섯 편의 권·호·쪽이 없어서 학술지 이름까지만 적었다. 지어내지 않았다
  */
+
 const PAGE_URL = pageUrl("/injury/cadence");
 const TITLE = "케이던스 높을수록 좋나요? 꼭 180이어야 하나요";
 const DESC =
-  "같은 사람도 빨리 달릴수록 케이던스가 올라갑니다. 180에 꼭 맞춰야 하는지, 높이면 연구에서 무엇이 달라졌는지 다룹니다.";
+  "분당 180보는 모두의 목표값이 아닙니다. 지금 내 걸음 수를 세는 법, 올렸을 때 연구에서 실제로 달라진 것과 달라지지 않은 것을 담았습니다.";
 
 export const metadata: Metadata = {
   title: "케이던스 높을수록 좋나요? 꼭 180이어야 하나요 | 뛰다가 아메리카노",
   description: DESC,
   alternates: { canonical: "/injury/cadence" },
 };
+
+const FAQ: FaqItem[] = [
+  {
+    q: "워치에 찍힌 케이던스가 170인데 낮은 건가요?",
+    a: "낮다고 보기 어려워요. 케이던스는 1분에 발이 땅에 닿는 횟수예요. 한 실험에서 에너지가 가장 적게 드는 걸음 수가 **평균 170쯤**이었고 사람마다 달랐어요. 빨리 달릴수록 올라가니 **천천히 달린 날과 대회 날 숫자를 비교하지 않아도 돼요.**",
+  },
+  {
+    q: "걸음 수를 올리면 더 빨라지나요?",
+    a: "그렇다고 말할 근거가 아직 부족해요. 속도는 걸음 수보다 **보폭에서 더 많이** 나와요. 한 실험에서 속도를 올렸을 때 보폭은 약 28% 늘었는데 걸음 수는 약 4%만 늘었어요.",
+  },
+  {
+    q: "무릎이 아픈데 걸음 수를 올리면 나아질까요?",
+    a: "덜 아파진다고 말하기는 어려워요. 걸음 수를 바꾸는 게 나쁘다는 뜻은 아니고, **아플 때 가장 먼저 할 일은 아니에요.** 먼저 할 일은 무릎 앞 통증 글에 있어요.",
+  },
+];
+
+const pill = "rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400";
 
 export default function CadencePage() {
   return (
@@ -41,7 +106,7 @@ export default function CadencePage() {
       <BreadcrumbJsonLd
         trail={[
           ["러닝 가이드", "/injury"],
-          ["케이던스", "/injury/cadence"],
+          ["걸음 수", "/injury/cadence"],
         ]}
       />
       <main>
@@ -51,125 +116,140 @@ export default function CadencePage() {
         </Link>
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">케이던스</span>
-          {/* 규약은 app/injury/page.tsx 상단 주석 */}
-          <span className="text-xs text-gray-400">3분 읽기</span>
-          <span className="text-xs text-gray-400">· 협찬 없이 작성</span>
+          <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">걸음 수</span>
         </div>
-        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
-          케이던스 높을수록 좋나요?<br />꼭 180이어야 하나요
-        </h1>
-        <ArticleMeta href="/injury/cadence" />
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/cadence" compact checked={5} />
+
+        <KeyPoints
+          items={[
+            <>분당 180보는 모두의 목표값이 아니에요. <strong>먼저 지금 내 걸음 수를 세어 보세요.</strong></>,
+            <><strong>키별 기준표는 찾지 않아도 돼요.</strong> 키나 다리 길이와 걸음 수의 관계는 약했어요.</>,
+            <>올리고 싶다면 한 번에 180으로 맞추지 말고 <strong>지금 값에서 조금씩</strong> 올려 보길 권해요.</>,
+          ]}
+        />
+
         <Lead>
-          워치에 찍힌 케이던스가 낮아 보여 신경 쓰인다면, 정해진 목표값보다 내 속도부터 볼 만합니다. 케이던스는 달릴 때의
-          분당 걸음 수입니다. 같은 사람도 빨리 달릴수록 케이던스가 올라갑니다.
+          워치에 찍힌 숫자가 남들보다 낮아 보여 신경 쓰인다면, 목표값을 찾기 전에 내 속도부터 볼 만해요.
+          달릴 때 분당 발이 땅에 닿는 횟수를 케이던스라고 해요.
         </Lead>
 
-        <Summary
+        <TableOfContents
           items={[
-            <>같은 사람도 <strong>속도가 빠를수록 케이던스가 올라갑니다.</strong> 180은 모두의 목표값이 아닙니다.<Basis kind="paper" /></>,
-            <><strong>키나 다리 길이로 개인 케이던스를 정할 수 없다</strong>는 결론이 나왔습니다(남성 러너 연구).<Basis kind="paper" /></>,
-            <>지금보다 5~10% 올리면 실험실에서 <strong>무릎이 흡수하는 에너지가 줄었습니다.</strong> 부상 효과는 근거가 부족합니다.<Basis kind="paper" /></>,
-            <>180에 맞추지 말고 <strong>지금 값에서 조금씩</strong> 올려 보세요.<Basis kind="rule" /></>,
+            { id: "where-180", label: "180에 맞춰야 하나요?" },
+            { id: "height", label: "키에 맞는 값이 있나요?" },
+            { id: "raise", label: "올리면 뭐가 달라지나요?" },
+            { id: "how-to", label: "어떻게 올리나요?" },
           ]}
         />
 
-        {/* ── ① ─────────────────────────────────────────── */}
+        {/* ── 1 ─────────────────────────────────────────── */}
         <h2 id="where-180" className={H2}>
-          케이던스 180은 어디서 나온 숫자인가요?
+          <Num n={1} />분당 180보에 꼭 맞춰야 하나요?
         </h2>
         <P>
-          1984년 스포츠 과학자 잭 다니엘스(Jack Daniels)가 LA 올림픽 선수들을 관찰한 데서 나왔다고 흔히 알려져 있습니다.
-          다만 <strong>저희는 그 원 기록을 확인하지 못했습니다.</strong>
+          아니요. 180은 모두의 목표값이 아니에요. <strong>목표값을 정하기 전에 지금 내 걸음 수를 세어 보세요.</strong>
         </P>
-        <P>분당 180걸음을 권하는 조언이 흔하다는 점은 연구 논문에도 적혀 있습니다.</P>
-        <Evidence n={1}>
-          <p>
-            분당 90보폭(180걸음)을 권하는 조언이 흔하다는 점은 연구 논문에도 적혀 있습니다.{" "}
-            <S>(Lieberman et al. (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26538175/" />)</S>
-          </p>
-        </Evidence>
-
-        {/* ── ② ─────────────────────────────────────────── */}
-        <h2 id="height" className={H2}>
-          키에 맞는 케이던스가 따로 있나요?
-        </h2>
-        <P>
-          키나 다리 길이와 케이던스의 관계는 약했습니다(남성 일반 러너를 잰 연구). 연구진은 신체 치수로
-          개인 케이던스를 정할 수 없다고 결론 냈습니다.
-        </P>
-        <P>
-          대신 <strong>속도가 빠를수록 케이던스가 올라갔습니다</strong>(러너 256명의 웨어러블 기록). 같은 속도에서도 에너지가 가장
-          적게 드는 케이던스는 사람마다 달랐습니다(14명 실험).
-        </P>
-        <Note>다리 길이와 케이던스의 관계는 연구마다 결과가 다릅니다.</Note>
-        <Evidence n={3}>
-          <p>
-            키나 다리 길이와 선호 케이던스의 상관은 낮았습니다(남성 일반 러너 측정). 통계적으로도 유의하지 않았습니다.
-            연구진은 신체 치수로 개인의 케이던스를 처방할 수 없다고 결론 냈습니다.{" "}
-            <S>(Cavanagh &amp; Kram (1989) <Up h="https://pubmed.ncbi.nlm.nih.gov/2674599/" />)</S>
-          </p>
-          <p>
-            속도가 빠를수록 케이던스가 올라간다는 점은 웨어러블 기록에서도 확인됐습니다(러너 256명).{" "}
-            <S>(Van Oeveren et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/31079578/" />)</S>
-          </p>
-          <p>
-            같은 속도로 달려도 에너지가 가장 적게 드는 케이던스는 사람마다 달랐습니다(키와 체중이 다양한 러너 14명 실험).{" "}
-            <S>(Lieberman et al. (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26538175/" />)</S>
-          </p>
-        </Evidence>
-        <P className="text-sm text-gray-500">
-          그래서 예전에 이 자리에 있던 「키별 적정 케이던스 표」는 내렸습니다. 근거가 없는 숫자였습니다.
-        </P>
-
-        {/* ── ③ ─────────────────────────────────────────── */}
-        <h2 id="raise" className={H2}>
-          케이던스는 높을수록 좋은 건가요?
-        </h2>
-        <P>
-          지금보다 5~10% 올리면 <strong>무릎이 흡수하는 에너지가 줄었습니다</strong>(일반 러너 45명 트레드밀 실험). 10%
-          올렸을 때는 고관절도 줄었습니다.
-        </P>
-        <P>
-          다만 <strong>부상이나 기록이 좋아지는지는 아직 근거가 부족합니다.</strong> 갑자기 올리면 더 힘들게 느껴지고 에너지
-          소모가 늘 수 있다는 근거도 있습니다. 그 근거는 매우 제한적입니다.
-        </P>
-        <Note>
-          부하 지표는 줄거나 변화가 없었습니다(연구 37편을 모은 고찰). 대부분 바로 그 자리의 효과만 본 연구였습니다.
-        </Note>
-        <Evidence n={2}>
-          <p>
-            케이던스를 평소보다 5~10% 올리면 무릎이 흡수하는 에너지가 줄었습니다(건강한 일반 러너 45명 트레드밀 실험).
-            10% 올렸을 때는 고관절도 줄었습니다.{" "}
-            <S>(Heiderscheit et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/20581720/" />)</S>
-          </p>
-          <p>
-            케이던스를 올리면 발목과 무릎, 고관절의 부하 지표가 줄거나 변화가 없었습니다(연구 37편을 모은 체계적 고찰).
-            다만 부상과 기록에 미치는 효과는 근거가 부족합니다. 대부분 바로 그 자리의 효과만 본 연구였습니다. 케이던스를 갑자기
-            올리면 더 힘들게 느껴지고 에너지 소모가 늘 수 있다는 근거가 있습니다. 그 근거는 매우 제한적입니다.{" "}
-            <S>(Anderson et al. (2022) <Up h="https://pubmed.ncbi.nlm.nih.gov/36057913/" />)</S>
-          </p>
-        </Evidence>
-        <Todo
-          basis="rule"
+        <Steps
+          title="지금 내 걸음 수를 세는 법"
           items={[
-            "180에 맞추지 않습니다. 케이던스는 목표값이 아닙니다.",
-            "먼저 지금 내 케이던스를 잽니다(아래).",
-            "지금 값에서 조금씩 높여 봅니다.",
+            { t: "편안한 속도로 잠깐 달려요.", d: "숨이 고르게 쉬어지는 속도면 돼요." },
+            { t: "한쪽 발이 땅에 닿는 횟수를 30초 동안 세어 보세요.", d: "오른발만 세면 편해요." },
+            { t: "그 수에 4를 곱해요.", d: "그게 분당 걸음 수예요." },
           ]}
         />
+        <P>
+          분당 180보라는 숫자가 어디서 나왔는지는 저희가 확인하지 못했어요. 이 조언이 흔하다는 서술은 연구 논문에도 있지만,
+          숫자의 출처를 밝힌 자료는 찾지 못했어요.
+        </P>
+        <P>
+          대신 확인된 것이 있어요. 러너 14명이 같은 속도로 달린 한 실험에서 <strong>에너지가 가장 적게 드는 걸음 수의 평균은
+          분당 170보쯤</strong>이었고, 그 값은 사람마다 달랐어요.
+        </P>
+        <P>
+          같은 사람도 <strong>빨리 달릴수록 걸음 수가 올라가요.</strong> 러너 256명의 워치 기록을 모은 연구에서 걸음 수는
+          분당 약 146보에서 190보 사이에 퍼져 있었고, 속도에 따라 올라갔어요. 천천히 달리는 날의 숫자가 180보다 낮은 것은
+          이상한 일이 아니에요.
+        </P>
 
-        <h3 className={H3}>내 케이던스는 어떻게 재나요?</h3>
-        <ol className="mt-3 list-inside list-decimal space-y-1.5 break-keep text-base leading-[1.7] text-gray-700">
-          <li>편안한 페이스로 1분 달립니다</li>
-          <li>오른발이 땅에 닿는 횟수를 30초 동안 셉니다</li>
-          <li>그 숫자에 4를 곱하면 분당 케이던스(spm)입니다</li>
-        </ol>
+        <OneLine>180에 맞추기 전에, 지금 내 걸음 수와 속도를 먼저 봐요.</OneLine>
+
+        {/* ── 2 ─────────────────────────────────────────── */}
+        <h2 id="height" className={H2}>
+          <Num n={2} />키나 다리 길이에 맞는 걸음 수가 따로 있나요?
+        </h2>
+        <P>
+          없어요. <strong>키별 기준표는 찾지 않아도 돼요.</strong> 남성 일반 러너를 잰 한 실험에서 키·다리 길이와 평소 걸음 수의
+          관계는 약했고, 통계적으로도 0과 다르다고 할 수 없었어요. 연구진은 신체 치수로 개인의 걸음 수를 예측하거나 처방할 수
+          없다고 적었어요.
+        </P>
+        <P>
+          그러니 기준으로 삼을 숫자는 남의 키가 아니라 <strong>방금 센 내 숫자</strong>예요.
+        </P>
+        <Caveat>
+          예전에 이 자리에 키별 걸음 수 표가 있었어요. 근거가 없는 숫자여서 2026년 10월에 내렸어요.
+        </Caveat>
+
+        <OneLine>내게 맞는 걸음 수는 키에서 나오지 않아요. 내 숫자에서 시작해요.</OneLine>
+
+        {/* ── 3 ─────────────────────────────────────────── */}
+        <h2 id="raise" className={H2}>
+          <Num n={3} />걸음 수를 올리면 몸에서 뭐가 달라지나요?
+        </h2>
+        <P>
+          보폭이 줄고, <strong>무릎이 흡수하는 에너지가 줄었어요.</strong> 일반 러너 45명이 같은 속도로 달린 한 트레드밀
+          실험에서 평소보다 5~10% 올렸을 때 그랬고, 10% 올렸을 때는 고관절도 같이 줄었어요.
+        </P>
+        <P>
+          공짜는 아니에요. 다른 실험에서는 걸음 수를 올릴수록 <strong>다리를 앞으로 가져오는 고관절 근육의 힘이 커졌어요.</strong>{" "}
+          분당 10보를 올릴 때마다 약 6%였어요.
+        </P>
+        <P>
+          <strong>부상이 줄거나 기록이 좋아지는지는 아직 근거가 부족해요.</strong> 연구 37편을 모은 고찰이 그렇게 결론 냈어요.
+          대부분 걸음 수를 바꾼 그 자리에서 달라지는 것만 본 연구였어요. 걸음 수를 올리면 어색하거나 더 힘들게 느껴진다는
+          보고도 있었어요.
+        </P>
+        <Caveat>
+          무릎이 흡수하는 에너지가 줄었다는 결과도 그 고찰은 근거가 제한적이라고 등급을 매겼어요.
+        </Caveat>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/knee-pain" className={pill}>무릎 앞이 아프다면 →</Link>
+          <Link href="/injury/midfoot" className={pill}>발이 어디로 닿는지가 고민이라면 →</Link>
+          <Link href="/injury/achilles" className={pill}>아킬레스가 아프다면 →</Link>
+        </div>
+
+        <OneLine>무릎 쪽 부담은 줄었지만, 덜 다치거나 빨라진다는 근거는 아직 없어요.</OneLine>
+
+        {/* ── 4 ─────────────────────────────────────────── */}
+        <h2 id="how-to" className={H2}>
+          <Num n={4} />걸음 수는 어떻게 올리나요?
+        </h2>
+        <P>
+          <strong>지금 값에서 5~10%쯤만 올려 보길 권해요.</strong> 연구에서 시험한 폭이 평소보다 5~10% 올린 조건이라, 그 범위를
+          그대로 따라 쓰는 거예요. 더 올리면 어떻게 되는지를 잰 자료는 찾지 못했어요.
+        </P>
+        <Steps
+          items={[
+            { t: "목표를 숫자로 적어요.", d: "지금 분당 160보라면 168~176보예요." },
+            { t: "달리기 전체가 아니라 짧은 구간에서만 해 봐요.", d: "한 번에 몇 분이면 충분해요." },
+            { t: "보폭을 억지로 좁히지 말고, 발을 조금 더 자주 놓는다고 생각해요." },
+            { t: "다음 날 아프면 되돌려요.", d: "원래 걸음 수로 달리고, 다음에 더 작게 올려요." },
+          ]}
+        />
+        <Caveat>
+          며칠 만에 바뀌는 값은 아니에요. 몸에 익는 데 얼마나 걸리는지를 잰 자료는 찾지 못해서 기간을 적지 않았어요.
+        </Caveat>
+
+        <OneLine>지금 값에 5~10%만 더해, 짧은 구간에서 먼저 해 봐요.</OneLine>
+
+        <FinderCta
+          from="cadence"
+          variant="inline"
+          headline="걸음 수는 신발을 바꾸지 않아도 오늘 바꿀 수 있어요. 신발은 발볼과 사이즈가 맞는지부터 보세요."
+        />
 
         <div className="mt-14">
           <YoutubeSection links={[
-            { label: "케이던스·보폭의 진실 — 내 몸에 맞는 리듬 찾기", channel: "신정식 RUN_TV", url: "https://www.youtube.com/watch?v=2RBeakkyw7c" },
-            { label: "초보러너에게 맞는 케이던스 찾기 (보폭, 리듬) | 존2 러닝", channel: "뛰뛰 유경띠", url: "https://www.youtube.com/watch?v=bbgqFviCdd8" },
             { label: "케이던스는 무조건 빠른 게 좋을까? [달리기 보폭과 케이던스]", channel: "달려라주원", url: "https://www.youtube.com/watch?v=9XIpX69kW2c" },
             { label: "직접 180 케이던스로 뛰어보며 비교 — 러닝 트렌드", channel: "방구석 운동가 디어", url: "https://www.youtube.com/watch?v=iGeS1N1eYJQ" },
             { label: "러닝 케이던스 180으로 고정하지 마세요", channel: "런앤다이어트", url: "https://www.youtube.com/shorts/FoMWaZKMTMU" },
@@ -179,45 +259,44 @@ export default function CadencePage() {
           ]} />
         </div>
 
-        <FaqSection items={[
-          {
-            q: "케이던스 180 spm을 꼭 맞춰야 하나요?",
-            a: "아니요. 180은 모두에게 맞는 목표값이 아닙니다. 같은 사람도 속도가 빠를수록 케이던스가 올라갑니다. 키나 다리 길이로 개인의 케이던스를 처방할 수 없다고 결론 낸 연구도 있습니다. 180이 1984년 잭 다니엘스의 관찰에서 나왔다는 이야기는 널리 알려져 있습니다. 다만 저희는 원 기록을 확인하지 못했습니다.",
-          },
-          {
-            q: "내 케이던스는 어떻게 측정하나요?",
-            a: "한쪽 발(예: 오른발)이 땅에 닿는 횟수를 30초 동안 센 뒤 4를 곱하면 분당 케이던스(spm)입니다.",
-          },
-          {
-            q: "케이던스를 높이면 뭐가 좋아지나요?",
-            a: "현재보다 5~10% 높이면 무릎이 흡수하는 에너지가 줄었습니다. 10% 높였을 때는 고관절도 줄었습니다. 일반 러너 45명을 잰 실험 결과입니다(Heiderscheit 2011). 다만 부상 예방 효과는 아직 근거가 부족합니다(Anderson 2022). '180으로 맞춰라'가 아니라 '현재 케이던스에서 조금씩 높여라'가 핵심입니다.",
-          },
-        ]} />
-
-        <References n={6} title="참고 자료" note="2026-10-08 초록과 대조했습니다.">
-          <ul className="space-y-2 text-sm">
-            {/**
-             * ⚠️ 2026-09-14 — 「Jack Daniels' Running Formula」·「BJSM — Cadence review」 두 항목이
-             * 루트 도메인이었다. 특정 문헌이 아니므로 내렸다.
-             */}
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span><strong>Heiderscheit et al. (2011)</strong> — 케이던스 ±5·10% 조작 시 하지 관절 역학(일반 러너 45명, 트레드밀). <a href="https://pubmed.ncbi.nlm.nih.gov/20581720/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span></li>
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span><strong>Anderson et al. (2022)</strong> — 케이던스 변경의 부상·성능·생체역학 효과 체계적 고찰(37편). <a href="https://pubmed.ncbi.nlm.nih.gov/36057913/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span></li>
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span><strong>Cavanagh &amp; Kram (1989)</strong> — 신체 치수와 선호 보폭·보빈도의 상관이 낮음(남성 일반 러너). <a href="https://pubmed.ncbi.nlm.nih.gov/2674599/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span></li>
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span><strong>Van Oeveren et al. (2019)</strong> — 속도에 따른 보빈도 변화(웨어러블 기록, 256명). <a href="https://pubmed.ncbi.nlm.nih.gov/31079578/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span></li>
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span><strong>Lieberman et al. (2015)</strong> — 보빈도·착지 위치와 제동력·충격·에너지 소모(14명). <a href="https://pubmed.ncbi.nlm.nih.gov/26538175/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">PubMed ↗</a></span></li>
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span className="text-gray-500">「Jack Daniels&apos; Running Formula」·「BJSM Cadence review」 항목 — 링크가 특정 문헌이 아니라 홈페이지 주소여서 내렸습니다 (2026-09-14)</span></li>
-          </ul>
-          <p className="mt-3 text-xs text-gray-400">추천 순서는 광고비로 바뀌지 않습니다. 연구로 확인한 문장에는 출처를 붙였고, 확인하지 못한 부분은 본문에 그렇게 적었습니다.</p>
-        </References>
-
-        <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
-
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">내 발에 맞는 신발 찾기</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
-            나에게 맞는 신발 찾기 →
-          </Link>
+        <div className="mt-14">
+          <FaqSection items={FAQ} />
         </div>
+
+        <Sources>
+          <Src n={1}>
+            <strong>Heiderscheit et al. (2011)</strong> 평소보다 걸음 수를 5%·10% 올렸을 때 무릎이 흡수하는 에너지가 줄었고,
+            고관절은 10%에서만 줄었어요. 10% 낮췄을 때는 모든 관절이 더 많이 흡수했어요(건강한 일반 러너 45명, 같은 속도 트레드밀).
+            <Ref>Med Sci Sports Exerc · <a href="https://pubmed.ncbi.nlm.nih.gov/20581720/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Anderson et al. (2022)</strong> 연구 37편을 모은 체계적 고찰이에요. 걸음 수를 올릴 때 무릎 굽힘 각도가
+            줄어드는 것은 근거가 강했지만, 무릎·고관절이 흡수하는 에너지가 줄어드는 것은 근거가 제한적이었어요. 부상과 기록은
+            결론을 내릴 근거가 부족하고, 대부분 바꾼 그 자리의 효과만 본 연구였어요.
+            <Ref>Sports Med Open · <a href="https://pubmed.ncbi.nlm.nih.gov/36057913/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Cavanagh &amp; Kram (1989)</strong> 키·다리 길이·분절 무게와 평소 걸음 수의 상관이 0.36 이하였고 0과
+            유의하게 다르지 않았어요. 속도를 올렸을 때 걸음 수는 약 4%, 보폭은 약 28% 늘었어요(남성 일반 러너, 트레드밀 초속
+            3.15~4.12m). 연구진은 개인 단위로 걸음 수나 보폭을 예측하거나 처방할 수 없다고 적었어요. 참가자 수는 초록에 없어요.
+            <Ref>Med Sci Sports Exerc · <a href="https://pubmed.ncbi.nlm.nih.gov/2674599/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>Van Oeveren et al. (2019)</strong> 러너 256명의 워치 기록 16,128시간이에요. 논문은 걸음 수를 스트라이드(양발이
+            한 번씩 닿는 한 주기)로 적어요. 집단 수준에서 분당 72.82~94.73 스트라이드가 속도 초속 1.64~4.68m 에 직선으로 비례했고,
+            걸음으로 세면 약 146~190보예요. 다리 길이의 방향은 같은 쪽 초록과 요약이 엇갈려서 쓰지 않았어요.
+            <Ref>J Sports Sci · <a href="https://pubmed.ncbi.nlm.nih.gov/31079578/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={5}>
+            <strong>Lieberman et al. (2015)</strong> 키·체중이 다양한 러너 14명이 초속 3.0m 로 달리며 분당 75·80·85·90·95
+            스트라이드를 시험했어요. 에너지가 가장 적게 드는 값은 평균 84.8 스트라이드(표준편차 3.6)로, 걸음으로 세면 약 170보예요.
+            스트라이드를 분당 5 올릴 때마다 고관절을 굽히는 최대 힘이 5.8% 커졌고 착지 위치는 고관절 쪽으로 5.9% 가까워졌어요.
+            지구력 러너에게 분당 90 스트라이드(걸음으로 180보)를 권하는 조언이 흔하다는 서술도 이 초록에 있어요.
+            <Ref>J Exp Biol · <a href="https://pubmed.ncbi.nlm.nih.gov/26538175/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>
