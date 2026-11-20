@@ -2865,5 +2865,26 @@
     "factsFrom": "모음",
     "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
+  },
+  {
+    "id": "gyeonggi-suwon-international-half-marathon-2027",
+    "name": "2027 경기수원국제하프마라톤대회",
+    "date": "2027-02-28",
+    "region": "경기",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "수원종합운동장",
+    "registrationStart": "2026-11-20",
+    "registrationEnd": "2026-11-30",
+    "organizer": "경기신문",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-gyeonggi-suwon-international-half-marathon-24a89df2ff2e456c91843f4f93610d1d",
+    "officialUrl": "https://www.ggimarathon.com/ggimarathon",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-20",
+    "checkedBy": "수집기"
   }
 ]
