@@ -333,7 +333,7 @@ export default function CommunityPostView({ id }: { id: string }) {
         <FinderCta
           from="community"
           headline="내 발에 맞는 신발도 찾아보세요"
-          sub="키·체중·발볼만 고르면 조건을 통과한 신발 3개를 골라드려요. 가입 없이 1분."
+          sub="키·체중·발볼만 고르면 조건을 통과한 신발 4켤레를 골라드려요. 가입 없이 1분."
         />
       </div>
     </main>

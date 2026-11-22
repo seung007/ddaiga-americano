@@ -283,6 +283,34 @@ if (existsSync(blogDir)) {
   }
 }
 
+// 추천기와 도구 화면 (2026-11-23, 세션 지시서 4절 5번 — hyun 님 「설문에 이런 것들 다 바꿔야 할 듯 우리 규칙과 알아본 사이트 자료들 보면서」)
+// 추천 질문 화면·추천 이유 문구·도구 화면에도 같은 문장 규칙을 건다. 더해서 「확실한 것만 보여 준다」(11-23 결정):
+// 「사이트 기준」「근거는 약해요」「연구는 N건」「엇갈려요」 같은 근거 딱지를 화면에 쓰지 않는다.
+{
+  const screens = [];
+  const finder = readFileSync(path.join(ROOT, "app/shoe-finder/page.tsx"), "utf8");
+  screens.push(["app/shoe-finder/page.tsx: ", readable(finder.slice(Math.max(0, finder.indexOf("return ("))))]);
+  const rec = readFileSync(path.join(ROOT, "lib/shoes/recommend.ts"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/[^\n]*/g, "");
+  const recText = [...rec.matchAll(/(?:reasons|lines)\.push\((["`])([\s\S]*?)\1\)|return "([^"]+)";|genderFitNote = "([^"]+)"|Note: `([^`]+)`/g)]
+    .map((m) => m[2] ?? m[3] ?? m[4] ?? m[5]).filter((t) => t && /[가-힣]/.test(t)).join("\n");
+  screens.push(["lib/shoes/recommend.ts(추천 이유): ", recText]);
+  const cmp = readFileSync(path.join(ROOT, "components/ShoeCompareSpecs.tsx"), "utf8");
+  screens.push(["components/ShoeCompareSpecs.tsx(추천 결과·비교 화면): ", readable(cmp.slice(Math.max(0, cmp.indexOf("return ("))))]);
+  for (const d of readdirSync(path.join(ROOT, "app/tools"), { withFileTypes: true })) {
+    if (!d.isDirectory()) continue;
+    const f = path.join(ROOT, "app/tools", d.name, "page.tsx");
+    if (!existsSync(f)) continue;
+    const src = readFileSync(f, "utf8");
+    screens.push([`app/tools/${d.name}/page.tsx: `, readable(src.slice(Math.max(0, src.indexOf("return ("))))]);
+  }
+  for (const [where, text] of screens) {
+    const bad = (m) => errors.push(`${where}${m}`);
+    checkWording(text, bad);
+    const m = text.match(/사이트 기준|사이트가 정한 기준|사이트 분류|근거는 약|근거가 약|연구는 \d+건|연구가 갈|엇갈/);
+    if (m) bad(`근거 딱지는 화면에 쓰지 않는다(확실한 것만 보여 준다, 11-23): 「…${text.slice(Math.max(0, m.index - 12), m.index + m[0].length + 8).replace(/\n/g, " ")}…」`);
+  }
+}
+
 // 글 밖의 자리 — 가이드 첫 화면과 여러 글이 함께 쓰는 단계 데이터(2026-11-20: 여기가 검사 밖이라 「저희 제안」「가장 긴 날」이 남아 있었다)
 {
   const hub = readFileSync(path.join(ROOT, "app/injury/page.tsx"), "utf8");

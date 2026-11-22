@@ -116,7 +116,7 @@ export default function HomeFinderCard({ shoes, count }: { shoes: FinderShoe[]; 
           </h1>
           <p className="mt-4 text-base font-bold leading-normal text-[#111111] md:mt-6 md:text-xl">
             러닝화 {count}종의 스펙 데이터로 <br className="md:hidden" />
-            3켤레를 골라 드려요
+            4켤레를 골라 드려요
           </p>
           <p className="mt-2 text-sm text-[#4B5059]">가입 없이 무료</p>
 
