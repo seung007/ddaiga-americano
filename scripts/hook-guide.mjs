@@ -20,7 +20,7 @@ const ti = input.tool_input ?? {};
 if (tool === "Bash") {
   const c = String(ti.command ?? "");
   if (/git\b[^|;&]*\bcommit\b[^|;&]*(--no-verify|\s-[a-zA-Z]*n[a-zA-Z]*\b)/.test(c) || /core\.hooksPath/.test(c) && !/core\.hooksPath\s+\.githooks/.test(c) && /config/.test(c) && !/--get/.test(c)) {
-    console.error("막음: 커밋 검사를 건너뛰거나 끄는 명령입니다(--no-verify · core.hooksPath 변경). 검사가 실패하면 글을 고치세요 — AGENTS.md 「가이드 글 틀」.");
+    console.error("막음: 커밋 검사를 건너뛰거나 끄는 명령입니다(--no-verify · core.hooksPath 변경). 검사가 실패하면 글을 고치세요 — docs/운영/가이드_틀.md.");
     process.exit(2);
   }
   process.exit(0);
