@@ -24,7 +24,7 @@ import HomeFinderCard, { type FinderShoe } from "@/components/HomeFinderCard";
 import { officialOf } from "@/lib/shoes/official";
 import { photoOf } from "@/lib/shoes/photos";
 import VERIFIED from "@/lib/shoes/verified.json";
-import { SHOES } from "@/lib/shoes/data";
+import { SHOES, LISTED_SHOES } from "@/lib/shoes/data";
 import { RECOMMENDABLE_COUNT } from "@/lib/shoes/recommend";
 import ShoeThumb from "@/components/ShoeThumb";
 import { upcomingRaces, daysUntil, distanceLabel, currentStatus, type Race } from "@/lib/races";
@@ -122,8 +122,8 @@ const TRUST_BASE = [
     //   (ddaiga-pipeline REFRESH_CHECKED_DAYS), GitHub 정기 실행이 늦거나 빠지는 날도 있어 「매일」을 약속할 수 없다.
     //   그래서 몇 종이 자동 확인인지와 그 값이 언제 기준인지만 적는다.
     how: officialDate
-      ? `${SHOES.length}종 · 공식몰 정가 ${officialChecked.length}종 자동 확인`
-      : `${SHOES.length}종 · 권장가 추산`,
+      ? `${LISTED_SHOES.length}종 · 공식몰 정가 ${officialChecked.length}종 자동 확인`
+      : `${LISTED_SHOES.length}종 · 권장가 추산`,
   },
   // 2026-11-09: 「브랜드 공식 자료로」는 사실과 달랐다 — 스펙 다수는 공개된 실측 자료(데이터 sourceUrl) 값이다. 출처 종류를 사실대로 적는다
   verifiedDates.length ? { what: "스펙·발볼", how: `브랜드 공식 표기와 공개된 실측 자료로 ${verifiedDates.length}종 확인` } : null,

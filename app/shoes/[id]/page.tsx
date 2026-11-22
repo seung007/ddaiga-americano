@@ -20,7 +20,7 @@ import { officialOf } from "@/lib/shoes/official";
 import type { Shoe } from "@/lib/shoes/types";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
-import { SHOES } from "@/lib/shoes/data";
+import { SHOES, LISTED_SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won } from "@/lib/shoes/labels";
 import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import { pageUrl } from "@/lib/site";
@@ -228,6 +228,24 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           </p>
         )}
 
+        {/* 2026-11-23: 같은 모델의 여성판과 공용판을 서로 잇는다 — 목록에는 공용판 한 카드만 보인다(LISTED_SHOES) */}
+        {(() => {
+          const women = SHOES.find((x) => x.variantOf === s.id);
+          const base = s.variantOf ? SHOES.find((x) => x.id === s.variantOf) : undefined;
+          if (!women && !base) return null;
+          return (
+            <p className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-800">
+              {women ? (
+                <>여성용도 있어요. 여성용 무게·발볼·구매처는{" "}
+                  <Link href={`/shoes/${women.id}`} className="font-semibold underline underline-offset-2">여성용 보기</Link>에서 볼 수 있어요.</>
+              ) : (
+                <>이 신발의 여성용이에요. 같은 모델의 기본 정보는{" "}
+                  <Link href={`/shoes/${base!.id}`} className="font-semibold underline underline-offset-2">{base!.model}</Link>에서 볼 수 있어요.</>
+              )}
+            </p>
+          );
+        })()}
+
         {s.successor && (() => {
           const next = successorOf(s);
           return (
@@ -425,7 +443,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           <FinderCta
             from="shoe-detail"
             headline="이 신발이 내 몸에 맞는지 확인해 보세요"
-            sub={`발 모양·발볼을 넣으면 ${SHOES.length}켤레를 내 조건 순서로 줄 세웁니다.`}
+            sub={`발 모양·발볼을 넣으면 ${LISTED_SHOES.length}켤레를 내 조건 순서로 줄 세웁니다.`}
           />
         </div>
       </article>

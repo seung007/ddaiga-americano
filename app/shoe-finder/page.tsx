@@ -583,7 +583,7 @@ export default function ShoeFinderPage() {
                 엔진은 카본화를 빼지 않고 점수를 낮추며(-12), 이유도 부상 위험이 아니라 안정감·수명·가격이라고 적는다
                 (recommend.ts 「7. 경험 수준」, 2026-10-06 「부상 위험도 근거 없음」). 엔진이 하는 만큼만 적는다. */}
             <ChipRow title="달리기 경험은요?" optional
-              why="이제 막 시작했다면 카본(탄소 섬유 판)이 든 대회용 신발은 비싸고 오래 못 신어서 뒤로 빼요."
+              why="달려 온 기간에 따라 앞뒤 굽 차이(뒤꿈치가 앞보다 높은 정도)가 맞는 신발을 앞에 둬요."
               options={LEVEL_OPTIONS}
               isActive={v => level === v}
               onPick={v => { setLevel(prev => prev === v ? "" : v); handleChange(); }} />
@@ -596,8 +596,8 @@ export default function ShoeFinderPage() {
 
         {/* ── 화면 1: 몸에 대해 알려 주세요 (성별 · 키 · 체중) ──
             왜 묻는지 한 줄은 recommend.ts v4 가 실제로 하는 것만 적는다:
-            키 → 드롭(앞뒤 높이 차) 가점, 근거 논문 없는 사이트 기준 / 체중 → 순위에 안 씀, 체형 표시만 /
-            성별 → 남성·여성 기준 라스트 가점, 여성 전용 라스트는 여성을 골랐을 때만 후보. */}
+            키·체중 → 순위에 안 씀, 체형 표시만(2026-11-23 키→굽 차이 점수를 뛰는 빈도 기준으로 바꿈) /
+            성별 → 점수 없음. 여성을 고르면 여성판이 있는 모델은 여성판으로 보여 준다(recommend.ts isGenderEligible). */}
         {activeStep === 1 && (
           <>
             <ChipRow title="성별" optional
@@ -628,7 +628,7 @@ export default function ShoeFinderPage() {
                 <p className="text-xs text-gray-500">키를 고르면 체중 구간이 나와요.</p>
               </div>
             )}
-            <Why text="키는 신발 앞뒤 높이 차이를 고를 때 참고해요. 체중은 체형 표시에만 쓰고 신발 순위에는 넣지 않아요. 성별을 고르면 그 성별에 맞춰 만든 신발에 점수를 더 줘요." />
+            <Why text="키와 체중은 체형 표시에만 쓰고 신발 순서에는 넣지 않아요. 성별을 고르면 여성용이 따로 나오는 신발은 여성용으로 보여 드려요." />
           </>
         )}
 
@@ -655,7 +655,6 @@ export default function ShoeFinderPage() {
             {/* 2026-11-10: 「다친 부위에 부담이 덜한 신발을 우선 추천」은 엔진 주석(「근거는 확인 못 함」)보다 센 말이라 바꿨다 */}
             <ChipRow title="달리다 아팠던 곳이 있나요?" optional
               hint="여러 개 골라도 돼요. 지금 아프다면 신발보다 병원 진료가 먼저예요."
-              why="고른 부위에 따라 신발 순서를 조정해요."
               options={INJURY_OPTIONS}
               isActive={v => injuries.includes(v)}
               onPick={v => {

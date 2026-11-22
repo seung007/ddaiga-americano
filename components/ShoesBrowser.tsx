@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import ShoeThumb from "@/components/ShoeThumb";
 import { gtagEvent } from "@/lib/gtag";
-import { SHOES } from "@/lib/shoes/data";
+import { SHOES, LISTED_SHOES } from "@/lib/shoes/data";
 import { cushionKo, hasWide, USE_KO, won } from "@/lib/shoes/labels";
 import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from "@/lib/shoes/profileOptions";
 import { rankAllShoes } from "@/lib/shoes/recommend";
@@ -141,6 +141,7 @@ export default function ShoesBrowser() {
 
   const shown = useMemo(() => {
     const list = SHOES.filter((s: Shoe) => {
+      if (s.variantOf) return false; // 여성판은 공용판 카드 하나로 (2026-11-23)
       if (query.trim() && !matchesQuery(SEARCH_KEY.get(s.id) ?? "", query)) return false;
       if (brand !== "전체" && s.brand !== brand) return false;
       if (use !== "전체" && !s.uses.includes(use as ShoeUse)) return false;
@@ -327,7 +328,7 @@ export default function ShoesBrowser() {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-gray-600">
-          <strong>{shown.length}개</strong> / 전체 {SHOES.length}개
+          <strong>{shown.length}개</strong> / 전체 {LISTED_SHOES.length}개
         </p>
         <select
           value={sort}

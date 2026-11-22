@@ -1414,6 +1414,7 @@ export const MANUAL_SHOES: Shoe[] = [
   // ════════════════════════════════════════════════════════════════
   {
     id: "brooks-ghost-17-w",
+    variantOf: "brooks-ghost-17",
     brand: "Brooks",
     model: "Ghost 17 (여성)",
     successor: "Ghost 18",
@@ -1458,6 +1459,7 @@ export const MANUAL_SHOES: Shoe[] = [
   },
   {
     id: "brooks-glycerin-22-w",
+    variantOf: "brooks-glycerin-22",
     brand: "Brooks",
     model: "Glycerin 22 (여성)",
     successor: "Glycerin 23",
@@ -1502,6 +1504,7 @@ export const MANUAL_SHOES: Shoe[] = [
   },
   {
     id: "brooks-adrenaline-gts-25-w",
+    variantOf: "brooks-adrenaline-gts-25",
     brand: "Brooks",
     model: "Adrenaline GTS 25 (여성)",
     imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40955/brooks-adrenaline-gts-25-24879218-720.jpg",
@@ -1545,6 +1548,7 @@ export const MANUAL_SHOES: Shoe[] = [
   },
   {
     id: "asics-gel-kayano-32-w",
+    variantOf: "asics-gel-kayano-32",
     brand: "Asics",
     model: "Gel-Kayano 32 (여성)",
     successor: "Gel-Kayano 33",
@@ -1588,6 +1592,7 @@ export const MANUAL_SHOES: Shoe[] = [
   },
   {
     id: "nike-pegasus-42-w",
+    variantOf: "nike-pegasus-42",
     brand: "Nike",
     model: "Pegasus 42 (여성)",
     imageUrl: "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b56674cf-5fee-4d0f-8c16-839a2f09e5a0/W+NIKE+AIR+ZOOM+PEGASUS+42.png",
@@ -1631,6 +1636,7 @@ export const MANUAL_SHOES: Shoe[] = [
   },
   {
     id: "saucony-guide-18-w",
+    variantOf: "saucony-guide-18",
     brand: "Saucony",
     model: "Guide 18 (여성)",
     successor: "Guide 19",
@@ -1675,6 +1681,7 @@ export const MANUAL_SHOES: Shoe[] = [
   },
   {
     id: "hoka-clifton-10-w",
+    variantOf: "hoka-clifton-10",
     brand: "Hoka",
     model: "Clifton 10 (여성)",
     successor: "Clifton 11",
@@ -4024,3 +4031,8 @@ export const MANUAL_SHOES: Shoe[] = [
 
 /** 화면·추천이 보는 전체 목록 = 사람 원장 + 공식몰 자동 확인 다음 세대 (2026-11-10, lib/shoes/auto.ts) */
 export const SHOES: Shoe[] = withAutoNextGen(MANUAL_SHOES);
+/**
+ * 목록·개수에 쓰는 신발 — 같은 모델의 여성판(variantOf)은 공용판 카드 하나로 본다 (2026-11-23 hyun 님 「남녀 같이 팔면 같이 보여준다」).
+ * 여성판 상세 주소는 SHOES 로 그대로 열린다.
+ */
+export const LISTED_SHOES: Shoe[] = SHOES.filter((s) => !s.variantOf);

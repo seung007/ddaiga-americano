@@ -154,6 +154,12 @@ export interface Shoe {
   youtubeReviews: { label: string; url: string }[];
 
   // ── 성별·한국 발 매칭 필드 (선택) ─────────────────────────────
+  /**
+   * 같은 모델의 남녀 공용판 id — 이 신발이 그 모델의 **여성판**일 때만 적는다 (2026-11-23).
+   * 목록에는 공용판 한 카드만 보이고, 추천은 여성을 고른 사람에게 이 여성판을 보여 준다(recommend.ts isGenderEligible).
+   * 상세 주소(/shoes/<여성판 id>)는 그대로 열린다.
+   */
+  variantOf?: string;
   /** 성별 라스트 설계. 미지정 시 unisex로 간주 */
   genderFit?: GenderFit;
   /** 여성 버전에서 제공되는 폭 옵션 (예: Brooks는 여성 B·D·2E 제공) */
