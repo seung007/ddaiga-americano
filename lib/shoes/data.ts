@@ -2524,7 +2524,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["racing"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 대회용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "쿠션이 두꺼운 대회용 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 159g(브랜드 표기 170g), 뒤꿈치 밑창 두께 38.9mm, 브랜드가 밝힌 앞뒤 굽 차이 5mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "MetaSpeed Edge Tokyo 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+metaspeed+edge+tokyo+review" },
@@ -2559,7 +2559,7 @@ export const MANUAL_SHOES: Shoe[] = [
     uses: ["tempo", "racing"],
     hasCarbon: true,
     // 2E 모델(209,000원)은 2026-09-27 hyun 님 캡처로 아식스 한국몰에서 확인했다.
-    blurb: "공개 실측 자료가 빠른 훈련과 대회용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "쿠션 두께가 보통인 빠른 훈련과 대회용 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 201g(브랜드 표기 196g), 뒤꿈치 밑창 두께 35.3mm, 브랜드가 밝힌 앞뒤 굽 차이 7mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요. 공개 실측 자료에는 D만 있고, 아식스 한국몰에 2E 모델이 209,000원에 따로 있어요(2026-09-27 확인). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Magic Speed 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+magic+speed+5+review" },
@@ -2660,7 +2660,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 286g(브랜드 표기 292g), 뒤꿈치 밑창 두께 38.6mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Ghost Max 4 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+ghost+max+4+review" },
@@ -2693,7 +2693,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 318g(브랜드 표기 311g), 뒤꿈치 밑창 두께 45.4mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 B·D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Glycerin Max 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+max+2+review" },
@@ -2726,7 +2726,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 264g(브랜드 표기 277g), 뒤꿈치 밑창 두께 35.2mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Glycerin Flex 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+flex+review" },
@@ -2859,7 +2859,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "stability",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요. 발이 안쪽으로 쏠리는 편인 사람을 위한 안정화 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 안정화 신발이에요. 발이 안쪽으로 쏠리는 편인 사람을 위해 만들었어요.",
     scienceBasis: "공개 실측 무게 272g(브랜드 표기 262g), 뒤꿈치 밑창 두께 38.3mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Hurricane 26 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+hurricane+26+review" },
@@ -2892,7 +2892,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 빠른 훈련과 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 빠른 훈련과 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 241g(브랜드 표기 240g), 뒤꿈치 밑창 두께 40.7mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 고를 수 있는 폭은 B·D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Endorphin Azura 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+endorphin+azura+review" },
@@ -2959,7 +2959,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["racing"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 대회용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "쿠션이 두꺼운 대회용 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 210g(브랜드 표기 204g), 뒤꿈치 밑창 두께 39.8mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Endorphin Elite 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+endorphin+elite+3+review" },
@@ -3026,7 +3026,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 물결 모양 판(웨이브 플레이트)이 들어 있어요.",
+    blurb: "쿠션이 두꺼운 일상 달리기와 빠른 훈련용 신발이에요. 카본이 아닌 유리섬유 물결 모양 판(웨이브 플레이트)이 들어 있어요.",
     scienceBasis: "공개 실측 무게 266g(브랜드 표기 265g), 뒤꿈치 밑창 두께 43.5mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본이 아닌 유리섬유 물결 모양 판(웨이브 플레이트)이 들어 있어요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Neo Vista 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+neo+vista+3+review" },
@@ -3059,7 +3059,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 237g(브랜드 표기 241g), 뒤꿈치 밑창 두께 39.9mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Neo Zen 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+neo+zen+2+review" },
@@ -3091,7 +3091,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["racing"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 대회용으로 나눈 신발이에요. 카본 섬유를 섞은 나일론 플레이트가 들어 있어요. 카본만으로 만든 판은 아니에요.",
+    blurb: "쿠션이 두꺼운 대회용 신발이에요. 카본 섬유를 섞은 나일론 플레이트가 들어 있어요. 카본만으로 만든 판은 아니에요.",
     scienceBasis: "공개 실측 무게 227g(브랜드 표기 218g), 뒤꿈치 밑창 두께 39.9mm, 브랜드가 밝힌 앞뒤 굽 차이 4mm예요. 카본 섬유를 섞은 나일론 플레이트가 들어 있어요. 카본만으로 만든 판은 아니에요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Wave Rebellion Pro 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+rebellion+pro+3+review" },
@@ -3123,7 +3123,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 빠른 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 플레이트가 들어 있어요.",
+    blurb: "쿠션이 두꺼운 빠른 훈련용 신발이에요. 카본이 아닌 유리섬유 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 244g, 뒤꿈치 밑창 두께 40.0mm, 앞뒤 굽 차이 8mm예요. 굽 차이는 미즈노 필리핀 공식몰 값이에요(공개 실측 자료에 적힌 브랜드 값 3mm는 실측 7.5mm와도 맞지 않아 쓰지 않았어요). 카본이 아닌 유리섬유 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Wave Rebellion Flash 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+rebellion+flash+3+review" },
@@ -3155,7 +3155,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["tempo"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 빠른 훈련용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "쿠션이 두꺼운 빠른 훈련용 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 248g(브랜드 표기 244g), 뒤꿈치 밑창 두께 39.7mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Zoom Fly 6 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+zoom+fly+6+review" },
@@ -3187,7 +3187,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["tempo", "racing"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 대회와 빠른 훈련용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "쿠션이 얇은 편인 대회와 빠른 훈련용 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 128g(브랜드 표기 144g), 뒤꿈치 밑창 두께 27.0mm, 브랜드가 밝힌 앞뒤 굽 차이 4mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Streakfly 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+streakfly+2+review" },
@@ -3254,7 +3254,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 289g(브랜드 표기 285g), 뒤꿈치 밑창 두께 42.3mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 고를 수 있는 폭은 B·D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Vomero Plus 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+vomero+plus+review" },
@@ -3288,7 +3288,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요. 플레이트는 없고 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기용 신발이에요. 플레이트는 없고 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요.",
     scienceBasis: "공개 실측 무게 326g(브랜드 표기 351g), 뒤꿈치 밑창 두께 50.1mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 플레이트는 없고 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Vomero Premium 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+vomero+premium+review" },
@@ -3321,7 +3321,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요. 플레이트는 없고 신발 길이 전체에 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요.",
+    blurb: "쿠션이 두꺼운 일상 달리기와 빠른 훈련용 신발이에요. 플레이트는 없고 신발 길이 전체에 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요.",
     scienceBasis: "공개 실측 무게 308g(브랜드 표기 309g), 뒤꿈치 밑창 두께 42.8mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 플레이트는 없고 신발 길이 전체에 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요. 고를 수 있는 폭은 B·D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Pegasus Premium 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+premium+review" },
@@ -3354,7 +3354,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "stability",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요. 발이 안쪽으로 쏠리는 편인 사람을 위한 안정화 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 안정화 신발이에요. 발이 안쪽으로 쏠리는 편인 사람을 위해 만들었어요.",
     scienceBasis: "공개 실측 무게 296g(브랜드 표기 298g), 뒤꿈치 밑창 두께 36.1mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 고를 수 있는 폭은 B·D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Structure 26 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+structure+26+review" },
@@ -3387,7 +3387,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "stability",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요. 발이 안쪽으로 쏠리는 편인 사람을 위한 안정화 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 안정화 신발이에요. 발이 안쪽으로 쏠리는 편인 사람을 위해 만들었어요.",
     scienceBasis: "공개 실측 무게 292g(브랜드 표기 309g), 뒤꿈치 밑창 두께 40.9mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Structure Plus 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+structure+plus+review" },
@@ -3419,7 +3419,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 301g(브랜드 표기 305g), 뒤꿈치 밑창 두께 40.9mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 고를 수 있는 폭은 D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Winflo 12 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+winflo+12+review" },
@@ -3452,7 +3452,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 298g(브랜드 표기 305g), 뒤꿈치 밑창 두께 33.0mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Journey Run 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+journey+run+review" },
@@ -3484,7 +3484,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 315g(브랜드 표기 315g), 뒤꿈치 밑창 두께 31.1mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 고를 수 있는 폭은 D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Downshifter 14 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+downshifter+14+review" },
@@ -3565,7 +3565,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기와 빠른 훈련용 신발이에요.",
     scienceBasis: "공개 실측 무게 264g(브랜드 표기 263g), 뒤꿈치 밑창 두께 43.4mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudmonster 3 Hyper 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudmonster+3+hyper+review" },
@@ -3598,7 +3598,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 292g(브랜드 표기 292g), 뒤꿈치 밑창 두께 37.3mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudsurfer Max 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudsurfer+max+review" },
@@ -3630,7 +3630,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 254g(브랜드 표기 260g), 뒤꿈치 밑창 두께 37.5mm, 브랜드가 밝힌 앞뒤 굽 차이 9mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudsurfer 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudsurfer+2+review" },
@@ -3662,7 +3662,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 264g(브랜드 표기 266g), 뒤꿈치 밑창 두께 33.8mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudsurfer Next 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudsurfer+next+review" },
@@ -3694,7 +3694,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 판이 들어 있어요.",
+    blurb: "쿠션이 두꺼운 일상 달리기와 빠른 훈련용 신발이에요. 카본이 아닌 유리섬유 판이 들어 있어요.",
     scienceBasis: "공개 실측 무게 286g(브랜드 표기 296g), 뒤꿈치 밑창 두께 39.2mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본이 아닌 유리섬유 판이 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudboom Max 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudboom+max+review" },
@@ -3760,7 +3760,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 302g(브랜드 표기 306g), 뒤꿈치 밑창 두께 41.8mm, 브랜드가 밝힌 앞뒤 굽 차이 4mm예요. 고를 수 있는 폭은 B·D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Fresh Foam X More v6 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+fresh+foam+x+more+v6+review" },
@@ -3792,7 +3792,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 286g(브랜드 표기 281g), 뒤꿈치 밑창 두께 39.7mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 B·D·2E·4E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Fresh Foam X 880 v15 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+fresh+foam+x+880+v15+review" },
@@ -3824,7 +3824,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["racing"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 대회용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "쿠션이 두꺼운 대회용 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 190g(브랜드 표기 198g), 뒤꿈치 밑창 두께 38.5mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "SuperComp Elite v6 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+supercomp+elite+v6+review" },
@@ -3890,7 +3890,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 269g(브랜드 표기 275g), 뒤꿈치 밑창 두께 45.5mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "MagMax NITRO 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=puma+magmax+nitro+2+review" },
@@ -3957,7 +3957,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 264g(브랜드 표기 264g), 뒤꿈치 밑창 두께 35.0mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Supernova Rise 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+supernova+rise+3+review" },
@@ -3990,7 +3990,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "쿠션이 두꺼운 일상 달리기용 신발이에요.",
     scienceBasis: "공개 실측 무게 289g(브랜드 표기 290g), 뒤꿈치 밑창 두께 39.4mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Supernova Prima 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+supernova+prima+3+review" },
@@ -4022,7 +4022,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["racing"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 대회용으로 나눈 신발이에요. 카본 플레이트가 신발 길이의 3/4만큼 들어 있어요.",
+    blurb: "쿠션이 두꺼운 대회용 신발이에요. 카본 플레이트가 신발 길이의 3/4만큼 들어 있어요.",
     scienceBasis: "공개 실측 무게 129g(브랜드 표기 129g), 뒤꿈치 밑창 두께 39.8mm, 브랜드가 밝힌 앞뒤 굽 차이 5mm예요. 카본 플레이트가 신발 길이의 3/4만큼 들어 있어요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "MetaSpeed Ray 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+metaspeed+ray+review" },
