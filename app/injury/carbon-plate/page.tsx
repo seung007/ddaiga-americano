@@ -254,14 +254,13 @@ export default function CarbonPlatePage() {
         <div className="mt-8 rounded-2xl border border-gray-200 p-5">
           <p className="font-bold text-gray-900">
             저희 추천은 카본화를 이렇게 다룹니다
-            <Basis kind="rule" />
           </p>
+          {/* 2026-11-23: 「입문자 프로필에서는 카본화 점수를 깎습니다(근거가 확인된 속도 구간 밖)」였다. 그 뒤 느린 속도를 시험한
+              Bolliger 2026 Sports Med Open(PMID 41703164, 14명 교차 시험)을 읽고 감점을 0으로 바꿨다(recommend.ts 7번 블록).
+              이 글의 다른 절(「효과가 확인되지 않은 속도」)은 가이드 글 세션에서 이 시험을 넣어 고친다 — 세션 지시서 진행 상황. */}
           <p className="mt-2 break-keep text-base leading-relaxed text-gray-700">
-            입문자 프로필에서는 카본화 점수를 <strong>깎습니다.</strong> 근거가 확인된 속도 구간 밖이고 가격이 높기 때문입니다. 목표
-            기록이 있고 훈련량이 쌓인 프로필에서는 후보에 남습니다.
-          </p>
-          <p className="mt-2 break-keep text-sm leading-relaxed text-gray-600">
-            이건 논문에서 도출한 규칙이 아니라 <strong>저희가 정한 기준</strong>입니다. 그렇게 표시해 두는 게 맞다고 봤습니다.
+            입문자라고 카본화 점수를 <strong>깎지 않습니다.</strong> 시속 7.5~12km에서도 산소 비용이 낮았다는 시험(14명)이 있고,
+            입문자에게 해롭다는 시험은 찾지 못했습니다. 용도를 「일상 달리기」로 고르면 대회 전용 신발은 뒤로 갑니다.
           </p>
         </div>
 
