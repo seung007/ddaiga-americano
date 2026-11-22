@@ -266,7 +266,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
         from="tools-shoe-life"
         variant="block"
         headline="지금 신는 신발이 몸에 맞긴 했는지부터 확인해보세요"
-        sub="키·체중·발볼·발 타입 등 질문 8개로 후보를 좁혀드립니다."
+        sub="용도와 발볼, 발 모양을 고르면 4켤레로 좁혀 드려요."
       />
     </main>
   );

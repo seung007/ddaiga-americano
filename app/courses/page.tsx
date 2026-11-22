@@ -295,7 +295,7 @@ export default function CoursesPage() {
       <FinderCta
         from="courses"
         headline="이 코스에 맞는 신발, 내 발에도 맞을까요?"
-        sub="질문 8개에 답하면 3개를 골라 드립니다. 광고비로 순위를 바꾸지 않습니다."
+        sub="질문에 답하면 4켤레를 골라 드려요. 광고비로 순서를 바꾸지 않아요."
       />
 
       <div className="mt-10">

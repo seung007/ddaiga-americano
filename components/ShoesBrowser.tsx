@@ -241,13 +241,13 @@ export default function ShoesBrowser() {
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-emerald-900">
-              키·체중·발볼을 알려주시면 <strong>내 몸에 맞는 순서</strong>로 줄 세워 드려요.
+              발볼과 발 모양, 용도를 알려 주시면 <strong>내 조건에 맞는 순서</strong>로 줄 세워 드려요.
             </p>
             <Link
               href="/shoe-finder"
               className="flex h-11 items-center rounded-full bg-emerald-600 px-4 text-sm font-semibold text-white hover:bg-emerald-700"
             >
-              질문 8개 답하기 →
+              질문에 답하기 →
             </Link>
           </div>
         )}
