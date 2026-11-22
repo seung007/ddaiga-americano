@@ -76,7 +76,7 @@ export default function QuickAnswers() {
   return (
     <section className="mx-auto max-w-3xl px-6 pb-10">
       <p className="mb-3 text-center text-sm font-medium text-gray-500">
-        이걸 찾아 오셨나요? — 바로 갑니다
+        이걸 찾아 오셨나요? 바로 가요
       </p>
       {/**
        * 모바일 2열. 방문자의 80%가 390px 이고, 세로 목록으로 네 칸을 쌓으면

@@ -119,7 +119,7 @@ export default function InlineAsk({
       <section className="my-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
         <p className="font-medium text-emerald-900">글이 올라갔어요.</p>
         <p className="mt-1 text-sm leading-relaxed text-emerald-800">
-          게시판에 표시됩니다. 답이 필요한 글은 운영자가 직접 답을 달아요.
+          게시판에 보여요. 답이 필요한 글은 운영자가 직접 답을 달아요.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <Link
@@ -149,7 +149,7 @@ export default function InlineAsk({
     <section className="my-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
       <h2 className="mb-1 text-base font-bold text-gray-900">{heading}</h2>
       <p className="mb-3 text-sm text-gray-500">
-        가입도 닉네임도 필요 없어요. 한 줄만 적으면 됩니다.
+        가입도 닉네임도 필요 없어요. 한 줄만 적으면 돼요.
       </p>
 
       <form onSubmit={submit}>
@@ -207,7 +207,7 @@ export default function InlineAsk({
         )}
 
         <p className="mt-2 text-xs text-gray-400">
-          개인정보는 적지 마세요. 의료 상담이 아니며, 통증이 지속되면 병원 진료를 권합니다.
+          개인정보는 적지 마세요. 의료 상담이 아니고, 통증이 계속되면 병원 진료를 권해요.
         </p>
       </form>
     </section>

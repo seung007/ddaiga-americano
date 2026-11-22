@@ -11,7 +11,7 @@ export default function ShoeReviews({ shoeId }: { shoeId: string }) {
     <section className="mt-8">
       <h2 className="mb-1 text-xl font-bold text-gray-900">신어본 사람들 — 블로그·유튜브</h2>
       <p className="mb-3 text-xs text-gray-500">
-        {r.rule} · {r.collectedAt} 기준 {r.items.length}건. 고르지 않고 전부 실었습니다. 요약은 이 사이트가 썼고 원문은 링크에서 읽으세요.
+        {r.rule} · {r.collectedAt} 기준 {r.items.length}건. 고르지 않고 전부 실었어요. 요약은 이 사이트가 썼고 원문은 링크에서 읽으세요.
       </p>
       <ul className="flex flex-col gap-3">
         {r.items.map((it) => (
@@ -46,7 +46,7 @@ export default function ShoeReviews({ shoeId }: { shoeId: string }) {
         ))}
       </ul>
       <p className="mt-2 text-xs text-gray-400">
-        후기 작성자와 이 사이트는 금전 관계가 없습니다. 노란 표시는 원문에 보이는 쇼핑 링크·수수료 고지를 그대로 옮긴 것이고, 표시가 없어도 협찬 여부는 원문에서 확인하세요.
+        후기 작성자와 이 사이트는 금전 관계가 없어요. 노란 표시는 원문에 보이는 쇼핑 링크·수수료 고지를 그대로 옮긴 것이고, 표시가 없어도 협찬 여부는 원문에서 확인하세요.
       </p>
     </section>
   );

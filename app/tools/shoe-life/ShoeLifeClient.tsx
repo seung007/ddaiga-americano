@@ -68,9 +68,9 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
 
       <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝화 수명 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
-        480km에서 뒤꿈치 쿠셔닝이 <strong className="text-gray-900">16~33% 줄어듭니다.</strong>{" "}
+        480km에서 뒤꿈치 쿠셔닝이 <strong className="text-gray-900">16~33% 줄어요.</strong>{" "}
         그런데 연구에 참여한 러너들은 <strong className="text-gray-900">640km까지 달린 뒤에도
-        그 변화를 느끼지 못했습니다.</strong> 감으로는 안 잡히니까 세는 수밖에 없습니다.
+        그 변화를 느끼지 못했어요.</strong> 감으로는 안 잡히니 세는 수밖에 없어요.
       </p>
 
       <p className="-mt-4 mb-6 text-sm">
@@ -161,21 +161,21 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
 
           {total >= KEY_KM ? (
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-              <p className="mb-1 font-semibold text-amber-900">480km를 넘었습니다</p>
+              <p className="mb-1 font-semibold text-amber-900">480km를 넘었어요</p>
               <p className="text-sm leading-relaxed text-amber-900">
-                이 연구에서 480km 시점의 뒤꿈치 쿠셔닝은 <strong>16~33% 줄어 있었습니다.</strong>{" "}
-                지금 발로는 멀쩡하게 느껴질 수 있는데, <strong>그게 정상입니다</strong> —
-                참가자 15명 중 640km까지 그 변화를 알아챈 사람이 없었습니다.
+                이 연구에서 480km 시점의 뒤꿈치 쿠셔닝은 <strong>16~33% 줄어 있었어요.</strong>{" "}
+                지금 발로는 멀쩡하게 느껴질 수 있는데, <strong>그게 보통이에요.</strong>{" "}
+                참가자 15명 중 640km까지 그 변화를 알아챈 사람이 없었어요.
               </p>
             </div>
           ) : (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
               <p className="mb-1 font-semibold text-emerald-900">
-                480km까지 {toKey.toLocaleString()}km 남았습니다
+                480km까지 {toKey.toLocaleString()}km 남았어요
               </p>
               <p className="text-sm leading-relaxed text-emerald-900">
-                지금 페이스면 <strong>약 {weeksToKey}주 뒤</strong>입니다.
-                그 시점에 쿠셔닝이 16~33% 줄어 있을 것으로 이 연구는 보고했습니다.
+                지금 페이스면 <strong>약 {weeksToKey}주 뒤</strong>예요.
+                이 연구에서는 그 시점에 쿠셔닝이 16~33% 줄어 있었어요.
               </p>
             </div>
           )}
@@ -190,7 +190,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
         <FinderCta
           from="tools-shoe-life"
           variant="inline"
-          headline="바꿀 때가 됐다면, 지금 신발과 같은 계열부터 보는 게 안전합니다"
+          headline="바꿀 때가 됐다면, 지금 신발과 같은 계열부터 보는 게 안전해요"
         />
       )}
 
@@ -198,26 +198,23 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
       <section className="mb-8">
         <h2 className="mb-3 text-xl font-bold text-gray-900">이 숫자는 어디서 왔나</h2>
         <div className="rounded-2xl border border-gray-200 p-5">
-          <div className="mb-3 flex flex-wrap gap-2">
-            <span className="rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700">논문 근거</span>
-            <span className="rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">근거수준 3</span>
-          </div>
+          {/* 2026-11-23: 「논문 근거」「근거수준 3」 딱지를 뺐다 — 화면에는 확실한 것만, 딱지 없이(11-23 결정) */}
           <p className="mb-3 text-sm leading-relaxed text-gray-700">
-            레크리에이션 러너 <strong>15명</strong>에게 새 러닝화를 주고, 0 · 160 · 320 · 480 · 640km
-            시점마다 족저압·수직력·미드솔 경도를 측정했습니다. 결과는 둘로 갈립니다.
+            취미로 달리는 <strong>15명</strong>에게 새 러닝화를 주고, 0 · 160 · 320 · 480 · 640km
+            시점마다 발바닥 압력, 땅을 미는 힘, 중간 밑창의 단단한 정도를 쟀어요. 결과는 둘로 갈렸어요.
           </p>
           <ul className="mb-4 space-y-2 text-sm leading-relaxed text-gray-700">
             <li>
-              <strong className="text-gray-900">기계는 변화를 잡았습니다.</strong> 480km에서 뒤꿈치
-              쿠셔닝 16~33% 감소.
+              <strong className="text-gray-900">기계는 변화를 잡았어요.</strong> 480km에서 뒤꿈치
+              쿠셔닝이 16~33% 줄었어요.
             </li>
             <li>
-              <strong className="text-gray-900">사람은 못 잡았습니다.</strong> 640km까지 달린 뒤에도
-              자가보고(FCAT)에서 유의한 차이가 없었습니다.
+              <strong className="text-gray-900">사람은 못 잡았어요.</strong> 640km까지 달린 뒤에도
+              본인이 느낀 쿠션 차이는 뚜렷하지 않았어요.
             </li>
             <li>
-              경도계(durometer)로 재면 이 변화를 객관적으로 확인할 수 있다고 보고했습니다 —
-              러닝화 매장에 있는 경우가 있습니다.
+              단단한 정도를 재는 도구(경도계)로 재면 이 변화를 확인할 수 있다고 했어요.
+              러닝화 매장에 있는 경우가 있어요.
             </li>
           </ul>
           {/* 서식은 다른 페이지의 관행을 따른다 — `저자 & 저자 (연도) 저널 권(호):쪽 — 설명 ↗`.
@@ -245,19 +242,19 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
         <h2 className="mb-3 text-xl font-bold text-gray-900">이 계산이 못 하는 것</h2>
         <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
           <p className="mb-3 text-sm leading-relaxed text-gray-700">
-            <strong className="text-gray-900">체중·노면·주법을 반영하지 않습니다.</strong> 넣고
-            싶었지만 넣을 근거가 없었습니다. 이 연구는 참가자 15명, 뒤꿈치 착지자만, 뒤꿈치 영역만
-            봤습니다. 거기서 &ldquo;체중 80kg이면 ×0.8&rdquo; 같은 계수를 뽑을 수 없습니다.
+            <strong className="text-gray-900">체중·노면·달리는 자세를 넣지 않아요.</strong> 넣고
+            싶었지만 넣을 근거가 없었어요. 이 연구는 뒤꿈치로 착지하는 15명의 뒤꿈치만
+            봤어요. 거기서 체중 80kg이면 ×0.8 같은 계수를 뽑을 수 없어요.
           </p>
           <p className="mb-3 text-sm leading-relaxed text-gray-700">
-            다른 계산기들이 &ldquo;당신의 신발 수명은 412km&rdquo;처럼 정밀한 숫자를 주는 걸 보셨을 겁니다.
-            그 정밀도는 대부분 <strong className="text-gray-900">지어낸 것</strong>입니다.
-            없는 정확도를 만들어내느니 모르는 걸 모른다고 적는 쪽을 골랐습니다.
+            다른 계산기들이 &ldquo;당신의 신발 수명은 412km&rdquo;처럼 정밀한 숫자를 주는 걸 보셨을 거예요.
+            그 정밀도는 대부분 <strong className="text-gray-900">지어낸 것</strong>이에요.
+            없는 정확도를 만드는 대신 모르는 것은 모른다고 적었어요.
           </p>
           <p className="text-sm leading-relaxed text-gray-700">
             그리고 <strong className="text-gray-900">쿠셔닝이 줄었다고 부상이 늘어난다는 뜻은
-            아닙니다.</strong> 이 연구는 쿠셔닝 변화를 측정했을 뿐, 부상률을 보지 않았습니다.
-            둘을 잇는 근거는 따로 필요하고, 지금 제시하지 않겠습니다.
+            아니에요.</strong> 이 연구는 쿠셔닝 변화만 쟀고 부상은 보지 않았어요.
+            둘을 잇는 근거는 찾지 못해 적지 않았어요.
           </p>
         </div>
       </section>

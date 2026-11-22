@@ -201,13 +201,13 @@ export default function RaceFilterList({ items }: { items: RaceItem[] }) {
       <p className="mt-4 text-sm text-gray-600">
         <strong>{shown.length}개</strong> 대회
         {status === "전체" && (
-          <span className="text-gray-400"> · 마감된 대회는 아래쪽에 있습니다</span>
+          <span className="text-gray-400"> · 마감된 대회는 아래쪽에 있어요</span>
         )}
       </p>
 
       {shown.length === 0 ? (
         <p className="mt-4 rounded-2xl border border-gray-200 bg-gray-50 p-6 text-sm text-gray-600">
-          조건에 맞는 대회가 없습니다. 필터를 하나 풀어 보세요.
+          조건에 맞는 대회가 없어요. 필터를 하나 풀어 보세요.
         </p>
       ) : (
         <ul className="mt-3 space-y-3">

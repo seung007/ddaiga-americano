@@ -61,8 +61,8 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
 
       <h1 className="mb-3 text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">러닝화 두께 비교</h1>
       <p className="mb-6 leading-relaxed text-gray-600">
-        신발을 최대 3개 고르면 미드솔 두께·드롭·무게를 <strong className="text-gray-900">같은 축척으로 겹쳐</strong> 보여줍니다.
-        착용감은 발과 신발이 만나야 알 수 있어서 그리지 않았습니다 — 여기 있는 것은 숫자로 공개된 실측 스펙뿐입니다.
+        신발을 최대 3개 고르면 밑창 두께와 앞뒤 굽 차이, 무게를 <strong className="text-gray-900">같은 축척으로 겹쳐</strong> 보여 드려요.
+        착용감은 발과 신발이 만나야 알 수 있어 그리지 않았어요. 여기 있는 것은 숫자로 공개된 실측 스펙뿐이에요.
       </p>
 
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
@@ -118,15 +118,15 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
         <h2 className="mb-2 text-xl font-bold text-gray-900">이 그림이 말하지 않는 것</h2>
         <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
           <li>
-            • <strong>착용감·쿠션의 무르기.</strong> 같은 두께라도 폼 재질에 따라 다르게 느껴집니다. 그 차이는 공개된 숫자가 없습니다.
+            • <strong>착용감·쿠션의 무르기.</strong> 같은 두께라도 쿠션 재질에 따라 다르게 느껴져요. 그 차이는 공개된 숫자가 없어요.
           </li>
           <li>
-            • <strong>두꺼울수록·드롭이 클수록 덜 다친다는 것.</strong> 저희는 그 관계를 확인하지 못했습니다. 발 타입에 맞춰 신발을 고르는 관행의 근거가
+            • <strong>두꺼울수록, 앞뒤 굽 차이가 클수록 덜 다친다는 것.</strong> 그 관계는 확인하지 못했어요. 발 모양에 맞춰 신발을 고르는 관행의 근거가
             어디까지인지는{" "}
-            <Link href="/injury/flat-feet" className="text-emerald-700 underline">평발 러닝화 글</Link>에 정리했습니다.
+            <Link href="/injury/flat-feet" className="text-emerald-700 underline">평발 러닝화 글</Link>에 정리했어요.
           </li>
           <li>
-            • <strong>길이와 모양.</strong> 가로 길이와 곡선은 임의로 그렸습니다. 세로 두께만 실제 비율입니다.
+            • <strong>길이와 모양.</strong> 가로 길이와 곡선은 임의로 그렸어요. 세로 두께만 실제 비율이에요.
           </li>
         </ul>
       </section>

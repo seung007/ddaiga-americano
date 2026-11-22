@@ -339,6 +339,82 @@ if (existsSync(blogDir)) {
   }
 }
 
+// 화면 글자 전수 (2026-11-23, 세션 지시서 5절 다 — 「검사 밖 화면 글자 0곳 또는 목록」)
+// app·components 의 .tsx 중 한글이 보이는 파일은 셋 중 하나여야 한다. 아니면 실패 — 새 파일이 검사 밖으로 새지 않게.
+//   ① 가이드 글(ROLLOUT): 글 틀 검사가 맡는다(위)
+//   ② SCREEN_TODO: 아직 안 고친 파일. 이유와 남은 곳을 적는다. 고쳐서 통과하면 「목록에서 빼라」고 실패한다
+//   ③ 나머지 전부: 문장 규칙(checkWording) + 「~니다」 + 근거 딱지를 여기서 본다
+// 한계(거짓 음성): readable() 은 JSX 글자와 큰따옴표 문자열만 읽는다. 백틱 문자열·.ts 데이터 파일은 못 본다 — 그래서 신발 FAQ(lib/faq.ts)는 따로 읽는다.
+{
+  const SCREEN_TODO = new Map([
+    ["app/injury/page.tsx", "가이드 첫 화면 「~니다」 7곳·딱지 1곳 — 가이드 글 세션(④)"],
+    ["components/guide/GuideArticle.tsx", "가이드 공용 부품 「~니다」 2곳 — 가이드 글 세션(④)"],
+    ["components/guide/GuideSignals.tsx", "가이드 공용 부품 「~니다」 2곳 — 가이드 글 세션(④)"],
+    ["components/guide/LevelCheck.tsx", "가이드 공용 부품 「~니다」 4곳·문장 규칙 2곳 — 가이드 글 세션(④)"],
+    ["components/guide/Read.tsx", "가이드 공용 부품 문장 규칙 2곳 — 가이드 글 세션(④)"],
+    ["app/tier-list/page.tsx", "「~니다」 44곳, 칸 안내에 근거 없는 효과 문장(「다리를 덜 힘들게」) — 다시 써야 함"],
+    ["app/tools/run-30/Run30Client.tsx", "「~니다」 39곳 — 30분 달리기 도구 전체를 다시 써야 함"],
+    ["app/tools/run-30/page.tsx", "「~니다」 8곳 — 위와 함께"],
+    ["app/courses/page.tsx", "「~니다」 20곳 — 코스 화면"],
+    ["components/NearestCourse.tsx", "「~니다」 11곳 — 코스 화면"],
+    ["components/CourseVirtualRun.tsx", "「~니다」 7곳 — 코스 화면"],
+    ["app/compare/hoka-vs-brooks/page.tsx", "「~니다」 19곳 — 브랜드 비교 글"],
+    ["app/races/page.tsx", "「~니다」 4곳 — 대회 화면"],
+    ["app/races/masters-half-2026/page.tsx", "「~니다」 6곳 — 대회 화면"],
+    ["components/RaceGraphics.tsx", "「~니다」 6곳 — 대회 화면"],
+    ["app/privacy/page.tsx", "법적 문서 — 「~니다」 28곳. 말투를 바꿀지 hyun 님이 정하지 않음"],
+    ["app/terms/page.tsx", "법적 문서 — 「~니다」 25곳. 위와 같음"],
+    ["app/terms/layout.tsx", "법적 문서 설명 — 위와 같음"],
+  ]);
+  // 법으로 정해진 문구는 글자 그대로 둔다(쿠팡 파트너스 고지 — components/AffiliateNotice.tsx 주석)
+  const VERBATIM = ["이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."];
+  // 신발 화면은 전문어도 막는다(5절 나와 같은 목록). 「앞뒤 굽 차이(드롭)」처럼 괄호 안 풀이는 둔다 — 사람들이 그 말로 검색한다
+  const SHOE_SCREENS = new Set(["app/shoes/[id]/page.tsx", "app/shoes/page.tsx", "app/compare/[slug]/page.tsx", "components/ShoesBrowser.tsx",
+    "components/ShoeCompareSpecs.tsx", "components/ShoeSideProfile.tsx", "app/tools/shoe-side/ShoeSideTool.tsx", "app/tools/shoe-side/layout.tsx",
+    "app/tools/shoe-life/ShoeLifeClient.tsx", "app/tools/shoe-life/layout.tsx", "app/tools/page.tsx", "lib/faq.ts(신발)"]);
+  const SHOE_WORDS = /(?<!\()(과회내|과내전|라스트|스택|미드솔|맥시멀|드롭|힐드롭|토박스)/;
+  // 「아닙니다」「다릅니다」「세웁니다」도 잡게 「니다」 전체로 본다(2026-11-23 화면에서 확인한 거짓 음성)
+  const NIDA = /([가-힣]니다|십시오)(?=[.!?\s"]|$)/;
+  const LABEL = /사이트 기준|사이트가 정한 기준|사이트 분류|근거는 약|근거가 약|연구는 \d+건|연구가 갈|엇갈|논문 근거|근거수준/;
+  const owned = new Set(ROLLOUT.map((s) => `app/injury/${s}/page.tsx`));
+  const walk = (d) => readdirSync(path.join(ROOT, d), { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(`${d}/${e.name}`) : e.name.endsWith(".tsx") ? [`${d}/${e.name}`] : []);
+  const units = [];
+  for (const f of [...walk("app"), ...walk("components")]) {
+    if (owned.has(f)) continue;
+    let text = readable(readFileSync(path.join(ROOT, f), "utf8").replace(/^\s*\/\/[^\n]*$/gm, ""));
+    for (const v of VERBATIM) text = text.split(v).join("");
+    if (!/[가-힣]/.test(text)) continue;
+    units.push([f, text]);
+  }
+  const faq = readFileSync(path.join(ROOT, "lib/faq.ts"), "utf8");
+  const shoeFaq = faq.slice(faq.indexOf("export function shoeFaq"));
+  units.push(["lib/faq.ts(신발)", [...shoeFaq.matchAll(/[`"]([^`"\n]*[가-힣][^`"\n]*)[`"]/g)].map((m) => m[1].replace(/\$\{[^}]*\}/g, "X")).join("\n")]);
+  if (!units.some(([f]) => f === "app/shoe-finder/page.tsx")) errors.push("화면 글자 전수: 추천기 화면을 못 읽음 — 검사가 빈 채로 통과하지 않게 멈춘다");
+  for (const [f, text] of units) {
+    const found = [];
+    checkWording(text, (m) => found.push(m));
+    for (const [re, msg] of [[NIDA, "말투는 「~요」"], [LABEL, "근거 딱지는 화면에 쓰지 않는다(11-23)"], ...(SHOE_SCREENS.has(f) ? [[SHOE_WORDS, "전문어 — 풀어 쓴다(앞뒤 굽 차이·밑창 두께·신발 틀·중간 밑창)"]] : [])]) {
+      const m = text.match(re); if (m) found.push(`${msg}: 「…${text.slice(Math.max(0, m.index - 14), m.index + m[0].length + 6).replace(/\n/g, " ")}…」`);
+    }
+    if (SCREEN_TODO.has(f)) { if (!found.length) errors.push(`${f}: 규칙을 통과했으니 SCREEN_TODO 에서 빼세요`); continue; }
+    for (const m of found) errors.push(`${f}: ${m}`);
+  }
+  for (const f of SCREEN_TODO.keys()) if (!units.some(([u]) => u === f)) errors.push(`SCREEN_TODO 의 ${f} 가 없음 — 목록에서 빼세요`);
+  // .ts 데이터 파일의 화면 글자 — readable() 이 못 읽는 자리. 「~니다」가 남은 파일을 적어 둔다(고치면 목록에서 빼라고 실패)
+  const DATA_TODO = new Map([
+    ["lib/guide/articles.ts", "가이드 글 목록 설명 — 가이드 글 세션(④)"],
+    ["lib/guide/stages.ts", "단계 데이터 중 todo·title·who 밖의 칸 — 가이드 글 세션(④)"],
+    ["lib/faq.ts", "대회 FAQ(raceFaq) — 값 뒤 「이에요/예요」를 고르는 함수가 필요"],
+    ["lib/shoes/tiers.ts", "계급도 칸 안내 — app/tier-list 와 함께"],
+    ["lib/courses.ts", "코스 설명 — app/courses 와 함께"],
+  ]);
+  for (const [f] of DATA_TODO) {
+    const body = readFileSync(path.join(ROOT, f), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/[^\n]*$/gm, "");
+    if (!/[가-힣]니다/.test(body)) errors.push(`${f}: 「~니다」가 없으니 DATA_TODO 에서 빼세요`);
+  }
+  console.log(`화면 글자: ${units.length - SCREEN_TODO.size}개 파일 검사 · 아직 안 고침 ${SCREEN_TODO.size}개(SCREEN_TODO) · 가이드 글 ${owned.size}편은 글 틀 검사`);
+}
+
 // 글 밖의 자리 — 가이드 첫 화면과 여러 글이 함께 쓰는 단계 데이터(2026-11-20: 여기가 검사 밖이라 「저희 제안」「가장 긴 날」이 남아 있었다)
 {
   const hub = readFileSync(path.join(ROOT, "app/injury/page.tsx"), "utf8");

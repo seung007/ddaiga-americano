@@ -74,7 +74,7 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
 
       if (error || !data) {
         // 예시 데이터로 덮지 않는다. 실패는 실패로 보여야 다음 고장을 즉시 알 수 있다.
-        console.error("[community] 질문 목록을 불러오지 못했습니다.", error);
+        console.error("[community] 질문 목록을 불러오지 못했어요.", error);
         setState("failed");
         return;
       }
@@ -127,7 +127,7 @@ export default function HomeCommunitySection({ names }: { names: ReactionNames }
         {state === "ok" && posts.length === 0 && (
           <div className="rounded-xl border border-dashed border-gray-200 bg-white px-4 py-8 text-center">
             <p className="text-sm text-gray-500">아직 올라온 글이 없어요.</p>
-            <p className="text-xs text-gray-400 mt-1">질문도 후기도 좋아요. 운영자가 직접 읽습니다.</p>
+            <p className="text-xs text-gray-400 mt-1">질문도 후기도 좋아요. 운영자가 직접 읽어요.</p>
           </div>
         )}
 

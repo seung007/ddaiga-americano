@@ -34,8 +34,8 @@ export default function YoutubeSection({ links }: Props) {
       <h2 className="text-xl font-bold text-gray-900 mb-2">관련 유튜브 영상</h2>
       <p className="text-sm text-gray-500 mb-4">
         {allReal
-          ? "실제 영상 링크입니다. 이 채널들과 협찬 관계는 없습니다."
-          : "아직 영상을 고르지 못한 항목은 유튜브 검색으로 연결됩니다. 어떤 채널과도 협찬 관계가 없습니다."}
+          ? "실제 영상 링크예요. 이 채널들과 협찬 관계는 없어요."
+          : "아직 영상을 고르지 못한 항목은 유튜브 검색으로 연결돼요. 어떤 채널과도 협찬 관계가 없어요."}
       </p>
 
       {regular.length > 0 && (

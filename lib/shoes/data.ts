@@ -1450,7 +1450,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D", "2E"],
     forefootFit: "standard",
     instepVolume: "low",
-    genderNote: "여성 전용 라스트(좁은 힐·낮은 발등). 무게·가격은 여성(WW) 기준. 한국 여성 넓은 앞볼이면 2E 폭 권장.",
+    genderNote: "여성용 틀로 만들었어요. 무게와 가격은 여성용(WW) 기준이에요. 앞볼이 넓으면 2E 폭이 있어요.",
     youtubeReviews: [
       { label: "Ghost 17 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+ghost+17+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+고스트+17+여성+리뷰" },
@@ -1495,7 +1495,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D"],
     forefootFit: "standard",
     instepVolume: "low",
-    genderNote: "여성 전용 라스트 + 여성용 폼 경도. 발등이 높은 편이면 끈 압박 확인 권장.",
+    genderNote: "여성용 틀로 만들었어요. 발등이 높은 편이면 끈을 묶었을 때 눌리지 않는지 신어 보길 권해요.",
     youtubeReviews: [
       { label: "Glycerin 22 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+22+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+글리세린+22+여성+리뷰" },
@@ -1539,7 +1539,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D", "2E"],
     forefootFit: "standard",
     instepVolume: "low",
-    genderNote: "여성 전용 라스트 + 안정화. 평발·무릎 안쪽 통증 있는 여성에게 우선 추천.",
+    genderNote: "여성용 틀로 만든 안정화 신발이에요.",
     youtubeReviews: [
       { label: "Adrenaline GTS 25 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+adrenaline+gts+25+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+아드레날린+25+여성+리뷰" },
@@ -1583,7 +1583,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D", "2E"],
     forefootFit: "standard",
     instepVolume: "standard",
-    genderNote: "여성 전용 라스트 + 안정화. 평발 여성의 장거리 무릎·발목 보호용. 넓은 앞볼이면 2E 권장.",
+    genderNote: "여성용 틀로 만든 안정화 신발이에요. 앞볼이 넓으면 2E 폭이 있어요.",
     youtubeReviews: [
       { label: "Gel-Kayano 32 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+kayano+32+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+카야노+32+여성+리뷰" },
@@ -1627,7 +1627,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D"],
     forefootFit: "narrow",
     instepVolume: "low",
-    genderNote: "여성 전용 라스트지만 앞볼이 좁음. 한국인 넓은 발볼이면 Ghost·Glycerin 여성 권장.",
+    genderNote: "여성용 틀이지만 앞쪽이 좁은 편이에요. 발볼이 넓으면 Ghost·Glycerin 여성용을 먼저 신어 보길 권해요.",
     youtubeReviews: [
       { label: "Pegasus 42 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=나이키+페가수스+42+여성+리뷰" },
@@ -1672,7 +1672,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D"],
     forefootFit: "standard",
     instepVolume: "low",
-    genderNote: "여성 전용 라스트 + 경량 안정화. 평발이지만 무거운 신발이 싫은 여성에게 적합.",
+    genderNote: "여성용 틀로 만든 안정화 신발이고, 안정화 신발 중 가벼운 편이에요.",
     youtubeReviews: [
       { label: "Guide 18 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+guide+18+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=사코니+가이드+18+여성+리뷰" },
@@ -1716,7 +1716,7 @@ export const MANUAL_SHOES: Shoe[] = [
     womensWidths: ["B", "D", "2E"],
     forefootFit: "standard",
     instepVolume: "low",
-    genderNote: "여성 핏(좁은 힐). 넓은 앞볼 여성은 2E(Wide) 옵션 선택.",
+    genderNote: "여성용 틀로 만들어 뒤꿈치가 좁은 편이에요. 앞볼이 넓으면 2E 폭이 있어요.",
     youtubeReviews: [
       { label: "Clifton 10 여성 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+women+review" },
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=호카+클리프턴+10+여성+리뷰" },

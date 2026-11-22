@@ -346,7 +346,7 @@ export default function ShoesBrowser() {
 
       {shown.length === 0 ? (
         <p className="mt-4 rounded-2xl border border-gray-200 bg-gray-50 p-6 text-sm text-gray-600">
-          조건에 맞는 러닝화가 없습니다. 필터를 하나 풀어 보세요.
+          조건에 맞는 러닝화가 없어요. 필터를 하나 풀어 보세요.
         </p>
       ) : (
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -356,7 +356,7 @@ export default function ShoesBrowser() {
               <li key={s.id} className="contents">
                 {i === firstMisfit && (
                   <p className="col-span-full mt-4 border-t border-gray-200 pt-4 text-sm font-semibold text-gray-500">
-                    조건과 덜 맞는 신발 — 발볼·용도·예산 중 하나가 어긋납니다
+                    조건과 덜 맞는 신발 — 발볼·용도·예산 중 하나가 어긋나요
                   </p>
                 )}
                 <div className="relative flex flex-col rounded-2xl border border-gray-200 p-3 transition-colors hover:border-emerald-400">
@@ -393,7 +393,7 @@ export default function ShoesBrowser() {
                       );
                     })()}
                     <p className="mt-1 text-xs text-gray-500">
-                      {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
+                      {s.weightGramsM9}g · 굽 차이 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {s.uses.map((u) => (
@@ -416,7 +416,7 @@ export default function ShoesBrowser() {
         </ul>
       )}
       <p className="mt-4 text-xs text-gray-400">
-        가격은 국내 권장소비자가 기준 추산이고 판매처마다 다릅니다. 무게는 남성 US9 기준입니다.
+        가격은 국내 권장소비자가 기준 추산이고 판매처마다 달라요. 무게는 남성 US9 기준이에요.
       </p>
     </>
   );

@@ -680,7 +680,7 @@ export default function ShoeFinderPage() {
             <p className="text-center text-xs text-gray-400 leading-relaxed -mt-2">
               키·체중·발 정보는 <strong className="font-medium text-gray-500">이 화면 계산에만</strong> 쓰이고 브라우저에서만 처리되며 서버에 저장되지 않아요.{" "}
               「추천 결과 보기」를 누르면{" "}
-              <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.
+              <a href="/privacy" className="underline hover:text-gray-600">개인정보 처리방침</a>에 동의하는 것으로 봐요.
             </p>
           </>
         )}
@@ -881,7 +881,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               <div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
                   <span className="text-xs font-bold text-gray-400">#{rank}</span>
-                  {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">여성 전용 라스트</span>}
+                  {shoe.genderFit === "womens_last" && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">여성용 틀</span>}
                   {rec.isFallback && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">근접 추천</span>}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 leading-tight">{shoe.brand} {shoe.model}</h3>
@@ -1065,7 +1065,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                 </a>
               ))}
             </div>
-            <p className="text-xs text-gray-400 mt-2">* 각 채널의 해당 모델 영상으로 연결됩니다. 광고 관계 없음.</p>
+            <p className="text-xs text-gray-400 mt-2">* 각 채널의 해당 모델 영상으로 연결돼요. 광고 관계는 없어요.</p>
           </div>
 
           <div>
@@ -1103,7 +1103,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
             </div>
             <div className="text-xs text-gray-400 space-y-1">
               <p>공식몰 접속 → 검색창에 모델명 붙여넣기 → 사이즈·색상 선택 후 구매</p>
-              <p>공식몰 구매 시 정품 보장, 교환·반품 정책 적용됩니다.</p>
+              <p>공식몰에서 사면 정품이고, 공식몰의 교환·반품 정책이 적용돼요.</p>
             </div>
             {/* 2026-11-09: 경쟁 리뷰 사이트로 링크하지 않는다(운영자 결정). 어디 값인지는 밝힌다 */}
             <p className="mt-3 text-xs text-gray-500">스펙은 브랜드 공식 표기와 공개된 실측 자료 기준이에요</p>
@@ -1176,7 +1176,7 @@ const USE_GUIDE_MAP: Record<string, GuideItem> = {
   long:   { href: "/injury/first-10k",  tag: "장거리", title: "첫 10km 대회, 준비 기간과 페이스는?",               desc: "하프·풀 준비 전 10km부터 완주하는 법." },
   racing: { href: "/injury/advanced-guide", tag: "숙련", title: "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?",               desc: "기록 단축을 위한 고강도 훈련 전략." },
   tempo:  { href: "/injury/intermediate-guide", tag: "중급", title: "러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?",           desc: "템포런·인터벌 훈련을 안전하게 시작하는 법." },
-  daily:  { href: "/injury/rest-day",   tag: "회복",  title: "러닝 쉬는 날, 가볍게라도 움직여야 하나요?",                  desc: "매일 달리고 싶다면 회복일이 더 중요합니다." },
+  daily:  { href: "/injury/rest-day",   tag: "회복",  title: "러닝 쉬는 날, 가볍게라도 움직여야 하나요?",                  desc: "매일 달리고 싶다면 회복일이 더 중요해요." },
 };
 
 /**

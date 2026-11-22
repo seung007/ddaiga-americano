@@ -308,7 +308,7 @@ export default function Home() {
                     <span className="flex flex-1 flex-col gap-0.5 px-4 pb-4 pt-3">
                       <span className="text-base font-semibold leading-snug">{l}</span>
                       <span className="text-base font-semibold leading-snug">{r}</span>
-                      <span className="mt-auto pt-2 text-sm text-emerald-600">{c.note ?? "무게·드롭·가격 비교"} ›</span>
+                      <span className="mt-auto pt-2 text-sm text-emerald-600">{c.note ?? "무게·굽 차이·가격 비교"} ›</span>
                     </span>
                   </Link>
                 </li>

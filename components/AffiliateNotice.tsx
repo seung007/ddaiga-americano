@@ -60,7 +60,7 @@ export default function AffiliateNotice({ show = hasAnyAffiliate() }: { show?: b
 
   return (
     <p className="mb-4 text-xs text-amber-700">
-      {COUPANG_REQUIRED_NOTICE} 구매자가 더 내는 금액은 없습니다.
+      {COUPANG_REQUIRED_NOTICE} 구매자가 더 내는 금액은 없어요.
     </p>
   );
 }

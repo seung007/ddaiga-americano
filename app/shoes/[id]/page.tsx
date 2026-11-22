@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const s = SHOES.find((x) => x.id === id);
   if (!s) return {};
   return {
-    title: `${s.brand} ${s.model} 스펙·가격 — 무게 ${s.weightGramsM9}g · 드롭 ${s.heelDropMm}mm | 뛰다가 아메리카노`,
+    title: `${s.brand} ${s.model} 스펙·가격 — 무게 ${s.weightGramsM9}g · 굽 차이 ${s.heelDropMm}mm | 뛰다가 아메리카노`,
     description: `${s.brand} ${s.model}: ${s.blurb}`.slice(0, 155),
     alternates: { canonical: `/shoes/${s.id}` },
   };
@@ -219,8 +219,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
 
         {s.auto && (
           <p className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed text-gray-700">
-            공식몰 목록에서 {s.auto.checkedAt} 자동으로 확인한 새 모델이에요. 가격·무게·드롭은 공식몰 값이고,
-            쿠션·안정성·용도·발볼·스택은 이전 세대{" "}
+            공식몰 목록에서 {s.auto.checkedAt} 자동으로 확인한 새 모델이에요. 가격·무게·앞뒤 굽 차이는 공식몰 값이고,
+            쿠션·안정성·용도·발볼·밑창 두께는 이전 세대{" "}
             <Link href={`/shoes/${s.auto.basedOn}`} className="font-semibold underline underline-offset-2">
               {s.auto.basedOnModel}
             </Link>{" "}
@@ -258,8 +258,8 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               ) : (
                 <strong>{s.successor}</strong>
               )}
-              이(가) 나왔습니다. 재고 할인으로 싸게 살 수 있지만, 사이즈가 빨리 빠집니다.
-              {next && <> 후속작 스펙은 이름을 누르면 볼 수 있습니다.</>}
+              이(가) 나왔어요. 이전 모델은 할인하는 경우가 있지만 맞는 사이즈가 남아 있지 않을 수 있어요.
+              {next && <> 후속작 스펙은 이름을 누르면 볼 수 있어요.</>}
             </p>
           );
         })()}
@@ -279,7 +279,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               <Link href={`/shoes/${prev.id}`} className="font-semibold underline underline-offset-2">
                 {prev.model}
               </Link>
-              도 목록에 있습니다. 구형은 재고 할인이 붙는 경우가 많으니 같이 비교해 보세요.
+              도 목록에 있어요. 이전 모델은 할인하는 경우가 있으니 같이 비교해 보세요.
             </p>
           );
         })()}
@@ -324,11 +324,11 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
                 : <>{s.weightGramsM9}g (남성 US9){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}</>}
               <Position value={s.weightGramsM9} all={SHOES.map((x) => x.weightGramsM9)} unit="g" low="가벼운" high="무거운" />
             </Row>
-            <Row label="힐 드롭">
+            <Row label="앞뒤 굽 차이">
               {s.heelDropMm}mm
               <Position value={s.heelDropMm} all={SHOES.map((x) => x.heelDropMm)} unit="mm" low="낮은" high="높은" />
             </Row>
-            <Row label="스택 높이">
+            <Row label="밑창 두께">
               {s.stackHeightMm}mm{s.auto && " (이전 세대 기준)"}
               <Position value={s.stackHeightMm} all={SHOES.map((x) => x.stackHeightMm)} unit="mm" low="얇은" high="두꺼운" />
             </Row>
@@ -337,14 +337,14 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
             </Row>
             <Row label="안정성">{STABILITY_KO[s.stability]}</Row>
             <Row label="발볼 옵션">{s.widthOptions.join(" · ")}</Row>
-            {s.genderFit && <Row label="라스트">{GENDER_FIT_LABEL[s.genderFit]}</Row>}
+            {s.genderFit && <Row label="신발 틀">{GENDER_FIT_LABEL[s.genderFit]}</Row>}
             <Row label="국내 구매">{KR_AVAILABILITY_LABEL[s.krAvailability]}</Row>
           </dl>
           <p className="mt-2 text-xs text-gray-400">
             {/* 2026-11-09 운영자 결정: 경쟁 리뷰 사이트(RunRepeat)로 링크를 걸지 않는다 — 다른 사이트를 홍보할 이유가 없다.
                다만 실측값을 우리가 잰 것처럼 쓰지 않도록 「공개된 실측 자료 기준」이라고 밝힌다. 원래 주소는 데이터(sourceUrl)에만 남긴다 */}
             스펙은 공개된 실측 자료 기준{checked ? `(${checked} 확인)` : ""} · 위치는 이 사이트에 등록된 신발끼리 비교한 것이고, 좋고 나쁨을
-            뜻하지 않습니다 ·{" "}
+            뜻하지 않아요 ·{" "}
             <Link href={`/tools/shoe-side?s=${s.id}`} className="text-emerald-700 underline underline-offset-2">
               다른 신발과 두께 겹쳐 보기 →
             </Link>
@@ -369,7 +369,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
                 {s.genderNote && <li>• {s.genderNote}</li>}
               </ul>
               <p className="mt-2 text-xs text-gray-500">
-                저희가 정한 분류입니다. 브랜드가 정한 제한이 아니고, 발 모양별 신발 처방은 연구가 갈립니다.
+                이 사이트가 정한 분류예요. 브랜드가 정한 제한이 아니고, 추천 순서에는 쓰지 않아요.
               </p>
             </section>
           );
@@ -405,14 +405,14 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           <FaqSection
             items={shoeFaq(s, official, checked)}
             title={`${s.model}, 자주 묻는 질문`}
-            schemaNote={` (뛰다가 아메리카노 확인 기준. 가격·재고는 판매처에서 바뀔 수 있습니다.)`}
+            schemaNote={` (뛰다가 아메리카노 확인 기준. 가격·재고는 판매처에서 바뀔 수 있어요.)`}
           />
         </div>
 
         <section id="buy" className="mt-8 scroll-mt-20">
           <h2 className="mb-3 text-xl font-bold text-gray-900">구매</h2>
           <BuyLinkButtons shoeId={s.id} shoeName={name} links={s.buyLinks} from="shoe-detail" />
-          <p className="mt-2 text-xs text-gray-400">가격은 국내 권장소비자가 기준 추산이고 판매처마다 다릅니다.</p>
+          <p className="mt-2 text-xs text-gray-400">가격은 국내 권장소비자가 기준 추산이고 판매처마다 달라요.</p>
         </section>
 
         {s.youtubeReviews.length > 0 && (
@@ -444,7 +444,7 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           <FinderCta
             from="shoe-detail"
             headline="이 신발이 내 몸에 맞는지 확인해 보세요"
-            sub={`발 모양·발볼을 넣으면 ${LISTED_SHOES.length}켤레를 내 조건 순서로 줄 세웁니다.`}
+            sub={`발 모양·발볼을 넣으면 ${LISTED_SHOES.length}켤레를 내 조건 순서로 줄 세워요.`}
           />
         </div>
       </article>

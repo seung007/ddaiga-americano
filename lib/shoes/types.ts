@@ -73,9 +73,9 @@ export type CushioningLevel = 1 | 2 | 3 | 4 | 5;
 export type GenderFit = "unisex" | "womens_last" | "mens_last";
 
 export const GENDER_FIT_LABEL: Record<GenderFit, string> = {
-  unisex: "남녀 공용 라스트",
-  womens_last: "여성 전용 라스트",
-  mens_last: "남성 기준 라스트",
+  unisex: "남녀 공용 틀",
+  womens_last: "여성용 틀",
+  mens_last: "남성 기준 틀",
 };
 
 /** 앞볼(전족부) 핏 — 한국인 발(넓은 앞볼) 매칭용 */
