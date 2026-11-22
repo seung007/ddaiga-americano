@@ -12,8 +12,8 @@
  * 하는 일
  * ───────
  * 1. 불변식 — 끄기로 결정한 축은 정말 꺼져 있어야 한다.
- *    · 체중은 순위에 안 쓴다(2026-10-06 hyun 결정). 키 구간이 같으면 체중만 바꿔도 상위 3개가 같아야 한다.
- * 2. 스냅샷 — 대표 프로필의 상위 3개를 lib/shoes/engine-snapshot.json 과 비교한다.
+ *    · 체중은 순위에 안 쓴다(2026-10-06 hyun 결정). 키 구간이 같으면 체중만 바꿔도 상위 추천이 같아야 한다.
+ * 2. 스냅샷 — 대표 프로필의 상위 추천(2026-11-23 부터 4켤레)을 lib/shoes/engine-snapshot.json 과 비교한다.
  *    달라지면 실패. 의도한 변경이면 `npm run engine:snapshot` 으로 갱신하고 커밋 메시지에 이유를 적는다.
  *
  * 사용법
@@ -63,7 +63,7 @@ for (const p of profiles) {
   const base = out[key(p)].join(",");
   for (const w of WEIGHTS.slice(1)) {
     const other = out[key({ ...p, weightKg: w })].join(",");
-    if (other !== base) { problems.push(`체중만 다른데 상위 3개가 다름: ${key(p)} → ${w}kg`); break; }
+    if (other !== base) { problems.push(`체중만 다른데 상위 추천이 다름: ${key(p)} → ${w}kg`); break; }
   }
 }
 
@@ -83,7 +83,7 @@ else {
   const diffs = Object.keys(out).filter((k) => (snap[k] ?? []).join(",") !== out[k].join(","));
   if (diffs.length) {
     problems.push(
-      `상위 3개가 스냅샷과 다른 프로필 ${diffs.length}/${Object.keys(out).length}개 — 의도한 변경이면 \`npm run engine:snapshot\` 후 커밋 메시지에 이유를 적을 것`,
+      `상위 추천(4켤레)이 스냅샷과 다른 프로필 ${diffs.length}/${Object.keys(out).length}개 — 의도한 변경이면 \`npm run engine:snapshot\` 후 커밋 메시지에 이유를 적을 것`,
       ...diffs.slice(0, 5).map((k) => `  ${k}: ${(snap[k] ?? []).join(",")} → ${out[k].join(",")}`)
     );
   }

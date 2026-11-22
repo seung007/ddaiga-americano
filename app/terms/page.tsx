@@ -54,7 +54,7 @@ export default function TermsPage() {
         <p className="text-sm font-medium text-gray-700 mb-1">사이트 기준(근거 논문 없음)</p>
         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
           <li>키별 드롭 범위, 부상 이력별 드롭·쿠션 가점, 초심자 카본화 감점, 발볼·발등 핏 가점</li>
-          <li>고르는 규칙: 점수 → 같으면 정가 낮은 순, 상위 3개는 브랜드가 겹치지 않게, 평발이면 안정화 최대 2개 + 중립 1개</li>
+          <li>고르는 규칙: 점수 → 같으면 예산을 고른 경우 정가 낮은 순, 예산이 「상관없음」이면 정가 높은 순(같은 정도로 맞으면 상위 모델 먼저), 상위 4켤레는 브랜드가 겹치지 않게, 평발이면 안정화 최대 3켤레 + 중립 1켤레 (2026-11-23 변경)</li>
         </ul>
       </section>
 

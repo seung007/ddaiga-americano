@@ -159,9 +159,11 @@ export default function ShoeCompareSpecs({ shoes, stickyTop = "top-[61px]" }: { 
         <summary className="flex min-h-11 cursor-pointer items-center font-medium text-emerald-800 hover:text-emerald-900">용어 설명 보기</summary>
         <ul className="mt-1 space-y-2 leading-6">
           <li><strong>밑창 두께(스택)</strong> — 뒤꿈치 쪽 밑창 두께. 두꺼울수록 푹신하고, 얇을수록 바닥 느낌이 잘 와요.</li>
-          <li><strong>앞뒤 굽 차이(드롭)</strong> — 뒤꿈치가 앞발보다 높은 정도. 낮은 쪽과 높은 쪽 중 부상에 유리한 쪽이 있다는 근거는 확인하지 못했어요.</li>
-          <li><strong>쿠션</strong> — 밑창 두께로 나눈 사이트 분류(1~5). 쿠션이 관절을 지켜 준다는 근거는 생각보다 약해요.</li>
-          <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이는 구조. 평발에 도움이 되는지는 연구가 갈려요(발이 안쪽으로 쏠리는 러너에서 모션컨트롤화가 부상 위험을 낮춘 RCT 1건, Malisoux 2016).</li>
+          {/* 2026-11-23 hyun 님 결정(화면에는 확실한 것만): 용어 설명은 뜻만 적는다. 예전에 붙였던 근거 설명(드롭 「근거 확인 못 함」, 쿠션 「근거는 생각보다 약해요」,
+              안정화 「연구가 갈려요 — Malisoux 2016 RCT 1건」)은 뺐다. 근거의 무게는 추천 점수 쪽(recommend.ts 주석)과 약관 3항에 남아 있다 */}
+          <li><strong>앞뒤 굽 차이(드롭)</strong> — 뒤꿈치가 앞발보다 높은 정도.</li>
+          <li><strong>쿠션</strong> — 밑창 두께로 나눈 단계(1~5). 높을수록 밑창이 두꺼워요.</li>
+          <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이는 구조.</li>
           <li><strong>발볼 폭</strong> — D 보통 · 2E 넓음 · 4E 아주 넓음.</li>
         </ul>
       </details>

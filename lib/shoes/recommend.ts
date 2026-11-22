@@ -10,8 +10,10 @@
  *    그리고 우리 쿠션 등급은 뒤꿈치 스택 높이 분류라 논문의 밑창 경도와 다른 변수다(data.ts 주석).
  *    → 세 경로를 모두 껐다. 체형(bodyType)은 화면 표시용으로만 남는다.
  *  · **동점 규칙을 공개한다.** 100점 상한 때문에 1위 100점이 대부분이었고 동점 순위는 신발 배열 순서가
- *    정했다(신발을 추가하면 추천이 조용히 바뀜). 이제 잘리기 전 점수 → 정가 낮은 순 → id 순.
- *  · 근거가 없는 가점은 지우지 않은 것도 이유 문구에 「사이트 기준」이라고 적는다.
+ *    정했다(신발을 추가하면 추천이 조용히 바뀜). 이제 잘리기 전 점수 → 정가 → id 순.
+ *    2026-11-23 hyun 님 결정: 예산 「상관없음」이면 정가 **높은** 순(같은 정도로 맞으면 상위 모델 먼저), 예산을 고르면 낮은 순.
+ *  · 2026-11-23 hyun 님 결정: 화면에는 확실한 것만 이유로 보여 준다. 근거가 약하거나 사이트가 정한 가점은 점수에만 두고
+ *    이유 문구(reasons)에 올리지 않는다 — 전에는 「사이트 기준」「근거는 약해요」를 붙여 보여 줬다. 점수 자체를 무엇으로 바꿀지는 별도 보고.
  *  · 출력 회귀 검사: scripts/check-engine.mjs (체중 독립 불변식 + 스냅샷)
  *
  * 참고 문헌 (역할을 정확히):
@@ -184,14 +186,14 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   possible += 12 + (profile.footType === "flat" || profile.footType === "high_arch" ? 3 : 0);
   if (shoe.footTypes.includes(profile.footType)) {
     score += 12;
-    reasons.push(`${profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : "보통"} 발에 맞춘 신발(사이트 분류)`);
+    // 사이트 분류(footTypes)라 이유로 보여 주지 않는다(2026-11-23)
   }
   if (profile.footType === "flat") {
     // 2026-10-06 hyun 결정: 유지 + 근거 교체(Malisoux 2016). 자가보고 평발 ≠ FPI 측정이라는 점을 같이 말한다.
-    if (shoe.stability !== "neutral") { score += 3; reasons.push("발이 안쪽으로 덜 쏠리게 잡아 주는 안정화예요. 도움이 됐다는 연구는 1건이에요"); }
+    if (shoe.stability !== "neutral") { score += 3; } // 근거가 RCT 1건이라 이유로 보여 주지 않는다(2026-11-23)
     else { score -= 2; }
   } else if (profile.footType === "high_arch") {
-    if (shoe.stability === "neutral") { score += 3; reasons.push("아치가 높으면 흔히 권하는 일반 신발이에요. 근거는 약해요"); }
+    if (shoe.stability === "neutral") { score += 3; } // 근거가 약해 이유로 보여 주지 않는다(2026-11-23)
     else { score -= 2; }
   } else {
     score += 4;
@@ -259,8 +261,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   const [dMin, dMax] = idealDropRange(profile.heightCm);
   possible += 10;
   if (shoe.heelDropMm >= dMin && shoe.heelDropMm <= dMax) {
-    score += 10;
-    reasons.push(`키에 맞춘 앞뒤 굽 차이 ${shoe.heelDropMm}mm(사이트 기준)`);
+    score += 10; // 논문 근거 없는 사이트 기준이라 이유로 보여 주지 않는다(2026-11-23). 바꿀 안은 세션 ② 보고
   } else if (Math.abs(shoe.heelDropMm - (dMin + dMax) / 2) <= 3) {
     score += 5;
   }
@@ -290,7 +291,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     // 실무적 이유이고, 그 이유를 그대로 사용자에게 말한다.
     // (레이싱화지만 카본 없는 모델 — 예: Endorphin Speed — 은 패널티 없음)
     // 2026-10-06: 「밑창이 얇고」는 사실과 반대(카본화 스택 27–42mm). 「부상 위험」도 근거 없음 — 실무 이유만.
-    if (shoe.hasCarbon === true) { score -= 12; reasons.push("카본 대회화라 처음 신기엔 덜 안정적이고 비싸서 뒤로 뺐어요(사이트 기준)"); }
+    if (shoe.hasCarbon === true) { score -= 12; } // 실무 이유(가격·수명)의 사이트 기준이라 이유로 보여 주지 않는다(2026-11-23). 질문 화면 설명에는 남김
     if (shoe.cushioning >= 3 && shoe.uses.includes("daily")) { score += 4; reasons.push("처음 신기 좋은 쿠션 있는 일상화예요"); }
   } else if (profile.level === "advanced") {
     if (shoe.uses.includes("tempo") || shoe.uses.includes("racing")) { score += 3; }
@@ -300,7 +301,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   possible += profile.distance === "long" ? 6 : profile.distance === "short" ? 3 : 0;
   if (profile.distance === "long") {
     if (shoe.cushioning >= 4 || shoe.uses.includes("long")) { score += 6; reasons.push("오래 달려도 버티는 쿠션이에요"); }
-    if (shoe.cushioning <= 2) { score -= 6; reasons.push("쿠션이 얇아 장거리엔 덜 맞아요(사이트 기준)"); }
+    if (shoe.cushioning <= 2) { score -= 6; } // 사이트 기준 — 이유로 보여 주지 않는다(2026-11-23)
   } else if (profile.distance === "short") {
     if (shoe.weightGramsM9 <= 250) { score += 3; reasons.push("가벼워서 짧게 뛰기 좋아요"); }
   }
@@ -317,11 +318,11 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     } else if (inj === "achilles") {
       // 2026-10-06: 가점은 유지(결정 보류), 문구만 정직하게. 드롭이 아킬레스 부담을 줄인다는 출처를
       // 저장소에서 찾지 못했다(flat-feet 주석). 아킬레스 가이드도 「몇 mm라고 말하지 않겠다」는 입장.
-      if (shoe.heelDropMm >= 8) { score += 6; reasons.push(`아킬레스를 다친 적이 있어 뒤꿈치가 높은 신발(굽 차이 ${shoe.heelDropMm}mm)을 앞에 뒀어요(사이트 기준)`); }
-      else if (shoe.heelDropMm <= 4) { score -= 6; reasons.push("아킬레스를 다친 적이 있어 뒤꿈치가 낮은 신발은 뒤로 뺐어요(사이트 기준)"); }
+      if (shoe.heelDropMm >= 8) { score += 6; } // 출처 없음 — 이유로 보여 주지 않는다(2026-11-23)
+      else if (shoe.heelDropMm <= 4) { score -= 6; }
     } else if (inj === "plantar") {
       // 2026-10-06: 문구만 정직하게. 족저근막 가이드 결론은 「쿠셔닝·드롭에 좋은 근거 없음」.
-      if (shoe.cushioning >= 4) { score += 5; reasons.push("발바닥을 다친 적이 있어 쿠션 많은 신발을 앞에 뒀어요(사이트 기준)"); }
+      if (shoe.cushioning >= 4) { score += 5; } // 가이드 결론이 「근거 없음」 — 이유로 보여 주지 않는다(2026-11-23)
       if (shoe.stability !== "neutral") { score += 2; }
     } else if (inj === "ankle") {
       // 2026-08-31 축소(4 → 2). 같은 축의 중복 누적.
@@ -343,7 +344,7 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     // 이전에는 가점 합계를 그대로 보여 줬다. 근거가 약한 가점을 줄여 오면서(안정화 +8→+3, 체중 점수 삭제 등)
     // 조건이 다 맞아도 60~75 에 머물렀다(648 프로필 1위 점수: 최고 75·중앙값 66·80 이상 0건). 추천이 나빠진 게 아니라 눈금이 틀어진 것.
     // 100 은 「완벽한 신발」이 아니라 「고른 조건에 모두 맞음(사이트 기준)」이다 — 화면 문구도 그렇게 쓴다.
-    // 순위는 rawScore 로 정한다(byRank). possible·free 가 프로필 고정값이라 % 순서와 같다.
+    // 순위는 rawScore 로 정한다(rankBy). possible·free 가 프로필 고정값이라 % 순서와 같다.
     score: Math.max(0, Math.min(100, Math.round(((score - free) / possible) * 100))),
     rawScore: score,
     possible,
@@ -366,27 +367,18 @@ export interface RecommendResult {
   /** 근거 논문 — 작은 글씨로 별도 표시 */
   evidenceNote: string;
   bodyType: BodyType;
-  /** 키 기준 권장 케이던스(분당 걸음 수 spm) [최소, 최대] — PRD 추천 로직 §9 */
-  cadenceSpm: [number, number];
 }
 
 /**
- * 키 → 권장 케이던스(분당 걸음 수, spm). PRD 추천 로직 §9 키×케이던스 기준값
- *  - ~160cm → 175~185 / 160~175cm → 170~180 / 175~185cm → 165~175 / 185cm~ → 160~170
+ * 공개 동점 규칙 (2026-10-06) — 잘리기 전 점수 → 정가 → id 순.
+ * 2026-11-23 hyun 님 결정: 예산 「상관없음」이면 정가 높은 순(맞는 정도가 같으면 상위 모델 먼저), 예산을 고르면 정가 낮은 순.
+ * 약관 3항에 같은 규칙을 적는다. 바꾸면 약관도 바꿀 것.
  */
-export function getCadenceRange(heightCm: number): [number, number] {
-  if (heightCm <= 160) return [175, 185];
-  if (heightCm <= 175) return [170, 180];
-  if (heightCm <= 185) return [165, 175];
-  return [160, 170];
-}
-
-/**
- * 공개 동점 규칙 (2026-10-06) — 잘리기 전 점수 → 정가 낮은 순 → id 순.
- * 약관 3항에 같은 규칙을 적는다(2026-11-10 화면 문구에서는 뺐다). 바꾸면 약관도 바꿀 것.
- */
-function byRank(a: Scored, b: Scored): number {
-  return b.rawScore - a.rawScore || a.shoe.priceKrw - b.shoe.priceKrw || a.shoe.id.localeCompare(b.shoe.id);
+function rankBy(hasBudget: boolean) {
+  return (a: Scored, b: Scored): number =>
+    b.rawScore - a.rawScore ||
+    (hasBudget ? a.shoe.priceKrw - b.shoe.priceKrw : b.shoe.priceKrw - a.shoe.priceKrw) ||
+    a.shoe.id.localeCompare(b.shoe.id);
 }
 
 /**
@@ -394,7 +386,7 @@ function byRank(a: Scored, b: Scored): number {
  *
  * 체중·체형 점수를 빼자 점수 차이를 만들던 요소가 줄어 두 가지가 생겼다(648 프로필 실측).
  *  ① 평발 가점이 결정권을 가져 평발 사용자 상위 3개가 **100% 안정화**가 됐다(전 56%).
- *     근거 수준(회내 발 RCT 1건, 자가보고 ≠ FPI)에 비해 너무 세다 → **평발이면 안정화 최대 2 + 중립 1.**
+ *     근거 수준(회내 발 RCT 1건, 자가보고 ≠ FPI)에 비해 너무 세다 → **평발이면 안정화 최대 limit−1 + 중립 1**(4켤레면 3 + 1, 2026-11-23 전 3켤레일 때 2 + 1).
  *  ② 1·2위 동점이 80% — 정가 낮은 순만 쓰면 같은 브랜드 싼 모델이 줄줄이 차지한다
  *     → **상위 N개는 브랜드가 겹치지 않게**(후보가 모자라면 그때만 겹침 허용).
  * 약관 3항에 같은 규칙을 적는다(2026-11-10 화면 문구에서는 뺐다). 바꾸면 거기도 바꿀 것.
@@ -424,11 +416,10 @@ function pickTop(sorted: Scored[], profile: RunnerProfile, limit: number): Score
   return picked;
 }
 
-export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResult {
+export function recommendShoes(profile: RunnerProfile, limit = 4): RecommendResult {
   const bodyType = getBodyType(profile.heightCm, profile.weightKg);
   const profileComment = buildProfileComment(profile);
   const evidenceNote = buildEvidenceNote(profile);
-  const cadenceSpm = getCadenceRange(profile.heightCm);
 
   // 성별 자격(여성 전용 라스트는 여성에게만) 통과한 후보만 사용
   const scoredAll = RECOMMENDABLE
@@ -438,6 +429,7 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
   // 예산은 '하드 필터' — 선택 시 예산 초과 모델은 후보에서 제외
   const budget = profile.budgetKrw && profile.budgetKrw > 0 ? profile.budgetKrw : null;
   const scored = budget ? scoredAll.filter((s) => s.shoe.priceKrw <= budget) : scoredAll;
+  const byRank = rankBy(budget !== null);
 
   // 1차: 발볼 + 용도 통과
   const pool = scored.filter((s) => s.widthOk && s.useOk);
@@ -451,7 +443,7 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
   if (pool.length >= 2) {
     const primary = pickTop(pool.sort(byRank), profile, limit)
       .map((s) => toRec(s, false));
-    return { primary, usedFallback: false, fallbackNote: "", profileComment, evidenceNote, bodyType, cadenceSpm };
+    return { primary, usedFallback: false, fallbackNote: "", profileComment, evidenceNote, bodyType };
   }
 
   // 예산 내 후보가 아예 없으면 — 솔직하게 알리고 예산 초과 근접 모델을 보여줌
@@ -465,7 +457,7 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
       primary: overBudget,
       usedFallback: true,
       fallbackNote: `${budget.toLocaleString()}원 이하 신발은 아직 없어요. 가장 싼 신발이 약 ${cheapest.toLocaleString()}원이라 그 근처 가격으로 보여 드려요.`,
-      profileComment, evidenceNote, bodyType, cadenceSpm,
+      profileComment, evidenceNote, bodyType,
     };
   }
 
@@ -478,7 +470,7 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
   const fallback = pickTop(scored.sort(byRank), profile, limit)
     .map((s) => toRec(s, true));
 
-  return { primary: fallback, usedFallback: true, fallbackNote: note, profileComment, evidenceNote, bodyType, cadenceSpm };
+  return { primary: fallback, usedFallback: true, fallbackNote: note, profileComment, evidenceNote, bodyType };
 }
 
 /**
@@ -487,13 +479,13 @@ export function recommendShoes(profile: RunnerProfile, limit = 3): RecommendResu
  */
 function buildProfileComment(profile: RunnerProfile): string {
   // 2026-11-10 운영자 「왜 이렇게 길어, 고객이 이해만 되게」: 연구 이름·수치·「반영 안 한 것」 설명을 뺐다.
-  //   남긴 것은 **이 사람의 결과를 바꾼 것**만, 한 줄씩. 근거가 약한 것은 「사이트 기준」 한 마디로 표시한다(신뢰 규칙).
+  //   남긴 것은 **이 사람의 결과를 바꾼 것**만, 한 줄씩. 2026-11-23: 근거가 약한 것은 보여 주지 않는다(「사이트 기준」 표시도 하지 않는다).
   //   예전 문구(체중 미반영의 근거 Malisoux 2020, 성별 근거 Wunderlich 2001)는 맨 위 v4 설명에 남아 있다.
   const lines: string[] = [];
   if (profile.footWidth === "wide") lines.push("발볼이 넓어서 앞쪽이 넉넉한 신발을 먼저 골랐어요.");
-  if (profile.footType === "flat") lines.push("평발이라 안정화를 넣었지만, 근거가 약해서 1켤레는 일반 신발로 골랐어요.");
+  if (profile.footType === "flat") lines.push("평발이라 안정화 신발을 넣고, 1켤레는 일반 신발로 골랐어요.");
   if (profile.gender === "female") lines.push("여성 발에 맞춰 만든 신발에 점수를 더 줬어요.");
-  if (profile.heightCm <= 163 || profile.heightCm >= 178) lines.push("키에 맞춰 앞뒤 굽 차이를 조금 반영했어요(사이트 기준).");
+  // 2026-11-23: 키 → 굽 차이 줄(「사이트 기준」)을 뺐다. 근거 없는 가점은 이유로 보여 주지 않는다(맨 위 v4 설명)
   if (profile.level === "beginner") lines.push("처음 시작하는 단계라 카본 대회화는 뒤로 뺐어요.");
   const injuries = (profile.injuryHistory ?? []).filter((i) => i !== "none");
   if (injuries.length) {
@@ -514,7 +506,7 @@ function buildEvidenceNote(profile: RunnerProfile): string {
 /**
  * 전 신발을 이 프로필 기준으로 줄 세운다 — `/shoes` 「내 조건으로 보기」 (2026-09-16)
  *
- * `recommendShoes` 는 3개를 고르는 함수라 조건 밖 신발을 버린다. 목록은 **버리지 않고 나눈다** —
+ * `recommendShoes` 는 4개(2026-11-23 전에는 3개)를 고르는 함수라 조건 밖 신발을 버린다. 목록은 **버리지 않고 나눈다** —
  * 조건에 맞는 것(발볼·용도·예산 통과)을 점수순으로 먼저, 나머지는 뒤에 따로.
  * 점수와 이유는 `recommendShoes` 와 **같은 `scoreShoe`** 를 쓴다. 두 화면이 다른 순서를 내면 안 된다.
  */
@@ -523,6 +515,7 @@ export function rankAllShoes(
 ): { id: string; score: number; reason: string | null; fits: boolean }[] {
   const bodyType = getBodyType(profile.heightCm, profile.weightKg);
   const budget = profile.budgetKrw && profile.budgetKrw > 0 ? profile.budgetKrw : null;
+  const byRank = rankBy(budget !== null);
   return RECOMMENDABLE.map((shoe) => scoreShoe(shoe, profile, bodyType))
     .filter((s) => s.eligible)
     .sort(byRank)

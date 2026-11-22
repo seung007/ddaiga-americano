@@ -449,7 +449,7 @@ export default function ShoeFinderPage() {
       <header className="mb-6">
         <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900">내 발에 맞는 러닝화 찾기</h1>
         <p className="mt-1.5 text-gray-500 text-sm leading-relaxed">
-          네 화면에 답하면 내 발에 맞는 신발 3개를 골라드려요.
+          네 화면에 답하면 내 발에 맞는 신발 4켤레를 골라드려요.
         </p>
       </header>
 
@@ -583,7 +583,7 @@ export default function ShoeFinderPage() {
                 엔진은 카본화를 빼지 않고 점수를 낮추며(-12), 이유도 부상 위험이 아니라 안정감·수명·가격이라고 적는다
                 (recommend.ts 「7. 경험 수준」, 2026-10-06 「부상 위험도 근거 없음」). 엔진이 하는 만큼만 적는다. */}
             <ChipRow title="달리기 경험은요?" optional
-              why="이제 막 시작했다면 카본(탄소 섬유 판)이 든 대회용 신발은 점수를 낮춰요. 사이트가 정한 기준이에요."
+              why="이제 막 시작했다면 카본(탄소 섬유 판)이 든 대회용 신발은 비싸고 오래 못 신어서 뒤로 빼요."
               options={LEVEL_OPTIONS}
               isActive={v => level === v}
               onPick={v => { setLevel(prev => prev === v ? "" : v); handleChange(); }} />
@@ -628,7 +628,7 @@ export default function ShoeFinderPage() {
                 <p className="text-xs text-gray-500">키를 고르면 체중 구간이 나와요.</p>
               </div>
             )}
-            <Why text="키는 신발 앞뒤 높이 차이를 고를 때 참고해요(사이트가 정한 기준이에요). 체중은 체형 표시에만 쓰고 신발 순위에는 넣지 않아요. 성별을 고르면 그 성별에 맞춰 만든 신발에 점수를 더 줘요." />
+            <Why text="키는 신발 앞뒤 높이 차이를 고를 때 참고해요. 체중은 체형 표시에만 쓰고 신발 순위에는 넣지 않아요. 성별을 고르면 그 성별에 맞춰 만든 신발에 점수를 더 줘요." />
           </>
         )}
 
@@ -655,7 +655,7 @@ export default function ShoeFinderPage() {
             {/* 2026-11-10: 「다친 부위에 부담이 덜한 신발을 우선 추천」은 엔진 주석(「근거는 확인 못 함」)보다 센 말이라 바꿨다 */}
             <ChipRow title="달리다 아팠던 곳이 있나요?" optional
               hint="여러 개 골라도 돼요. 지금 아프다면 신발보다 병원 진료가 먼저예요."
-              why="고른 부위에 따라 사이트 기준으로 점수를 조정해요."
+              why="고른 부위에 따라 신발 순서를 조정해요."
               options={INJURY_OPTIONS}
               isActive={v => injuries.includes(v)}
               onPick={v => {
@@ -784,7 +784,7 @@ export default function ShoeFinderPage() {
               <h2 className="text-xl font-semibold text-gray-900">내 조건에 맞는 신발</h2>
               <p className="text-xs text-gray-400 mt-0.5">발볼과 용도에 맞는 신발 중 {result.primary.length}켤레를 골랐어요.</p>
               {/* 2026-11-18: 숫자의 뜻을 숫자 가까이에 적는다. 100 은 「완벽한 신발」이 아니라 「고른 조건에 모두 맞음」이다 (recommend.ts scoreShoe) */}
-              <p className="text-xs text-gray-400 mt-0.5">적합도는 고른 조건에 얼마나 맞는지예요. 100%면 모두 맞는 신발이에요(사이트 기준).</p>
+              <p className="text-xs text-gray-400 mt-0.5">적합도는 고른 조건에 얼마나 맞는지예요. 100%면 고른 조건에 모두 맞는 신발이에요.</p>
             </div>
             <div className="flex shrink-0 gap-1 self-start rounded-lg border border-gray-200 bg-gray-50 p-1">
               {([
