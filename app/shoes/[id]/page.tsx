@@ -66,8 +66,8 @@ function beginnerLine(s: Shoe): { tone: "warn" | "ok" | "info"; text: string } {
   const r = rungOf(s);
   if (s.hasCarbon)
     return {
-      tone: "warn",
-      text: "첫 러닝화로는 권하지 않아요. 카본 플레이트가 든 신발은 밑창이 단단하고 불안정한 편이고 값도 비싸요. 이 사이트 추천은 입문자에게 카본화 점수를 낮춥니다(위험하다고 단정할 근거는 부족해요).",
+      tone: "info",
+      text: "카본 플레이트가 든 신발이에요. 입문자에게 해롭다는 시험은 찾지 못했어요. 이 사이트 추천은 입문자라고 카본화 점수를 낮추지 않아요.",
     };
   if (!r) return { tone: "info", text: "계급도 칸에 분류되지 않은 신발이에요." };
   const head = `계급도 「${r.label}」 칸이에요 — ${r.forWho}.`;
