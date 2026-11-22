@@ -311,6 +311,34 @@ if (existsSync(blogDir)) {
   }
 }
 
+// 신발 설명 — 카드 한 줄(blurb)과 설계 특징(scienceBasis) (2026-11-23, 세션 지시서 5절 나 — hyun 님 「과회내 같은 단어 알겠냐고 평범한 사람들이」)
+// 쉬운 말 · 사실만 · 「~요」. 전문어는 쓰지 않고 풀어 쓴다(과회내 → 발이 안쪽으로 쏠리는 것, 라스트 → 신발 틀, 드롭 → 앞뒤 굽 차이,
+// 스택 → 밑창 두께, 맥시멀 → 쿠션이 아주 두꺼운, 미드솔 → 중간 밑창). 체형으로 사람을 나누는 말과 효과 약속·광고 말도 막는다.
+{
+  const SHOE_TERMS = ["과회내", "과내전", "회내", "라스트", "스택", "미드솔", "맥시멀", "반발", "드롭", "미드풋", "힐스트라이크", "포어풋", "토박스", "에너지 반환", "러닝 이코노미", "데일리"];
+  const BODY = /소형|중형|대형|고체중|저체중|경량 러너|중량 러너|\d+\s*kg\s*\+|체형/;
+  const PROMISE = /최적|최강|최고|최상|극대화|끝판왕|1순위|국민|기록 단축|향상|관절 보호|무기|가성비|프리미엄|만능/;
+  const fields = [];
+  const data = readFileSync(path.join(ROOT, "lib/shoes/data.ts"), "utf8");
+  for (const m of data.matchAll(/^\s*(blurb|scienceBasis): "((?:[^"\\]|\\.)*)"/gm)) fields.push([`lib/shoes/data.ts ${m[1]}: `, m[2]]);
+  const auto = readFileSync(path.join(ROOT, "lib/shoes/auto.ts"), "utf8");
+  for (const m of auto.matchAll(/^\s*(blurb|scienceBasis): `([^`]*)`/gm)) fields.push([`lib/shoes/auto.ts ${m[1]}: `, m[2].replace(/\$\{[^}]*\}/g, "모델")]);
+  // 거짓 음성 막기: 읽은 칸 수가 신발 수보다 적으면 정규식이 빠뜨린 것이다
+  const count = (data.match(/^\s*id: "/gm) || []).length;
+  const got = fields.filter(([w]) => w.startsWith("lib/shoes/data.ts blurb")).length;
+  if (got < count) errors.push(`lib/shoes/data.ts: 신발 ${count}켤레인데 설명 칸 ${got}개만 읽음 — 검사 정규식을 고칠 것`);
+  if (!fields.some(([w]) => w.startsWith("lib/shoes/auto.ts"))) errors.push("lib/shoes/auto.ts: 설명 틀을 못 읽음 — 검사 정규식을 고칠 것");
+  for (const [where, text] of fields) {
+    const bad = (m) => errors.push(`${where}${m}`);
+    checkWording(text, bad);
+    const show = (i, n) => text.slice(Math.max(0, i - 10), i + n + 10);
+    for (const t of SHOE_TERMS) { const i = text.indexOf(t); if (i >= 0) bad(`전문어 「${t}」 — 풀어 쓴다: 「…${show(i, t.length)}…」`); }
+    for (const [re, msg] of [[BODY, "체형으로 사람을 나누는 말"], [PROMISE, "효과 약속·광고 말"], [/(합니다|입니다|습니다|됩니다|십시오|있음|없음|했다|이다|않았다)(?=[.!?\s]|$)/, "말투는 「~요」"]]) {
+      const m = text.match(re); if (m) bad(`${msg}: 「…${show(m.index, m[0].length)}…」`);
+    }
+  }
+}
+
 // 글 밖의 자리 — 가이드 첫 화면과 여러 글이 함께 쓰는 단계 데이터(2026-11-20: 여기가 검사 밖이라 「저희 제안」「가장 긴 날」이 남아 있었다)
 {
   const hub = readFileSync(path.join(ROOT, "app/injury/page.tsx"), "utf8");

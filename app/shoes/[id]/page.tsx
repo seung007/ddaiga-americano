@@ -376,8 +376,9 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
         })()}
 
         <section className="mt-8">
-          <h2 className="mb-3 text-xl font-bold text-gray-900">근거</h2>
+          <h2 className="mb-3 text-xl font-bold text-gray-900">설계 특징</h2>
           <p className="text-sm leading-relaxed text-gray-700">{s.scienceBasis}</p>
+          <p className="mt-2 text-xs text-gray-500">브랜드가 밝힌 구조와 공개 실측 값이에요. 효과를 시험한 내용은 아니에요.</p>
         </section>
 
         {compares.length > 0 && (

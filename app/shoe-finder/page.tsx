@@ -1042,14 +1042,14 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
 
           {/*
             라벨을 "과학적 추천 근거"에서 "설계 특징"으로 바꿨다.
-            이 문장들은 폼·플레이트·지오메트리 같은 제품 설계 설명이고 상당수는 제조사 발표 수치다.
+            이 문장들은 플레이트·밑창 같은 제품 설계 설명과 공개 실측 값이다(2026-11-23 효과 주장·제조사 수치를 뺐다).
             논문 인용처럼 보이는 파란 박스에 담아두면 실제 근거 등급보다 높게 읽힌다.
           */}
           <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
             <p className="text-xs font-semibold text-blue-700 mb-1">설계 특징</p>
             <p className="text-sm text-blue-800 leading-relaxed">{shoe.scienceBasis}</p>
             <p className="text-xs text-blue-600/70 mt-2 leading-relaxed">
-              제조사 발표 수치와 일반적인 설계 설명이 섞여 있습니다. 논문으로 검증된 내용만은 아닙니다.
+              브랜드가 밝힌 구조와 공개 실측 값이에요. 효과를 시험한 내용은 아니에요.
             </p>
           </div>
 
