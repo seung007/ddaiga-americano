@@ -118,7 +118,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["small_light", "mid_light"],
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "가볍고 쿠션이 얇은 편인 일상 달리기 신발이에요. 빠르게 달리는 훈련에도 써요.",
+    blurb: "가볍고 쿠션이 얇은 편인 일상 달리기 신발이에요. 빠른 훈련에도 써요.",
     scienceBasis: "앞뒤 굽 차이가 작고 밑창이 얇은 편이에요.",
     youtubeReviews: [
       { label: "Kinvara 16 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+kinvara+16" },
@@ -157,7 +157,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["small_light", "small_mid", "mid_light"],
     uses: ["tempo", "daily", "racing"],
     hasCarbon: false,
-    blurb: "가벼운 편인 훈련용 신발이에요. 빠르게 달리는 훈련과 일상 달리기, 대회에 써요.",
+    blurb: "가벼운 편인 훈련용 신발이에요. 빠른 훈련과 일상 달리기, 대회에 써요.",
     scienceBasis: "앞뒤 굽 차이가 작은 편이에요. 카본 플레이트는 들어 있지 않아요.",
     youtubeReviews: [
       { label: "FuelCell Rebel 리뷰 검색", url: "https://www.youtube.com/results?search_query=FuelCell+Rebel+review" },
@@ -234,7 +234,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["small_mid", "small_light"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창이 두꺼운 편이고 앞뒤 굽 차이는 보통이에요.",
     youtubeReviews: [
       { label: "Hoka Clifton 10 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+clifton+10+review" },
@@ -309,7 +309,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["small_heavy", "mid_heavy"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창이 아주 두껍고 앞뒤 굽 차이는 작은 편이에요.",
     youtubeReviews: [
       { label: "Hoka Bondi 9 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+bondi+9+review" },
@@ -385,7 +385,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "small_light"],
     uses: ["tempo", "racing", "daily"],
     hasCarbon: false,
-    blurb: "가벼운 편인 훈련용 신발이에요. 빠르게 달리는 훈련과 대회, 일상 달리기에 써요.",
+    blurb: "가벼운 편인 훈련용 신발이에요. 빠른 훈련과 대회, 일상 달리기에 써요.",
     scienceBasis: "카본 플레이트는 들어 있지 않아요.",
     youtubeReviews: [
       { label: "Endorphin Speed 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+endorphin+speed+5+review" },
@@ -423,7 +423,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "mid_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "앞뒤 굽 차이가 큰 편인 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "앞뒤 굽 차이가 큰 편인 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "앞뒤 굽 차이가 큰 편이고 쿠션 두께는 보통이에요.",
     youtubeReviews: [
       { label: "Pegasus 42 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+42+review" },
@@ -501,7 +501,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_mid", "mid_light"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창이 두꺼운 것에 비해 가벼운 편이에요.",
     youtubeReviews: [
       { label: "1080 v15 리뷰 검색", url: "https://www.youtube.com/results?search_query=new+balance+1080+v15+review" },
@@ -540,7 +540,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_mid", "mid_heavy"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창이 아주 두꺼운 편이고 앞뒤 굽 차이는 보통이에요.",
     youtubeReviews: [
       { label: "Triumph 23 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+triumph+23+review" },
@@ -654,7 +654,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["tall_mid", "mid_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창 안에 젤 쿠션이 들어 있어요(브랜드 설명). 밑창이 아주 두꺼운 편이에요.",
     youtubeReviews: [
       { label: "Nimbus 27 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+nimbus+27+review" },
@@ -693,7 +693,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["tall_mid", "mid_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "앞뒤 굽 차이가 큰 편인 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "앞뒤 굽 차이가 큰 편인 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창 안에 물결 모양 판(웨이브 플레이트)이 들어 있어요. 카본은 아니에요.",
     youtubeReviews: [
       { label: "Wave Rider 29 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+rider+29+review" },
@@ -730,7 +730,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["tall_mid", "mid_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "무거운 편인 쿠션 신발이에요. 일상 달리기와 긴 거리, 평소 신기에 써요.",
+    blurb: "무거운 편인 쿠션 신발이에요. 일상 달리기와 장거리, 평소 신기에 써요.",
     scienceBasis: "쿠션이 두꺼운 편이고 무게는 무거운 편이에요.",
     youtubeReviews: [
       { label: "Ultraboost 25 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+ultraboost+25+review" },
@@ -885,7 +885,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["tall_mid", "mid_heavy"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창 안에 물결 모양 판(웨이브 플레이트)이 들어 있어요. 밑창이 두꺼운 편이에요.",
     youtubeReviews: [
       { label: "Wave Sky 9 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+sky+9+review" },
@@ -923,7 +923,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["tall_mid", "mid_mid"],
     uses: ["daily", "long", "racing"],
     hasCarbon: false,
-    blurb: "카본 플레이트 없이 쿠션이 아주 두꺼운 신발이에요. 일상 달리기와 긴 거리, 대회에 써요.",
+    blurb: "카본 플레이트 없이 쿠션이 아주 두꺼운 신발이에요. 일상 달리기와 장거리, 대회에 써요.",
     scienceBasis: "밑창이 아주 두꺼운데도 가벼운 편이에요.",
     youtubeReviews: [
       { label: "Superblast 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+superblast+2+review" },
@@ -1078,7 +1078,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["tall_heavy", "mid_heavy"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 아주 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "앞뒤 굽 차이가 큰 편이에요. 폭을 B부터 4E까지 고를 수 있어요.",
     youtubeReviews: [
       { label: "Glycerin 22 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+22+review" },
@@ -1196,7 +1196,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "mid_mid", "small_mid"],
     uses: ["daily", "long", "tempo"],
     hasCarbon: false,
-    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 긴 거리와 빠르게 달리는 훈련에도 써요.",
+    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 장거리와 빠른 훈련에도 써요.",
     scienceBasis: "밑창이 두꺼운데도 가벼운 편이에요. 앞뒤 굽 차이는 보통이에요.",
     youtubeReviews: [
       { label: "Novablast 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+novablast+5+review" },
@@ -1234,7 +1234,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "mid_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "밑창 안에 젤 쿠션이 들어 있어요(브랜드 설명). 밑창이 두꺼운 편이에요.",
     youtubeReviews: [
       { label: "Gel-Cumulus 27 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+gel+cumulus+27+review" },
@@ -1272,7 +1272,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["small_light", "mid_light", "small_mid"],
     uses: ["tempo", "daily"],
     hasCarbon: false,
-    blurb: "가벼운 편인 훈련용 신발이에요. 빠르게 달리는 훈련과 일상 달리기에 써요.",
+    blurb: "가벼운 편인 훈련용 신발이에요. 빠른 훈련과 일상 달리기에 써요.",
     scienceBasis: "앞뒤 굽 차이가 작은 편이에요.",
     youtubeReviews: [
       { label: "Hoka Mach 6 리뷰 검색", url: "https://www.youtube.com/results?search_query=hoka+mach+6+review" },
@@ -1313,7 +1313,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_mid", "mid_light", "mid_heavy"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션 두께가 보통인 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션 두께가 보통인 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "앞뒤 굽 차이와 쿠션 두께가 모두 보통이에요.",
     youtubeReviews: [
       { label: "Ride 18 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+ride+18+review" },
@@ -1358,7 +1358,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "small_light", "small_mid"],
     uses: ["tempo", "daily", "racing"],
     hasCarbon: false,
-    blurb: "가벼운 편인 훈련용 신발이에요. 빠르게 달리는 훈련과 일상 달리기, 대회에 써요.",
+    blurb: "가벼운 편인 훈련용 신발이에요. 빠른 훈련과 일상 달리기, 대회에 써요.",
     scienceBasis: "플레이트 없이 신발 길이 전체에 가벼운 쿠션을 넣었어요(브랜드 설명).",
     youtubeReviews: [
       { label: "Pegasus Plus 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+plus+review" },
@@ -1397,7 +1397,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_mid", "tall_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "쿠션이 두꺼운 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "바닥에 큰 쿠션 칸이 줄지어 있어요(브랜드 설명). 앞뒤 굽 차이는 작은 편이에요.",
     youtubeReviews: [
       { label: "Cloudmonster 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudmonster+2+review" },
@@ -1489,7 +1489,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "mid_mid", "small_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "Glycerin 22의 여성용이에요. 쿠션이 아주 두꺼워 긴 거리에도 써요.",
+    blurb: "Glycerin 22의 여성용이에요. 쿠션이 아주 두꺼워 장거리에도 써요.",
     scienceBasis: "여성용 틀로 만든 모델이에요.",
     genderFit: "womens_last",
     womensWidths: ["B", "D"],
@@ -1758,7 +1758,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_mid", "mid_light", "tall_mid"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "값이 낮은 편인 일상 달리기 신발이에요. 긴 거리에도 써요.",
+    blurb: "값이 낮은 편인 일상 달리기 신발이에요. 장거리에도 써요.",
     scienceBasis: "쿠션 두께와 앞뒤 굽 차이가 모두 보통이에요.",
     forefootFit: "standard",
     instepVolume: "standard",
@@ -1796,7 +1796,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_mid", "tall_mid", "mid_heavy"],
     uses: ["daily", "long"],
     hasCarbon: false,
-    blurb: "데카트론의 값이 낮은 편인 쿠션 신발이에요. 조깅과 긴 거리에 써요.",
+    blurb: "데카트론의 값이 낮은 편인 쿠션 신발이에요. 조깅과 장거리에 써요.",
     scienceBasis: "쿠션 두께와 앞뒤 굽 차이가 모두 보통이에요.",
     forefootFit: "standard",
     instepVolume: "standard",
@@ -2014,7 +2014,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "small_light", "tall_mid"],
     uses: ["racing", "tempo"],
     hasCarbon: true,
-    blurb: "카본 플레이트 대회용 신발이에요. 빠르게 달리는 훈련에도 써요.",
+    blurb: "카본 플레이트 대회용 신발이에요. 빠른 훈련에도 써요.",
     scienceBasis: "카본 플레이트를 발에 가깝게 놓았어요(브랜드 설명). 앞뒤 굽 차이가 작은 편이에요.",
     forefootFit: "narrow",
     instepVolume: "standard",
@@ -2098,7 +2098,7 @@ export const MANUAL_SHOES: Shoe[] = [
     primaryBodyTypes: ["mid_light", "mid_mid", "tall_mid"],
     uses: ["racing", "tempo"],
     hasCarbon: true,
-    blurb: "카본 플레이트 대회용 신발이에요. 빠르게 달리는 훈련에도 써요.",
+    blurb: "카본 플레이트 대회용 신발이에요. 빠른 훈련에도 써요.",
     scienceBasis: "카본 플레이트와 앞뒤로 둥글게 휜 밑창을 함께 넣은 설계예요(브랜드 설명).",
     forefootFit: "narrow",
     instepVolume: "standard",
@@ -2559,7 +2559,7 @@ export const MANUAL_SHOES: Shoe[] = [
     uses: ["tempo", "racing"],
     hasCarbon: true,
     // 2E 모델(209,000원)은 2026-09-27 hyun 님 캡처로 아식스 한국몰에서 확인했다.
-    blurb: "공개 실측 자료가 빠르게 달리는 훈련과 대회용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "공개 실측 자료가 빠른 훈련과 대회용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 201g(브랜드 표기 196g), 뒤꿈치 밑창 두께 35.3mm, 브랜드가 밝힌 앞뒤 굽 차이 7mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요. 공개 실측 자료에는 D만 있고, 아식스 한국몰에 2E 모델이 209,000원에 따로 있어요(2026-09-27 확인). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Magic Speed 5 리뷰 검색", url: "https://www.youtube.com/results?search_query=asics+magic+speed+5+review" },
@@ -2892,7 +2892,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 빠르게 달리는 훈련과 일상 달리기용으로 나눈 신발이에요.",
+    blurb: "공개 실측 자료가 빠른 훈련과 일상 달리기용으로 나눈 신발이에요.",
     scienceBasis: "공개 실측 무게 241g(브랜드 표기 240g), 뒤꿈치 밑창 두께 40.7mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 고를 수 있는 폭은 B·D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Endorphin Azura 리뷰 검색", url: "https://www.youtube.com/results?search_query=saucony+endorphin+azura+review" },
@@ -3026,7 +3026,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠르게 달리는 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 물결 모양 판(웨이브 플레이트)이 들어 있어요.",
+    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 물결 모양 판(웨이브 플레이트)이 들어 있어요.",
     scienceBasis: "공개 실측 무게 266g(브랜드 표기 265g), 뒤꿈치 밑창 두께 43.5mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본이 아닌 유리섬유 물결 모양 판(웨이브 플레이트)이 들어 있어요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Neo Vista 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+neo+vista+3+review" },
@@ -3123,7 +3123,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 빠르게 달리는 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 플레이트가 들어 있어요.",
+    blurb: "공개 실측 자료가 빠른 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 244g, 뒤꿈치 밑창 두께 40.0mm, 앞뒤 굽 차이 8mm예요. 굽 차이는 미즈노 필리핀 공식몰 값이에요(공개 실측 자료에 적힌 브랜드 값 3mm는 실측 7.5mm와도 맞지 않아 쓰지 않았어요). 카본이 아닌 유리섬유 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Wave Rebellion Flash 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=mizuno+wave+rebellion+flash+3+review" },
@@ -3155,7 +3155,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["tempo"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 빠르게 달리는 훈련용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "공개 실측 자료가 빠른 훈련용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 248g(브랜드 표기 244g), 뒤꿈치 밑창 두께 39.7mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Zoom Fly 6 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+zoom+fly+6+review" },
@@ -3187,7 +3187,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["tempo", "racing"],
     hasCarbon: true,
-    blurb: "공개 실측 자료가 대회와 빠르게 달리는 훈련용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
+    blurb: "공개 실측 자료가 대회와 빠른 훈련용으로 나눈 신발이에요. 카본 플레이트가 들어 있어요.",
     scienceBasis: "공개 실측 무게 128g(브랜드 표기 144g), 뒤꿈치 밑창 두께 27.0mm, 브랜드가 밝힌 앞뒤 굽 차이 4mm예요. 카본 플레이트가 들어 있어요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Streakfly 2 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+streakfly+2+review" },
@@ -3321,7 +3321,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠르게 달리는 훈련용으로 나눈 신발이에요. 플레이트는 없고 신발 길이 전체에 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요.",
+    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요. 플레이트는 없고 신발 길이 전체에 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요.",
     scienceBasis: "공개 실측 무게 308g(브랜드 표기 309g), 뒤꿈치 밑창 두께 42.8mm, 브랜드가 밝힌 앞뒤 굽 차이 10mm예요. 플레이트는 없고 신발 길이 전체에 공기 쿠션 장치(에어 줌 유닛)가 들어 있어요. 고를 수 있는 폭은 B·D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Pegasus Premium 리뷰 검색", url: "https://www.youtube.com/results?search_query=nike+pegasus+premium+review" },
@@ -3565,7 +3565,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠르게 달리는 훈련용으로 나눈 신발이에요.",
+    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요.",
     scienceBasis: "공개 실측 무게 264g(브랜드 표기 263g), 뒤꿈치 밑창 두께 43.4mm, 브랜드가 밝힌 앞뒤 굽 차이 6mm예요. 고를 수 있는 폭은 D예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudmonster 3 Hyper 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudmonster+3+hyper+review" },
@@ -3694,7 +3694,7 @@ export const MANUAL_SHOES: Shoe[] = [
     stability: "neutral",
     uses: ["daily", "tempo"],
     hasCarbon: false,
-    blurb: "공개 실측 자료가 일상 달리기와 빠르게 달리는 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 판이 들어 있어요.",
+    blurb: "공개 실측 자료가 일상 달리기와 빠른 훈련용으로 나눈 신발이에요. 카본이 아닌 유리섬유 판이 들어 있어요.",
     scienceBasis: "공개 실측 무게 286g(브랜드 표기 296g), 뒤꿈치 밑창 두께 39.2mm, 브랜드가 밝힌 앞뒤 굽 차이 8mm예요. 카본이 아닌 유리섬유 판이 들어 있어요. 고를 수 있는 폭은 D·2E예요(공개 실측 자료, 남성 기준). 누구에게 맞는지는 아직 따로 판단하지 않았어요.",
     youtubeReviews: [
       { label: "Cloudboom Max 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudboom+max+review" },
