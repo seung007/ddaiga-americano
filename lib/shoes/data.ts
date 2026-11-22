@@ -1861,7 +1861,10 @@ export const MANUAL_SHOES: Shoe[] = [
     // 리뷰 페이지와 EasyOn 파생까지 존재 → **출시 확정.**
     // 8/31에는 "2026 Q3 예정"까지만 확인돼 비워뒀던 자리다. 이번에 채운다.
     successor: "Revolution 8",
-    imageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/4f37fca8-6bce-43e7-ad07-f57ae3c13142/revolution-7-road-running-shoes-sWMq63.png",
+    // 2026-11-23: 나이키 서버 주소(static.nike.com/…/revolution-7-road-running-shoes-sWMq63.png)가 **에어포스 1 사진**을
+    // 200 으로 내보내고 있었다(hyun 님이 목록 화면에서 발견, 주소를 직접 열어 확인). 판매 종료 뒤 주소가 다른 상품에 재사용된 것으로 보인다.
+    // 파일 이름이 맞아도 사진이 맞는 것은 아니다 — check:images(상태코드·형식)로는 못 잡는다. 열어서 본 사진으로 바꾼다.
+    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40209/nike-revolution-7-21216554-720.jpg",
     colorways: ["블랙/화이트", "그레이"],
     widthOptions: ["D"],
     heelDropMm: 9,
