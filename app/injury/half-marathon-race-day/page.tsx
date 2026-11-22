@@ -848,7 +848,7 @@ export default function Page() {
           <p className="font-medium text-emerald-900 mb-2">대회용 신발은 정하셨나요?</p>
           <p className="text-sm text-emerald-800 mb-4">
             길들이지 않은 신발은 물집 위험을 키울 수 있습니다.<Basis kind="rule" />{" "}
-            체형과 발 조건을 넣으면 맞는 신발을 추려드립니다.
+            발볼과 발 모양, 용도를 넣으면 맞는 신발을 추려 드립니다.
           </p>
           <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
             나에게 맞는 신발 찾기 →

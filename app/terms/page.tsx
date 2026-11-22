@@ -37,23 +37,27 @@ export default function TermsPage() {
         <p className="text-sm leading-relaxed text-gray-700 mb-3">
           {/* 2026-10-06: 「다음 학술 논문을 참고하여 설계」 → 논문마다 알고리즘에서 맡는 역할이 달라 나눠 적었다.
               Malisoux 2020 을 「쿠셔닝 경도와 체중」 근거로 걸어 두고 반대 방향으로 쓰고 있었다(recommend.ts v4). */}
-          추천 알고리즘의 항목은 근거가 있는 것과 이 사이트가 정한 기준으로 나뉩니다.
-          결과 화면의 각 이유 옆에도 어느 쪽인지 적습니다. 추천 결과를 절대적 기준으로 삼지 마세요.
+          추천 순서는 고른 조건과 맞는지(발볼·용도·예산)와, 연구로 확인한 몇 가지 점수로 정합니다.
+          근거를 찾지 못한 점수는 2026-11-23에 모두 0점으로 바꿨습니다. 추천 결과를 절대적 기준으로 삼지 마세요.
         </p>
         <p className="text-sm font-medium text-gray-700 mb-1">점수에 쓰는 연구</p>
         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside mb-3">
-          <li>Malisoux et al. (2016) Br J Sports Med — 모션컨트롤화 RCT. 회내 발에서 부상 위험이 낮았음 → 평발 선택 시 안정화 가점(약한 근거)</li>
-          <li>Willems et al. (2021) J Orthop Sports Phys Ther — 같은 계열 RCT의 2차 분석</li>
-          <li>Wunderlich &amp; Cavanagh (2001) Med Sci Sports Exerc — 여성 발은 남성 발의 축소판이 아님 → 여성 전용 라스트 가점</li>
+          <li>Malisoux et al. (2016) Br J Sports Med — 모션컨트롤화 시험. 발이 안쪽으로 쏠리는 사람에서 부상 위험이 낮았음 → 평발을 고르면 안정화 신발에 작은 가점</li>
+          <li>Willems et al. (2021) J Orthop Sports Phys Ther — 같은 시험의 2차 분석</li>
+          <li>Malisoux et al. (2016) Am J Sports Med — 앞뒤 굽 차이 10·6·0mm 시험. 가끔 뛰는 사람은 낮은 굽, 꾸준히 뛰는 사람은 높은 굽에서 위험이 낮았음(하위 집단) → 달려 온 기간에 따라 작은 가점</li>
+          <li>Buldt &amp; Menz (2018) J Foot Ankle Res — 발 폭에 안 맞는 신발이 발 통증과 관련 → 넓은 발볼을 고르면 앞쪽이 넓은 신발에 가점</li>
         </ul>
         <p className="text-sm font-medium text-gray-700 mb-1">점수에 쓰지 않는 이유가 된 연구</p>
         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside mb-3">
           <li>Malisoux et al. (2020) Am J Sports Med — 848명 RCT. 딱딱한 신발은 체중과 무관하게 위험했고, 무거운 러너에서 쿠션의 추가 이득은 확인되지 않음 → 체중은 순위에 쓰지 않음</li>
           <li>Richards et al. (2009) Br J Sports Med — 발 타입별 처방을 지지하는 연구를 찾지 못한 고찰(2009년 기준)</li>
+          <li>Knapik et al. (2009) J Strength Cond Res — 발 모양에 맞춰 신발을 골라도 부상이 줄지 않은 시험 → 발 모양 맞춤 가점을 없앰</li>
+          <li>Wunderlich &amp; Cavanagh (2001) Med Sci Sports Exerc — 남녀 발 모양이 다르다는 측정 연구로 착용감은 시험하지 않음 → 여성 전용 틀 가점을 없애고, 여성에게는 여성판을 보여 줌</li>
+          <li>Bolliger et al. (2026) Sports Med Open — 느린 속도에서도 카본화의 산소 비용이 낮았음 → 입문자 카본화 감점을 없앰</li>
         </ul>
-        <p className="text-sm font-medium text-gray-700 mb-1">사이트 기준(근거 논문 없음)</p>
+        <p className="text-sm font-medium text-gray-700 mb-1">고른 값과 맞는지 보는 점수(연구가 아니라 선택)</p>
         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-          <li>키별 드롭 범위, 부상 이력별 드롭·쿠션 가점, 초심자 카본화 감점, 발볼·발등 핏 가점</li>
+          <li>고른 발볼에 맞는 폭이 있는지, 고른 용도에 맞는지, 예산 안인지</li>
           <li>고르는 규칙: 점수 → 같으면 예산을 고른 경우 정가 낮은 순, 예산이 「상관없음」이면 정가 높은 순(같은 정도로 맞으면 상위 모델 먼저), 상위 4켤레는 브랜드가 겹치지 않게, 평발이면 안정화 최대 3켤레 + 중립 1켤레 (2026-11-23 변경)</li>
         </ul>
       </section>

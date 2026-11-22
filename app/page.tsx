@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 // 2026-10-12 SEO 점검: 홈만 canonical 이 없었다(제목·설명은 layout 기본값을 쓴다)
 const HOME_TITLE = "뛰다가 아메리카노 — 초보 러너를 위한 러닝화 추천";
-const HOME_DESC = "키·체중·발볼·발 타입에 맞는 러닝화를 질문 8개로 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
+const HOME_DESC = "발볼·발 모양·용도에 맞는 러닝화를 찾고, 무릎·발목·아킬레스건 부상 예방법을 확인하세요.";
 // og 의 홈 값은 layout 이 아니라 여기 둔다(layout 에 두면 모든 하위 페이지가 홈 값을 물려받는다 — app/layout.tsx 주석)
 export const metadata: Metadata = {
   // RSS 자동 발견 링크(2026-10-12). 제출은 서치어드바이저에서 따로 한다 — app/rss.xml/route.ts

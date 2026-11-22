@@ -95,7 +95,7 @@ export default function RacesPage() {
           <FinderCta
             from="races"
             headline="대회 날 신을 신발, 지금 신는 것과 달라야 할 수도 있습니다"
-            sub="거리·목표·부상 이력을 넣으면 조건에 맞는 3개를 골라드려요."
+            sub="용도와 발볼, 발 모양을 넣으면 조건에 맞는 4켤레를 골라 드려요."
           />
         </div>
       </main>

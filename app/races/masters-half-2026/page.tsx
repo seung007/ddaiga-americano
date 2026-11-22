@@ -97,7 +97,7 @@ export default function RacePage() {
           <Link href="/shoe-finder" className="text-emerald-600 hover:underline">
             나에게 맞는 신발 찾기
           </Link>
-          에서 질문 8개로 후보를 좁힐 수 있습니다.
+          에서 질문 몇 개로 후보를 좁힐 수 있습니다.
         </p>
       </section>
 

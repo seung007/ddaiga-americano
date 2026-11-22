@@ -261,7 +261,7 @@ export default function RestDayPage() {
         <FinderCta
           from="rest-day"
           headline="쉬는 날 걷기에도 발이 뻐근하면 신발을 한번 보세요"
-          sub="발 모양과 무게를 넣으면 맞는 러닝화를 좁혀 줘요"
+          sub="발볼과 발 모양, 용도를 넣으면 맞는 러닝화를 좁혀 줘요"
         />
 
         <div className="mt-14">

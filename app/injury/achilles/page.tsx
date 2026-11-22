@@ -203,8 +203,9 @@ export default function AchillesPage() {
         <Note>구체적인 주차·비율을 정한 연구는 저희가 확인하지 못했습니다. 아프면 그게 기준입니다.</Note>
 
         {/* 2026-09-14: headline 이 "드롭 8~12mm를 유지하세요" 였다 — 근거 없는 mm 처방이라 뺐다.
-            2026-10-07: 「걸러서」도 틀렸다 — 엔진은 거르지 않고 점수만 조정한다(recommend.ts 9번 블록). */}
-        <FinderCta from="achilles" variant="inline" headline="아킬레스 이력을 넣으면 드롭 4mm 이하 신발은 점수를 깎아 뒤로 보냅니다(사이트 기준, 걸러내지는 않음)." />
+            2026-10-07: 「걸러서」도 틀렸다 — 엔진은 거르지 않고 점수만 조정한다(recommend.ts 9번 블록).
+            2026-11-23: 부상 이력 점수를 0으로 바꿨다(굽 차이가 아킬레스에 맞는다는 시험을 찾지 못함 — recommend.ts 9번 블록). 문구도 맞췄다. */}
+        <FinderCta from="achilles" variant="inline" headline="부상 이력은 신발 순서에 넣지 않아요. 신발 구조가 아킬레스 부담을 줄인다는 시험을 찾지 못했어요." />
 
         {/* ── ② ─────────────────────────────────────────── */}
         {/* 2026-09-21: 「전환 중 꼭 해야 할 스트레칭 루틴」이었다. 「전환」이 또 주법 전제다 */}
@@ -410,7 +411,7 @@ export default function AchillesPage() {
             두 달간 질문 0건이 그 증거다. */}
         <InlineAsk from="achilles" tag="아킬레스" placeholder="예) 아킬레스가 아침에만 뻣뻣한데 뛰어도 되나요?" />
 
-        <FinderCta from="achilles" headline="아킬레스 이력에 맞춰 신발 찾기" sub="부상 이력에 '아킬레스·종아리'를 고르면 드롭 8mm 이상은 가점, 4mm 이하는 감점합니다. 걸러내지는 않고, 드롭이 부담을 줄인다는 근거는 확인하지 못한 사이트 기준입니다." />
+        <FinderCta from="achilles" headline="발볼과 용도로 신발 찾기" sub="발볼과 용도를 넣으면 4켤레를 골라 드려요. 아킬레스가 지금 아프다면 신발보다 진료가 먼저예요." />
         <ShareButtons from="achilles" title="아킬레스건염 대처법" description="아킬레스가 아플 때 뭘 해야 하고 뭘 하면 안 되는지." />
 
         <References n={9} note="2026-10-07 초록과 대조했습니다.">
