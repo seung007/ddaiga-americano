@@ -143,7 +143,6 @@ export const MANUAL_SHOES: Shoe[] = [
     buyLinks: [
       // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
       { label: "뉴발란스 공식몰(nbkorea.com) — 지금은 레벨 v5", url: "https://www.nbkorea.com/product/searchResult.action?schWord=%EB%A0%88%EB%B2%A8%20V5", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20%ED%93%A8%EC%96%B4%EC%85%80%20%EB%A0%88%EB%B2%A8%20v4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20FuelCell%20Rebel%20v4", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20FuelCell%20Rebel%20v4", isOfficial: false },
@@ -182,7 +181,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰", url: "https://www.adidas.co.kr/search?q=Adizero+Adios+Pro", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
+      { label: "무신사 — 아디제로 아디오스 프로 4", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%204", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Adizero%20Adios%20Pro%204", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Adizero%20Adios%20Pro%204", isOfficial: false },
@@ -259,7 +258,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 지금은 GT-2000 15", url: "https://www.asics.co.kr/goods/search?search_text=GT-2000", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20GT-2000%2014", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20GT-2000%2014", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20GT-2000%2014", isOfficial: false },
@@ -335,7 +333,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 지금은 젤카야노 33", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Kayano", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%A0%A4%20%EC%B9%B4%EC%95%BC%EB%85%B8%2032", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Kayano%2032", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Gel-Kayano%2032", isOfficial: false },
@@ -411,7 +408,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식 — 페가수스", url: "https://www.nike.com/kr/w/pegasus-shoes-8nexhzy7ok", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 페가수스 42", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%2042", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%2042", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Pegasus%2042", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Pegasus%2042", isOfficial: false },
@@ -450,7 +447,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — Ghost 17", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B3%A0%EC%8A%A4%ED%8A%B8+17", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 고스트 17", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%2017", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%2017", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Ghost%2017", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Ghost%2017", isOfficial: false },
@@ -489,7 +486,7 @@ export const MANUAL_SHOES: Shoe[] = [
     buyLinks: [
       // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
       { label: "뉴발란스 공식몰(nbkorea.com) — 1080 v15", url: "https://www.nbkorea.com/product/searchResult.action?schWord=1080%20V15", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
+      { label: "무신사 — 뉴발란스 1080 v15", url: "https://www.musinsa.com/search/goods?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%201080%20v15", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%201080%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20Fresh%20Foam%20X%201080%20v15", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20Fresh%20Foam%20X%201080%20v15", isOfficial: false },
@@ -604,7 +601,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — GTS 25 검색", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0+GTS+25", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 아드레날린 GTS 25", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0%20GTS%2025", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0%20GTS%2025", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Adrenaline%20GTS%2025", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Adrenaline%20GTS%2025", isOfficial: false },
@@ -643,7 +640,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 지금은 젤님버스 28", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Nimbus", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%A0%A4%20%EB%8B%98%EB%B2%84%EC%8A%A4%2027", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Nimbus%2027", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Gel-Nimbus%2027", isOfficial: false },
@@ -682,7 +678,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+rider+29", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
+      { label: "무신사 — 미즈노 웨이브 라이더 29", url: "https://www.musinsa.com/search/goods?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2029", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2029", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Rider%2029", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Wave%20Rider%2029", isOfficial: false },
@@ -720,7 +716,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰", url: "https://www.adidas.co.kr/search?q=Ultraboost", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
       // 2026-09-28 check:links:kr: KREAM 「울트라부스트 25」 검색에 이 모델이 없다(21 만) → 링크를 내렸다
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Ultraboost%2025", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Ultraboost%2025", isOfficial: false },
@@ -758,7 +753,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰", url: "https://www.nike.com/kr/w?q=vaporfly+4", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20ZoomX%20Vaporfly%204", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20ZoomX%20Vaporfly%204", isOfficial: false },
@@ -839,7 +833,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_parallel",
     buyLinks: [
       // 2026-09-28 check:links:kr: 브룩스 공식몰 「비스트」 검색이 결과 없음 알림창을 띄운다 → 링크를 내렸다
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
       // 2026-09-28 check:links:kr: KREAM 에 비스트 24 가 없다(비스트 GTS 26 만) → 링크를 내렸다
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Beast%2024", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Beast%2024", isOfficial: false },
@@ -877,7 +870,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+sky+9", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
+      { label: "무신사 — 미즈노 웨이브 스카이 9", url: "https://www.musinsa.com/search/goods?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%209", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%209", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Sky%209", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Wave%20Sky%209", isOfficial: false },
@@ -916,7 +909,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 지금은 슈퍼블라스트 3", url: "https://www.asics.co.kr/goods/search?search_text=Superblast", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%88%98%ED%8D%BC%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%202", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Superblast%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Superblast%202", isOfficial: false },
@@ -955,7 +947,7 @@ export const MANUAL_SHOES: Shoe[] = [
     buyLinks: [
       // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
       { label: "뉴발란스 공식몰(nbkorea.com) — 860 v15", url: "https://www.nbkorea.com/product/searchResult.action?schWord=860%20V15", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
+      { label: "무신사 — 뉴발란스 860 v15", url: "https://www.musinsa.com/search/goods?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20860%20v15", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20860%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20860%20v15", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20860%20v15", isOfficial: false },
@@ -1071,7 +1063,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — Glycerin 22", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0+22", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 글리세린 22", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%2022", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%2022", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Glycerin%2022", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Glycerin%2022", isOfficial: false },
@@ -1114,7 +1106,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       // 2026-09-28 check:links:kr + 크롬: 나이키 코리아 검색(「인피니티런 4」「infinity run 4」)에 이 모델이 없다 → 공식몰 링크를 내렸다
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%9D%B8%ED%94%BC%EB%8B%88%ED%8B%B0%EB%9F%B0%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20InfinityRN%204", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20InfinityRN%204", isOfficial: false },
@@ -1152,7 +1143,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=wave+inspire+22", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
+      { label: "무신사 — 미즈노 웨이브 인스파이어 22", url: "https://www.musinsa.com/search/goods?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%9D%B8%EC%8A%A4%ED%8C%8C%EC%9D%B4%EC%96%B4%2022", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%9D%B8%EC%8A%A4%ED%8C%8C%EC%9D%B4%EC%96%B4%2022", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Inspire%2022", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Wave%20Inspire%2022", isOfficial: false },
@@ -1191,7 +1182,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 지금은 노바블라스트 6", url: "https://www.asics.co.kr/c/novablast-5", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4+%EB%85%B8%EB%B0%94%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8+5", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Novablast%205", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Novablast%205", isOfficial: false },
@@ -1230,7 +1220,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       // 2026-09-28 check:links:kr + 크롬: 아식스 한국몰 큐뮬러스 검색 결과가 라이프스타일 큐뮬러스 16 뿐 → 공식몰 링크를 내렸다
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%A0%A4%20%ED%81%90%EB%AC%BC%EB%9F%AC%EC%8A%A4%2027", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Cumulus%2027", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Gel-Cumulus%2027", isOfficial: false },
@@ -1354,7 +1343,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 페가수스 플러스", url: "https://www.nike.com/kr/w/pegasus-shoes-8nexhzy7ok", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 페가수스 플러스", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%8C%EB%9F%AC%EC%8A%A4", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4+%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4+%ED%94%8C%EB%9F%AC%EC%8A%A4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Pegasus%20Plus", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Pegasus%20Plus", isOfficial: false },
@@ -1439,7 +1428,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 고스트 17 여성", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B3%A0%EC%8A%A4%ED%8A%B8+17", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 고스트 17", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%2017", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=브룩스+고스트+17+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Ghost%2017%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Ghost%2017%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1483,7 +1472,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 글리세린 22 여성", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0+22", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 글리세린 22", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%2022", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=브룩스+글리세린+22+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Glycerin%2022%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Glycerin%2022%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1526,7 +1515,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 아드레날린 GTS 25 여성", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 아드레날린 GTS 25", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0%20GTS%2025", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=브룩스+아드레날린+GTS+25+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Adrenaline%20GTS%2025%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Adrenaline%20GTS%2025%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1570,7 +1559,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰(asics.co.kr) — 지금은 젤카야노 33", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Kayano", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=아식스+젤카야노+32+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Kayano%2032%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Gel-Kayano%2032%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1613,7 +1601,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 페가수스 42 여성", url: "https://www.nike.com/kr/w?q=%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4+42", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 페가수스 42", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%2042", isOfficial: false },
       { label: "KREAM (정품검수)", url: "https://kream.co.kr/search?keyword=나이키+페가수스+42+여성", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Pegasus%2042%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Pegasus%2042%20%28%EC%97%AC%EC%84%B1%29", isOfficial: false },
@@ -1750,7 +1738,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "푸마 공식몰 — 지금은 벨로시티 나이트로 4·5", url: "https://kr.puma.com/kr/ko/search?q=nitro", isOfficial: true },
-      { label: "무신사 — Puma", url: "https://www.musinsa.com/brand/puma", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Puma%20Velocity%20NITRO%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Puma%20Velocity%20NITRO%203", isOfficial: false },
     ],
@@ -1828,7 +1815,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       // 2026-09-28 check:links:kr: 아식스 한국몰 「Jolt」 검색 0건 → 공식몰 링크를 내렸다
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Jolt%204", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Jolt%204", isOfficial: false },
     ],
@@ -1875,7 +1861,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 지금은 레볼루션 8", url: "https://www.nike.com/kr/w?q=레볼루션+7", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Revolution%207", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Revolution%207", isOfficial: false },
     ],
@@ -1913,7 +1898,6 @@ export const MANUAL_SHOES: Shoe[] = [
     priceKrw: 89000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20520%20v9", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20520%20v9", isOfficial: false },
     ],
@@ -2009,7 +1993,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰(asics.co.kr) — 지금은 메타스피드 스카이 도쿄", url: "https://www.asics.co.kr/goods/search?search_text=MetaSpeed+Sky", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=아식스+메타스피드+스카이+플러스", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics+MetaSpeed+Sky+Plus", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics+MetaSpeed+Sky+Plus", isOfficial: false },
@@ -2050,7 +2033,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰 — Adizero Boston 12", url: "https://www.adidas.co.kr/search?q=Adizero+Boston+12", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
+      { label: "무신사 — 아디제로 보스턴 12", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EB%B3%B4%EC%8A%A4%ED%84%B4%2012", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=아디다스+아디제로+보스턴+12", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas+Adizero+Boston+12", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas+Adizero+Boston+12", isOfficial: false },
@@ -2173,7 +2156,6 @@ export const MANUAL_SHOES: Shoe[] = [
     buyLinks: [
       // 2026-11-10 크롬으로 공식몰에서 직접 확인(검색 결과·상품 페이지가 열림). 공식몰 링크가 없던 신발
       { label: "뉴발란스 공식몰(nbkorea.com) — 지금은 SC 엘리트 v6", url: "https://www.nbkorea.com/product/searchResult.action?schWord=SC%20Elite", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=뉴발란스+슈퍼컴프+엘리트", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New+Balance+FuelCell+SuperComp+Elite+v4", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New+Balance+FuelCell+SuperComp+Elite+v4", isOfficial: false },
@@ -2234,7 +2216,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 노바블라스트 6", url: "https://www.asics.co.kr/goods/search?search_text=Novablast", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
+      { label: "무신사 — 아식스 노바블라스트 6", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EB%85%B8%EB%B0%94%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%206", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4+%EB%85%B8%EB%B0%94%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8+6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Novablast%206", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Novablast%206", isOfficial: false },
@@ -2268,7 +2250,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 젤카야노", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Kayano", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
+      { label: "무신사 — 아식스 젤 카야노 33", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%A0%A4%20%EC%B9%B4%EC%95%BC%EB%85%B8%2033", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%A0%A4%20%EC%B9%B4%EC%95%BC%EB%85%B8%2033", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Kayano%2033", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Gel-Kayano%2033", isOfficial: false },
@@ -2302,7 +2284,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰 — 아디제로 EVO SL", url: "https://www.adidas.co.kr/search?q=Adizero+Evo+SL", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
+      { label: "무신사 — 아디제로 에보 SL", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EC%97%90%EB%B3%B4%20SL", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=아디다스+아디제로+에보+SL", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas+Adizero+Evo+SL", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas+Adizero+Evo+SL", isOfficial: false },
@@ -2336,7 +2318,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 보메로 18", url: "https://www.nike.com/kr/w?q=%EB%B3%B4%EB%A9%94%EB%A1%9C%2018", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 보메로 18", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%2018", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=나이키+보메로+18", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike+Vomero+18", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike+Vomero+18", isOfficial: false },
@@ -2370,7 +2352,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 슈퍼블라스트", url: "https://www.asics.co.kr/goods/search?search_text=Superblast", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4+%EC%8A%88%ED%8D%BC%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8+3", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Superblast%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Superblast%203", isOfficial: false },
@@ -2425,7 +2406,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 젤님버스 28", url: "https://www.asics.co.kr/goods/search?search_text=Gel-Nimbus", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EC%A0%A4%20%EB%8B%98%EB%B2%84%EC%8A%A4%2028", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Gel-Nimbus%2028", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Gel-Nimbus%2028", isOfficial: false },
@@ -2459,7 +2439,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — GT-2000 15", url: "https://www.asics.co.kr/goods/search?search_text=GT-2000", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
+      { label: "무신사 — 아식스 GT-2000 15", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20GT-2000%2015", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20GT-2000%2015", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20GT-2000%2015", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20GT-2000%2015", isOfficial: false },
@@ -2493,7 +2473,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 메타스피드 스카이 도쿄", url: "https://www.asics.co.kr/goods/search?search_text=MetaSpeed+Sky", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%EB%8F%84%EC%BF%84", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20MetaSpeed%20Sky%20Tokyo", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20MetaSpeed%20Sky%20Tokyo", isOfficial: false },
@@ -2527,7 +2506,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 메타스피드 엣지 도쿄", url: "https://www.asics.co.kr/goods/search?search_text=MetaSpeed+Edge", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EC%97%A3%EC%A7%80%20%EB%8F%84%EC%BF%84", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20MetaSpeed%20Edge%20Tokyo", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20MetaSpeed%20Edge%20Tokyo", isOfficial: false },
@@ -2561,7 +2539,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 매직스피드 5", url: "https://www.asics.co.kr/goods/search?search_text=Magic", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
+      { label: "무신사 — 아식스 매직 스피드 5", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EB%A7%A4%EC%A7%81%20%EC%8A%A4%ED%94%BC%EB%93%9C%205", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EB%A7%A4%EC%A7%81%EC%8A%A4%ED%94%BC%EB%93%9C%205", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20Magic%20Speed%205", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20Magic%20Speed%205", isOfficial: false },
@@ -2594,7 +2572,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 고스트 18", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B3%A0%EC%8A%A4%ED%8A%B8", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 고스트 18", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%2018", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%2018", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Ghost%2018", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Ghost%2018", isOfficial: false },
@@ -2628,7 +2606,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 글리세린 23", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 글리세린 23", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%2023", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%2023", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Glycerin%2023", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Glycerin%2023", isOfficial: false },
@@ -2662,7 +2640,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 고스트 맥스 4", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B3%A0%EC%8A%A4%ED%8A%B8", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 고스트 맥스 4", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%20%EB%A7%A5%EC%8A%A4%204", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B3%A0%EC%8A%A4%ED%8A%B8%20%EB%A7%A5%EC%8A%A4%204", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Ghost%20Max%204", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Ghost%20Max%204", isOfficial: false },
@@ -2695,7 +2673,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 글리세린 맥스 2", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 글리세린 맥스 2", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20%EB%A7%A5%EC%8A%A4%202", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20%EB%A7%A5%EC%8A%A4%202", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Glycerin%20Max%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Glycerin%20Max%202", isOfficial: false },
@@ -2728,7 +2706,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "브룩스 공식 코리아 — 글리세린 플렉스", url: "https://brooksrunning.co.kr/product/search.html?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0", isOfficial: true },
-      { label: "무신사 — Brooks", url: "https://www.musinsa.com/brand/brooksrunning", isOfficial: false },
+      { label: "무신사 — 브룩스 글리세린 플렉스", url: "https://www.musinsa.com/search/goods?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20%ED%94%8C%EB%A0%89%EC%8A%A4", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%B8%8C%EB%A3%A9%EC%8A%A4%20%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20%ED%94%8C%EB%A0%89%EC%8A%A4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Glycerin%20Flex", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Glycerin%20Flex", isOfficial: false },
@@ -2994,7 +2972,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=WAVE+RIDER+30", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
+      { label: "무신사 — 미즈노 웨이브 라이더 30", url: "https://www.musinsa.com/search/goods?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2030", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2030", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Rider%2030", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Wave%20Rider%2030", isOfficial: false },
@@ -3028,7 +3006,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=NEO+VISTA", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
+      { label: "무신사 — 미즈노 네오 비스타 3", url: "https://www.musinsa.com/search/goods?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EB%84%A4%EC%98%A4%20%EB%B9%84%EC%8A%A4%ED%83%80%203", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EB%84%A4%EC%98%A4%20%EB%B9%84%EC%8A%A4%ED%83%80%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Neo%20Vista%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Neo%20Vista%203", isOfficial: false },
@@ -3061,7 +3039,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=NEO+ZEN", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
+      { label: "무신사 — 미즈노 네오 젠 2", url: "https://www.musinsa.com/search/goods?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EB%84%A4%EC%98%A4%20%EC%A0%A0%202", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EB%84%A4%EC%98%A4%20%EC%A0%A0%202", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Neo%20Zen%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Neo%20Zen%202", isOfficial: false },
@@ -3094,7 +3072,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=REBELLION", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%A6%AC%EB%B2%A8%EB%A6%AC%EC%98%A8%20%ED%94%84%EB%A1%9C%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Rebellion%20Pro%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Wave%20Rebellion%20Pro%203", isOfficial: false },
@@ -3127,7 +3104,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "미즈노 공식 코리아", url: "https://kor.mizuno.com/product/search.html?keyword=REBELLION", isOfficial: true },
-      { label: "무신사 — Mizuno", url: "https://www.musinsa.com/brand/mizuno", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%AF%B8%EC%A6%88%EB%85%B8%20%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%A6%AC%EB%B2%A8%EB%A6%AC%EC%98%A8%20%ED%94%8C%EB%9E%98%EC%89%AC%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Mizuno%20Wave%20Rebellion%20Flash%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Mizuno%20Wave%20Rebellion%20Flash%203", isOfficial: false },
@@ -3160,7 +3136,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 줌 플라이 6", url: "https://www.nike.com/kr/w?q=zoom+fly+6", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%A4%8C%20%ED%94%8C%EB%9D%BC%EC%9D%B4%206", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Zoom%20Fly%206", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Zoom%20Fly%206", isOfficial: false },
@@ -3193,7 +3168,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 스트릭플라이 2", url: "https://www.nike.com/kr/w?q=streakfly+2", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4%202", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Streakfly%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Streakfly%202", isOfficial: false },
@@ -3226,7 +3200,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 레볼루션 8", url: "https://www.nike.com/kr/w?q=revolution+8", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 레볼루션 8", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%A0%88%EB%B3%BC%EB%A3%A8%EC%85%98%208", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%A0%88%EB%B3%BC%EB%A3%A8%EC%85%98%208", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Revolution%208", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Revolution%208", isOfficial: false },
@@ -3260,7 +3234,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 보메로 플러스", url: "https://www.nike.com/kr/w?q=vomero+plus", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 보메로 플러스", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%8C%EB%9F%AC%EC%8A%A4", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%8C%EB%9F%AC%EC%8A%A4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Vomero%20Plus", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Vomero%20Plus", isOfficial: false },
@@ -3294,7 +3268,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 보메로 프리미엄", url: "https://www.nike.com/kr/w?q=vomero+premium", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 보메로 프리미엄", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Vomero%20Premium", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Vomero%20Premium", isOfficial: false },
@@ -3327,7 +3301,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 페가수스 프리미엄", url: "https://www.nike.com/kr/w?q=pegasus+premium", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 페가수스 프리미엄", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Pegasus%20Premium", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Pegasus%20Premium", isOfficial: false },
@@ -3360,7 +3334,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 스트럭처 26", url: "https://www.nike.com/kr/w?q=structure+26", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 스트럭처 26", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%2026", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%2026", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Structure%2026", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Structure%2026", isOfficial: false },
@@ -3393,7 +3367,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 스트럭처 플러스", url: "https://www.nike.com/kr/w?q=structure+plus", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 스트럭처 플러스", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%20%ED%94%8C%EB%9F%AC%EC%8A%A4", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%20%ED%94%8C%EB%9F%AC%EC%8A%A4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Structure%20Plus", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Structure%20Plus", isOfficial: false },
@@ -3426,7 +3400,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 윈플로 12", url: "https://www.nike.com/kr/w?q=winflo", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%9C%88%ED%94%8C%EB%A1%9C%2012", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Winflo%2012", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Winflo%2012", isOfficial: false },
@@ -3459,7 +3432,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 저니 런", url: "https://www.nike.com/kr/w?q=%EC%A0%80%EB%8B%88%20%EB%9F%B0", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
+      { label: "무신사 — 나이키 저니 런", url: "https://www.musinsa.com/search/goods?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%A0%80%EB%8B%88%20%EB%9F%B0", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%A0%80%EB%8B%88%20%EB%9F%B0", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Journey%20Run", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Journey%20Run", isOfficial: false },
@@ -3492,7 +3465,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "나이키 공식몰 — 다운시프터 14", url: "https://www.nike.com/kr/w?q=downshifter", isOfficial: true },
-      { label: "무신사 — Nike", url: "https://www.musinsa.com/brand/nike", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%8B%A4%EC%9A%B4%EC%8B%9C%ED%94%84%ED%84%B0%2014", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike%20Downshifter%2014", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20Downshifter%2014", isOfficial: false },
@@ -3735,7 +3707,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "뉴발란스 공식몰(nbkorea) — 레벨 v5", url: "https://www.nbkorea.com/product/searchResult.action?schWord=%EB%A0%88%EB%B2%A8", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
+      { label: "무신사 — 레벨 v5", url: "https://www.musinsa.com/search/goods?keyword=%EB%A0%88%EB%B2%A8%20v5", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20%EB%A0%88%EB%B2%A8%20v5", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20FuelCell%20Rebel%20v5", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20FuelCell%20Rebel%20v5", isOfficial: false },
@@ -3769,7 +3741,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "뉴발란스 공식몰(nbkorea) — 모어 v6", url: "https://www.nbkorea.com/product/searchResult.action?schWord=%EB%AA%A8%EC%96%B4", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20%EB%AA%A8%EC%96%B4%20v6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20Fresh%20Foam%20X%20More%20v6", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20Fresh%20Foam%20X%20More%20v6", isOfficial: false },
@@ -3802,7 +3773,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "뉴발란스 공식몰(nbkorea) — 880 v15", url: "https://www.nbkorea.com/product/searchResult.action?schWord=880", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20880%20v15", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20Fresh%20Foam%20X%20880%20v15", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20Fresh%20Foam%20X%20880%20v15", isOfficial: false },
@@ -3835,7 +3805,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "뉴발란스 공식몰(nbkorea) — SC 엘리트 v6", url: "https://www.nbkorea.com/product/searchResult.action?schWord=SC", isOfficial: true },
-      { label: "무신사 — New Balance", url: "https://www.musinsa.com/brand/newbalance", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EB%89%B4%EB%B0%9C%EB%9E%80%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EC%BB%B4%ED%94%84%20%EC%97%98%EB%A6%AC%ED%8A%B8%20v6", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=New%20Balance%20SuperComp%20Elite%20v6", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20SuperComp%20Elite%20v6", isOfficial: false },
@@ -3868,7 +3837,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "푸마 공식몰 — 벨로시티 나이트로 5", url: "https://kr.puma.com/kr/ko/search?q=nitro", isOfficial: true },
-      { label: "무신사 — Puma", url: "https://www.musinsa.com/brand/puma", isOfficial: false },
+      { label: "무신사 — 푸마 벨로시티 나이트로 5", url: "https://www.musinsa.com/search/goods?keyword=%ED%91%B8%EB%A7%88%20%EB%B2%A8%EB%A1%9C%EC%8B%9C%ED%8B%B0%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%205", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%91%B8%EB%A7%88%20%EB%B2%A8%EB%A1%9C%EC%8B%9C%ED%8B%B0%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%205", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Puma%20Velocity%20NITRO%205", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Puma%20Velocity%20NITRO%205", isOfficial: false },
@@ -3901,7 +3870,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "푸마 공식몰 — 맥맥스 나이트로 2", url: "https://kr.puma.com/kr/ko/search?q=nitro", isOfficial: true },
-      { label: "무신사 — Puma", url: "https://www.musinsa.com/brand/puma", isOfficial: false },
+      { label: "무신사 — 매그맥스 나이트로 2", url: "https://www.musinsa.com/search/goods?keyword=%EB%A7%A4%EA%B7%B8%EB%A7%A5%EC%8A%A4%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%202", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%91%B8%EB%A7%88%20%EB%A7%A5%EB%A7%A5%EC%8A%A4%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%202", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Puma%20MagMax%20NITRO%202", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Puma%20MagMax%20NITRO%202", isOfficial: false },
@@ -3934,7 +3903,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰 — 보스턴 13", url: "https://www.adidas.co.kr/search?q=boston", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
+      { label: "무신사 — 아디제로 보스턴 13", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EB%B3%B4%EC%8A%A4%ED%84%B4%2013", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EB%B3%B4%EC%8A%A4%ED%84%B4%2013", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Adizero%20Boston%2013", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Adizero%20Boston%2013", isOfficial: false },
@@ -3968,7 +3937,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰 — 슈퍼노바 라이즈 3", url: "https://www.adidas.co.kr/search?q=supernova", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
+      { label: "무신사 — 아디다스 슈퍼노바 라이즈 3", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EB%9D%BC%EC%9D%B4%EC%A6%88%203", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EB%9D%BC%EC%9D%B4%EC%A6%88%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Supernova%20Rise%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Supernova%20Rise%203", isOfficial: false },
@@ -4001,7 +3970,7 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰 — 슈퍼노바 프리마 3", url: "https://www.adidas.co.kr/search?q=supernova", isOfficial: true },
-      { label: "무신사 — Adidas", url: "https://www.musinsa.com/brand/adidas", isOfficial: false },
+      { label: "무신사 — 아디다스 슈퍼노바 프리마 3", url: "https://www.musinsa.com/search/goods?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Supernova%20Prima%203", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Supernova%20Prima%203", isOfficial: false },
@@ -4034,7 +4003,6 @@ export const MANUAL_SHOES: Shoe[] = [
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아식스 공식몰 — 메타스피드 레이", url: "https://www.asics.co.kr/goods/search?search_text=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EB%A0%88%EC%9D%B4", isOfficial: true },
-      { label: "무신사 — Asics", url: "https://www.musinsa.com/brand/asics", isOfficial: false },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%95%84%EC%8B%9D%EC%8A%A4%20%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EB%A0%88%EC%9D%B4", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Asics%20MetaSpeed%20Ray", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Asics%20MetaSpeed%20Ray", isOfficial: false },
