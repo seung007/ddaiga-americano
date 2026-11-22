@@ -322,15 +322,15 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
               {s.auto
                 ? `${s.weightGramsM9}g (공식몰 표기${s.auto.weightBasis ? `, ${s.auto.weightBasis}` : ""})`
                 : <>{s.weightGramsM9}g (남성 US9){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}</>}
-              <Position value={s.weightGramsM9} all={SHOES.map((x) => x.weightGramsM9)} unit="g" low="가벼운" high="무거운" />
+              <Position value={s.weightGramsM9} all={LISTED_SHOES.map((x) => x.weightGramsM9)} unit="g" low="가벼운" high="무거운" />
             </Row>
             <Row label="앞뒤 굽 차이">
               {s.heelDropMm}mm
-              <Position value={s.heelDropMm} all={SHOES.map((x) => x.heelDropMm)} unit="mm" low="낮은" high="높은" />
+              <Position value={s.heelDropMm} all={LISTED_SHOES.map((x) => x.heelDropMm)} unit="mm" low="낮은" high="높은" />
             </Row>
             <Row label="밑창 두께">
               {s.stackHeightMm}mm{s.auto && " (이전 세대 기준)"}
-              <Position value={s.stackHeightMm} all={SHOES.map((x) => x.stackHeightMm)} unit="mm" low="얇은" high="두꺼운" />
+              <Position value={s.stackHeightMm} all={LISTED_SHOES.map((x) => x.stackHeightMm)} unit="mm" low="얇은" high="두꺼운" />
             </Row>
             <Row label="쿠셔닝">
               {s.cushioning}/5 ({cushionKo(s.cushioning)})
