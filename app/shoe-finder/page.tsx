@@ -14,7 +14,7 @@ import { recommendShoes } from "@/lib/shoes/recommend";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
-  CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USES, WEIGHT_OPTIONS,
+  CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USE_NAME, USES, WEIGHT_OPTIONS,
   type HeightRange, type SavedProfile, type WeightRange, SPEC_HELP } from "@/lib/shoes/profileOptions";
 import { gtagEvent } from "@/lib/gtag";
 
@@ -42,12 +42,7 @@ import { gtagEvent } from "@/lib/gtag";
  * 화면에 보이는 선택지 이름은 처음 달리는 사람이 읽을 수 있는 말로 쓴다(2026-11-10).
  * 값(value)은 공유 URL·저장 프로필·추천 엔진이 쓰므로 바꾸지 않았다. 이름만 바꿨다.
  */
-const USE_OPTIONS: { value: ShoeUse; label: string }[] = [
-  { value: "daily",  label: "일상 달리기" },
-  { value: "long",   label: "장거리" },
-  { value: "tempo",  label: "빠른 훈련" },
-  { value: "racing", label: "대회용" },
-];
+const USE_OPTIONS: { value: ShoeUse; label: string }[] = (["daily", "long", "tempo", "racing"] as const).map((value) => ({ value, label: USE_NAME[value] }));
 
 // ── PRD F-01 추가 문항 옵션 ────────────────────────────────────────
 const BUDGETS: { value: number; label: string }[] = [
@@ -760,15 +755,48 @@ export default function ShoeFinderPage() {
               <h3 className="text-sm font-bold text-blue-900">내 분석 결과</h3>
             </div>
 
-            {/* 2026-11-10 운영자 「왜 이렇게 길어」: 체형·「체중 반영 안 함」·케이던스 칩과 케이던스 설명 문단을 뺐다.
-                고른 조건으로 결과가 왜 이렇게 나왔는지 한두 줄만 남긴다(recommend.ts buildProfileComment). 케이던스는 가이드 글에 있다 */}
-            {result.profileComment && (
-              <p className="text-base leading-relaxed text-blue-900">{result.profileComment}</p>
+            {/* 2026-11-10 운영자 「왜 이렇게 길어」로 체형·케이던스 설명을 뺐다.
+                2026-11-23 hyun 님 「후킹이 너무 약하다」: 맨 위 한 줄(고른 답 · 살펴본 N켤레 중 M켤레) + 근거가 있는 답마다
+                「먼저 고른 것 + 연구가 본 것」 두 문장 + 접힌 「점수에 넣지 않은 것」. 문장과 근거는 recommend.ts buildProfileComment */}
+            <p className="text-base font-semibold leading-relaxed text-blue-950">{result.analysis.headline}</p>
+
+            {result.analysis.findings.length > 0 && (
+              <ul className="mt-3 space-y-3">
+                {result.analysis.findings.map((f) => (
+                  <li key={f.pick} className="text-sm leading-relaxed">
+                    <p className="font-medium text-blue-900">{f.pick}</p>
+                    <p className="text-blue-800">
+                      {f.study}{" "}
+                      <a href={f.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap underline underline-offset-2 hover:text-blue-950">연구 보기 ↗</a>
+                    </p>
+                  </li>
+                ))}
+              </ul>
             )}
 
-            {result.evidenceNote && (
-              <p className="mt-2 text-sm text-blue-800">{result.evidenceNote}</p>
-            )}
+            {result.analysis.notes.map((n) => (
+              <p key={n} className="mt-3 text-sm leading-relaxed text-blue-900">{n}</p>
+            ))}
+
+            <div className="mt-3 border-t border-blue-100 pt-3 text-sm leading-relaxed">
+              <p className="font-medium text-blue-900">{result.evidenceNote.pick}</p>
+              <p className="text-blue-800">
+                {result.evidenceNote.study}{" "}
+                <a href={result.evidenceNote.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap underline underline-offset-2 hover:text-blue-950">연구 보기 ↗</a>
+              </p>
+            </div>
+
+            <details className="mt-3 text-sm">
+              <summary className="cursor-pointer font-medium text-blue-900">점수에 넣지 않은 것</summary>
+              <ul className="mt-2 space-y-2">
+                {result.analysis.notCounted.map((n) => (
+                  <li key={n.href} className="leading-relaxed text-blue-800">
+                    {n.text}{" "}
+                    <a href={n.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap underline underline-offset-2 hover:text-blue-950">연구 보기 ↗</a>
+                  </li>
+                ))}
+              </ul>
+            </details>
           </div>
 
           {result.usedFallback && (

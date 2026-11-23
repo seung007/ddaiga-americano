@@ -53,6 +53,8 @@ export const USES: { value: ShoeUse; label: string }[] = [
 ];
 
 export const USE_LABEL: Record<ShoeUse, string> = { daily: "데일리", long: "장거리", tempo: "템포", racing: "레이싱" };
+/** 추천기 질문·결과에 쓰는 용도 이름 — 처음 달리는 사람이 읽는 말(2026-11-10). 질문 칩과 결과 문장이 같은 말을 쓰게 한 곳에 둔다(2026-11-23) */
+export const USE_NAME: Record<ShoeUse, string> = { daily: "일상 달리기", long: "장거리", tempo: "빠른 훈련", racing: "대회용" };
 export const STABILITY_LABEL = { neutral: "중립", stability: "안정화", motion_control: "모션컨트롤" } as const;
 export const CUSH_DOTS = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"] as const;
 
