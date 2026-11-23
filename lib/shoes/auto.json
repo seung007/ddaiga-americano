@@ -14,6 +14,19 @@
     "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
+  "on-cloud-x-5": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "Cloud X 5",
+    "gender": "unisex",
+    "priceKrw": 209000,
+    "url": "https://www.on.com/ko-kr/products/cloud-x-5-m-3mg3008/mens/white-black-shoes-3MG30080462",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/38yGyfk6RZ1HY4pV7F5Rit/cdf0e26b8c8376f180a632bafc3462fc/e74d8a335f3ec4b839e8c4cb73817f541b164c1b.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 290,
+    "dropMm": 8,
+    "checkedAt": "2026-11-23",
+    "checkedBy": "수집기"
+  },
   "on-cloudboom-strike-2": {
     "kind": "newFamily",
     "brand": "On",
@@ -92,17 +105,17 @@
     "checkedAt": "2026-11-19",
     "checkedBy": "수집기"
   },
-  "on-cloudultra-3-w": {
+  "on-cloudtilt": {
     "kind": "newFamily",
     "brand": "On",
-    "model": "Cloudultra 3",
-    "gender": "female",
-    "priceKrw": 229000,
-    "url": "https://www.on.com/ko-kr/products/cloudultra-3-w-3wf3011/womens/black-black-shoes-3WF30111043",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1fNhtetCM7ffZrNaw6Ct16/6365263fd426171c566767d770f16fd3/e6fa3b3afbffc7979e30ad0b30c556fe2cbb582c.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 235,
-    "dropMm": 6,
-    "checkedAt": "2026-11-17",
+    "model": "Cloudtilt",
+    "gender": "unisex",
+    "priceKrw": 219000,
+    "url": "https://www.on.com/ko-kr/products/cloudtilt-m-3me1010/mens/eclipse-jay-shoes-3ME10105218",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/7t9OT05Dcm5K5iKfQ62kbd/1f1147ab2766cb91ce691a60f7962650/beb5a86031464bbcd08b91ecf2195c5e20cd52fd.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 303,
+    "dropMm": 7,
+    "checkedAt": "2026-11-23",
     "checkedBy": "수집기"
   },
   "on-cloudvista-3-w": {
@@ -115,32 +128,6 @@
     "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/4e2kpjGM1JU0hVdHBsr1Ye/57178b0bd867823e0917b0628434a411/e0b537c304260014d51907bb55024cef29b9a6f6.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
     "weightG": 240,
     "dropMm": 5,
-    "checkedAt": "2026-11-18",
-    "checkedBy": "수집기"
-  },
-  "on-cloudzone-99": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloudzone 99",
-    "gender": "unisex",
-    "priceKrw": 219000,
-    "url": "https://www.on.com/ko-kr/products/cloudzone-99-m-3mf3119/mens/white-black-shoes-3MF31190462",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/3wIwt22OOzz5nGUHF1IYLk/739585acd4f4ec28b9c1846f8855732b/f9bab6edd1b0812c7c44d8d67c7e3b3cc12c1cb1.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 293,
-    "dropMm": 6,
-    "checkedAt": "2026-11-18",
-    "checkedBy": "수집기"
-  },
-  "on-cloudzone-moon-w": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloudzone Moon",
-    "gender": "female",
-    "priceKrw": 259000,
-    "url": "https://www.on.com/ko-kr/products/cloudzone-moon-w-3wf3061/womens/black-black-shoes-3WF30611043",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1g0JWxW7vWue4kXMIkz2IT/a5aa7958ea535cd23755d8801369f796/d158f994949661639466213054e8871a41921689.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 259,
-    "dropMm": 8,
     "checkedAt": "2026-11-18",
     "checkedBy": "수집기"
   },

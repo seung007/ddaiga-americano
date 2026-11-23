@@ -1211,7 +1211,7 @@
       5,
       10
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "여의도공원 문화의마당",
     "registrationStart": "2026-11-17",
     "registrationEnd": "2026-11-22",
@@ -1231,7 +1231,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/14th-ahn-jung-geun-peace-marathon",
     "officialUrl": "https://ajgrun.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-18",
+    "checkedAt": "2026-11-21",
     "checkedBy": "수집기"
   },
   {
@@ -1706,7 +1706,7 @@
       21.0975,
       32.2
     ],
-    "status": "접수예정",
+    "status": "접수중",
     "venue": "여의도 한강공원 물빛광장",
     "registrationStart": "2026-11-23",
     "registrationEnd": "2026-12-31",
@@ -1714,7 +1714,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/hope-dream-24th-winter-international-marathon-2fa4f4185ca443e8b68f78819df2c113",
     "officialUrl": "https://dkrun.co.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-07",
+    "checkedAt": "2026-11-21",
     "checkedBy": "수집기"
   },
   {
