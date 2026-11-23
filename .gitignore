@@ -78,6 +78,7 @@ docs/*
 !docs/README.md
 !docs/운영/
 !docs/조사/
+!docs/판정/
 docs/조사/*
 !docs/조사/벤치마킹_*.md
 
