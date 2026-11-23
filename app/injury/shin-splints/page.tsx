@@ -348,7 +348,7 @@ export default function Page() {
             <Ref>Sports Med 43(12):1315-33 · <a href="https://pubmed.ncbi.nlm.nih.gov/23979968/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={6}>
-            <strong>Lauersen et al. (2014)</strong> 근력 운동은 스포츠 부상을 3분의 1 아래로 줄였어요(위험비 0.32, 무작위 시험 25편). 스트레칭은 줄이지 못했어요.
+            <strong>Lauersen et al. (2014)</strong> 여러 종목의 시험 25편을 모아 보니 근력 운동이 스포츠 부상을 3분의 1 아래로 줄였어요(위험비 0.32). 스트레칭은 줄이지 못했어요. 달리기만 따로 본 결과는 아니에요.
             <Ref>Br J Sports Med 48(11):871-7 · <a href="https://pubmed.ncbi.nlm.nih.gov/24100287/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
           </Src>
           <Src n={7}>
