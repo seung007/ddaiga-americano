@@ -49,7 +49,7 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  * 2026-11-18 확정 틀(docs/운영/가이드_틀.md)로 바꾼 글. 롤아웃하면서 한 편씩 넣는다 — 다 넣으면 이 목록을 없애고 전체에 적용한다.
  * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
  */
-const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture", "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet", "intermediate-guide", "it-band", "achilles", "half-marathon-race-day", "marathon-training", "advanced-guide", "get-faster", "carbon-plate"]);
+const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture", "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet", "intermediate-guide", "it-band", "achilles", "half-marathon-race-day", "marathon-training", "advanced-guide", "get-faster", "carbon-plate", "hwang-young-jo"]);
 /**
  * 바꾸는 순서 (2026-11-18 Claude 제안 — hyun 님 확인 전). 앞에서부터 한 편씩 바꾸고 NEW_TEMPLATE 에 넣는다 — 검사가 끝에 「다음」을 알려 준다.
  * 0. 견본에서 정정한 주장(환기역치·OR 7.56·86%)이 그대로 남아 있을 수 있는 글 — 틀보다 정정이 먼저(AGENTS 신뢰 규칙 3)
@@ -81,8 +81,8 @@ const ROLLOUT = [
  * 사람이 없을 때 막힌 글(틀을 바꿔야 함 · 검사가 계속 실패)도 여기에 이유와 함께 넣고 다음 글로 간다. 보류는 끝이 아니다 — 보고에 남긴다.
  */
 const HOLD = new Map([
-  ["hwang-young-jo", "인물 글 — 이야기 글에 질문형 틀을 씌울지 hyun 님이 정하지 않음"],
-  ["kwon-eun-ju", "인물 글 — 위와 같음"],
+  // 2026-11-23 hyun 님 결정 「인물 글 2편도 확정 틀 그대로」(세션 지시서 1절) — hwang-young-jo 는 바꿔서 NEW_TEMPLATE 로 옮겼다
+  ["kwon-eun-ju", "인물 글 — 확정 틀로 바꾸기로 정함(2026-11-23 세션 지시서 1절), 아직 안 바꿈"],
 ]);
 const MUST = ["<KeyPoints", "<TableOfContents", "<Num ", "<OneLine", "<Sources", "<Src n=", "<AuthorNote", "ArticleMeta href", "compact"];
 const BANNED = ["<Evidence", "<Todo", "<Basis", "<Summary", "<References", "<Note>", "<Cite", "분 읽기"];

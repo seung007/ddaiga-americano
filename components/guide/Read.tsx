@@ -273,9 +273,10 @@ export function Cite({ n }: { n: number | number[] }) {
  * ⚠️ 인용 검사기는 「저자 (연도)」 뒤 300자 안의 URL 을 짝짓는다. <Src> 안에서 저자·연도 → 학술지 → 링크 순서로 적고,
  *    긴 설명(<Found>)은 링크 **뒤에** 둔다.
  */
-export function Sources({ children }: { children: React.ReactNode }) {
+export function Sources({ children, records = false }: { children: React.ReactNode; records?: boolean }) {
   // 2026-11-18 사용자 「근거와 출처가 너무 길어. 한두 줄로」 → 「부수적인 거니까 글씨 작게, 한 줄로」.
   // 접힌 상태는 제목·「연구 N편과 대조」·펼치기를 작은 글씨 한 줄로. 편수는 <Src> 개수에서 센다.
+  // 2026-11-23: 출처가 신문 기사·대회 기록인 인물 글은 records — 「연구 N편」이라 쓰면 거짓이다. 기본값은 그대로
   const n = React.Children.toArray(children).length;
   return (
     <section id="refs" aria-label="근거와 출처" className="mt-14 scroll-mt-20 border-t border-gray-200 pt-3">
@@ -283,7 +284,7 @@ export function Sources({ children }: { children: React.ReactNode }) {
         <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
           <span className="flex min-w-0 items-baseline gap-2 whitespace-nowrap">
             <h2 className="text-sm font-bold text-gray-900">근거와 출처</h2>
-            <span className="text-xs text-gray-500">연구 {n}편과 하나씩 대조했어요</span>
+            <span className="text-xs text-gray-500">{records ? <>자료 {n}건과 하나씩 대조했어요</> : <>연구 {n}편과 하나씩 대조했어요</>}</span>
           </span>
           <span className="shrink-0 text-xs text-emerald-800">
             <span className="group-open/src:hidden">펼치기 ›</span>
