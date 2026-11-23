@@ -49,7 +49,7 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  * 2026-11-18 확정 틀(docs/운영/가이드_틀.md)로 바꾼 글. 롤아웃하면서 한 편씩 넣는다 — 다 넣으면 이 목록을 없애고 전체에 적용한다.
  * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
  */
-const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture", "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet", "intermediate-guide", "it-band", "achilles"]);
+const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture", "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet", "intermediate-guide", "it-band", "achilles", "half-marathon-race-day"]);
 /**
  * 바꾸는 순서 (2026-11-18 Claude 제안 — hyun 님 확인 전). 앞에서부터 한 편씩 바꾸고 NEW_TEMPLATE 에 넣는다 — 검사가 끝에 「다음」을 알려 준다.
  * 0. 견본에서 정정한 주장(환기역치·OR 7.56·86%)이 그대로 남아 있을 수 있는 글 — 틀보다 정정이 먼저(AGENTS 신뢰 규칙 3)
@@ -107,6 +107,8 @@ const TERMS = [
   "음의 분할",
   // 2026-11-18 midfoot 를 확정 틀로 바꾸며 더함 — 착지 방식의 이름들이다
   "미드풋", "힐스트라이크", "포어풋", "오버스트라이드",
+  // 2026-11-23 half-marathon-race-day 를 확정 틀로 바꾸며 더함 — 대회 당일 물·음식·페이스 이야기에서 처음 나오는 말이다
+  "카보로딩", "페이스메이커", // 「저나트륨혈증」도 넣으려 했으나 cooldown 글이 풀이 없이 써서 그 글을 고칠 때 넣는다(2026-11-23)
 ];
 const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 function defined(text, idx, term) {

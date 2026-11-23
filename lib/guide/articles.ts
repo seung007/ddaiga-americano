@@ -98,7 +98,7 @@ export const ARTICLES: GuideArticle[] = [
   { href: "/injury/hwang-young-jo", tag: "황영조", tagColor: "text-yellow-700 bg-yellow-50", title: "황영조 몬주익 금메달, 초보 러너가 배울 점은?", desc: "황영조 선수가 몬주익 언덕에서 금메달을 딴 과정은 기사로 확인해 적었고, 선수 시절의 고통을 초보 러너가 따라 하지 않아도 된다는 것은 저희 제안으로 나눠 적었습니다.", stages: [], updated: "2026-11-10" },
   { href: "/injury/kwon-eun-ju", tag: "권은주", tagColor: "text-pink-600 bg-pink-50", title: "권은주 선수가 말하는 부상과 쉬는 법", desc: "한국 여자 마라톤 기록을 오래 지킨 권은주 선수의 부상 경험과 쉬는 법을 기사로 확인했습니다. 여성 러너용 근력 운동은 저희 제안으로 따로 적었습니다.", stages: [], updated: "2026-11-10" },
   { href: "/injury/first-10k", tag: "첫 대회", tagColor: "text-emerald-600 bg-emerald-50", title: "첫 10km 대회, 준비 기간과 페이스는?", desc: "지금 뛰는 거리에서 준비 기간을 몇 주 잡을지, 가장 긴 날은 어디까지 늘릴지, 대회 당일 출발을 얼마나 천천히 할지 담았습니다.", stages: ["to10k"], updated: "2026-11-18" },
-  { href: "/injury/half-marathon-race-day", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 당일, 페이스와 젤은 어떻게 하나요?", desc: "하프 대회 날 페이스는 어떻게 잡고 젤과 물은 얼마나 챙길지, 전날 음식과 복장까지 연구로 확인한 것과 직접 경험을 나눠 적었습니다.", stages: ["to-half", "to-full"], updated: "2026-11-10" },
+  { href: "/injury/half-marathon-race-day", tag: "대회 실전", tagColor: "text-emerald-700 bg-emerald-50", title: "하프마라톤 당일, 페이스와 젤은 어떻게 하나요?", desc: "하프 대회 날 물은 목마를 때 마시고, 음식과 젤은 연습 때 먹어 본 것만 씁니다. 처음 5km 페이스, 쓸리는 자리, 결승선을 지난 뒤 할 일까지 담았습니다.", stages: ["to-half", "to-full"], updated: "2026-11-23" },
 ];
 
 /**
