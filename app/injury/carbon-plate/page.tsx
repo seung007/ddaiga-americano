@@ -2,15 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SHOES } from "@/lib/shoes/data";
 import FinderCta from "@/components/FinderCta";
-import InlineAsk from "@/components/InlineAsk";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
-import ShareButtons from "@/components/ShareButtons";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, Summary, References, Basis, Note } from "@/components/guide/Read";
+import { Lead, P, H2, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
 /**
@@ -47,17 +44,41 @@ import { pageUrl } from "@/lib/site";
  *   FAQ 의 「밑창이 단단하고 불안정해 발목·아킬레스에 부담」은 근거를 찾지 못해 뺐다. 판정 전체: docs/판정/carbon-plate.jsonl
  *   위 「Hoogkamer 는 14·16·18km/h 만」 경계는 그대로 맞다 — 그 논문 하나로 느린 속도를 말하지 않는다는 뜻이다.
  *
- * 2026-10-13 가독성 재설계 — 「먼저 결론」 → <Summary>, 참고 문헌은 맨 끝 기본 접힘.
+ * 2026-10-13 가독성 재설계 — 「먼저 결론」 → 요약 상자, 참고 문헌은 맨 끝 기본 접힘.
  *   「4:17/km 보다 느린 속도는 시험하지 않았다 — 효과가 없다는 게 아니라 확인이 안 됐다」가 이 글의 결론이라
  *   접지 않는다(Lead·Summary·본문에 그대로). 「말한 것/말하지 않은 것」 박스와 가격 목록도 그대로.
+ *   (2026-11-23 이후로는 결론이 아니다 — 위 11-23 줄과 아래 확정 틀 줄)
+ *
+ * 2026-11-23 확정 틀로 바꿈 (docs/운영/가이드_틀.md, 견본 app/injury/start-running/page.tsx)
+ *   판정은 docs/판정/carbon-plate.jsonl 그대로 — 새로 읽은 논문 없음, 새 주장 없음. 이번 일은 틀과 말투다.
+ *
+ *   틀 — 옛 부품(한눈에 상자 · 근거 수준 딱지 · 글 끝 문헌 목록 · 「말한 것/말하지 않은 것」 두 상자 · 회색 출처 줄 ·
+ *     추천 공개 상자 · 부상 단서 상자)을 걷어냈다. (옛 부품 이름을 주석에 적으면 check:geo 가 글에 남은 것으로 세므로 풀어서 적는다.)
+ *     큰 질문 4개, id(evidence·pace·how·shoe-list)는 그대로 — 이 글의 앵커를 거는 곳은 없다(grep 2026-11-23).
+ *     · 두 상자와 4:17/km 설명 → 1절은 「4% 는 기록이 아니라 에너지」 두 문장 + 단서 한 줄(시제품과 예전 신발).
+ *       「4:17/km 보다 빠른 속도에서만」은 FAQ 첫 문항(1km 4분 17초 = 60/14 계산), 「판과 폼을 나누지 않음」은 FAQ 둘째 문항.
+ *     · 브랜드 에너지 반환율 안내 → FAQ 셋째 문항(풀이 한 문장을 붙임).
+ *     · 「저희 추천은 카본화를 이렇게 다룹니다」 상자 → FAQ 넷째 문항(점수 안 깎음 · 일상 달리기면 뒤로 · 처음이면 결과 화면 안내).
+ *       옛 FAQ 「저희는 카본화를 추천하나요?」와 같은 내용이라 하나로 합쳤다.
+ *     · 「카본화 신으면 다치지 않을까요?」 상자와 옛 FAQ 「초보가 카본화를 신으면 위험한가요?」 → 3절 본문(같은 내용을 두 곳에 두지 않는다).
+ *     · 「신어 보고 편한 것」(Bolliger 편안함) → 4절(고르는 절)로 옮겨 3절은 연구 언급 한 번(Bruneau)만.
+ *     · 글 끝 질문 상자 · 공유 단추 · 두 번째 신발 찾기 단추를 뺐다 — 다른 확정 틀 글과 같게 신발 찾기는 4절 안에 하나.
+ *   말투 — 「~니다」 → 「~요」. 「저희가 확인한」「현행(후속 미출시)」「데일리화」 → 쉬운 말. 「드롭」은 목록 앞에서 풀이.
+ *     말의 세기: Hoogkamer·Bolliger 두 편이 같은 방향 → 「힘이 덜 드는 편」, Bruneau 한 편 → 「~는 시험이 있어요」,
+ *     쿠션화·조금씩은 사이트가 정한 안내 → 「권해요」.
+ *   본문에서 내린 것 — 연구 인원·대상(Bolliger 14명, Bruneau 엘리트 23명, Hoogkamer 18명)과 속도 숫자(시속 14·16·18km)는 출처에만.
+ *   다른 곳 — lib/shoes/recommend.ts · app/shoes/[id] · app/tier-list 는 손대지 않았고 같은 말을 쓴다.
  */
 
 const PAGE_URL = pageUrl("/injury/carbon-plate");
+const TITLE = "카본화, 초보가 느리게 뛰어도 효과 있나요?";
+// 원장 lib/guide/articles.ts 의 desc 와 같은 문장이어야 한다(허브 카드·검색 결과가 어긋나지 않게)
+const DESC =
+  "1km 8분~5분으로 천천히 달려도 카본화가 힘이 덜 들었다는 시험이 있습니다. 처음이라면 어떻게 섞어 쓰면 좋은지, 지금 가격은 얼마인지 근거와 함께 봅니다.";
 
 export const metadata: Metadata = {
-  title: "카본화, 초보가 느리게 뛰어도 효과 있나요? | 뛰다가 아메리카노",
-  description:
-    "1km 8분~5분으로 천천히 달려도 카본화가 힘이 덜 들었다는 시험이 있습니다. 처음이라면 어떻게 섞어 쓰면 좋은지, 지금 가격은 얼마인지 근거와 함께 봅니다.",
+  title: `${TITLE} | 뛰다가 아메리카노`,
+  description: DESC,
   alternates: { canonical: "/injury/carbon-plate" },
 };
 
@@ -73,35 +94,42 @@ const NOW_MIN = Math.min(...CARBON_NOW.map((s) => s.priceKrw));
 const NOW_MAX = Math.max(...CARBON_NOW.map((s) => s.priceKrw));
 const CARBON_W = avg(CARBON_NOW.map((s) => s.weightGramsM9));
 const NORMAL_W = avg(NON_CARBON.map((s) => s.weightGramsM9));
+// 본문에 넣는 값은 소문자 이름으로 — check:geo 가 화면 글자 조각 속 대문자 2~5자(NOW·MIN)를 약어로 읽는다.
+// 비교식의 「<」도 조각을 끊어 뒤 문장(드롭 풀이)을 못 읽게 하므로 밖에서 계산한다.
+const nowCount = CARBON_NOW.length;
+const oldCount = CARBON.length - CARBON_NOW.length;
+const priceFrom = won(NOW_MIN);
+const priceTo = won(NOW_MAX);
+const carbonG = CARBON_W.toFixed(0);
+const normalG = NORMAL_W.toFixed(0);
+const weightWord = CARBON_W < NORMAL_W ? "가벼워요." : "무거워요.";
 
+// FAQ 는 본문 큰 질문과 겹치지 않는 곁가지만 둔다. 전문어는 문항마다 다시 풀이한다(check:geo 가 본다)
 const FAQ: FaqItem[] = [
   {
-    q: "카본화를 신으면 정말 빨라지나요?",
-    a: "시험한 신발이 대사 에너지 비용을 약 4% 낮췄다는 연구가 가장 많이 인용됩니다(Hoogkamer 2018, Sports Medicine). 다만 4%는 기록이 4% 빨라진다는 뜻이 아닙니다. 같은 속도로 달릴 때 드는 에너지가 적었다는 뜻입니다. 그 연구는 14, 16, 18km/h 세 속도에서만 측정했습니다. 카본 플레이트 단독 효과를 중창 폼과 분리하지도 않았습니다.",
+    q: "카본화 4% 효과는 어느 속도에서 잰 건가요?",
+    a: "**1km 4분 17초와 그보다 빠른 속도**에서만 잰 값이에요. 4%는 기록이 아니라 같은 속도에서 드는 에너지가 줄어든 정도예요. 더 느린 1km 8분~5분 속도는 다른 시험이 쟀고, 거기서도 **힘이 덜 드는 편**이었어요.",
   },
   {
-    q: "느리게 뛰어도 효과가 있나요?",
-    a: "힘이 덜 드는 편이었습니다. 1km를 8분에서 5분 사이로 달리는 속도에서도 카본 대회화가 일반 신발보다 산소를 덜 썼고, 그 차이는 속도와 관계없었습니다(Bolliger 2026). 가장 많이 인용되는 Hoogkamer 2018 연구는 약 4:17/km보다 느린 속도를 시험하지 않았습니다.",
+    q: "카본화는 탄소 판 덕분에 힘이 덜 드나요?",
+    a: "어느 쪽 덕분인지는 나뉘지 않았어요. 가장 많이 인용되는 시험은 **탄소 판과 밑창 소재의 효과를 따로 재지 않았어요.** 신발 전체를 비교한 결과예요.",
   },
   {
-    q: "초보가 카본화를 신으면 위험한가요?",
-    a: `위험하다고 단정할 근거는 부족합니다. 다만 카본화에서 뼈에 부담이 가는 움직임이 조금 늘었다는 시험이 있습니다(Bruneau 2026). 그래서 평소에는 쿠션화로 달리고, 카본화는 빠르게 달리는 날에 조금씩 섞어 쓰기를 권합니다. 현행 카본화는 ${won(NOW_MIN)}부터입니다.`,
+    q: "에너지 반환율 85%, 믿어도 되나요?",
+    a: "에너지 반환율은 밑창이 눌릴 때 받은 힘을 얼마나 되돌려 주는지 나타낸 숫자예요. 85%나 87% 같은 값은 **브랜드가 발표한 값**이고 논문 수치가 아니에요. 브랜드마다 재는 방법이 달라 **서로 비교할 수도 없어요.**",
   },
   {
-    q: "저희는 카본화를 추천하나요?",
-    a: `입문자라고 카본화 점수를 깎지 않습니다. 용도를 대회나 빠른 훈련으로 고르면 후보에 오르고, 일상 달리기로 고르면 뒤로 갑니다. 저희가 스펙을 확인한 카본화는 ${CARBON.length}개이고 그중 후속이 안 나온 현행 모델은 ${CARBON_NOW.length}개입니다.`,
+    q: "맞춤 추천은 입문자에게 카본화를 빼나요?",
+    a: "빼지 않아요. 입문자라고 **카본화 점수를 깎지 않아요.** 용도를 **대회나 빠른 훈련**으로 고르면 후보에 오르고, 일상 달리기로 고르면 뒤로 가요. 처음 달리는 분께는 결과 화면에서 쿠션화와 섞어 쓰는 법을 함께 안내해요.",
   },
 ];
+
+const pill = "rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400";
 
 export default function CarbonPlatePage() {
   return (
     <>
-      <ArticleJsonLd
-        headline="카본화, 초보가 느리게 뛰어도 효과 있나요?"
-        description="1km 8분~5분으로 천천히 달려도 카본화가 힘이 덜 들었다는 시험이 있습니다. 처음이라면 어떻게 섞어 쓰면 좋은지, 지금 가격은 얼마인지 근거와 함께 봅니다."
-        url={PAGE_URL}
-        datePublished="2026-09-08"
-      />
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} datePublished="2026-09-08" />
       <ShoeJsonLd shoes={CARBON} name="카본 플레이트 러닝화" url={PAGE_URL} />
       <BreadcrumbJsonLd
         trail={[
@@ -118,133 +146,91 @@ export default function CarbonPlatePage() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-600">카본화</span>
         </div>
-        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">카본화, 초보가 느리게 뛰어도 효과 있나요?</h1>
-        <ArticleMeta href="/injury/carbon-plate" />
-        <Lead>
-          천천히 뛰는데 카본화가 도움이 될지 고민이라면, <strong>힘은 덜 들 수 있습니다.</strong> 다만 처음이라면{" "}
-          <strong>평소에는 쿠션화로 달리고, 카본화는 빠르게 달리는 날에 조금씩</strong> 섞어 쓰는 편이 좋습니다.
-        </Lead>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/carbon-plate" compact checked={3} />
 
-        <Summary
+        <KeyPoints
           items={[
-            <>
-              1km 8분~5분으로 천천히 달려도 카본화가 <strong>산소를 덜 썼다</strong>는 시험이 있습니다. 기록이 빨라진다는 뜻은
-              아닙니다.
-              <Basis kind="paper" />
-            </>,
-            <>
-              카본화에서 <strong>뼈에 부담이 가는 움직임이 조금 늘었다</strong>는 시험도 있습니다. 처음이라면 빠른 날에 조금씩
-              섞어 쓰기를 권합니다.
-              <Basis kind="paper" />
-            </>,
-            <>
-              지금 살 수 있는 현행 카본화는 <strong>{won(NOW_MIN)} ~ {won(NOW_MAX)}</strong>입니다.
-              <Basis kind="rule" />
-            </>,
+            <>천천히 달려도 카본화를 신으면 <strong>힘이 덜 드는 편</strong>이었어요. 기록이 그만큼 빨라진다는 뜻은 아니에요.</>,
+            <>처음이라면 <strong>평소엔 쿠션화로 달리고</strong>, 카본화는 빠르게 달리는 날에 조금씩 섞어 신기를 권해요.</>,
+            <>여러 켤레 중에서 고를 때는 <strong>신어 보고 편한 것</strong>으로 골라 보세요.</>,
           ]}
         />
+
+        <Lead>
+          카본화는 밑창에 탄소 판이 든 신발이에요. 천천히 뛰는데 카본화가 도움이 될지 고민이라면,{" "}
+          <strong>힘은 덜 들 수 있어요.</strong> 다만 처음부터 카본화만 신기보다는 쿠션화와 나눠 신는 편이 좋아요.
+        </Lead>
 
         <TableOfContents
           items={[
             { id: "evidence", label: "카본화 신으면 빨라지나요?" },
             { id: "pace", label: "천천히 뛰어도 힘이 덜 드나요?" },
-            { id: "how", label: "처음이라면 어떻게 쓰면 좋나요?" },
-            { id: "shoe-list", label: `카본화 ${CARBON.length}개, 얼마인가요?` },
+            { id: "how", label: "처음이라면 어떻게 신나요?" },
+            { id: "shoe-list", label: "얼마고, 어떻게 고르나요?" },
           ]}
         />
 
-        {/* ── ① 논문이 말한 것 / 말하지 않은 것 ───────────────── */}
+        {/* ── 1 ─────────────────────────────────────────── */}
         <h2 id="evidence" className={H2}>
-          카본화 신으면 정말 빨라지나요?
+          <Num n={1} />카본화 신으면 정말 빨라지나요?
         </h2>
         <P>
-          가장 많이 인용되는 연구에서 시험한 신발은 <strong>에너지를 약 4% 덜 쓰게 했습니다.</strong> 기록이 4% 빨라진다는 뜻은
-          아닙니다.
+          같은 속도로 달릴 때 <strong>힘이 덜 드는 편이지만, 기록이 그만큼 빨라진다고 확인된 건 아니에요.</strong>
         </P>
         <P>
-          그 연구는 <strong>약 4:17/km보다 느린 속도를 시험하지 않았습니다.</strong> 더 느린 속도는 다음 절의 시험이 쟀습니다.
+          흔히 말하는 4%는 시험한 신발이 같은 속도에서 드는 에너지를 약 4% 줄였다는 뜻이에요.{" "}
+          <strong>기록이 4% 빨라진다는 뜻이 아니에요.</strong>
         </P>
-        <p className="mt-2 text-sm text-gray-500">
-          <S>(Hoogkamer et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/29143929/" />)</S> Sports Medicine 48:1009-1019
-        </p>
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-            <p className="text-sm font-bold text-emerald-900">말한 것</p>
-            <ul className="mt-2 space-y-2 break-keep text-base leading-relaxed text-emerald-900">
-              <li>· 시험한 신발이 <strong>대사 에너지 비용을 약 4% 낮췄다</strong></li>
-              <li>· 측정 속도는 <strong>14, 16, 18 km/h</strong></li>
-            </ul>
-          </div>
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-            <p className="text-sm font-bold text-amber-900">말하지 않은 것</p>
-            <ul className="mt-2 space-y-2 break-keep text-base leading-relaxed text-amber-900">
-              <li>· <strong>4:17/km보다 느린 속도</strong>는 시험 자체를 안 했다</li>
-              <li>· <strong>기록이 4% 빨라진다</strong>고 하지 않았다. 잰 것은 에너지 비용이다</li>
-              <li>· <strong>플레이트 덕분이다</strong>라고 하지 않았다. 중창 폼과 분리하지 않았다</li>
-              <li>· <strong>지금 파는 모델</strong>은 시험하지 않았다. 시험한 건 프로토타입과 구형 두 켤레다</li>
-            </ul>
-          </div>
-        </div>
+        <Caveat>그 시험은 지금 파는 모델이 아니라 시제품과 예전 신발 두 켤레를 비교했어요.</Caveat>
 
-        <div className="mt-5 break-keep rounded-xl border border-gray-200 bg-gray-50 p-4 text-base leading-relaxed text-gray-700">
-          <strong className="text-gray-900">에너지 반환율 85%나 87% 같은 숫자는</strong> 브랜드가
-          발표한 값이지 논문 수치가 아닙니다. 브랜드마다 측정 방법이 달라 서로 비교할 수도 없습니다.
-        </div>
+        <OneLine>카본화는 힘을 덜 쓰게 돕는 신발이지, 기록을 정해 주는 신발은 아니에요.</OneLine>
 
-        {/* ── ② 천천히 뛰어도 힘이 덜 드나 (2026-11-23 Bolliger 2026) ─────────── */}
+        {/* ── 2 ─────────────────────────────────────────── */}
         <h2 id="pace" className={H2}>
-          천천히 뛰어도 카본화가 힘이 덜 드나요?
+          <Num n={2} />천천히 뛰어도 카본화가 힘이 덜 드나요?
         </h2>
         <P>
-          덜 드는 편이었습니다. <strong>1km를 8분에서 5분 사이</strong>로 달리는 속도에서도 카본 대회화가 일반 신발보다 산소를
-          덜 썼고, 그 차이는 속도와 관계없었습니다.
+          덜 드는 편이었어요. <strong>1km를 8분에서 5분 사이</strong>로 달리는 속도에서도 카본화가 일반 러닝화보다 산소를 덜
+          썼고, 그 차이는 속도와 관계없었어요.
         </P>
-        <P>
-          다만 시험한 카본화는 한 모델이었고, 이 사이트에 있는 모델을 직접 시험한 것은 아닙니다. 기록이 얼마나 빨라지는지도
-          재지 않았습니다.
-        </P>
-        <p className="mt-2 text-sm text-gray-500">
-          <S>(Bolliger et al. (2026) <Up h="https://pubmed.ncbi.nlm.nih.gov/41703164/" />)</S> Sports Medicine - Open 12:12
-        </p>
+        <Caveat>시험한 카본화는 한 모델이었고, 이 사이트에 있는 모델은 아니에요. 기록이 얼마나 빨라지는지도 재지 않았어요.</Caveat>
 
-        {/* ── ③ 처음이라면 어떻게 (2026-11-23 Bruneau 2026 · 추천기 안내와 같은 판정) ─────────── */}
+        <OneLine>천천히 달려도 카본화는 힘이 덜 드는 편이었어요.</OneLine>
+
+        {/* ── 3 ─────────────────────────────────────────── */}
         <h2 id="how" className={H2}>
-          처음이라면 카본화를 어떻게 쓰면 좋나요?
+          <Num n={3} />처음이라면 카본화를 어떻게 쓰면 좋나요?
         </h2>
         <P>
-          <strong>평소에는 쿠션화로 달리고, 카본화는 대회나 빠르게 달리는 날에 조금씩</strong> 섞어 쓰기를 권합니다.
+          <strong>평소에는 쿠션화로 달리고, 카본화는 대회나 빠르게 달리는 날에 조금씩</strong> 섞어 쓰기를 권해요.
         </P>
-        <P>
-          카본화에서 뼈 피로 부상과 관련된 움직임 몇 가지가 조금 늘었다는 시험이 있습니다. 부상 수를 센 연구는 아니고, 늘어난
-          폭도 작았습니다.
-        </P>
-        <p className="mt-2 text-sm text-gray-500">
-          <S>(Bruneau et al. (2026) <Up h="https://doi.org/10.1002/pmrj.70153" />)</S>{" "}PM&amp;R
-        </p>
-        <P>
-          고를 때는 <strong>신어 보고 편한 것</strong>을 고르세요. 앞의 시험에서도 사람들이 신발을 고를 때 편안함이 더 크게
-          작용했습니다.
-        </P>
-        <P>
-          지금 내가 어느 단계인지 모르겠다면{" "}
-          <Link href="/tier-list" className="font-medium text-emerald-600 hover:underline">
-            러닝화 계급도
-          </Link>
-          에서 칸별로 &ldquo;이런 사람에게&rdquo;를 적어 뒀습니다. 카본화는 마지막 칸입니다.
-        </P>
-        <FinderCta
-          from="carbon-plate"
-          variant="inline"
-          headline="지금 내 수준에 맞는 신발이 뭔지 모르겠다면 조건을 넣어보세요."
+        <Steps
+          items={[
+            { t: "평소 달리기는 쿠션화로 해요." },
+            { t: "카본화는 대회나 빠르게 달리는 날에 신어요.", d: "처음 신을 땐 짧은 거리부터 늘려 가요." },
+          ]}
         />
+        <P>
+          카본화가 부상을 늘리는지 줄이는지는 아직 근거가 부족해요. 다만 카본화에서 뼈에 부담이 가는 움직임이 조금 늘었다는
+          시험이 있어요. 부상 수를 센 시험은 아니고, 늘어난 폭도 작았어요.
+        </P>
 
-        {/* ── ③ 실제 가격 ────────────────────────────────────── */}
+        <OneLine>평소엔 쿠션화로 달리고, 카본화는 빠르게 달리는 날에 조금씩 신어요.</OneLine>
+
+        {/* ── 4 ─────────────────────────────────────────── */}
         <h2 id="shoe-list" className={H2}>
-          저희가 확인한 카본화 {CARBON.length}개, 얼마인가요?
+          <Num n={4} />카본화는 얼마고, 어떻게 고르나요?
         </h2>
         <P>
-          현행(후속 미출시) {CARBON_NOW.length}개는 <strong>{won(NOW_MIN)}부터</strong>입니다. 평균 무게는 {CARBON_W.toFixed(0)}g 으로
-          일반 데일리화 {NORMAL_W.toFixed(0)}g 보다 가볍습니다.
+          후속 모델이 아직 안 나온 카본화 {nowCount}개는 <strong>{priceFrom}부터</strong> {priceTo}까지예요.
+          고를 때는 <strong>신어 보고 편한 것</strong>으로 골라 보세요.
+        </P>
+        <P>
+          천천히 달리는 속도를 잰 시험에서도 사람들이 신발을 고를 때는 편안함이 더 크게 작용했어요.
+        </P>
+        <P>
+          카본화 평균 무게는 {carbonG}g으로, 카본 판이 없는 러닝화 평균 {normalG}g보다 {weightWord} 목록의 드롭은 뒤꿈치와 앞꿈치의 밑창 높이 차이예요.
         </P>
         <ul className="mt-4 space-y-1.5">
           {CARBON_NOW.sort((a, b) => a.priceKrw - b.priceKrw).map((s) => (
@@ -261,7 +247,7 @@ export default function CarbonPlatePage() {
         {CARBON.length > CARBON_NOW.length && (
           <details className="mt-3">
             <summary className="cursor-pointer text-xs text-gray-500">
-              후속 모델이 나온 {CARBON.length - CARBON_NOW.length}개도 보기(보통 재고 할인이 붙습니다)
+              후속 모델이 나온 {oldCount}개도 보기(보통 재고 할인이 붙어요)
             </summary>
             <ul className="mt-2 space-y-1.5">
               {CARBON.filter((s) => s.successor)
@@ -277,89 +263,37 @@ export default function CarbonPlatePage() {
             </ul>
           </details>
         )}
-
-        {/* ── 추천 로직이 무엇을 하는지 공개 ────────────────── */}
-        <div className="mt-8 rounded-2xl border border-gray-200 p-5">
-          <p className="font-bold text-gray-900">
-            저희 추천은 카본화를 이렇게 다룹니다
-          </p>
-          {/* 2026-11-23: 「입문자 프로필에서는 카본화 점수를 깎습니다」 → 감점 0(recommend.ts 7번 블록, Bolliger 2026).
-              「시험(14명)」「해롭다는 시험은 찾지 못했다」는 Bruneau 2026 을 읽고 추천기 안내와 같은 문장으로 바꿨다. */}
-          <p className="mt-2 break-keep text-base leading-relaxed text-gray-700">
-            입문자라고 카본화 점수를 <strong>깎지 않습니다.</strong> 대신 처음 달리는 분께는 결과 화면에서 「평소에는 쿠션화로 달리고,
-            카본화는 빠르게 달리는 날에 조금씩」을 함께 안내합니다. 용도를 「일상 달리기」로 고르면 대회 전용 신발은 뒤로 갑니다.
-          </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link href="/tier-list" className={pill}>내 단계에 맞는 신발 칸이 궁금하다면 →</Link>
         </div>
+        <FinderCta
+          from="carbon-plate"
+          variant="inline"
+          headline="지금 내 수준에 맞는 신발이 뭔지 모르겠다면 조건을 넣어 보세요."
+        />
 
-        <div className="mt-8 break-keep rounded-xl border border-amber-100 bg-amber-50 p-4 text-base leading-relaxed text-amber-900">
-          <strong>카본화 신으면 다치지 않을까요?</strong> 카본화가 부상을 늘린다는 근거도, 줄인다는 근거도 충분하지 않습니다. 다만 뼈에
-          부담이 가는 움직임이 조금 늘었다는 시험이 있습니다. 처음 신는다면 짧은 거리부터 늘려가세요. 통증이 지속되면 전문의와 상담하세요.
-        </div>
+        <OneLine>값과 무게를 본 뒤에는, 신어 보고 편한 카본화를 골라요.</OneLine>
 
         <div className="mt-14">
           <FaqSection items={FAQ} />
         </div>
 
-        <References n={3}>
-          <ul>
-            <li>
-              <strong>Hoogkamer et al. (2018)</strong> — 마라톤 레이싱화의 러닝 에너지 비용 비교.
-              Sports Medicine 48(4):1009-1019.{" "}
-              <a
-                href="https://pubmed.ncbi.nlm.nih.gov/29143929/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-emerald-600 underline"
-              >
-                PubMed →
-              </a>
-            </li>
-            <li>
-              <strong>Bolliger et al. (2026)</strong> — 1km 8분~5분 속도에서도 카본 대회화가 일반 신발보다 산소를 덜 씀. 차이는 속도와 관계없음.
-              Sports Medicine - Open 12(1):12.{" "}
-              <a
-                href="https://pubmed.ncbi.nlm.nih.gov/41703164/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-emerald-600 underline"
-              >
-                PubMed →
-              </a>
-            </li>
-            <li>
-              <strong>Bruneau et al. (2026)</strong> — 카본 대회화에서 뼈 피로 부상과 관련된 움직임 몇 가지가 조금 늘어남. 부상 수를 센 연구는 아님.
-              PM&amp;R.{" "}
-              <a
-                href="https://doi.org/10.1002/pmrj.70153"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-emerald-600 underline"
-              >
-                DOI →
-              </a>
-            </li>
-          </ul>
-        </References>
-
-        <div className="mt-10">
-          <InlineAsk from="carbon-plate" tag="카본화" />
-        </div>
-
-        <div className="mt-10">
-          <ShareButtons
-            title="카본화, 초보가 느리게 뛰어도 효과 있나요?"
-            description="1km 8분~5분으로 천천히 달려도 카본화가 힘이 덜 들었다는 시험이 있습니다. 처음이라면 어떻게 섞어 쓰면 좋은지, 지금 가격은 얼마인지 근거와 함께 봅니다."
-            from="carbon-plate"
-          />
-        </div>
-
-        <div className="mt-10">
-          <FinderCta
-            from="carbon-plate"
-            headline="지금 수준에 맞는 신발부터 보시는 게 낫습니다"
-            sub="발볼과 발 모양, 용도를 넣으면 4켤레를 골라 드려요."
-          />
-        </div>
+        <Sources>
+          <Src n={1}>
+            <strong>Hoogkamer et al. (2018)</strong> 러너 18명이 시속 14·16·18km(1km 약 4분 17초·3분 45초·3분 20초)에서 달린 시험이에요. 시제품 신발이 Zoom Streak 6·Adios Boost 2보다 같은 속도의 에너지 비용을 평균 4% 낮췄어요. 기록은 재지 않았고, 탄소 판과 밑창 소재의 효과를 나누지 않았어요.
+            <Ref>Sports Med 48(4):1009-1019 · <a href="https://pubmed.ncbi.nlm.nih.gov/29143929/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Bolliger et al. (2026)</strong> 14명(남 6·여 8)이 시속 7.5~12km(1km 8분~5분)에서 달린 시험이에요. 카본 대회화(On Cloudboom Echo 3)가 일반 러닝화보다 산소 비용이 낮았고 속도에 따라 달라지지 않았어요. 신발 선호는 편안함이 더 크게 좌우했어요.
+            <Ref>Sports Med Open 12(1):12 · <a href="https://pubmed.ncbi.nlm.nih.gov/41703164/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Bruneau et al. (2026)</strong> 엘리트 러너 23명이 카본 대회화로 달릴 때 뼈 피로 부상과 관련된 움직임 몇 가지가 조금 늘었어요. 변화는 작았고, 부상 수를 센 연구는 아니에요.
+            <Ref>PM&amp;R · <a href="https://doi.org/10.1002/pmrj.70153" target="_blank" rel="noopener noreferrer">DOI</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>
