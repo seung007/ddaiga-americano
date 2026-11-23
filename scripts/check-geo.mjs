@@ -291,8 +291,10 @@ if (existsSync(blogDir)) {
   const finder = readFileSync(path.join(ROOT, "app/shoe-finder/page.tsx"), "utf8");
   screens.push(["app/shoe-finder/page.tsx: ", readable(finder.slice(Math.max(0, finder.indexOf("return ("))))]);
   const rec = readFileSync(path.join(ROOT, "lib/shoes/recommend.ts"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/[^\n]*/g, "");
-  const recText = [...rec.matchAll(/(?:reasons|lines)\.push\((["`])([\s\S]*?)\1\)|return "([^"]+)";|genderFitNote = "([^"]+)"|Note: `([^`]+)`/g)]
-    .map((m) => m[2] ?? m[3] ?? m[4] ?? m[5]).filter((t) => t && /[가-힣]/.test(t)).join("\n");
+  // 2026-11-23: 「내 분석 결과」 문장이 객체 칸(pick·study·text)과 headline·notes 로 옮겨 갔다 — 그 칸도 읽는다(검사가 빈 채로 통과하지 않게)
+  const recText = [...rec.matchAll(/(?:reasons|lines|notes)\.push\((["`])([\s\S]*?)\1\)|return "([^"]+)";|genderFitNote = "([^"]+)"|Note: `([^`]+)`|(?:pick|study|text|headline): (["`])([\s\S]*?)\6|\? `([^`]+)`\s*:\s*`([^`]+)`/g)]
+    .flatMap((m) => [m[2] ?? m[3] ?? m[4] ?? m[5] ?? m[7], m[8], m[9]]).filter((t) => t && /[가-힣]/.test(t)).join("\n");
+  for (const must of ["점수에 넣지 않은", "먼저 골랐어요", "살펴본"]) if (!recText.includes(must) && !finder.includes(must)) errors.push(`lib/shoes/recommend.ts(추천 이유): 「${must}」 문장을 못 읽음 — 검사 정규식을 고칠 것`);
   screens.push(["lib/shoes/recommend.ts(추천 이유): ", recText]);
   const cmp = readFileSync(path.join(ROOT, "components/ShoeCompareSpecs.tsx"), "utf8");
   screens.push(["components/ShoeCompareSpecs.tsx(추천 결과·비교 화면): ", readable(cmp.slice(Math.max(0, cmp.indexOf("return ("))))]);
