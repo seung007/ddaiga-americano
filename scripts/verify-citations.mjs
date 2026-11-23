@@ -129,7 +129,9 @@ const NOT_SURNAMES = new Set([
  * (shin-splints의 Nielsen↔Hamstra-Wright, plantar-fasciitis의 Rathleff↔JOSPT 지침 등).
  * 근거 목록은 `<li>` 하나에 인용 하나씩 들어가므로, **요소 경계를 넘지 않게** 자른다.
  */
-const BOUNDARY_RE = /<li\b|<\/li>|<p\b|<\/p>|<\/strong>\s*<\/li>|\n\s*\n/gi;
+// 2026-11-23: 가이드 출처 부품 <Src>(화면에서는 <li>)도 경계다 — 추천 결과 화면에 <Src> 를 쓰자마자
+// 링크가 **다음 항목의 저자**와 짝지어졌다(Buldt 2018 의 링크 ↔ 다음 줄 Malisoux 2016). 9/3 마크다운 불릿과 같은 버그의 <Src> 판본이다.
+const BOUNDARY_RE = /<li\b|<\/li>|<Src\b|<\/Src>|<p\b|<\/p>|<\/strong>\s*<\/li>|\n\s*\n/gi;
 
 /**
  * 링크를 감싸는 요소의 범위를 구한다.
@@ -162,7 +164,7 @@ function elementSpan(text, linkIndex, isMarkdown = false) {
   if (lastBoundary > 0) start += lastBoundary;
 
   const post = text.slice(linkIndex, Math.min(text.length, linkIndex + CONTEXT_CHARS));
-  const nextBoundary = post.search(/<\/li>|<\/p>|<li\b/i);
+  const nextBoundary = post.search(/<\/li>|<\/p>|<li\b|<\/Src>|<Src\b/);
   const end = nextBoundary === -1 ? linkIndex + CONTEXT_CHARS : linkIndex + nextBoundary;
   return { start, end };
 }

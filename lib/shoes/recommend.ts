@@ -325,8 +325,7 @@ export interface RecommendResult {
   fallbackNote: string;
   /** 내 분석 결과 — 맨 위 한 줄 · 근거가 있는 답의 두 문장 · 안내 · 점수에 넣지 않은 것 (2026-11-23) */
   analysis: Analysis;
-  /** 결과 아래 한 줄과 그 근거 */
-  evidenceNote: Finding;
+
   bodyType: BodyType;
 }
 
@@ -379,7 +378,6 @@ function pickTop(sorted: Scored[], profile: RunnerProfile, limit: number): Score
 
 export function recommendShoes(profile: RunnerProfile, limit = 4): RecommendResult {
   const bodyType = getBodyType(profile.heightCm, profile.weightKg);
-  const evidenceNote = buildEvidenceNote(profile);
 
   // 성별 자격(여성 전용 라스트는 여성에게만) 통과한 후보만 사용
   const scoredAll = RECOMMENDABLE
@@ -401,12 +399,13 @@ export function recommendShoes(profile: RunnerProfile, limit = 4): RecommendResu
   });
 
   // 「살펴본 N켤레」 — 이 사람에게 보여 줄 수 있는 후보(성별·판매 종료·예산을 거른 뒤) 수. 코드가 센다(2026-11-23)
-  const analysisOf = (picked: Recommendation[]) => buildProfileComment(profile, scored.length, picked.map((r) => r.shoe));
+  const everyone = scoredAll.map((x) => x.shoe);
+  const analysisOf = (picked: Recommendation[]) => buildProfileComment(profile, scored.length, picked.map((r) => r.shoe), everyone);
 
   if (pool.length >= 2) {
     const primary = pickTop(pool.sort(byRank), profile, limit)
       .map((s) => toRec(s, false));
-    return { primary, usedFallback: false, fallbackNote: "", analysis: analysisOf(primary), evidenceNote, bodyType };
+    return { primary, usedFallback: false, fallbackNote: "", analysis: analysisOf(primary), bodyType };
   }
 
   // 예산 내 후보가 아예 없으면 — 솔직하게 알리고 예산 초과 근접 모델을 보여줌
@@ -420,7 +419,7 @@ export function recommendShoes(profile: RunnerProfile, limit = 4): RecommendResu
       primary: overBudget,
       usedFallback: true,
       fallbackNote: `${budget.toLocaleString()}원 이하 신발은 아직 없어요. 가장 싼 신발이 약 ${cheapest.toLocaleString()}원이라 그 근처 가격으로 보여 드려요.`,
-      analysis: buildProfileComment(profile, scoredAll.length, overBudget.map((r) => r.shoe)), evidenceNote, bodyType,
+      analysis: buildProfileComment(profile, scoredAll.length, overBudget.map((r) => r.shoe), everyone), bodyType,
     };
   }
 
@@ -433,108 +432,122 @@ export function recommendShoes(profile: RunnerProfile, limit = 4): RecommendResu
   const fallback = pickTop(scored.sort(byRank), profile, limit)
     .map((s) => toRec(s, true));
 
-  return { primary: fallback, usedFallback: true, fallbackNote: note, analysis: analysisOf(fallback), evidenceNote, bodyType };
+  return { primary: fallback, usedFallback: true, fallbackNote: note, analysis: analysisOf(fallback), bodyType };
 }
 
-/** 「무엇을 먼저 골랐는지」(pick) + 「연구가 본 것」(study) 한 쌍. href 는 그 연구의 PubMed 주소 */
-export interface Finding { pick: string; study: string; href: string }
+/** 근거 논문의 열쇠 — 화면의 「근거와 출처」 항목(app/shoe-finder/page.tsx 의 SRC)과 짝이다 */
+export type SrcKey = "buldt2018" | "malisoux2016bjsm" | "ryan2011" | "malisoux2016ajsm" | "malisoux2025" | "bolliger2026" | "bruneau2026" | "alexander2022";
+
+/** 한 줄 — 「골라 드린 것 / 독자가 할 일」(pick)이 먼저, 이유(why)는 뒤에 한 문장. src 는 그 이유의 근거 */
+export interface Finding { pick: string; why?: string; src: SrcKey[]; link?: { href: string; label: string } }
 export interface Analysis {
   headline: string;
   findings: Finding[];
   /** 점수가 아닌 안내(여성판 보기 · 지금 아프면 진료) */
   notes: string[];
-  /** 접힌 줄 「점수에 넣지 않은 것」 — 시험 결과가 반대였던 것만 */
-  notCounted: { text: string; href: string }[];
+  /** 마지막 한 줄 — 신어 보고 고르기 */
+  closing: Finding;
+  /** 접힌 줄 「알아 두면 고르기 쉬워요」 */
+  tips: Finding[];
+  /** 이 화면에 나온 문장들의 근거 — 나온 순서대로, 겹치지 않게 */
+  sources: SrcKey[];
 }
 
-const PUBMED = (pmid: string) => `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`;
-
 /*
- * 내 분석 결과 (2026-11-23 hyun 님 결정 — 「후킹이 너무 약하다. 오 여기서 보면 나에게 더 잘 맞는 러닝화를 찾을 수 있겠다를 느끼게」)
- *
- * 1. 맨 위 한 줄은 항상 — 고른 답과 「살펴본 N켤레 중 M켤레」. 숫자는 코드가 센다
- * 2. 점수에 근거가 있는 답(넓은 발볼 · 평발 · 달려 온 기간)만 두 문장 — 무엇을 먼저 골랐는지 + 연구가 본 것.
- *    저자 이름·위험비를 쓰지 않고 인원과 결과만. 연구 대상이 러너가 아니면 러너라고 쓰지 않는다. 하위 집단 분석은 「~한 편」까지만.
- *    숫자는 PR #26 본문 점수 표에 있는 것만(372명 · 553명 · 63~72% · 6mm 이하 · 8mm 이상)
- * 3. 0점이 된 점수는 이유로 쓰지 않는다. 접힌 줄 「점수에 넣지 않은 것」에 시험 결과가 반대였던 것만(발 모양 맞춤 · 입문자 카본화 · 무릎 이력)
- * 각 연구의 초록 확인 내용은 scoreShoe 의 3·3c·5·7·9번 주석.
- * (11-10 「연구 이름·수치를 뺀다」는 결정을 이 결정이 바꿨다 — 저자 이름은 여전히 쓰지 않는다)
+ * 내 분석 결과
+ * 2026-11-23 ① hyun 님 「후킹이 너무 약하다」 → 고른 답 · 켤레 수 · 연구가 본 것
+ * 2026-11-23 ② hyun 님 「신발을 고르는데 흥미가 떨어지게 하는 게 아니라 도움을 줄 수 있게」 + 가이드 글 규칙 적용:
+ *   · 문장은 「골라 드린 것 / 독자가 할 일」로 시작하고 이유는 뒤에 한 문장(가이드_틀 「할 일이 먼저, 이유는 뒤」)
+ *   · 연구 대상·인원은 본문에 쓰지 않고 접힌 「근거와 출처」에만(가이드_틀 「본문의 주어는 연구가 아니라 독자가 할 일」).
+ *     그래서 「372명」「553명」「14명 시험」「군인」이 문장에서 빠졌다
+ *   · 빼는 말을 같은 결과의 좋은 쪽으로: 「굽 차이가 작은 신발에서 부상이 많은 편」(꾸준히 뛰는 사람 HR 1.67) → 「큰 신발에서 적은 편」
+ *   · 근거 한 편짜리는 「~한 편이었어요」까지만(가이드_틀 「근거의 무게는 말의 세기가 진다」)
+ *   · 「먼저 골랐어요」 뒤 켤레 수는 실제로 고른 신발을 센다(11-23 실측: 평발 입력 576개 중 446개에서 안정화가 0켤레였다)
+ * 판정 기록: docs/판정/추천기.jsonl
  */
-/*
- * pick 은 실제로 고른 신발을 센다(2026-11-23 실측: 평발 입력에서 빠른 훈련·대회용은 안정화 신발이 0켤레라
- * 「안정화를 먼저 골랐어요」가 거짓이 됐다). 몇 켤레가 맞는지 코드가 세고, 0켤레면 찾았지만 없었다고 쓴다.
- */
-const of = (k: number, n: number) => `(${n}켤레 중 ${k}켤레)`;
-const FINDINGS = {
-  wide: (k: number, n: number): Finding => ({
-    pick: k > 0
-      ? `발볼이 넓어서 앞쪽이 넉넉한 신발을 먼저 골랐어요${of(k, n)}.`
-      : `발볼이 넓어서 앞쪽이 넉넉한 신발을 찾았지만, 고르신 조건에 맞는 신발 중에는 없었어요.`,
-    // Buldt & Menz 2018 J Foot Ankle Res — 체계적 검색. 일반 인구 연구라 「러너」라고 쓰지 않는다
-    study: "여러 연구를 모아 보니 63~72%가 발 폭이나 길이에 안 맞는 신발을 신었고, 안 맞는 신발은 발 통증과 관련이 있었어요.",
-    href: PUBMED("30065787"),
-  }),
-  flat: (k: number, n: number): Finding => ({
-    pick: k > 0
-      ? `평발 쪽이라 안정화 신발을 먼저 골랐어요${of(k, n)}.`
-      : `평발 쪽이라 안정화 신발을 찾았지만, 고르신 조건에 맞는 안정화 신발이 없어서 일반 신발로 골랐어요.`,
-    // Malisoux 2016 Br J Sports Med — 여가 러너 372명 무작위 시험, 전체 결과(하위 집단 아님)
-    study: "달리는 사람 372명을 나눠 신긴 시험에서, 발이 안쪽으로 기우는 걸 잡아 주는 신발을 신은 쪽이 부상이 적었어요.",
-    href: PUBMED("26746907"),
-  }),
-  occasional: (k: number, n: number): Finding => ({
-    pick: k > 0
-      ? `이제 막 시작하셔서 앞뒤 굽 차이가 6mm 이하인 신발을 먼저 골랐어요${of(k, n)}.`
-      : `이제 막 시작하셔서 앞뒤 굽 차이가 6mm 이하인 신발을 찾았지만, 고르신 조건에 맞는 신발 중에는 없었어요.`,
-    // Malisoux 2016 Am J Sports Med — 553명 무작위 시험의 하위 집단 분석이라 「~한 편」
-    study: "달리는 사람 553명을 나눠 신긴 시험에서, 가끔 뛰는 사람은 굽 차이가 작은 신발을 신었을 때 부상이 적은 편이었어요.",
-    href: PUBMED("27501833"),
-  }),
-  regular: (k: number, n: number): Finding => ({
-    pick: k > 0
-      ? `꾸준히 달려 오셔서 앞뒤 굽 차이가 8mm 이상인 신발을 먼저 골랐어요${of(k, n)}.`
-      : `꾸준히 달려 오셔서 앞뒤 굽 차이가 8mm 이상인 신발을 찾았지만, 고르신 조건에 맞는 신발 중에는 없었어요.`,
-    study: "달리는 사람 553명을 나눠 신긴 시험에서, 꾸준히 뛰는 사람은 굽 차이가 작은 신발을 신었을 때 부상이 많은 편이었어요.",
-    href: PUBMED("27501833"),
-  }),
+const BRAND_KO: Record<string, string> = {
+  Asics: "아식스", Saucony: "써코니", Brooks: "브룩스", Mizuno: "미즈노", Hoka: "호카",
+  "New Balance": "뉴발란스", On: "온", Adidas: "아디다스", Puma: "푸마", Nike: "나이키",
 };
-
-const NOT_COUNTED: Analysis["notCounted"] = [
-  // Knapik 2009 J Strength Cond Res — 군 훈련병 대상이라 「러너」라고 쓰지 않는다
-  // 평발 → 안정화 작은 점수(Malisoux 2016)와 부딪치지 않게 「아치 높이로 크게 나누지 않았다」로 쓴다
-  { text: "아치 높이에 맞춰 신발 종류를 나눠 준 시험(훈련병 3,062명)에서 부상 차이가 없어서, 아치 높이로는 크게 나누지 않았어요.", href: PUBMED("19387413") },
-  // Bolliger 2026 Sports Med Open — 14명 교차 시험
-  // 2026-11-23 hyun 님: 「14명 시험」 문구를 뺀다. 같은 날 Bruneau 2026 PM&R(doi:10.1002/pmrj.70153, 엘리트 23명, Wiley 초록 확인)
-  //   — 카본화에서 뼈 피로 부상과 관련된 움직임이 조금 늘었다(부상을 센 연구는 아님) — 을 찾아 「해롭다는 시험은 찾지 못해서」를 철회했다.
-  //   점수는 그대로(입문 + 일상 달리기에는 카본화가 나오지 않는다). 문장만 「평소엔 쿠션화, 카본화는 빠른 날에 조금씩」으로
-  { text: "처음이라면 평소에는 쿠션화로 달리고, 카본화는 대회나 빠르게 달리는 날에 조금씩 섞어 쓰세요. 카본화는 천천히 달려도 힘이 덜 들었지만, 엘리트 선수 시험에서는 뼈 피로와 관련된 움직임이 조금 늘었어요.", href: "https://doi.org/10.1002/pmrj.70153" },
-  // Br J Sports Med 2022 무작위 시험 체계적 고찰 — 확실성 매우 낮음~낮음이라 「줄였다/못 줄였다」가 아니라 「결과가 나오지 않았다」로
-  { text: "신발로 무릎 부상을 줄이려 한 시험들을 모아 봤지만 신발이 무릎 부상 위험을 바꾼다는 결과가 나오지 않아서, 무릎 이력은 점수에 넣지 않았어요.", href: PUBMED("36150753") },
-];
-
+const of = (k: number, n: number) => `(${n}켤레 중 ${k}켤레)`;
+const isStable = (x: Shoe) => x.stability !== "neutral";
 const LEVEL_NAME: Record<string, string> = { beginner: "막 시작한 단계", intermediate: "하프를 뛰어 본 단계", advanced: "기록을 줄이는 단계" };
 
-function buildProfileComment(profile: RunnerProfile, considered: number, picks: Shoe[]): Analysis {
+/** 평발 줄 — 안정화 신발이 몇 켤레 들었는지에 따라 문장이 갈린다. 0켤레면 왜 없는지(용도·예산·자리)를 데이터에서 찾아 말한다 */
+function flatFinding(profile: RunnerProfile, picks: Shoe[], everyone: Shoe[]): Finding {
+  const k = picks.filter(isStable).length;
+  const n = picks.length;
+  if (k > 0) {
+    const neutral = n - k;
+    // 일반 신발 1켤레는 코드가 일부러 남긴 자리다(pickTop: 안정화는 많아야 limit−1). 그때만 「~있어서 넣었어요」라고 쓴다.
+    // 일반 신발이 더 많을 때는 용도·발볼·브랜드 겹침 때문이라 이유를 붙이지 않고 켤레 수만 말한다(2026-11-23 화면에서 「부터 골랐어요(4켤레 중 1켤레)」가 어색했다)
+    return {
+      pick: neutral <= 1
+        ? `평발이라 발이 안쪽으로 기우는 걸 잡아 주는 신발(안정화)부터 골랐어요${of(k, n)}.`
+          + (neutral === 1 ? " 잡아 주는 느낌이 불편한 사람도 있어서 일반 신발도 1켤레 넣었어요." : "")
+        : `평발이라 발이 안쪽으로 기우는 걸 잡아 주는 신발(안정화)을 ${k}켤레 넣었어요. 나머지 ${neutral}켤레는 일반 신발이에요. 잡아 주는 느낌이 불편한 사람도 있어요.`,
+      why: "발이 안쪽으로 기우는 러너는 이런 신발에서 부상이 적은 편이었어요.",
+      src: neutral > 0 ? ["malisoux2016bjsm", "ryan2011"] : ["malisoux2016bjsm"],
+    };
+  }
+  // 이 용도로 나오는 안정화 신발 — 싼 순서
+  const stable = everyone.filter((x) => isStable(x) && (!profile.use || x.uses.includes(profile.use))).sort((a, b) => a.priceKrw - b.priceKrw);
+  const useName = profile.use ? USE_NAME[profile.use] : "";
+  if (stable.length === 0) {
+    // 2026-11-23 브랜드 공식 페이지 8곳 확인(PR #30): 안정화 모델의 공식 용도는 일상 달리기·걷기·장거리뿐이었다
+    return {
+      pick: `${useName} 신발에는 발을 잡아 주는 기능이 들어간 모델이 없어서 그 기능 없이 골랐어요. 신어 볼 때 발바닥 안쪽이 눌리지 않는지 보세요.`,
+      src: [],
+    };
+  }
+  const c = stable[0];
+  const link = { href: `/shoes/${c.id}`, label: `${BRAND_KO[c.brand] ?? c.brand} ${c.model} 보기` };
+  const name = `${BRAND_KO[c.brand] ?? c.brand} ${c.model}(${c.priceKrw.toLocaleString()}원)`;
+  if (profile.budgetKrw && c.priceKrw > profile.budgetKrw) {
+    return { pick: `${profile.budgetKrw.toLocaleString()}원 안에서 잘 맞는 신발로 골랐어요. 발을 잡아 주는 신발(안정화)을 원하시면 ${name}부터 있어요.`, src: [], link };
+  }
+  return { pick: `이번 ${n}켤레는 발을 잡아 주는 기능이 없는 신발이에요. 그 기능(안정화)을 원하시면 ${name}도 신어 보세요.`, src: [], link };
+}
+
+function buildProfileComment(profile: RunnerProfile, considered: number, picks: Shoe[], everyone: Shoe[]): Analysis {
   const picked = picks.length;
   const count = (f: (x: Shoe) => boolean) => picks.filter(f).length;
   // 고른 답 — 결과를 바꾸는 답만 적는다. 발볼·발 모양을 안 고르면 엔진이 「보통」으로 받으므로 「보통」은 적지 않는다(고른 것인지 알 수 없다)
   const answers = [
     profile.use ? USE_NAME[profile.use] : null,
     profile.footWidth === "wide" ? "넓은 발볼" : profile.footWidth === "narrow" ? "좁은 발볼" : null,
-    profile.footType === "flat" ? "평발 쪽" : profile.footType === "high_arch" ? "높은 아치" : null,
+    profile.footType === "flat" ? "평발" : profile.footType === "high_arch" ? "높은 아치" : null,
     profile.level ? LEVEL_NAME[profile.level] : null,
     profile.gender === "female" ? "여성" : null,
     profile.budgetKrw ? `예산 ${profile.budgetKrw.toLocaleString()}원 이하` : null,
   ].filter(Boolean);
   const headline = answers.length
-    ? `고르신 ${answers.join(" · ")}에 맞춰 살펴본 ${considered}켤레 중 ${picked}켤레를 골랐어요.`
-    : `살펴본 ${considered}켤레 중 ${picked}켤레를 골랐어요.`;
+    ? `고르신 ${answers.join(" · ")}에 맞춰 ${considered}켤레 중 가장 잘 맞는 ${picked}켤레를 골랐어요.`
+    : `${considered}켤레 중 가장 잘 맞는 ${picked}켤레를 골랐어요.`;
 
   const findings: Finding[] = [];
-  if (profile.footWidth === "wide") findings.push(FINDINGS.wide(count(isWideForefoot), picked));
-  if (profile.footType === "flat") findings.push(FINDINGS.flat(count((x) => x.stability !== "neutral"), picked));
-  if (profile.level === "beginner") findings.push(FINDINGS.occasional(count((x) => x.heelDropMm <= 6), picked));
-  if (profile.level === "intermediate" || profile.level === "advanced") findings.push(FINDINGS.regular(count((x) => x.heelDropMm >= 8), picked));
+  if (profile.footWidth === "wide") {
+    const k = count(isWideForefoot);
+    findings.push(k > 0
+      // Buldt & Menz 2018 — 일반 인구 연구라 「러너」라고 쓰지 않는다
+      ? { pick: `발볼이 넓어서 앞쪽이 넉넉한 신발부터 골랐어요${of(k, picked)}.`, why: "폭이나 길이가 안 맞는 신발은 발 통증과 관련이 있었어요.", src: ["buldt2018"] }
+      : { pick: "고르신 조건에는 앞쪽이 넉넉한 신발이 없어서 조건에 가장 잘 맞는 신발로 골랐어요. 신어 볼 때 발 앞쪽이 눌리지 않는지 보세요.", src: [] });
+  }
+  if (profile.footType === "flat") findings.push(flatFinding(profile, picks, everyone));
+  if (profile.level === "beginner") {
+    const k = count((x) => x.heelDropMm <= 6);
+    findings.push(k > 0
+      // Malisoux 2016 AJSM 하위 집단 — 「~한 편」
+      ? { pick: `이제 막 시작하셔서 앞뒤 굽 차이가 6mm 이하인 신발부터 골랐어요${of(k, picked)}.`, why: "가끔 달리는 사람은 굽 차이가 작은 신발에서 부상이 적은 편이었어요.", src: ["malisoux2016ajsm"] }
+      : { pick: "고르신 조건에는 앞뒤 굽 차이가 6mm 이하인 신발이 없어서 조건에 가장 잘 맞는 신발로 골랐어요.", src: [] });
+  }
+  if (profile.level === "intermediate" || profile.level === "advanced") {
+    const k = count((x) => x.heelDropMm >= 8);
+    findings.push(k > 0
+      // 같은 하위 집단 결과(낮은 굽 HR 1.67)를 좋은 쪽에서 읽은 문장
+      ? { pick: `꾸준히 달려 오셔서 앞뒤 굽 차이가 8mm 이상인 신발부터 골랐어요${of(k, picked)}.`, why: "꾸준히 달리는 사람은 굽 차이가 큰 신발에서 부상이 적은 편이었어요.", src: ["malisoux2016ajsm"] }
+      : { pick: "고르신 조건에는 앞뒤 굽 차이가 8mm 이상인 신발이 없어서 조건에 가장 잘 맞는 신발로 골랐어요.", src: [] });
+  }
 
   const notes: string[] = [];
   if (profile.gender === "female") notes.push("여성용이 따로 나오는 신발은 여성용 무게와 발볼로 보여 드려요.");
@@ -543,25 +556,25 @@ function buildProfileComment(profile: RunnerProfile, considered: number, picks: 
     const EASY: Record<string, string> = { knee: "무릎", ankle: "발목", achilles: "종아리·뒤꿈치 위", plantar: "발바닥" };
     notes.push(`다친 적 있는 곳(${injuries.map((i) => EASY[i] ?? INJURY_LABEL[i]).join("·")})이 지금 아프다면 신발보다 병원 진료가 먼저예요.`);
   }
-  return { headline, findings, notes, notCounted: NOT_COUNTED };
-}
 
-/**
- * 결과 아래 한 줄 (2026-11-23 hyun 님 「근거 논문 초록을 찾아 읽고, 있으면 한 문장 더하고」)
- * Malisoux 2025 Eur J Sport Sci(PMID 41122014, QxMD 초록 확인 2026-11-23): 무작위 시험의 2차 분석. 여가 러너 527명을 6개월 지켜봄.
- *   신은 시험 신발을 가장 좋게 평가한 셋째 묶음이 첫째 묶음보다 부상 위험이 낮았다(HR 0.47, 0.26–0.85).
- *   「편안함(comfort)」을 따로 잰 것이 아니라 신발 전체 평가(global appreciation)라 「가장 마음에 들어 한」으로 쓴다.
- *   2차 분석·관찰 결과라 「~한 편」. 숫자(527명·6개월)는 PR #26 표 밖이라 화면에 쓰지 않는다(결정 6).
- * 찾은 범위: 「footwear comfort running injury randomized」「comfort filter running shoes injury prospective」(2026-11-23).
- *   Mündermann 2001 깔창 시험(군인)은 리뷰 본문 인용으로만 봤고 초록을 읽지 않아 쓰지 않았다.
- */
-function buildEvidenceNote(profile: RunnerProfile): Finding {
-  void profile;
-  return {
-    pick: "신어 보고 가장 편한 걸 고르세요.",
-    study: "달리는 사람들을 지켜본 연구에서, 신고 달린 신발을 가장 마음에 들어 한 사람들이 부상이 적은 편이었어요.",
-    href: PUBMED("41122014"),
-  };
+  // Malisoux 2025 — 편안함을 따로 잰 게 아니라 신발 전체 평가라 「가장 마음에 든」. 2차 분석이라 「~한 편」
+  const closing: Finding = { pick: "마지막엔 신어 보고 가장 편한 걸 고르세요.", why: "신은 신발이 가장 마음에 든 러너들이 부상이 적은 편이었어요.", src: ["malisoux2025"] };
+
+  // 알아 두면 고르기 쉬워요 — 「점수에 넣지 않은 것」(11-23 ①)을 독자가 할 일로 바꿨다. 자기 답과 상관있는 줄만 보인다
+  const tips: Finding[] = [];
+  if (profile.footType !== "flat") {
+    // Malisoux 2016 BJSM 하위 집단: 발이 안쪽으로 기울지 않은 러너는 차이가 뚜렷하지 않았다. 군인 시험(Knapik)은 러너가 아니라 쓰지 않는다
+    tips.push({ pick: "아치가 높거나 보통이면 신발 종류보다 발볼·용도·신었을 때 느낌으로 고르면 돼요.", why: "발이 안쪽으로 기울지 않은 러너는 발을 잡아 주는 신발을 신어도 부상 차이가 뚜렷하지 않았어요.", src: ["malisoux2016bjsm"] });
+  }
+  if (profile.level === "beginner" || !profile.level) {
+    // Bolliger 2026(천천히 달려도 산소 비용이 낮음) + Bruneau 2026(뼈 피로 부상과 관련된 움직임이 조금 늘어남 — 부상을 센 연구는 아님)
+    tips.push({ pick: "처음이라면 평소에는 쿠션화로 달리고, 카본화(밑창에 탄소 판이 든 신발)는 대회나 빠르게 달리는 날에 조금씩 섞어 쓰세요.", why: "카본화는 천천히 달려도 힘이 덜 들었지만, 뼈에 부담이 가는 움직임이 조금 늘었다는 시험도 있어요.", src: ["bolliger2026", "bruneau2026"] });
+  }
+  // Alexander 2022 — 신발이 무릎 부상 위험을 바꾸지 않았다(확실성 매우 낮음~낮음)라 「결과가 나오지 않았어요」
+  tips.push({ pick: "무릎이 신경 쓰이면 신발 종류보다 신었을 때 편한지를 기준으로 고르세요.", why: "신발 종류가 무릎 부상 위험을 바꾼다는 결과는 나오지 않았어요.", src: ["alexander2022"] });
+
+  const sources = [...new Set([...findings, closing, ...tips].flatMap((f) => f.src))];
+  return { headline, findings, notes, closing, tips, sources };
 }
 
 /**
