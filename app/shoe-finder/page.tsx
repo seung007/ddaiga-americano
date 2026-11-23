@@ -822,26 +822,33 @@ export default function ShoeFinderPage() {
             {/* 2026-11-10 운영자 「왜 이렇게 길어」로 체형·케이던스 설명을 뺐다.
                 2026-11-23 ① 「후킹이 너무 약하다」: 고른 답 · 켤레 수 · 연구가 본 것
                 2026-11-23 ② 「고르는 데 도움이 되게」 + 가이드 글 규칙: 줄마다 골라 드린 것/할 일이 먼저, 이유는 뒤 한 문장.
+                2026-11-23 ③ hyun 님 「너무 길면 이상하고 B가 팩트만 딱 알려준다」: 첫 화면은 맨 위 한 줄 + 고른 것만 점 목록.
+                   이유와 알아 둘 것은 한 줄로 묶어 접는다(390px 상자 770 → 553px, 신발 카드가 첫 화면에 걸린다).
                    연구 대상·인원은 문장에 쓰지 않고 가이드 글과 같은 접힌 「근거와 출처」(<Sources>)에만. 문장은 recommend.ts buildProfileComment */}
             <p className="text-base font-semibold leading-relaxed text-blue-950">{result.analysis.headline}</p>
 
-            {result.analysis.findings.length > 0 && (
-              <ul className="mt-3 space-y-3">
-                {result.analysis.findings.map((f) => <FindingLine key={f.pick} f={f} />)}
-              </ul>
-            )}
+            <ul className="mt-3 space-y-1.5">
+              {[...result.analysis.findings, result.analysis.closing].map((f) => (
+                <li key={f.pick} className="flex gap-2 break-keep text-sm leading-relaxed text-blue-900">
+                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
+                  <span>
+                    {f.pick}
+                    {f.link && <Link href={f.link.href} className="ml-1 font-medium underline underline-offset-2">{f.link.label} ›</Link>}
+                  </span>
+                </li>
+              ))}
+            </ul>
 
             {result.analysis.notes.map((n) => (
               <p key={n} className="mt-3 text-sm leading-relaxed text-blue-900">{n}</p>
             ))}
 
-            <ul className="mt-3 border-t border-blue-100 pt-3">
-              <FindingLine f={result.analysis.closing} />
-            </ul>
-
-            <details className="mt-3 text-sm">
-              <summary className="flex min-h-11 cursor-pointer items-center font-medium text-blue-900">알아 두면 고르기 쉬워요</summary>
+            <details className="mt-2 text-sm">
+              <summary className="flex min-h-11 cursor-pointer items-center font-medium text-blue-900">왜 이렇게 골랐나요 · 알아 두면 고르기 쉬워요</summary>
               <ul className="mt-1 space-y-3">
+                {[...result.analysis.findings, result.analysis.closing].filter((f) => f.why).map((f) => (
+                  <li key={f.pick} className="break-keep leading-relaxed text-blue-800">{f.why}</li>
+                ))}
                 {result.analysis.tips.map((f) => <FindingLine key={f.pick} f={f} />)}
               </ul>
             </details>
