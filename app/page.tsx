@@ -45,7 +45,7 @@ const FINDER_SHOES: FinderShoe[] = SHOES.map((s) => {
     uses: s.uses,
     widthOptions: s.widthOptions,
     priceKrw: s.priceKrw,
-    officialPrice: o?.listed && o.priceKrw ? o.priceKrw : undefined,
+    officialPrice: o?.listed && o.priceKrw ? o.priceKrw : s.priceCheckedAt ? s.priceKrw : undefined,
   };
 });
 // 2026-11-10: 첫 화면 다리 사진(HERO_SHOE)을 뺐다 — 용도 신발 타일로 대신한다(components/HomeFinderCard.tsx)

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
+import { cushionText } from "@/lib/shoes/labels";
 
 /**
  * 홈 신발 띠 — 클릭 0회로 신발이 보인다
@@ -61,13 +62,13 @@ const TABS: { key: TabKey; label: string; hint: string; match: (s: StripShoe) =>
     key: "beginner",
     label: "입문용",
     hint: "카본 없이, 매일 신는 쿠션화",
-    match: (s) => s.cushioning >= 3 && !s.hasCarbon && s.uses.includes("daily"),
+    match: (s) => (s.cushioning ?? 0) >= 3 && !s.hasCarbon && s.uses.includes("daily"),
   },
   {
     key: "long",
     label: "장거리",
     hint: "10km 이상을 포장로에서",
-    match: (s) => s.uses.includes("long") && s.cushioning >= 4,
+    match: (s) => s.uses.includes("long") && (s.cushioning ?? 0) >= 4,
   },
   {
     key: "speed",
@@ -303,7 +304,7 @@ function ShoeCard({ shoe }: { shoe: StripShoe }) {
       )}
       <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-gray-600">{shoe.tagline}</p>
       <p className="mt-auto text-xs text-gray-500">
-        쿠션 {shoe.cushioning}/5 · {shoe.weightGramsM9}g · {shoe.priceKrw.toLocaleString()}원
+        쿠션 {cushionText(shoe)} · {shoe.weightGramsM9}g · {shoe.priceKrw.toLocaleString()}원
       </p>
     </Link>
   );

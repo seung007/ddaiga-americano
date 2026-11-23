@@ -6,6 +6,7 @@ import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { pageUrl } from "@/lib/site";
+import { cushionText } from "@/lib/shoes/labels";
 
 /**
  * 호카 vs 브룩스 — 브랜드 단위 비교.
@@ -160,7 +161,7 @@ function ShoeRow({ x, old = false }: { x: Shoe; old?: boolean }) {
     <li className="text-sm">
       <span className={old ? "text-gray-500" : "font-medium text-gray-900"}>{x.model}</span>
       <span className="ml-1.5 text-xs text-gray-500">
-        드롭 {x.heelDropMm}mm · {x.weightGramsM9}g · 쿠션 {x.cushioning}
+        드롭 {x.heelDropMm}mm · {x.weightGramsM9}g · 쿠션 {cushionText(x)}
       </span>
       {old && x.successor && (
         <span className="ml-1.5 text-xs text-amber-700">후속 {x.successor}</span>
