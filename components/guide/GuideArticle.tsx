@@ -251,7 +251,7 @@ export default function GuideArticle({ slug, entry, c, related }: { slug: string
           권장합니다.
         </p>
         <InlineAsk from={slug} tag="기타" placeholder="예) 이 글에서 더 궁금한 점을 적어 주세요" />
-        <FinderCta from={slug} headline="지금 발에 맞는 신발이 궁금하다면" sub="체형·발볼·부상 이력을 넣으면 맞는 신발을 추려드립니다." />
+        <FinderCta from={slug} headline="지금 발에 맞는 신발이 궁금하다면" sub="발볼과 발 모양, 용도를 넣으면 맞는 신발을 추려 드려요." />
         <ShareButtons from={slug} title={entry.title} description={entry.desc} />
       </article>
       </main>

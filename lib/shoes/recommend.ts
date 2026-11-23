@@ -54,6 +54,7 @@
  */
 
 import { MANUAL_SHOES, SHOES } from "./data";
+import { officialOf } from "./official";
 import type {
   BodyType, FootType, FootWidth, Gender, Recommendation,
   RecommendableShoe, RunnerProfile, Shoe, WidthOption,
@@ -90,12 +91,33 @@ function isWideForefoot(shoe: Shoe): boolean {
 }
 
 /**
- * 성별 핏 자격 판정 — 여성 전용 라스트는 여성 선택 시에만 후보에 포함.
- * 성별 미선택/남성에게 여성 전용 모델이 노출되지 않도록 함.
+ * 성별 후보 (2026-11-23 hyun 님 결정 「남녀 같이 팔면 같이 보여주고, 진짜 여성 전용이면 여성만」)
+ *
+ * 같은 모델의 여성판(`variantOf` 가 있는 신발)과 남녀 공용판이 따로 들어 있다. 한 사람에게는 한 모델에 한 카드만 보인다.
+ *  · 여성을 고르면: 여성판이 있는 모델은 여성판으로(여성 무게·폭·구매처), 공용판은 뺀다
+ *  · 남성·미선택: 여성판은 뺀다
+ *  · 여성판이 없는 여성 전용 모델(genderFit womens_last, variantOf 없음)은 지금처럼 여성에게만
  */
+/**
+ * 판매 종료 — 추천에서만 뺀다 (2026-11-23 hyun 님 결정: 「지우지 않고 숨김. 서로 다른 날 2번 안 보임 + 후속 모델이 사이트에 있음」)
+ * 「2번 안 보임」은 수집기가 official.json 의 listed:false 로 적는다(official.ts — 「2일 연속 안 보였다」). 후속 모델은 이 사이트 목록에 있어야 한다.
+ * 목록·상세에는 그대로 남는다. ⚠️ 2026-11-23 지금 수집기는 이름이 똑같이 맞는 신발만 기록해서 구형 모델에는 listed 기록이 없다 —
+ * 그래서 지금은 이 규칙에 걸리는 신발이 0이다. 수집기 쪽 할 일은 세션 지시서 「코드 ①」.
+ */
+function successorOnSite(shoe: Shoe): boolean {
+  if (!shoe.successor) return false;
+  const name = shoe.successor.replace(/ \(여성\)$/, "");
+  return POOL.some((x) => x.brand === shoe.brand && x.model.replace(/ \(여성\)$/, "") === name);
+}
+function isEnded(shoe: Shoe): boolean {
+  return officialOf(shoe.id)?.listed === false && successorOnSite(shoe);
+}
+const HAS_WOMENS = new Set(POOL.map((s) => s.variantOf).filter((v): v is string => !!v));
 function isGenderEligible(shoe: Shoe, gender?: Gender): boolean {
-  const fit = shoe.genderFit ?? "unisex";
-  if (fit === "womens_last") return gender === "female";
+  if (isEnded(shoe)) return false;
+  if (shoe.variantOf) return gender === "female";
+  if (gender === "female" && HAS_WOMENS.has(shoe.id)) return false;
+  if ((shoe.genderFit ?? "unisex") === "womens_last") return gender === "female";
   return true;
 }
 
@@ -144,13 +166,13 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   // 이 프로필이 받을 수 있는 최고점. 규칙마다 그 자리에서 같이 더한다 — 가점을 고치면 바로 옆 줄도 같이 고친다.
   // **프로필만 보고 정한다(신발 값을 보지 않는다).** 그래야 한 사람의 모든 신발이 같은 값으로 나뉘어 순위가 안 바뀐다.
   let possible = 0;
-  // 맞춰 보지 않고 모든 신발에 똑같이 주는 점수(보통 발 +4, 용도 미선택 +6). 순위에는 영향이 없고,
-  // % 에 넣으면 「그냥 받는 점수」가 숫자를 올린다 — 그래서 화면 점수 계산에서는 뺀다(2026-11-18).
+  // 맞춰 보지 않고 모든 신발에 똑같이 주는 점수를 화면 점수에서 빼는 자리(2026-11-18). 2026-11-23 근거 정리로
+  // 그런 점수(보통 발 +4, 용도 미선택 +6)가 모두 없어져 지금은 0 이다. 같은 종류의 점수를 다시 넣으면 여기에 더한다.
   let free = 0;
 
   // ── 1. 체형 분류 매칭 — 2026-10-06 점수에서 뺐다 ───────────
   // 체형 태그는 키×체중 조합이고 출처 기록이 없다(types.ts 판단 필드). 키 부분만 남기는 안도 봤지만
-  // tall_heavy 같은 태그가 체중 가정을 그대로 실어 나르고, 키는 아래 5번(드롭)에서 따로 본다.
+  // tall_heavy 같은 태그가 체중 가정을 그대로 실어 나른다. 키도 2026-11-23부터 점수에 쓰지 않는다(아래 5번).
   // bodyTypeMatch 는 화면 표시와 하위 호환을 위해 false 로 둔다.
   void bodyType;
   const bodyTypeMatch = false;
@@ -163,172 +185,101 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
     reasons.push(`${profile.footWidth === "wide" ? "넓은" : profile.footWidth === "narrow" ? "좁은" : "보통"} 발볼에 맞는 폭이 있어요`);
   }
 
-  // ── 3. 발 타입 + 안정화 (가중치 축소, 2026-08-31) ───────────
+  // ══ 3~9. 점수마다 근거를 붙였다 (2026-11-23, 세션 지시서 5절 가 — hyun 님 「근거 없는 점수는 근거가 되게」) ══
   //
-  // ⚠️ 여기를 낮춘 이유를 남겨둔다. 다시 올리려면 이 문단을 먼저 반박해야 한다.
+  // 규칙: 점수마다 그 점수가 말하는 것을 한 문장으로 적고, 그 문장을 직접 시험한 논문의 초록을 읽었다(QxMD, 2026-11-23).
+  //   · 근거가 있으면 근거의 세기에 맞춰 점수 크기를 정했다(여러 연구 일치 > 시험 1건 > 하위 집단 분석)
+  //   · 근거가 다른 말을 하면 근거대로 바꿨다(굽 차이: 키 → 뛰는 빈도)
+  //   · 찾았는데 없거나 근거가 반대면 0점. 찾은 범위를 아래에 남겼다. 화면에는 아무 말도 하지 않는다
+  // 전체 점수 표: PR #26 본문(feat/recommend-evidence).
   //
-  // 이 블록은 오랫동안 Richards et al. (2009) Br J Sports Med를 근거로 달고 있었다.
-  // 그 논문은 **결론이 정반대다** — 발 타입으로 회내 제어화를 처방하는 관행에
-  // 근거가 없다("not evidence-based")는 것이 논지이고, 8개 DB를 뒤져 지지 연구를
-  // 한 건도 찾지 못했다고 보고했다.
-  //
-  // 2026-08-27에 인용을 Malisoux et al. (2021) JOSPT로 교체했는데, **점수는 그대로 뒀다.**
-  // 그건 정정이 아니라 근거만 갈아끼운 것이었다. 2026-08-31 심의에서 지적받아 여기를 고친다.
-  //
-  // Malisoux 2021이 실제로 지탱할 수 있는 무게:
-  //   · RCT의 **2차 분석**이다 (사전 등록된 주 가설이 아니다)
-  //   · HR 0.41, 95% CI 0.17–0.98 — **상한이 0.98로 간신히 1을 안 넘는다**
-  //   · 즉 "효과가 거의 없음"이 신뢰구간 안에 들어 있다
-  //
-  // 그래서 이 축의 가중치를 약 1/3로 줄이고, 사용자에게 보이는 문구도
-  // 확정된 사실("과회내 제어 안정화 구조")에서 갈리는 사항으로 바꾼다.
-  // 발볼(20점)·체형(25점)은 물리적 치수 매칭이라 근거의 성질이 다르므로 유지한다.
-  possible += 12 + (profile.footType === "flat" || profile.footType === "high_arch" ? 3 : 0);
-  if (shoe.footTypes.includes(profile.footType)) {
-    score += 12;
-    // 사이트 분류(footTypes)라 이유로 보여 주지 않는다(2026-11-23)
-  }
-  if (profile.footType === "flat") {
-    // 2026-10-06 hyun 결정: 유지 + 근거 교체(Malisoux 2016). 자가보고 평발 ≠ FPI 측정이라는 점을 같이 말한다.
-    if (shoe.stability !== "neutral") { score += 3; } // 근거가 RCT 1건이라 이유로 보여 주지 않는다(2026-11-23)
-    else { score -= 2; }
-  } else if (profile.footType === "high_arch") {
-    if (shoe.stability === "neutral") { score += 3; } // 근거가 약해 이유로 보여 주지 않는다(2026-11-23)
-    else { score -= 2; }
-  } else {
-    score += 4;
-    free += 4;
-  }
+  // 이 묶음 전체에 걸리는 고찰: Cochrane 2022(PMID 35993829) — 신발 종류(최소·중립·모션컨트롤·안정화·쿠션 경도)가
+  //   다리 부상을 줄인다는 근거는 「대부분 없음」(확실성 매우 낮음~낮음). 「발 모양으로 신발을 처방해도 부상이 줄지 않았다」
+  //   (확실성 중간, 군인 대상 시험 3건). 그래서 부상 예방을 이유로 큰 점수를 주지 않는다.
 
-  // ── 3b. 성별 골격·생체역학 보정 (최대 ±18점) ───────────────
-  // 근거: Ferber 2003(고관절 내전·무릎 외전 ↑) · Taunton 2002(여성 PFPS 2배)
-  //       Wunderlich & Cavanagh 2001(여성 발 = 좁은 힐·낮은 발등, 전용 라스트 필요)
-  const fit = shoe.genderFit ?? "unisex";
-  let genderFitMatch = false;
-  let genderFitNote: string | undefined;
+  // ── 3. 발 모양 ───────────────────────────────────────────
+  // (옛) 발 모양에 맞춘 신발 +12 — 0점. 발 모양으로 신발을 고르는 것을 직접 시험한 무작위 시험(Knapik 2009 J Strength Cond Res,
+  //   신병 3,062명, PMID 19387413)이 위험비 남 1.01·여 1.07 로 차이가 없었고, Cochrane 2022 도 같은 결론(확실성 중간).
+  // (옛) 높은 아치 → 일반 신발 +3 / 안정화 −2 — 0점. 높은 아치만 따로 본 시험·코호트를 찾지 못했다
+  //   (검색: 「high arch pes cavus runners injury risk footwear prospective cohort randomized shoe」, 2026-11-23).
+  // 평발(본인이 「안쪽으로 쏠리는 편」을 고름) → 안정화 +3 — 유지. Malisoux 2016 Br J Sports Med(372명 무작위 시험, PMID 26746907):
+  //   모션컨트롤화가 전체 부상 위험을 낮췄고(HR 0.55, 0.36–0.85) 회내 발 하위 집단에서 0.34(0.13–0.84, 94명 — 2차 분석).
+  //   반대쪽 근거: Nielsen 2014 Br J Sports Med(초보 927명 코호트) — 중립화를 신은 회내 발이 부상이 더 많지 않았다
+  //   (위험 차 −8.1%, −17.6~1.3%). 그래서 가점만 작게 두고, 평발인데 일반 신발이라고 감점하던 −2 는 뺐다.
+  //   ⚠️ 사용자 입력은 자가 보고라 논문의 발 자세 측정(FPI)과 같지 않다.
+  possible += profile.footType === "flat" ? 3 : 0;
+  if (profile.footType === "flat" && shoe.stability !== "neutral") score += 3;
 
-  if (profile.gender === "female") possible += 12 + (profile.footWidth === "wide" ? 4 : 0);
-  else if (profile.gender === "male") possible += 3;
-  if (profile.gender === "female") {
-    // (1) 여성 전용 라스트 — 가장 큰 가점
-    if (fit === "womens_last") {
-      score += 12;
-      genderFitMatch = true;
-      genderFitNote = "여성 전용 라스트 — 여성 발은 남성 발의 축소판이 아니라는 연구(Wunderlich & Cavanagh 2001)";
-      reasons.push("여성 발에 맞춰 만든 신발이에요");
-    } else if (fit === "mens_last") {
-      score -= 5;
-      genderFitNote = "남성 기준 라스트 — 뒤꿈치가 헐렁할 수 있어요";
-      reasons.push("남성 발 기준이라 뒤꿈치가 헐렁할 수 있어요");
-    }
-    // (2) 여성 안정화 +3 / 모션컨트롤 −3 — 2026-10-06 삭제(hyun 결정).
-    //     근거로 든 Ferber 2003 은 고관절·무릎 각도만 측정했고 신발을 다루지 않는다. 체중 점수를 빼자
-    //     이 +3 이 결정권을 가져 중립 발 여성의 상위 3개 중 안정화가 24% → 68% 가 됐다(648 프로필 실측).
-    // (3) 한국 여성 흔한 '좁은 힐 + 넓은 앞볼' 콤비네이션 발 — 넓은 앞볼 옵션이면 가점
-    //     (서구 여성 라스트는 앞볼도 좁아 한국 여성에겐 끼일 수 있음 → 넓은 앞볼 우대)
-    if (profile.footWidth === "wide" && isWideForefoot(shoe)) {
-      score += 4;
-      reasons.push("앞볼이 넓은 버전이 있어요");
-    }
-    // (4) 경량 가점 — 2026-10-06 삭제. 근거가 「여성 평균 체중대」였다(체중 경로 중립화).
-  } else if (profile.gender === "male") {
-    // 남성: 과회내가 상대적으로 적어 중립화 우선, 남성 기준 라스트 적합
-    // 남성 중립화 +5 — 2026-10-06 삭제(hyun 결정). 위 여성 +3 과 같은 Ferber 유래 가정이고,
-    // 체중 점수를 빼자 중립 발 남성의 상위 3개 중 안정화가 16% → 0% 가 됐다.
-    if (fit === "mens_last") {
-      score += 3;
-      genderFitMatch = true;
-      genderFitNote = "남성 기준 라스트";
-    }
-  }
+  // ── 3b. 성별 ────────────────────────────────────────────
+  // (옛) 여성 전용 라스트 +12 / 남성 라스트 −5(여성) / +3(남성) — 0점. 근거로 든 Wunderlich & Cavanagh 2001(Med Sci Sports Exerc,
+  //   PMID 11283437)은 남녀 발 모양이 다르다는 측정 연구이고, 신발 착용감·부상을 시험하지 않았다(초록 확인).
+  //   +12 때문에 여성 입력 216개 전부에서 1위가 여성판 7종이었다(2026-11-23 실측). 대신 여성에게는 같은 모델의
+  //   **여성판 자체**(여성 무게·폭·구매처)를 보여 준다 — 아래 recommendShoes 의 성별별 후보(variantOf).
+  const genderFitMatch = false;
+  const genderFitNote: string | undefined = undefined;
 
-  // ── 3c. 한국인 발 매칭 (최대 6점) ──────────────────────────
-  // 사이즈코리아·아시아 스캔: 한국인 발 = 넓은 앞볼·높은 발등 경향.
-  possible += (profile.footWidth !== "narrow" ? 4 : 0) + 2;
-  if (isWideForefoot(shoe) && profile.footWidth !== "narrow") {
+  // ── 3c. 넓은 앞볼 ───────────────────────────────────────
+  // 본인이 발볼 「넓음」을 고르면 앞볼이 넓은 신발 +4. Buldt & Menz 2018 J Foot Ankle Res(체계적 검색, PMID 30065787):
+  //   발 폭·길이에 안 맞는 신발을 신는 사람이 63~72%였고, 맞지 않는 신발은 발 통증·질환과 관련이 있었다(달리기만의 연구는 아님).
+  // (옛) 「한국인 발」 — 보통 발볼에도 앞볼 넓은 신발 +4, 발등 높은 신발 +2 — 0점. 나라끼리 비교한 자료를 찾지 못했고,
+  //   발등은 사용자에게 묻지 않는 값이라 그 사람에게 맞는지 알 수 없다. 여성 넓은 앞볼 +4 와 겹치던 것도 하나로 합쳤다.
+  possible += profile.footWidth === "wide" ? 4 : 0;
+  if (profile.footWidth === "wide" && isWideForefoot(shoe)) {
     score += 4;
     reasons.push("앞쪽이 넉넉한 편이에요");
-  }
-  if (shoe.instepVolume === "high") {
-    score += 2;
-    reasons.push("발등이 덜 눌리는 편이에요");
   }
 
   // ── 4. 체중 × 쿠셔닝 — 2026-10-06 삭제 ─────────────────────
   // 권장 체중 범위(+14/+7/+4)와 최소 쿠션 등급(+6/+4/+2, 미달 시 등급당 −7)을 모두 뺐다. 맨 위 v4 설명 참고.
 
-  // ── 5. 신장 × 드롭 (10점) ─────────────────────────────────
-  const [dMin, dMax] = idealDropRange(profile.heightCm);
-  possible += 10;
-  if (shoe.heelDropMm >= dMin && shoe.heelDropMm <= dMax) {
-    score += 10; // 논문 근거 없는 사이트 기준이라 이유로 보여 주지 않는다(2026-11-23). 바꿀 안은 세션 ② 보고
-  } else if (Math.abs(shoe.heelDropMm - (dMin + dMax) / 2) <= 3) {
-    score += 5;
-  }
+  // ── 5. 앞뒤 굽 차이 — 키 기준 → 뛰는 빈도 기준 (2026-11-23) ──────────
+  // (옛) 키별 굽 차이 10/5점 — 키와 굽 차이를 잇는 자료를 찾지 못했다.
+  // Malisoux 2016 Am J Sports Med(553명 무작위 시험 6개월, 굽 차이 10·6·0mm, PMID 27501833): 전체 부상 위험은 굽 차이와 무관.
+  //   하위 집단에서 「가끔 뛰는 사람」(지난 12개월 중 매주 뛴 기간 6개월 미만)은 낮은 굽(6·0mm)이 위험이 낮았고(HR 0.48, 0.23–0.98),
+  //   「꾸준히 뛰는 사람」(6개월 이상)은 높았다(HR 1.67, 1.07–2.62).
+  //   하위 집단 분석이고 한쪽 신뢰구간 상한이 0.98 이라 점수는 작게(4). 이유로 보여 주지 않는다.
+  //   ⚠️ 프록시: 경험 「이제 막 시작했어요」 → 가끔 뛰는 사람, 「하프까지 뛰어 봤어요」·「기록을 줄이는 중이에요」 → 꾸준히 뛰는 사람.
+  //   경험을 고르지 않으면 이 점수는 없다. 논문의 두 묶음(6mm 이하 / 10mm)에 맞춰 6mm 이하 / 8mm 이상으로 나눴다(7mm 는 어느 쪽도 아님).
+  const occasional = profile.level === "beginner";
+  const regular = profile.level === "intermediate" || profile.level === "advanced";
+  possible += occasional || regular ? 4 : 0;
+  if (occasional && shoe.heelDropMm <= 6) score += 4;
+  if (regular && shoe.heelDropMm >= 8) score += 4;
 
-  // ── 6. 용도 (15점) ────────────────────────────────────────
+  // ── 6. 용도 (15점) — 사용자가 고른 목적에 맞는지. 건강 효과를 주장하는 점수가 아니라 선택과의 일치라 유지 ──
   let useOk = true;
   possible += profile.use ? 15 : 0;
   if (profile.use) {
     useOk = shoe.uses.includes(profile.use);
     if (useOk) { score += 15; reasons.push("고른 용도에 맞아요"); }
     else score -= 5;
-  } else {
-    score += 6;
-    free += 6;
   }
 
-  // ── 7. 경험 수준 (PRD F-01) ───────────────────────────────
-  possible += profile.level === "beginner" ? 4 : profile.level === "advanced" ? 3 : 0;
-  if (profile.level === "beginner") {
-    // 카본화 감점.
-    //
-    // 이전 문구는 "카본 플레이트는 고속에서만 효과(Hoogkamer 2018)"였는데 논문이 그걸 말하지 않는다.
-    // Hoogkamer 2018은 14·16·18 km/h만 시험했고 그보다 느린 속도는 아예 측정하지 않았으며,
-    // 카본 플레이트 단독 효과를 폼과 분리하지도 않았다(신소재 미드솔+플레이트 결합 완제품 비교).
-    // 즉 "느린 속도에서 효과 없음"은 데이터 부재를 반증으로 쓴 것이다.
-    // 감점 자체는 유지한다 — 근거는 논문이 아니라 레이싱화의 낮은 안정성·짧은 수명·높은 가격이라는
-    // 실무적 이유이고, 그 이유를 그대로 사용자에게 말한다.
-    // (레이싱화지만 카본 없는 모델 — 예: Endorphin Speed — 은 패널티 없음)
-    // 2026-10-06: 「밑창이 얇고」는 사실과 반대(카본화 스택 27–42mm). 「부상 위험」도 근거 없음 — 실무 이유만.
-    if (shoe.hasCarbon === true) { score -= 12; } // 실무 이유(가격·수명)의 사이트 기준이라 이유로 보여 주지 않는다(2026-11-23). 질문 화면 설명에는 남김
-    if (shoe.cushioning >= 3 && shoe.uses.includes("daily")) { score += 4; reasons.push("처음 신기 좋은 쿠션 있는 일상화예요"); }
-  } else if (profile.level === "advanced") {
-    if (shoe.uses.includes("tempo") || shoe.uses.includes("racing")) { score += 3; }
-  }
+  // ── 7. 경험 수준 ─────────────────────────────────────────
+  // (옛) 입문자 카본화 −12 — 0점. 느린 속도에서는 효과가 없다는 전제는 틀렸다: Bolliger 2026 Sports Med Open(14명 교차 시험,
+  //   PMID 41703164) — 시속 7.5~12km 에서도 산소 비용이 낮았고 차이는 속도와 무관했다. 입문자에게 해롭다는 시험은 찾지 못했다
+  //   카본화 사용자 뼈 피로 손상 사례 보고(Tenforde 2023 Sports Med, doi:10.1007/s40279-023-01818-z)는 엘리트·대회 선수 5명의
+  //   사례 묶음이고 저자도 원인이라고 말하지 않았다(「위험을 따져 봐야 한다」). 입문자 감점의 근거가 되지 못한다.
+  //   입문자가 「일상 달리기」를 고르면 대회 전용화는 이미 용도 점수(−5)로 뒤로 간다.
+  // (옛) 입문자 쿠션 있는 일상화 +4 — 0점. 쿠션 근거인 Malisoux 2020 Am J Sports Med(848명, PMID 31877062)는 밑창의 **딱딱한 정도**
+  //   (61.3 vs 94.9 N/mm)를 비교했다. 우리 쿠션 단계는 밑창 **두께** 분류라 같은 변수가 아니다(data.ts 주석).
+  // (옛) 고급 → 템포·레이싱 +3 — 0점. 효과를 주장할 근거가 없고 용도 질문이 같은 일을 한다.
 
-  // ── 8. 주 평균 거리 (PRD F-01) ────────────────────────────
-  possible += profile.distance === "long" ? 6 : profile.distance === "short" ? 3 : 0;
-  if (profile.distance === "long") {
-    if (shoe.cushioning >= 4 || shoe.uses.includes("long")) { score += 6; reasons.push("오래 달려도 버티는 쿠션이에요"); }
-    if (shoe.cushioning <= 2) { score -= 6; } // 사이트 기준 — 이유로 보여 주지 않는다(2026-11-23)
-  } else if (profile.distance === "short") {
-    if (shoe.weightGramsM9 <= 250) { score += 3; reasons.push("가벼워서 짧게 뛰기 좋아요"); }
-  }
+  // ── 8. 주 평균 거리 ──────────────────────────────────────
+  // (옛) 장거리 → 쿠션 4 이상 +6 / 쿠션 2 이하 −6, 단거리 → 250g 이하 +3 — 0점. 주간 거리와 쿠션·무게의 관계를 시험한 연구를
+  //   찾지 못했다(검색: 「weekly running distance mileage shoe cushioning injury risk interaction study」, 2026-11-23).
+  //   거리 질문은 화면에 남는다(질문 교체는 세션 ⑥에서 오픈채팅 집계를 보고 정한다).
 
-  // ── 9. 부상 이력 (PRD F-01 수용기준) ──────────────────────
-  for (const inj of profile.injuryHistory ?? []) {
-    possible += inj === "knee" ? 5 : inj === "achilles" ? 6 : inj === "plantar" ? 7 : inj === "ankle" ? 2 : 0;
-    if (inj === "knee") {
-      // 2026-08-31 축소(6 → 2). "안정화가 슬개대퇴 부담을 완화한다"는 문장을
-      // 지지하는 근거가 이 저장소에 없다. 위 3번 블록과 같은 축인데 부상 이력에서
-      // 한 번 더 가점되어 평발 + 무릎 이력 조합에 중복 누적되고 있었다.
-      if (shoe.stability !== "neutral") { score += 2; }
-      if (shoe.cushioning >= 3) { score += 3; }
-    } else if (inj === "achilles") {
-      // 2026-10-06: 가점은 유지(결정 보류), 문구만 정직하게. 드롭이 아킬레스 부담을 줄인다는 출처를
-      // 저장소에서 찾지 못했다(flat-feet 주석). 아킬레스 가이드도 「몇 mm라고 말하지 않겠다」는 입장.
-      if (shoe.heelDropMm >= 8) { score += 6; } // 출처 없음 — 이유로 보여 주지 않는다(2026-11-23)
-      else if (shoe.heelDropMm <= 4) { score -= 6; }
-    } else if (inj === "plantar") {
-      // 2026-10-06: 문구만 정직하게. 족저근막 가이드 결론은 「쿠셔닝·드롭에 좋은 근거 없음」.
-      if (shoe.cushioning >= 4) { score += 5; } // 가이드 결론이 「근거 없음」 — 이유로 보여 주지 않는다(2026-11-23)
-      if (shoe.stability !== "neutral") { score += 2; }
-    } else if (inj === "ankle") {
-      // 2026-08-31 축소(4 → 2). 같은 축의 중복 누적.
-      if (shoe.stability !== "neutral") { score += 2; }
-    }
-  }
+  // ── 9. 부상 이력 ─────────────────────────────────────────
+  // 무릎 · 발목 · 아킬레스 · 발바닥 이력 가점 — 모두 0점.
+  //   · 무릎: 달리기 무릎 부상 예방·관리 무작위 시험 체계적 고찰(Br J Sports Med 2022, PMID 36150753) — 여러 신발이 무릎 부상
+  //     위험을 바꾸지 않았다(확실성 매우 낮음~낮음)
+  //   · 발목: 안정화·모션컨트롤화 효과는 불확실(Cochrane 2022)
+  //   · 아킬레스: 신발 구조 체계적 고찰(J Sports Sci Med 2020, PMID 32132824) — 굽 차이는 「지침을 만들기 전에 더 연구가 필요」.
+  //     흔들의자형 밑창이 아킬레스 부하를 줄인 연구(PMID 24636129, 13명)는 굽 차이가 아니라 다른 구조라 쓰지 않았다
+  //   · 발바닥: 발뒤꿈치 통증 진료 지침 2023 개정(JOSPT, PMID 38037331, orthopt.org PDF 전문 확인) — 신발·쿠션·흔들의자형 밑창
+  //     권고가 하나도 없다. 깔창은 단독 치료로 쓰지 말 것(B등급), 다른 치료와 함께는 쓸 수 있음(C등급)뿐이다
+  //   질문은 화면에 남고 「지금 아프면 병원부터」 안내에 쓰인다.
 
   // ── 10. 예산 (PRD F-01 수용기준) — 하드 필터는 recommendShoes에서 처리 ──
   // 여기서는 예산 내 모델에 소폭 가점만 (초과 모델은 이미 후보에서 제외됨)
@@ -484,13 +435,12 @@ function buildProfileComment(profile: RunnerProfile): string {
   const lines: string[] = [];
   if (profile.footWidth === "wide") lines.push("발볼이 넓어서 앞쪽이 넉넉한 신발을 먼저 골랐어요.");
   if (profile.footType === "flat") lines.push("평발이라 안정화 신발을 넣고, 1켤레는 일반 신발로 골랐어요.");
-  if (profile.gender === "female") lines.push("여성 발에 맞춰 만든 신발에 점수를 더 줬어요.");
+  if (profile.gender === "female") lines.push("여성용이 따로 나오는 신발은 여성용 무게와 발볼로 보여 드려요.");
   // 2026-11-23: 키 → 굽 차이 줄(「사이트 기준」)을 뺐다. 근거 없는 가점은 이유로 보여 주지 않는다(맨 위 v4 설명)
-  if (profile.level === "beginner") lines.push("처음 시작하는 단계라 카본 대회화는 뒤로 뺐어요.");
   const injuries = (profile.injuryHistory ?? []).filter((i) => i !== "none");
   if (injuries.length) {
     const EASY: Record<string, string> = { knee: "무릎", ankle: "발목", achilles: "종아리·뒤꿈치 위", plantar: "발바닥" };
-    lines.push(`다친 적 있는 곳(${injuries.map((i) => EASY[i] ?? INJURY_LABEL[i]).join("·")})을 고려했어요. 지금 아프면 병원부터 가 보세요.`);
+    lines.push(`다친 적 있는 곳(${injuries.map((i) => EASY[i] ?? INJURY_LABEL[i]).join("·")})이 지금 아프다면 신발보다 병원 진료가 먼저예요.`);
   }
   return lines.join(" ");
 }
@@ -520,7 +470,8 @@ export function rankAllShoes(
     .filter((s) => s.eligible)
     .sort(byRank)
     .map((s) => ({
-      id: s.shoe.id,
+      // 목록은 여성판을 공용판 카드 하나로 보여 준다 — 여성판 점수는 공용판 카드 자리로 (2026-11-23)
+      id: s.shoe.variantOf ?? s.shoe.id,
       score: s.score,
       // 모든 카드가 「체형에 최적화」로 같아 보이지 않게, 체형 말고 다른 이유가 있으면 그걸 먼저 낸다
       reason: s.reasons[0] ?? null,
