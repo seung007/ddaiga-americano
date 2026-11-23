@@ -88,7 +88,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
       try {
         setShoes(sanitize(JSON.parse(raw)));
       } catch {
-        setNotice("저장된 기록을 읽지 못했습니다(형식이 깨짐). 새로 등록하면 덮어씁니다.");
+        setNotice("저장된 기록을 읽지 못했어요(형식이 깨짐). 새로 등록하면 덮어써요.");
       }
     };
     read();
@@ -121,7 +121,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
       a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     } catch {
-      setNotice("이 브라우저에서는 파일로 내보낼 수 없습니다.");
+      setNotice("이 브라우저에서는 파일로 내보낼 수 없어요.");
     }
   }
 
@@ -130,7 +130,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
     e.target.value = "";
     if (!f) return;
     if (f.size > 1_000_000) {
-      setNotice("파일이 너무 큽니다.");
+      setNotice("파일이 너무 커요.");
       return;
     }
     f.text()
@@ -138,15 +138,15 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
         const j = JSON.parse(txt) as { shoes?: unknown } | unknown[];
         const list = sanitize(Array.isArray(j) ? j : (j as { shoes?: unknown }).shoes);
         if (!list.length) {
-          setNotice("불러올 기록이 없습니다.");
+          setNotice("불러올 기록이 없어요.");
           return;
         }
         // 같은 id 는 파일 쪽으로 바꾸고, 나머지는 그대로 둔다
         const ids = new Set(list.map((x) => x.id));
         save([...list, ...shoes.filter((x) => !ids.has(x.id))]);
-        setNotice(`신발 ${list.length}개를 불러왔습니다.`);
+        setNotice(`신발 ${list.length}개를 불러왔어요.`);
       })
-      .catch(() => setNotice("이 파일은 기록장 파일이 아닙니다."));
+      .catch(() => setNotice("이 파일은 기록장 파일이 아니에요."));
   }
 
   function track(name: string, params: Record<string, unknown>) {
@@ -188,7 +188,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
     <section id="log" className="mb-10 scroll-mt-20 rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
       <h2 className="mb-1 text-xl font-bold text-gray-900">내 러닝화 기록장</h2>
       <p className="mb-4 text-sm leading-relaxed text-gray-600">
-        신발을 등록하고 달릴 때마다 거리를 더하세요. 누적 거리를 위 연구의 측정 지점(160·320·480·640km)에 얹어 보여줍니다.
+        신발을 등록하고 달릴 때마다 거리를 더하세요. 누적 거리를 위 연구의 측정 지점(160·320·480·640km)에 얹어 보여 드려요.
       </p>
 
       {/* 신발 등록 */}
@@ -233,7 +233,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
       </div>
 
       {loaded && shoes.length === 0 && (
-        <p className="mb-4 text-sm text-gray-500">아직 등록한 신발이 없습니다.</p>
+        <p className="mb-4 text-sm text-gray-500">아직 등록한 신발이 없어요.</p>
       )}
 
       <ul className="space-y-3">
@@ -266,8 +266,8 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
               </div>
               {total >= KEY_KM && (
                 <p className="mb-3 rounded-lg bg-amber-50 p-2 text-xs leading-relaxed text-amber-900">
-                  480km를 넘었습니다. 위 연구에서 이 시점의 뒤꿈치 쿠셔닝은 16~33% 줄어 있었고, 참가자들은 그 변화를 느끼지 못했습니다.
-                  교체 여부는 직접 판단하세요 — 쿠셔닝 감소가 부상으로 이어지는지는 그 연구가 보지 않았습니다.{" "}
+                  480km를 넘었어요. 위 연구에서 이 시점의 뒤꿈치 쿠셔닝은 16~33% 줄어 있었고, 참가자들은 그 변화를 느끼지 못했어요.
+                  바꿀지는 직접 정하세요. 쿠셔닝이 줄어든 것이 부상으로 이어지는지는 그 연구가 보지 않았어요.{" "}
                   <Link href="/shoe-finder" className="underline">다음 신발 후보 보기 →</Link>
                 </p>
               )}
@@ -300,7 +300,7 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
                     등록 {s.created}{s.baseKm > 0 && ` · 등록 전 ${s.baseKm}km`}
                   </p>
                   {s.runs.length === 0 ? (
-                    <p className="text-xs text-gray-400">아직 더한 기록이 없습니다.</p>
+                    <p className="text-xs text-gray-400">아직 더한 기록이 없어요.</p>
                   ) : (
                     <ul className="max-h-48 space-y-1 overflow-y-auto text-sm">
                       {s.runs.map((r, i) => (
@@ -359,9 +359,9 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
       {notice && <p className="mt-2 text-xs text-amber-800">{notice}</p>}
 
       <p className="mt-4 text-xs leading-relaxed text-gray-500">
-        기록은 이 기기의 이 브라우저에만 저장되고 서버로 보내지 않습니다. 다른 기기에서는 보이지 않고, 브라우저의 사이트 데이터를 지우면
-        사라집니다 — 옮기거나 보관하려면 파일로 내보내세요. 여러 사람이 쓰는 PC라면 다 쓴 뒤 「전부 지우기」를 누르세요.
-        {!storageOk && " 지금 브라우저에서는 저장이 막혀 있어 새로고침하면 기록이 사라집니다(사생활 보호 모드 등)."}
+        기록은 이 기기의 이 브라우저에만 저장되고 서버로 보내지 않아요. 다른 기기에서는 보이지 않고, 브라우저의 사이트 데이터를 지우면
+        사라져요. 옮기거나 보관하려면 파일로 내보내세요. 여러 사람이 쓰는 PC라면 다 쓴 뒤 「전부 지우기」를 누르세요.
+        {!storageOk && " 지금 브라우저에서는 저장이 막혀 있어 새로고침하면 기록이 사라져요(사생활 보호 모드 등)."}
       </p>
     </section>
   );

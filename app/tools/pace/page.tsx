@@ -96,7 +96,7 @@ export default function PacePage() {
 
       <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝 페이스 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
-        목표 시간을 넣으면 km당 페이스를, 페이스를 넣으면 완주 시간을 계산합니다.
+        목표 시간을 넣으면 km당 페이스를, 페이스를 넣으면 완주 시간을 계산해요.
         <strong className="text-gray-900"> 5km 단위 구간 통과 시간표</strong>까지 나오니
         대회 당일 손목에 적어가세요.
       </p>
@@ -235,12 +235,12 @@ export default function PacePage() {
           </div>
 
           <p className="mb-8 text-xs leading-relaxed text-gray-500">
-            이 표는 <strong>일정한 페이스로 달렸을 때의 나눗셈 결과</strong>입니다. 실제 대회에서는
-            오르내림·급수대·인파로 구간마다 흔들립니다. 페이스 조절과 급수 전략은{" "}
+            이 표는 <strong>일정한 페이스로 달렸을 때의 나눗셈 결과</strong>예요. 실제 대회에서는
+            오르내림·급수대·인파로 구간마다 흔들려요. 페이스 조절과 급수 전략은{" "}
             <Link href="/injury/half-marathon-race-day" className="text-emerald-600 underline hover:text-emerald-700">
               하프 대회 당일 가이드
             </Link>
-            에 정리해뒀습니다.
+            에 정리해 뒀어요.
           </p>
         </>
       )}

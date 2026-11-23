@@ -71,7 +71,7 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
 
   return (
     <figure className="rounded-2xl border border-gray-200 p-4">
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="러닝화 미드솔 두께 비교 개략도">
+      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="러닝화 밑창 두께 비교 그림">
         {/* 눈금 — 10mm 간격 */}
         {[0, 10, 20, 30, 40, 50].map((mm) => (
           <g key={mm}>
@@ -107,7 +107,7 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
           ].join(" ");
           return (
             <g key={s.id}>
-              <path d={d} fill={c.fill} stroke={c.stroke} strokeWidth={2} strokeLinejoin="round" role="img" aria-label={`${s.brand} ${s.model} — 뒤꿈치 ${s.stackHeightMm}mm · 앞꿈치 ${forefootMm(s)}mm · 드롭 ${s.heelDropMm}mm`} />
+              <path d={d} fill={c.fill} stroke={c.stroke} strokeWidth={2} strokeLinejoin="round" role="img" aria-label={`${s.brand} ${s.model} — 뒤꿈치 ${s.stackHeightMm}mm · 앞꿈치 ${forefootMm(s)}mm · 앞뒤 굽 차이 ${s.heelDropMm}mm`} />
               {/* 겹친 점끼리 구분되도록 흰 테두리(2px) */}
               <circle cx={HEEL_X} cy={heel} r={4.5} fill={c.stroke} stroke="#fff" strokeWidth={2} />
               <circle cx={TOE_X} cy={fore} r={4.5} fill={c.stroke} stroke="#fff" strokeWidth={2} />
@@ -130,7 +130,7 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
                   </span>
                 </div>
                 <p className="ml-[18px] text-xs text-gray-600">
-                  뒤꿈치 {s.stackHeightMm}mm · 앞꿈치 {forefootMm(s)}mm · 드롭 {s.heelDropMm}mm · 무게 {w.g}g({w.basis})
+                  뒤꿈치 {s.stackHeightMm}mm · 앞꿈치 {forefootMm(s)}mm · 앞뒤 굽 차이 {s.heelDropMm}mm · 무게 {w.g}g({w.basis})
                 </p>
                 <div className="ml-[18px] mt-1 h-1.5 rounded-full bg-gray-100">
                   <div className={`h-1.5 rounded-full ${c.dot}`} style={{ width: `${(w.g / maxG) * 100}%` }} />
@@ -140,9 +140,9 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
           })}
         </ul>
         <p className="text-xs leading-relaxed text-gray-500">
-          세로(두께)만 실제 비율이고, 길이와 모양은 임의로 그렸습니다. 수치는 공개된 실측 자료 값이고, 브랜드 공식 표기와 다를 수 있습니다. 두께를 재는 지점은 출처마다 다를 수 있습니다.
-          두께나 드롭이 클수록 좋다·나쁘다는 표시는 하지 않았습니다 — 그 관계를 저희가 확인하지 못했습니다.
-          {mixedBasis && " 무게는 사이즈 기준(M9·W8)이 달라 직접 비교할 수 없습니다."}
+          세로(두께)만 실제 비율이고, 길이와 모양은 임의로 그렸어요. 수치는 공개된 실측 자료 값이라 브랜드 공식 표기와 다를 수 있어요. 두께를 재는 지점도 출처마다 다를 수 있어요.
+          두께나 앞뒤 굽 차이가 클수록 좋다·나쁘다는 표시는 하지 않았어요. 그 관계는 확인하지 못했어요.
+          {mixedBasis && " 무게는 사이즈 기준(M9·W8)이 달라 직접 비교할 수 없어요."}
         </p>
       </figcaption>
     </figure>

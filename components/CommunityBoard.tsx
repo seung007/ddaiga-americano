@@ -249,7 +249,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
         {submitted ? (
           <div className="py-6 text-center">
             <p className="font-semibold text-emerald-700">글이 올라갔어요!</p>
-            <p className="text-sm text-gray-500 mt-1">운영자가 직접 읽습니다. 답이 필요한 글은 답을 달지만 기한은 약속드리기 어려워요.</p>
+            <p className="text-sm text-gray-500 mt-1">운영자가 직접 읽어요. 답이 필요한 글은 답을 달지만 기한은 약속드리기 어려워요.</p>
             {/* 글을 쓴 사람을 실제 서비스로 보낸다. 여기서 끝나면 재방문할 이유가 없다. */}
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               <Link
@@ -275,7 +275,7 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
             {!loading && loadFailed && (
               <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 leading-relaxed" role="status">
                 지금 기존 글 목록을 불러오지 못하고 있어요. 글 등록은 시도할 수 있지만,
-                저장에 실패하면 안내 메시지가 뜨고 입력하신 내용은 그대로 남습니다.
+                저장에 실패하면 안내 메시지가 뜨고 입력하신 내용은 그대로 남아요.
               </p>
             )}
             {/* 글 — 유일한 필수 항목.
@@ -440,10 +440,10 @@ export default function CommunityBoard({ names }: { names: ReactionNames }) {
       <details className="mb-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
         <summary className="cursor-pointer font-medium text-gray-700">게시판 규칙</summary>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-xs leading-relaxed">
-          <li>광고·홍보, 욕설·비방, 다른 사람의 개인정보는 운영자가 지웁니다.</li>
+          <li>광고·홍보, 욕설·비방, 다른 사람의 개인정보는 운영자가 지워요.</li>
           <li>연락처·주소 같은 내 개인정보도 적지 마세요.</li>
           <li>부상·통증 이야기는 경험 공유예요. 진단이나 치료를 대신하지 않아요.</li>
-          <li>문제 있는 글·댓글은 「신고」를 눌러주세요. 운영자가 직접 확인합니다.</li>
+          <li>문제 있는 글·댓글은 「신고」를 눌러주세요. 운영자가 직접 확인해요.</li>
         </ul>
       </details>
 

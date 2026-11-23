@@ -15,7 +15,7 @@ import { ALL_PAGE_SIZE, byLatest, latestEnabled, pageOf } from "@/lib/guide/list
  */
 export const metadata: Metadata = {
   title: "러닝 가이드 모든 글 — 최신순 | 뛰다가 아메리카노",
-  description: "러닝 가이드 글을 최근에 올리거나 고친 순서로 모았습니다.",
+  description: "러닝 가이드 글을 최근에 올리거나 고친 순서로 모았어요.",
   alternates: { canonical: "/injury/all" },
 };
 

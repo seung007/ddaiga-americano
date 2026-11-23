@@ -150,12 +150,12 @@ export function shoeFaq(s: Shoe, official: OfficialCheck | null, specCheckedAt: 
   if (official?.listed && official.priceKrw) {
     items.push({
       q: `${name} 가격은 얼마인가요?`,
-      a: `한국 공식몰 정가는 ${official.priceKrw.toLocaleString("ko-KR")}원입니다(${official.checkedAt} 자동 확인). 할인·쿠폰가는 포함하지 않았습니다.`,
+      a: `한국 공식몰 정가는 ${official.priceKrw.toLocaleString("ko-KR")}원이에요(${official.checkedAt} 자동 확인). 할인·쿠폰가는 넣지 않았어요.`,
     });
   } else if (s.priceKrw) {
     items.push({
       q: `${name} 가격은 얼마인가요?`,
-      a: `약 ${s.priceKrw.toLocaleString("ko-KR")}원입니다. 공식몰 자동 확인 대상이 아니거나 공식몰 목록에서 보이지 않아, 판매처마다 다를 수 있습니다.`,
+      a: `약 ${s.priceKrw.toLocaleString("ko-KR")}원이에요. 공식몰 자동 확인 대상이 아니거나 공식몰 목록에서 보이지 않아 판매처마다 다를 수 있어요.`,
     });
   }
 
@@ -163,21 +163,21 @@ export function shoeFaq(s: Shoe, official: OfficialCheck | null, specCheckedAt: 
   items.push({
     q: `발볼이 넓어도 ${josa(s.model, "을", "를")} 신을 수 있나요?`,
     a: wide.length
-      ? `와이드 규격(${wide.join("·")})이 있습니다. 2E·4E 는 일반 폭보다 발볼이 넓은 규격이고, 4E 가 더 넓습니다.`
-      : "이 사이트가 확인한 범위에서는 와이드(2E·4E) 규격이 없습니다. 2E·4E 는 일반 폭보다 발볼이 넓은 규격입니다.",
+      ? `넓은 폭(${wide.join("·")})이 있어요. 2E·4E는 보통 폭보다 발볼이 넓은 규격이고, 4E가 더 넓어요.`
+      : "이 사이트가 확인한 범위에서는 넓은 폭(2E·4E)이 없어요. 2E·4E는 보통 폭보다 발볼이 넓은 규격이에요.",
   });
 
   items.push({
-    q: `${s.model}의 드롭과 스택 높이는 얼마인가요?`,
-    a: `드롭 ${s.heelDropMm}mm, 스택 ${s.stackHeightMm}mm입니다. 드롭은 뒤꿈치와 앞꿈치 밑창 높이의 차이, 스택은 발밑 밑창 전체의 두께입니다.`,
+    q: `${s.model}의 앞뒤 굽 차이(드롭)와 밑창 두께(스택)는 얼마인가요?`,
+    a: `앞뒤 굽 차이는 ${s.heelDropMm}mm, 뒤꿈치 밑창 두께는 ${s.stackHeightMm}mm예요. 앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.`,
   });
 
   if (typeof s.hasCarbon === "boolean") {
     items.push({
       q: `${s.model}에 카본 플레이트가 들어 있나요?`,
       a: s.hasCarbon
-        ? "들어 있습니다. 카본 플레이트는 중창 안에 넣은 탄소 섬유 판으로, 주로 대회용 신발에 쓰입니다."
-        : "들어 있지 않습니다. 카본 플레이트는 중창 안에 넣은 탄소 섬유 판으로, 주로 대회용 신발에 쓰입니다.",
+        ? "들어 있어요. 카본 플레이트는 중간 밑창 안에 넣은 탄소 섬유 판이고, 주로 대회용 신발에 써요."
+        : "들어 있지 않아요. 카본 플레이트는 중간 밑창 안에 넣은 탄소 섬유 판이고, 주로 대회용 신발에 써요.",
     });
   }
 
@@ -186,14 +186,14 @@ export function shoeFaq(s: Shoe, official: OfficialCheck | null, specCheckedAt: 
     items.push({
       q: `${s.model}의 후속 모델이 나왔나요?`,
       a: s.successor
-        ? `${josa(s.successor, "이", "가")} 나왔습니다. 이전 모델은 재고 할인으로 싸게 살 수 있지만 사이즈가 빨리 빠집니다.`
-        : `공식몰 목록에 다음 세대 ${josa(next, "이", "가")} 있습니다(${official!.checkedAt} 자동 확인).`,
+        ? `${josa(s.successor, "이", "가")} 나왔어요. 이전 모델은 할인하는 경우가 있지만 맞는 사이즈가 남아 있지 않을 수 있어요.`
+        : `공식몰 목록에 다음 세대 ${josa(next, "이", "가")} 있어요(${official!.checkedAt} 자동 확인).`,
     });
   }
 
   const parts = [
-    specCheckedAt ? `스펙은 ${specCheckedAt}에 운영자가 출처 페이지를 열어 확인했습니다` : null,
-    official ? `가격·판매 여부는 ${official.checkedAt}에 자동 수집기가 한국 공식몰 목록을 서로 다른 날 두 번 읽어 같은 값일 때 반영했습니다` : null,
+    specCheckedAt ? `스펙은 ${specCheckedAt}에 운영자가 출처 페이지를 열어 확인했어요` : null,
+    official ? `가격·판매 여부는 ${official.checkedAt}에 자동 수집기가 한국 공식몰 목록을 서로 다른 날 두 번 읽어 같은 값일 때 반영했어요` : null,
   ].filter(Boolean);
   if (parts.length) {
     items.push({ q: "이 정보는 언제, 누가 확인했나요?", a: parts.join(". ") + "." });

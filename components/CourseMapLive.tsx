@@ -305,7 +305,7 @@ export default function CourseMapLive({ course, runners = [] }: { course: Hangan
 
         {state !== "ready" && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-sm text-gray-400">
-            {state === "error" ? "지도를 불러오지 못했습니다" : "지도 불러오는 중…"}
+            {state === "error" ? "지도를 불러오지 못했어요" : "지도 불러오는 중…"}
           </div>
         )}
       </div>

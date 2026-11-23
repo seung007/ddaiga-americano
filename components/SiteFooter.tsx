@@ -25,7 +25,7 @@ export default function SiteFooter() {
           </nav>
         </div>
         <p className="text-xs text-gray-400 mt-6">
-          © 2026 뛰다가 아메리카노. 본 서비스는 의료 조언이 아닙니다.{" "}
+          © 2026 뛰다가 아메리카노. 이 사이트는 의료 조언이 아니에요.{" "}
           <Link href="/terms" className="underline hover:text-gray-600">면책 고지</Link>
         </p>
       </div>

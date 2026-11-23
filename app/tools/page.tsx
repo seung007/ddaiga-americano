@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   alternates: { canonical: "/tools" },
   title: "러닝 계산기 — 뛰다가 아메리카노",
-  description: "러닝화 수명, 교체 시기 등을 논문 근거로 계산합니다. 근거가 없는 항목은 계산하지 않고 없다고 적습니다.",
+  description: "러닝화 수명과 교체 시기를 논문이 잰 값으로 계산해요. 근거가 없는 항목은 계산하지 않고 없다고 적어요.",
 };
 
 /**
@@ -22,27 +22,23 @@ const TOOLS = [
   {
     href: "/tools/shoe-life",
     title: "러닝화 수명 계산기",
-    desc: "480km에서 뒤꿈치 쿠셔닝이 16~33% 줄어드는데, 640km까지 달린 러너 중 누구도 그걸 느끼지 못했습니다. 감으로는 안 잡히니 세어봅니다. 신발별 기록장도 있습니다.",
-    basis: "Cornwall & McPoil 2017",
+    desc: "480km에서 뒤꿈치 쿠셔닝이 16~33% 줄어드는데, 640km까지 달린 러너 중 누구도 그걸 느끼지 못했어요. 감으로는 안 잡히니 세어 봐요. 신발별 기록장도 있어요.",
   },
   {
     href: "/tools/shoe-side",
     title: "러닝화 두께 비교",
-    desc: "최대 3개를 골라 뒤꿈치·앞꿈치 두께와 드롭, 무게를 같은 축척으로 겹쳐 봅니다. 착용감처럼 숫자로 공개되지 않는 것은 그리지 않습니다.",
-    basis: "공개된 실측 스펙 — 논문 근거 아님",
+    desc: "최대 3개를 골라 뒤꿈치·앞꿈치 두께와 앞뒤 굽 차이, 무게를 같은 축척으로 겹쳐 봐요. 착용감처럼 숫자로 공개되지 않는 것은 그리지 않아요.",
   },
   {
     href: "/tools/pace",
     title: "러닝 페이스 계산기",
-    desc: "목표 시간 ↔ km당 페이스를 양방향으로 계산하고, 5km 단위 구간 통과 시간표를 만듭니다. 대회 당일 손목에 적어갈 수 있게.",
-    basis: "순수 산수 — 논문 근거 불필요",
+    desc: "목표 시간 ↔ km당 페이스를 양방향으로 계산하고, 5km 단위 구간 통과 시간표를 만들어요. 대회 당일 손목에 적어 갈 수 있어요.",
   },
   // 2026-10-13: 「처음 달리기」 글의 8단계 걷기-달리기 표를 따라 하는 플랜·타이머. 진도표는 저희 예시라 회색 배지.
   {
     href: "/tools/run-30",
     title: "30분 달리기 따라 하기",
-    desc: "걷기와 달리기를 섞어 8단계 24회. 회차마다 할 순서와 총 시간, 음성 안내 타이머, 진행 저장, 완주 수료증까지. 3회마다 「대화가 됐나·다음 날 아침 아프지 않았나」를 묻고 넘어갑니다.",
-    basis: "저희 예시 진도표 — 논문 근거 아님",
+    desc: "걷기와 달리기를 섞어 8단계 24회. 회차마다 할 순서와 총 시간, 음성 안내 타이머, 진행 저장, 완주 수료증까지. 3회마다 「대화가 됐나·다음 날 아침 아프지 않았나」를 묻고 넘어가요.",
   },
 ];
 
@@ -51,8 +47,8 @@ export default function ToolsPage() {
     <main className="max-w-3xl mx-auto px-6 py-12">
       <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
-        논문에서 실제로 측정한 수치만 씁니다. 근거가 없는 항목은{" "}
-        <strong className="text-gray-900">그럴듯한 계수를 지어내는 대신 없다고 적습니다.</strong>
+        논문에서 실제로 측정한 수치만 써요. 근거가 없는 항목은{" "}
+        <strong className="text-gray-900">그럴듯한 계수를 지어내는 대신 없다고 적어요.</strong>
       </p>
 
       <div className="space-y-4">
@@ -64,18 +60,8 @@ export default function ToolsPage() {
           >
             <h2 className="mb-2 text-xl font-semibold text-gray-900">{t.title}</h2>
             <p className="mb-3 text-sm leading-relaxed text-gray-600">{t.desc}</p>
-            {/* 논문 근거와 단순 산수를 같은 배지로 쓰면 안 된다.
-                파란 배지는 "논문에서 옮긴 수치"라는 뜻으로 사이트 전체에서 쓰이고 있어서,
-                나눗셈 결과에 그걸 달면 근거를 부풀리는 셈이 된다. */}
-            <span
-              className={`rounded-md px-2 py-1 text-xs font-medium ${
-                t.basis.includes("산수") || t.basis.includes("논문 근거 아님")
-                  ? "bg-gray-100 text-gray-600"
-                  : "bg-blue-50 text-blue-700"
-              }`}
-            >
-              {t.basis}
-            </span>
+            {/* 2026-11-23: 근거 배지(「Cornwall & McPoil 2017」「논문 근거 아님」「순수 산수」)를 뺐다 — 화면에는 딱지 없이(11-23 결정).
+                수명 계산기의 출처는 그 도구 화면 「이 숫자는 어디서 왔나」에 링크로 있다. */}
           </Link>
         ))}
       </div>

@@ -215,7 +215,7 @@ export default function ShoeStrip({ shoes }: { shoes: StripShoe[] }) {
           </ul>
           {filtered.length === 0 && (
             <p className="py-8 text-center text-sm text-gray-500">
-              이 조건에 맞는 신발이 아직 없습니다.
+              이 조건에 맞는 신발이 아직 없어요.
             </p>
           )}
         </div>

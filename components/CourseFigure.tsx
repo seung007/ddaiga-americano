@@ -73,8 +73,8 @@ export default function CourseFigure({
       xmlns="http://www.w3.org/2000/svg"
     >
       <desc id={`cf-${name}-d`}>
-        상류에서 하류 순서로 {bridges.join(", ")}가 이어집니다. 공원 공식 길이는{" "}
-        {lengthKm}km입니다. 실제 지도가 아니라 다리 순서만 나타낸 개략 도식입니다.
+        상류에서 하류 순서로 {bridges.join(", ")}가 이어져요. 공원 공식 길이는{" "}
+        {lengthKm}km예요. 실제 지도가 아니라 다리 순서만 나타낸 개략 그림이에요.
       </desc>
 
       {/* ── 강 ── */}
@@ -160,7 +160,7 @@ export default function CourseFigure({
 
       {/* ── 공식 길이 ── */}
       <text x={W / 2} y={H - 6} fontSize="10" fill="#94a3b8" textAnchor="middle">
-        서울시 고시 공원 길이 {lengthKm}km · 실제 지도가 아닌 개략 도식입니다
+        서울시 고시 공원 길이 {lengthKm}km · 실제 지도가 아닌 개략 그림이에요
       </text>
     </svg>
   );
