@@ -3,7 +3,7 @@
 import ShoeCompareSpecs, { COMPARE_BUTTON_COLORS } from "@/components/ShoeCompareSpecs";
 import ShoeSideProfile from "@/components/ShoeSideProfile";
 import { SELLER_NOTE } from "@/lib/site";
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { History, Search, TriangleAlert, Store, ShoppingCart } from "lucide-react";
 import AffiliateNotice from "@/components/AffiliateNotice";
@@ -11,6 +11,8 @@ import ChipRow, { Why } from "@/components/finder/ChipRow";
 import { affiliateFor, pickTwoBuyLinks, resolveBuyLinks } from "@/lib/shoes/affiliate";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
 import { recommendShoes } from "@/lib/shoes/recommend";
+import type { Finding, SrcKey } from "@/lib/shoes/recommend";
+import { Ref, Sources, Src } from "@/components/guide/Read";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
@@ -107,6 +109,68 @@ const FIELDS: { label: string; screen: number }[] = [
 
 // ── 재방문 · 공유: 프로필 저장/복원 ─────────────────────────────
 
+
+/** 내 분석 결과의 한 줄 — 골라 드린 것/할 일(굵게)이 먼저, 이유는 뒤 */
+function FindingLine({ f }: { f: Finding }) {
+  return (
+    <li className="break-keep text-sm leading-relaxed">
+      <p className="font-medium text-blue-900">{f.pick}</p>
+      {f.why && <p className="text-blue-800">{f.why}</p>}
+      {f.link && (
+        <Link href={f.link.href} className="mt-1 inline-flex min-h-11 items-center font-medium text-blue-900 underline underline-offset-2">
+          {f.link.label} ›
+        </Link>
+      )}
+    </li>
+  );
+}
+
+/*
+ * 근거와 출처 항목 — recommend.ts 의 SrcKey 와 짝. 서식은 가이드 글과 같다(가이드_틀: 「저자 (연도)」 확인한 결과 / <Ref>학술지 · 링크</Ref>).
+ * 연구 대상·인원은 여기에만 쓴다. 숫자와 판정은 docs/판정/추천기.jsonl. 권·호·쪽은 확인한 것만 적었다.
+ */
+const A = { target: "_blank", rel: "noopener noreferrer" } as const;
+const SRC: Record<SrcKey, (n: number) => React.ReactNode> = {
+  buldt2018: (n) => (<Src n={n}>
+    <strong>Buldt &amp; Menz (2018)</strong> 연구 18편을 모은 리뷰예요. 참가자의 63~72%가 발 폭이나 길이에 맞지 않는 신발을 신었고, 맞지 않는 신발은 발 통증과 관련이 있었어요. 달리는 사람만 본 연구는 아니에요.
+    <Ref>J Foot Ankle Res · <a href="https://pubmed.ncbi.nlm.nih.gov/30065787/" {...A}>PubMed</a></Ref>
+  </Src>),
+
+  malisoux2016bjsm: (n) => (<Src n={n}>
+    <strong>Malisoux et al. (2016)</strong> 러너 372명을 6개월 지켜본 시험이에요. 발을 잡아 주는 신발을 신은 사람들이 부상이 적었고, 효과는 발이 안쪽으로 기우는 사람에게서 보였어요. 그렇지 않은 발은 차이가 뚜렷하지 않았어요.
+    <Ref>Br J Sports Med 50(8):481-487 · <a href="https://pubmed.ncbi.nlm.nih.gov/26746907/" {...A}>PubMed</a></Ref>
+  </Src>),
+
+  ryan2011: (n) => (<Src n={n}>
+    <strong>Ryan et al. (2011)</strong> 여성 러너 81명이 13주 동안 하프 마라톤을 준비한 시험이에요. 발이 안쪽으로 기우는 사람은 안정화 신발에서 달릴 때 통증이 더 컸어요.
+    <Ref>Br J Sports Med 45(9):715-721 · <a href="https://doi.org/10.1136/bjsm.2009.069849" {...A}>원문</a></Ref>
+  </Src>),
+
+  malisoux2016ajsm: (n) => (<Src n={n}>
+    <strong>Malisoux et al. (2016)</strong> 러너 553명을 6개월 지켜본 시험이에요. 전체로는 굽 차이와 부상이 관계없었어요. 지난 1년 동안 달린 기간이 6개월 미만인 사람은 굽 차이가 작은 신발에서, 6개월 이상인 사람은 큰 신발에서 부상이 적은 편이었어요.
+    <Ref>Am J Sports Med · <a href="https://pubmed.ncbi.nlm.nih.gov/27501833/" {...A}>PubMed</a></Ref>
+  </Src>),
+
+  malisoux2025: (n) => (<Src n={n}>
+    <strong>Malisoux et al. (2025)</strong> 러너 527명을 6개월 지켜본 시험을 다시 분석했어요. 신은 신발을 가장 좋게 평가한 사람들이 부상이 적은 편이었어요.
+    <Ref>Eur J Sport Sci · <a href="https://pubmed.ncbi.nlm.nih.gov/41122014/" {...A}>PubMed</a></Ref>
+  </Src>),
+
+  bolliger2026: (n) => (<Src n={n}>
+    <strong>Bolliger et al. (2026)</strong> 14명이 시속 7.5~12km로 달린 시험이에요. 카본화를 신었을 때 산소를 덜 썼어요.
+    <Ref>Sports Med Open · <a href="https://pubmed.ncbi.nlm.nih.gov/41703164/" {...A}>PubMed</a></Ref>
+  </Src>),
+
+  bruneau2026: (n) => (<Src n={n}>
+    <strong>Bruneau et al. (2026)</strong> 엘리트 선수 23명이 세 가지 신발로 달린 시험이에요. 카본화에서 뼈 피로 부상과 관련된 움직임이 조금 늘었어요. 부상을 센 연구는 아니에요.
+    <Ref>PM&amp;R · <a href="https://doi.org/10.1002/pmrj.70153" {...A}>원문</a></Ref>
+  </Src>),
+
+  alexander2022: (n) => (<Src n={n}>
+    <strong>Alexander et al. (2022)</strong> 달리기 무릎 부상을 다룬 시험들을 모은 리뷰예요. 예방 시험 17건에서 신발 종류는 무릎 부상 위험을 바꾸지 않았어요. 근거의 확실성은 낮아요.
+    <Ref>Br J Sports Med · <a href="https://pubmed.ncbi.nlm.nih.gov/36150753/" {...A}>PubMed</a></Ref>
+  </Src>),
+};
 
 export default function ShoeFinderPage() {
   const [gender,    setGender]    = useState<Gender | "">("");
@@ -756,21 +820,14 @@ export default function ShoeFinderPage() {
             </div>
 
             {/* 2026-11-10 운영자 「왜 이렇게 길어」로 체형·케이던스 설명을 뺐다.
-                2026-11-23 hyun 님 「후킹이 너무 약하다」: 맨 위 한 줄(고른 답 · 살펴본 N켤레 중 M켤레) + 근거가 있는 답마다
-                「먼저 고른 것 + 연구가 본 것」 두 문장 + 접힌 「점수에 넣지 않은 것」. 문장과 근거는 recommend.ts buildProfileComment */}
+                2026-11-23 ① 「후킹이 너무 약하다」: 고른 답 · 켤레 수 · 연구가 본 것
+                2026-11-23 ② 「고르는 데 도움이 되게」 + 가이드 글 규칙: 줄마다 골라 드린 것/할 일이 먼저, 이유는 뒤 한 문장.
+                   연구 대상·인원은 문장에 쓰지 않고 가이드 글과 같은 접힌 「근거와 출처」(<Sources>)에만. 문장은 recommend.ts buildProfileComment */}
             <p className="text-base font-semibold leading-relaxed text-blue-950">{result.analysis.headline}</p>
 
             {result.analysis.findings.length > 0 && (
               <ul className="mt-3 space-y-3">
-                {result.analysis.findings.map((f) => (
-                  <li key={f.pick} className="text-sm leading-relaxed">
-                    <p className="font-medium text-blue-900">{f.pick}</p>
-                    <p className="text-blue-800">
-                      {f.study}{" "}
-                      <a href={f.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap underline underline-offset-2 hover:text-blue-950">연구 보기 ↗</a>
-                    </p>
-                  </li>
-                ))}
+                {result.analysis.findings.map((f) => <FindingLine key={f.pick} f={f} />)}
               </ul>
             )}
 
@@ -778,25 +835,23 @@ export default function ShoeFinderPage() {
               <p key={n} className="mt-3 text-sm leading-relaxed text-blue-900">{n}</p>
             ))}
 
-            <div className="mt-3 border-t border-blue-100 pt-3 text-sm leading-relaxed">
-              <p className="font-medium text-blue-900">{result.evidenceNote.pick}</p>
-              <p className="text-blue-800">
-                {result.evidenceNote.study}{" "}
-                <a href={result.evidenceNote.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap underline underline-offset-2 hover:text-blue-950">연구 보기 ↗</a>
-              </p>
-            </div>
+            <ul className="mt-3 border-t border-blue-100 pt-3">
+              <FindingLine f={result.analysis.closing} />
+            </ul>
 
             <details className="mt-3 text-sm">
-              <summary className="cursor-pointer font-medium text-blue-900">점수에 넣지 않은 것</summary>
-              <ul className="mt-2 space-y-2">
-                {result.analysis.notCounted.map((n) => (
-                  <li key={n.href} className="leading-relaxed text-blue-800">
-                    {n.text}{" "}
-                    <a href={n.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap underline underline-offset-2 hover:text-blue-950">연구 보기 ↗</a>
-                  </li>
-                ))}
+              <summary className="flex min-h-11 cursor-pointer items-center font-medium text-blue-900">알아 두면 고르기 쉬워요</summary>
+              <ul className="mt-1 space-y-3">
+                {result.analysis.tips.map((f) => <FindingLine key={f.pick} f={f} />)}
               </ul>
             </details>
+
+            {/* 가이드 글과 같은 부품 — 접힌 한 줄, 펼치면 「저자 (연도) 확인한 결과 / 학술지 · 링크」 */}
+            <div className="[&>section]:mt-3 [&>section]:border-blue-100">
+              <Sources>
+                {result.analysis.sources.map((k, i) => <React.Fragment key={k}>{SRC[k](i + 1)}</React.Fragment>)}
+              </Sources>
+            </div>
           </div>
 
           {result.usedFallback && (
