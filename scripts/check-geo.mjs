@@ -49,7 +49,7 @@ const QUESTION = /(\?|나요|까요|인가요|할까|일까|는가)\s*$/;
  * 2026-11-18 확정 틀(docs/운영/가이드_틀.md)로 바꾼 글. 롤아웃하면서 한 편씩 넣는다 — 다 넣으면 이 목록을 없애고 전체에 적용한다.
  * 들어 있으면: 틀 부품이 다 있어야 하고(MUST), 옛 부품(딱지·접힘·[n])이 남아 있으면 안 된다(BANNED).
  */
-const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture", "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet", "intermediate-guide", "it-band", "achilles", "half-marathon-race-day", "marathon-training", "advanced-guide"]);
+const NEW_TEMPLATE = new Set(["start-running", "return-to-running", "half-marathon-training", "training-types", "beginner-guide", "shin-splints", "knee-pain", "warmup", "cooldown", "posture", "first-10k", "plantar-fasciitis", "cadence", "midfoot", "rest-day", "wide-foot", "flat-feet", "intermediate-guide", "it-band", "achilles", "half-marathon-race-day", "marathon-training", "advanced-guide", "get-faster"]);
 /**
  * 바꾸는 순서 (2026-11-18 Claude 제안 — hyun 님 확인 전). 앞에서부터 한 편씩 바꾸고 NEW_TEMPLATE 에 넣는다 — 검사가 끝에 「다음」을 알려 준다.
  * 0. 견본에서 정정한 주장(환기역치·OR 7.56·86%)이 그대로 남아 있을 수 있는 글 — 틀보다 정정이 먼저(AGENTS 신뢰 규칙 3)
