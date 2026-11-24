@@ -1,3 +1,4 @@
+import { CourseMap, ChafingMap, PaceCurve } from "@/components/RaceGraphics";
 import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
@@ -23,6 +24,7 @@ import { pageUrl } from "@/lib/site";
  *     작은 질문 둘(더운 날 · 누가 위험한가)은 물 절 안 문장과 할 일로 합쳤다. 날씨별 복장 절은 옷 절 할 일 하나 + FAQ(비 오는 날)로,
  *     대회장 도착 절은 페이스 절 할 일로, 페이스메이커·카페인은 FAQ 로 내렸다. 옛 FAQ 넷은 본문과 같은 질문이라 지우고 새로 썼다.
  *     id 는 water·carb·during·gear·pace·after 를 그대로 뒀다(이 글의 #id 를 거는 곳은 없었다 — grep 2026-11-23). food·arrival·weather 는 없어졌다.
+ *   2026-11-24 그림 셋을 다시 넣음(hyun 님 「도움 되도록 쓰게」) — 딱지·「~니다」·출처 없는 구간과 숫자를 빼고 휴대폰 폭에 맞게 다시 그렸다(components/RaceGraphics.tsx 머리 주석)
  *   덜어낸 것 — RaceGraphics 그림 셋(코스 · 쓸리는 자리 · 페이스 곡선): 그림 캡션이 근거 딱지(통용 관행 · 직접 경험)와 「~니다」를 달고 있고
  *     코스 그림은 경험 숫자(15~18km 고비)를 그린다. 부품은 고치지 않고(작업 범위 밖) 이 글에서 뺐다 — 이제 쓰는 곳이 없다.
  *     영상 검색 링크 둘(임시 검색 주소, 확인한 영상 없음) · 공유 버튼 · 글 끝 신발 찾기 띠(옷 절의 상황 문장 링크로)도 다른 확정 틀 글처럼 뺐다.
@@ -136,6 +138,7 @@ export default function HalfMarathonRaceDayPage() {
           <strong>처음 5km는 조금 느리다 싶게</strong> 출발하길 권해요. 출발 신호가 울리면 주변 분위기에 끌려 빨라지기 쉬워서,
           시계를 보며 일부러 눌러야 해요.
         </P>
+        <CourseMap />
         <Steps
           items={[
             { t: "목표 시간이 대회 제한시간 안에 드는지 접수 전에 확인해요.", d: "제한시간과 중간 통제 지점은 대회마다 달라서 참가 안내문을 봐요." },
@@ -144,6 +147,7 @@ export default function HalfMarathonRaceDayPage() {
             { t: "후반에 힘들면 남은 거리를 몇 km씩 끊어서 넘겨 보세요.", d: "하프는 21.0975km라 20km 표지를 지나도 1km 남짓 더 남아요." },
           ]}
         />
+        <PaceCurve />
         <div className="mt-3 flex flex-wrap gap-2">
           <Link href="/tools/pace" className={pill}>목표 시간으로 5km마다 지날 시간을 뽑아 보려면 →</Link>
         </div>
@@ -249,6 +253,7 @@ export default function HalfMarathonRaceDayPage() {
             { t: "더운 날 물을 끼얹는다면 머리 뒤쪽으로 부어, 양말과 신발이 젖지 않게 해 보세요." },
           ]}
         />
+        <ChafingMap />
         <Caveat>바르는 자리와 옷 고르는 법은 러너들이 흔히 쓰는 방법이에요. 효과를 시험한 연구는 확인하지 못했어요.</Caveat>
         <div className="mt-3 flex flex-wrap gap-2">
           <Link href="/shoe-finder" className={pill}>대회용 신발을 아직 못 정했다면 →</Link>

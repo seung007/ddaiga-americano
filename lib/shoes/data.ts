@@ -701,41 +701,42 @@ export const MANUAL_SHOES: Shoe[] = [
       { label: "Wave Rider 29 vs Ghost 17 검색", url: "https://www.youtube.com/results?search_query=wave+rider+29+vs+ghost+17" },
     ],
   },
+  // 2026-11-24 「Ultraboost 25」 → 「Ultraboost 5X」로 바꿈(hyun 님 「없으면 있는 거로」).
+  // 무엇이 틀렸나: 「Ultraboost 25」라는 상품이 아디다스 한국·미국 공식몰에 없고, 출처였던 runrepeat.com/adidas-ultraboost-25 는
+  //   「찾을 수 없음」이었다. 사진은 Ultraboost 5 였고 값(330g·40mm·$200·279,000원)은 어느 모델과도 맞지 않았다(2026-11-23 check:all 사진 경고에서 발견).
+  // 지금 값: 아디다스 한국 공식몰이 파는 울트라부스트 5X(상품 IH3110)의 상품 정보에서 2026-11-24 직접 읽음. 공식 표기가 없는 칸(쿠션 단계)은 비움
   {
-    id: "adidas-ultraboost-25",
+    id: "adidas-ultraboost-5x",
     brand: "Adidas",
-    model: "Ultraboost 25",
-    imageUrl: "https://cdn.runrepeat.com/storage/gallery/product_primary/40462/adidas-ultraboost-5-21818110-720.jpg",
-    colorways: ["코어 블랙", "클라우드 화이트"],
-    widthOptions: ["D"],
-    heelDropMm: 10,
-    stackHeightMm: 40,
-    weightGramsM9: 330,
-    priceUsd: 200,
-    priceKrw: 279000,
+    model: "Ultraboost 5X",
+    // 한국 공식몰 상품 IH3110 의 대표 사진(상품 정보의 첫 사진 · og:image). 화면 캡처 도구가 이 몰에서 멈춰 눈으로는 맞대 보지 못했다 → PR 에 남김
+    imageUrl: "https://assets.adidas.com/images/w_800,f_auto,q_auto/8b8df54e102b4d948d5b27b9a0174e02_9366/5X_Black_IH3110_HM1.jpg",
+    colorways: ["코어 블랙"],     // 한국몰 상품 색 「Core Black / Cloud White / Carbon」
+    widthOptions: ["D"],          // 한국몰 「레귤러 핏」 — 넓은 폭 판은 확인 못 함
+    heelDropMm: 10,               // 한국몰 상품 정보 midsole_offset 「10.000」
+    stackHeightMm: 39,            // 한국몰 상품 정보 heel_stack_height 「39.00」(앞꿈치 「29.00」)
+    weightGramsM9: 275,           // 한국몰 「중량: 275g(사이즈 270mm)」
+    weightBasis: "270mm 기준, 아디다스 공식 표기",
+    specFrom: "brand",
+    priceUsd: 180,                // 미국몰(adidas.com/us) 「Ultraboost 5X … $180 Original price」(2026-11-23 검색 화면)
+    priceCheckedAt: "2026-11-24",
+    priceKrw: 199000,             // 한국몰 「199,000 원 정상가」(할인가는 쓰지 않음)
     krAvailability: "kr_official",
     buyLinks: [
       { label: "아디다스 공식몰", url: "https://www.adidas.co.kr/search?q=Ultraboost", isOfficial: true },
-      // 2026-09-28 check:links:kr: KREAM 「울트라부스트 25」 검색에 이 모델이 없다(21 만) → 링크를 내렸다
-      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Ultraboost%2025", isOfficial: false },
-      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Ultraboost%2025", isOfficial: false },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Adidas%20Ultraboost%205X", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Adidas%20Ultraboost%205X", isOfficial: false },
     ],
     gender: "male",
-    sourceUrl: "https://runrepeat.com/adidas-ultraboost-25",
-    cushioning: 4,
-    stability: "neutral",
-    footTypes: ["neutral", "high_arch"],
-    weightRangeKg: [60, 100],
-    heightRangeCm: [165, 195],
-    primaryBodyTypes: ["tall_mid", "mid_mid"],
-    uses: ["daily", "long"],
-    hasCarbon: false,
-    blurb: "무거운 편인 쿠션 신발이에요. 일상 달리기와 장거리, 평소 신기에 써요.",
-    scienceBasis: "쿠션이 두꺼운 편이고 무게는 무거운 편이에요.",
+    sourceUrl: "https://www.adidas.co.kr/%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8-5x/IH3110.html",
+    stability: "neutral",         // 한국몰 상품 정보에 안정화·지지 표기가 없다
+    uses: ["daily", "long"],      // 한국몰 상품 정보 best_for 「Everyday」 · distance 「long 0-42+km」
+    hasCarbon: false,             // 상품 설명에 판(플레이트) 언급 없음
+    blurb: "일상 달리기와 장거리에 쓰는 신발이에요.",
+    scienceBasis: "아디다스 공식 표기로 뒤꿈치 밑창 두께 39mm, 앞뒤 굽 차이 10mm예요. 쿠션 단계는 공식 페이지에 적혀 있지 않아요.",
     youtubeReviews: [
-      { label: "Ultraboost 25 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+ultraboost+25+review" },
-      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아디다스+울트라부스트+25+리뷰" },
-      { label: "Ultraboost vs 1080 v15 검색", url: "https://www.youtube.com/results?search_query=ultraboost+25+vs+1080+v15" },
+      { label: "Ultraboost 5X 리뷰 검색", url: "https://www.youtube.com/results?search_query=adidas+ultraboost+5x+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아디다스+울트라부스트+5X+리뷰" },
     ],
   },
   {
@@ -4078,9 +4079,9 @@ export const MANUAL_SHOES: Shoe[] = [
     // 푸마 한국 공식몰 상품 312942 의 옆모습 사진(sv01). 2026-11-23 공식몰 상품 사진과 맞대 같은 신발·같은 색인지 확인
     imageUrl: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_800,h_800/global/312942/06/sv01/fnd/KOR/fmt/png/%ED%8F%AC%EC%97%90%EB%B2%84%EB%9F%B0-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-3-brForeverRun-NITRO-3",
     colorways: ["실버 포그·잉키 뎁스"],   // 한국몰 「Silver Fog-Inky Depths」
-    // 넓은 폭 판이 따로 있다(한국몰 313702 「와이드」, 미국몰 「Width: Wide」). 다만 2E 같은 폭 기호가 어디에도 없어
-    // 2E 로 옮기면 추정이 된다 → D 만 적는다
-    widthOptions: ["D"],
+    // 넓은 폭 판이 따로 있다(한국몰 313702 「와이드」, 미국몰 「Width: Wide」). 푸마는 2E 같은 폭 기호를 적지 않는다.
+    // 2026-11-24 hyun 님 결정: 사이트 규격(D · 2E · 4E)에 맞춰 남성 넓은 폭을 2E 로 적는다. 2026-11-23 에는 D 만 적었었다
+    widthOptions: ["D", "2E"],
     heelDropMm: 8,                // 한국몰 「드랍 : 8mm」 · 미국몰 「Heel-to-toe drop: 8mm」
     stackHeightMm: 38,            // 한국몰 「스택 높이 : 뒤꿈치 38mm / 앞꿈치 30mm」
     weightBasis: "남성 270mm 기준, 푸마 공식 표기",

@@ -370,7 +370,6 @@ if (existsSync(blogDir)) {
     ["app/compare/hoka-vs-brooks/page.tsx", "「~니다」 19곳 — 브랜드 비교 글"],
     ["app/races/page.tsx", "「~니다」 4곳 — 대회 화면"],
     ["app/races/masters-half-2026/page.tsx", "「~니다」 6곳 — 대회 화면"],
-    ["components/RaceGraphics.tsx", "「~니다」 6곳 — 대회 화면"],
     ["app/privacy/page.tsx", "법적 문서 — 「~니다」 28곳. 말투를 바꿀지 hyun 님이 정하지 않음"],
     ["app/terms/page.tsx", "법적 문서 — 「~니다」 25곳. 위와 같음"],
     ["app/terms/layout.tsx", "법적 문서 설명 — 위와 같음"],

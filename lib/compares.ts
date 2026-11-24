@@ -14,7 +14,7 @@ export const COMPARE_SLUGS = [
   "hoka-clifton-10-vs-hoka-bondi-9",
   "asics-gel-nimbus-27-vs-nb-1080-v15",
   "saucony-triumph-23-vs-asics-gel-nimbus-27",
-  "adidas-ultraboost-25-vs-nike-pegasus-42",
+  "adidas-ultraboost-5x-vs-nike-pegasus-42",
   "on-cloudmonster-2-vs-hoka-clifton-10",
   "brooks-ghost-17-vs-brooks-glycerin-22",
   // 안정화 대결
