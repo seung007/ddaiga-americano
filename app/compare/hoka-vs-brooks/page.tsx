@@ -6,7 +6,7 @@ import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import { pageUrl } from "@/lib/site";
-import { cushionText } from "@/lib/shoes/labels";
+import { NONE, SOFT_KO, dropText, stackText, weightText } from "@/lib/shoes/labels";
 
 /**
  * 호카 vs 브룩스 — 브랜드 단위 비교.
@@ -24,7 +24,7 @@ import { cushionText } from "@/lib/shoes/labels";
 
 const TITLE = "호카 vs 브룩스 — 검증한 스펙으로 비교 | 뛰다가 아메리카노";
 const DESC =
-  "호카와 브룩스, 브랜드 인상이 아니라 실제 스펙으로 비교했어요. 드롭·스택·무게·발볼 옵션을 집계해서 어느 쪽이 내 조건에 맞는지 알려드려요.";
+  "호카와 브룩스, 브랜드 인상이 아니라 실제 스펙으로 비교했어요. 앞뒤 굽 차이·밑창 두께·무게·발볼 옵션을 집계해서 어느 쪽이 내 조건에 맞는지 알려드려요.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -59,33 +59,47 @@ type Row = {
   note: string;
 };
 
+/** 푹신함 켤레 수 — 「푹신한 편 3 · 중간 2」. 0 인 칸은 뺀다 */
+function softLine(b: typeof HOKA): string {
+  const parts = [
+    [SOFT_KO.soft, b.softCount],
+    [SOFT_KO.balanced, b.balancedCount],
+    [SOFT_KO.firm, b.firmCount],
+  ].filter(([, n]) => (n as number) > 0);
+  return parts.length ? parts.map(([k, n]) => `${k} ${n}`).join(" · ") : NONE;
+}
+
 const HOKA_SIDE = HOKA;
 const BROOKS_SIDE = BROOKS;
 
 const ROWS: Row[] = [
   {
-    label: "힐드롭 평균",
+    label: "앞뒤 굽 차이 평균",
     a: `${n1(HOKA_SIDE.dropAvg)}mm`,
     b: `${n1(BROOKS_SIDE.dropAvg)}mm`,
     note: `범위 ${HOKA_SIDE.dropMin}~${HOKA_SIDE.dropMax} / ${BROOKS_SIDE.dropMin}~${BROOKS_SIDE.dropMax}mm`,
   },
   {
-    label: "스택 높이 평균",
+    label: "밑창 두께 평균",
     a: `${n1(HOKA_SIDE.stackAvg)}mm`,
     b: `${n1(BROOKS_SIDE.stackAvg)}mm`,
-    note: "바닥에서 뒤꿈치까지의 두께",
+    note: "뒤꿈치 쪽 밑창 두께",
   },
   {
-    label: "무게 평균 (M9)",
-    a: `${n1(HOKA_SIDE.weightAvg)}g`,
-    b: `${n1(BROOKS_SIDE.weightAvg)}g`,
-    note: `차이 ${n1(Math.abs(HOKA_SIDE.weightAvg - BROOKS_SIDE.weightAvg))}g`,
+    // 2026-11-24: 270mm 로 잰 무게끼리만 평균
+    label: "무게 평균 (270mm)",
+    a: HOKA_SIDE.weightAvgCount ? `${n1(HOKA_SIDE.weightAvg)}g` : NONE,
+    b: BROOKS_SIDE.weightAvgCount ? `${n1(BROOKS_SIDE.weightAvg)}g` : NONE,
+    note:
+      HOKA_SIDE.weightAvgCount && BROOKS_SIDE.weightAvgCount
+        ? `차이 ${n1(Math.abs(HOKA_SIDE.weightAvg - BROOKS_SIDE.weightAvg))}g`
+        : "",
   },
   {
-    label: "쿠션 등급 평균",
-    a: `${n1(HOKA_SIDE.cushionAvg)} / 5`,
-    b: `${n1(BROOKS_SIDE.cushionAvg)} / 5`,
-    note: "이 사이트 자체 등급",
+    label: "푹신함",
+    a: softLine(HOKA_SIDE),
+    b: softLine(BROOKS_SIDE),
+    note: "밑창을 눌렀을 때 들어가는 정도 · 켤레 수",
   },
   {
     label: "4E(초광폭) 제공",
@@ -113,8 +127,8 @@ const FAQ: FaqItem[] = [
   {
     q: "호카와 브룩스, 뭐가 가장 크게 다른가요?",
     a: OVERLAP
-      ? `이 사이트가 검증한 모델 기준으로 힐드롭 평균이 호카 ${n1(HOKA.dropAvg)}mm, 브룩스 ${n1(BROOKS.dropAvg)}mm입니다. 다만 두 브랜드의 드롭 범위가 겹치므로 브랜드만으로 갈리지는 않고 모델을 봐야 합니다.`
-      : `힐드롭입니다. 이 사이트가 검증한 모델 기준으로 호카는 ${HOKA.dropMin}~${HOKA.dropMax}mm, 브룩스는 ${BROOKS.dropMin}~${BROOKS.dropMax}mm이고 두 범위가 겹치지 않습니다. 드롭은 뒤꿈치와 앞발의 높이 차이로, 높으면 종아리·아킬레스 부담이 줄고 낮으면 발 앞쪽 부담이 늘어납니다.`,
+      ? `이 사이트가 검증한 모델 기준으로 드롭 평균이 호카 ${n1(HOKA.dropAvg)}mm, 브룩스 ${n1(BROOKS.dropAvg)}mm입니다. 다만 두 브랜드의 드롭 범위가 겹치므로 브랜드만으로 갈리지는 않고 모델을 봐야 합니다.`
+      : `드롭입니다. 이 사이트가 검증한 모델 기준으로 호카는 ${HOKA.dropMin}~${HOKA.dropMax}mm, 브룩스는 ${BROOKS.dropMin}~${BROOKS.dropMax}mm이고 두 범위가 겹치지 않습니다. 드롭은 뒤꿈치와 앞발의 높이 차이로, 높으면 종아리·아킬레스 부담이 줄고 낮으면 발 앞쪽 부담이 늘어납니다.`,
   },
   {
     q: "아킬레스나 종아리가 자주 아픈데 어느 쪽이 나을까요?",
@@ -161,7 +175,7 @@ function ShoeRow({ x, old = false }: { x: Shoe; old?: boolean }) {
     <li className="text-sm">
       <span className={old ? "text-gray-500" : "font-medium text-gray-900"}>{x.model}</span>
       <span className="ml-1.5 text-xs text-gray-500">
-        드롭 {x.heelDropMm}mm · {x.weightGramsM9}g · 쿠션 {cushionText(x)}
+        앞뒤 굽 차이 {dropText(x)} · 밑창 두께 {stackText(x)} · {weightText(x)}
       </span>
       {old && x.successor && (
         <span className="ml-1.5 text-xs text-amber-700">후속 {x.successor}</span>
@@ -210,7 +224,7 @@ export default function HokaVsBrooks() {
             </p>
           ) : (
             <p className="mt-2 text-emerald-900">
-              힐드롭 범위가 <strong>겹치지 않습니다</strong> — 호카 {HOKA.dropMin}~{HOKA.dropMax}mm,
+              드롭 범위가 <strong>겹치지 않습니다</strong> — 호카 {HOKA.dropMin}~{HOKA.dropMax}mm,
               브룩스 {BROOKS.dropMin}~{BROOKS.dropMax}mm. 취향이 아니라{" "}
               <strong>조건으로 갈립니다.</strong> 종아리·아킬레스가 약하면 드롭이 높은 브룩스, 발
               앞쪽이 편한 쪽을 원하면 호카입니다.
@@ -327,7 +341,7 @@ export default function HokaVsBrooks() {
               <strong>브랜드 전체를 대표하지 않습니다.</strong>
             </li>
             <li>
-              · 드롭·쿠션이 특정 부상을 <strong>낫게 한다는 근거는 없습니다.</strong> 아킬레스·종아리
+              · 드롭·밑창이 특정 부상을 <strong>낫게 한다는 근거는 없습니다.</strong> 아킬레스·종아리
               부담과 드롭의 관계만 비교적 분명합니다.
             </li>
             <li>

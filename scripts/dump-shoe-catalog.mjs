@@ -31,7 +31,10 @@ const num = (s, key) => {
   return v;
 };
 
-const shoes = [...MANUAL_SHOES]
+// 2026-11-24: 원장은 밑창 두께·앞뒤 굽 차이가 빈 신발이 하나라도 있으면 목록 전체를 거절한다(ledger 쪽 problems()·NOT NULL).
+//   출처 세 곳(브랜드 → RunRepeat → 공식 판매처)에서 값을 못 찾은 신발은 덤프에서 빼고, 뺀 목록을 알린다
+const skipped = MANUAL_SHOES.filter((s) => s.stackHeightMm == null || s.heelDropMm == null).map((s) => s.id);
+const shoes = MANUAL_SHOES.filter((s) => !skipped.includes(s.id))
   .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
   .map((s) => {
     if (!s.id || seen.has(s.id)) problems.push(`id 비었거나 겹침: ${JSON.stringify(s.id)}`);
@@ -45,11 +48,12 @@ const shoes = [...MANUAL_SHOES]
       gender: s.gender,
       successor: s.successor ?? null,
       heelDropMm: num(s, "heelDropMm"),
-      // 2026-11-24: 밑창 두께는 2026-11-23 부터 비울 수 있다(브랜드 공식 표기가 없는 신발 — types.ts). 그날 이후 이 덤프가
-      //   그 신발 2켤레에서 exit 1 로 멈췄다. 빈 값은 0 이 아니라 null 로 넘긴다(weightGramsW8 과 같은 방식). 값이 있는데 숫자가 아니면 그대로 실패
-      stackHeightMm: s.stackHeightMm == null ? null : num(s, "stackHeightMm"),
-      weightGramsM9: num(s, "weightGramsM9"),
-      weightGramsW8: s.weightGramsW8 ?? null,
+      stackHeightMm: num(s, "stackHeightMm"),
+      // 2026-11-24: 무게는 브랜드 기준 값 + 잰 사이즈(mm). 원장의 칸 이름(weightGramsM9)은 원장 저장소가 바꿀 때까지 그대로 쓴다 —
+      //   이제 「남성 US 9」 값이 아니라 weightSizeMm 사이즈의 값이다. weightSizeMm 은 원장이 모르는 칸이라 무시된다
+      weightGramsM9: num(s, "weightG"),
+      weightSizeMm: s.weightSizeMm ?? null,
+      weightGramsW8: null,
       priceKrw: num(s, "priceKrw"),
       krAvailability: s.krAvailability,
       widthOptions: s.widthOptions,
@@ -71,4 +75,7 @@ if (process.argv.includes("--stdout")) {
   mkdirSync(path.dirname(out), { recursive: true });
   writeFileSync(out, json);
   console.log(`✓ 신발 ${shoes.length}종 → ${path.relative(ROOT, out)}`);
+}
+if (skipped.length) {
+  console.error(`밑창 두께·앞뒤 굽 차이를 못 찾아 덤프에서 뺀 신발 ${skipped.length}켤레: ${skipped.join(", ")}`);
 }

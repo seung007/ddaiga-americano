@@ -266,8 +266,8 @@ export default function ShoeLog({ catalog }: { catalog: CatalogItem[] }) {
               </div>
               {total >= KEY_KM && (
                 <p className="mb-3 rounded-lg bg-amber-50 p-2 text-xs leading-relaxed text-amber-900">
-                  480km를 넘었어요. 위 연구에서 이 시점의 뒤꿈치 쿠셔닝은 16~33% 줄어 있었고, 참가자들은 그 변화를 느끼지 못했어요.
-                  바꿀지는 직접 정하세요. 쿠셔닝이 줄어든 것이 부상으로 이어지는지는 그 연구가 보지 않았어요.{" "}
+                  480km를 넘었어요. 위 연구에서 이 시점의 뒤꿈치 쿠션 성능은 16~33% 줄어 있었고, 참가자들은 그 변화를 느끼지 못했어요.
+                  바꿀지는 직접 정하세요. 쿠션 성능이 줄어든 것이 부상으로 이어지는지는 그 연구가 보지 않았어요.{" "}
                   <Link href="/shoe-finder" className="underline">다음 신발 후보 보기 →</Link>
                 </p>
               )}

@@ -1,0 +1,4454 @@
+{
+  "adidas-adizero-adios-pro-4": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-adios-pro-4",
+        "quote": "Heel stack 36.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-adios-pro-4",
+        "quote": "Drop 8.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 200,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-adios-pro-4",
+        "quote": "Weight 7.1 oz (200g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 29.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-adios-pro-4",
+        "quote": "Midsole softness 29.3 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "adidas-adizero-boston-12": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-12",
+        "quote": "Heel stack 34.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-12",
+        "quote": "Drop 6.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 261,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-12",
+        "quote": "Weight 9.2 oz (261g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 38.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-12",
+        "quote": "Midsole softness 38.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "adidas-adizero-boston-13": {
+    "stack": {
+      "mm": 34,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-13",
+        "quote": "Heel stack 34.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-13",
+        "quote": "Drop 6.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 254,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-13",
+        "quote": "Weight 9.0 oz (254g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 40.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-boston-13",
+        "quote": "Midsole softness 40.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "adidas-adizero-evo-sl": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-evo-sl",
+        "quote": "Heel stack 36.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-evo-sl",
+        "quote": "Drop 8.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 223,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-evo-sl",
+        "quote": "Weight 7.9 oz (223g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 43.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-adizero-evo-sl",
+        "quote": "Midsole softness 43.5 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "adidas-supernova-prima-3": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-prima-3",
+        "quote": "Heel stack 39.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 11,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-prima-3",
+        "quote": "Drop 11.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 289,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-prima-3",
+        "quote": "Weight 10.2 oz (289g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-prima-3",
+        "quote": "Midsole softness 36.8 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "adidas-supernova-rise-3": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-rise-3",
+        "quote": "Heel stack 35.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-rise-3",
+        "quote": "Drop 7.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 264,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-rise-3",
+        "quote": "Weight 9.3 oz (264g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 28.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-supernova-rise-3",
+        "quote": "Midsole softness 28.6 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "adidas-ultraboost-5x": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8-5x/IH3110.html",
+        "quote": "heel_stack_height 39.00 (forefoot 29.00)",
+        "checkedAt": "2026-11-23"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8-5x/IH3110.html",
+        "quote": "midsole_offset 10.000",
+        "checkedAt": "2026-11-23"
+      }
+    },
+    "weight": {
+      "g": 275,
+      "sizeMm": 270,
+      "src": {
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8-5x/IH3110.html",
+        "quote": "중량: 275g(사이즈 270mm)",
+        "checkedAt": "2026-11-23"
+      }
+    },
+    "softness": null
+  },
+  "asics-gel-cumulus-27": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-cumulus-27",
+        "quote": "Heel stack 40.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 12,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-cumulus-27",
+        "quote": "Drop 11.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 261,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-cumulus-27",
+        "quote": "Weight 9.2 oz (261g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-cumulus-27",
+        "quote": "Midsole softness 34.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gel-kayano-32": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Heel stack 39.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Drop 9.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 295,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 41.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Midsole softness 41.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gel-kayano-32-w": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Heel stack 39.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Drop 9.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 295,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24",
+        "note": "여성 사이즈 무게를 적은 출처를 찾지 못해 남성 270mm 값"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 41.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-32",
+        "quote": "Midsole softness 41.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gel-kayano-33": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-33",
+        "quote": "Heel stack 36.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-33",
+        "quote": "Drop 8.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 298,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-33",
+        "quote": "Weight 10.5 oz (298g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 32.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-kayano-33",
+        "quote": "Midsole softness 32.8 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gel-nimbus-27": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-27",
+        "quote": "Heel stack 42.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-27",
+        "quote": "Drop 8.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 299,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-27",
+        "quote": "Weight 10.5 oz (299g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 39.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-27",
+        "quote": "Midsole softness 39.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gel-nimbus-28": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-28",
+        "quote": "Heel stack 43.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/gel-nimbus-28/p/ANA_1011C127-002.html",
+        "quote": "8 mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 278,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-28",
+        "quote": "Weight 9.8 oz (278g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 38.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gel-nimbus-28",
+        "quote": "Midsole softness 38.8 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gt-2000-14": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-14",
+        "quote": "Heel stack 36.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-14",
+        "quote": "Drop 8.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 269,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-14",
+        "quote": "Weight 9.5 oz (269g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-14",
+        "quote": "Midsole softness 36.9 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-gt-2000-15": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-15",
+        "quote": "Heel stack 38.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-15",
+        "quote": "Drop 8.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 252,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-15",
+        "quote": "Weight 8.9 oz (252g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-gt-2000-15",
+        "quote": "Midsole softness 30.6 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-jolt-4": {
+    "stack": {
+      "mm": 32,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-jolt-4",
+        "quote": "Heel stack 31.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-jolt-4",
+        "quote": "Drop 9.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 259,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-jolt-4",
+        "quote": "Weight 9.1 oz (259g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 29.8,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-jolt-4",
+        "quote": "Midsole softness (old method) 29.8 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-magic-speed-5": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-magic-speed-5",
+        "quote": "Heel stack 35.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-magic-speed-5",
+        "quote": "Drop 8.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 201,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-magic-speed-5",
+        "quote": "Weight 7.1 oz (201g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 27.0,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-magic-speed-5",
+        "quote": "Midsole softness 27.0 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-metaspeed-edge-tokyo": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-edge-tokyo",
+        "quote": "Heel stack 38.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 5,
+      "src": {
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/metaspeed-edge-tokyo/p/ANA_1013A163-101.html",
+        "quote": "5 mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 159,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-edge-tokyo",
+        "quote": "Weight 5.6 oz (159g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 24.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-edge-tokyo",
+        "quote": "Midsole softness 24.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-metaspeed-ray": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-ray",
+        "quote": "Heel stack 39.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 5,
+      "src": {
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/metaspeed-ray/p/ANA_1013A176-101.html",
+        "quote": "5 mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 129,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-ray",
+        "quote": "Weight 4.6 oz (129g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 28.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-ray",
+        "quote": "Midsole softness 28.6 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-metaspeed-sky-plus": {
+    "stack": {
+      "mm": 34,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-sky-plus",
+        "quote": "Heel stack 33.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 3,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-sky-plus",
+        "quote": "Drop 2.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 205,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-sky-plus",
+        "quote": "Weight 7.2 oz (205g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": null
+  },
+  "asics-metaspeed-sky-tokyo": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-sky-tokyo",
+        "quote": "Heel stack 38.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 5,
+      "src": {
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/metaspeed-sky-tokyo/p/ANA_1013A162-101.html",
+        "quote": "5 mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 163,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-sky-tokyo",
+        "quote": "Weight 5.7 oz (163g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 31.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-metaspeed-sky-tokyo",
+        "quote": "Midsole softness 31.9 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-novablast-5": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-5",
+        "quote": "Heel stack 40.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 7,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-5",
+        "quote": "Drop 7.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 254,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-5",
+        "quote": "Weight 9.0 oz (254g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-5",
+        "quote": "Midsole softness 30.3 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-novablast-6": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-6",
+        "quote": "Heel stack 39.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 7,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-6",
+        "quote": "Drop 7.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 249,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-6",
+        "quote": "Weight 8.8 oz (249g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 35.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-novablast-6",
+        "quote": "Midsole softness 35.1 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-superblast-2": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-2",
+        "quote": "Heel stack 42.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-2",
+        "quote": "Drop 8.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 252,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-2",
+        "quote": "Weight 8.9 oz (252g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 35.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-2",
+        "quote": "Midsole softness 35.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "asics-superblast-3": {
+    "stack": {
+      "mm": 46,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-3",
+        "quote": "Heel stack 45.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/superblast-3/p/ANA_1013A177-400.html",
+        "quote": "8 mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 235,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-3",
+        "quote": "Weight 8.3 oz (235g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 22.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/asics-superblast-3",
+        "quote": "Midsole softness 22.8 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-adrenaline-gts-25": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-adrenaline-gts-25",
+        "quote": "Heel stack 36.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/adrenaline-gts-25/110454.html",
+        "quote": "10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 295,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-adrenaline-gts-25",
+        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-adrenaline-gts-25",
+        "quote": "Midsole softness 34.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-adrenaline-gts-25-w": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-adrenaline-gts-25",
+        "quote": "Heel stack 36.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/womens/shoes/road-running-shoes/adrenaline-gts-25/120443.html",
+        "quote": "10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 295,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-adrenaline-gts-25",
+        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24",
+        "note": "여성 사이즈 무게를 적은 출처를 찾지 못해 남성 270mm 값"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-adrenaline-gts-25",
+        "quote": "Midsole softness 34.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-beast-24": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-beast-gts-24",
+        "quote": "Heel stack 38.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 13,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-beast-gts-24",
+        "quote": "Drop 12.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 357,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-beast-gts-24",
+        "quote": "Weight 12.6 oz (357g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 30.1,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-beast-gts-24",
+        "quote": "Midsole softness (old method) 30.1 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-ghost-17": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Heel stack 36.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Drop 10.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 289,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Weight 10.2 oz (289g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Midsole softness 36.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-ghost-17-w": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Heel stack 36.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Drop 10.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 249,
+      "sizeMm": 250,
+      "src": {
+        "from": "retailer",
+        "url": "https://www.runningwarehouse.com/Brooks_Ghost_17/descpage-BG17W5.html",
+        "quote": "Weight: 8.8 oz (women's styles are based on a women's size 8)",
+        "checkedAt": "2026-11-24",
+        "note": "8.8 oz = 249g. 여성 US 8 = 250mm"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-17",
+        "quote": "Midsole softness 36.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-ghost-18": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-18",
+        "quote": "Heel stack 37.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/110493.html",
+        "quote": "10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 289,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-18",
+        "quote": "Weight 10.2 oz (289g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 40.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-18",
+        "quote": "Midsole softness 40.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-ghost-max-4": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-max-4",
+        "quote": "Heel stack 38.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-max-4/110496.html",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 286,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-max-4",
+        "quote": "Weight 10.1 oz (286g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 39.7,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-ghost-max-4",
+        "quote": "Midsole softness 39.7 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-glycerin-22": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Heel stack 38.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Drop 10.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 293,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Weight 10.3 oz (293g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.0,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Midsole softness 30.0 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-glycerin-22-w": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Heel stack 38.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Drop 10.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 293,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Weight 10.3 oz (293g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24",
+        "note": "여성 사이즈 무게를 적은 출처를 찾지 못해 남성 270mm 값"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.0,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-22",
+        "quote": "Midsole softness 30.0 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-glycerin-23": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-23",
+        "quote": "Heel stack 37.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/glycerin-23/110476.html",
+        "quote": "8mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 303,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-23",
+        "quote": "Weight 10.7 oz (303g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 29.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-23",
+        "quote": "Midsole softness 29.2 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-glycerin-flex": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-flex",
+        "quote": "Heel stack 35.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/glycerin-flex/110478.html",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 264,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-flex",
+        "quote": "Weight 9.3 oz (264g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 39.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-flex",
+        "quote": "Midsole softness 39.9 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-glycerin-gts-23": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "retailer",
+        "url": "https://www.runningwarehouse.com/Brooks_Glycerin_GTS_23/descpage-B23GSM1.html",
+        "quote": "Heel Stack: 39 mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/glycerin-gts-23/110503.html",
+        "quote": "8mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 306,
+      "sizeMm": 270,
+      "src": {
+        "from": "retailer",
+        "url": "https://www.runningwarehouse.com/Brooks_Glycerin_GTS_23/descpage-B23GSM1.html",
+        "quote": "Weight: 10.8 oz | 306 g (men's styles are based on a men's size 9)",
+        "checkedAt": "2026-11-24",
+        "note": "브룩스 미국몰 「11.0oz / 311.8g」은 사이즈 기준이 없음. 남성 US 9 = 270mm"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/glycerin-gts-23/110503.html",
+        "quote": "CUSHION Plush",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "brooks-glycerin-max-2": {
+    "stack": {
+      "mm": 45,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-max-2",
+        "quote": "Heel stack 45.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/glycerin-max-2/110479.html",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 318,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-max-2",
+        "quote": "Weight 11.2 oz (318g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/brooks-glycerin-max-2",
+        "quote": "Midsole softness 30.9 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "decathlon-kiprun-ks500-2": {
+    "stack": null,
+    "drop": null,
+    "weight": {
+      "g": 280,
+      "sizeMm": null,
+      "src": {
+        "from": "brand",
+        "url": "https://www.decathlon.ie/p/men-s-kiprun-ks500-2-running-shoes-black-yellow/341860/c382c132m8772865",
+        "quote": "280 g in size 8.",
+        "checkedAt": "2026-11-24",
+        "note": "데카트론 아일랜드몰은 UK 사이즈. UK 8 의 mm 는 사이즈표를 확인하지 못함"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "src": {
+        "from": "brand",
+        "url": "https://www.decathlon.ie/p/men-s-kiprun-ks500-2-running-shoes-black-yellow/341860/c382c132m8772865",
+        "quote": "Made of 100% Kalensole, the soles provide soft cushioning and shock absorption.",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-arahi-8": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-arahi-8",
+        "quote": "Heel stack 39.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 11,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-arahi-8",
+        "quote": "Drop 11.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 259,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-arahi-8",
+        "quote": "Weight 9.1 oz (259g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 35.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-arahi-8",
+        "quote": "Midsole softness 35.8 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-bondi-9": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Heel stack 41.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Drop 9.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 303,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Weight 10.7 oz (303g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 43.0,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Midsole softness 43.0 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-bondi-9-wide": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Heel stack 41.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Drop 9.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 303,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Weight 10.7 oz (303g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24",
+        "note": "넓은 판(2E) 무게를 따로 적은 출처를 찾지 못해 기본 폭 값"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 43.0,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-bondi-9",
+        "quote": "Midsole softness 43.0 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-clifton-10": {
+    "stack": {
+      "mm": 44,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Heel stack 44.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 12,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Drop 12.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 275,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Weight 9.7 oz (275g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Midsole softness 34.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-clifton-10-w": {
+    "stack": {
+      "mm": 44,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Heel stack 44.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 12,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Drop 12.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 275,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Weight 9.7 oz (275g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24",
+        "note": "여성 사이즈 무게를 적은 출처를 찾지 못해 남성 270mm 값"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-clifton-10",
+        "quote": "Midsole softness 34.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-mach-6": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-mach-6",
+        "quote": "Heel stack 36.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-mach-6",
+        "quote": "Drop 9.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 232,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-mach-6",
+        "quote": "Weight 8.2 oz (232g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 39.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-mach-6",
+        "quote": "Midsole softness 39.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "hoka-rocket-x-2": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-rocket-x-2",
+        "quote": "Heel stack 37.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 7,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-rocket-x-2",
+        "quote": "Drop 6.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 218,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-rocket-x-2",
+        "quote": "Weight 7.7 oz (218g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 17.4,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/hoka-rocket-x-2",
+        "quote": "Midsole softness (old method) 17.4 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-neo-vista-3": {
+    "stack": {
+      "mm": 45,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/mizuno-neo-vista-3/J1GM261054.html",
+        "quote": "THE 44.5MM STACK HEIGHT AND 8MM DROP PROVIDES A DYNAMIC, YET STABLE RUNNING EXPERIENCE",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/mizuno-neo-vista-3/J1GM261054.html",
+        "quote": "THE 44.5MM STACK HEIGHT AND 8MM DROP PROVIDES A DYNAMIC, YET STABLE RUNNING EXPERIENCE",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 266,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-neo-vista-3",
+        "quote": "Weight 9.4 oz (266g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 19.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-neo-vista-3",
+        "quote": "Midsole softness 19.8 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-neo-zen-2": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-neo-zen-2",
+        "quote": "Heel stack 39.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 5,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-neo-zen-2",
+        "quote": "Drop 5.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 237,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-neo-zen-2",
+        "quote": "Weight 8.4 oz (237g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 32.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-neo-zen-2",
+        "quote": "Midsole softness 32.1 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-wave-inspire-22": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
+        "quote": "Heel stack 36.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
+        "quote": "Drop 7.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 280,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
+        "quote": "Weight 9.9 oz (280g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
+        "quote": "Midsole softness 30.8 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-wave-rebellion-flash-3": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
+        "quote": "Heel stack 40.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
+        "quote": "Drop 7.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 244,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
+        "quote": "Weight 8.6 oz (244g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 11.5,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
+        "quote": "Midsole softness (old method) 11.5 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-wave-rebellion-pro-3": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
+        "quote": "Heel stack 39.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 5,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
+        "quote": "Drop 5.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 227,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
+        "quote": "Weight 8.0 oz (227g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 16.5,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
+        "quote": "Midsole softness (old method) 16.5 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-wave-rider-29": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/wave-rider-29/J1GC250352.html",
+        "quote": "THE 38.5MM STACK HEIGHT AND 10MM DROP CREATES A TRADITIONAL, CUSHIONED RUNNING EXPERIENCE.",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/wave-rider-29/J1GC250352.html",
+        "quote": "THE 38.5MM STACK HEIGHT AND 10MM DROP CREATES A TRADITIONAL, CUSHIONED RUNNING EXPERIENCE.",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 258,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rider-29",
+        "quote": "Weight 9.1 oz (258g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rider-29",
+        "quote": "Midsole softness 36.1 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-wave-rider-30": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/wave-rider-30/J1GM262055.html",
+        "quote": "42.5MM STACK HEIGHT; 8MM DROP; 265G",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/wave-rider-30/J1GM262055.html",
+        "quote": "42.5MM STACK HEIGHT; 8MM DROP; 265G",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 266,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rider-30",
+        "quote": "Weight 9.4 oz (266g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 33.7,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-rider-30",
+        "quote": "Midsole softness 33.7 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "mizuno-wave-sky-9": {
+    "stack": {
+      "mm": 44,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/wave-sky-9/J1GC250202.html",
+        "quote": "THE 44MM STACK HEIGHT AND 6MM CREATES A SMOOTH, PROTECTIVE RUNNING EXPERIE",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://emea.mizuno.com/eu/en/wave-sky-9/J1GC250202.html",
+        "quote": "THE 44MM STACK HEIGHT AND 6MM CREATES A SMOOTH, PROTECTIVE RUNNING EXPERIE",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 295,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-sky-9",
+        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 14.5,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/mizuno-wave-sky-9",
+        "quote": "Midsole softness (old method) 14.5 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-1080-v15": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-1080-v-15",
+        "quote": "Heel stack 37.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.com/pd/1080v15/M10807E3-2E-15.html",
+        "quote": "6 Mm Drop**",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 255,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-1080-v-15",
+        "quote": "Weight 9.0 oz (255g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 21.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-1080-v-15",
+        "quote": "Midsole softness 21.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-520-v9": {
+    "stack": null,
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.ca/en_ca/pd/fresh-foam-520v9/M520V9-48517.html",
+        "quote": "10 Mm Drop**",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 261,
+      "sizeMm": null,
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.ca/en_ca/pd/fresh-foam-520v9/M520V9-48517.html",
+        "quote": "Weight 260.8 grams (9.2 oz)",
+        "checkedAt": "2026-11-24",
+        "note": "사이즈 기준이 적혀 있지 않음"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.ca/en_ca/pd/fresh-foam-520v9/M520V9-48517.html",
+        "quote": "Cushion Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-860-v15": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-860-v-15",
+        "quote": "Heel stack 39.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-860-v-15",
+        "quote": "Drop 7.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 332,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-860-v-15",
+        "quote": "Weight 11.7 oz (332g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 25.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-860-v-15",
+        "quote": "Midsole softness 25.8 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-fresh-foam-x-880-v15": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-880-v-15",
+        "quote": "Heel stack 39.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.com/pd/fresh-foam-x-880v15/M880B15-D-07.html",
+        "quote": "6 Mm Drop**",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 286,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-880-v-15",
+        "quote": "Weight 10.1 oz (286g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 35.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-880-v-15",
+        "quote": "Midsole softness 35.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-fresh-foam-x-more-v6": {
+    "stack": {
+      "mm": 42,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-more-v-6",
+        "quote": "Heel stack 41.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 3,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-more-v-6",
+        "quote": "Drop 3.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 302,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-more-v-6",
+        "quote": "Weight 10.7 oz (302g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 27.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fresh-foam-x-more-v-6",
+        "quote": "Midsole softness 27.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-fuelcell-rebel-v4": {
+    "stack": {
+      "mm": 28,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuelcell-rebel-v4",
+        "quote": "Heel stack 28.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 7,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuelcell-rebel-v4",
+        "quote": "Drop 6.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 213,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuelcell-rebel-v4",
+        "quote": "Weight 7.5 oz (213g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 23.7,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuelcell-rebel-v4",
+        "quote": "Midsole softness 23.7 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-fuelcell-rebel-v5": {
+    "stack": {
+      "mm": 33,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-rebel-v-5",
+        "quote": "Heel stack 33.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.com/pd/fuelcell-rebel-v5/MFCXLD5-D-115.html",
+        "quote": "6 Mm Drop**",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 220,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-rebel-v-5",
+        "quote": "Weight 7.8 oz (220g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 25.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-rebel-v-5",
+        "quote": "Midsole softness 25.9 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-fuelcell-supercomp-elite-v4": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-super-comp-elite-v-4",
+        "quote": "Heel stack 38.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-super-comp-elite-v-4",
+        "quote": "Drop 9.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 232,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-super-comp-elite-v-4",
+        "quote": "Weight 8.2 oz (232g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-fuel-cell-super-comp-elite-v-4",
+        "quote": "Midsole softness 30.3 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nb-supercomp-elite-v6": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-super-comp-elite-v-6",
+        "quote": "Heel stack 38.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.newbalance.com/pd/supercomp-elite-v6/MRCEL8DM-D-13.html",
+        "quote": "8 Mm Drop**",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 190,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-super-comp-elite-v-6",
+        "quote": "Weight 6.7 oz (190g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/new-balance-super-comp-elite-v-6",
+        "quote": "Midsole softness 30.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-alphafly-3": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-alphafly-3",
+        "quote": "Heel stack 38.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-alphafly-3",
+        "quote": "Drop 8.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 201,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-alphafly-3",
+        "quote": "Weight 7.1 oz (201g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-alphafly-3",
+        "quote": "Midsole softness 34.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-alphafly-4": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-alphafly-4",
+        "quote": "Heel stack 39.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-BxYAEFvI/IM5546-800",
+        "quote": "오프셋: 8mm(265mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 188,
+      "sizeMm": 265,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-BxYAEFvI/IM5546-800",
+        "quote": "무게: 약 188g(265mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 32.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-alphafly-4",
+        "quote": "Midsole softness 32.3 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-downshifter-14": {
+    "stack": {
+      "mm": 31,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-downshifter-14",
+        "quote": "Heel stack 31.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%8B%A4%EC%9A%B4%EC%8B%9C%ED%94%84%ED%84%B0-14-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-96nR4eLJ/IB1895-101",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 358,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%8B%A4%EC%9A%B4%EC%8B%9C%ED%94%84%ED%84%B0-14-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-96nR4eLJ/IB1895-101",
+        "quote": "무게: 약 358g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 40.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-downshifter-14",
+        "quote": "Midsole softness 40.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-infinity-run-4": {
+    "stack": {
+      "mm": 34,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-infinityrn-4",
+        "quote": "Heel stack 34.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-infinityrn-4",
+        "quote": "Drop 9.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 316,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-infinityrn-4",
+        "quote": "Weight 11.1 oz (316g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 12.5,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-infinityrn-4",
+        "quote": "Midsole softness (old method) 12.5 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-journey-run": {
+    "stack": {
+      "mm": 33,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-journey-run",
+        "quote": "Heel stack 33.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-journey-run",
+        "quote": "Drop 8.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 298,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-journey-run",
+        "quote": "Weight 10.5 oz (298g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 46.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-journey-run",
+        "quote": "Midsole softness 46.5 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-pegasus-42": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-42",
+        "quote": "Heel stack 36.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-XuHjeH83/IB1873-009",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 300,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-XuHjeH83/IB1873-009",
+        "quote": "무게: 약 300g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 37.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-42",
+        "quote": "Midsole softness 37.6 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-pegasus-42-w": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-42",
+        "quote": "Heel stack 36.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EC%97%AC%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-wsTF7yIV/IB1881-007",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 255,
+      "sizeMm": 250,
+      "src": {
+        "from": "retailer",
+        "url": "https://www.runningwarehouse.com/Nike_Pegasus_42/descpage-NP42W00.html",
+        "quote": "Weight: 9.0 oz | 255 g (women's size 8)",
+        "checkedAt": "2026-11-24",
+        "note": "나이키 한국몰은 「약 243g(250mm 기준)」과 「약 254g(250mm 기준)」을 함께 적어 한 값을 고를 수 없음. 여성 US 8 = 250mm"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 37.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-42",
+        "quote": "Midsole softness 37.6 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-pegasus-plus": {
+    "stack": {
+      "mm": 33,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-plus",
+        "quote": "Heel stack 33.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-DXTuhZ4J/FQ7262-002",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 245,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-DXTuhZ4J/FQ7262-002",
+        "quote": "무게: 약 245g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 33.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-plus",
+        "quote": "Midsole softness 33.9 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-pegasus-premium": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-premium",
+        "quote": "Heel stack 42.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-rqFZ3AUC/HQ2592-020",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 325,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-rqFZ3AUC/HQ2592-020",
+        "quote": "무게: 약 325g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-pegasus-premium",
+        "quote": "Midsole softness 36.9 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-revolution-7": {
+    "stack": {
+      "mm": 32,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-revolution-7",
+        "quote": "Heel stack 31.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 11,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-revolution-7",
+        "quote": "Drop 10.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 281,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-revolution-7",
+        "quote": "Weight 9.9 oz (281g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 28.4,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-revolution-7",
+        "quote": "Midsole softness (old method) 28.4 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-revolution-8": {
+    "stack": {
+      "mm": 32,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-revolution-8",
+        "quote": "Heel stack 31.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%A0%88%EB%B3%BC%EB%A3%A8%EC%85%98-8-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-Dqzv22Cs/HJ9198-002",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 292,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%A0%88%EB%B3%BC%EB%A3%A8%EC%85%98-8-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-Dqzv22Cs/HJ9198-002",
+        "quote": "무게: 약 292g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 44.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-revolution-8",
+        "quote": "Midsole softness 44.5 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-streakfly-2": {
+    "stack": {
+      "mm": 27,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-streakfly-2",
+        "quote": "Heel stack 27.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 4,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4-2-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-w32dkLBj/HF6416-601",
+        "quote": "오프셋: 4mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 145,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4-2-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-w32dkLBj/HF6416-601",
+        "quote": "무게: 약 145g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 31.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-streakfly-2",
+        "quote": "Midsole softness 31.9 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-structure-26": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-structure-26",
+        "quote": "Heel stack 36.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-26-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-7dh5Vy5s/HJ1102-009",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 321,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-26-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-7dh5Vy5s/HJ1102-009",
+        "quote": "무게: 약 321g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-structure-26",
+        "quote": "Midsole softness 34.9 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-structure-plus": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-structure-plus",
+        "quote": "Heel stack 40.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-xhR97O1N/HQ3048-100",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 309,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-xhR97O1N/HQ3048-100",
+        "quote": "무게: 약 309g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 29.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-structure-plus",
+        "quote": "Midsole softness 29.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-vaporfly-4": {
+    "stack": {
+      "mm": 34,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vaporfly-4",
+        "quote": "Heel stack 34.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-LgISdyo8/IM8203-400",
+        "quote": "오프셋: 6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 190,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-LgISdyo8/IM8203-400",
+        "quote": "무게: 약 190g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.7,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vaporfly-4",
+        "quote": "Midsole softness 34.7 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-vomero-18": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vomero-18",
+        "quote": "Heel stack 42.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-18-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-sUlilE2b/HM6803-101",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 325,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-18-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-sUlilE2b/HM6803-101",
+        "quote": "무게: 약 325g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vomero-18",
+        "quote": "Midsole softness 30.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-vomero-plus": {
+    "stack": {
+      "mm": 42,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vomero-plus",
+        "quote": "Heel stack 42.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-SUmL0LYm/IQ6942-001",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 292,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-SUmL0LYm/IQ6942-001",
+        "quote": "무게: 약 292g(남성용 280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 32.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vomero-plus",
+        "quote": "Midsole softness 32.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-vomero-premium": {
+    "stack": {
+      "mm": 50,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vomero-premium",
+        "quote": "Heel stack 50.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-Kz76Wr9V/IQ6943-001",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 351,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-Kz76Wr9V/IQ6943-001",
+        "quote": "무게: 약 351g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 34.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-vomero-premium",
+        "quote": "Midsole softness 34.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-winflo-12": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-winflo-12",
+        "quote": "Heel stack 40.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%9C%88%ED%94%8C%EB%A1%9C-12-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-UdLfXcPF/HV9272-002",
+        "quote": "오프셋: 10mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 322,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%9C%88%ED%94%8C%EB%A1%9C-12-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-UdLfXcPF/HV9272-002",
+        "quote": "무게: 약 322g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 28.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-winflo-12",
+        "quote": "Midsole softness 28.3 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "nike-zoom-fly-6": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-zoom-fly-6",
+        "quote": "Heel stack 39.7 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%A4%8C-%ED%94%8C%EB%9D%BC%EC%9D%B4-6-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-r5abpTB8/FN8454-106",
+        "quote": "오프셋: 8mm(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 265,
+      "sizeMm": 280,
+      "src": {
+        "from": "brand",
+        "url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%A4%8C-%ED%94%8C%EB%9D%BC%EC%9D%B4-6-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-r5abpTB8/FN8454-106",
+        "quote": "무게: 약 265g(280mm 기준)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 36.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/nike-zoom-fly-6",
+        "quote": "Midsole softness 36.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudboom-max": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudboom-max",
+        "quote": "Heel stack 39.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudboom-max-m-3mf3031/mens/white-pearl-shoes-3MF30310590",
+        "quote": "8mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 286,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudboom-max",
+        "quote": "Weight 10.1 oz (286g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 33.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudboom-max",
+        "quote": "Midsole softness 33.8 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudmonster-2": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-2",
+        "quote": "Heel stack 37.9 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 7,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-2",
+        "quote": "Drop 6.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 292,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-2",
+        "quote": "Weight 10.3 oz (292g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 49.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-2",
+        "quote": "Midsole softness 49.6 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudmonster-3": {
+    "stack": {
+      "mm": 39,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-3",
+        "quote": "Heel stack 38.6 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudmonster-3-m-3mg1005/mens/ivory-topaz-shoes-3MG10055261",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 301,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-3",
+        "quote": "Weight 10.6 oz (301g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 49.9,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-3",
+        "quote": "Midsole softness 49.9 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudmonster-3-hyper": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-3-hyper",
+        "quote": "Heel stack 43.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudmonster-3-hyper-3mg1006/mens/ivory-flurry-shoes-3MG10065262",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 264,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-3-hyper",
+        "quote": "Weight 9.3 oz (264g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 37.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudmonster-3-hyper",
+        "quote": "Midsole softness 37.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudrunner-3": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudrunner-3",
+        "quote": "Heel stack 36.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudrunner-3-m-3mg1007/mens/grain-saffron-shoes-3MG10075160",
+        "quote": "8mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 298,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudrunner-3",
+        "quote": "Weight 10.5 oz (298g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 43.6,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudrunner-3",
+        "quote": "Midsole softness 43.6 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudrunner-3-max": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "retailer",
+        "url": "https://www.roadrunnersports.com/product/49827/mens-on-cloudrunner-3-max",
+        "quote": "Stack Height: 38mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudrunner-3-max-m-3mg3020/mens/black-black-shoes-3MG30201043",
+        "quote": "8mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 330,
+      "sizeMm": null,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudrunner-3-max-m-3mg3020/mens/black-black-shoes-3MG30201043",
+        "quote": "무게 330g",
+        "checkedAt": "2026-11-24",
+        "note": "사이즈 기준이 적혀 있지 않음"
+      }
+    },
+    "softness": null
+  },
+  "on-cloudsurfer-2": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-2",
+        "quote": "Heel stack 37.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudsurfer-2-3mf1012/mens/black-flurry-shoes-3MF10125172",
+        "quote": "9mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 254,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-2",
+        "quote": "Weight 9.0 oz (254g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 43.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-2",
+        "quote": "Midsole softness 43.8 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudsurfer-max": {
+    "stack": {
+      "mm": 37,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-max",
+        "quote": "Heel stack 37.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudsurfer-max-m-3mf3043/mens/saffron-squash-shoes-3MF30435168",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 292,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-max",
+        "quote": "Weight 10.3 oz (292g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 43.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-max",
+        "quote": "Midsole softness 43.8 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "on-cloudsurfer-next": {
+    "stack": {
+      "mm": 34,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-next",
+        "quote": "Heel stack 33.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.on.com/ko-kr/products/cloudsurfer-next-3me3002/mens/sailor-iceberg-shoes-3ME30024476",
+        "quote": "6mm",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 264,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-next",
+        "quote": "Weight 9.3 oz (264g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 54.0,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/on-cloudsurfer-next",
+        "quote": "Midsole softness 54.0 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "puma-foreverrun-nitro-3": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "brand",
+        "url": "https://kr.puma.com/kr/ko/pd/x/312942.html",
+        "quote": "스택 높이 : 뒤꿈치 38mm / 앞꿈치 30mm",
+        "checkedAt": "2026-11-23"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://kr.puma.com/kr/ko/pd/x/312942.html",
+        "quote": "드랍 : 8mm",
+        "checkedAt": "2026-11-23"
+      }
+    },
+    "weight": {
+      "g": 270,
+      "sizeMm": 270,
+      "src": {
+        "from": "brand",
+        "url": "https://kr.puma.com/kr/ko/pd/x/312942.html",
+        "quote": "무게 : 남성 270 기준 270g",
+        "checkedAt": "2026-11-23"
+      }
+    },
+    "softness": null
+  },
+  "puma-magmax-nitro-2": {
+    "stack": {
+      "mm": 46,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-mag-max-nitro-2",
+        "quote": "Heel stack 45.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 11,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-mag-max-nitro-2",
+        "quote": "Drop 10.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 269,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-mag-max-nitro-2",
+        "quote": "Weight 9.5 oz (269g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 38.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-mag-max-nitro-2",
+        "quote": "Midsole softness 38.1 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "puma-velocity-nitro-3": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-3",
+        "quote": "Heel stack 34.8 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 9,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-3",
+        "quote": "Drop 9.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 264,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-3",
+        "quote": "Weight 9.3 oz (264g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 35.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-3",
+        "quote": "Midsole softness 35.8 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "puma-velocity-nitro-5": {
+    "stack": {
+      "mm": 31,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-5",
+        "quote": "Heel stack 31.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 5,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-5",
+        "quote": "Drop 5.2 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 238,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-5",
+        "quote": "Weight 8.4 oz (238g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 40.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/puma-velocity-nitro-5",
+        "quote": "Midsole softness 40.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-endorphin-azura": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-azura/60807M.html",
+        "quote": "Offset: 8mm (40mm/32mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-azura/60807M.html",
+        "quote": "8mm (40mm/32mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 241,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-azura",
+        "quote": "Weight 8.5 oz (241g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 40.2,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-azura",
+        "quote": "Midsole softness 40.2 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-endorphin-elite-3": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-elite-3/61243U.html",
+        "quote": "Offset: 8mm (39.5/31.5mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-elite-3/61243U.html",
+        "quote": "8mm (39.5/31.5mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 210,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-elite-3",
+        "quote": "Weight 7.4 oz (210g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 15.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-elite-3",
+        "quote": "Midsole softness 15.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-endorphin-pro-4": {
+    "stack": {
+      "mm": 38,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-pro-4",
+        "quote": "Heel stack 38.1 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-pro-4",
+        "quote": "Drop 9.5 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 220,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-pro-4",
+        "quote": "Weight 7.8 oz (220g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 35.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-pro-4",
+        "quote": "Midsole softness 35.1 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-endorphin-pro-5": {
+    "stack": {
+      "mm": 40,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-pro-5/60803M.html",
+        "quote": "Offset: 8mm (39.5mm/31.5mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-pro-5/60803M.html",
+        "quote": "8mm (39.5mm/31.5mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 215,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-pro-5",
+        "quote": "Weight 7.6 oz (215g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 33.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-pro-5",
+        "quote": "Midsole softness 33.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-endorphin-speed-5": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-speed-5/60307M.html",
+        "quote": "Offset: 8mm (36/28mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/endorphin-speed-5/60307M.html",
+        "quote": "8mm (36/28mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 241,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-speed-5",
+        "quote": "Weight 8.5 oz (241g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 44.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-endorphin-speed-5",
+        "quote": "Midsole softness 44.5 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-guide-18": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Heel stack 36.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Drop 8.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 278,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Weight 9.8 oz (278g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 38.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Midsole softness 38.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-guide-18-w": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Heel stack 36.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Drop 8.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 278,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Weight 9.8 oz (278g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24",
+        "note": "여성 사이즈 무게를 적은 출처를 찾지 못해 남성 270mm 값"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 38.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-18",
+        "quote": "Midsole softness 38.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-guide-19": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/guide-19/60838M.html",
+        "quote": "Offset: 6mm (35/29mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/guide-19/60838M.html",
+        "quote": "6mm (35/29mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 298,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-19",
+        "quote": "Weight 10.5 oz (298g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "soft",
+      "value": 30.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-guide-19",
+        "quote": "Midsole softness 30.5 AC · Soft",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-hurricane-26": {
+    "stack": {
+      "mm": 41,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/hurricane-26/61249M.html",
+        "quote": "Offset: 6mm (41/35mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/hurricane-26/61249M.html",
+        "quote": "6mm (41/35mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 272,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-hurricane-26",
+        "quote": "Weight 9.6 oz (272g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 33.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-hurricane-26",
+        "quote": "Midsole softness 33.8 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-kinvara-16": {
+    "stack": {
+      "mm": 28,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/kinvara-16/60309M.html",
+        "quote": "Offset: 4mm (28/24mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 4,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/kinvara-16/60309M.html",
+        "quote": "4mm (28/24mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 207,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-kinvara-16",
+        "quote": "Weight 7.3 oz (207g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": null,
+      "value": 27.5,
+      "unit": "HA",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-kinvara-16",
+        "quote": "Midsole softness (old method) 27.5 HA",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-ride-18": {
+    "stack": {
+      "mm": 35,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-ride-18",
+        "quote": "Heel stack 35.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-ride-18",
+        "quote": "Drop 8.4 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 255,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-ride-18",
+        "quote": "Weight 9.0 oz (255g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 41.3,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-ride-18",
+        "quote": "Midsole softness 41.3 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-ride-19": {
+    "stack": {
+      "mm": 36,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/ride-19/60823M.html",
+        "quote": "Offset: 8mm (36/28mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 8,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/ride-19/60823M.html",
+        "quote": "8mm (36/28mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 278,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-ride-19",
+        "quote": "Weight 9.8 oz (278g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 37.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-ride-19",
+        "quote": "Midsole softness 37.1 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-triumph-23": {
+    "stack": {
+      "mm": 42,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-triumph-23",
+        "quote": "Heel stack 42.3 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-triumph-23",
+        "quote": "Drop 10.0 mm (lab)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 272,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-triumph-23",
+        "quote": "Weight 9.6 oz (272g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "firm",
+      "value": 42.8,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-triumph-23",
+        "quote": "Midsole softness 42.8 AC · Firm",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  },
+  "saucony-triumph-24": {
+    "stack": {
+      "mm": 43,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/triumph-24/61229M.html",
+        "quote": "Offset: 10mm (43/33mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "drop": {
+      "mm": 10,
+      "src": {
+        "from": "brand",
+        "url": "https://www.saucony.com/en/triumph-24/61229M.html",
+        "quote": "10mm (43/33mm)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "weight": {
+      "g": 258,
+      "sizeMm": 270,
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-triumph-24",
+        "quote": "Weight 9.1 oz (258g) (lab, men's US 9)",
+        "checkedAt": "2026-11-24"
+      }
+    },
+    "softness": {
+      "label": "balanced",
+      "value": 37.5,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/saucony-triumph-24",
+        "quote": "Midsole softness 37.5 AC · Balanced",
+        "checkedAt": "2026-11-24"
+      }
+    }
+  }
+}

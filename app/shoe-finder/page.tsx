@@ -16,10 +16,10 @@ import { Ref, Sources, Src } from "@/components/guide/Read";
 import { BODY_TYPE_LABEL, KR_AVAILABILITY_LABEL } from "@/lib/shoes/types";
 import type { FootType, FootWidth, Gender, InjuryArea, Recommendation, RunDistance, RunnerLevel, Shoe, ShoeUse } from "@/lib/shoes/types";
 import {
-  CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USE_NAME, USES, WEIGHT_OPTIONS,
+  FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USE_NAME, USES, WEIGHT_OPTIONS,
   type HeightRange, type SavedProfile, type WeightRange, SPEC_HELP } from "@/lib/shoes/profileOptions";
 import { gtagEvent } from "@/lib/gtag";
-import { cushionText, stackText } from "@/lib/shoes/labels";
+import { stackText, dropText, weightText, feelText, SOFT_KO, NONE } from "@/lib/shoes/labels";
 
 // 옵션표·저장 프로필·GA 헬퍼는 `/shoes`(내 조건으로 보기)와 같이 쓰려고 lib 로 옮겼다 (2026-09-16).
 
@@ -992,12 +992,13 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               </div>
             </div>
 
+            {/* 2026-11-24: 밑창 두께 + 푹신함 한 줄(lib/shoes/labels.ts feelText) */}
+            {feelText(shoe) && <p className="mt-3 text-sm text-gray-800">{feelText(shoe)}</p>}
             <div className="mt-3 flex flex-wrap gap-1.5">
               {[
-                shoe.cushioning != null ? `쿠션 ${CUSH_DOTS[shoe.cushioning]}` : `쿠션 ${cushionText(shoe)}`,
                 STABILITY_LABEL[shoe.stability],
-                `굽 차이 ${shoe.heelDropMm}mm`,
-                `${shoe.weightGramsM9}g`,
+                `앞뒤 굽 차이 ${dropText(shoe)}`,
+                weightText(shoe),
                 // 2026-11-10: B·D·2E 기호 대신 홈과 같은 말(좁게·보통·넓게)
                 `발볼 ${shoe.widthOptions.map(w => ({ B: "좁게", D: "보통", "2E": "넓게", "4E": "아주 넓게" } as Record<string, string>)[w] ?? w).join("·")}`,
                 shoe.uses.map(u => USE_LABEL[u]).join("·"),
@@ -1104,10 +1105,10 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {/* 2026-11-18: 칸마다 뜻 한 줄(SPEC_HELP). 「M9」「D·2E·4E」 같은 기호만 있으면 처음 보는 사람이 읽지 못한다 */}
               {([
-                ["앞뒤 굽 차이", `${shoe.heelDropMm}mm`, SPEC_HELP.heelDrop],
+                ["앞뒤 굽 차이", dropText(shoe), SPEC_HELP.heelDrop],
                 ["밑창 두께", stackText(shoe), SPEC_HELP.stack],
-                ["무게", `${shoe.weightGramsM9}g`, shoe.weightBasis ?? (shoe.gender === "female" ? SPEC_HELP.weight : SPEC_HELP.weightMens)],
-                ["쿠션", shoe.cushioning != null ? `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}` : cushionText(shoe), shoe.cushioning != null ? SPEC_HELP.cushioning : "브랜드가 적은 말 그대로"],
+                ["무게", weightText(shoe), SPEC_HELP.weight],
+                ["푹신함", shoe.softness ? SOFT_KO[shoe.softness] : NONE, SPEC_HELP.softness],
                 ["안정화", STABILITY_LABEL[shoe.stability], SPEC_HELP.stability],
                 ["발볼 폭", shoe.widthOptions.join(" · "), SPEC_HELP.width],
                 // 2026-09-21: 판단 필드가 선택이 됐다. 추천 결과에는 값이 있는 신발만
@@ -1129,13 +1130,13 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
             이 문장들은 플레이트·밑창 같은 제품 설계 설명과 공개 실측 값이다(2026-11-23 효과 주장·제조사 수치를 뺐다).
             논문 인용처럼 보이는 파란 박스에 담아두면 실제 근거 등급보다 높게 읽힌다.
           */}
-          <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
+          {shoe.scienceBasis && <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
             <p className="text-xs font-semibold text-blue-700 mb-1">설계 특징</p>
             <p className="text-sm text-blue-800 leading-relaxed">{shoe.scienceBasis}</p>
             <p className="text-xs text-blue-600/70 mt-2 leading-relaxed">
-              브랜드가 밝힌 구조와 공개 실측 값이에요. 효과를 시험한 내용은 아니에요.
+              효과를 시험한 내용은 아니에요.
             </p>
-          </div>
+          </div>}
 
           {/* 2026-10-06: 「이 신발이 최적인 체형」 칩을 뺐다 — 체형 분류는 출처가 없고 추천에 안 쓴다. */}
 

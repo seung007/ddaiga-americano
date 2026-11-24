@@ -1,6 +1,6 @@
 import { KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
-import { cushionText, stackText } from "@/lib/shoes/labels";
+import { NONE, SOFT_KO, dropText, sameWeightBasis, stackText, weightText } from "@/lib/shoes/labels";
 
 /**
  * 두 신발 스펙 비교 — 러닝화 찾기 비교 칸과 /compare 페이지가 같이 쓴다.
@@ -12,7 +12,7 @@ import { cushionText, stackText } from "@/lib/shoes/labels";
  * - 더 나은 쪽 표시: versus 는 나은 값만 굵게, 차이(+1600 nits)는 오른쪽에 나은 쪽 색 딱지로.
  *   우리 2차는 값 아래에 같은 초록 딱지를 붙여서 딱지가 어느 신발 편인지 색으로 안 갈렸고 줄만 늘었다.
  *   → 차이는 항목 이름 줄 오른쪽에, 값은 두 칸에 깔끔하게.
- * - 좋고 나쁨은 방향이 분명한 것(가격·무게)만 매긴다. 두께·굽 차이·쿠션은 큰 쪽이 좋다는 근거를
+ * - 좋고 나쁨은 방향이 분명한 것(가격·무게)만 매긴다. 두께·굽 차이·푹신함은 큰 쪽이 좋다는 근거를
  *   이 사이트가 확인하지 못했으므로 「8mm 차이」처럼 크기만 적고 어느 쪽도 굵게 하지 않는다.
  * - 색만으로 가르지 않는다: 나은 값은 색 + 굵기, 차이 딱지는 글자로 「저렴」「가벼움」을 말한다.
  * - 같은 점은 상자 속 상자를 없애고 한 줄 목록으로(애플·삼성처럼 같은 값은 한 번).
@@ -49,16 +49,15 @@ function rowsFor(a: Shoe, b: Shoe): Row[] {
   return [
     { label: "가격", va: a.priceKrw.toLocaleString() + "원", vb: b.priceKrw.toLocaleString() + "원",
       na: a.priceKrw, nb: b.priceKrw, better: "low", unit: "원", word: "저렴" },
-    { label: "무게", va: a.weightGramsM9 + "g", vb: b.weightGramsM9 + "g",
-      // 2026-11-23: 사이즈 기준이 다른 무게(weightBasis)는 어느 쪽이 가볍다고 판정하지 않는다
-      na: a.weightBasis || b.weightBasis ? undefined : a.weightGramsM9,
-      nb: a.weightBasis || b.weightBasis ? undefined : b.weightGramsM9, better: "low", unit: "g", word: "가벼움" },
+    { label: "무게", va: weightText(a), vb: weightText(b),
+      // 2026-11-24: 같은 사이즈(mm)로 잰 무게끼리만 어느 쪽이 가볍다고 판정한다
+      na: sameWeightBasis(a, b) ? a.weightG : undefined,
+      nb: sameWeightBasis(a, b) ? b.weightG : undefined, better: "low", unit: "g", word: "가벼움" },
     { label: "밑창 두께", va: stackText(a), vb: stackText(b),
       na: a.stackHeightMm, nb: b.stackHeightMm, unit: "mm" },
-    { label: "앞뒤 굽 차이", va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm",
+    { label: "앞뒤 굽 차이", va: dropText(a), vb: dropText(b),
       na: a.heelDropMm, nb: b.heelDropMm, unit: "mm" },
-    { label: "쿠션", va: cushionText(a), vb: cushionText(b),
-      na: a.cushioning, nb: b.cushioning, unit: "단계" },
+    { label: "푹신함", va: a.softness ? SOFT_KO[a.softness] : NONE, vb: b.softness ? SOFT_KO[b.softness] : NONE },
     { label: "발볼 폭", va: widthText(a.widthOptions), vb: widthText(b.widthOptions) },
     { label: "안정화", va: STAB_KR[a.stability] ?? "", vb: STAB_KR[b.stability] ?? "" },
     { label: "맞는 발", va: foot(a), vb: foot(b) },
@@ -155,17 +154,17 @@ export default function ShoeCompareSpecs({ shoes, stickyTop = "top-[61px]" }: { 
       )}
 
       <p className="mt-4 text-xs leading-5 text-gray-500">
-        색 딱지는 가격이 낮거나 무게가 가벼운 쪽이에요. 두께·굽 차이·쿠션은 많고 적음에 좋고 나쁨을 매기지 않았어요.
+        색 딱지는 가격이 낮거나 무게가 가벼운 쪽이에요. 두께·굽 차이·푹신함은 좋고 나쁨을 매기지 않았어요.
       </p>
 
       <details className="mt-2 border-t border-gray-100 pt-1 text-sm text-gray-700">
         <summary className="flex min-h-11 cursor-pointer items-center font-medium text-emerald-800 hover:text-emerald-900">용어 설명 보기</summary>
         <ul className="mt-1 space-y-2 leading-6">
-          <li><strong>밑창 두께(스택)</strong> — 뒤꿈치 쪽 밑창 두께. 두꺼울수록 푹신하고, 얇을수록 바닥 느낌이 잘 와요.</li>
+          <li><strong>밑창 두께</strong> — 뒤꿈치 쪽 밑창 두께. 35mm 이하는 얇은 편, 41mm 이상은 두꺼운 편이에요.</li>
           {/* 2026-11-23 hyun 님 결정(화면에는 확실한 것만): 용어 설명은 뜻만 적는다. 예전에 붙였던 근거 설명(드롭 「근거 확인 못 함」, 쿠션 「근거는 생각보다 약해요」,
               안정화 「연구가 갈려요 — Malisoux 2016 RCT 1건」)은 뺐다. 근거의 무게는 추천 점수 쪽(recommend.ts 주석)과 약관 3항에 남아 있다 */}
           <li><strong>앞뒤 굽 차이(드롭)</strong> — 뒤꿈치가 앞발보다 높은 정도.</li>
-          <li><strong>쿠션</strong> — 밑창 두께로 나눈 단계(1~5). 높을수록 밑창이 두꺼워요.</li>
+          <li><strong>푹신함</strong> — 밑창을 눌렀을 때 들어가는 정도. 같은 두께라도 폼에 따라 달라요.</li>
           <li><strong>안정화</strong> — 발이 안쪽으로 쏠리는 걸 줄이는 구조.</li>
           <li><strong>발볼 폭</strong> — D 보통 · 2E 넓음 · 4E 아주 넓음.</li>
         </ul>

@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tools/shoe-life" },
   title: "러닝화 수명 계산기 — 언제 바꿔야 하나 | 뛰다가 아메리카노",
   description:
-    "주당 거리를 넣으면 누적 km와 쿠셔닝이 줄어드는 시점을 계산해요. 480km에서 뒤꿈치 쿠셔닝이 16~33% 줄어드는데, 640km까지 달린 러너 중 누구도 그 변화를 느끼지 못했어요(Cornwall & McPoil 2017).",
+    "주당 거리를 넣으면 누적 km와 쿠션 성능이 줄어드는 시점을 계산해요. 480km에서 뒤꿈치 쿠션 성능이 16~33% 줄어드는데, 640km까지 달린 러너 중 누구도 그 변화를 느끼지 못했어요(Cornwall & McPoil 2017).",
 };
 
 export default function ShoeLifeLayout({ children }: { children: React.ReactNode }) {

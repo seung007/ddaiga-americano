@@ -253,8 +253,9 @@ function scoreShoe(shoe: RecommendableShoe, profile: RunnerProfile, bodyType: Bo
   const occasional = profile.level === "beginner";
   const regular = profile.level === "intermediate" || profile.level === "advanced";
   possible += occasional || regular ? 4 : 0;
-  if (occasional && shoe.heelDropMm <= 6) { score += 4; reasons.push(`앞뒤 굽 차이가 ${shoe.heelDropMm}mm라 6mm 이하예요`); }
-  if (regular && shoe.heelDropMm >= 8) { score += 4; reasons.push(`앞뒤 굽 차이가 ${shoe.heelDropMm}mm라 8mm 이상이에요`); }
+  const drop = shoe.heelDropMm; // 2026-11-24: 출처 세 곳에 값이 없는 신발은 비어 있다 — 그 신발은 이 점수를 받지 않는다
+  if (occasional && drop != null && drop <= 6) { score += 4; reasons.push(`앞뒤 굽 차이가 ${shoe.heelDropMm}mm라 6mm 이하예요`); }
+  if (regular && drop != null && drop >= 8) { score += 4; reasons.push(`앞뒤 굽 차이가 ${shoe.heelDropMm}mm라 8mm 이상이에요`); }
 
   // ── 6. 용도 (15점) — 사용자가 고른 목적에 맞는지. 건강 효과를 주장하는 점수가 아니라 선택과의 일치라 유지 ──
   let useOk = true;
@@ -535,14 +536,14 @@ function buildProfileComment(profile: RunnerProfile, considered: number, picks: 
   }
   if (profile.footType === "flat") findings.push(flatFinding(profile, picks, everyone));
   if (profile.level === "beginner") {
-    const k = count((x) => x.heelDropMm <= 6);
+    const k = count((x) => x.heelDropMm != null && x.heelDropMm <= 6);
     findings.push(k > 0
       // Malisoux 2016 AJSM 하위 집단 — 「~한 편」
       ? { pick: `이제 막 시작하셔서 앞뒤 굽 차이가 6mm 이하인 신발부터 골랐어요${of(k, picked)}.`, why: "가끔 달리는 사람은 굽 차이가 작은 신발에서 부상이 적은 편이었어요.", src: ["malisoux2016ajsm"] }
       : { pick: "고르신 조건에는 앞뒤 굽 차이가 6mm 이하인 신발이 없어서 조건에 가장 잘 맞는 신발로 골랐어요.", src: [] });
   }
   if (profile.level === "intermediate" || profile.level === "advanced") {
-    const k = count((x) => x.heelDropMm >= 8);
+    const k = count((x) => x.heelDropMm != null && x.heelDropMm >= 8);
     findings.push(k > 0
       // 같은 하위 집단 결과(낮은 굽 HR 1.67)를 좋은 쪽에서 읽은 문장
       ? { pick: `꾸준히 달려 오셔서 앞뒤 굽 차이가 8mm 이상인 신발부터 골랐어요${of(k, picked)}.`, why: "꾸준히 달리는 사람은 굽 차이가 큰 신발에서 부상이 적은 편이었어요.", src: ["malisoux2016ajsm"] }

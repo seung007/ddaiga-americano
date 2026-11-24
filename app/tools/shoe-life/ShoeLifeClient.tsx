@@ -13,7 +13,7 @@ import ShoeLog, { type CatalogItem } from "@/components/ShoeLog";
  * Cornwall & McPoil 2017이 이걸 재봤다. 레크리에이션 러너 15명에게 새 신발을 주고
  * 0 · 160 · 320 · 480 · 640km 시점마다 족저압·수직력·미드솔 경도를 측정했다.
  *
- *   480km에서 뒤꿈치 쿠셔닝이 **16~33% 줄었다.**
+ *   480km에서 뒤꿈치 쿠션 성능이 **16~33% 줄었다.**
  *   그런데 **640km까지 달린 뒤에도 러너 본인은 그 변화를 자각하지 못했다.**
  *   (FCAT 자가보고에서 유의한 차이가 없었다)
  *
@@ -68,7 +68,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
 
       <h1 className="text-[32px] md:text-[40px] font-bold leading-tight text-gray-900 mb-3">러닝화 수명 계산기</h1>
       <p className="text-gray-600 mb-8 leading-relaxed">
-        480km에서 뒤꿈치 쿠셔닝이 <strong className="text-gray-900">16~33% 줄어요.</strong>{" "}
+        480km에서 뒤꿈치 쿠션 성능이 <strong className="text-gray-900">16~33% 줄어요.</strong>{" "}
         그런데 연구에 참여한 러너들은 <strong className="text-gray-900">640km까지 달린 뒤에도
         그 변화를 느끼지 못했어요.</strong> 감으로는 안 잡히니 세는 수밖에 없어요.
       </p>
@@ -163,7 +163,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="mb-1 font-semibold text-amber-900">480km를 넘었어요</p>
               <p className="text-sm leading-relaxed text-amber-900">
-                이 연구에서 480km 시점의 뒤꿈치 쿠셔닝은 <strong>16~33% 줄어 있었어요.</strong>{" "}
+                이 연구에서 480km 시점의 뒤꿈치 쿠션 성능은 <strong>16~33% 줄어 있었어요.</strong>{" "}
                 지금 발로는 멀쩡하게 느껴질 수 있는데, <strong>그게 보통이에요.</strong>{" "}
                 참가자 15명 중 640km까지 그 변화를 알아챈 사람이 없었어요.
               </p>
@@ -175,7 +175,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
               </p>
               <p className="text-sm leading-relaxed text-emerald-900">
                 지금 페이스면 <strong>약 {weeksToKey}주 뒤</strong>예요.
-                이 연구에서는 그 시점에 쿠셔닝이 16~33% 줄어 있었어요.
+                이 연구에서는 그 시점에 쿠션 성능이 16~33% 줄어 있었어요.
               </p>
             </div>
           )}
@@ -206,7 +206,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
           <ul className="mb-4 space-y-2 text-sm leading-relaxed text-gray-700">
             <li>
               <strong className="text-gray-900">기계는 변화를 잡았어요.</strong> 480km에서 뒤꿈치
-              쿠셔닝이 16~33% 줄었어요.
+              쿠션 성능이 16~33% 줄었어요.
             </li>
             <li>
               <strong className="text-gray-900">사람은 못 잡았어요.</strong> 640km까지 달린 뒤에도
@@ -228,7 +228,7 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
               className="text-emerald-600 hover:underline"
             >
               Cornwall &amp; McPoil (2017) Int J Sports Phys Ther 12(4):616-624 — 마일리지 증가에
-              따른 뒤꿈치 쿠셔닝 변화를 러너가 자각할 수 있는가 ↗
+              따른 뒤꿈치 쿠션 성능 변화를 러너가 자각할 수 있는가 ↗
             </a>
           </p>
         </div>
@@ -252,8 +252,8 @@ export default function ShoeLifeClient({ catalog }: { catalog: CatalogItem[] }) 
             없는 정확도를 만드는 대신 모르는 것은 모른다고 적었어요.
           </p>
           <p className="text-sm leading-relaxed text-gray-700">
-            그리고 <strong className="text-gray-900">쿠셔닝이 줄었다고 부상이 늘어난다는 뜻은
-            아니에요.</strong> 이 연구는 쿠셔닝 변화만 쟀고 부상은 보지 않았어요.
+            그리고 <strong className="text-gray-900">쿠션 성능이 줄었다고 부상이 늘어난다는 뜻은
+            아니에요.</strong> 이 연구는 쿠션 성능 변화만 쟀고 부상은 보지 않았어요.
             둘을 잇는 근거는 찾지 못해 적지 않았어요.
           </p>
         </div>

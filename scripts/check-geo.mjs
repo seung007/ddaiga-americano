@@ -381,6 +381,9 @@ if (existsSync(blogDir)) {
     "components/ShoeCompareSpecs.tsx", "components/ShoeSideProfile.tsx", "app/tools/shoe-side/ShoeSideTool.tsx", "app/tools/shoe-side/layout.tsx",
     "app/tools/shoe-life/ShoeLifeClient.tsx", "app/tools/shoe-life/layout.tsx", "app/tools/page.tsx", "lib/faq.ts(신발)"]);
   const SHOE_WORDS = /(?<!\()(과회내|과내전|라스트|스택|미드솔|맥시멀|드롭|힐드롭|토박스)/;
+  // 2026-11-24 신발 스펙을 한 기준으로 바꾸며 없앤 말 — SCREEN_TODO 파일도 예외 없이 막는다(hyun 님 「화면에 나오면 실패」)
+  //   쿠션 1~5 숫자(「3/5」「쿠션 3단계」「●●●○○」), 무르기, Plush, 쿠셔닝, 남성 US9 기준 무게 문구, 스택
+  const SPEC_OLD = /(무르기|Plush|쿠셔닝|쿠션 ?[1-5] ?단계|쿠션 등급|[1-5] ?\/ ?5\b|●+○+|○{2,}|US ?9 기준|스택)/;
   // 「아닙니다」「다릅니다」「세웁니다」도 잡게 「니다」 전체로 본다(2026-11-23 화면에서 확인한 거짓 음성)
   const NIDA = /([가-힣]니다|십시오)(?=[.!?\s"]|$)/;
   const LABEL = /사이트 기준|사이트가 정한 기준|사이트 분류|근거는 약|근거가 약|연구는 \d+건|연구가 갈|엇갈|논문 근거|근거수준/;
@@ -404,6 +407,7 @@ if (existsSync(blogDir)) {
     for (const [re, msg] of [[NIDA, "말투는 「~요」"], [LABEL, "근거 딱지는 화면에 쓰지 않는다(11-23)"], ...(SHOE_SCREENS.has(f) ? [[SHOE_WORDS, "전문어 — 풀어 쓴다(앞뒤 굽 차이·밑창 두께·신발 틀·중간 밑창)"]] : [])]) {
       const m = text.match(re); if (m) found.push(`${msg}: 「…${text.slice(Math.max(0, m.index - 14), m.index + m[0].length + 6).replace(/\n/g, " ")}…」`);
     }
+    { const m = text.match(SPEC_OLD); if (m) errors.push(`${f}: 없앤 신발 스펙 말 「${m[0]}」 — 밑창 두께·푹신함·「275g · 270mm」로(lib/shoes/labels.ts): 「…${text.slice(Math.max(0, m.index - 14), m.index + m[0].length + 6).replace(/\n/g, " ")}…」`); }
     if (SCREEN_TODO.has(f)) { if (!found.length) errors.push(`${f}: 규칙을 통과했으니 SCREEN_TODO 에서 빼세요`); continue; }
     for (const m of found) errors.push(`${f}: ${m}`);
   }

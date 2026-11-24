@@ -8,7 +8,7 @@ import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ShoeJsonLd, { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import { pageUrl } from "@/lib/site";
-import { cushionText } from "@/lib/shoes/labels";
+import { dropText, feelText, weightText } from "@/lib/shoes/labels";
 
 /**
  * 러닝화 계급도 — **순서는 있다. 다만 품질 순서가 아니라 러너 수준 순서다.**
@@ -103,7 +103,7 @@ function Row({ s }: { s: Shoe }) {
         {s.brand} {s.model}
       </span>
       <span className="text-xs text-gray-500">
-        {won(s.priceKrw)} · {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm · 쿠션 {cushionText(s)}
+        {won(s.priceKrw)} · {weightText(s)} · 앞뒤 굽 차이 {dropText(s)}{feelText(s) ? ` · ${feelText(s)}` : ""}
         {s.stability !== "neutral" ? ` · ${STABILITY_KO[s.stability]}` : ""}
         {s.hasCarbon ? " · 카본" : ""}
       </span>

@@ -2,6 +2,7 @@ import type { FaqItem } from "@/components/FaqSection";
 import { currentStatus, daysUntil, distanceLabel, raceLink, type Race } from "@/lib/races";
 import type { OfficialCheck } from "@/lib/shoes/official";
 import type { Shoe } from "@/lib/shoes/types";
+import { feelText } from "@/lib/shoes/labels";
 
 /**
  * 대회·러닝화 상세의 「자주 묻는 질문」 — **데이터에 있는 값만으로** 만든다 (2026-11-02)
@@ -173,10 +174,14 @@ export function shoeFaq(s: Shoe, official: OfficialCheck | null, specCheckedAt: 
   });
 
   items.push({
-    q: `${s.model}의 앞뒤 굽 차이(드롭)와 밑창 두께(스택)는 얼마인가요?`,
-    a: s.stackHeightMm != null
-      ? `앞뒤 굽 차이는 ${s.heelDropMm}mm, 뒤꿈치 밑창 두께는 ${s.stackHeightMm}mm예요. 앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.`
-      : `앞뒤 굽 차이는 ${s.heelDropMm}mm예요. 밑창 두께는 브랜드 공식 페이지에 적혀 있지 않아요. 앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.`,
+    q: `${s.model}의 앞뒤 굽 차이(드롭)와 밑창 두께는 얼마인가요?`,
+    // 2026-11-24: 값과 문장은 lib/shoes/labels.ts 에서만. 세 출처에서 못 찾은 값은 「확인한 값이 없어요」
+    a: [
+      s.heelDropMm != null ? `앞뒤 굽 차이는 ${s.heelDropMm}mm예요.` : "앞뒤 굽 차이는 확인한 값이 없어요.",
+      s.stackHeightMm != null ? `뒤꿈치 밑창 두께는 ${s.stackHeightMm}mm예요.` : "밑창 두께는 확인한 값이 없어요.",
+      feelText(s) ?? "",
+      "앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.",
+    ].filter(Boolean).join(" "),
   });
 
   if (typeof s.hasCarbon === "boolean") {

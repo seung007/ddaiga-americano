@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import ShoeThumb from "@/components/ShoeThumb";
 import { gtagEvent } from "@/lib/gtag";
 import { SHOES, LISTED_SHOES } from "@/lib/shoes/data";
-import { cushionKo, hasWide, USE_KO, won, cushionText } from "@/lib/shoes/labels";
+import { hasWide, USE_KO, won, SOFT_KO, SOFT_ORDER, THICK_KO, THICK_ORDER, thicknessOf, dropText, weightText, feelText } from "@/lib/shoes/labels";
 import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from "@/lib/shoes/profileOptions";
 import { rankAllShoes } from "@/lib/shoes/recommend";
 import type { Shoe, ShoeUse } from "@/lib/shoes/types";
@@ -21,7 +21,9 @@ const LIKE_KEY = "ddaiga:likedShoes";
 
 const BRANDS = ["전체", ...Array.from(new Set(SHOES.map((s) => s.brand))).sort()];
 const USES = ["전체", "daily", "long", "tempo", "racing"] as const;
-const CUSH = ["전체", "가벼움", "보통", "푹신"] as const;
+// 2026-11-24: 쿠션 1~5 대신 밑창 두께 · 푹신함 두 줄(lib/shoes/labels.ts 의 말 그대로)
+const THICK = ["전체", ...THICK_ORDER.map((t) => THICK_KO[t])] as const;
+const SOFT = ["전체", ...SOFT_ORDER.map((t) => SOFT_KO[t])] as const;
 const PRICE = ["전체", "15만원 이하", "15–20만원", "20만원 초과"] as const;
 const SORTS = [
   ["default", "기본순"],
@@ -90,7 +92,8 @@ export default function ShoesBrowser() {
   const [query, setQuery] = useState("");
   const [brand, setBrand] = useState("전체");
   const [use, setUse] = useState<(typeof USES)[number]>("전체");
-  const [cush, setCush] = useState<(typeof CUSH)[number]>("전체");
+  const [thick, setThick] = useState<string>("전체");
+  const [soft, setSoft] = useState<string>("전체");
   const [price, setPrice] = useState<(typeof PRICE)[number]>("전체");
   const [wide, setWide] = useState(false);
   const [stability, setStability] = useState(false);
@@ -145,7 +148,8 @@ export default function ShoesBrowser() {
       if (query.trim() && !matchesQuery(SEARCH_KEY.get(s.id) ?? "", query)) return false;
       if (brand !== "전체" && s.brand !== brand) return false;
       if (use !== "전체" && !s.uses.includes(use as ShoeUse)) return false;
-      if (cush !== "전체" && (s.cushioning == null || cushionKo(s.cushioning) !== cush)) return false;
+      if (thick !== "전체") { const t = thicknessOf(s.stackHeightMm); if (!t || THICK_KO[t] !== thick) return false; }
+      if (soft !== "전체" && (!s.softness || SOFT_KO[s.softness] !== soft)) return false;
       if (price === "15만원 이하" && s.priceKrw > 150_000) return false;
       if (price === "15–20만원" && (s.priceKrw <= 150_000 || s.priceKrw > 200_000)) return false;
       if (price === "20만원 초과" && s.priceKrw <= 200_000) return false;
@@ -160,9 +164,14 @@ export default function ShoesBrowser() {
     if (ranking && sort === "default") return list.sort((a, b) => ranking.get(a.id)!.order - ranking.get(b.id)!.order);
     if (sort === "price_asc") return list.sort((a, b) => a.priceKrw - b.priceKrw);
     if (sort === "price_desc") return list.sort((a, b) => b.priceKrw - a.priceKrw);
-    if (sort === "light") return list.sort((a, b) => a.weightGramsM9 - b.weightGramsM9);
+    // 2026-11-24: 무게는 잰 사이즈(mm)가 같은 것끼리만 비교한다 — 270mm 로 잰 신발을 먼저 가벼운 순으로,
+    //   다른 사이즈로 잰 신발은 사이즈별로 묶어 그 뒤에, 사이즈를 모르는 신발은 맨 뒤에
+    if (sort === "light") {
+      const rank = (x: Shoe) => (x.weightSizeMm === 270 ? 0 : x.weightSizeMm != null ? x.weightSizeMm : 9999);
+      return list.sort((a, b) => rank(a) - rank(b) || a.weightG - b.weightG);
+    }
     return list;
-  }, [query, brand, use, cush, price, wide, stability, carbon, hideOld, likedOnly, liked, ranking, sort]);
+  }, [query, brand, use, thick, soft, price, wide, stability, carbon, hideOld, likedOnly, liked, ranking, sort]);
 
   const firstMisfit = ranking && sort === "default" ? shown.findIndex((s) => !ranking.get(s.id)?.fits) : -1;
 
@@ -187,7 +196,8 @@ export default function ShoesBrowser() {
   const active: { label: string; clear: () => void }[] = [
     ...(brand !== "전체" ? [{ label: brand, clear: () => setBrand("전체") }] : []),
     ...(use !== "전체" ? [{ label: USE_KO[use as ShoeUse], clear: () => setUse("전체") }] : []),
-    ...(cush !== "전체" ? [{ label: `쿠션 ${cush}`, clear: () => setCush("전체") }] : []),
+    ...(thick !== "전체" ? [{ label: `밑창 두께 ${thick}`, clear: () => setThick("전체") }] : []),
+    ...(soft !== "전체" ? [{ label: `푹신함 ${soft}`, clear: () => setSoft("전체") }] : []),
     ...(price !== "전체" ? [{ label: price, clear: () => setPrice("전체") }] : []),
     ...(wide ? [{ label: "넓은 발볼", clear: () => setWide(false) }] : []),
     ...(stability ? [{ label: "안정화", clear: () => setStability(false) }] : []),
@@ -201,7 +211,8 @@ export default function ShoesBrowser() {
     <>
       <Chips label="브랜드" options={BRANDS} value={brand} onChange={setBrand} />
       <Chips label="용도" options={USES} value={use} onChange={setUse} render={(o) => (o === "전체" ? o : USE_KO[o])} />
-      <Chips label="쿠셔닝" options={CUSH} value={cush} onChange={setCush} />
+      <Chips label="밑창 두께" options={THICK} value={thick} onChange={setThick} />
+      <Chips label="푹신함" options={SOFT} value={soft} onChange={setSoft} />
       <Chips label="가격" options={PRICE} value={price} onChange={setPrice} />
       <div className="flex flex-wrap items-center gap-2">
         <span className="w-full shrink-0 text-sm font-semibold text-gray-700 md:w-12 md:text-xs md:font-medium md:text-gray-500">조건</span>
@@ -393,8 +404,9 @@ export default function ShoesBrowser() {
                       );
                     })()}
                     <p className="mt-1 text-xs text-gray-500">
-                      {s.weightGramsM9}g · 굽 차이 {s.heelDropMm}mm · {s.cushioning != null ? cushionKo(s.cushioning) : `쿠션 ${cushionText(s)}`}
+                      {weightText(s)} · 앞뒤 굽 차이 {dropText(s)}
                     </p>
+                    {feelText(s) && <p className="mt-0.5 text-xs text-gray-600">{feelText(s)}</p>}
                     <div className="mt-2 flex flex-wrap gap-1">
                       {s.uses.map((u) => (
                         <span key={u} className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600">
@@ -416,7 +428,7 @@ export default function ShoesBrowser() {
         </ul>
       )}
       <p className="mt-4 text-xs text-gray-400">
-        가격은 국내 권장소비자가 기준 추산이고 판매처마다 달라요. 무게는 남성 US9 기준이에요.
+        가격은 국내 권장소비자가 기준 추산이고 판매처마다 달라요. 무게 옆 mm 는 그 무게를 잰 신발 사이즈예요. 가벼운 순은 같은 사이즈로 잰 신발끼리 줄 세워요.
       </p>
     </>
   );

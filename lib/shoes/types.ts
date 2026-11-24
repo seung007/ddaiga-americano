@@ -57,8 +57,11 @@ export const BODY_TYPE_LABEL: Record<BodyType, string> = {
   tall_heavy:  "키 178cm 이상, 86kg 이상",
 };
 
-/** 쿠셔닝 1=미니멀 ~ 5=맥시멀 */
-export type CushioningLevel = 1 | 2 | 3 | 4 | 5;
+/**
+ * 푹신함 — 밑창을 눌렀을 때 들어가는 정도(2026-11-24). RunRepeat 이 경도계로 재고 붙인 Soft·Balanced·Firm 을 그대로 쓴다.
+ * 값·단위·출처는 lib/shoes/specs.json. 화면 말은 lib/shoes/labels.ts SOFT_KO
+ */
+export type Softness = "soft" | "balanced" | "firm";
 
 /**
  * 성별 라스트(골격) 설계
@@ -109,20 +112,22 @@ export interface Shoe {
   imageUrl: string;
   colorways: string[];
   widthOptions: WidthOption[];
-  heelDropMm: number;
   /**
-   * 뒤꿈치 밑창 두께(mm). 2026-11-23 선택으로 바꿈 — 브랜드가 두께를 적지 않은 신발(온 Cloudrunner 3 Max, 브룩스 Glycerin GTS 23)은
-   * 지어내지 않고 비운다. 비면 화면은 「공식 표기 없음」, 비교·옆모습 그림에서는 빠진다.
+   * ── 스펙 4칸 (2026-11-24 한 기준으로) ─────────────────────────────
+   * 값은 lib/shoes/specs.json 에만 있고 lib/shoes/specs.ts withSpecs() 가 채운다. data.ts 에 적지 않는다.
+   * 출처 순서: 브랜드 공식 페이지 → RunRepeat 실측 → 공식 판매처. 칸마다 원문·주소·확인한 날이 specs.json 에 있다.
+   * 못 찾은 칸은 비어 있다(화면은 「—」).
    */
+  /** 앞뒤 굽 차이(mm, 정수) */
+  heelDropMm?: number;
+  /** 뒤꿈치 밑창 두께(mm, 정수로 반올림 — 원문 소수는 출처에) */
   stackHeightMm?: number;
-  weightGramsM9: number;
-  /**
-   * 무게의 사이즈 기준이 남성 US9 가 아닐 때 그 기준(2026-11-23). 예: 「사이즈 표기 없음」 「남성 270mm 기준」.
-   * 있으면 상세 화면은 「(남성 US9)」 대신 이 글을 보여 주고, 다른 신발과 무게 위치 비교를 하지 않는다(기준이 달라서).
-   */
-  weightBasis?: string;
-  /** 스펙을 어디서 읽었나 — "brand" 면 상세 화면 출처 줄이 「브랜드 공식 페이지 표기 기준」이 된다(없으면 공개 실측 자료) */
-  specFrom?: "brand";
+  /** 무게(g) — 브랜드 기준 값 */
+  weightG: number;
+  /** 무게를 잰 사이즈(mm). 출처가 사이즈를 적지 않았으면 비어 있다 */
+  weightSizeMm?: number;
+  /** 푹신함 — 출처가 없으면 비어 있다(화면은 두께 문장만) */
+  softness?: Softness;
   /** 한국 정가(priceKrw)를 브랜드 공식 판매처에서 직접 읽은 날(2026-11-23). 있으면 화면이 「추산」 대신 「공식 정가 · 날짜 확인」이라고 쓴다 */
   priceCheckedAt?: string;
   priceUsd: number;
@@ -131,17 +136,7 @@ export interface Shoe {
   buyLinks: BuyLink[];
   /** 성별 — male·female·unisex. 성별 선택 시 해당 성별 신발만 표시 */
   gender: "male" | "female" | "unisex";
-  /** 여성 기준 무게(W8, g) — gender=female 신발에 표기 */
-  weightGramsW8?: number;
   sourceUrl: string;
-  /**
-   * 쿠션 단계 1~5 — 사람이 넣은 신발의 판단 값. 2026-11-23 선택으로 바꿈:
-   * 브랜드 표기(온 「높음」, 푸마 「Medium」, 브룩스 「Plush」)를 1~5 로 옮길 규칙표가 아직 없고, 두께로 추정하지 않는다(hyun 님 결정).
-   * 비면 cushionLabel(브랜드 표기 원문)을 보여 준다.
-   */
-  cushioning?: CushioningLevel;
-  /** 브랜드가 적은 쿠션 표기 원문과 그 브랜드 — 예: 「높음(온 표기)」. cushioning 이 빈 신발에만 */
-  cushionLabel?: string;
   stability: StabilityType;
   /**
    * ── 판단 필드 4개 (2026-09-21 부터 선택) ──────────────────────────
@@ -205,7 +200,7 @@ export interface Shoe {
    * 공식몰 자동 확인으로 들어온 다음 세대 신발(lib/shoes/auto.ts). 사람 원장(data.ts)의 신발에는 없다.
    * 있으면 화면에 「이전 세대 기준」 분류임을 알린다.
    */
-  auto?: { basedOn: string; basedOnModel: string; checkedAt: string; weightBasis?: string };
+  auto?: { basedOn: string; basedOnModel: string; checkedAt: string; stackFromBase: boolean };
 }
 
 /**

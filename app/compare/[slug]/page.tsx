@@ -41,7 +41,7 @@ export async function generateMetadata({
   if (!a || !b) return { title: "신발 비교 — 뛰다가 아메리카노" };
 
   const title = `${a.brand} ${a.model} vs ${b.brand} ${b.model} 비교 — 뛰다가 아메리카노`;
-  const description = `${a.brand} ${a.model}과 ${b.brand} ${b.model}을 앞뒤 굽 차이, 쿠션, 가격, 무게 같은 스펙으로 비교했어요. 어떤 신발이 내 달리기에 맞는지 확인하세요.`;
+  const description = `${a.brand} ${a.model}과 ${b.brand} ${b.model}을 앞뒤 굽 차이, 밑창 두께, 푹신함, 가격, 무게 같은 스펙으로 비교했어요. 어떤 신발이 내 달리기에 맞는지 확인하세요.`;
 
   return {
     title,
@@ -115,7 +115,7 @@ export default async function ComparePage({
           {shoeB.brand} {shoeB.model}
         </h1>
         <p className="mt-2 text-sm text-gray-500">
-          앞뒤 굽 차이·쿠션·무게·가격을 한눈에 비교했어요.
+          앞뒤 굽 차이·밑창 두께·푹신함·무게·가격을 한눈에 비교했어요.
         </p>
       </header>
 
@@ -209,9 +209,9 @@ export default async function ComparePage({
                   </span>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-gray-500 leading-relaxed">
-                {shoe.scienceBasis}
-              </p>
+              {shoe.scienceBasis && (
+                <p className="mt-3 text-xs text-gray-500 leading-relaxed">{shoe.scienceBasis}</p>
+              )}
             </div>
           ))}
         </div>

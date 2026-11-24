@@ -118,7 +118,7 @@ export default function ShoeSideTool({ catalog: SHOES }: { catalog: ProfileShoe[
         <h2 className="mb-2 text-xl font-bold text-gray-900">이 그림이 말하지 않는 것</h2>
         <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
           <li>
-            • <strong>착용감·쿠션의 무르기.</strong> 같은 두께라도 쿠션 재질에 따라 다르게 느껴져요. 그 차이는 공개된 숫자가 없어요.
+            • <strong>착용감.</strong> 발과 신발이 만나야 생기는 것이라 숫자로 보여 줄 수 없어요. 밑창을 눌렀을 때 들어가는 정도(푹신함)는 신발 이름 아래 문장에 있어요.
           </li>
           <li>
             • <strong>두꺼울수록, 앞뒤 굽 차이가 클수록 덜 다친다는 것.</strong> 그 관계는 확인하지 못했어요. 발 모양에 맞춰 신발을 고르는 관행의 근거가

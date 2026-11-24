@@ -1,5 +1,6 @@
 import AUTO_JSON from "./auto.json";
 import type { Shoe } from "./types";
+import { SPECS } from "./specs";
 
 /**
  * 공식몰 자동 확인으로 들어온 새 신발 (2026-11-10)
@@ -61,24 +62,30 @@ export function withAutoNextGen(manual: Shoe[]): Shoe[] {
       if (!base) continue;
       pending.splice(i, 1);
       if (byId.has(id)) continue;
+      // 2026-11-24: 스펙 원장(specs.json)에 이 세대 값이 있으면 그것을 쓴다. 없으면 무게·굽 차이는 공식몰 값,
+      //   밑창 두께는 이전 세대 값(화면에 「이전 세대 기준」), 푹신함은 물려받지 않는다(재지 않은 값이라)
+      const sp = SPECS[id];
+      const stackFromBase = !sp?.stack;
       const shoe: Shoe = {
         ...base,
         id,
         model: e.model,
         imageUrl: e.imageUrl,
         colorways: [],
-        heelDropMm: e.dropMm,
-        weightGramsM9: e.weightG,
-        weightGramsW8: undefined,
+        heelDropMm: sp?.drop?.mm ?? e.dropMm,
+        stackHeightMm: sp?.stack?.mm ?? base.stackHeightMm,
+        weightG: sp?.weight?.g ?? e.weightG,
+        weightSizeMm: sp?.weight ? (sp.weight.sizeMm ?? undefined) : undefined,
+        softness: sp?.softness?.label ?? undefined,
         priceKrw: e.priceKrw,
         krAvailability: "kr_official",
         buyLinks: [{ label: `${BRAND_KO[e.brand] ?? e.brand} 공식몰`, url: e.url, isOfficial: true }],
         sourceUrl: e.url,
-        blurb: `${base.model}의 다음 세대예요. 무게·앞뒤 굽 차이·가격은 공식몰 값이고, 쿠션·안정성·용도·발볼·밑창 두께는 이전 세대 기준이에요.`,
+        blurb: `${base.model}의 다음 세대예요. 안정성·용도·발볼${stackFromBase ? "·밑창 두께" : ""}는 이전 세대 기준이에요.`,
         scienceBasis: `이 세대는 아직 따로 분류하지 않았어요. 이전 세대(${base.model}) 기준을 따랐어요.`,
         youtubeReviews: [],
         successor: undefined,
-        auto: { basedOn: base.id, basedOnModel: base.model, checkedAt: e.checkedAt, weightBasis: e.weightBasis },
+        auto: { basedOn: base.id, basedOnModel: base.model, checkedAt: e.checkedAt, stackFromBase },
       };
       if (!base.successor) base.successor = e.model;
       out.push(shoe);

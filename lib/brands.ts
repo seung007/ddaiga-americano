@@ -84,8 +84,13 @@ export type BrandStats = {
   dropMin: number;
   dropMax: number;
   stackAvg: number;
+  /** 270mm 로 잰 무게끼리의 평균(2026-11-24) */
   weightAvg: number;
-  cushionAvg: number;
+  weightAvgCount: number;
+  /** 푹신함 켤레 수 */
+  softCount: number;
+  balancedCount: number;
+  firmCount: number;
   priceAvg: number;
   /** 4E(초광폭) 옵션을 제공하는 모델 수 */
   wide4E: number;
@@ -104,6 +109,8 @@ export function brandStats(brand: string, ko: string): BrandStats {
   for (const s of shoes) stability[s.stability] = (stability[s.stability] ?? 0) + 1;
 
   const has = (s: Shoe, w: "2E" | "4E") => s.widthOptions.includes(w);
+  const drops = shoes.flatMap((s) => (s.heelDropMm != null ? [s.heelDropMm] : []));
+  const w270 = shoes.filter((s) => s.weightSizeMm === 270);
 
   return {
     brand,
@@ -111,13 +118,18 @@ export function brandStats(brand: string, ko: string): BrandStats {
     sampleSize: shoes.length,
     carbonCount: all.length - shoes.length,
     currentCount: shoes.filter((s) => !s.successor).length,
-    dropAvg: avg(shoes.map((s) => s.heelDropMm)),
-    dropMin: Math.min(...shoes.map((s) => s.heelDropMm)),
-    dropMax: Math.max(...shoes.map((s) => s.heelDropMm)),
-    // 2026-11-23: 두께·쿠션 단계가 빈 신발은 평균에서 뺀다(0 으로 세면 평균이 틀어진다)
+    // 2026-11-23: 값이 빈 신발은 평균에서 뺀다(0 으로 세면 평균이 틀어진다)
+    dropAvg: avg(drops),
+    dropMin: Math.min(...drops),
+    dropMax: Math.max(...drops),
     stackAvg: avg(shoes.flatMap((s) => (s.stackHeightMm != null ? [s.stackHeightMm] : []))),
-    weightAvg: avg(shoes.map((s) => s.weightGramsM9)),
-    cushionAvg: avg(shoes.flatMap((s) => (s.cushioning != null ? [s.cushioning] : []))),
+    // 2026-11-24: 무게 평균은 270mm 로 잰 값끼리만(사이즈가 다른 무게를 섞지 않는다)
+    weightAvg: avg(w270.map((s) => s.weightG)),
+    weightAvgCount: w270.length,
+    // 푹신함 — 단계 평균 대신 켤레 수
+    softCount: shoes.filter((s) => s.softness === "soft").length,
+    balancedCount: shoes.filter((s) => s.softness === "balanced").length,
+    firmCount: shoes.filter((s) => s.softness === "firm").length,
     priceAvg: avg(shoes.map((s) => s.priceKrw)),
     wide4E: shoes.filter((s) => has(s, "4E")).length,
     wide2EPlus: shoes.filter((s) => has(s, "2E") || has(s, "4E")).length,

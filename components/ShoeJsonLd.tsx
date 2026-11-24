@@ -1,5 +1,6 @@
 import type { Shoe } from "@/lib/shoes/types";
 import { SITE_URL } from "@/lib/site";
+import { SOFT_KO } from "@/lib/shoes/labels";
 
 /**
  * 신발 구조화 데이터 — `ItemList` 안에 `Product` 를 담는다.
@@ -75,17 +76,17 @@ function productOf(s: Shoe) {
     },
     weight: {
       "@type": "QuantitativeValue",
-      value: s.weightGramsM9,
+      value: s.weightG,
       unitCode: "GRM",
-      description: s.weightBasis ?? "남성 US9 기준",
+      // 2026-11-24: 무게를 잰 사이즈(mm). 모르면 적지 않는다
+      ...(s.weightSizeMm != null ? { description: `${s.weightSizeMm}mm` } : {}),
     },
-    // 스펙은 표준 필드가 없어 additionalProperty 로 낸다.
-    // 이게 AI 답변이 "드롭 몇 mm?"에 답할 때 읽는 자리다.
+    // 스펙은 표준 필드가 없어 additionalProperty 로 낸다. 화면과 같은 말(lib/shoes/labels.ts)을 쓴다.
+    // 값이 없는 칸은 넣지 않는다(「undefinedmm」를 내보내지 않게)
     additionalProperty: [
-      prop("힐드롭", `${s.heelDropMm}mm`),
-      // 2026-11-23: 공식 표기에 없는 값은 구조화 데이터에 넣지 않는다(「undefinedmm」를 내보내지 않게)
-      ...(s.stackHeightMm != null ? [prop("스택 높이", `${s.stackHeightMm}mm`)] : []),
-      ...(s.cushioning != null ? [prop("쿠셔닝", `${s.cushioning}/5`)] : []),
+      ...(s.heelDropMm != null ? [prop("앞뒤 굽 차이", `${s.heelDropMm}mm`)] : []),
+      ...(s.stackHeightMm != null ? [prop("밑창 두께", `${s.stackHeightMm}mm`)] : []),
+      ...(s.softness ? [prop("푹신함", SOFT_KO[s.softness])] : []),
       prop("안정성 분류", STABILITY_KO[s.stability]),
       prop("폭 옵션", s.widthOptions.join(" · ")),
       prop("카본 플레이트", s.hasCarbon ? "있음" : "없음"),
