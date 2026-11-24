@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shoePlaceholder } from "@/lib/shoes/placeholder";
-import { cushionText } from "@/lib/shoes/labels";
+import { THICK_KO, thicknessOf, weightText } from "@/lib/shoes/labels";
 
 /**
  * 홈 신발 띠 — 클릭 0회로 신발이 보인다
@@ -43,8 +43,9 @@ export interface StripShoe {
   brand: string;
   model: string;
   imageUrl: string;
-  cushioning: number;
-  weightGramsM9: number;
+  stackHeightMm?: number;
+  weightG: number;
+  weightSizeMm?: number;
   priceKrw: number;
   /** 한 줄 특징 — 카드에 그대로 보인다 */
   tagline: string;
@@ -61,14 +62,15 @@ const TABS: { key: TabKey; label: string; hint: string; match: (s: StripShoe) =>
   {
     key: "beginner",
     label: "입문용",
-    hint: "카본 없이, 매일 신는 쿠션화",
-    match: (s) => (s.cushioning ?? 0) >= 3 && !s.hasCarbon && s.uses.includes("daily"),
+    hint: "카본 없이, 매일 신는 신발",
+    // 2026-11-24: 쿠션 1~5 를 없애며 밑창 두께 구간(얇은 편이 아닌 것)으로 바꿈
+    match: (s) => thicknessOf(s.stackHeightMm) !== "thin" && s.stackHeightMm != null && !s.hasCarbon && s.uses.includes("daily"),
   },
   {
     key: "long",
     label: "장거리",
     hint: "10km 이상을 포장로에서",
-    match: (s) => s.uses.includes("long") && (s.cushioning ?? 0) >= 4,
+    match: (s) => s.uses.includes("long") && thicknessOf(s.stackHeightMm) === "thick",
   },
   {
     key: "speed",
@@ -304,7 +306,7 @@ function ShoeCard({ shoe }: { shoe: StripShoe }) {
       )}
       <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-gray-600">{shoe.tagline}</p>
       <p className="mt-auto text-xs text-gray-500">
-        쿠션 {cushionText(shoe)} · {shoe.weightGramsM9}g · {shoe.priceKrw.toLocaleString()}원
+        {shoe.stackHeightMm != null ? `밑창 ${THICK_KO[thicknessOf(shoe.stackHeightMm)!]} · ` : ""}{weightText(shoe)} · {shoe.priceKrw.toLocaleString()}원
       </p>
     </Link>
   );

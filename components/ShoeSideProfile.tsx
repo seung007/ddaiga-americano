@@ -1,7 +1,8 @@
 import type { Shoe } from "@/lib/shoes/types";
+import { feelText, weightText } from "@/lib/shoes/labels";
 
 /** 그림에 필요한 필드만. 클라이언트 페이지가 신발 원장 전체(gzip ~23KB)를 받지 않도록 서버에서 이것만 넘긴다 */
-export type ProfileShoe = Pick<Shoe, "id" | "brand" | "model" | "stackHeightMm" | "heelDropMm" | "weightGramsM9" | "weightGramsW8" | "gender">;
+export type ProfileShoe = Pick<Shoe, "id" | "brand" | "model" | "stackHeightMm" | "heelDropMm" | "weightG" | "weightSizeMm" | "softness">;
 
 export function toProfileShoe(s: Shoe): ProfileShoe {
   return {
@@ -10,9 +11,9 @@ export function toProfileShoe(s: Shoe): ProfileShoe {
     model: s.model,
     stackHeightMm: s.stackHeightMm,
     heelDropMm: s.heelDropMm,
-    weightGramsM9: s.weightGramsM9,
-    weightGramsW8: s.weightGramsW8,
-    gender: s.gender,
+    weightG: s.weightG,
+    weightSizeMm: s.weightSizeMm,
+    softness: s.softness,
   };
 }
 
@@ -52,23 +53,17 @@ const HEEL_X = PAD_L + 30;
 const TOE_X = W - PAD_R - 30;
 
 function forefootMm(s: ProfileShoe) {
-  return Math.max(0, (s.stackHeightMm ?? 0) - s.heelDropMm);
-}
-
-/** 여성 전용 모델은 W8 무게가 원장에 있으면 그걸 쓴다. 사이즈 기준이 다르면 같이 비교하지 않는다고 적는다. */
-export function weightOf(s: ProfileShoe): { g: number; basis: "M9" | "W8" } {
-  if (s.gender === "female" && s.weightGramsW8) return { g: s.weightGramsW8, basis: "W8" };
-  return { g: s.weightGramsM9, basis: "M9" };
+  return Math.max(0, (s.stackHeightMm ?? 0) - (s.heelDropMm ?? 0));
 }
 
 export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
   // 같은 신발이 두 번 오면(예: /compare/x-vs-x) 하나만 그린다 — key 충돌 방지
-  // 2026-11-23: 밑창 두께가 공식 표기에 없는 신발은 그릴 수 없어 뺀다(고르는 목록에서도 빠진다 — shoe-side/page.tsx)
-  const list = shoes.filter((s, i, arr) => s.stackHeightMm != null && arr.findIndex((x) => x.id === s.id) === i).slice(0, 3);
+  // 밑창 두께나 앞뒤 굽 차이가 없는 신발은 그릴 수 없어 뺀다(고르는 목록에서도 빠진다 — shoe-side/page.tsx)
+  const list = shoes.filter((s, i, arr) => s.stackHeightMm != null && s.heelDropMm != null && arr.findIndex((x) => x.id === s.id) === i).slice(0, 3);
   const y = (mm: number) => GROUND - mm * PX_PER_MM;
-  const weights = list.map(weightOf);
-  const maxG = Math.max(...weights.map((w) => w.g), 1);
-  const mixedBasis = new Set(weights.map((w) => w.basis)).size > 1;
+  // 2026-11-24: 무게 막대는 같은 사이즈(mm)로 잰 값끼리일 때만 그린다
+  const maxG = Math.max(...list.map((s) => s.weightG), 1);
+  const sameBasis = list.every((s) => s.weightSizeMm != null && s.weightSizeMm === list[0].weightSizeMm);
 
   return (
     <figure className="rounded-2xl border border-gray-200 p-4">
@@ -121,7 +116,6 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
         <ul className="space-y-2">
           {list.map((s, i) => {
             const c = PROFILE_COLORS[i];
-            const w = weights[i];
             return (
               <li key={s.id} className="text-sm">
                 <div className="flex items-center gap-2">
@@ -131,19 +125,22 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
                   </span>
                 </div>
                 <p className="ml-[18px] text-xs text-gray-600">
-                  뒤꿈치 {s.stackHeightMm}mm · 앞꿈치 {forefootMm(s)}mm · 앞뒤 굽 차이 {s.heelDropMm}mm · 무게 {w.g}g({w.basis})
+                  뒤꿈치 {s.stackHeightMm}mm · 앞꿈치 {forefootMm(s)}mm · 앞뒤 굽 차이 {s.heelDropMm}mm · 무게 {weightText(s)}
                 </p>
-                <div className="ml-[18px] mt-1 h-1.5 rounded-full bg-gray-100">
-                  <div className={`h-1.5 rounded-full ${c.dot}`} style={{ width: `${(w.g / maxG) * 100}%` }} />
-                </div>
+                <p className="ml-[18px] text-xs text-gray-600">{feelText(s)}</p>
+                {sameBasis && (
+                  <div className="ml-[18px] mt-1 h-1.5 rounded-full bg-gray-100">
+                    <div className={`h-1.5 rounded-full ${c.dot}`} style={{ width: `${(s.weightG / maxG) * 100}%` }} />
+                  </div>
+                )}
               </li>
             );
           })}
         </ul>
         <p className="text-xs leading-relaxed text-gray-500">
-          세로(두께)만 실제 비율이고, 길이와 모양은 임의로 그렸어요. 수치는 공개된 실측 자료 값이라 브랜드 공식 표기와 다를 수 있어요. 두께를 재는 지점도 출처마다 다를 수 있어요.
+          세로(두께)만 실제 비율이고, 길이와 모양은 임의로 그렸어요. 두께를 재는 지점은 출처마다 다를 수 있어요.
           두께나 앞뒤 굽 차이가 클수록 좋다·나쁘다는 표시는 하지 않았어요. 그 관계는 확인하지 못했어요.
-          {mixedBasis && " 무게는 사이즈 기준(M9·W8)이 달라 직접 비교할 수 없어요."}
+          {!sameBasis && " 무게는 잰 사이즈가 달라 직접 비교할 수 없어요."}
         </p>
       </figcaption>
     </figure>

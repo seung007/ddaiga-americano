@@ -56,7 +56,6 @@ export const USE_LABEL: Record<ShoeUse, string> = { daily: "데일리", long: "�
 /** 추천기 질문·결과에 쓰는 용도 이름 — 처음 달리는 사람이 읽는 말(2026-11-10). 질문 칩과 결과 문장이 같은 말을 쓰게 한 곳에 둔다(2026-11-23) */
 export const USE_NAME: Record<ShoeUse, string> = { daily: "일상 달리기", long: "장거리", tempo: "빠른 훈련", racing: "대회용" };
 export const STABILITY_LABEL = { neutral: "중립", stability: "안정화", motion_control: "모션컨트롤" } as const;
-export const CUSH_DOTS = ["", "●○○○○", "●●○○○", "●●●○○", "●●●●○", "●●●●●"] as const;
 
 export const STORAGE_KEY = "ddaiga:lastProfile";
 
@@ -109,9 +108,8 @@ export function describeSaved(p: SavedProfile): string {
 export const SPEC_HELP = {
   heelDrop: "뒤꿈치가 앞발보다 높은 정도",
   stack: "뒤꿈치 쪽 밑창 두께",
-  weight: "한 짝 무게",
-  weightMens: "남성 270mm(US 9) 한 짝",
-  cushioning: "밑창 두께로 나눈 사이트 분류(1~5)",
+  weight: "한 짝 무게 · mm 는 잰 신발 사이즈",
+  softness: "밑창을 눌렀을 때 들어가는 정도",
   stability: "발이 안쪽으로 쏠리는 걸 잡는 구조가 있는지",
   width: "D 보통 · 2E 넓음 · 4E 아주 넓음",
   priceEstimated: "달러 정가로 추산",

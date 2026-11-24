@@ -21,7 +21,7 @@ import type { Shoe } from "@/lib/shoes/types";
 import { COMPARE_SLUGS } from "@/lib/compares";
 import { affiliateFor } from "@/lib/shoes/affiliate";
 import { SHOES, LISTED_SHOES } from "@/lib/shoes/data";
-import { cushionKo, hasWide, STABILITY_KO, USE_KO, verifiedAt, won, cushionText, stackText } from "@/lib/shoes/labels";
+import { hasWide, STABILITY_KO, USE_KO, verifiedAt, won, stackText, dropText, weightText, feelText, SOFT_KO, NONE } from "@/lib/shoes/labels";
 import { GENDER_FIT_LABEL, KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import { pageUrl } from "@/lib/site";
 
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const s = SHOES.find((x) => x.id === id);
   if (!s) return {};
   return {
-    title: `${s.brand} ${s.model} 스펙·가격 — 무게 ${s.weightGramsM9}g · 굽 차이 ${s.heelDropMm}mm | 뛰다가 아메리카노`,
+    title: `${s.brand} ${s.model} 스펙·가격 — 무게 ${weightText(s)} · 앞뒤 굽 차이 ${dropText(s)} | 뛰다가 아메리카노`,
     description: `${s.brand} ${s.model}: ${s.blurb}`.slice(0, 155),
     alternates: { canonical: `/shoes/${s.id}` },
   };
@@ -318,37 +318,36 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
 
         <section className="mt-8">
           <h2 className="mb-3 text-xl font-bold text-gray-900">스펙</h2>
+          {/* 2026-11-24: 밑창 두께와 푹신함을 한 줄로(lib/shoes/labels.ts feelText). 화면에는 값만 — 출처는 lib/shoes/specs.json */}
+          {feelText(s) && <p className="mb-3 text-base font-medium text-gray-900">{feelText(s)}</p>}
           <dl className="divide-y divide-gray-100 rounded-2xl border border-gray-200">
             <Row label="무게">
-              {s.auto
-                ? `${s.weightGramsM9}g (공식몰 표기${s.auto.weightBasis ? `, ${s.auto.weightBasis}` : ""})`
-                : <>{s.weightGramsM9}g ({s.weightBasis ?? "남성 US9"}){s.weightGramsW8 ? ` · ${s.weightGramsW8}g (여성 US8)` : ""}</>}
-              {!s.weightBasis && (
-                <Position value={s.weightGramsM9} all={LISTED_SHOES.filter((x) => !x.weightBasis).map((x) => x.weightGramsM9)} unit="g" low="가벼운" high="무거운" />
+              {weightText(s)}
+              {/* 같은 사이즈(mm)로 잰 무게끼리만 위치를 보인다 */}
+              {s.weightSizeMm != null && (
+                <Position value={s.weightG} all={LISTED_SHOES.filter((x) => x.weightSizeMm === s.weightSizeMm).map((x) => x.weightG)} unit="g" low="가벼운" high="무거운" />
               )}
             </Row>
             <Row label="앞뒤 굽 차이">
-              {s.heelDropMm}mm
-              <Position value={s.heelDropMm} all={LISTED_SHOES.map((x) => x.heelDropMm)} unit="mm" low="낮은" high="높은" />
-            </Row>
-            <Row label="밑창 두께">
-              {stackText(s)}{s.stackHeightMm != null && s.auto && " (이전 세대 기준)"}
-              {s.stackHeightMm != null && (
-                <Position value={s.stackHeightMm} all={LISTED_SHOES.flatMap((x) => (x.stackHeightMm != null ? [x.stackHeightMm] : []))} unit="mm" low="얇은" high="두꺼운" />
+              {dropText(s)}
+              {s.heelDropMm != null && (
+                <Position value={s.heelDropMm} all={LISTED_SHOES.flatMap((x) => (x.heelDropMm != null ? [x.heelDropMm] : []))} unit="mm" low="낮은" high="높은" />
               )}
             </Row>
-            <Row label="쿠셔닝">
-              {s.cushioning != null ? `${s.cushioning}/5 (${cushionKo(s.cushioning)})` : cushionText(s)}
+            {/* 밑창 두께의 「얇은 편·두꺼운 편」은 위 문장의 구간(35mm 이하 / 41mm 이상)으로만 말한다 — 등록 신발끼리의 위치 막대는 다른 말이 돼 뺐다 */}
+            <Row label="밑창 두께">
+              {stackText(s)}{s.stackHeightMm != null && s.auto?.stackFromBase && " (이전 세대 기준)"}
             </Row>
+            <Row label="푹신함">{s.softness ? SOFT_KO[s.softness] : NONE}</Row>
             <Row label="안정성">{STABILITY_KO[s.stability]}</Row>
             <Row label="발볼 옵션">{s.widthOptions.join(" · ")}</Row>
             {s.genderFit && <Row label="신발 틀">{GENDER_FIT_LABEL[s.genderFit]}</Row>}
             <Row label="국내 구매">{KR_AVAILABILITY_LABEL[s.krAvailability]}</Row>
           </dl>
           <p className="mt-2 text-xs text-gray-400">
-            {/* 2026-11-09 운영자 결정: 경쟁 리뷰 사이트(RunRepeat)로 링크를 걸지 않는다 — 다른 사이트를 홍보할 이유가 없다.
-               다만 실측값을 우리가 잰 것처럼 쓰지 않도록 「공개된 실측 자료 기준」이라고 밝힌다. 원래 주소는 데이터(sourceUrl)에만 남긴다 */}
-            스펙은 {s.specFrom === "brand" ? "브랜드 공식 페이지 표기" : "공개된 실측 자료"} 기준{checked ? `(${checked} 확인)` : ""} · 위치는 이 사이트에 등록된 신발끼리 비교한 것이고, 좋고 나쁨을
+            {/* 2026-11-09 운영자 결정: 경쟁 리뷰 사이트(RunRepeat)로 링크를 걸지 않는다.
+               2026-11-24 hyun 님 결정: 화면에는 값만 — 「실측」「브랜드 표기」 같은 출처 말을 붙이지 않는다. 출처는 lib/shoes/specs.json 에만 */}
+            무게 옆 mm 는 그 무게를 잰 신발 사이즈예요 · 위치는 이 사이트에 등록된 신발끼리 비교한 것이고, 좋고 나쁨을
             뜻하지 않아요 ·{" "}
             <Link href={`/tools/shoe-side?s=${s.id}`} className="text-emerald-700 underline underline-offset-2">
               다른 신발과 두께 겹쳐 보기 →
@@ -380,11 +379,14 @@ export default async function ShoeDetailPage({ params }: { params: Promise<{ id:
           );
         })()}
 
-        <section className="mt-8">
-          <h2 className="mb-3 text-xl font-bold text-gray-900">설계 특징</h2>
-          <p className="text-sm leading-relaxed text-gray-700">{s.scienceBasis}</p>
-          <p className="mt-2 text-xs text-gray-500">{s.specFrom === "brand" ? "브랜드 공식 페이지에 적힌 구조와 값이에요." : "브랜드가 밝힌 구조와 공개 실측 값이에요."} 효과를 시험한 내용은 아니에요.</p>
-        </section>
+        {/* 2026-11-24: 밑창 두께·푹신함·굽 차이·무게를 말하던 문장은 스펙 칸과 겹쳐 뺐다. 남은 설명이 없으면 칸을 숨긴다 */}
+        {s.scienceBasis && (
+          <section className="mt-8">
+            <h2 className="mb-3 text-xl font-bold text-gray-900">설계 특징</h2>
+            <p className="text-sm leading-relaxed text-gray-700">{s.scienceBasis}</p>
+            <p className="mt-2 text-xs text-gray-500">효과를 시험한 내용은 아니에요.</p>
+          </section>
+        )}
 
         {compares.length > 0 && (
           <section className="mt-8">

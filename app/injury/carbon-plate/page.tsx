@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { dropText, weightText } from "@/lib/shoes/labels";
 import { SHOES } from "@/lib/shoes/data";
 import FinderCta from "@/components/FinderCta";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
@@ -84,16 +85,17 @@ export const metadata: Metadata = {
 
 const CARBON = SHOES.filter((s) => s.hasCarbon && s.gender !== "female");
 const CARBON_NOW = CARBON.filter((s) => !s.successor);
-// 2026-11-23: 무게 사이즈 기준이 다른 신발(weightBasis)은 평균에서 뺀다 — 남성 US9 끼리만 비교
-const NON_CARBON = SHOES.filter((s) => !s.hasCarbon && s.gender !== "female" && !s.weightBasis);
+const NON_CARBON = SHOES.filter((s) => !s.hasCarbon && s.gender !== "female");
+// 2026-11-24: 무게 평균은 270mm 로 잰 신발끼리만(잰 사이즈가 다른 무게를 섞지 않는다)
+const at270 = (s: (typeof SHOES)[number]) => s.weightSizeMm === 270;
 
 const won = (n: number) => n.toLocaleString() + "원";
 const avg = (ns: number[]) => (ns.length ? ns.reduce((a, b) => a + b, 0) / ns.length : 0);
 
 const NOW_MIN = Math.min(...CARBON_NOW.map((s) => s.priceKrw));
 const NOW_MAX = Math.max(...CARBON_NOW.map((s) => s.priceKrw));
-const CARBON_W = avg(CARBON_NOW.map((s) => s.weightGramsM9));
-const NORMAL_W = avg(NON_CARBON.map((s) => s.weightGramsM9));
+const CARBON_W = avg(CARBON_NOW.filter(at270).map((s) => s.weightG));
+const NORMAL_W = avg(NON_CARBON.filter(at270).map((s) => s.weightG));
 // 본문에 넣는 값은 소문자 이름으로 — check:geo 가 화면 글자 조각 속 대문자 2~5자(NOW·MIN)를 약어로 읽는다.
 // 비교식의 「<」도 조각을 끊어 뒤 문장(드롭 풀이)을 못 읽게 하므로 밖에서 계산한다.
 const nowCount = CARBON_NOW.length;
@@ -230,7 +232,7 @@ export default function CarbonPlatePage() {
           천천히 달리는 속도를 잰 시험에서도 사람들이 신발을 고를 때는 편안함이 더 크게 작용했어요.
         </P>
         <P>
-          카본화 평균 무게는 {carbonG}g으로, 카본 판이 없는 러닝화 평균 {normalG}g보다 {weightWord} 목록의 드롭은 뒤꿈치와 앞꿈치의 밑창 높이 차이예요.
+          270mm 로 잰 무게끼리 보면 카본화 평균은 {carbonG}g으로, 카본 판이 없는 러닝화 평균 {normalG}g보다 {weightWord} 목록의 드롭은 뒤꿈치와 앞꿈치의 밑창 높이 차이예요.
         </P>
         <ul className="mt-4 space-y-1.5">
           {CARBON_NOW.sort((a, b) => a.priceKrw - b.priceKrw).map((s) => (
@@ -239,7 +241,7 @@ export default function CarbonPlatePage() {
                 {s.brand} {s.model}
               </span>
               <span className="ml-1.5 text-xs text-gray-500">
-                {won(s.priceKrw)} · {s.weightGramsM9}g · 드롭 {s.heelDropMm}mm
+                {won(s.priceKrw)} · {weightText(s)} · 드롭 {dropText(s)}
               </span>
             </li>
           ))}
@@ -256,7 +258,7 @@ export default function CarbonPlatePage() {
                   <li key={s.id} className="text-sm text-gray-500">
                     {s.brand} {s.model}
                     <span className="ml-1.5 text-xs">
-                      {won(s.priceKrw)} · {s.weightGramsM9}g · 후속 {s.successor}
+                      {won(s.priceKrw)} · {weightText(s)} · 후속 {s.successor}
                     </span>
                   </li>
                 ))}

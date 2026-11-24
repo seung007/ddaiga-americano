@@ -16,7 +16,7 @@ import { LISTED_SHOES } from "@/lib/shoes/data";
 export const metadata: Metadata = {
   title: `러닝화 ${LISTED_SHOES.length}종 한눈에 — 발볼·쿠션·용도로 고르기 | 뛰다가 아메리카노`,
   description:
-    "브랜드·용도·쿠셔닝·발볼·가격으로 러닝화를 거르고, 발 모양·발볼을 넣으면 내 조건에 맞는 순서로 줄 세워 봐요. 스펙 확인 날짜를 같이 적어요.",
+    "브랜드·용도·밑창 두께·푹신함·발볼·가격으로 러닝화를 거르고, 발 모양·발볼을 넣으면 내 조건에 맞는 순서로 줄 세워 봐요. 스펙 확인 날짜를 같이 적어요.",
   alternates: { canonical: "/shoes" },
 };
 
