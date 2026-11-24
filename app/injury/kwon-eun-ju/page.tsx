@@ -1,10 +1,11 @@
 import Link from "next/link";
 import YoutubeSection from "@/components/YoutubeSection";
-import FaqSection from "@/components/FaqSection";
+import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
-import { Lead, P, H2, H3, Summary, Todo, References, Basis, Note } from "@/components/guide/Read";
+import TableOfContents from "@/components/TableOfContents";
+import { Lead, P, H2, Num, KeyPoints, Steps, OneLine, Sources, Src, Ref } from "@/components/guide/Read";
 import type { Metadata } from "next";
 import { pageUrl } from "@/lib/site";
 
@@ -22,7 +23,7 @@ import { pageUrl } from "@/lib/site";
  *   · 참고 자료의 kaaf.or.kr 루트 링크 → 실제 기사 URL
  *
  * 2026-10-13 가독성 재설계 — 선수 이야기 페이지라 **구조만** 바꿨다(Lead·한눈에·섹션·참고 자료 접기).
- *   따옴표 인용·기사 출처 표기·정정 안내 문구는 글자 그대로 둔다. 연구 인용이 없어 <Evidence> 는 쓰지 않는다.
+ *   따옴표 인용·기사 출처 표기·정정 안내 문구는 글자 그대로 둔다. 연구 인용이 없어 「Evidence」 는 쓰지 않는다.
  *   「경험칙」 → 「저희 제안」 배지. 참고 자료는 .map() 대신 <li> 를 풀어 적었다 — 검사기가 <li> 개수를 문자열로 센다.
  *
  * 2026-11-10 제목·문장 다시 쓰기 — 오픈채팅(21,649건)에서 「권은주」는 1명, 「여성 러너」류 3명인 반면
@@ -31,11 +32,66 @@ import { pageUrl } from "@/lib/site";
  *   권은주 선수가 한 말도 아니라서, 「권은주 선수에게 배우는 여성 러너 부상 예방」은 약속을 넘긴다.
  *   첫 문단 숫자 금지 규칙에 따라 Lead·DESC 의 「21년간」은 「오래」로 썼다(본문·FAQ 에는 그대로 있다).
  *   따옴표 인용·기사 출처 표기·정정 안내 문구는 글자 그대로 두고 문장 끊기와 순서만 바꿨다.
+ *
+ * 2026-11-23 확정 틀로 바꿈 (hyun 님 결정: 「인물 글 2편도 확정 틀 그대로」 — Project 문서 「세션 지시서 (2026-11-23)」 1절. 견본은 같은 날 바꾼 hwang-young-jo)
+ *   기사 원문 다시 대조 — 크롬으로 직접 열어 읽음. 판정은 docs/판정/kwon-eun-ju.jsonl
+ *     · 한국경제 2025-08-15: 쉬는 법 발언 원문 그대로, 「코어 힘을 유지해야 부상을 줄일 수 있다」, 옆 사람 10km·20~30분 조언,
+ *       「그가 추천하는 운동 빈도는 '7330' 주 3회, 30분」(기자 서술), 1997년 춘천 마라톤 2시간 26분 12초 — 지지
+ *     · 한국경제 2026-05-14: 21세 첫 풀코스 2시간26분12초 한국 기록, 「선수 생활 내내 부상은 피하기 어려웠다」 — 지지
+ *     · 경향신문 2001-01-26: 97년 조선일보마라톤 2시간26분12초, 98 방콕 AG·99 런던 중도기권, 2000 로테르담 왼쪽 발목 부상 12위·올림픽 티켓 놓침 — 지지
+ *     · 경북매일 2018-03-19(연합뉴스): 김도연 2시간25분41초, 1997년 권은주 기록을 21년 만에 31초 앞당김 — 지지
+ *     · 서울신문 2025-04-11: 크롬 열람이 막혀(m. 주소는 오류 쪽, www. 주소는 읽기 거부) 확인 못 함. 2026-10-08 기록에도 원문 직접 확인 목록에
+ *       없었다(그날은 kaaf.or.kr 루트 링크를 이 기사로 바꾸기만 했다). 「자료 N건 대조」에 넣을 수 없어 출처 목록에서 뺐다 — 옛 항목 글자:
+ *       「서울신문 2025-04-11 — 21년간 한국 여자마라톤 기록 보유(2018년 3월 김도연 경신)」 https://m.seoul.co.kr/news/2025/04/11/20250411032002
+ *       같은 사실(21년)은 경북매일 원문으로 확인했다
+ *   바꾼 것
+ *     · 한눈에·「초보 러너에게 적용하면」 할 일 상자·저희 제안 배지·정정 상자·작은 제목 셋 → 3줄 요약 + 번호 붙은 큰 질문 5개 + 절 끝 한 줄 요약.
+ *       딱지 없이 말의 세기(「권해요」)로. 말투 「~니다」 → 「~요」
+ *     · 주어를 선수에서 독자가 할 일로. 선수 이야기는 1절(기록과 부상)과 2·3·4절의 선수 발언 맥락에만
+ *     · 선수 발언 인용: 곡선 따옴표(&ldquo;&rdquo;)를 「」로. 인용 글자·출처 줄(한국경제 링크)은 그대로. italic 은 뺐다(황영조 글과 같은 모양)
+ *     · 「고관절 외전근」 → 「엉덩이 옆 근육」(it-band·intermediate-guide 와 같은 말, 처음에 「다리를 옆으로 벌릴 때 쓰는 근육이에요」 풀이)
+ *     · 「코어 안정화」 → 작은 제목을 없애고 선수 발언 속 「코어」만 남겨 앞에서 풀이(TERMS 에 「코어」를 더함 — 다른 글 화면에는 없는 말)
+ *     · 「이 근육이 약하면 무릎이 안쪽으로 쏠려 장경인대염·슬개골 통증과 관련된다는 설명이 흔하다」 → 뺐다.
+ *       knee-pain 글이 Neal 2019 로 「엉덩이 근력 약화는 위험 요인이 아니었다」고 판정했다. 같은 주장은 같은 판정을 쓴다. 대체 주장을 만들지 않았다
+ *     · 코어 「주 2~3회, 10~15분으로 시작하는 경우가 많다」(근거 없음) → 숫자를 뺐다. 「몇 번씩 하면 충분한지는 확인한 자료가 없다」는 it-band 와 같은 말로
+ *     · 밴드 사이드 워크·데드버그 → 뺐다(동작 이름만 늘어나고 근거는 없다). 엉덩이 옆 근육 운동 할 일은 intermediate-guide 와 같은 문장으로, 동작은 it-band 의 「옆으로 누워 다리 들기」로
+ *     · 「여성 러너에게 슬개대퇴 증후군·장경인대염이 흔하다고 이야기되고 골반 구조 차이가 자주 언급된다」 → 본문에서 뺐다(확인한 자료 없음).
+ *       FAQ 3번이 그 문장과 근거 링크(학술지·검색엔진 홈)를 내린 사실을 알린다
+ *     · 10% 법칙 단락 → 뺐다. 거리를 얼마씩 늘릴지는 초보 러너 가이드 링크로만(숫자는 그 글이 논문과 함께 다룬다)
+ *     · 주 3회 30분(기자 서술) → 본문에서 FAQ 4번으로 옮겼다. 「선수의 직접 인용은 아니에요」는 그대로
+ *     · 옛 인용 세 개를 지운 정정 안내 → 정정 상자 대신 FAQ 1번에만(황영조 글과 같은 자리)
+ *     · 21년·김도연 → FAQ 2번(본문 1절과 겹치지 않게). 김도연 기록 2시간25분41초는 경북매일 원문에서 확인해 더했다
+ *     · 「건강하게, 오래, 즐겁게 달리는 걸 목표로 하라」(원문 확인, 지지) → 덜어냈다. 3절의 옆 사람 조언이 같은 뜻을 할 일로 말한다
+ *     · 날짜 줄과 출처 머리: 출처가 논문이 아니어서 「자료 4건」(records). 남은 참고 자료 제목·URL 은 한 글자도 안 바꿨다. 괄호 속 「확인한 것」만 각 항목 첫 줄로 옮겼다
+ *     · 2026-10-13 기록 한 줄에서 옛 부품 이름 앞의 꺾쇠(<)만 「」로 바꿨다 — check-geo 가 주석까지 옛 부품 이름을 찾아 막아서. 뜻은 그대로
+ *     · 유튜브: 262wave 「한국 마라톤의 전설, 권은주 감독님을 뵙고 왔습…」(https://www.youtube.com/watch?v=t6sqbXLDjok) 한 건은
+ *       영상 제목의 「~니다」 말끝이 말투 검사에 걸려 뺐다 — 영상 제목은 고칠 수 없다. 서울신문·다컴스 두 건은 남겼다
+ *     · 4절 끝 링크 글자 「장경인대 글」 → 「무릎 바깥 통증 글」(장경인대 풀이 검사. 링크 주소는 그대로)
+ *   옛 본문 주석 — 본문 구조가 바뀌어 여기로 옮김(글자 그대로)
+ *     [2026-10-08, 10% 단락] 「10%라는 숫자 자체를 뒷받침하는 연구는 없습니다」「증가율 비교 연구에서 유의차 없음」에
+ *       이 페이지 안에 인용이 없었다. 근거는 초보 가이드가 논문과 함께 다루므로 그쪽으로 넘긴다.
+ *     [⚠️ 2026-09-14, 여성 러너 절] 이 절의 의학적 주장 두 개에 인용이 없다.
+ *       ① "골반 구조 차이로 인해 … 발생률이 높습니다" — 인과까지 단정
+ *       ② "배란 후 황체기에는 인대가 느슨해져 부상 위험이 높아집니다"
+ *       받치는 자료로 걸려 있던 두 링크가 **루트 도메인**이었다 — `bjsm.bmj.com` 과 `pubmed.ncbi.nlm.nih.gov`. 특정 문헌이 아니다.
+ *       아래에서 그 링크를 내렸으므로, 링크가 받치던 문장도 같이 손본다.
+ *       여성 러너 부상 역학과 월경 주기·인대 이완은 실제로 연구가 있는 주제지만,
+ *       **이 사이트가 확인한 논문이 없는 상태**에서 기전과 처방을 단정할 수 없다.
+ *     [⚠️ 2026-09-14, 생리 주기] "황체기에는 인대가 느슨해져 부상 위험이 높아집니다" 라고
+ *       기전과 결론을 단정했는데, 이를 받치던 링크가 PubMed 루트 주소였다.
+ *     [⚠️ 2026-09-14, 참고 자료] 아래 두 항목이 **루트 도메인**이었다.
+ *       · "여성 러너 부상 역학 — BJSM"   → `bjsm.bmj.com` (학술지 홈)
+ *       · "월경 주기와 부상 위험 — PubMed" → `pubmed.ncbi.nlm.nih.gov` (검색엔진 홈)
+ *       제목은 논문처럼 보이지만 특정 문헌을 가리키지 않으므로 인용이 아니다.
+ *       이 둘이 본문의 의학적 주장 2개를 받치고 있었다 — 그 문장들도 위에서 같이 고쳤다.
+ *       2026-10-08: 남아 있던 「대한육상연맹 — 권은주 선수 공식 기록」도 kaaf.or.kr 루트였다. 실제 기사로 교체.
+ *     [2026-08-31, 유튜브] 검증 완료. 채널명은 oEmbed로 확인한 실제 업로더.
  */
 const PAGE_URL = pageUrl("/injury/kwon-eun-ju");
-const TITLE = "권은주 선수가 말하는 부상과 쉬는 법";
+const TITLE = "권은주 선수가 말하는 부상, 아프면 쉬어야 하나요?";
+// 원장 lib/guide/articles.ts 의 desc 와 같은 문장 (2026-11-23 「저희 제안」 딱지 말을 뺐다)
 const DESC =
-  "한국 여자 마라톤 기록을 오래 지킨 권은주 선수의 부상 경험과 쉬는 법을 기사로 확인했습니다. 여성 러너용 근력 운동은 저희 제안으로 따로 적었습니다.";
+  "권은주 선수의 기록과 부상 경험은 기사로 확인해 적었어요. 아플 때 쉬는 법, 거리를 늘리는 법, 달릴 때 배에 힘을 주는 자세와 근력 운동을 담았어요.";
 
 export const metadata: Metadata = {
   title: `${TITLE} — 뛰다가 아메리카노`,
@@ -43,7 +99,26 @@ export const metadata: Metadata = {
   alternates: { canonical: "/injury/kwon-eun-ju" },
 };
 
-const REF_LINK = "text-emerald-600 hover:underline";
+const FAQ: FaqItem[] = [
+  {
+    q: "「빠르게보다 오래」는 권은주 선수가 한 말인가요?",
+    a: "아니에요. 예전에 이 페이지에 실렸던 선수 인용 세 개는 **출처를 찾지 못해 지웠어요.** 지금 본문의 인용은 2025년 한국경제 인터뷰 원문에서 확인한 문장이에요.",
+  },
+  {
+    q: "권은주 선수의 한국 기록은 얼마나 유지됐나요?",
+    a: "**21년**이에요. 1997년 첫 풀코스에서 세운 2시간26분12초를 2018년 김도연 선수가 **2시간25분41초**로 깼어요.",
+  },
+  {
+    q: "여성 러너에게 무릎 부상이 더 흔한가요?",
+    a: "**확인한 자료가 없어요.** 예전에 이 페이지에 근거로 걸었던 링크는 특정 논문이 아니라 학술지와 검색엔진 첫 화면이어서 내렸어요. 무릎이 계속 아프면 **진료를 받으세요.**",
+  },
+  {
+    q: "주 3회 30분은 권은주 선수가 한 말인가요?",
+    a: "기사를 쓴 기자의 문장이에요. 2025년 한국경제 인터뷰는 그가 권하는 운동 빈도를 **주 3회, 30분**으로 소개했어요. 선수의 직접 인용은 아니에요.",
+  },
+];
+
+const linkCls = "text-emerald-700 underline";
 
 export default function KwonEunJuPage() {
   return (
@@ -61,227 +136,183 @@ export default function KwonEunJuPage() {
           ← 러닝 가이드
         </Link>
 
-        <header>
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-pink-50 px-2.5 py-1 text-xs font-semibold text-pink-600">권은주</span>
-            {/* 규약은 app/injury/page.tsx 상단 주석 */}
-          </div>
-          <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
-            권은주 선수가 말하는<br />부상과 쉬는 법
-          </h1>
-          <ArticleMeta href="/injury/kwon-eun-ju" />
-          <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-500">
-            <span className="text-emerald-600">✓</span>
-            협찬 없이 작성했습니다. 기사로 확인한 사실과 저희 제안을 구분했습니다
-          </p>
-        </header>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-pink-50 px-2.5 py-1 text-xs font-semibold text-pink-600">권은주</span>
+          {/* 규약은 app/injury/page.tsx 상단 주석 */}
+          {/* 비광고 표기 */}
+          <span className="text-xs text-gray-400">협찬 없이 작성</span>
+        </div>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/kwon-eun-ju" compact checked={4} records />
 
-        <Lead>
-          아파도 참고 달려야 하나 고민된다면, 한국 여자 마라톤 기록을 오래 지킨 권은주 선수의 경험부터 볼 만합니다. 그도 선수
-          생활 내내 부상에 시달렸습니다. 지금 그가 강조하는 것은 <strong>쉬어야 할 때 쉬는 것</strong>입니다.
-        </Lead>
-
-        <Summary
+        <KeyPoints
           items={[
-            <>
-              <strong>아프면 쉽니다.</strong> 권은주 선수는 &ldquo;적재적소에 휴식하는 게 정말 중요하다&rdquo;고 말했습니다.
-              <Basis kind="rule" />
-            </>,
-            <>
-              주당 거리를 <strong>한 번에 크게 늘리지 않습니다.</strong> 정확한 숫자보다 방향이 요점입니다.
-              <Basis kind="rule" />
-            </>,
-            <>
-              고관절과 코어 근력 운동은 흔히 권해지는 방법입니다. 이 글에 효과를 확인한 연구 인용은 없습니다.
-              <Basis kind="rule" />
-            </>,
+            <>아픈데 참고 뛰지 말고 <strong>그날은 쉬어요.</strong> 참고 뛰다가 더 오래 못 뛸 수 있어요.</>,
+            <>옆 사람을 따라가지 말고 <strong>내 몸에 맞춰</strong> 뛰어요. 거리는 한 번에 크게 늘리지 않아요.</>,
+            <>달릴 때는 <strong>배에 힘을 주고</strong> 뛰어 보세요. 몸통과 엉덩이 근육 운동도 꾸준히 하길 권해요.</>,
           ]}
         />
 
+        <Lead>
+          아파도 참고 달려야 하나 고민된다면, 한국 여자 마라톤 기록을 오래 지킨 권은주 선수의 말부터 들어 볼 만해요. 그도 선수
+          생활 내내 부상에 시달렸고, 다시 선수 시절로 돌아간다면 쉬는 법부터 배우겠다고 했어요.
+        </Lead>
+
+        <TableOfContents
+          items={[
+            { id: "career", label: "권은주 선수는 어떤 선수였나요?" },
+            { id: "rest", label: "아픈데 참고 뛰어도 될까요?" },
+            { id: "mileage", label: "거리는 얼마나 늘리나요?" },
+            { id: "strength", label: "자세와 근력 운동은 어떻게 하나요?" },
+            { id: "cycle", label: "생리 주기에 맞춰 훈련을 바꿔야 하나요?" },
+          ]}
+        />
+
+        {/* ── 1 ─────────────────────────────────────────── */}
         <h2 id="career" className={H2}>
-          권은주 선수는 어떤 선수였나요?
+          <Num n={1} />권은주 선수는 어떤 선수였나요?
         </h2>
         <P>
-          권은주 선수는 1997년 춘천마라톤(조선일보마라톤)에서 생애 첫 풀코스를 2시간26분12초에 달려 한국 기록을 세웠습니다.
-          이 기록은 2018년 김도연 선수가 깰 때까지 21년간 유지됐습니다.
+          첫 풀코스에서 <strong>한국 기록</strong>을 세운 선수예요. 1997년 춘천마라톤(조선일보마라톤)에서 생애 첫 풀코스를
+          2시간26분12초에 달렸어요.
         </P>
         <P>
-          그러나 이후 1998 방콕 아시안게임과 1999 런던마라톤은 중도에 기권했습니다. 2000년 로테르담마라톤에서는 왼쪽 발목 부상으로 12위에 그쳐 올림픽 출전을 놓쳤습니다.
-        </P>
-        <P>
-          그는 선수 생활 내내 부상에 시달렸습니다. 지금은 러닝 코치로 활동하며 &ldquo;건강하게, 오래, 즐겁게 달리는 걸 목표로 하라&rdquo;고 말합니다(한국경제, 2025-08-15).
+          그 뒤로는 크고 작은 부상이 이어졌어요. 1998년 방콕 아시안게임과 1999년 런던마라톤은 중도에 기권했어요. 2000년
+          로테르담마라톤에서는 왼쪽 발목 부상으로 12위에 그쳐 올림픽 출전을 놓쳤어요.
         </P>
 
+        <OneLine>첫 풀코스에서 한국 기록을 세웠지만, 그 뒤로는 부상과 싸운 선수예요.</OneLine>
+
+        {/* ── 2 ─────────────────────────────────────────── */}
         <h2 id="rest" className={H2}>
-          아픈데 참고 뛰어도 될까요?
+          <Num n={2} />아픈데 참고 뛰어도 될까요?
         </h2>
         <P>
-          권은주 선수의 답은 쉬는 쪽입니다. 그는 &ldquo;다시 선수 시절로 돌아간다면 쉬는 법부터 배울 것&rdquo;이라며 이렇게 말했습니다.
+          <strong>참지 말고 쉬어요.</strong> 권은주 선수는 다시 선수 시절로 돌아간다면 쉬는 법부터 배울 것이라며 이렇게 말했어요.
         </P>
-        <blockquote className="my-4 border-l-4 border-pink-200 py-1 pl-5 text-gray-700 italic break-keep leading-[1.8]">
-          &ldquo;선수 시절엔 아파도 뛰었는데, 일주일 쉬면 될 걸 무시하고 달리다 오히려 한 달, 1년을 못 뛰는 경우도 많다.
-          적재적소에 휴식하는 게 정말 중요하다&rdquo;
+        <blockquote className="my-4 border-l-4 border-pink-200 py-1 pl-5 text-gray-700">
+          「선수 시절엔 아파도 뛰었는데, 일주일 쉬면 될 걸 무시하고 달리다 오히려 한 달, 1년을 못 뛰는 경우도 많다.
+          적재적소에 휴식하는 게 정말 중요하다」
         </blockquote>
-        <p className="text-xs text-gray-400 mb-4">
-          — 권은주 인터뷰 / 출처:
-          <a href="https://www.hankyung.com/article/2025081265487" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 ml-1">
+        <p className="mb-4 text-xs text-gray-400">
+          권은주 인터뷰 · 출처
+          <a href="https://www.hankyung.com/article/2025081265487" target="_blank" rel="noopener noreferrer" className="ml-1 underline hover:text-gray-700">
             한국경제 2025-08-15 ↗
           </a>
         </p>
-        <p className="mb-4 rounded-lg bg-gray-50 px-3 py-2 text-xs leading-relaxed text-gray-500">
-          정정(2026-10-08): 이 페이지에 예전에 실렸던 권은주 선수의 따옴표 인용 세 개(「빠르게보다 오래」 등)는 출처를 찾지 못해 지웠고,
-          위 인용은 기사 원문에서 확인한 문장입니다.
-        </p>
-        <P>
-          같은 기사는 주 3회, 30분 정도를 운동 빈도로 소개합니다(기자 서술입니다. 권은주 선수의 직접 인용은 아닙니다).
-        </P>
-        <Todo
-          title="초보 러너에게 적용하면"
-          basis="rule"
-          items={["아프면 쉽니다.", "주당 거리를 한 번에 크게 늘리지 않습니다."]}
+        <Steps
+          items={[
+            { t: "걸을 때도 아프면 그날은 쉬어요." },
+            { t: "다음 날 아침이 전날보다 더 아프면 거리를 줄여요." },
+            { t: "이런 신호가 며칠 이어지면 진료를 받으세요." },
+          ]}
         />
-        {/**
-         * 2026-10-08: 「10%라는 숫자 자체를 뒷받침하는 연구는 없습니다」「증가율 비교 연구에서 유의차 없음」에
-         * 이 페이지 안에 인용이 없었다. 근거는 초보 가이드가 논문과 함께 다루므로 그쪽으로 넘긴다.
-         */}
         <P>
-          주간 거리를 전주 대비 10% 넘게 늘리지 않는 것을 흔히 &ldquo;10% 법칙&rdquo;이라고 부릅니다. 이 숫자를 다룬 연구와 거리를 늘리는 방법은{" "}
-          <Link href="/injury/beginner-guide" className="text-emerald-600 underline">초보 러너 가이드</Link>에 정리해 두었습니다.
-          정확한 숫자보다 <strong>&ldquo;급격히 늘리지 않는다&rdquo;</strong>는 방향이 요점입니다.
+          쉬는 날 무엇을 하면 좋은지는{" "}
+          <Link href="/injury/rest-day" className={linkCls}>쉬는 날 글</Link>에 있어요.
         </P>
 
-        <h2 id="women" className={H2}>
-          여성 러너는 무엇을 챙겨야 하나요?
+        <OneLine>일주일 쉬면 될 걸 참고 뛰면 더 오래 못 뛸 수 있어요. 아프면 쉬어요.</OneLine>
+
+        {/* ── 3 ─────────────────────────────────────────── */}
+        <h2 id="mileage" className={H2}>
+          <Num n={3} />달리는 거리는 얼마나 늘려도 되나요?
         </h2>
-        {/**
-         * ⚠️ 2026-09-14 — 이 절의 의학적 주장 두 개에 인용이 없다.
-         *
-         *   ① "골반 구조 차이로 인해 … 발생률이 높습니다" — 인과까지 단정
-         *   ② "배란 후 황체기에는 인대가 느슨해져 부상 위험이 높아집니다"
-         *
-         * 받치는 자료로 걸려 있던 두 링크가 **루트 도메인**이었다 —
-         * `bjsm.bmj.com` 과 `pubmed.ncbi.nlm.nih.gov`. 특정 문헌이 아니다.
-         * 아래에서 그 링크를 내렸으므로, 링크가 받치던 문장도 같이 손본다.
-         *
-         * 여성 러너 부상 역학과 월경 주기·인대 이완은 실제로 연구가 있는 주제지만,
-         * **이 사이트가 확인한 논문이 없는 상태**에서 기전과 처방을 단정할 수 없다.
-         */}
         <P>
-          여성 러너에게 슬개대퇴 증후군(러너 무릎)과 장경인대염이 흔하다고 이야기됩니다. 그 배경으로 골반 구조 차이가 자주 언급됩니다.
-          다만 <strong>저희가 확인한 인용이 없어 원인까지 단정하지는 않겠습니다.</strong>
+          <strong>한 번에 크게 늘리지 않는 걸</strong> 권해요. 권은주 선수는 옆 사람이 10km를 뛴다고 따라 하면 힘들고 아프기만
+          하다며, 20~30분이라도 내 컨디션에 맞춰 뛰라고 했어요.
         </P>
+        <Steps
+          items={[
+            { t: "옆 사람 거리를 따라가지 말고 내 몸에 맞춰요.", d: "숨이 차면 걸어도 괜찮아요." },
+            { t: "거리는 조금씩 늘려요.", d: "다음 날 아프면 더 늘리지 말고 같은 양으로 다시 뛰어요." },
+          ]}
+        />
         <P>
-          권은주 선수는 달리기 자세를 설명하며 &ldquo;코어 힘을 유지해야 부상을 줄일 수 있다&rdquo;고 조언합니다(한국경제, 2025-08-15).
-        </P>
-        <Note>아래 근력 운동은 흔히 권해지는 방법(저희 제안)이며, 이 글에 효과를 확인한 연구 인용은 없습니다.</Note>
-
-        <h3 className={H3}>
-          고관절 외전근 강화
-          <Basis kind="rule" />
-        </h3>
-        <P>
-          고관절 외전근은 다리를 옆으로 벌리는 엉덩이 근육입니다. 옆으로 누워 다리 들기(클램셸)나 밴드 사이드 워크로 단련합니다.
-          이 근육이 약하면 무릎이 안쪽으로 쏠려 장경인대염이나 슬개골 통증과 관련된다는 설명이 흔합니다. 저희가 확인한 연구가 없어
-          원인이라고 단정하지 않겠습니다.
+          거리를 얼마씩 늘리면 좋은지는{" "}
+          <Link href="/injury/beginner-guide" className={linkCls}>초보 러너 가이드</Link>에 있어요.
         </P>
 
-        <h3 className={H3}>
-          코어 안정화
-          <Basis kind="rule" />
-        </h3>
+        <OneLine>옆 사람 말고 내 몸에 맞춰 뛰고, 거리는 조금씩 늘려요.</OneLine>
+
+        {/* ── 4 ─────────────────────────────────────────── */}
+        <h2 id="strength" className={H2}>
+          <Num n={4} />부상을 줄이려면 자세와 근력 운동은 어떻게 하나요?
+        </h2>
         <P>
-          달릴 때 몸통이 좌우로 크게 흔들리지 않게 잡아 주는 운동입니다. 플랭크나 데드버그 같은 동작이 있습니다. 주 2~3회,
-          10~15분으로 시작하는 경우가 많습니다. 다만 이 양이 충분하다는 연구는 저희가 확인하지 못했습니다.
+          달릴 때는 <strong>배에 힘을 주고</strong> 뛰어 보세요. 코어는 배와 허리를 감싸는 몸통 근육이에요. 권은주 선수는 달리기
+          자세를 설명하며 「코어 힘을 유지해야 부상을 줄일 수 있다」고 조언했어요.
+        </P>
+        <Steps
+          items={[
+            { t: "달릴 때 배에 힘을 줘요." },
+            { t: "몸통 운동을 꾸준히 해요.", d: "엎드려 팔꿈치와 발끝으로 몸을 곧게 버티는 동작이 있어요." },
+            { t: "무릎 바깥이 아팠던 적이 있다면 엉덩이 옆 근육 운동을 넣어 보세요.", d: "옆으로 누워 위쪽 다리를 곧게 편 채 천천히 들었다 내려요." },
+          ]}
+        />
+        <P>
+          엉덩이 옆 근육은 다리를 옆으로 벌릴 때 쓰는 근육이에요. 몇 번씩 하면 충분한지는 확인한 자료가 없어요. 아프지 않은 만큼
+          꾸준히 해 보세요. 무릎 바깥이 아프다면{" "}
+          <Link href="/injury/it-band" className={linkCls}>무릎 바깥 통증 글</Link>에 운동이 더 있어요.
         </P>
 
-        <h3 className={H3}>
-          생리 주기에 따른 훈련 조절
-          <Basis kind="rule" />
-        </h3>
-        {/* ⚠️ 2026-09-14: "황체기에는 인대가 느슨해져 부상 위험이 높아집니다" 라고
-            기전과 결론을 단정했는데, 이를 받치던 링크가 PubMed 루트 주소였다. */}
+        <OneLine>달릴 때는 배에 힘을 주고, 몸통과 엉덩이 근육 운동을 꾸준히 해 보세요.</OneLine>
+
+        {/* ── 5 ─────────────────────────────────────────── */}
+        <h2 id="cycle" className={H2}>
+          <Num n={5} />생리 주기에 맞춰 훈련을 바꿔야 하나요?
+        </h2>
         <P>
-          주기에 따라 컨디션이 달라진다면 훈련 강도를 그에 맞춰 조절하는 편이 낫습니다. 다만 어느 시기에 부상 위험이 얼마나 달라지는지는 저희가
-          확인한 자료가 없어 단정하지 않겠습니다. 자기 기록을 남겨 자신의 패턴을 보는 쪽이 확실합니다.
+          <strong>내 기록을 보고 정하는 걸</strong> 권해요. 어느 시기에 부상 위험이 얼마나 달라지는지는 저희가 확인한 자료가
+          없어요.
         </P>
+        <Steps
+          items={[
+            { t: "주기와 그날 컨디션을 같이 적어요." },
+            { t: "몸이 무거운 날은 거리나 속도를 낮춰요.", d: "기록이 쌓이면 내 패턴이 보여요." },
+          ]}
+        />
+
+        <OneLine>주기마다 몸이 다르다면, 기록을 남겨 내 패턴에 맞춰 강도를 조절해요.</OneLine>
 
         <div className="mt-14">
           <YoutubeSection links={[
             // 2026-08-31 검증 완료. 채널명은 oEmbed로 확인한 실제 업로더.
-        { label: "한국 마라톤의 전설, 권은주 감독님을 뵙고 왔습니다", channel: "262wave", url: "https://www.youtube.com/watch?v=t6sqbXLDjok" },
-        { label: "D-2, 이럴 땐 이렇게! (한국 여자 마라톤 기록 보유자 권은주 감독)", channel: "서울신문", url: "https://www.youtube.com/watch?v=i3Z1sqVfiG4" },
-        { label: "인생은 마라톤처럼 — 21년간 한국신기록을 보유한 권은주 감독", channel: "다컴스", url: "https://www.youtube.com/watch?v=0tPsua6vVHQ" },
-          ]} />
-
-          <FaqSection items={[
-            {
-              q: "여성 러너가 특히 조심해야 할 부상이 있나요?",
-              a: "여성 러너에게 슬개대퇴 증후군(러너 무릎)과 장경인대염이 흔하다고 이야기되고 골반 구조 차이가 자주 언급됩니다. 다만 저희가 확인한 인용이 없어 원인까지 단정하지 않습니다. 무릎이 계속 아프면 진료를 먼저 받으세요.",
-            },
-            {
-              q: "권은주 선수는 무엇을 강조하나요?",
-              a: "쉬는 것입니다. 그는 \"선수 시절엔 아파도 뛰었는데, 일주일 쉬면 될 걸 무시하고 달리다 오히려 한 달, 1년을 못 뛰는 경우도 많다\"고 말했습니다(한국경제 2025-08-15). 1997년 세운 한국 기록을 21년간 지켰지만 선수 생활 내내 부상에 시달린 경험에서 나온 말입니다.",
-            },
-            {
-              q: "초보 여성 러너가 바로 적용할 원칙은?",
-              a: "아프면 쉬는 것과 주당 거리를 급격히 늘리지 않는 것입니다. 흔히 말하는 '10% 법칙'에 대한 연구와 거리 늘리는 방법은 저희 초보 러너 가이드(/injury/beginner-guide)에 정리해 두었습니다.",
-            },
+            // 2026-11-23: 262wave 「한국 마라톤의 전설, 권은주 감독님을 뵙…」 한 건은 뺐다 — 머리 주석 참고
+            { label: "D-2, 이럴 땐 이렇게! (한국 여자 마라톤 기록 보유자 권은주 감독)", channel: "서울신문", url: "https://www.youtube.com/watch?v=i3Z1sqVfiG4" },
+            { label: "인생은 마라톤처럼 — 21년간 한국신기록을 보유한 권은주 감독", channel: "다컴스", url: "https://www.youtube.com/watch?v=0tPsua6vVHQ" },
           ]} />
         </div>
 
-        <References
-          n={6}
-          title="참고 자료"
-          note="추천 순서는 광고비로 바뀌지 않습니다. 이 글에는 연구 인용이 없습니다. 선수 관련 내용은 위 기사들을 근거로 했고, 근력 운동 내용은 저희 제안입니다."
-        >
-          <ul className="space-y-2">
-            {/**
-             * ⚠️ 2026-09-14 — 아래 두 항목이 **루트 도메인**이었다.
-             *   · "여성 러너 부상 역학 — BJSM"   → `bjsm.bmj.com` (학술지 홈)
-             *   · "월경 주기와 부상 위험 — PubMed" → `pubmed.ncbi.nlm.nih.gov` (검색엔진 홈)
-             * 제목은 논문처럼 보이지만 특정 문헌을 가리키지 않으므로 인용이 아니다.
-             * 이 둘이 본문의 의학적 주장 2개를 받치고 있었다 — 그 문장들도 위에서 같이 고쳤다.
-             * 2026-10-08: 남아 있던 「대한육상연맹 — 권은주 선수 공식 기록」도 kaaf.or.kr 루트였다. 실제 기사로 교체.
-             */}
-            <li className="flex gap-2">
-              <span className="text-gray-400 shrink-0">•</span>
-              <a href="https://www.hankyung.com/article/2025081265487" target="_blank" rel="noopener noreferrer" className={REF_LINK}>
-                {"한국경제 2025-08-15 — 「\"러닝하다 '병원비 폭탄' 맞으면…\" '레전드' 권은주의 고백」 (인터뷰, 휴식·주 3회 30분·코어 조언)"} ↗
-              </a>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-gray-400 shrink-0">•</span>
-              <a href="https://www.hankyung.com/article/202605145844g" target="_blank" rel="noopener noreferrer" className={REF_LINK}>
-                {"한국경제 2026-05-14 — 21세 첫 풀코스 2시간26분12초 한국 기록, 선수 생활 내내 부상"} ↗
-              </a>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-gray-400 shrink-0">•</span>
-              <a href="https://www.khan.co.kr/article/200101261904561" target="_blank" rel="noopener noreferrer" className={REF_LINK}>
-                {"경향신문 2001-01-26 — 「권은주 '느낌이 달라요'」 (98 방콕 AG·99 런던 기권, 2000 로테르담 발목 부상)"} ↗
-              </a>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-gray-400 shrink-0">•</span>
-              <a href="https://m.seoul.co.kr/news/2025/04/11/20250411032002" target="_blank" rel="noopener noreferrer" className={REF_LINK}>
-                {"서울신문 2025-04-11 — 21년간 한국 여자마라톤 기록 보유(2018년 3월 김도연 경신)"} ↗
-              </a>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-gray-400 shrink-0">•</span>
-              <a href="https://kbmaeil.com/article/201803190216911" target="_blank" rel="noopener noreferrer" className={REF_LINK}>
-                {"경북매일(2018) — 김도연, 권은주 기록 21년 만에 경신"} ↗
-              </a>
-            </li>
-            <li className="flex gap-2"><span className="text-gray-400 shrink-0">•</span><span className="text-gray-500">「여성 러너 부상 역학」·「월경 주기와 부상 위험」 항목 — 링크가 특정 논문이 아니라 학술지·검색엔진 홈 주소여서 내렸습니다 (2026-09-14). 해당 본문 문장도 단정을 뺐습니다</span></li>
-          </ul>
-        </References>
+        <FaqSection items={FAQ} />
 
-        <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 일반적인 정보 제공 목적이며, 의학적 진단이나 치료를 대체하지 않습니다. 통증이 지속되면 전문의 상담을 권장합니다.</p>
+        <Sources records>
+          <Src n={1}>
+            <strong>한국경제 (2025)</strong> 쉬는 법 발언, 코어 힘 조언, 옆 사람을 따라 하지 말라는 조언, 주 3회 30분(기자 서술)을 원문에서 확인했어요.
+            <Ref><a href="https://www.hankyung.com/article/2025081265487" target="_blank" rel="noopener noreferrer">{"한국경제 2025-08-15 — 「\"러닝하다 '병원비 폭탄' 맞으면…\" '레전드' 권은주의 고백」"} ↗</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>한국경제 (2026)</strong> 첫 풀코스 2시간26분12초 한국 기록과 선수 생활 내내 부상이 이어졌다는 것을 확인했어요.
+            <Ref><a href="https://www.hankyung.com/article/202605145844g" target="_blank" rel="noopener noreferrer">{"한국경제 2026-05-14 — 21세 첫 풀코스 2시간26분12초 한국 기록, 선수 생활 내내 부상"} ↗</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>경향신문 (2001)</strong> 1998년 방콕 아시안게임·1999년 런던 중도 기권, 2000년 로테르담 왼쪽 발목 부상 12위를 확인했어요.
+            <Ref><a href="https://www.khan.co.kr/article/200101261904561" target="_blank" rel="noopener noreferrer">{"경향신문 2001-01-26 — 「권은주 '느낌이 달라요'」"} ↗</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>경북매일 (2018)</strong> 김도연 선수가 2시간25분41초로 21년 만에 기록을 깼다는 것을 확인했어요.
+            <Ref><a href="https://kbmaeil.com/article/201803190216911" target="_blank" rel="noopener noreferrer">{"경북매일(2018) — 김도연, 권은주 기록 21년 만에 경신"} ↗</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">
+          선수 관련 사실은 위 기사로 확인한 것만 적었어요. 이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와
+          상담하세요.
+        </p>
 
-        <div className="mt-10 p-6 bg-emerald-50 rounded-2xl">
-          <p className="font-medium text-emerald-900 mb-2">오래 달리려면 내 발에 맞는 신발부터</p>
-          <Link href="/shoe-finder" className="inline-block bg-emerald-600 text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-emerald-700 transition-colors">
+        <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
+          <p className="mb-2 font-medium text-emerald-900">오래 달리려면 내 발에 맞는 신발부터</p>
+          <Link href="/shoe-finder" className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700">
             나에게 맞는 신발 찾기 →
           </Link>
         </div>

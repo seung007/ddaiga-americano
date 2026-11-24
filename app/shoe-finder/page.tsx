@@ -1256,10 +1256,11 @@ const GUIDE_MAP: Record<string, GuideItem[]> = {
   ],
 };
 
+// 2026-11-23: racing·tempo 설명을 확정 틀로 바꾼 글 내용에 맞춤(옛 「고강도 훈련 전략」「템포런·인터벌」은 본문에 없다)
 const USE_GUIDE_MAP: Record<string, GuideItem> = {
   long:   { href: "/injury/first-10k",  tag: "장거리", title: "첫 10km 대회, 준비 기간과 페이스는?",               desc: "하프·풀 준비 전 10km부터 완주하는 법." },
-  racing: { href: "/injury/advanced-guide", tag: "숙련", title: "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?",               desc: "기록 단축을 위한 고강도 훈련 전략." },
-  tempo:  { href: "/injury/intermediate-guide", tag: "중급", title: "러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?",           desc: "템포런·인터벌 훈련을 안전하게 시작하는 법." },
+  racing: { href: "/injury/advanced-guide", tag: "숙련", title: "마일리지 많이 뛰는 러너, 조심할 부상은 뭔가요?",               desc: "많이 뛸 때 조심할 부상과 대회 전 훈련 줄이기." },
+  tempo:  { href: "/injury/intermediate-guide", tag: "중급", title: "러닝 거리를 늘릴 때, 부상은 어떻게 피하나요?",           desc: "거리를 늘릴 때 다치지 않는 기준과 자주 다치는 곳." },
   daily:  { href: "/injury/rest-day",   tag: "회복",  title: "러닝 쉬는 날, 가볍게라도 움직여야 하나요?",                  desc: "매일 달리고 싶다면 회복일이 더 중요해요." },
 };
 

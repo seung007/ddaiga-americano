@@ -27,6 +27,13 @@ import { pageUrl } from "@/lib/site";
  * 안정화·모션컨트롤이고, 추천 엔진도 평발에 가점을 준다. 5절에서 점수까지 공개한다.
  *
  * ─────────────────────────────────────────────────────────────
+ * 2026-11-23 추천기와 같은 판정으로 맞춤(docs/판정/flat-feet.jsonl, 추천기 판정 docs/판정/추천기.jsonl)
+ *   · 「그 차이는 발이 안쪽으로 많이 쏠리는 사람에서만」 ✗ — Malisoux 2016 은 전체에서도 HR 0.55(0.36–0.85)였다. 뚜렷한 건 그 사람들이었다로 고침
+ *   · FAQ 「안정화를 신으면 해로운가요? 해롭다는 근거는 확인하지 못했어요」 ✗ — Ryan 2011 BJSM: 발이 안쪽으로 기우는 러너가
+ *     안정화를 신고 달릴 때 통증이 더 컸다. 부상이 아니라 통증 결과라 「다친다는 근거는 없지만 더 아팠다는 시험은 있다」로
+ *   · 빠른 훈련·대회용에는 안정화 모델이 없다(브랜드 공식 페이지, PR #30) — FAQ 로 더함
+ *   · 5절 목록에 용도를 붙임 — 2026-11-23 넣은 안정화 3켤레(온 Cloudrunner 3 Max · 푸마 ForeverRun NITRO 3 · 브룩스 Glycerin GTS 23)가 여기 나온다
+ *
  * 2026-11-18 확정 틀로 바꿈 (AGENTS.md 「가이드 글 틀 — 2026-11-18 확정」, 견본 app/injury/start-running/page.tsx)
  *
  * 이 글이 사이트에서 맡는 몫: **발 아치·평발 판정은 여기서 끝난다.**
@@ -97,6 +104,9 @@ const flatShoes = SHOES.map(withFootTypes).filter(
 const flatCurrent = flatShoes.filter((s) => !s.successor);
 const flatStability = flatShoes.filter((s) => s.stability !== "neutral").length;
 
+// 2026-11-23: 목록에 용도를 붙인다 — 평발 러너가 장거리·일상 중 어디에 쓸 안정화인지 보이게. 「템포·레이싱」은 쉬운 말로
+const USE_PLAIN: Record<string, string> = { daily: "일상", long: "장거리", tempo: "빠른 훈련", racing: "대회" };
+
 const STABILITY_KO: Record<string, string> = {
   neutral: "중립",
   stability: "안정화",
@@ -110,11 +120,15 @@ const FAQ: FaqItem[] = [
   },
   {
     q: "안정화 러닝화를 신으면 해로운가요?",
-    a: "해롭다는 근거는 확인하지 못했어요. **지금 신어서 편하다면 계속 신어도 돼요.** 평발이라는 이유만으로 다른 신발을 빼놓을 근거가 약하다는 뜻이에요.",
+    a: "더 다친다는 근거는 없지만, 더 아팠다는 시험은 있어요. 발이 안쪽으로 기우는 러너가 안정화를 신고 달릴 때 통증이 더 컸어요. **신어서 편하면 계속 신고, 불편하면 일반 신발로** 바꿔 보세요.",
   },
   {
     q: "평발이면 깔창을 써야 하나요?",
     a: "꼭 그렇지는 않아요. 평발을 깔창으로 받쳐서 부상이 줄었다는 자료는 확인하지 못했어요. 아픈 곳이 없다면 깔창보다 **신어서 편한 신발을 먼저** 찾아 보세요. 무릎 앞이 아프다면 무릎 통증 글을 보세요.",
+  },
+  {
+    q: "평발인데 빠른 훈련이나 대회용 신발도 안정화가 있나요?",
+    a: "저희가 확인한 브랜드 공식 페이지에는 **없었어요.** 안정화 모델은 일상 달리기와 장거리용으로 나와요. 그 용도라면 일반 신발을 신어 보고 **발바닥 안쪽이 눌리지 않는지** 보세요.",
   },
   {
     q: "평발에 맞는 신발을 신으면 기록이 좋아지나요?",
@@ -148,13 +162,13 @@ export default function FlatFeetPage() {
           <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600">평발</span>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
-        <ArticleMeta href="/injury/flat-feet" compact checked={6} />
+        <ArticleMeta href="/injury/flat-feet" compact checked={7} />
 
         <KeyPoints
           items={[
             <>평발이라고 꼭 안정화를 신어야 하는 건 아니에요. <strong>지금 신발이 편하면 그대로 신어요.</strong></>,
             <>고를 때는 발 모양보다 <strong>너무 딱딱하지 않은지, 발볼이 맞는지</strong>를 먼저 봐요.</>,
-            <>덜 다치려고 평발용 신발을 찾는 거라면, 그 효과는 연구에서 나타나지 않았어요.</>,
+            <>발이 안쪽으로 기우는 사람은 잡아 주는 신발에서 <strong>덜 다친 편</strong>이었지만, 오히려 더 아팠다는 시험도 있어요.</>,
           ]}
         />
 
@@ -182,17 +196,16 @@ export default function FlatFeetPage() {
           정할 만큼 근거가 모이지 않았어요.
         </P>
         <P>
-          이 자리는 <strong>연구가 서로 다른 답을 낸 곳</strong>이에요. 2009년에 기존 연구를 모아 검토한 논문은 발 모양에 맞춰
-          회내 제어 신발을 주는 관행을 받치는 연구를 한 건도 찾지 못했어요. 회내는 디딜 때 발이 안쪽으로 쏠리는 움직임을 말해요.
+          이 자리는 <strong>연구가 서로 다른 답을 낸 곳</strong>이에요. 발이 안쪽으로 기우는 러너는 발을 잡아 주는 신발에서{" "}
+          <strong>부상이 적은 편</strong>이었어요. 발이 안쪽으로 기울지 않는 러너는 차이가 뚜렷하지 않았어요.
         </P>
         <P>
-          반대로 한 시험에서는 모션컨트롤화를 받은 쪽의 부상이 적었어요. 다만 그 차이는 <strong>발이 안쪽으로 많이
-          쏠리는 사람에서만</strong> 나타났어요. 그 시험까지 모아 본 코크런 고찰은 두 신발 사이에서 차이를 찾지 못했고, 이
-          비교의 근거를 가장 낮은 확실성으로 봤어요.
+          반대로 발이 안쪽으로 기우는 러너가 안정화를 신고 <strong>달릴 때 더 아팠다</strong>는 시험도 있어요. 여러 연구를
+          모아 본 고찰은 이 비교의 근거를 가장 낮은 확실성으로 봤어요.
         </P>
         <Caveat>
-          스스로 평발이라고 느끼는 것과, 그 시험이 측정 도구로 가른 발 모양이 같은지는 알 수 없어요. 도움이 됐다는 쪽은 시험
-          한 편이고, 그 안에서도 하위 집단을 따로 본 결과예요.
+          스스로 평발이라고 느끼는 것과, 시험이 측정 도구로 가른 발 모양이 같은지는 알 수 없어요. 덜 다쳤다는 쪽도 시험 한
+          편이에요.
         </Caveat>
 
         <OneLine>지금 신발이 편하면 그대로 신어요. 평발이라는 이유만으로 바꿀 일은 아니에요.</OneLine>
@@ -309,7 +322,9 @@ export default function FlatFeetPage() {
               <span className="font-medium text-gray-900">
                 {s.brand} {s.model}
               </span>
-              <span className="ml-1.5 text-xs text-gray-500">{STABILITY_KO[s.stability]}</span>
+              <span className="ml-1.5 text-xs text-gray-500">
+                {STABILITY_KO[s.stability]} · {s.uses.map((u) => USE_PLAIN[u]).join("·")}
+              </span>
             </li>
           ))}
         </ul>
@@ -372,6 +387,12 @@ export default function FlatFeetPage() {
             <strong>van Leeuwen et al. (2016)</strong> 연구 51편을 모아 보니 꾸준히 관련이 나온 임상 요인은 높은 체질량지수뿐이었어요
             (27 초과에서 오즈비 3.7, 2.93–5.62). 발과 발목 기능 측정치가 원인이라는 통념은 근거가 부족했어요.
             <Ref>Br J Sports Med 50(16):972-81 · <a href="https://pubmed.ncbi.nlm.nih.gov/26644427/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={7}>
+            <strong>Ryan et al. (2011)</strong> 여성 러너 81명을 발 모양별로 나눠 일반·안정화·모션컨트롤화를 무작위로 신겼어요.
+            발이 안쪽으로 기우는 사람은 안정화를 신고 달릴 때 통증이 더 컸고, 모션컨트롤화는 통증 항목이 모두 높았어요. 부상이 아니라
+            통증과 쉰 날을 잰 시험이에요.
+            <Ref>Br J Sports Med 45(9):715-721 · <a href="https://doi.org/10.1136/bjsm.2009.069849" target="_blank" rel="noopener noreferrer">DOI</a></Ref>
           </Src>
         </Sources>
         <AuthorNote />

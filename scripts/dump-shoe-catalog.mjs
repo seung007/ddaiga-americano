@@ -45,7 +45,9 @@ const shoes = [...MANUAL_SHOES]
       gender: s.gender,
       successor: s.successor ?? null,
       heelDropMm: num(s, "heelDropMm"),
-      stackHeightMm: num(s, "stackHeightMm"),
+      // 2026-11-24: 밑창 두께는 2026-11-23 부터 비울 수 있다(브랜드 공식 표기가 없는 신발 — types.ts). 그날 이후 이 덤프가
+      //   그 신발 2켤레에서 exit 1 로 멈췄다. 빈 값은 0 이 아니라 null 로 넘긴다(weightGramsW8 과 같은 방식). 값이 있는데 숫자가 아니면 그대로 실패
+      stackHeightMm: s.stackHeightMm == null ? null : num(s, "stackHeightMm"),
       weightGramsM9: num(s, "weightGramsM9"),
       weightGramsW8: s.weightGramsW8 ?? null,
       priceKrw: num(s, "priceKrw"),
