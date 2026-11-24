@@ -453,6 +453,12 @@
     "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
+  "saucony-endorphin-pro-4": {
+    "brand": "Saucony",
+    "listed": false,
+    "checkedAt": "2026-11-24",
+    "checkedBy": "수집기"
+  },
   "saucony-endorphin-pro-5": {
     "brand": "Saucony",
     "priceKrw": 299000,
@@ -466,7 +472,19 @@
     "priceKrw": 219000,
     "listed": true,
     "url": "https://saucony.co.kr/product/detail.html?product_no=216",
-    "checkedAt": "2026-11-09",
+    "checkedAt": "2026-11-24",
+    "checkedBy": "수집기"
+  },
+  "saucony-guide-18": {
+    "brand": "Saucony",
+    "listed": false,
+    "checkedAt": "2026-11-24",
+    "checkedBy": "수집기"
+  },
+  "saucony-guide-18-w": {
+    "brand": "Saucony",
+    "listed": false,
+    "checkedAt": "2026-11-24",
     "checkedBy": "수집기"
   },
   "saucony-guide-19": {
@@ -493,12 +511,24 @@
     "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
+  "saucony-ride-18": {
+    "brand": "Saucony",
+    "listed": false,
+    "checkedAt": "2026-11-24",
+    "checkedBy": "수집기"
+  },
   "saucony-ride-19": {
     "brand": "Saucony",
     "priceKrw": 179000,
     "listed": true,
     "url": "https://saucony.co.kr/product/detail.html?product_no=205",
     "checkedAt": "2026-11-17",
+    "checkedBy": "수집기"
+  },
+  "saucony-triumph-23": {
+    "brand": "Saucony",
+    "listed": false,
+    "checkedAt": "2026-11-24",
     "checkedBy": "수집기"
   },
   "saucony-triumph-24": {
