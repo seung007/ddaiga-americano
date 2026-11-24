@@ -152,6 +152,11 @@ export function shoeFaq(s: Shoe, official: OfficialCheck | null, specCheckedAt: 
       q: `${name} 가격은 얼마인가요?`,
       a: `한국 공식몰 정가는 ${official.priceKrw.toLocaleString("ko-KR")}원이에요(${official.checkedAt} 자동 확인). 할인·쿠폰가는 넣지 않았어요.`,
     });
+  } else if (s.priceCheckedAt) {
+    items.push({
+      q: `${name} 가격은 얼마인가요?`,
+      a: `브랜드 공식 판매처 정가는 ${s.priceKrw.toLocaleString("ko-KR")}원이에요(${s.priceCheckedAt} 확인). 할인·쿠폰가는 넣지 않았어요.`,
+    });
   } else if (s.priceKrw) {
     items.push({
       q: `${name} 가격은 얼마인가요?`,
@@ -169,7 +174,9 @@ export function shoeFaq(s: Shoe, official: OfficialCheck | null, specCheckedAt: 
 
   items.push({
     q: `${s.model}의 앞뒤 굽 차이(드롭)와 밑창 두께(스택)는 얼마인가요?`,
-    a: `앞뒤 굽 차이는 ${s.heelDropMm}mm, 뒤꿈치 밑창 두께는 ${s.stackHeightMm}mm예요. 앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.`,
+    a: s.stackHeightMm != null
+      ? `앞뒤 굽 차이는 ${s.heelDropMm}mm, 뒤꿈치 밑창 두께는 ${s.stackHeightMm}mm예요. 앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.`
+      : `앞뒤 굽 차이는 ${s.heelDropMm}mm예요. 밑창 두께는 브랜드 공식 페이지에 적혀 있지 않아요. 앞뒤 굽 차이는 뒤꿈치가 앞꿈치보다 높은 정도예요.`,
   });
 
   if (typeof s.hasCarbon === "boolean") {

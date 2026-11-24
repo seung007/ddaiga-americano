@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import ShoeThumb from "@/components/ShoeThumb";
 import { gtagEvent } from "@/lib/gtag";
 import { SHOES, LISTED_SHOES } from "@/lib/shoes/data";
-import { cushionKo, hasWide, USE_KO, won } from "@/lib/shoes/labels";
+import { cushionKo, hasWide, USE_KO, won, cushionText } from "@/lib/shoes/labels";
 import { describeSaved, profileFromSaved, STORAGE_KEY, type SavedProfile } from "@/lib/shoes/profileOptions";
 import { rankAllShoes } from "@/lib/shoes/recommend";
 import type { Shoe, ShoeUse } from "@/lib/shoes/types";
@@ -145,7 +145,7 @@ export default function ShoesBrowser() {
       if (query.trim() && !matchesQuery(SEARCH_KEY.get(s.id) ?? "", query)) return false;
       if (brand !== "전체" && s.brand !== brand) return false;
       if (use !== "전체" && !s.uses.includes(use as ShoeUse)) return false;
-      if (cush !== "전체" && cushionKo(s.cushioning) !== cush) return false;
+      if (cush !== "전체" && (s.cushioning == null || cushionKo(s.cushioning) !== cush)) return false;
       if (price === "15만원 이하" && s.priceKrw > 150_000) return false;
       if (price === "15–20만원" && (s.priceKrw <= 150_000 || s.priceKrw > 200_000)) return false;
       if (price === "20만원 초과" && s.priceKrw <= 200_000) return false;
@@ -393,7 +393,7 @@ export default function ShoesBrowser() {
                       );
                     })()}
                     <p className="mt-1 text-xs text-gray-500">
-                      {s.weightGramsM9}g · 굽 차이 {s.heelDropMm}mm · {cushionKo(s.cushioning)}
+                      {s.weightGramsM9}g · 굽 차이 {s.heelDropMm}mm · {s.cushioning != null ? cushionKo(s.cushioning) : `쿠션 ${cushionText(s)}`}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {s.uses.map((u) => (

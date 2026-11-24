@@ -77,14 +77,15 @@ function productOf(s: Shoe) {
       "@type": "QuantitativeValue",
       value: s.weightGramsM9,
       unitCode: "GRM",
-      description: "남성 US9 기준",
+      description: s.weightBasis ?? "남성 US9 기준",
     },
     // 스펙은 표준 필드가 없어 additionalProperty 로 낸다.
     // 이게 AI 답변이 "드롭 몇 mm?"에 답할 때 읽는 자리다.
     additionalProperty: [
       prop("힐드롭", `${s.heelDropMm}mm`),
-      prop("스택 높이", `${s.stackHeightMm}mm`),
-      prop("쿠셔닝", `${s.cushioning}/5`),
+      // 2026-11-23: 공식 표기에 없는 값은 구조화 데이터에 넣지 않는다(「undefinedmm」를 내보내지 않게)
+      ...(s.stackHeightMm != null ? [prop("스택 높이", `${s.stackHeightMm}mm`)] : []),
+      ...(s.cushioning != null ? [prop("쿠셔닝", `${s.cushioning}/5`)] : []),
       prop("안정성 분류", STABILITY_KO[s.stability]),
       prop("폭 옵션", s.widthOptions.join(" · ")),
       prop("카본 플레이트", s.hasCarbon ? "있음" : "없음"),

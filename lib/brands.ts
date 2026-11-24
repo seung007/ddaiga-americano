@@ -114,9 +114,10 @@ export function brandStats(brand: string, ko: string): BrandStats {
     dropAvg: avg(shoes.map((s) => s.heelDropMm)),
     dropMin: Math.min(...shoes.map((s) => s.heelDropMm)),
     dropMax: Math.max(...shoes.map((s) => s.heelDropMm)),
-    stackAvg: avg(shoes.map((s) => s.stackHeightMm)),
+    // 2026-11-23: 두께·쿠션 단계가 빈 신발은 평균에서 뺀다(0 으로 세면 평균이 틀어진다)
+    stackAvg: avg(shoes.flatMap((s) => (s.stackHeightMm != null ? [s.stackHeightMm] : []))),
     weightAvg: avg(shoes.map((s) => s.weightGramsM9)),
-    cushionAvg: avg(shoes.map((s) => s.cushioning)),
+    cushionAvg: avg(shoes.flatMap((s) => (s.cushioning != null ? [s.cushioning] : []))),
     priceAvg: avg(shoes.map((s) => s.priceKrw)),
     wide4E: shoes.filter((s) => has(s, "4E")).length,
     wide2EPlus: shoes.filter((s) => has(s, "2E") || has(s, "4E")).length,

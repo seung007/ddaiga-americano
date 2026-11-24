@@ -1,5 +1,6 @@
 import { KR_AVAILABILITY_LABEL, withFootTypes } from "@/lib/shoes/types";
 import type { Shoe } from "@/lib/shoes/types";
+import { cushionText, stackText } from "@/lib/shoes/labels";
 
 /**
  * 두 신발 스펙 비교 — 러닝화 찾기 비교 칸과 /compare 페이지가 같이 쓴다.
@@ -49,12 +50,14 @@ function rowsFor(a: Shoe, b: Shoe): Row[] {
     { label: "가격", va: a.priceKrw.toLocaleString() + "원", vb: b.priceKrw.toLocaleString() + "원",
       na: a.priceKrw, nb: b.priceKrw, better: "low", unit: "원", word: "저렴" },
     { label: "무게", va: a.weightGramsM9 + "g", vb: b.weightGramsM9 + "g",
-      na: a.weightGramsM9, nb: b.weightGramsM9, better: "low", unit: "g", word: "가벼움" },
-    { label: "밑창 두께", va: a.stackHeightMm + "mm", vb: b.stackHeightMm + "mm",
+      // 2026-11-23: 사이즈 기준이 다른 무게(weightBasis)는 어느 쪽이 가볍다고 판정하지 않는다
+      na: a.weightBasis || b.weightBasis ? undefined : a.weightGramsM9,
+      nb: a.weightBasis || b.weightBasis ? undefined : b.weightGramsM9, better: "low", unit: "g", word: "가벼움" },
+    { label: "밑창 두께", va: stackText(a), vb: stackText(b),
       na: a.stackHeightMm, nb: b.stackHeightMm, unit: "mm" },
     { label: "앞뒤 굽 차이", va: a.heelDropMm + "mm", vb: b.heelDropMm + "mm",
       na: a.heelDropMm, nb: b.heelDropMm, unit: "mm" },
-    { label: "쿠션", va: `${a.cushioning} / 5`, vb: `${b.cushioning} / 5`,
+    { label: "쿠션", va: cushionText(a), vb: cushionText(b),
       na: a.cushioning, nb: b.cushioning, unit: "단계" },
     { label: "발볼 폭", va: widthText(a.widthOptions), vb: widthText(b.widthOptions) },
     { label: "안정화", va: STAB_KR[a.stability] ?? "", vb: STAB_KR[b.stability] ?? "" },

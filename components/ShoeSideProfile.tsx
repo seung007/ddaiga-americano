@@ -52,7 +52,7 @@ const HEEL_X = PAD_L + 30;
 const TOE_X = W - PAD_R - 30;
 
 function forefootMm(s: ProfileShoe) {
-  return Math.max(0, s.stackHeightMm - s.heelDropMm);
+  return Math.max(0, (s.stackHeightMm ?? 0) - s.heelDropMm);
 }
 
 /** 여성 전용 모델은 W8 무게가 원장에 있으면 그걸 쓴다. 사이즈 기준이 다르면 같이 비교하지 않는다고 적는다. */
@@ -63,7 +63,8 @@ export function weightOf(s: ProfileShoe): { g: number; basis: "M9" | "W8" } {
 
 export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
   // 같은 신발이 두 번 오면(예: /compare/x-vs-x) 하나만 그린다 — key 충돌 방지
-  const list = shoes.filter((s, i, arr) => arr.findIndex((x) => x.id === s.id) === i).slice(0, 3);
+  // 2026-11-23: 밑창 두께가 공식 표기에 없는 신발은 그릴 수 없어 뺀다(고르는 목록에서도 빠진다 — shoe-side/page.tsx)
+  const list = shoes.filter((s, i, arr) => s.stackHeightMm != null && arr.findIndex((x) => x.id === s.id) === i).slice(0, 3);
   const y = (mm: number) => GROUND - mm * PX_PER_MM;
   const weights = list.map(weightOf);
   const maxG = Math.max(...weights.map((w) => w.g), 1);
@@ -93,7 +94,7 @@ export default function ShoeSideProfile({ shoes }: { shoes: ProfileShoe[] }) {
 
         {list.map((s, i) => {
           const c = PROFILE_COLORS[i];
-          const heel = y(s.stackHeightMm);
+          const heel = y(s.stackHeightMm ?? 0);
           const fore = y(forefootMm(s));
           // 뒤꿈치 끝을 살짝 둥글린 쐐기. 모양은 임의, 두 높이만 실제 값
           const d = [

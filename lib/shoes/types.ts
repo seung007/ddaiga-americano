@@ -110,8 +110,21 @@ export interface Shoe {
   colorways: string[];
   widthOptions: WidthOption[];
   heelDropMm: number;
-  stackHeightMm: number;
+  /**
+   * 뒤꿈치 밑창 두께(mm). 2026-11-23 선택으로 바꿈 — 브랜드가 두께를 적지 않은 신발(온 Cloudrunner 3 Max, 브룩스 Glycerin GTS 23)은
+   * 지어내지 않고 비운다. 비면 화면은 「공식 표기 없음」, 비교·옆모습 그림에서는 빠진다.
+   */
+  stackHeightMm?: number;
   weightGramsM9: number;
+  /**
+   * 무게의 사이즈 기준이 남성 US9 가 아닐 때 그 기준(2026-11-23). 예: 「사이즈 표기 없음」 「남성 270mm 기준」.
+   * 있으면 상세 화면은 「(남성 US9)」 대신 이 글을 보여 주고, 다른 신발과 무게 위치 비교를 하지 않는다(기준이 달라서).
+   */
+  weightBasis?: string;
+  /** 스펙을 어디서 읽었나 — "brand" 면 상세 화면 출처 줄이 「브랜드 공식 페이지 표기 기준」이 된다(없으면 공개 실측 자료) */
+  specFrom?: "brand";
+  /** 한국 정가(priceKrw)를 브랜드 공식 판매처에서 직접 읽은 날(2026-11-23). 있으면 화면이 「추산」 대신 「공식 정가 · 날짜 확인」이라고 쓴다 */
+  priceCheckedAt?: string;
   priceUsd: number;
   priceKrw: number;
   krAvailability: KrAvailability;
@@ -121,7 +134,14 @@ export interface Shoe {
   /** 여성 기준 무게(W8, g) — gender=female 신발에 표기 */
   weightGramsW8?: number;
   sourceUrl: string;
-  cushioning: CushioningLevel;
+  /**
+   * 쿠션 단계 1~5 — 사람이 넣은 신발의 판단 값. 2026-11-23 선택으로 바꿈:
+   * 브랜드 표기(온 「높음」, 푸마 「Medium」, 브룩스 「Plush」)를 1~5 로 옮길 규칙표가 아직 없고, 두께로 추정하지 않는다(hyun 님 결정).
+   * 비면 cushionLabel(브랜드 표기 원문)을 보여 준다.
+   */
+  cushioning?: CushioningLevel;
+  /** 브랜드가 적은 쿠션 표기 원문과 그 브랜드 — 예: 「높음(온 표기)」. cushioning 이 빈 신발에만 */
+  cushionLabel?: string;
   stability: StabilityType;
   /**
    * ── 판단 필드 4개 (2026-09-21 부터 선택) ──────────────────────────

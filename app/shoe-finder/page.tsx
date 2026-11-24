@@ -19,6 +19,7 @@ import {
   CUSH_DOTS, FOOT_OPTIONS, HEIGHT_OPTIONS, STABILITY_LABEL, STORAGE_KEY, USE_LABEL, USE_NAME, USES, WEIGHT_OPTIONS,
   type HeightRange, type SavedProfile, type WeightRange, SPEC_HELP } from "@/lib/shoes/profileOptions";
 import { gtagEvent } from "@/lib/gtag";
+import { cushionText, stackText } from "@/lib/shoes/labels";
 
 // 옵션표·저장 프로필·GA 헬퍼는 `/shoes`(내 조건으로 보기)와 같이 쓰려고 lib 로 옮겼다 (2026-09-16).
 
@@ -993,7 +994,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
 
             <div className="mt-3 flex flex-wrap gap-1.5">
               {[
-                `쿠션 ${CUSH_DOTS[shoe.cushioning]}`,
+                shoe.cushioning != null ? `쿠션 ${CUSH_DOTS[shoe.cushioning]}` : `쿠션 ${cushionText(shoe)}`,
                 STABILITY_LABEL[shoe.stability],
                 `굽 차이 ${shoe.heelDropMm}mm`,
                 `${shoe.weightGramsM9}g`,
@@ -1009,7 +1010,7 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
                   약 {shoe.priceKrw.toLocaleString()}원
                 </span>
                 <span className="text-xs text-gray-400">
-                  {shoe.auto ? `(공식몰 정가 · ${shoe.auto.checkedAt} 자동 확인)` : `($${shoe.priceUsd} · 2026-06-01 추산)`}
+                  {shoe.auto ? `(공식몰 정가 · ${shoe.auto.checkedAt} 자동 확인)` : shoe.priceCheckedAt ? `(공식 정가 · ${shoe.priceCheckedAt} 확인)` : `($${shoe.priceUsd} · 2026-06-01 추산)`}
                 </span>
                 {shoe.successor && (
                   <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
@@ -1104,15 +1105,15 @@ function ShoeCard({ rec, rank, expanded, onToggle, inCompare, canAddCompare, onT
               {/* 2026-11-18: 칸마다 뜻 한 줄(SPEC_HELP). 「M9」「D·2E·4E」 같은 기호만 있으면 처음 보는 사람이 읽지 못한다 */}
               {([
                 ["앞뒤 굽 차이", `${shoe.heelDropMm}mm`, SPEC_HELP.heelDrop],
-                ["밑창 두께", `${shoe.stackHeightMm}mm`, SPEC_HELP.stack],
-                ["무게", `${shoe.weightGramsM9}g`, shoe.gender === "female" ? SPEC_HELP.weight : SPEC_HELP.weightMens],
-                ["쿠션", `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}`, SPEC_HELP.cushioning],
+                ["밑창 두께", stackText(shoe), SPEC_HELP.stack],
+                ["무게", `${shoe.weightGramsM9}g`, shoe.weightBasis ?? (shoe.gender === "female" ? SPEC_HELP.weight : SPEC_HELP.weightMens)],
+                ["쿠션", shoe.cushioning != null ? `${shoe.cushioning}/5  ${CUSH_DOTS[shoe.cushioning]}` : cushionText(shoe), shoe.cushioning != null ? SPEC_HELP.cushioning : "브랜드가 적은 말 그대로"],
                 ["안정화", STABILITY_LABEL[shoe.stability], SPEC_HELP.stability],
                 ["발볼 폭", shoe.widthOptions.join(" · "), SPEC_HELP.width],
                 // 2026-09-21: 판단 필드가 선택이 됐다. 추천 결과에는 값이 있는 신발만
                 // 오지만(recommend.ts 의 RECOMMENDABLE), 타입상 없을 수 있어 방어한다
                 // 2026-10-06: 「권장 체중」「권장 신장」 행을 뺐다 — 출처 없는 사이트 분류이고 체중은 추천에 안 쓴다.
-                ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`, shoe.auto ? SPEC_HELP.priceOfficial : SPEC_HELP.priceEstimated],
+                ["한국 가격", `${shoe.priceKrw.toLocaleString()}원`, shoe.auto || shoe.priceCheckedAt ? SPEC_HELP.priceOfficial : SPEC_HELP.priceEstimated],
               ] as [string, string, string][]).map(([label, value, help]) => (
                 <div key={label} className="bg-white rounded-lg border border-gray-200 px-3 py-2">
                   <p className="text-xs text-gray-500">{label}</p>

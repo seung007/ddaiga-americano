@@ -4029,6 +4029,124 @@ export const MANUAL_SHOES: Shoe[] = [
       { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=아식스+메타스피드+레이+리뷰" },
     ],
   },
+  // ── 2026-11-23 안정화 신발 3켤레 추가 (PR #30 후보 표) ───────────────────────
+  // 왜: 평발 입력 576개 중 446개에서 추천 4켤레에 안정화 신발이 0켤레였다(빠른 훈련·대회용 288 · 예산 15만원 144 · 장거리 14).
+  // 값은 전부 브랜드 공식 페이지에서 2026-11-23 직접 읽은 원문이다. 공식 페이지에 없는 값은 비웠다.
+  // 쿠션 단계(1~5)는 밑창 두께로 추정하지 않는다(hyun 님 지시) — 브랜드 표기 원문을 cushionLabel 에 그대로 둔다.
+  {
+    id: "on-cloudrunner-3-max",
+    brand: "On",
+    model: "Cloudrunner 3 Max",
+    // 온 한국 공식몰 상품 페이지의 대표 사진(옆모습, 블랙). 2026-11-23 공식몰 상품 사진과 맞대 같은 신발·같은 색인지 확인
+    imageUrl: "https://images.ctfassets.net/hnk2vsx53n6l/42Zl8WDYkr4gKLdqBjivna/758bd4dd69c532fc12dfd3a16ec9f7b6/6406a52f26aefe965882adbcc7e3b15cad909327.png?w=800&fm=webp",
+    // 한국몰 상품 주소의 색(black-black · white-verdite · white-glacier)
+    colorways: ["블랙", "화이트·베르다이트", "화이트·글레이셔"],
+    widthOptions: ["D"],          // 한국몰 「사이즈 & 핏 레귤러. 정사이즈.」 — 넓은 폭 판은 없다
+    heelDropMm: 8,                // 한국몰 「드롭 … 8mm」
+    // stackHeightMm: 한국몰·미국몰 모두 밑창 두께 표기가 없다 → 비움
+    weightGramsM9: 330,           // 한국몰 「무게 … 330g」 — 사이즈 기준은 적혀 있지 않다
+    weightBasis: "온 공식 표기, 사이즈 기준 없음",
+    specFrom: "brand",
+    priceUsd: 180,                // 미국몰(on.com/en-us) 「$180.00」
+    priceCheckedAt: "2026-11-23",
+    priceKrw: 219000,             // 한국몰 「₩219,000」
+    krAvailability: "kr_official",
+    buyLinks: [
+      { label: "온 공식몰 — 클라우드러너 3 맥스", url: "https://www.on.com/ko-kr/products/cloudrunner-3-max-m-3mg3020/mens/black-black-shoes-3MG30201043", isOfficial: true },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%EC%98%A8%20%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EB%9F%AC%EB%84%88%203%20%EB%A7%A5%EC%8A%A4", isOfficial: false },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=On%20Cloudrunner%203%20Max", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=On%20Cloudrunner%203%20Max", isOfficial: false },
+    ],
+    gender: "male",
+    sourceUrl: "https://www.on.com/ko-kr/products/cloudrunner-3-max-m-3mg3020/mens/black-black-shoes-3MG30201043",
+    cushionLabel: "높음(온 공식 표기)",   // 한국몰 「쿠셔닝: 높음」(낮음~최대 눈금)
+    stability: "stability",       // 한국몰 「안정성: 높음」(뉴트럴~안정성 눈금) · 「서포트: 안정성 있는」
+    uses: ["daily", "long"],      // 한국몰 목록 카드 「데일리 러닝, 장거리 러닝, 안정적인 주행감」 · 미국몰 「Daily Trainer, Long Runs」
+    hasCarbon: false,             // 상품 설명에 판(플레이트) 언급 없음
+    blurb: "발이 안쪽으로 기우는 걸 잡아 주는 일상·장거리용 신발이에요.",
+    scienceBasis: "온 공식몰 표기로 안정성 높음, 쿠셔닝 높음이에요. 앞뒤 굽 차이는 8mm예요. 밑창 두께는 공식 페이지에 적혀 있지 않아요.",
+    youtubeReviews: [
+      { label: "Cloudrunner 3 Max 리뷰 검색", url: "https://www.youtube.com/results?search_query=on+cloudrunner+3+max+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=온러닝+클라우드러너+3+맥스+리뷰" },
+    ],
+  },
+  {
+    id: "puma-foreverrun-nitro-3",
+    brand: "Puma",
+    model: "ForeverRun NITRO 3",
+    // 푸마 한국 공식몰 상품 312942 의 옆모습 사진(sv01). 2026-11-23 공식몰 상품 사진과 맞대 같은 신발·같은 색인지 확인
+    imageUrl: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_800,h_800/global/312942/06/sv01/fnd/KOR/fmt/png/%ED%8F%AC%EC%97%90%EB%B2%84%EB%9F%B0-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-3-brForeverRun-NITRO-3",
+    colorways: ["실버 포그·잉키 뎁스"],   // 한국몰 「Silver Fog-Inky Depths」
+    // 넓은 폭 판이 따로 있다(한국몰 313702 「와이드」, 미국몰 「Width: Wide」). 다만 2E 같은 폭 기호가 어디에도 없어
+    // 2E 로 옮기면 추정이 된다 → D 만 적는다
+    widthOptions: ["D"],
+    heelDropMm: 8,                // 한국몰 「드랍 : 8mm」 · 미국몰 「Heel-to-toe drop: 8mm」
+    stackHeightMm: 38,            // 한국몰 「스택 높이 : 뒤꿈치 38mm / 앞꿈치 30mm」
+    weightBasis: "남성 270mm 기준, 푸마 공식 표기",
+    specFrom: "brand",
+    weightGramsM9: 270,           // 한국몰 「무게 : 남성 270 기준 270g」 · 푸마 보도자료 「270g (UK8)」. 미국몰은 「290g」(사이즈 표기 없음)
+    priceUsd: 150,                // 미국몰 「$150.00」
+    priceCheckedAt: "2026-11-23",
+    priceKrw: 199000,             // 한국몰 정가 「199,000 원」(할인가는 쓰지 않음)
+    krAvailability: "kr_official",
+    buyLinks: [
+      // 상품 주소 https://kr.puma.com/kr/ko/pd/x/312942.html — 구매 링크는 검사기가 확인한 검색형으로 둔다(다른 푸마 신발과 같음)
+      { label: "푸마 공식몰 — 포에버런 나이트로 3", url: "https://kr.puma.com/kr/ko/search?q=foreverrun%20nitro%203", isOfficial: true },
+      { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=%ED%91%B8%EB%A7%88%20%ED%8F%AC%EC%97%90%EB%B2%84%EB%9F%B0%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%203", isOfficial: false },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Puma%20ForeverRun%20Nitro%203", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Puma%20ForeverRun%20Nitro%203", isOfficial: false },
+    ],
+    gender: "male",
+    sourceUrl: "https://kr.puma.com/kr/ko/pd/x/312942.html",
+    cushionLabel: "보통(푸마 미국 공식몰 표기)",   // 미국몰 「Cushioning: Medium」. 한국몰에는 쿠션 표기가 없다
+    stability: "stability",       // 한국몰 「카테고리 : 안정화」 · 미국몰 「Overpronation」
+    uses: ["daily"],              // 한국몰 「권장 용도 : 데일리 트레이닝 러닝」 · 미국몰 「Training Runs」
+    hasCarbon: false,             // 상품 설명에 판(플레이트) 언급 없음
+    blurb: "발이 안쪽으로 기우는 걸 잡아 주는 일상 달리기용 신발이에요.",
+    scienceBasis: "푸마 공식몰 표기로 안정화 신발이고, 안정적인 지지력이 필요한 러너에게 권한다고 적혀 있어요. 뒤꿈치 밑창 두께 38mm, 앞뒤 굽 차이 8mm예요.",
+    youtubeReviews: [
+      { label: "ForeverRun NITRO 3 리뷰 검색", url: "https://www.youtube.com/results?search_query=puma+foreverrun+nitro+3+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=푸마+포에버런+나이트로+3+리뷰" },
+    ],
+  },
+  {
+    id: "brooks-glycerin-gts-23",
+    brand: "Brooks",
+    model: "Glycerin GTS 23",
+    // 브룩스 미국 공식몰 상품 110503 의 옆모습 사진. 2026-11-23 공식몰 상품 사진과 맞대 같은 신발인지 확인
+    imageUrl: "https://www.brooksrunning.com/dw/image/v2/BGPF_PRD/on/demandware.static/-/Sites-brooks-master-catalog/default/dw196250d2/original/110503/110503-154-l-glycerin-gts-23-mens-supportive-cushion-road-running-shoe.png?sw=800&sh=800&sm=fit",
+    colorways: ["블랙", "스카이 블루"],   // 크림 브룩스 러닝 공식 브랜드샵 상품명
+    widthOptions: ["D", "2E", "4E"],      // 미국몰 「Medium (1D) · Wide (2E) · Extra Wide (4E)」. 한국에서 파는 폭은 확인 못 함
+    heelDropMm: 8,                // 미국몰 「MIDSOLE DROP 8mm」
+    // stackHeightMm: 미국몰에 밑창 두께 표기가 없다 → 비움
+    weightGramsM9: 312,           // 미국몰 「WEIGHT 11.0oz / 311.8g」 — 사이즈 기준은 적혀 있지 않다
+    weightBasis: "브룩스 공식 표기, 사이즈 기준 없음",
+    specFrom: "brand",
+    priceUsd: 180,                // 미국몰 「$180.00」
+    // 한국 판매: 크림 「브룩스 러닝 공식 브랜드샵」(kream.co.kr/brand-stores/brooks-running) 상품 1094379 「글리세린 GTS 23 블랙」 정가 209,000원
+    priceCheckedAt: "2026-11-23",
+    priceKrw: 209000,
+    krAvailability: "kr_official",
+    buyLinks: [
+      // 크림 브룩스 러닝 공식 브랜드샵 상품 https://kream.co.kr/products/1094379 — 구매 링크는 검사기가 확인한 검색형으로 둔다
+      // 브룩스 한국 공식몰(brooksrunning.co.kr)은 2026-11-23 연결이 거부돼 상품을 확인하지 못했다 → 넣지 않음
+      { label: "KREAM — 브룩스 러닝 공식 브랜드샵 판매", url: "https://kream.co.kr/search?keyword=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20GTS%2023", isOfficial: true },
+      { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Brooks%20Glycerin%20GTS%2023", isOfficial: false },
+      { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Brooks%20Glycerin%20GTS%2023", isOfficial: false },
+    ],
+    gender: "male",
+    sourceUrl: "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/glycerin-gts-23/110503.html",
+    cushionLabel: "푹신함(브룩스 공식 표기)",   // 미국몰 「CUSHION Plush」
+    stability: "stability",       // 미국몰 「SUPPORT Structured support」 · 「GuideRails™」
+    uses: ["daily", "long"],      // 미국몰 「BEST FOR Road running, Everyday runs, Long runs」
+    hasCarbon: false,             // 상품 설명에 판(플레이트) 언급 없음
+    blurb: "발이 안쪽으로 기우는 걸 잡아 주는 일상·장거리용 쿠션 신발이에요.",
+    scienceBasis: "브룩스 공식 표기로 쿠션은 푹신함, 지지는 구조형(structured support)이에요. 앞뒤 굽 차이는 8mm예요. 밑창 두께는 공식 페이지에 적혀 있지 않아요.",
+    youtubeReviews: [
+      { label: "Glycerin GTS 23 리뷰 검색", url: "https://www.youtube.com/results?search_query=brooks+glycerin+gts+23+review" },
+      { label: "한국어 리뷰 검색", url: "https://www.youtube.com/results?search_query=브룩스+글리세린+GTS+23+리뷰" },
+    ],
+  },
 ];
 
 /** 화면·추천이 보는 전체 목록 = 사람 원장 + 공식몰 자동 확인 다음 세대 (2026-11-10, lib/shoes/auto.ts) */
