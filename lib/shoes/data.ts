@@ -863,7 +863,7 @@ const ENTRIES: ShoeEntry[] = [
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20860%20v15", isOfficial: false },
     ],
     gender: "male",
-    sourceUrl: "https://runrepeat.com/new-balance-860-v15",
+    sourceUrl: "https://runrepeat.com/new-balance-fresh-foam-x-860-v-15", // 2026-11-24 옛 주소 404
     stability: "stability",
     footTypes: ["flat", "neutral"],
     weightRangeKg: [55, 95],
@@ -1005,7 +1005,7 @@ const ENTRIES: ShoeEntry[] = [
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike%20InfinityRN%204", isOfficial: false },
     ],
     gender: "male",
-    sourceUrl: "https://runrepeat.com/nike-infinity-run-4",
+    sourceUrl: "https://runrepeat.com/nike-infinityrn-4", // 2026-11-24 옛 주소 404
     stability: "stability",
     footTypes: ["flat", "neutral"],
     weightRangeKg: [55, 100],
@@ -1617,7 +1617,7 @@ const ENTRIES: ShoeEntry[] = [
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Decathlon%20KIPRUN%20KS500%202", isOfficial: false },
     ],
     gender: "male",
-    sourceUrl: "https://runrepeat.com/kiprun-ks500",
+    sourceUrl: "https://www.decathlon.ie/p/men-s-kiprun-ks500-2-running-shoes-black-yellow/341860/c382c132m8772865", // 2026-11-24 RunRepeat 리뷰 없음(옛 주소 404) → 브랜드 공식
     stability: "neutral",
     footTypes: ["neutral", "high_arch"],
     weightRangeKg: [55, 90],
@@ -1727,7 +1727,7 @@ const ENTRIES: ShoeEntry[] = [
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=New%20Balance%20520%20v9", isOfficial: false },
     ],
     gender: "male",
-    sourceUrl: "https://runrepeat.com/new-balance-520-v9",
+    sourceUrl: "https://www.newbalance.ca/en_ca/pd/fresh-foam-520v9/M520V9-48517.html", // 2026-11-24 RunRepeat 리뷰 없음(옛 주소 404) → 브랜드 공식
     stability: "neutral",
     footTypes: ["neutral", "high_arch"],
     weightRangeKg: [45, 82],
