@@ -1959,7 +1959,8 @@ export const MANUAL_SHOES: Shoe[] = [
     priceKrw: 339000,
     krAvailability: "kr_official",
     buyLinks: [
-      { label: "나이키 공식몰 — 알파플라이 3", url: "https://www.nike.com/kr/w?q=alphafly+3", isOfficial: true },
+      // 2026-11-23 check:all 404 → 크롬 확인: 「alphafly 3」 검색 결과 없음(판매 종료). 「alphafly」 검색은 알파플라이 4 만 나온다
+      { label: "나이키 공식몰 — 지금은 알파플라이 4", url: "https://www.nike.com/kr/w?q=alphafly", isOfficial: true },
       { label: "KREAM (리셀·정품검수)", url: "https://kream.co.kr/search?keyword=나이키+알파플라이+3", isOfficial: false },
       { label: "쿠팡 검색", url: "https://www.coupang.com/np/search?q=Nike+Alphafly+3", isOfficial: false },
       { label: "다나와 최저가", url: "https://search.danawa.com/dsearch.php?query=Nike+Alphafly+3", isOfficial: false },

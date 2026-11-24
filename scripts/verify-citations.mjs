@@ -372,7 +372,10 @@ function firstSurname(nameLike) {
   let parts = s.split(/\s+/);
 
   // 끝에 붙은 이니셜 덩어리 제거: "van Gent RN" → ["van","Gent"] / "Rathleff MS" → ["Rathleff"]
-  while (parts.length > 1 && /^[A-ZÀ-Þ]{1,3}$/.test(parts[parts.length - 1])) parts.pop();
+  // 2026-11-23: 이니셜이 라틴 대문자만이 아니다. PubMed 35412960 의 저자는 「Kapnia AΚ」 — 가운데 이니셜이 그리스 대문자 Κ(U+039A)라
+  //   이니셜로 안 보고 「AΚ」를 성으로 읽어 「Kapnia vs AΚ」 불일치를 냈다(check:all). 유니코드 대문자 전체를 이니셜로 본다.
+  //   이 줄은 실제 성을 찾게 할 뿐, 페이지 성과 실제 성을 비교하는 규칙은 그대로다.
+  while (parts.length > 1 && /^\p{Lu}{1,3}$/u.test(parts[parts.length - 1])) parts.pop();
 
   // 전치사가 남아 있으면 그다음 토큰이 성이다: ["van","Gent"] → Gent
   const lead = parts[0]?.toLowerCase();

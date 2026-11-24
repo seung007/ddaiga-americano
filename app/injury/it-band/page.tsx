@@ -1,13 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import FinderCta from "@/components/FinderCta";
 import YoutubeSection from "@/components/YoutubeSection";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
-import type { Metadata } from "next";
+import { Lead, P, H2, Warn, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
 /**
@@ -22,56 +22,82 @@ import { pageUrl } from "@/lib/site";
  *     그리고 FAQ 가 「거리 증가와 관련 있다는 보고(Sanchez-Alvarado 2024)」라고 적었는데 그 초록에 그런 내용이 없다.
  *   · 「마찰」 설명도 낡았다 — 해부 연구(Fairclough 2006)는 마찰보다 압박을 지목한다.
  *
- * 규칙: 숫자는 PubMed 초록에서 확인한 값만(2026-10-06). 예시 운동·셀프 체크는 사이트 기준이라고 표시한다.
- * 커뮤니티 집계는 건수만 남기고 원 제목·닉네임은 저장하지 않는다.
+ * 2026-10-13 가독성 재설계 · 2026-11-10 제목·소제목을 사람들이 쓰는 말로(오픈채팅 「장경인대」 2명, 「무릎」 23명 — 증상 문장을 앞에)
  *
- * 2026-10-13 가독성 재설계 — 「먼저 결론」 → <Summary>. 섹션마다 답 → 할 일 → 근거(접힘).
- *   숫자·인원·인용은 <Evidence> 안으로. 단서(표본 수·대조군 없음·여성 러너만·힘줄 연구 모델)는 본문/<Note> 에 남김.
- *   진료 신호는 <Warn>. 참고 논문은 기본 접힘.
+ * 2026-11-23 확정 틀로 바꿈 (docs/운영/가이드_틀.md, 견본 app/injury/start-running/page.tsx)
+ *   판정 전부: docs/판정/it-band.jsonl. 초록 10편은 2026-11-23 크롬으로 PubMed 를 직접 열어 읽었다(요약만, 본문은 열지 않음).
  *
- * 2026-11-10 제목·소제목을 사람들이 쓰는 말로 — 오픈채팅에서 「장경인대」라는 말은 2명, 「장경인대염」 0명이고,
- *   증상은 「무릎 바깥쪽이 땡긴다」처럼 부위로 말했다(「무릎」 23명). 그래서 증상 문장을 앞에, 이름을 뒤에 둔다.
- *   「무엇이 효과 있나」(번역투)는 「어떻게 해야 낫나요?」로. 숫자·인용·단서·커뮤니티 집계 분류명은 그대로.
+ *   고친 것 — 무엇이 틀렸고 왜
+ *   · **Falvey 2010 「스트레칭 동작에서 장경인대가 0.5% 미만 늘었다(사체 실험)」 ✗** — 초록의 0.5% 미만은 20명이 엉덩이를 옆으로
+ *     미는 힘을 줄 때 잰 값이고, 스트레칭 세 동작은 사체 5구에서 따로 잰 변형률이다. 두 측정을 섞어 적었었다(본문·FAQ·근거 접힘 세 곳).
+ *     본문·FAQ 에서 숫자를 빼고 「허벅지뼈에 길게 붙어 잘 늘어나지 않는다는 해부 연구」로, 측정 조건은 출처에만.
+ *   · **「폼롤러로 장경인대 증후군이 낫는다는 연구는 찾지 못했습니다」 ✗** — 2026-10 에 근육 운동에 폼롤러·스트레칭을 더한 무작위 시험
+ *     (Naderi & Azizi 2026, 20명)이 나왔다. 다만 초록의 통증 감소율이 결론과 거꾸로(79.7% 대 81.0%)라 숫자는 쓰지 않고
+ *     「작은 시험이 있었지만 통증이 줄어든 정도는 비슷했다(79.7% 대 81.0%) · 아직 확실하지 않다」로(본 세션 검토로 한 단계 낮춤). 폼롤러만으로 낫는다고는 쓰지 않는다.
+ *   · **Fairclough 2006 「마찰보다 압박입니다」 단정 ✗** — 저자도 may be more likely 로 썼다(사체 15구·MRI 자원자 6명·환자 2명).
+ *     「~일 수 있다는 해부 연구가 있어요」로 낮췄다.
+ *   · **Frandsen 2025 「1.52~2.28배」를 뺐다** — 늘린 정도별 값이 1.64 → 1.52 → 2.28 로 차례로 커지지 않아(옛 글은 1.64 도 빠뜨렸다)
+ *     범위로 쓰면 비례 위험으로 읽힌다. intermediate-guide 와 같은 문장 「한 번에 가장 길게 뛴 거리보다 10% 넘게 길게 뛴 날에 부상이
+ *     늘었어요」로, 평균 45.8세 단서는 접힌 출처에만.
+ *   · **부상 후 복귀 글의 「통증 모니터링 모델(0~10점 중 5 이하)」 안내를 고쳤다** — 그 글이 2026-11-18 에 점수 표를 지워 가리키는 내용이
+ *     없어졌고, 장경인대에서 시험된 모델도 아니었다. 점수 없는 표준 문구(달리는 중 아픔이 커지면 멈춤 · 다음 날 아침 더 아프면 거리 줄임 ·
+ *     쉬어도 안 나으면 진료)로 — intermediate-guide 1절 할 일과 같은 말.
+ *   · **「2주 이상 쉬어도 통증이 줄지 않으면 진료」의 「2주」를 뺐다** — 어느 초록에도 없는 사이트 숫자였다.
+ *   · **예시 운동의 「15회 × 3세트」「10회 × 3세트」를 뺐다** — 특정 연구의 프로토콜이 아니라고 옛 글이 스스로 적어 둔 정밀 숫자다.
+ *   · **Sanchez-Alvarado 「약 10%」 · Aderem 「두 번째로 흔한 부상」은 출처에만** — 두 초록 모두 서론·배경 문장이지 그 고찰이 센 결과가 아니다
+ *     (intermediate-guide 와 같은 판정). 「얼마나 흔한가」 절은 그래서 없앴다.
+ *   · 커뮤니티 집계(무릎 바깥·장경인대 37명으로 1위)를 화면에서 내렸다 — 틀려서가 아니라, 원자료가 노트북(ddaiga-pipeline)에 있어
+ *     이번에 다시 세지 못했다(half-marathon-training 도 같은 집계를 뺐다). 다시 세면 되살릴 수 있다.
+ *   · 영상 둘을 뺐다 — 「…통증질환 TOP3」(제목)와 「러닝 자세 Before & After」(채널명 EINZ)의 영문 약어가 풀이 검사에 걸리고,
+ *     제목·채널명은 원문이라 고칠 수 없다(intermediate-guide 와 같은 처리). 틀려서 뺀 것이 아니다.
+ *   · 본문에서 연구 인원·대상(9명·18명·24명 중 22명·여성 러너)을 내렸다(접힌 출처로). 「외전근」은 「엉덩이 옆 근육」으로(intermediate-guide 와 같은 말).
+ *   · 말투 「~니다」 → 「~요」, 옛 부품(근거 딱지·접힘·문헌 목록·한눈에 상자) 걷어냄, ※ 문구를 견본 문구로.
+ *
+ *   확인 못 한 것
+ *   · 커뮤니티 집계(위) — 원자료가 이 저장소에 없다
+ *   · 10편 모두 본문은 열지 않았다(요약만). 그래서 본문에서 숫자는 초록에 있는 2~8주·6주·30도·10%·110% 만 쓴다
+ *   · 셀프 체크 네 줄(아픈 자리·한참 뛴 뒤·내리막·비슷한 거리)은 이번에 읽은 초록에서 확인한 것이 아니다 — 진단이 아니라고 적고 「의심해 보세요」로만
  */
 
 const PAGE_URL = pageUrl("/injury/it-band");
 const TITLE = "달리면 무릎 바깥쪽이 아파요, 장경인대일까요?";
+// 원장 lib/guide/articles.ts 의 desc 와 같은 문장이어야 한다(허브 카드·검색 결과가 어긋나지 않게)
 const DESC =
   "무릎 바깥이 아프고 내리막에서 심해진다면 장경인대 증후군일 수 있습니다. 내 증상인지 확인하는 법과 스트레칭보다 근거가 있는 엉덩이 근력 운동을 다룹니다.";
 
 export const metadata: Metadata = {
-  title: "달리면 무릎 바깥쪽이 아파요, 장경인대일까요? | 뛰다가 아메리카노",
+  title: `${TITLE} | 뛰다가 아메리카노`,
   description: DESC,
   alternates: { canonical: "/injury/it-band" },
 };
 
+// 2026-11-23: FAQ 는 본문 큰 질문과 겹치지 않는 것만 둔다. 「장경인대」를 쓰면 답마다 다시 풀이해야 해서 「무릎 바깥」으로 묻는다.
 const FAQ: FaqItem[] = [
   {
-    q: "달릴 때 무릎 바깥쪽이 아픈 이유는 뭔가요?",
-    a: "가장 흔한 원인 중 하나가 장경인대 증후군입니다. 러닝 부상의 약 10%로 보고됩니다(Sanchez-Alvarado 2024). 무릎을 30도쯤 굽힐 때 장경인대가 그 아래 지방 조직을 누르는 것이 원인으로 지목됩니다(Fairclough 2006). 다만 무릎 바깥 통증은 반월상연골이나 인대 문제일 수도 있습니다. 그래서 확정은 진료로 합니다.",
+    q: "무릎 바깥 통증에 주사 치료는 효과가 있나요?",
+    a: "아픈 지 2주가 안 됐다면 도움이 됐다는 작은 시험이 있어요. **스테로이드 주사를 맞은 러너가 달릴 때 통증이 더 줄었어요.** 맞을지는 **진료에서 정해요.**",
   },
   {
-    q: "장경인대 스트레칭과 폼롤러가 효과 있나요?",
-    a: "장경인대가 늘어나는 정도는 0.5% 미만으로 측정됐습니다. 연구진은 장경인대를 늘리는 치료의 근거에 의문을 제기했습니다(Falvey 2010). 장경인대 자체를 늘린다는 기대는 근거가 약합니다. 폼롤러로 장경인대 증후군이 낫는다는 연구는 찾지 못했습니다. 근거가 있는 것은 엉덩이 외전근 강화입니다.",
+    q: "엉덩이 근육 운동은 몇 번씩, 얼마나 해야 하나요?",
+    a: "정해진 횟수를 확인한 자료는 없어요. **아프지 않은 만큼 꾸준히** 해 보세요. 낫는 데 쓰인 운동 기간은 연구마다 **2~8주**였어요.",
   },
   {
-    q: "장경인대 증후군이면 달리기를 완전히 쉬어야 하나요?",
-    a: "장경인대 증후군만 따로 시험한 연구는 찾지 못했습니다. 힘줄 부상 연구에서 쓰는 통증 모니터링 모델(0~10점 중 5 이하, 다음 날 아침엔 가라앉을 것)을 참고할 수 있습니다. 내리막은 피하세요. 내리막에서는 착지할 때 무릎이 덜 굽어 자극받는 각도에 더 머뭅니다(Orchard 1996).",
-  },
-  {
-    q: "얼마나 걸려야 낫나요?",
-    a: "치료 연구들의 기간은 2~8주였습니다(Sanchez-Alvarado 2024). 엉덩이 외전근을 중심으로 6주 재활한 장거리 러너 24명 중 22명이 통증 없이 달리기로 돌아갔다는 보고가 있습니다. 다만 대조군이 없는 사례 연구입니다(Fredericson 2000).",
+    q: "달리는 자세를 바꾸면 나아지나요?",
+    a: "아직 확실하지 않아요. 치료 결과를 모아 보니 자세를 바꾸는 방법은 더 시험해 봐야 한다고 했어요. 먼저 **엉덩이 옆 근육 운동**과 **내리막 피하기**부터 해 보세요.",
   },
 ];
+
+const pill = "rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400";
 
 export default function ITBandPage() {
   return (
     <>
       <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} datePublished="2025-03-01" />
+      {/* 2026-11-23: 이동 경로 이름을 「무릎 바깥 통증」으로 — 「장경인대」가 풀이보다 먼저 나오지 않게(풀이 검사는 읽는 순서로 본다) */}
       <BreadcrumbJsonLd
         trail={[
           ["러닝 가이드", "/injury"],
-          ["장경인대 증후군", "/injury/it-band"],
+          ["무릎 바깥 통증", "/injury/it-band"],
         ]}
       />
       <main>
@@ -81,320 +107,248 @@ export default function ITBandPage() {
         </Link>
 
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-600">무릎 바깥 · 3~4단계</span>
+          <Link
+            href="/injury#stage-to-half"
+            className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800"
+          >
+            3단계 · 10km → 하프
+          </Link>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
-        <ArticleMeta href="/injury/it-band" />
-        <Lead>
-          달리다 무릎 바깥이 아프고 내리막에서 심해진다면 장경인대 증후군일 수 있습니다. 지금까지 근거가 가장 많은 대처는 스트레칭이
-          아니라 엉덩이 외전근 강화입니다.
-        </Lead>
+        <ArticleMeta href="/injury/it-band" compact checked={10} />
 
-        <Summary
+        <KeyPoints
           items={[
-            <>무릎 바깥 뼈 돌출부 근처가 아프고 <strong>내리막에서 심해지면</strong> 의심합니다. 확정은 진료에서 합니다.<Basis kind="rule" /></>,
-            <>&lsquo;마찰&rsquo;보다 <strong>압박</strong>이 원인으로 지목됩니다. 무릎을 30도쯤 굽힐 때 장경인대가 그 아래 지방 조직을 누릅니다.<Basis kind="paper" /></>,
-            <>장경인대는 <strong>거의 늘어나지 않습니다</strong>. 스트레칭으로 늘린다는 기대는 근거가 약합니다.<Basis kind="paper" /></>,
-            <>근거가 가장 많은 대처는 <strong>엉덩이 외전근 강화</strong>입니다. 치료 연구들의 기간은 2~8주였습니다.<Basis kind="paper" /></>,
+            <>무릎 바깥이 아프고 내리막에서 더 아프다면, 나을 때까지는 <strong>평지에서 짧게</strong> 뛰어 보세요.</>,
+            <>낫는 데 가장 많이 쓰인 방법은 <strong>엉덩이 옆 근육을 키우는 운동</strong>이에요.</>,
+            <>달리다 아픔이 커지면 그날은 멈추고, <strong>쉬어도 나아지지 않으면 진료</strong>를 받아 보세요.</>,
           ]}
         />
+
+        <Lead>
+          달리다 무릎 바깥이 아프고 내리막에서 더 심해진다면 장경인대 증후군일 수 있어요. 장경인대는 허벅지 바깥쪽을 지나 무릎까지
+          이어지는 질긴 띠예요. 스트레칭보다 먼저 할 일은 <strong>엉덩이 근육</strong>을 챙기는 거예요.
+        </Lead>
 
         <TableOfContents
           items={[
-            { id: "how-common", label: "얼마나 흔한가" },
-            { id: "why", label: "왜 생기나" },
-            { id: "check", label: "내 증상이 맞을까" },
-            { id: "what-works", label: "무엇이 효과 있나" },
-            { id: "how-long", label: "얼마나 걸리나" },
-            { id: "doctor", label: "병원 갈 신호" },
+            { id: "check", label: "장경인대 증후군인가요?" },
+            { id: "why", label: "왜 내리막에서 더 아픈가요?" },
+            { id: "what-works", label: "어떻게 해야 낫나요?" },
+            { id: "rest-or-run", label: "완전히 쉬어야 하나요?" },
+            { id: "stretch", label: "스트레칭과 폼롤러는요?" },
+            { id: "how-long", label: "얼마나 걸리고, 언제 병원에 가나요?" },
           ]}
         />
 
-        {/* ── 흔한가 ─────────────────────────────────────────── */}
-        <h2 id="how-common" className={H2}>
-          장경인대 증후군은 얼마나 흔한가요?
-        </h2>
-        <P>러닝 부상의 약 10%로 보고됩니다. 러닝에서 두 번째로 흔한 부상이라고 적은 고찰도 있습니다.</P>
-        <Evidence n={2}>
-          <p>
-            러닝 부상의 약 10%를 차지합니다.{" "}
-            <S>(Sanchez-Alvarado et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39247485/" />)</S>
-          </p>
-          <p>
-            러닝에서 두 번째로 흔한 부상이라고 적은 고찰도 있습니다.{" "}
-            <S>(Aderem &amp; Louw (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26573859/" />)</S>
-          </p>
-        </Evidence>
-        <div className="mt-5 rounded-xl border border-gray-200 bg-gray-50 p-4 text-base leading-[1.7] text-gray-700">
-          <p className="font-semibold text-gray-900">국내 러닝 커뮤니티에서는 1위</p>
-          <p className="mt-1 break-keep">
-            부위가 나온 글의 작성자 기준으로 <strong>무릎 바깥·장경인대가 37명으로 가장 많았습니다</strong>. DC 러닝 마이너 갤러리의
-            「부상관리」 글 300건(2025년 10월~2026년 10월) 제목을 저희가 분류한 결과입니다. 그다음이 무릎(그 외) 25명, 발바닥과 발목 각
-            13명입니다.
-          </p>
-          <p className="mt-2 break-keep text-xs text-gray-500">
-            한계: 제목만 본 분류입니다. 진단이 아니라 본인이 적은 부위입니다. 하프나 풀코스를 준비하는 러너가 많은 커뮤니티입니다. 원 제목과 닉네임은
-            저장하지 않았습니다.
-          </p>
-        </div>
-
-        {/* ── 왜 ─────────────────────────────────────────── */}
-        <h2 id="why" className={H2}>
-          달릴 때 무릎 바깥쪽은 왜 아픈가요?
-        </h2>
-        <P>
-          <strong>마찰보다 압박입니다.</strong> 무릎을 30도쯤 굽힐 때 장경인대가 그 아래의 지방층을 누르는 것이 원인으로
-          지목됐습니다(사체와 MRI를 본 한 해부 연구). 예전에는 뼈 위를 문지르는 &lsquo;마찰&rsquo;로 설명했습니다.
-        </P>
-        <P>
-          <strong>내리막에서 더 아픈 이유</strong>는 착지 때 무릎이 덜 굽어 이 각도에 더 머물기 때문이라고 설명합니다(장경인대 증후군
-          러너 9명을 분석한 연구진). 평지에서 빠르게 달릴 때는 무릎이 더 굽어 덜 자극된다고 봅니다.
-        </P>
-        <P>
-          <strong>엉덩이 근력이나 움직임</strong>과 관련 있다는 연구가 있습니다. 다만 약해서 아픈 건지 아파서 약해진 건지는 가릴 수 없습니다.
-        </P>
-        <Note>
-          연구 수가 적고 차이도 작았습니다. 엉덩이 외전근 근력이 낮았던 건 지금 증상이 있는 여성 러너뿐이었습니다. 남녀의 위험
-          요인도 달랐습니다.
-        </Note>
-        <P>
-          <strong>훈련량</strong>도 봅니다. 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 과사용 부상이 더 많았습니다.
-          장경인대만 따로 본 연구는 아닙니다.
-        </P>
-        <Evidence n={5}>
-          <p>
-            오랫동안 장경인대가 허벅지뼈 바깥 돌출부 위를 앞뒤로 &lsquo;문지르는&rsquo; 마찰 증후군으로 설명됐습니다. 하지만 해부 연구는
-            장경인대가 허벅지뼈에 섬유로 고정돼 있어 굴러 넘어가지 않는다고 봤습니다(사체 15구와 MRI). 무릎을 30도쯤 굽힐 때는 그 아래의 신경과
-            혈관이 풍부한 지방층을 누른다고 봤습니다. 환자의 MRI 변화도 그 지방층에 있었습니다.{" "}
-            <S>(Fairclough et al. (2006) <Up h="https://pubmed.ncbi.nlm.nih.gov/16533314/" />)</S>
-          </p>
-          <p>
-            발이 닿는 순간 무릎 굽힘은 평균 21.4도로, 자극이 생기는 30도 부근에 걸려 있었습니다(장경인대 증후군 러너 9명 분석). 내리막은
-            착지 때 무릎이 덜 굽어 이 각도에 더 머문다고 설명합니다. 평지에서 빠르게 달릴 때는 무릎이 더 굽어 덜 자극된다고 봅니다. <S>(Orchard et al. (1996) <Up h="https://pubmed.ncbi.nlm.nih.gov/8734891/" />)</S>
-          </p>
-          <p>
-            나중에 장경인대 증후군이 생긴 여성 러너는 착지 중 고관절이 안으로 더 모이고 무릎이 안으로 더 돌았습니다(13개 연구를 모은
-            고찰). 다만 연구 수가 적고 효과 크기도 작았습니다.{" "}
-            <S>(Aderem &amp; Louw (2015) <Up h="https://pubmed.ncbi.nlm.nih.gov/26573859/" />)</S>
-          </p>
-          <p>
-            지금 증상이 있는 여성 러너만 엉덩이 외전근 근력이 낮았습니다(17편을 검토한 메타분석, 정량 분석 10편). 남녀의 위험 요인도
-            달랐습니다. <S>(Foch et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/36758425/" />)</S> 약해서 아픈 건지 아파서
-            약해진 건지는 이 연구들로 가릴 수 없습니다.
-          </p>
-          <p>
-            과사용 부상 전반에서 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 부상 비율이 1.52~2.28배였습니다. 장경인대만
-            따로 본 연구는 아닙니다.{" "}
-            <S>(Frandsen et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/40623829/" />)</S>
-          </p>
-        </Evidence>
-
-        {/* ── 셀프 체크 ─────────────────────────────────────── */}
+        {/* ── 1 ─────────────────────────────────────────── */}
         <h2 id="check" className={H2}>
-          내 증상이 장경인대 증후군일까요?
+          <Num n={1} />달릴 때 무릎 바깥쪽이 아프면 장경인대 증후군인가요?
         </h2>
-        <Todo
-          title="이런 패턴이면 의심합니다"
-          basis="rule"
+        <P>
+          <strong>무릎 바깥, 관절보다 조금 위가 아프고 내리막에서 더 아프면</strong> 의심해 볼 수 있어요. 무릎 바깥 통증은 다른 원인일
+          수도 있어서, 확정은 진료에서 해요.
+        </P>
+        <Steps
+          title="이런 모습이면 의심해 보세요"
           items={[
-            "아픈 곳이 무릎 바깥, 관절보다 조금 위의 뼈 돌출부 근처다",
-            "달리기 시작하자마자보다 일정 시간이나 거리가 지나서 아파진다",
-            "내리막이나 계단을 내려갈 때 더 아프다",
-            "쉬면 가라앉았다가 다음에 비슷한 거리에서 다시 아프다",
+            { t: "아픈 곳이 무릎 바깥, 관절보다 조금 위예요.", d: "뼈가 살짝 튀어나온 자리 근처예요." },
+            { t: "달리기 시작하자마자보다 한참 뛴 뒤에 아파져요." },
+            { t: "내리막이나 계단을 내려갈 때 더 아파요." },
+            { t: "쉬면 가라앉았다가 비슷한 거리에서 다시 아파요." },
           ]}
         />
-        <Note>위 체크 항목은 저희가 정리한 것이며 진단이 아닙니다.</Note>
-        <Warn title="다른 원인일 수 있는 신호">
-          무릎이 붓거나, 걸리거나 잠기는 느낌이 있거나, 비틀린 뒤 아파졌다면 반월상연골이나 인대 같은 다른 원인일 수 있습니다. 진료를
-          받으세요.
+        <Caveat>이 네 가지는 저희가 정리한 모습이고, 진단을 대신하지 않아요.</Caveat>
+        <Warn title="이럴 땐 다른 원인일 수 있어요">
+          무릎이 붓거나, 걸리거나 잠기는 느낌이 있거나, 비틀린 뒤 아파졌다면 무릎 속 연골이나 인대 문제일 수 있어요. 진료를 받아 보세요.
         </Warn>
 
-        {/* ── 효과 ─────────────────────────────────────────── */}
-        <h2 id="what-works" className={H2}>
-          어떻게 해야 낫나요?
+        <OneLine>무릎 바깥이 아프고 내리막에서 더 아프면 의심해요. 붓거나 잠기면 진료부터 받아요.</OneLine>
+
+        {/* ── 2 ─────────────────────────────────────────── */}
+        <h2 id="why" className={H2}>
+          <Num n={2} />왜 내리막에서 더 아픈가요?
         </h2>
-
-        <h3 className={H3}>1. 엉덩이 외전근 강화는 효과가 있나요?</h3>
         <P>
-          근거가 가장 많은 방법입니다. 치료 연구 13편을 모아 보니 <strong>엉덩이 외전근 강화</strong>가 공통 전략이었습니다. 2~8주
-          사이 통증과 기능이 좋아졌습니다. 엉덩이 외전근은 다리를 옆으로 벌리는 엉덩이 근육입니다.
+          <strong>내리막에서는 발이 땅에 닿을 때 무릎이 덜 굽어서</strong>, 장경인대가 자극받는 각도에 더 오래 머문다는 설명이 있어요.
+          평지에서 빠르게 뛸 때는 무릎이 더 굽어 덜 자극된다고 봐요.
         </P>
-        <Note>연구끼리 차이가 커서 결과를 합쳐 계산하지는 못했습니다. 13편 중 6편은 사례 보고였습니다.</Note>
-        <Evidence n={1}>
-          <p>
-            엉덩이 외전근 강화가 공통 전략으로 나타났습니다(러너 장경인대 증후군의 보존적 치료 연구 13편, 201명). 통증은 27~100%, 기능은
-            10~57% 좋아졌습니다(2~8주). 연구끼리 차이가 커서 메타분석은 못 했습니다. 13편 중 6편은 사례 보고였습니다.
-            체외충격파나 도수치료를 더하는 방식도 언급됩니다.{" "}
-            <S>(Sanchez-Alvarado et al. (2024) <Up h="https://pubmed.ncbi.nlm.nih.gov/39247485/" />)</S>
-          </p>
-        </Evidence>
-        <div className="mt-4 rounded-xl bg-yellow-50 p-4 text-base leading-[1.7] text-gray-700">
-          <p className="mb-2 text-sm font-bold text-gray-900">
-            예시 운동
-            <Basis kind="rule" />
-          </p>
-          <ol className="list-inside list-decimal space-y-1.5 break-keep">
-            <li>옆으로 누워 다리 들기(15회 × 3세트): 위쪽 다리를 곧게 편 채 천천히 들고, 발끝은 앞을 향하게 합니다.</li>
-            <li>클램셸(15회 × 3세트): 옆으로 누워 무릎을 굽히고 발은 붙인 채 위쪽 무릎만 벌립니다.</li>
-            <li>계단 골반 떨어뜨리기(10회 × 3세트): 한 발로 계단 끝에 서서 반대쪽 골반을 천천히 내렸다 올립니다.</li>
-          </ol>
-          <p className="mt-2 text-xs text-gray-500">위 연구들이 쓴 운동 구성은 연구마다 달랐습니다. 이 목록은 특정 연구의 프로토콜이 아닙니다.</p>
-        </div>
-
-        <h3 className={H3}>2. 달리기를 완전히 멈춰야 하나요?</h3>
-        <Todo
-          basis="rule"
+        <P>
+          예전에는 장경인대가 뼈 위를 문질러서 아프다고 설명했어요. 지금은 무릎을 30도쯤 굽힐 때 장경인대가 그 아래 지방층을 누르기
+          때문일 수 있다는 해부 연구도 있어요.
+        </P>
+        <Steps
           items={[
-            "내리막을 피하고 평지에서 달립니다(위 내리막 설명).",
-            "아프기 시작하는 시간이나 거리보다 짧게 끊습니다.",
-            <>
-              통증 기준은{" "}
-              <Link href="/injury/return-to-running#rest-or-run" className="text-emerald-700 underline">
-                부상 후 복귀 글의 통증 모니터링 모델
-              </Link>
-              을 참고합니다.
-            </>,
+            { t: "아픈 동안은 내리막을 피하고 평지에서 뛰어 보세요." },
+            { t: "아프기 시작하는 거리보다 짧게 끊어요.", d: "아프기 전에 멈추면 다음 날 상태를 보기도 쉬워요." },
           ]}
         />
-        <Note>그 통증 모니터링 모델은 힘줄 연구에서 쓰였고, 장경인대에서 따로 시험된 것은 아닙니다.</Note>
 
-        <h3 className={H3}>3. 스트레칭과 폼롤러는 효과가 있나요?</h3>
+        <OneLine>내리막에서는 무릎이 자극받는 각도에 오래 머물러요. 나을 때까지는 평지에서 뛰어요.</OneLine>
+
+        {/* ── 3 ─────────────────────────────────────────── */}
+        <h2 id="what-works" className={H2}>
+          <Num n={3} />어떻게 해야 낫나요?
+        </h2>
         <P>
-          흔한 스트레칭 동작을 했을 때 장경인대가 늘어난 정도는 <strong>평균 0.5% 미만</strong>이었습니다(사체 해부 실험).
-          연구진은 장경인대를 늘리는 치료의 근거에 의문을 제기했습니다.
+          <strong>엉덩이 옆 근육을 키우는 운동</strong>을 해 보세요. 치료에서 가장 흔히 쓰였고 통증과 기능이 나아졌어요. 엉덩이 옆 근육은
+          다리를 옆으로 벌릴 때 쓰는 근육이에요.
         </P>
-        <P>폼롤러로 장경인대 증후군이 낫는다는 연구는 찾지 못했습니다. 시원하면 해도 됩니다. 다만 치료로 기대하지는 마세요.</P>
-        <Evidence n={1}>
-          <p>
-            사체 20구 해부에서 장경인대는 허벅지를 둘러싼 근막이 바깥쪽에서 두꺼워진 것으로, 허벅지뼈에 길게 붙어 있었습니다. 흔한
-            스트레칭 세 동작이 만드는 변형률은 동작마다 크게 달랐습니다. 측정된 장경인대 신장은 평균 0.5% 미만(효과 크기 0.04)이었습니다.
-            저자들은 장경인대를 늘리는 치료의 근거에 의문을 제기했습니다. 근육 쪽(대퇴근막장근)을 봐야 한다고도 했습니다.{" "}
-            <S>(Falvey et al. (2010) <Up h="https://pubmed.ncbi.nlm.nih.gov/19706004/" />)</S>
-          </p>
-        </Evidence>
-
-        <h3 className={H3}>4. 주사 치료는 효과가 있나요?</h3>
+        <Steps
+          title="이런 운동부터 해 보세요"
+          items={[
+            { t: "옆으로 누워 다리 들기", d: "위쪽 다리를 곧게 편 채 천천히 들었다 내려요. 발끝은 앞을 향하게 해요." },
+            { t: "옆으로 누워 무릎 벌리기", d: "무릎을 굽히고 발은 붙인 채, 위쪽 무릎만 조개가 열리듯 벌려요." },
+            { t: "계단 끝에서 골반 내리기", d: "한 발로 계단 끝에 서서 반대쪽 골반을 천천히 내렸다 올려요." },
+          ]}
+        />
+        <Caveat>몇 번씩 하라는 기준은 확인한 자료가 없어요. 아프지 않은 만큼 꾸준히 해 보세요.</Caveat>
         <P>
-          스테로이드 주사가 14일째 달리기 중 통증을 더 많이 줄였습니다(증상이 생긴 지 2주가 안 된 러너 18명의 작은 무작위
-          시험). 주사 여부는 진료에서 정할 일입니다.
+          다만 엉덩이 근육이 약해서 이 통증이 생긴다고 단정할 수는 없어요. 관련을 본 연구가 적고 차이도 작았어요.
         </P>
-        <Evidence n={1}>
-          <p>
-            스테로이드 주사를 맞은 그룹이 14일째 달리기 중 통증이 더 많이 줄었습니다(증상이 생긴 지 2주가 안 된 러너 18명을 나눈 무작위
-            시험). <S>(Gunter &amp; Schwellnus (2004) <Up h="https://pubmed.ncbi.nlm.nih.gov/15155424/" />)</S>
-          </p>
-        </Evidence>
 
-        {/* ── 기간 ─────────────────────────────────────────── */}
+        <OneLine>엉덩이 옆 근육 운동부터 해 보세요. 낫는 데 가장 많이 쓰인 방법이에요.</OneLine>
+
+        {/* ── 4 ─────────────────────────────────────────── */}
+        <h2 id="rest-or-run" className={H2}>
+          <Num n={4} />장경인대가 아프면 달리기를 완전히 쉬어야 하나요?
+        </h2>
+        <P>
+          꼭 완전히 쉬어야 하는지는 <strong>확인한 자료가 없어요.</strong> 대신 아픔이 커지는지를 보면서 줄여 뛰는 걸 권해요.
+        </P>
+        <Steps
+          items={[
+            { t: "달리는 중에 아픔이 커지면 그날은 멈춰요." },
+            { t: "다음 날 아침에 더 아프면 거리를 줄여요." },
+            { t: "쉬어도 나아지는 느낌이 없으면 진료를 받아 보세요." },
+          ]}
+        />
+        <P>
+          다시 늘릴 때는 <strong>지난 30일 중 가장 길게 뛴 거리의 110% 안에서</strong> 늘리기를 권해요. 한 대형 연구에서 한 번에 가장
+          길게 뛴 거리보다 10% 넘게 길게 뛴 날에 부상이 늘었어요.
+        </P>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/return-to-running#comeback" className={pill}>다시 거리를 늘린다면 →</Link>
+        </div>
+
+        <OneLine>아픔이 커지면 멈추고, 다음 날 더 아프면 줄여요. 다시 늘릴 땐 한 달 기록의 110% 안에서 늘려요.</OneLine>
+
+        {/* ── 5 ─────────────────────────────────────────── */}
+        <h2 id="stretch" className={H2}>
+          <Num n={5} />스트레칭과 폼롤러로 풀면 낫나요?
+        </h2>
+        <P>
+          <strong>스트레칭이나 폼롤러만으로 낫는다고 보기는 어려워요.</strong> 장경인대는 허벅지뼈에 길게 붙어 있어서 잘 늘어나지 않는다는
+          해부 연구가 있어요.
+        </P>
+        <P>
+          {/* 2026-11-23 본 세션 검토: 「더 나아졌다는 작은 시험」은 근거보다 셌다 — 주 결과인 통증 감소가 79.7% 대 81.0%로 비슷했고
+              20명 시험이다(PMID 42945197 초록 직접 확인). 결론이 아니라 잰 값을 따른다 */}
+          엉덩이 근육 운동에 폼롤러와 스트레칭을 더한 작은 시험이 하나 있었지만, 통증이 줄어든 정도는 근육 운동만 한 사람들과
+          비슷했어요. 폼롤러가 더 도움이 되는지는 아직 확실하지 않아요.
+        </P>
+        <Steps
+          items={[
+            { t: "엉덩이 옆 근육 운동을 먼저 해요." },
+            { t: "폼롤러와 스트레칭은 몸이 편해지면 더해도 괜찮아요." },
+          ]}
+        />
+
+        <OneLine>스트레칭과 폼롤러는 더해도 되지만, 엉덩이 근육 운동이 먼저예요.</OneLine>
+
+        {/* ── 6 ─────────────────────────────────────────── */}
         <h2 id="how-long" className={H2}>
-          얼마나 걸려야 낫나요?
+          <Num n={6} />얼마나 걸리고, 언제 병원에 가야 하나요?
         </h2>
         <P>
-          치료 연구들의 기간은 2~8주였습니다. 엉덩이 외전근 중심 6주 재활 뒤 <strong>장거리 러너 24명 중 22명이 통증 없이 달리기로
-          돌아갔다</strong>는 보고가 있습니다.
+          낫는 데 걸리는 기간을 잰 자료는 확인하지 못했어요. 치료에서 운동한 기간은 <strong>2~8주</strong>였고, 엉덩이 근육 중심으로{" "}
+          <strong>6주</strong> 재활한 한 연구에서는 대부분이 통증 없이 달리기로 돌아갔어요.
         </P>
-        <Note>대조군이 없는 사례 연구입니다.</Note>
-        <P>
-          돌아올 때는 부상 전 거리가 아니라 <strong>지난 30일 최장 거리의 110%</strong> 안에서 늘립니다 →{" "}
-          <Link href="/injury/return-to-running#comeback" className="text-emerald-700 underline">
-            복귀 진도
-          </Link>
-          <Basis kind="rule" />
-        </P>
-        <Evidence n={1}>
-          <p>
-            엉덩이 외전근(중둔근) 중심의 6주 재활 뒤 외전근 근력이 여성 34.9%, 남성 51.4% 늘었습니다(장경인대 증후군이 있는 장거리 러너
-            24명). 24명 중 22명이 통증 없이 달리기로 돌아갔습니다. 6개월 뒤 재발 보고는 없었습니다. 대조군이 없는 사례
-            연구입니다. <S>(Fredericson et al. (2000) <Up h="https://pubmed.ncbi.nlm.nih.gov/10959926/" />)</S>
-          </p>
-        </Evidence>
-
-        {/* ── 병원 ─────────────────────────────────────────── */}
-        <h2 id="doctor" className={H2}>
-          언제 병원에 가야 하나요?
-        </h2>
-        <Warn title="이러면 진료를 받으세요 (저희 기준)">
+        <Warn title="이럴 땐 진료를 받아 보세요">
           <ul className="list-disc space-y-1 pl-5">
-            <li>2주 이상 쉬어도 통증이 줄지 않는다</li>
-            <li>걷기만 해도 무릎 바깥이 아프다</li>
+            <li>쉬어도 나아지는 느낌이 없다</li>
+            <li>걸을 때도 무릎 바깥이 아프다</li>
             <li>무릎이 붓거나 열감이 있다</li>
             <li>무릎이 걸리거나 잠긴다</li>
           </ul>
         </Warn>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/knee-pain" className={pill}>무릎 앞이 아프다면 →</Link>
+          <Link href="/injury/intermediate-guide" className={pill}>거리를 늘리는 중이라면 →</Link>
+        </div>
 
-        <YoutubeSection
-          links={[
-            { label: "러닝할 때 무릎 바깥쪽이 아픈 이유는? 장경인대증후군이란?", channel: "닥터내비", url: "https://www.youtube.com/watch?v=vqe3vSYP3jo" },
-            { label: "무릎 통증, 치료법 다 모여라! 장경인대증후군 자가 운동법", channel: "이정표의 레그웰", url: "https://www.youtube.com/watch?v=c7-JDyYg4c0" },
-            { label: "[장경인대증후군] 러너에게 흔한 통증질환 TOP3", channel: "화이팅!통증피디아", url: "https://www.youtube.com/watch?v=4Y7xKZc6KtE" },
-            { label: "정형외과 의사가 생각하는 달리기 부상과 장경인대염", channel: "러너의 풍경", url: "https://www.youtube.com/watch?v=z3UUVQf57m0" },
-            { label: "자전거·러닝 전 이거 안 하면 무릎 나갑니다! 3분 장경인대증후군", channel: "이정표의 레그웰", url: "https://www.youtube.com/shorts/uNI9DtqCy6M" },
-            { label: "무릎 통증(장경인대 통증) 해결! 러닝 자세 Before & After", channel: "아인즈 러닝랩 / EINZ Runninglab", url: "https://www.youtube.com/shorts/Ar7Fijekr_8" },
-            { label: "장경인대 스트레칭", channel: "알쓸참본", url: "https://www.youtube.com/shorts/HPsUUJlEiKk" },
-          ]}
+        <OneLine>날짜보다 나아지는지를 봐요. 쉬어도 그대로면 진료를 받아요.</OneLine>
+
+        {/* 2026-10-06: 「장경인대염 예방에 적합한 신발」은 본문(신발로 해결한다는 근거 없음)과 반대였다. 2026-11-23 효과 주장 없는 문구로 */}
+        <FinderCta
+          from="it-band"
+          variant="inline"
+          headline="신발은 발볼과 사이즈가 맞는지가 먼저예요. 발볼과 용도로 좁혀 보세요."
         />
+
+        {/* 2026-11-23: 두 영상을 뺐다 — 「[장경인대증후군] 러너에게 흔한 통증질환 TOP3」(화이팅!통증피디아, 제목의 영문 약어)와
+            「무릎 통증(장경인대 통증) 해결! 러닝 자세 Before & After」(채널 「아인즈 러닝랩 / EINZ Runninglab」의 영문 약어).
+            둘 다 풀이 검사에 걸리는데 제목·채널명은 원문이라 고칠 수 없다(채널명은 verify-youtube 가 실제 업로더와 대조한다). */}
+        <div className="mt-14">
+          <YoutubeSection
+            links={[
+              { label: "러닝할 때 무릎 바깥쪽이 아픈 이유는? 장경인대증후군이란?", channel: "닥터내비", url: "https://www.youtube.com/watch?v=vqe3vSYP3jo" },
+              { label: "무릎 통증, 치료법 다 모여라! 장경인대증후군 자가 운동법", channel: "이정표의 레그웰", url: "https://www.youtube.com/watch?v=c7-JDyYg4c0" },
+              { label: "정형외과 의사가 생각하는 달리기 부상과 장경인대염", channel: "러너의 풍경", url: "https://www.youtube.com/watch?v=z3UUVQf57m0" },
+              { label: "자전거·러닝 전 이거 안 하면 무릎 나갑니다! 3분 장경인대증후군", channel: "이정표의 레그웰", url: "https://www.youtube.com/shorts/uNI9DtqCy6M" },
+              { label: "장경인대 스트레칭", channel: "알쓸참본", url: "https://www.youtube.com/shorts/HPsUUJlEiKk" },
+            ]}
+          />
+        </div>
 
         <div className="mt-14">
           <FaqSection items={FAQ} />
         </div>
 
-        <div className="mt-10 rounded-2xl bg-emerald-50 p-6">
-          {/* 2026-10-06: 「장경인대염 예방에 적합한 신발」은 같은 글 본문(신발로 해결한다는 근거 없음)과 반대였다. */}
-          <p className="mb-2 font-medium text-emerald-900">지금 신발이 발에 맞는지 확인해 보세요</p>
-          <p className="mb-4 break-keep text-sm text-emerald-800">
-            장경인대 증후군을 신발로 고친다는 근거는 찾지 못했습니다. 다만 발볼이나 사이즈가 안 맞는 신발은 바꾸는 게 맞습니다.
-          </p>
-          <Link
-            href="/shoe-finder"
-            className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
-          >
-            나에게 맞는 신발 찾기 →
-          </Link>
-        </div>
-
-        <References n={9} title="참고 논문" note="2026-10-06 PubMed 초록과 대조했습니다.">
-          <ul>
-            <li>
-              <strong>Sanchez-Alvarado et al. (2024)</strong> — 러너 장경인대 증후군 보존적 치료 13편 체계적 고찰. Front Sports Act Living
-              6:1386456.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/39247485/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Fairclough et al. (2006)</strong> — 장경인대의 기능 해부, 마찰보다 지방층 압박. J Anat 208(3):309-16.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/16533314/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Orchard et al. (1996)</strong> — 러너 장경인대 증후군의 생체역학, 내리막 위험. Am J Sports Med 24(3):375-9.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/8734891/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Aderem &amp; Louw (2015)</strong> — 장경인대 증후군 생체역학 위험 요인 체계적 고찰(13편). BMC Musculoskelet Disord 16:356.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/26573859/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Foch et al. (2023)</strong> — 장경인대 증후군 러너의 운동학·외전근 근력 메타분석(17편). Gait Posture 101:73-81.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/36758425/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Falvey et al. (2010)</strong> — 장경인대 해부·스트레칭 변형률 측정, 신장 0.5% 미만. Scand J Med Sci Sports 20(4):580-7.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/19706004/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Fredericson et al. (2000)</strong> — 장경인대 증후군 러너의 외전근 약화와 6주 재활(24명 중 22명 복귀). Clin J Sport Med
-              10(3):169-75.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/10959926/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Gunter &amp; Schwellnus (2004)</strong> — 발병 2주 내 러너 18명 스테로이드 주사 무작위 시험. Br J Sports Med 38(3):269-72.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/15155424/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Frandsen et al. (2025)</strong> — 5,205명 18개월, 한 번의 긴 달리기와 과사용 부상. Br J Sports Med 59(17):1203-1210.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-          </ul>
-        </References>
-        <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 통증이 이어지면 전문의와 상담하세요.</p>
+        <Sources>
+          <Src n={1}>
+            <strong>Orchard et al. (1996)</strong> 장경인대 증후군 러너 9명은 발이 닿을 때 무릎이 평균 21.4도 굽어 있어, 자극이 생긴다고 알려진 30도 부근이었어요. 내리막은 이 각도를 줄여 자극받기 쉽다고 설명했어요(러너 동작 분석과 사체 무릎 11개로 세운 설명이에요).
+            <Ref>Am J Sports Med 24(3):375-9 · <a href="https://pubmed.ncbi.nlm.nih.gov/8734891/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Fairclough et al. (2006)</strong> 사체 15구에서 장경인대는 허벅지뼈에 섬유로 고정돼 있었고, 자원자 MRI에서는 무릎을 30도 굽힐 때 뼈 쪽으로 눌렸어요. 저자들은 마찰보다 그 아래 지방층이 눌리는 것과 관련 있을 수 있다고 봤어요.
+            <Ref>J Anat 208(3):309-16 · <a href="https://pubmed.ncbi.nlm.nih.gov/16533314/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Sanchez-Alvarado et al. (2024)</strong> 장경인대 증후군 치료 연구 13편(201명, 그중 6편은 사례 보고)을 모았어요. 엉덩이 옆 근육 강화가 흔히 쓰였고, 2~8주 동안 통증이 27~100%, 기능이 10~57% 나아졌어요. 연구끼리 차이가 커서 하나로 합쳐 계산하지는 못했어요. 자세를 바꾸는 방법은 더 시험해 봐야 한다고 적었어요. 서론에서 이 부상을 러닝 부상의 약 10%로 적었어요.
+            <Ref>Front Sports Act Living 6:1386456 · <a href="https://pubmed.ncbi.nlm.nih.gov/39247485/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>Aderem &amp; Louw (2015)</strong> 연구 13편을 모아 보니 나중에 아파진 여성 러너는 착지 때 고관절이 안쪽으로 더 모이고 무릎이 안쪽으로 더 돌았어요. 저자들은 연구 수가 적고 차이가 작다고 적었어요. 서론에서 러닝에서 두 번째로 흔한 부상이라고 적었어요.
+            <Ref>BMC Musculoskelet Disord 16:356 · <a href="https://pubmed.ncbi.nlm.nih.gov/26573859/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={5}>
+            <strong>Foch et al. (2023)</strong> 17편을 검토하고 횡단 연구 10편을 합쳐 보니, 지금 아픈 여성 러너만 엉덩이 옆 근육 근력이 낮았어요. 남녀의 위험 요인도 달랐어요. 이미 아픈 사람을 잰 연구라 약해서 아픈 건지 아파서 약해진 건지는 가릴 수 없어요.
+            <Ref>Gait Posture 101:73-81 · <a href="https://pubmed.ncbi.nlm.nih.gov/36758425/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={6}>
+            <strong>Frandsen et al. (2025)</strong> 한 번 달린 거리가 지난 30일 중 가장 길게 뛴 거리보다 10% 넘게 길면 과사용 부상이 늘었어요(성인 러너 5,205명, 평균 45.8세 — 장경인대 증후군만 본 연구가 아니에요).
+            <Ref>Br J Sports Med 59(17):1203-1210 · <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={7}>
+            <strong>Falvey et al. (2010)</strong> 사체 20구에서 장경인대는 허벅지를 둘러싼 근막이 바깥쪽에서 두꺼워진 것으로, 허벅지뼈에 길게 단단히 붙어 있었어요. 20명이 엉덩이를 옆으로 미는 힘을 줄 때 장경인대가 늘어난 정도는 평균 0.5% 미만이었어요(스트레칭 세 동작은 사체 5구에서 따로 쟀어요). 저자들은 장경인대를 늘리는 치료의 근거에 의문을 제기하고, 근육 쪽을 봐야 한다고 했어요.
+            <Ref>Scand J Med Sci Sports 20(4):580-7 · <a href="https://pubmed.ncbi.nlm.nih.gov/19706004/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={8}>
+            <strong>Naderi &amp; Azizi (2026)</strong> 장경인대 증후군 운동선수 20명을 나눠 8주 동안 근육 운동만 한 사람들과 폼롤러·스트레칭을 더한 사람들을 비교한 시험이에요. 더한 사람들이 통증과 기능이 더 나아졌다고 결론 냈지만, 초록의 통증 감소율은 79.7%와 81.0%로 결론과 거꾸로 적혀 있어요. 저자들도 더 큰 연구가 필요하다고 했어요.
+            <Ref>PLoS One 21(10):e0360760 · <a href="https://pubmed.ncbi.nlm.nih.gov/42945197/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={9}>
+            <strong>Fredericson et al. (2000)</strong> 장경인대 증후군 장거리 러너 24명이 엉덩이 옆 근육 중심으로 6주 재활한 뒤 22명이 통증 없이 달리기로 돌아갔고, 6개월 뒤 재발 보고가 없었어요. 근력은 여성 34.9%, 남성 51.4% 늘었어요. 재활에 대조군이 없는 사례 연구예요.
+            <Ref>Clin J Sport Med 10(3):169-75 · <a href="https://pubmed.ncbi.nlm.nih.gov/10959926/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={10}>
+            <strong>Gunter &amp; Schwellnus (2004)</strong> 증상이 생긴 지 2주가 안 된 러너 18명을 나눈 시험에서, 스테로이드 주사를 맞은 사람들의 달릴 때 통증이 14일째까지 더 줄었어요(대조군은 국소마취제만).
+            <Ref>Br J Sports Med 38(3):269-72 · <a href="https://pubmed.ncbi.nlm.nih.gov/15155424/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>

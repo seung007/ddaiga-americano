@@ -2,92 +2,106 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Note } from "@/components/guide/Read";
+import { Lead, P, H2, H3, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
 /**
  * 4단계 — 하프 → 풀 (2026-10-07)
  *
- * 규칙은 3단계 글(half-marathon-training)과 같다.
- *   · 표 숫자는 Fokkema 2020 본문 표 2 (PMC7496388) 그대로.
- *   · 훈련량과 부상의 관계는 연구끼리 엇갈린다 — Rasmussen 2013(주 30km 미만 RR 2.02, 완주자 회고) vs
- *     Fokkema 2020(회귀에서 관련 없음). 둘 다 적는다.
- *   · 테이퍼 근거 하나(Bosquet 2007)는 경쟁 선수 대상이다. 레크리에이션 자료(Smyth & Lawlor 2021)는 관찰이다. 둘 다 표시.
- *   · 장거리 진도표는 사이트 예시.
+ * 2026-10-13 가독성 재설계 · 2026-11-10 제목·소제목을 채팅 말로(오픈채팅 「풀코스」 25명·「장거리·LSD」 32명,
+ * 처음 풀코스를 접수한 사람의 질문 「몇 키로까지 연습해야」) — 경위는 git 기록.
  *
- * 2026-10-13 가독성 재설계 — 섹션마다 답 → 할 일 → 근거(접힘). 숫자는 <Evidence> 안으로 옮겼고 지우지 않았다.
- *   급성:만성 비율(ACWR)은 Toresdahl 2023 과 Frandsen 2025 가 반대 방향 → 「엇갈림」을 본문 <Note> 로.
- *   테이퍼 근거의 대상(경쟁 선수 / 관찰 연구)도 <Note> 로. 제목의 「막히는 곳」 → 「자주 겪는 문제」.
+ * 2026-11-23 확정 틀로 바꿈 (docs/운영/가이드_틀.md, 견본 app/injury/start-running/page.tsx)
+ *   판정 전부: docs/판정/marathon-training.jsonl. 초록 10편은 2026-11-23 크롬으로 PubMed 를 직접 열어 읽었다(요약만).
+ *   Altieri 2026 · Almond 2005 는 같은 날 half-marathon-race-day 판정에서 읽은 구절을 그대로 썼다(이 세션에서 다시 열지 못함).
  *
- * 2026-11-10 제목·소제목을 채팅 말로 — 오픈채팅 「풀코스」 25명·「장거리·LSD」 32명이 쓰고, 처음 풀코스를 접수한 사람의
- *   질문이 「몇 키로까지 연습해야」였다. 숫자·인용·단서는 그대로 두고 연구 문장은 결과 먼저로만 바꿨다.
+ *   틀 — 옛 부품 여섯 개(한눈에 상자 · 이렇게 하세요 상자 · 근거 보기 접힘 · 글 끝 문헌 목록 · 근거 수준 딱지 · 엇갈림 상자)를 걷어냈다.
+ *     (옛 부품 이름을 주석에 적으면 check:geo 가 글에 남은 것으로 세므로 풀어서 적는다.)
+ *     큰 절 7개 → 번호 붙은 큰 질문 6개. 다음 단계 절은 6절 끝 링크로 합쳤다.
+ *     id 는 benchmark·injury·long-run·wall·fuel·taper 를 그대로 뒀다 — components/RaceJourney.tsx 가 #taper 를 건다(grep 2026-11-23).
+ *     작은 질문 넷(거리를 갑자기 늘린 주 · 뼈 부상 · 훈련량이 적으면 · 짧은 근력운동)은 할 일과 한 문장으로 합치고, 근력운동은 FAQ 로 내렸다.
+ *
+ *   고친 것 — 무엇이 틀렸고 왜
+ *   · **Fokkema 2020 의 준비량 중앙값(주 40km · 주 3회 · 가장 긴 달리기 32km), 평균 완주 4:17:54, 후반 감속 25.0%,
+ *     구간별 인원·완주 시간·감속 표 두 개를 지웠다.** 초록에는 없고 본문 표 1·2 에만 있는 값이다(확인 못 함).
+ *     초록으로 확인되는 것은 「일주일 40km 미만·가장 길게 뛴 거리 25km 미만이면 더 느린 완주, 65km 초과면 더 빠른 완주」와
+ *     「준비량과 부상의 관련은 없었다」까지라 그것만 남겼다. half-marathon-training 이 하프 값을 뺀 것과 같은 판정.
+ *     뺀 자리를 다른 숫자로 메우지 않았다.
+ *   · **「장거리는 32km까지」를 뺐다** — 큰 제목과 긴 달리기 예시 표의 끝값이 위 중앙값에 기대고 있었다.
+ *     예시 표는 21km 에서 110% 씩 늘려 30km 에서 멈추는 사이트 예시로 바꾸고, 어디까지 늘릴지 정한 연구는 찾지 못했다고 적었다.
+ *   · **Frandsen 2025** — 다른 확정 틀 글과 같은 말 「한 번에 가장 길게 뛴 거리보다 10% 넘게 길게 뛴 날에 부상이 늘었어요」로.
+ *     「1.52~2.28배」는 쓰지 않는다(값이 차례로 커지지 않는다). 일주일 거리 비율은 Toresdahl 2023 과 Frandsen 2025 가
+ *     반대 방향이라 「긴 날 기준만큼 확실하지 않아요」로만.
+ *   · **Rasmussen 2013 2.02배**는 완주자만 본 회고 연구라 본문에서 숫자를 내리고 「결과가 갈렸어요」로 Fokkema 와 나란히 뒀다.
+ *   · **물** — 옛 글에는 없었다. 풀코스 보급 절에 half-marathon-race-day 판정과 같은 말로 넣었다:
+ *     「목마를 때 마셔요」(Altieri 2026 초록) · 저나트륨혈증 풀이 · 체중이 늘 만큼 마신 사람과 오래 걸린 사람에게 많았다(Almond 2005).
+ *     Hew-Butler 2017 초록에는 「목마를 때 마시기」 문장이 없어 그 출처로 받치지 않는다. 젤 개수(20~30g · 시간당 1~2개)는 쓰지 않는다.
+ *   · **젤** — Burke 2019 의 75~90g 은 가장 긴 경기 기준이라 「도움이 될 수 있다는 리뷰」로 낮추고,
+ *     2~3시간 운동의 약 60g(Jeukendrup 2014)을 먼저 적었다.
+ *   · **벽은 32km 이후 에너지 고갈** — Smyth 2021 서론의 설명이지 그 연구가 잰 값이 아니다 → 「~온다고 설명해요」.
+ *   · **테이퍼** — Bosquet 2007 은 여러 종목 경기 선수, Smyth & Lawlor 2021 은 취미 마라토너 기록 관찰이라 「~편이 좋아요」로.
+ *     「중앙값 5분 32초」는 출처로 내렸다(통일표: 중앙값 금지). 처음 나올 때 풀이를 붙였다.
+ *   · 통증 신호를 it-band·achilles 와 같은 표준 문구(아픔이 커지면 멈춤 · 다음 날 아침 더 아프면 줄임 · 쉬어도 안 나으면 진료)로.
+ *   · 말투 「~니다」 → 「~요」, 따옴표(‘벽’)·※ 를 풀었다. 본문에서 연구 인원·나라·대상을 내렸다(441명 · 735명 · 720명 · 662명 · 5,205명 · 네덜란드 · 뉴욕).
+ *
+ *   덜어낸 것
+ *   · March 2011(나이·성별·빠르기와 페이스 유지) — 할 일로 이어지지 않는 곁가지라 글과 출처 목록에서 내렸다.
+ *   · 큰 절 「다음 단계」 — 6절 끝 링크로.
+ *
+ *   확인 못 한 것
+ *   · Fokkema 2020 본문 표 1·2 — 열면 되살릴지 다시 판정한다. 같은 중앙값이 lib/guide/stages.ts 205·208행에 남아 있다(보고에 적음).
+ *   · 13편 모두 본문은 열지 않았다(요약만). 권·호·쪽은 PubMed 초록 페이지의 서지와 대조했다.
  */
 
 const PAGE_URL = pageUrl("/injury/marathon-training");
 const TITLE = "풀코스 준비, 장거리는 몇 km까지 뛰나요?";
+// 원장 lib/guide/articles.ts 의 desc 와 같은 문장이어야 한다(허브 카드·검색 결과가 어긋나지 않게)
 const DESC =
-  "완주자들이 실제로 뛴 주간 거리와 가장 긴 달리기를 기준으로, 장거리를 늘리는 속도와 준비 중 부상, 후반에 무너지는 이유를 논문으로 봅니다.";
+  "풀코스를 준비할 때 일주일 거리와 장거리를 얼마나 빨리 늘릴지, 준비 중 아플 때 할 일, 후반에 무너지지 않는 법과 대회 전 줄이기를 논문으로 확인해 정리했습니다.";
 
 export const metadata: Metadata = {
-  title: "풀코스 준비, 장거리는 몇 km까지 뛰나요? | 뛰다가 아메리카노",
+  title: `${TITLE} | 뛰다가 아메리카노`,
   description: DESC,
   alternates: { canonical: "/injury/marathon-training" },
 };
 
-const BY_VOLUME: [string, string, string, string][] = [
-  ["주 40km 미만", "158명", "4:31:03", "29.1%"],
-  ["주 40~65km", "239명", "4:19:04", "23.9%"],
-  ["주 65km 초과", "43명", "3:43:03", "21.9%"],
-];
-const BY_LONGEST: [string, string, string, string][] = [
-  ["25km 미만", "91명", "4:37:43", "28.8%"],
-  ["25~30km", "111명", "4:25:07", "26.2%"],
-  ["30~35km", "200명", "4:15:26", "24.5%"],
-  ["35km 초과", "38명", "3:50:18", "20.1%"],
-];
-
-/** 하프를 달려 본 사람이 21km 에서 시작 — 매주 직전 30일 최장의 110% 이하, 4주마다 줄이는 주(경험칙). */
+/** 하프를 달려 본 사람이 21km 에서 시작 — 매주 직전 30일 가장 길게 뛴 거리의 110% 이하, 4주마다 줄이는 주. 30km 에서 멈추는 것은 사이트 예시. */
 const LONG_RUNS: [string, string, string][] = [
-  ["1", "21km", "하프 완주 직후 기준"],
-  ["2", "23km", "21 × 1.1"],
-  ["3", "25km", "23 × 1.1"],
+  ["1", "21km", "하프 거리에서 시작"],
+  ["2", "23km", "21 × 1.1 = 23.1 이하"],
+  ["3", "25km", "23 × 1.1 = 25.3 이하"],
   ["4", "18km", "줄이는 주"],
   ["5", "27.5km", "25 × 1.1"],
-  ["6", "30km", "27.5 × 1.1"],
-  ["7", "32km", "30 × 1.1 = 33 이하"],
+  ["6", "30km", "27.5 × 1.1 = 30.25 이하"],
+  ["7", "30km", "같은 거리로 한 번 더"],
   ["8", "20km", "줄이는 주"],
-  ["9", "32km", "최장 유지"],
-  ["10", "24km", "테이퍼 시작"],
+  ["9", "30km", ""],
+  ["10", "24km", "대회 3주 전, 줄이기 시작"],
   ["11", "16km", ""],
   ["12", "대회", ""],
 ];
 
+// 2026-11-23: FAQ 는 본문 큰 질문과 겹치지 않는 것만 둔다. 근력운동은 본문에서 내려온 곁가지다
 const FAQ: FaqItem[] = [
   {
-    q: "풀코스는 일주일에 몇 km 뛰어야 하나요?",
-    a: "네덜란드 풀코스 참가자 441명의 중앙값은 주 40km, 주 3회였습니다. 주 40km 미만은 더 느린 완주와 관련 있었습니다(Fokkema 2020). 부상과의 관계는 연구마다 다릅니다. 완주자 662명 회고 연구에서는 주 30km 미만이 부상 위험 2.02배였습니다(Rasmussen 2013). 위 441명 연구의 회귀 분석에서는 관련이 없었습니다.",
+    q: "풀코스는 몇 주 준비해야 하나요?",
+    a: "정해진 주 수는 없어요. 준비 기간을 정한 연구는 찾지 못했어요. 하프를 달려 봤다면 저희 예시로는 **12주쯤** 걸려요. 더 걸려도 괜찮으니 **주 수를 맞추려고 거리를 당기지는 마세요.**",
   },
   {
-    q: "32km 장거리를 꼭 뛰어야 하나요?",
-    a: "필수라는 연구는 찾지 못했습니다. 다만 네덜란드 풀코스 참가자 연구에서 가장 긴 달리기 중앙값은 32km였습니다. 25km 미만은 더 느린 완주와 관련 있었습니다(Fokkema 2020). 늘릴 때는 지난 30일 최장 거리의 110% 안에서 늘리세요(Frandsen 2025).",
+    q: "대회 전에 32km를 꼭 뛰어 봐야 하나요?",
+    a: "꼭 그래야 한다는 근거는 찾지 못했어요. 늘린다면 **지난 30일 가장 길게 뛴 거리의 110% 안에서** 늘려요. 한 설문에서 **가장 길게 뛴 거리가 25km 미만**이면 더 느리게 완주했지만, 원래 빠른 사람이 더 길게 뛰었을 수도 있어요.",
   },
   {
-    q: "테이퍼는 몇 주가 좋나요?",
-    a: "경쟁 선수 연구를 모은 메타분석에서는 2주 동안 훈련량을 41~60% 줄이고 강도와 빈도는 유지하는 방식이 가장 효과적이었습니다(Bosquet 2007). 레크리에이션 러너 15만 8천여 명의 기록 분석에서는 3주 동안 꾸준히 줄인 그룹이 최소 테이퍼보다 완주 시간이 중앙값 5분 32초 빨랐습니다(Smyth & Lawlor 2021, 관찰 연구).",
-  },
-  {
-    q: "젤은 얼마나 먹어야 하나요?",
-    a: "장거리 종목 영양 리뷰는 가장 긴 레이스에서 시간당 75~90g의 탄수화물이 이득이 될 수 있다고 정리합니다. 개인에 맞춰 미리 연습한 계획을 권합니다. 위장 불편 위험과 함께 저울질해야 합니다(Burke 2019). 젤 하나의 탄수화물 양을 확인해 시간당 개수로 바꿔 보세요.",
-  },
-  {
-    q: "하프 기록으로 풀코스 기록을 예측할 수 있나요?",
-    a: "널리 쓰이는 리겔 공식은 하프까지는 잘 맞았습니다. 하지만 풀코스는 레크리에이션 러너 절반에게서 실제보다 10분 이상 빠르게 예측했습니다(Vickers 2016). 목표 페이스는 공식 값보다 보수적으로 잡으세요.",
+    q: "근력운동을 하면 덜 다치나요?",
+    a: "짧은 근력 프로그램만으로는 줄지 않았어요. 해도 되지만 **근력운동을 했다고 거리를 더 늘리지는 마세요.** 첫 풀코스를 준비하는 러너에게 근력 프로그램을 준 시험에서, 부상으로 완주하지 못한 비율이 **7.1%와 7.3%**로 거의 같았어요.",
   },
 ];
+
+const pill = "rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400";
+const linkCls = "text-emerald-700 underline";
 
 export default function MarathonTrainingPage() {
   return (
@@ -114,176 +128,85 @@ export default function MarathonTrainingPage() {
           </Link>
         </div>
         <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
-        <ArticleMeta href="/injury/marathon-training" />
-        <Lead>
-          하프는 뛰어 봤는데 풀코스는 몇 km까지 연습해야 할지 막막하다면, 실제 완주자들이 뛴 양부터 볼 만합니다. 하프에서
-          풀코스로 넘어갈 때 자주 겪는 문제는 <strong>준비 중 부상</strong>과 <strong>후반에 크게 느려지는 것</strong>입니다.
-        </Lead>
+        <ArticleMeta href="/injury/marathon-training" compact checked={13} />
 
-        <Summary
+        <KeyPoints
           items={[
-            <>풀코스 참가자 441명의 준비량 중앙값은 <strong>주 40km, 주 3~4회, 가장 긴 달리기 32km</strong>였습니다.<Basis kind="paper" /></>,
-            <>준비하는 16주 동안 <strong>40%가 다쳤습니다</strong>(한 마라톤 연구).<Basis kind="paper" /></>,
-            <>하프 기록으로 리겔 공식을 쓰면 풀코스 예측이 취미 러너 절반에게서 <strong>10분 이상 낙관적</strong>이었습니다. 공식 값은 상한으로 보세요.<Basis kind="paper" /></>,
-            <>테이퍼는 <strong>2~3주, 훈련량을 줄이고 강도는 유지</strong>(경쟁 선수 연구와 취미 마라토너 관찰 연구 근거).<Basis kind="paper" /></>,
+            <>가장 길게 뛰는 날은 <strong>지난 한 달에 가장 길게 뛴 거리보다 10% 넘게 늘리지 않기를</strong> 권해요.</>,
+            <>후반에 무너지지 않으려면 <strong>전반을 목표보다 빠르게 달리지 않는 것</strong>부터 지켜요.</>,
+            <>대회 전 2~3주는 <strong>거리만 줄이고</strong> 빠르게 뛰는 날은 남겨 두는 편이 좋아요.</>,
           ]}
         />
+
+        <Lead>
+          하프는 뛰어 봤는데 풀코스는 얼마나 연습해야 할지 막막하다면, 기준은 거리보다 <strong>다치지 않고 늘리는 속도</strong>예요.
+          풀코스 준비에서 자주 막히는 건 준비 중 부상과 후반에 크게 느려지는 일이에요.
+        </Lead>
 
         <TableOfContents
           items={[
-            { id: "benchmark", label: "다들 얼마나 뛰었나" },
-            { id: "injury", label: "준비하다 다쳐요" },
-            { id: "long-run", label: "장거리 늘리기" },
+            { id: "benchmark", label: "일주일에 몇 km" },
+            { id: "long-run", label: "장거리는 어디까지" },
+            { id: "injury", label: "준비하다 아프면" },
             { id: "wall", label: "후반에 무너져요" },
-            { id: "fuel", label: "젤은 얼마나" },
+            { id: "fuel", label: "젤과 물" },
             { id: "taper", label: "대회 전 줄이기" },
-            { id: "next", label: "다음 단계" },
           ]}
         />
 
-        {/* ── 기준점 ─────────────────────────────────────────── */}
+        {/* ── 1 ─────────────────────────────────────────── */}
         <h2 id="benchmark" className={H2}>
-          다른 완주자들은 얼마나 뛰고 나갔나요?
+          <Num n={1} />일주일에 몇 km씩 뛰고 나가야 하나요?
         </h2>
         <P>
-          준비량 중앙값은 <strong>주 40km, 주 3회, 가장 긴 달리기 32km</strong>였습니다(네덜란드 풀코스 참가자 441명).
+          <strong>지금 일주일에 뛰는 거리에서 천천히 늘리세요.</strong> 풀코스 참가자에게 준비량을 물은 한 연구에서, 일주일
+          40km 미만으로 준비한 사람이 더 느리게 완주하는 경향이 있었어요.
         </P>
-        <P>주 40km 미만이거나 가장 긴 달리기가 25km 미만이면 더 느린 완주와 관련 있었습니다.</P>
-        <Note>관찰 연구라 원래 빠른 사람이 더 많이 뛰었을 가능성은 남습니다.</Note>
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-base">
-            <thead>
-              <tr className="bg-gray-100 text-left text-sm">
-                <th className="break-keep p-2.5">주간 거리</th>
-                <th className="whitespace-nowrap p-2.5">인원</th>
-                <th className="whitespace-nowrap p-2.5">평균 완주</th>
-                <th className="whitespace-nowrap p-2.5">후반 감속</th>
-              </tr>
-            </thead>
-            <tbody>
-              {BY_VOLUME.map(([a, n, t, d]) => (
-                <tr key={a} className="border-t border-gray-100">
-                  <td className="break-keep p-2.5 font-medium text-gray-900">{a}</td>
-                  <td className="whitespace-nowrap p-2.5 text-gray-600">{n}</td>
-                  <td className="p-2.5 text-gray-700">{t}</td>
-                  <td className="p-2.5 text-gray-700">{d}</td>
-                </tr>
-              ))}
-              <tr className="border-t-2 border-gray-200 bg-gray-50 text-left text-sm">
-                <th className="break-keep p-2.5">가장 긴 달리기</th>
-                <th className="p-2.5" />
-                <th className="p-2.5" />
-                <th className="p-2.5" />
-              </tr>
-              {BY_LONGEST.map(([a, n, t, d]) => (
-                <tr key={a} className="border-t border-gray-100">
-                  <td className="break-keep p-2.5 font-medium text-gray-900">{a}</td>
-                  <td className="whitespace-nowrap p-2.5 text-gray-600">{n}</td>
-                  <td className="p-2.5 text-gray-700">{t}</td>
-                  <td className="p-2.5 text-gray-700">{d}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-2 text-xs leading-relaxed text-gray-500">출처: 위 441명 연구 논문의 본문 표 2.</p>
-        <Evidence n={1}>
-          <p>
-            네덜란드 마라톤 참가자 441명(평균 41.4세, 러닝 경력 중앙값 5년)에게 준비 기간과 대회 직후 설문을 받은 연구입니다. 대회 2~6주 전
-            기준 준비량 중앙값은 주 40km(30~50km), 주 3회(3~4회), 가장 긴 달리기 32km(27~35km)였습니다. 평균 완주 시간은 4:17:54였고, 대회
-            중 페이스 감속은 평균 25.0%였습니다. <S>(Fokkema et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/32421886/" />)</S>
-          </p>
-          <p>
-            회귀 분석에서 주 40km 미만은 더 느린 완주, 주 65km 초과는 더 빠른 완주, 최장 25km 미만은 더 느린 완주와 관련 있었습니다. 관찰
-            연구라 원래 빠른 사람이 더 많이 뛰었을 가능성은 남습니다.
-          </p>
-        </Evidence>
+        <P>
+          다치는 것과의 관계는 결과가 갈렸어요. 일주일 30km 미만으로 준비한 완주자가 더 많이 다쳤다는 조사가 있지만, 앞의
+          설문에서는 준비량과 부상의 관련이 나타나지 않았어요.
+        </P>
+        <Steps
+          items={[
+            { t: "지금 한 주에 뛰는 거리를 적어 두세요.", d: "늘리는 기준은 남들 평균이 아니라 여기예요." },
+            { t: "일주일 30km를 넘기지 못했다면 대회 날짜에 맞추기보다 준비 기간을 늘리기를 권해요." },
+            { t: "거리와 속도는 같은 주에 같이 올리지 않기를 권해요.", d: "둘 중 하나만 올려요." },
+          ]}
+        />
+        <Caveat>관찰한 결과라서 더 뛰면 빨라진다는 뜻은 아니에요. 원래 빠른 사람이 더 많이 뛰었을 가능성이 남아요.</Caveat>
 
-        {/* ── 부상 ─────────────────────────────────────────── */}
-        <h2 id="injury" className={H2}>
-          풀코스 준비하다가 다치는 일, 흔한가요?
-        </h2>
-        <P>
-          <strong>흔합니다.</strong> 훈련 중 40%가 다쳤습니다(뉴욕마라톤 참가자를 16주 따라간 연구).
-        </P>
+        <OneLine>남들 평균이 아니라 지금 뛰는 거리에서 늘리고, 준비가 짧으면 기간을 늘려요.</OneLine>
 
-        <h3 className={H3}>거리를 갑자기 늘린 주가 위험한가요?</h3>
-        <P>
-          최근 7일 거리를 28일 거리와 비교한 비율(급성:만성 비율)이 높은 날이 많을수록 부상이 많았다는 연구가 있습니다.
-        </P>
-        <Note>연구끼리 엇갈립니다. 같은 지표가 반대 방향으로 나온 연구도 있습니다(5,205명).</Note>
-        <P>
-          그 연구에서 더 분명한 위험 신호는 <strong>한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 긴 경우</strong>였습니다.
-        </P>
-        <Evidence n={2}>
-          <p>
-            훈련 중 40.0%가 다쳤습니다(뉴욕마라톤 참가자 735명, 16주 추적). 대회 중이나 직후에는 16.0%가 다쳤습니다. 최근 7일과 28일 거리로
-            계산한 급성:만성 비율이 1.5 이상인 날이 많을수록 부상이 많았습니다(하루당 OR 1.06).{" "}
-            <S>(Toresdahl et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/36113976/" />)</S>
-          </p>
-          <p>
-            다만 같은 지표가 반대 방향으로 나온 연구도 있습니다(5,205명). 그 연구에서는 한 번 달린 거리가 지난 30일 최장 거리보다 10%
-            넘게 긴 경우가 더 분명한 위험 신호였습니다. <S>(Frandsen et al. (2025) <Up h="https://pubmed.ncbi.nlm.nih.gov/40623829/" />)</S>
-          </p>
-        </Evidence>
-
-        <h3 className={H3}>뼈 부상도 조심해야 하나요?</h3>
-        <P>
-          완주를 막은 과사용 부상 52건 중 <strong>20건이 뼈 스트레스 부상</strong>이었습니다(첫 풀코스 러너 연구).
-        </P>
-        <P>
-          뼈의 한 지점이 콕 집어 아프면{" "}
-          <Link href="/injury/return-to-running#bone" className="text-emerald-700 underline">뼈 부상은 다르다</Link>를 보세요.
-        </P>
-        <Evidence n={1}>
-          <p>
-            완주를 막은 큰 부상은 8.9%였습니다(첫 풀코스 러너 720명 연구). 훈련이나 기록에 지장을 준 작은 부상은 48.5%였습니다. 큰
-            부상 64건 중 52건이 과사용이었습니다. 그중 20건이 뼈 스트레스 부상이었습니다.{" "}
-            <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
-          </p>
-        </Evidence>
-
-        <h3 className={H3}>훈련량이 적으면 더 다치나요?</h3>
-        <P>
-          <strong>연구마다 다릅니다.</strong> 완주자 회고 연구에서는 주 30km 미만으로 준비한 사람이 더 다쳤습니다. 위 441명 연구의
-          회귀 분석에서는 훈련량과 부상의 관련이 나타나지 않았습니다.
-        </P>
-        <Evidence n={2}>
-          <p>
-            주 30km 미만으로 준비한 사람의 부상 위험이 30~60km보다 2.02배였습니다(완주자 662명 회고 연구). 60km 초과는 차이가
-            없었습니다. <S>(Rasmussen et al. (2013) <Up h="https://pubmed.ncbi.nlm.nih.gov/23593549/" />)</S>
-          </p>
-          <p>
-            위 441명 연구에서도 원자료로는 주 40km 미만 그룹의 부상 보고가 62.0%로 가장 높았습니다. 하지만 회귀 분석에서는 훈련량과
-            부상의 관련이 나타나지 않았습니다. <S>(Fokkema et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/32421886/" />)</S>
-          </p>
-        </Evidence>
-
-        <h3 className={H3}>짧은 근력운동만 해도 덜 다치나요?</h3>
-        <P>
-          짧은 자가 근력 프로그램만으로는 완주를 막는 과사용 부상이 줄지 않았습니다(한 무작위 시험).
-        </P>
-        <Evidence n={1}>
-          <p>
-            12주 동안 주 3회 10분짜리 자가 근력 프로그램을 한 그룹과 안 한 그룹의 완주를 막은 과사용 부상은 7.1% 대 7.3%로
-            같았습니다(같은 첫 풀코스 러너 연구). <S>(Toresdahl et al. (2020) <Up h="https://pubmed.ncbi.nlm.nih.gov/31642726/" />)</S>
-          </p>
-        </Evidence>
-
-        {/* ── 장거리 ─────────────────────────────────────────── */}
+        {/* ── 2 ─────────────────────────────────────────── */}
         <h2 id="long-run" className={H2}>
-          장거리는 32km까지 어떻게 늘리나요?
+          <Num n={2} />장거리는 몇 km까지, 얼마나 빨리 늘리나요?
         </h2>
         <P>
-          한 번에 늘리는 폭은 <strong>지난 30일 최장 거리의 110%</strong> 안이 기준입니다.<Basis kind="rule" /> 하프를 달려 본 사람이
-          21km에서 시작하면 아래처럼 7주째에 32km에 닿습니다.
+          <strong>가장 길게 뛰는 날은 지난 30일 중 가장 길게 뛴 거리의 110% 안에서</strong> 늘리기를 권해요. 한 대형 연구에서 한 번에
+          가장 길게 뛴 거리보다 10% 넘게 길게 뛴 날에 부상이 늘었어요.
         </P>
-        <div className="mt-4 overflow-x-auto">
+        <P>
+          어디까지 늘려야 하는지는 정해진 답이 없어요. 다만 앞의 설문에서 가장 길게 뛴 거리가 <strong>25km 미만</strong>이면 더 느리게
+          완주하는 경향이 있었어요.
+        </P>
+        <Steps
+          items={[
+            { t: "긴 날은 지난 30일 가장 길게 뛴 거리의 110% 안에서 늘려요." },
+            {
+              t: "일주일 거리도 한꺼번에 늘리지 않기를 권해요.",
+              d: "최근 일주일을 갑자기 늘린 날이 많을수록 더 다쳤다는 결과와 반대 결과가 함께 있어서, 긴 날 기준만큼 확실하지는 않아요.",
+            },
+            { t: "4주마다 한 번은 줄이는 주를 넣어요.", d: "같은 주에 긴 날도 짧게 잡아요." },
+          ]}
+        />
+
+        <h3 id="long-runs" className={`${H3} scroll-mt-20`}>하프를 달려 봤다면 긴 달리기는 6주에 30km까지</h3>
+        <div className="mt-3 overflow-x-auto">
           <table className="w-full border-collapse text-base">
             <thead>
               <tr className="bg-gray-100 text-left text-sm">
                 <th className="whitespace-nowrap p-2.5">주</th>
-                <th className="whitespace-nowrap p-2.5">가장 긴 날</th>
+                <th className="whitespace-nowrap p-2.5">가장 길게 뛰는 날</th>
                 <th className="p-2.5">메모</th>
               </tr>
             </thead>
@@ -291,115 +214,121 @@ export default function MarathonTrainingPage() {
               {LONG_RUNS.map(([w, km, memo]) => (
                 <tr key={w} className="border-t border-gray-100">
                   <td className="p-2.5 font-semibold text-gray-900">{w}</td>
-                  <td className="p-2.5 text-gray-700">{km}</td>
-                  <td className="break-keep p-2.5 text-sm text-gray-500">{memo}</td>
+                  <td className="whitespace-nowrap p-2.5 text-gray-700">{km}</td>
+                  <td className="break-keep p-2.5 text-xs text-gray-500">{memo}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <P className="text-sm text-gray-500">
-          이 표는 저희 예시입니다. 4주마다 줄이는 주와 테이퍼 배분은 저희 제안입니다. 풀코스 준비 기간이나 최장 거리를 정한 연구는
-          찾지 못했습니다.
-        </P>
-        <Todo
-          basis="rule"
-          items={["주간 거리를 주 40km 안팎까지 함께 올릴 시간이 없다면 기간을 늘리세요."]}
-        />
+        <Caveat>
+          이 표는 저희가 만든 예시예요. 매주 긴 날이 직전 30일 가장 길게 뛴 거리의 110%를 넘지 않게 짰어요. 30km에서 멈추는 것과
+          줄이는 주도 저희가 정한 것이고, 풀코스 준비 기간이나 어디까지 늘릴지를 정한 연구는 찾지 못했어요.
+        </Caveat>
 
-        {/* ── 벽 ─────────────────────────────────────────── */}
-        <h2 id="wall" className={H2}>
-          후반에 무너지는 &lsquo;벽&rsquo;은 왜 오나요?
+        <OneLine>긴 날은 지난 한 달 가장 길게 뛴 거리에서 조금씩 늘리고, 4주마다 한 번은 줄여요.</OneLine>
+
+        {/* ── 3 ─────────────────────────────────────────── */}
+        <h2 id="injury" className={H2}>
+          <Num n={3} />풀코스 준비하다 다치는 일, 흔한가요?
         </h2>
         <P>
-          후반에 크게 느려지는 &lsquo;벽&rsquo;은 보통 32km쯤 이후에 오고, 대개 에너지가 바닥나서 생긴다고 설명합니다. 겪은 비율은
-          남성 28%, 여성 17%였습니다.
+          <strong>흔해요.</strong> 한 연구에서 풀코스를 준비하는 16주 동안 <strong>40%</strong>가 다쳤어요.
         </P>
-        <P>느린 러너일수록 후반 감속이 컸다는 대회 기록 분석도 있습니다.</P>
-        <Todo
-          basis="rule"
+        <P>
+          처음 풀코스를 준비한 러너가 완주를 못 하게 된 부상 가운데는 뼈 스트레스 부상(같은 충격이 쌓여 뼈가 버티지 못해 생기는
+          부상)도 적지 않았어요. 뼈의 한 지점이 콕 집어 아프다면 대처가 달라요.
+        </P>
+        <Steps
           items={[
-            "전반을 목표 페이스보다 빠르게 달리지 않습니다.",
-            "장거리 훈련에서 대회 페이스와 보급을 미리 맞춰 봅니다.",
+            { t: "달리는 중에 아픔이 커지면 그날은 멈춰요." },
+            { t: "다음 날 아침에 더 아프면 거리를 줄여요." },
+            { t: "쉬어도 나아지는 느낌이 없으면 진료를 받아 보세요." },
           ]}
         />
-        <Evidence n={2}>
-          <p>
-            후반에 크게 느려지는 &lsquo;벽&rsquo;을 겪은 비율은 남성 28%, 여성 17%였습니다(기록 400만 건 넘게 분석). 보통 20마일(약
-            32km) 이후에 오고, 대개 에너지 저장량이 바닥나서 생긴다고 설명합니다.{" "}
-            <S>(Smyth (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34010308/" />)</S>
-          </p>
-          <p>
-            나이가 많을수록, 여성일수록, 빠를수록 페이스가 고르게 유지됐습니다(미국 한 대회의 3년치 구간 기록 319명 분석). 느린
-            러너일수록 후반 감속이 컸습니다. <S>(March et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/20224445/" />)</S>
-          </p>
-        </Evidence>
+        <Caveat>이 세 가지는 저희가 정한 기준이고, 진단을 대신하지 않아요.</Caveat>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/return-to-running#bone" className={pill}>뼈의 한 곳이 콕 집어 아프다면 →</Link>
+          <Link href="/injury/it-band" className={pill}>무릎 바깥이 아프다면 →</Link>
+          <Link href="/injury/achilles" className={pill}>아킬레스건이 아프다면 →</Link>
+        </div>
 
-        <h3 className={H3}>하프 기록으로 풀코스 목표를 잡아도 되나요?</h3>
-        <P>
-          하프 기록을 리겔 공식에 넣어 뽑은 풀코스 값은 취미 러너 절반에게서 실제보다 <strong>10분 이상 빨랐습니다</strong>.{" "}
-          <Link href="/tools/pace#predict-h" className="text-emerald-700 underline">페이스 계산기</Link>의 풀코스 값은 상한으로 보세요.
-        </P>
-        <Evidence n={1}>
-          <p>
-            리겔 공식은 하프까지는 잘 맞았습니다. 풀코스는 취미 러너 절반에게서 실제보다 10분 이상 빠르게 예측했습니다.{" "}
-            <S>(Vickers &amp; Vertosick (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/27570626/" />)</S>
-          </p>
-        </Evidence>
+        <OneLine>다치는 일은 흔해요. 아픔이 커지면 멈추고, 다음 날 더 아프면 줄여요.</OneLine>
 
-        {/* ── 보급 ─────────────────────────────────────────── */}
-        <h2 id="fuel" className={H2}>
-          젤은 얼마나 먹어야 하나요?
+        {/* ── 4 ─────────────────────────────────────────── */}
+        <h2 id="wall" className={H2}>
+          <Num n={4} />후반에 무너지는 벽은 왜 오나요?
         </h2>
         <P>
-          가장 긴 레이스에서는 시간당 <strong>75~90g</strong>의 탄수화물이 이득이 될 수 있다고 정리한 리뷰가 있습니다. 다만{" "}
-          <strong>미리 연습한 계획</strong>이어야 합니다. 위장 불편 위험과도 저울질해야 합니다.
+          흔히 약 32km 이후에 <strong>몸에 저장된 에너지가 바닥나서</strong> 온다고 설명해요. 이렇게 후반에 크게 느려지는 걸 벽이라고
+          해요. 많은 기록을 분석해 보니 남자 러너의 28%, 여자 러너의 17%가 겪었어요.
         </P>
-        <Todo
-          basis="rule"
-          items={["젤 하나의 탄수화물 양(포장에 표시)을 확인해 시간당 개수로 바꿔 보세요."]}
+        <P>
+          목표를 너무 빠르게 잡기도 쉬워요. 하프 기록으로 풀코스 기록을 계산하는 리겔 공식은 러너 절반에게서 실제보다{" "}
+          <strong>10분 이상 빠르게</strong> 나왔어요.
+        </P>
+        <Steps
+          items={[
+            {
+              t: "목표 페이스는 계산 값보다 느리게 잡기를 권해요.",
+              d: <><Link href="/tools/pace#predict-h" className={linkCls}>페이스 계산기</Link>의 풀코스 값은 가장 빠른 쪽으로 보세요.</>,
+            },
+            { t: "전반을 목표 페이스보다 빠르게 달리지 않아요." },
+            { t: "긴 달리기 연습 날 대회 페이스와 보급을 미리 맞춰 봐요." },
+          ]}
         />
-        <P className="text-sm text-gray-600">
-          젤과 급수 운용은{" "}
-          <Link href="/injury/half-marathon-race-day" className="text-emerald-700 underline">하프 대회 당일 체크리스트</Link>에 정리했습니다.
-        </P>
-        <Evidence n={1}>
-          <p>
-            가장 긴 레이스에서는 시간당 75~90g의 탄수화물이 이득이 될 수 있다고 봤습니다(장거리 육상 종목 영양 전략 리뷰). 대회 전 몇
-            시간에서 며칠 동안은 탄수화물 위주로 먹어 글리코겐을 채운다고 정리합니다. 개인에 맞춰 미리 연습한 계획이어야 합니다. 위장 불편
-            위험과도 저울질해야 합니다. 카페인은 근거가 있는 보충제로 언급됩니다.{" "}
-            <S>(Burke et al. (2019) <Up h="https://pubmed.ncbi.nlm.nih.gov/30747558/" />)</S>
-          </p>
-        </Evidence>
 
-        {/* ── 테이퍼 ─────────────────────────────────────────── */}
+        <OneLine>목표는 계산 값보다 느리게 잡고, 전반은 누르고, 보급은 연습 날 맞춰 봐요.</OneLine>
+
+        {/* ── 5 ─────────────────────────────────────────── */}
+        {/* 물·저나트륨혈증 문장은 half-marathon-race-day 와 같은 판정·같은 말(docs/판정/half-marathon-race-day.jsonl) */}
+        <h2 id="fuel" className={H2}>
+          <Num n={5} />풀코스에서 젤과 물은 얼마나 챙기나요?
+        </h2>
+        <P>
+          <strong>2~3시간 달린다면 시간당 약 60g까지</strong>가 권하는 탄수화물 양이에요. 가장 긴 경기에서는 시간당 75~90g이 도움이 될
+          수 있다는 리뷰도 있지만, 배탈 위험과 함께 따져 연습으로 맞춰야 해요.
+        </P>
+        <P>
+          <strong>물은 목마를 때 마셔요.</strong> 필요 이상으로 마시면 저나트륨혈증(물을 너무 많이 마셔 피 속 나트륨이 묽어진 상태)이 올
+          수 있어요. 한 마라톤 연구에서는 달리는 동안 체중이 늘 만큼 마신 사람과 오래 걸려 들어온 사람에게 더 많았어요.
+        </P>
+        <Steps
+          items={[
+            { t: "젤 포장에 적힌 탄수화물 양으로 몇 개가 필요한지 계산해 봐요.", d: "제품마다 양이 달라요." },
+            { t: "대회 때 먹을 젤을 긴 달리기 연습 날 같은 방식으로 먹어 봐요.", d: "연습에서 해 보지 않은 양으로 늘리지 않아요." },
+            {
+              t: "메스껍거나 머리가 심하게 아프면 물을 더 마시지 말고 의료진에게 가요.",
+              d: "열사병이나 저혈당과 증상이 겹쳐서 스스로 가리기 어려워요.",
+            },
+          ]}
+        />
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/half-marathon-race-day" className={pill}>대회 날 물과 젤을 더 자세히 보려면 →</Link>
+        </div>
+
+        <OneLine>젤은 연습 날 먹어 본 만큼만, 물은 목마를 때 마셔요.</OneLine>
+
+        {/* ── 6 ─────────────────────────────────────────── */}
         <h2 id="taper" className={H2}>
-          대회 전에는 훈련을 얼마나 줄이나요?
+          <Num n={6} />대회 전에는 훈련을 얼마나 줄이나요?
         </h2>
         <P>
-          <strong>2~3주 동안 훈련량을 줄이고, 강도와 빈도는 그대로</strong> 둡니다.<Basis kind="paper" /> 이렇게 대회 전에 줄이는
-          기간을 테이퍼라고 부릅니다.
+          <strong>대회 2~3주 전부터 거리를 줄이고, 빠르게 뛰는 날과 달리는 횟수는 그대로</strong> 두는 편이 좋아요. 이렇게 대회 전에
+          훈련을 줄이는 기간을 테이퍼라고 해요.
         </P>
-        <Note>2주 근거는 경쟁 선수 연구를 모은 것입니다. 3주 결과는 취미 마라토너 기록을 본 관찰 연구입니다.</Note>
-        <Evidence n={2}>
-          <p>
-            2주 동안 훈련량을 41~60% 줄이고 강도와 빈도는 그대로 두는 방식이 기록에 가장 효과적이었습니다(경쟁 선수 연구 27편을 모은
-            메타분석). <S>(Bosquet et al. (2007) <Up h="https://pubmed.ncbi.nlm.nih.gov/17762369/" />)</S>
-          </p>
-          <p>
-            3주 동안 꾸준히 줄인 그룹이 최소한으로 줄인 그룹보다 완주 시간이 중앙값 5분 32초(2.6%) 빨랐습니다(취미 마라토너 15만
-            8천여 명의 훈련 기록 분석). 64%는 덜 엄격한 테이퍼를 하고 있었습니다(관찰 연구).{" "}
-            <S>(Smyth &amp; Lawlor (2021) <Up h="https://pubmed.ncbi.nlm.nih.gov/34651125/" />)</S>
-          </p>
-        </Evidence>
-
-        {/* ── 다음 ─────────────────────────────────────────── */}
-        <h2 id="next" className={H2}>
-          풀코스를 완주했다면 다음은 무엇인가요?
-        </h2>
         <P>
-          풀코스를 완주했다면 5단계(기록 단축)입니다. 거기서는 강도 배분과 인터벌, 근력운동이 관건입니다.
+          경기 선수들의 연구를 모아 보니 2주 동안 거리를 41~60% 줄이고 강도와 횟수는 그대로 둔 방식이 기록에 가장 좋았어요. 취미
+          마라토너의 훈련 기록에서도 3주 동안 꾸준히 줄인 사람들이 더 빨리 완주하는 경향이 있었어요.
         </P>
+        <Steps
+          items={[
+            { t: "대회 3주 전부터 긴 날과 일주일 거리를 주마다 조금씩 줄여요.", d: "마지막 주에 한꺼번에 줄이지 않아요." },
+            { t: "빠르게 뛰는 날은 빼지 말고 거리만 짧게 해요." },
+          ]}
+        />
+        <Caveat>2주 결과는 경기 선수들, 3주 결과는 기록을 관찰한 것이라 취미 러너에게 꼭 맞는다고 단정하긴 어려워요.</Caveat>
+        <P>풀코스를 완주했다면 다음은 기록 단축이에요.</P>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href="/injury/get-faster" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             기록 단축 →
@@ -409,60 +338,68 @@ export default function MarathonTrainingPage() {
           </Link>
         </div>
 
+        <OneLine>대회 전 2~3주는 거리만 줄이고, 빠르게 뛰는 날은 남겨 둬요.</OneLine>
+
         <div className="mt-14">
           <FaqSection items={FAQ} />
         </div>
 
-        <References n={11} note="2026-10-07 PubMed 초록과 대조했습니다(Fokkema 2020 은 PMC 본문 표).">
-          <ul>
-          <li>
-            <strong>Fokkema et al. (2020)</strong> — 하프 556명·풀 441명의 훈련량·최장 거리와 기록·부상. Scand J Med Sci Sports 30(9):1692-1704.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/32421886/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Toresdahl et al. (2023)</strong> — 뉴욕마라톤 735명 16주 훈련 패턴과 부상. Br J Sports Med 57(3):146-152.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/36113976/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Toresdahl et al. (2020)</strong> — 첫 풀코스 러너 720명 근력 프로그램 무작위 시험. Sports Health 12(1):74-79.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Rasmussen et al. (2013)</strong> — 마라톤 완주자 662명, 주간 거리와 부상. Int J Sports Phys Ther 8(2):111-20.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/23593549/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Frandsen et al. (2025)</strong> — 5,205명 18개월, 한 번의 긴 달리기와 과사용 부상. Br J Sports Med 59(17):1203-1210.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Smyth (2021)</strong> — 400만 건 이상 기록의 후반 페이스 붕괴 분석. PLOS ONE 16(5):e0251513.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/34010308/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>March et al. (2011)</strong> — 나이·성별·완주 시간과 마라톤 페이스 유지. J Strength Cond Res 25(2):386-91.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/20224445/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Vickers &amp; Vertosick (2016)</strong> — 레크리에이션 러너 2,303명 기록 예측, 리겔 공식의 풀코스 과소 예측. BMC Sports Sci Med
-            Rehabil 8(1):26.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/27570626/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Burke et al. (2019)</strong> — 장거리 육상 영양 전략 리뷰. Int J Sport Nutr Exerc Metab 29(2):117-129.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/30747558/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Bosquet et al. (2007)</strong> — 테이퍼 효과 메타분석(경쟁 선수 27편). Med Sci Sports Exerc 39(8):1358-65.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/17762369/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          <li>
-            <strong>Smyth &amp; Lawlor (2021)</strong> — 레크리에이션 마라토너 15만 8천여 명 테이퍼 분석. Front Sports Act Living 3:735220.{" "}
-            <a href="https://pubmed.ncbi.nlm.nih.gov/34651125/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-          </li>
-          </ul>
-        </References>
-        <p className="mt-6 text-xs text-gray-400">※ 이 글은 의학적 진단을 대체하지 않습니다.</p>
+        <Sources>
+          <Src n={1}>
+            <strong>Fokkema et al. (2020)</strong> 네덜란드 풀코스 참가자 441명 설문에서 일주일 40km 미만과 가장 길게 뛴 거리 25km 미만은 더 느린 완주, 65km 초과는 더 빠른 완주와 관련 있었어요. 훈련량·가장 긴 달리기와 부상의 관련은 나타나지 않았어요(하프 참가자 556명도 함께 분석).
+            <Ref>Scand J Med Sci Sports 30(9):1692-1704 · <a href="https://pubmed.ncbi.nlm.nih.gov/32421886/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Rasmussen et al. (2013)</strong> 마라톤 완주자 662명 회고 연구에서 일주일 30km 미만으로 준비한 사람의 부상 위험이 30~60km보다 2.02배(1.26~3.24)였어요. 60km 초과는 차이가 없었어요. 완주한 사람만 본 연구예요.
+            <Ref>Int J Sports Phys Ther 8(2):111-20 · <a href="https://pubmed.ncbi.nlm.nih.gov/23593549/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Frandsen et al. (2025)</strong> 한 번 달린 거리가 지난 30일 최장 거리보다 10% 넘게 길면 부상이 늘었어요. 최근 일주일과 그전 3주를 비교한 비율은 반대 방향이었고, 전주 대비 비율은 관계가 없었어요(성인 러너 5,205명, 평균 45.8세 — 풀코스를 준비하는 사람만 모은 연구가 아니에요).
+            <Ref>Br J Sports Med 59(17):1203-1210 · <a href="https://pubmed.ncbi.nlm.nih.gov/40623829/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>Toresdahl et al. (2023)</strong> 뉴욕마라톤 참가자 735명을 대회 전 16주 따라가니 훈련 중 40.0%가 다쳤어요. 최근 7일 거리를 28일 거리와 비교한 비율이 1.5 이상인 날이 많을수록 부상이 많았어요(하루당 OR 1.06, 1.02~1.10).
+            <Ref>Br J Sports Med 57(3):146-152 · <a href="https://pubmed.ncbi.nlm.nih.gov/36113976/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={5}>
+            <strong>Toresdahl et al. (2020)</strong> 첫 풀코스 러너 720명에게 12주 동안 주 3회 10분짜리 근력 프로그램을 준 무작위 시험이에요. 부상으로 완주하지 못한 비율이 7.1%와 7.3%였어요(상대위험 0.97, 0.57~1.63). 완주를 막은 큰 부상 64건 중 52건이 과사용이었고, 그중 20건이 뼈 스트레스 부상이었어요.
+            <Ref>Sports Health 12(1):74-79 · <a href="https://pubmed.ncbi.nlm.nih.gov/31642726/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={6}>
+            <strong>Smyth (2021)</strong> 400만 건 넘는 마라톤 기록에서 후반에 크게 느려진 비율이 남성 28%, 여성 17%였어요(기록으로 정의한 대리 지표). 벽은 흔히 20마일(약 32km) 이후, 대개 에너지 저장이 바닥나서 온다는 설명은 논문 서론의 설명이에요.
+            <Ref>PLOS ONE 16(5):e0251513 · <a href="https://pubmed.ncbi.nlm.nih.gov/34010308/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={7}>
+            <strong>Vickers &amp; Vertosick (2016)</strong> 취미 러너 2,303명 설문에서 리겔 공식은 하프까지는 잘 맞았지만 풀코스는 러너 절반에게서 적어도 10분 빠르게 예측했어요.
+            <Ref>BMC Sports Sci Med Rehabil 8(1):26 · <a href="https://pubmed.ncbi.nlm.nih.gov/27570626/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={8}>
+            <strong>Jeukendrup (2014)</strong> 2~3시간 운동은 시간당 약 60g, 초장거리는 약 90g을 권했어요. 그만큼 많이 먹을 때는 여러 종류의 당이 섞인 것이어야 하고, 강도가 낮으면 양을 낮춰야 할 수 있다고 적었어요.
+            <Ref>Sports Med 44 Suppl 1:S25-33 · <a href="https://pubmed.ncbi.nlm.nih.gov/24791914/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={9}>
+            <strong>Burke et al. (2019)</strong> 장거리 육상 선수 영양 리뷰예요. 시간당 75~90g은 가장 긴 경기에 해당하고, 대회 영양 계획은 개인에 맞춰 미리 연습해 둔 것으로 하되 배탈 위험과 함께 따지라고 적었어요.
+            <Ref>Int J Sport Nutr Exerc Metab 29(2):117-129 · <a href="https://pubmed.ncbi.nlm.nih.gov/30747558/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={10}>
+            <strong>Altieri et al. (2026)</strong> 운동 중 저나트륨혈증의 원인은 과하게 마신 물과 운동 중 항이뇨호르몬 분비이고, 증상은 메스꺼움·구토·두통·혼란에서 혼수까지예요. 목마르기 전에 마시라는 권고는 목마를 때 마시기로 바꿔야 한다고 적었어요.
+            <Ref>J Endocrinol Invest 49(1):1-10 · <a href="https://pubmed.ncbi.nlm.nih.gov/40913680/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={11}>
+            <strong>Almond et al. (2005)</strong> 2002년 보스턴 마라톤 완주 직후 피를 뽑은 488명 중 13%가 저나트륨혈증이었어요. 여러 요인을 함께 따지니 달리는 중 체중 증가(OR 4.2), 4시간 넘는 완주(3시간 30분 미만 대비 OR 7.4)와 관련 있었어요.
+            <Ref>N Engl J Med 352(15):1550-6 · <a href="https://pubmed.ncbi.nlm.nih.gov/15829535/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={12}>
+            <strong>Bosquet et al. (2007)</strong> 여러 종목의 경기 선수 연구 27편을 모은 메타분석이에요. 2주 동안 훈련량을 41~60% 줄이고 강도와 빈도는 그대로 두는 방식이 기록에 가장 효과적이었어요.
+            <Ref>Med Sci Sports Exerc 39(8):1358-65 · <a href="https://pubmed.ncbi.nlm.nih.gov/17762369/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={13}>
+            <strong>Smyth &amp; Lawlor (2021)</strong> 취미 마라토너 15만 8천여 명의 훈련 기록에서 3주 동안 꾸준히 줄인 사람이 최소한으로 줄인 사람보다 완주가 중앙값 5분 32초(2.6%) 빨랐어요. 64%는 덜 엄격하게 줄이고 있었어요(관찰 분석).
+            <Ref>Front Sports Act Living 3:735220 · <a href="https://pubmed.ncbi.nlm.nih.gov/34651125/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지거나 지병이 있다면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>

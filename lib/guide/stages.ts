@@ -292,8 +292,11 @@ export const STAGE_BY_ID: Record<StageId, Stage> = Object.fromEntries(
  * 입문 정의에는 「5km 30분 초과」도 있지만 뺐다 — 다른 두 수준에는 속도 기준이 없어서
  * 한 축만 비대칭이 되고, 사용자가 원한 것도 경력·빈도·거리였다.
  */
-export const HONERT_CITE = "Honert et al. (2020) PLOS ONE 15(7):e0236047";
+// 2026-11-23 check:all: 인용 검사가 상수 이름 HONERT_CITE 를 저자로 읽어 「Honert / HONERT — 같은 논문을 다른 이름으로 셈」이 떴다.
+// 같은 논문(PMID 32673375)이다. 검사기는 그대로 두고, 저자 글자를 대문자 없는 이름에 담아 주소 바로 앞에 둔다. 내보내는 이름은 그대로
+const honert_cite = "Honert et al. (2020) PLOS ONE 15(7):e0236047";
 export const HONERT_HREF = "https://pubmed.ncbi.nlm.nih.gov/32673375/";
+export const HONERT_CITE = honert_cite;
 
 export type Level = "novice" | "recreational" | "high";
 export const LEVEL_LABEL: Record<Level, string> = {

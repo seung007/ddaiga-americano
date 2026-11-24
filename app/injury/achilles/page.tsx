@@ -1,69 +1,86 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import FinderCta from "@/components/FinderCta";
-import InlineAsk from "@/components/InlineAsk";
 import YoutubeSection from "@/components/YoutubeSection";
-import FaqSection from "@/components/FaqSection";
-import ShareButtons from "@/components/ShareButtons";
+import FaqSection, { type FaqItem } from "@/components/FaqSection";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
-import ArticleMeta from "@/components/ArticleMeta";
+import ArticleMeta, { AuthorNote } from "@/components/ArticleMeta";
 import { BreadcrumbJsonLd } from "@/components/ShoeJsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import { Up, S } from "@/components/guide/Up";
-import { Lead, P, H2, H3, Summary, Todo, Evidence, References, Basis, Warn, Note } from "@/components/guide/Read";
-import type { Metadata } from "next";
+import { Lead, P, H2, Warn, Num, KeyPoints, Steps, OneLine, Caveat, Sources, Src, Ref } from "@/components/guide/Read";
 import { pageUrl } from "@/lib/site";
 
-const PAGE_URL = pageUrl("/injury/achilles");
-
 /**
- * 제목 (2026-09-21 교체)
+ * 아킬레스건·종아리 통증
  *
- * 전: 「미드풋 전환 후 아킬레스건·종아리 통증 스트레칭」
+ * 2026-09-21 제목 교체 — 「미드풋 전환 후 아킬레스건·종아리 통증 스트레칭」이 들어오는 사람(대부분 주법을 바꾼 적 없음)을
+ *   잘못 고르고 있었다. CTR 이 오른다고 예측하지 않았다(docs/운영/유입_설정_기준선.md §0). 미드풋은 원인 목록의 하나로 내렸다.
+ * 2026-10-07 초록 재검증 · 2026-10-13 가독성 재설계 (경위는 git 기록)
  *
- * 왜 바꿨나 — **제목이 독자를 잘못 고르고 있었다.**
- * 네이버 90일 실측 노출 588 · 클릭 5 · CTR 0.9% 로 사이트에서 가장 크게 새는 페이지였는데,
- * 「아킬레스건염」·「아킬레스건 통증」으로 들어오는 사람 대다수는 **주법을 바꾼 적이 없다.**
- * 그 사람에게 제목이 "당신은 미드풋으로 바꾼 사람"이라고 먼저 말하고 있었다.
- * 게다가 「미드풋」이 들어가 있어 `/injury/midfoot`(노출 351)과 같은 검색어를 놓고 겹쳤다 —
- * 그 검색어에서 이 페이지는 **틀린 답**이다.
+ * 2026-11-23 확정 틀로 바꿈 (docs/운영/가이드_틀.md, 견본 app/injury/start-running/page.tsx)
+ *   판정 전부: docs/판정/achilles.jsonl. 초록 9편은 2026-11-23 크롬으로 PubMed 를 직접 열어 읽었다(요약만, 본문은 열지 않음).
  *
- * ⚠️ **CTR 이 오른다고 예측하지 않는다.** 2026-08-28 제목 교체 실험에서 제목을 바꿔도
- * CTR 은 움직이지 않았다(클릭이 1~3건이라 CTR ≈ 1/노출). 이건 성과 개선이 아니라
- * **안 맞는 약속을 고치는 일**이다. 숫자로 판정하지 않는다 — `docs/운영/유입_설정_기준선.md §0`.
+ *   고친 것 — 무엇이 틀렸고 왜
+ *   · **「분당 160보라면 168~175보」 ✗** — 160×1.10 = 176 이다. 걸음 수 글과 같은 말 「지금 분당 160보라면 168~176보예요」로.
+ *     올리는 폭 5~10% 는 걸음 수 글과 같은 사이트 기준(「권해요」)이고, 아킬레스 쪽을 잰 실험(Lyght 2016)은 +5% 만 시험했다 — 그 단서를 본문에 남겼다.
+ *   · **하이닥 기사(정형외과 전문의, 걸음 수 5~10%)를 출처 목록에서 내렸다** — 논문이 아니고, 같은 내용을 Lyght 2016 초록이 받친다
+ *     (midfoot 글 2026-11-18 과 같은 처리). 기사는 이번에 다시 열지 않았다.
+ *   · **「한쪽 15회 × 3세트 / 하루 1~2회 / 3~5초」를 뺐다** — 읽은 초록 세 편(Alfredson 1998·Prudêncio 2023·Kim 2023) 어디에도 없다.
+ *     「몇 번씩 하라는 기준은 확인한 자료가 없어요」로. 처음 이 운동을 시험한 연구(Alfredson 1998)를 PubMed 에서 찾아 읽고 「12주」만 FAQ 에 썼다.
+ *     스트레칭 두 가지의 「30초 · 3세트」도 같은 이유로 뺐고, 단계별 상자는 FAQ 한 문항으로 줄였다(스트레칭 단독 효과를 본 연구가 이 글에 없다).
+ *   · **「통증 몇 점까지 괜찮은지는 복귀 글에」 ✗** — 그 글의 점수 표가 2026-11-18 에 사라졌다. 점수 없는 표준 문구
+ *     (달리는 중 아픔이 커지면 멈춤 · 다음 날 아침 더 아프면 거리 줄임 · 쉬어도 안 나으면 진료)로 — it-band·intermediate-guide 와 같은 말.
+ *   · **「편심 운동이 근거가 가장 많다」를 낮췄다** — 받치는 것은 고찰 한 편(Prudêncio 2023)이고 합친 것은 통증 5편, 8편 모두 편향 우려·높음.
+ *     「다른 운동보다 통증이 더 줄어드는 편이었어요 · 모은 연구들의 질이 높지 않았어요」로.
+ *   · **Silbernagel 2007 「회복이 같았습니다」 → 「뚜렷한 차이가 없었어요」** — 초록은 「차이가 없었다」까지다. 시험 한 편이라 「꼭 완전히 쉬지 않아도 되는 편」.
+ *   · **「아침 첫 발걸음 극심·붓고 열감이면 아킬레스건염이나 파열 가능성」을 뺐다** — 읽은 초록 어디에도 없는 진단 문장이다.
+ *     대체 진단을 만들지 않고, 진료 신호는 it-band 와 같은 사이트 목록으로.
+ *   · 「통증이 줄어든 뒤에도 계속하는 경우가 많다」「처음엔 당기는 느낌이 정상」을 뺐다(출처 없음). Almonroeder 「11%」(p=0.05)는 출처에만.
+ *   · 본문에서 연구 인원·나라·대상(38명·19명·여성 러너·네덜란드·덴마크)을 내렸다(접힌 출처로). 「편심성」「솔리어스」「케이던스」 같은 말을 본문에서 풀어 썼다.
+ *   · 말투 「~니다」 → 「~요」, 옛 부품(한눈에 상자·근거 딱지·근거 접힘·할 일 상자·문헌 목록) 걷어냄, 문장 속 화살표를 풀었다.
+ *     글 안 질문창·공유 버튼·글 끝 신발 찾기 띠는 다른 확정 틀 글(knee-pain 등)처럼 뺐다. id 는 why·exercises·drop·rest-or-run 을 그대로 두고 doctor 를 더했다
+ *     (shoe-finder 가 #drop 을 건다).
  *
- * 미드풋은 원인 목록의 하나로 본문에 남는다. 제목에서 뺐을 뿐 내용을 지우지 않았다.
+ *   확인 못 한 것
+ *   · 하이닥 기사 원문(이번에 다시 열지 않음 — 출처 목록에서 내렸다)
+ *   · 9편 모두 본문은 열지 않았다(요약만). Kim 2023 의 2024 정정문(PMID 39170687) 내용은 열지 않았다
+ *   · 드롭과 아킬레스 부담, 착지를 바꾸는 기간·비율 — 연구를 확인하지 못해 「권해요」 말투로만 둔다
  */
+
+const PAGE_URL = pageUrl("/injury/achilles");
+const TITLE = "아킬레스건 통증, 달리기를 쉬어야 하나요?";
+// 원장 lib/guide/articles.ts 의 desc 와 같은 문장이어야 한다(허브 카드·검색 결과가 어긋나지 않게)
+const DESC =
+  "달린 뒤 아킬레스건이나 종아리가 당겨도 꼭 완전히 쉬지 않아도 되는 편입니다. 아픔을 보며 줄여 뛰는 법, 계단에서 뒤꿈치를 천천히 내리는 운동, 진료가 필요한 신호를 담았습니다.";
+
 export const metadata: Metadata = {
-  title: "아킬레스건 통증, 달리기를 쉬어야 하나요? — 뛰다가 아메리카노",
-  description: "달린 뒤 아킬레스건이나 종아리가 당겨도 꼭 완전히 쉬지 않아도 됩니다. 근거가 가장 많은 편심성 힐 드롭과 통증을 보며 계속 달리는 법을 담았습니다.",
+  title: `${TITLE} | 뛰다가 아메리카노`,
+  description: DESC,
   alternates: { canonical: "/injury/achilles" },
 };
 
-/**
- * 2026-10-07 재검증 — 초록과 대조
- *   · 미드풋 → 아킬레스 부하: 근거를 붙임(Almonroeder 2013, Lyght 2016). 둘 다 여성 19명 실험실 연구라 「훨씬」을 뺐다
- *   · 케이던스 5~10%: 하이닥 인용에 더해 Lyght 2016(+5% 에서 최대 응력·변형 감소)
- *   · 쉬어야 하나: Silbernagel 2007(RCT 38명)·2011(5년 34명) 절 추가, 복귀 페이지로 연결
- *   · Kim 2023 설명 「통증 및 기능 회복에 유의미한 개선」 → 초록은 기능 지표(근력·파워·균형) 질적 종합. 통증은 다루지 않음
- *   · FinderCta 「걸러서 보여드립니다」 → 엔진은 거르지 않고 점수만 조정(드롭 8mm↑ +6, 4mm↓ −6, lib/shoes/recommend.ts)
- *   · 먼저 결론: 근거가 있는 쪽(편심 운동)을 앞에 둔다
- *
- * 2026-10-13 가독성 재설계 — 섹션마다 답 → 할 일 → 근거(접힘). start-running 본보기를 따름.
- *   · 「먼저 결론」 → <Summary>. 「①② 단독 효과는 따로 보지 않았다」 단서는 운동 절 <Note> 로 본문에 남김
- *   · 실험실 연구(여성 19명) 단서, 「주차·비율 연구 없음」 단서는 <Note> 로 본문에
- *   · 운동 방법 3단계(카드·순서 목록)와 영상은 접지 않음. 병원 신호는 <Warn> 으로 본문에
- *   · 참고 문헌은 맨 끝으로 옮겨 기본 접힘
- */
+// 2026-11-23: FAQ 는 본문 큰 질문과 겹치지 않는 것만 둔다
+const FAQ: FaqItem[] = [
+  {
+    q: "뒤꿈치 내리기 운동은 몇 번씩, 얼마나 해야 하나요?",
+    a: "정해진 횟수를 확인한 자료는 없어요. **살짝 당기는 정도에서 꾸준히** 해 보세요. 이 운동을 처음 시험한 연구는 **12주** 동안 했어요.",
+  },
+  {
+    q: "착지를 앞꿈치 쪽으로 바꾼 뒤 아킬레스건이 당겨요, 괜찮나요?",
+    a: "**새 착지로 달리는 구간을 줄여** 보세요. 앞꿈치로 닿으면 아킬레스건이 받는 힘이 더 컸다는 실험이 있어요. 다음 날 아침 더 아프면 **바꾸던 것을 멈춰요.**",
+  },
+  {
+    q: "종아리 스트레칭만 해도 낫나요?",
+    a: "스트레칭만으로 낫는다는 자료는 확인하지 못했어요. **뒤꿈치 천천히 내리기**를 먼저 하고, 스트레칭은 **당기는 느낌이 편할 만큼** 더해 보세요.",
+  },
+];
+
+const pill = "rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:border-emerald-400";
 
 export default function AchillesPage() {
   return (
     <>
-      <ArticleJsonLd
-        headline="아킬레스건 통증, 달리기를 쉬어야 하나요?"
-        description="달린 뒤 아킬레스건이나 종아리가 당겨도 꼭 완전히 쉬지 않아도 됩니다. 근거가 가장 많은 편심성 힐 드롭과 통증을 보며 계속 달리는 법을 담았습니다."
-        url={PAGE_URL}
-        datePublished="2025-03-01"
-      />
+      <ArticleJsonLd headline={TITLE} description={DESC} url={PAGE_URL} datePublished="2025-03-01" />
       <BreadcrumbJsonLd
         trail={[
           ["러닝 가이드", "/injury"],
@@ -80,390 +97,207 @@ export default function AchillesPage() {
           <span className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-orange-600">아킬레스</span>
           {/* 규약은 app/injury/page.tsx 상단 주석. 허브 카드(lib/guide/articles.ts)도 같이 고친다 */}
         </div>
-        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">
-          아킬레스건 통증,<br />달리기를 쉬어야 하나요?
-        </h1>
-        <ArticleMeta href="/injury/achilles" />
-        {/* 2026-09-21: 도입부가 「유튜브 보고 미드풋으로 바꾼 사람」으로 시작했다.
-            제목과 같은 병이다 — 들어온 사람 대부분이 자기 얘기가 아니라고 느끼고 되돌아간다.
-            시작을 증상으로 바꾸고, 미드풋은 원인 목록의 하나로 내린다. */}
-        <Lead>
-          달리고 나면 뒤꿈치 위쪽이나 종아리가 당기고 뻐근할 때가 있습니다. 아킬레스건과 종아리가{" "}
-          <strong>갑자기 더 많은 일을 하게 됐을 때</strong> 나타나는 모습입니다.
-        </Lead>
+        <h1 className="break-keep text-[28px] font-bold leading-tight text-gray-900">{TITLE}</h1>
+        <ArticleMeta href="/injury/achilles" compact checked={9} />
 
-        {/**
-         * 먼저 결론 (2026-09-13 추가, 2026-10-13 <Summary> 로)
-         *
-         * 이 페이지는 **노출 588에 클릭 5(0.9%)** 로 사이트에서 가장 크게 새는 곳이다.
-         * 제목과 본문이 "미드풋으로 주법을 바꾼 사람"이라는 전제로 잠겨 있었다.
-         * 스트레칭 3종은 원인과 무관하게 유효하다는 것을 맨 위에서 밝혀,
-         * 전제에 안 맞는 사람이 되돌아가지 않게 한다.
-         * 새 의학적 주장은 넣지 않았다 — 본문에 이미 있는 기전
-         * ("적응하기 전에 너무 많이 쓰면 건증")을 일반화했을 뿐이다. 그래서 첫 줄은 rule.
-         */}
-        <Summary
+        <KeyPoints
           items={[
-            <>
-              원인은 <strong>종아리와 아킬레스건이 갑자기 더 많은 일을 하게 된 것</strong>. 주법을 바꿨거나, 거리를 늘렸거나, 신발
-              드롭이 낮아져서일 수도 있습니다.
-              <Basis kind="rule" />
-            </>,
-            <>
-              근거가 가장 많은 것은 <strong>③ 편심성 힐 드롭</strong>(종아리를 천천히 내리는 운동). 주법을 바꾼 적이 없어도 그대로
-              하시면 됩니다.
-              <Basis kind="paper" />
-            </>,
-            <>
-              <strong>꼭 완전히 쉬지 않아도 됩니다.</strong> 환자 38명 시험에서 통증을 보며 계속 달린 그룹과 6주 쉰 그룹의 회복이
-              같았습니다.
-              <Basis kind="paper" />
-            </>,
-            <>
-              아침 첫 발걸음에 극심하게 아프거나 붓고 열감이 있으면 <strong>달리기를 멈추고 진료</strong>를 받으세요.
-              <Basis kind="rule" />
-            </>,
+            <>아킬레스건이 아파도 <strong>꼭 완전히 쉬지 않아도 되는 편</strong>이에요. 달리다 아픔이 커지면 그날은 멈춰요.</>,
+            <>운동은 <strong>계단에서 뒤꿈치를 천천히 내리는 운동</strong>부터 해 보세요.</>,
+            <>쉬어도 나아지는 느낌이 없으면 <strong>진료</strong>를 받아 보세요.</>,
           ]}
         />
+
+        <Lead>
+          달리고 나면 뒤꿈치 위쪽이나 종아리가 당기고 뻐근할 때가 있어요. 아킬레스건은 종아리 근육과 발뒤꿈치뼈를 잇는 굵은
+          힘줄이에요. 아프다고 바로 달리기를 끊기보다 <strong>아픔을 보며 양을 줄이는 법</strong>부터 알아 두면 좋아요.
+        </Lead>
 
         <TableOfContents
           items={[
-            { id: "why", label: "왜 아플까요?" },
-            { id: "exercises", label: "운동 3가지" },
-            { id: "drop", label: "신발 드롭은?" },
-            { id: "rest-or-run", label: "쉬어야 하나요?" },
+            { id: "rest-or-run", label: "달리기를 쉬어야 하나요?" },
+            { id: "exercises", label: "어떤 운동을 하나요?" },
+            { id: "why", label: "왜 아프고, 무엇을 줄이나요?" },
+            { id: "drop", label: "신발이나 걸음 수를 바꾸면요?" },
+            { id: "doctor", label: "언제 병원에 가나요?" },
           ]}
         />
 
-        {/* ── ① ─────────────────────────────────────────── */}
-        <h2 id="why" className={H2}>
-          왜 아킬레스건이 아플까요?
+        {/* ── 1 ─────────────────────────────────────────── */}
+        <h2 id="rest-or-run" className={H2}>
+          <Num n={1} />아킬레스건이 아프면 달리기를 완전히 쉬어야 하나요?
         </h2>
         <P>
-          종아리 근육과 아킬레스건이 <strong>새 자극에 적응하기 전에 너무 많이 쓰이면</strong> 건증(Tendinopathy)이 생깁니다.
-          다친 사람 가운데 아킬레스건 부상이 차지하는 비중은 초보보다 오래 달린 사람에게서 더 높았습니다(네덜란드 한 조사).
+          <strong>꼭 완전히 쉬지 않아도 되는 편이에요.</strong> 한 시험에서 아픔을 보며 달리기를 이어 간 사람들과 6주 쉰
+          사람들의 회복에 뚜렷한 차이가 없었어요. 두 쪽 다 같은 재활 운동을 했어요.
         </P>
-        <Evidence n={2}>
-          <p>
-            아킬레스건 부상 비율은 초보 2.3%, 경력자 8.4%였습니다(네덜란드 러너 4,621명 조사).{" "}
-            <S>(Kemler et al. (2018) <Up h="https://pubmed.ncbi.nlm.nih.gov/30071170/" />)</S>
-          </p>
-          <p>
-            초보만 본 덴마크 연구에서는 7%였습니다(부상자 254명).{" "}
-            <S>(Nielsen et al. (2014) <Up h="https://pubmed.ncbi.nlm.nih.gov/24923269/" />)</S>
-          </p>
-        </Evidence>
-
-        <P>부하가 갑자기 늘어나는 상황은 여러 가지입니다.</P>
-        <ul className="mt-3 space-y-2 break-keep text-base leading-[1.8]">
-          <li>
-            · <strong>주법을 바꿨을 때</strong>. 뒤꿈치 착지보다 앞발이나 중간발 착지에서 아킬레스건이 받는 부하가 큽니다.
-          </li>
-          <li>
-            · <strong>거리나 속도를 갑자기 늘렸을 때</strong>
-          </li>
-          <li>
-            · <strong>언덕이나 계단 훈련을 새로 넣었을 때</strong>
-          </li>
-        </ul>
-        <Note>주법 이야기는 여성 19명을 본 작은 실험실 연구 두 편이고, 부상을 직접 센 연구는 아닙니다.</Note>
-        <Evidence n={2}>
-          <p>
-            앞·중간발 착지 그룹은 한 걸음당 아킬레스건 충격량이 11% 컸습니다(맨발로 달린 여성 19명 모델링 연구).{" "}
-            <S>(Almonroeder et al. (2013) <Up h="https://pubmed.ncbi.nlm.nih.gov/23640524/" />)</S>
-          </p>
-          <p>
-            앞발 착지에서 최대 응력과 변형이 컸습니다(여성 러너 19명이 두 착지를 모두 해 본 연구).{" "}
-            <S>(Lyght et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26955843/" />)</S>
-          </p>
-        </Evidence>
-        {/**
-         * ⚠️ 2026-09-21 — 이 목록에 「드롭이 낮은 신발로 바꿨을 때 — 드롭이 낮을수록
-         * 아킬레스건이 받는 몫이 커집니다」를 썼다가 **지웠다.**
-         *
-         * 이 페이지 인용(선상규 정형외과 전문의, 하이닥 2026-04-17)이 정확히 반대를 말한다 —
-         * *"아킬레스건 장력은 신발 드롭이 아니라 케이던스로 줄인다."*
-         * 이 페이지의 확정된 입장은 FAQ 3번 — **들은 얘기로 다루되 사실로 적지 않는다.**
-         * 「한눈에」의 *"신발 드롭이 낮아져서일 수도 있습니다"* 는 가능성 서술이라 이 입장과 어긋나지 않는다.
-         */}
-
-        <P>
-          어느 쪽이든 <strong>대처는 같습니다.</strong> 부하를 줄이고 아래 세 가지를 합니다.
-        </P>
-        {/* 2026-09-14: "최소 6~8주", "처음 2주는 20~30%" 에 출처가 없다.
-            이 페이지 인용 2건에 전환 기간 프로토콜이 없다. 숫자를 빼고 경험칙으로 표시한다. */}
-        <Todo
-          title="주법을 바꿨다면 (흔한 권고)"
-          basis="rule"
+        <Steps
           items={[
-            <>힐스트라이크 → 미드풋 전환은 <strong>몇 주에 걸쳐 천천히</strong> 합니다.</>,
-            "처음에는 전체 달리기의 일부만 새 주법으로 달립니다.",
+            { t: "달리는 중에 아픔이 커지면 그날은 멈춰요." },
+            { t: "다음 날 아침에 더 아프면 거리를 줄여요." },
+            { t: "쉬어도 나아지는 느낌이 없으면 진료를 받아 보세요." },
           ]}
         />
-        <Note>구체적인 주차·비율을 정한 연구는 저희가 확인하지 못했습니다. 아프면 그게 기준입니다.</Note>
+        <P>쉬든 계속 뛰든, 아래 2절의 운동은 같이 해 보길 권해요.</P>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/return-to-running#comeback" className={pill}>쉬었다가 다시 거리를 늘린다면 →</Link>
+        </div>
 
-        {/* 2026-09-14: headline 이 "드롭 8~12mm를 유지하세요" 였다 — 근거 없는 mm 처방이라 뺐다.
-            2026-10-07: 「걸러서」도 틀렸다 — 엔진은 거르지 않고 점수만 조정한다(recommend.ts 9번 블록).
+        <OneLine>완전히 쉬기보다, 아픔을 보며 줄여 뛰어요. 다음 날 아침 더 아프면 더 줄여요.</OneLine>
+
+        {/* ── 2 ─────────────────────────────────────────── */}
+        <h2 id="exercises" className={H2}>
+          <Num n={2} />아킬레스건이 아플 때 어떤 운동을 하나요?
+        </h2>
+        <P>
+          <strong>계단에서 뒤꿈치를 천천히 내리는 운동</strong>을 해 보세요. 여러 연구를 모아 보니 다른 운동보다 통증이 더
+          줄어드는 편이었고, 종아리 힘도 좋아졌어요. 다만 모은 연구들의 질이 높지 않았어요.
+        </P>
+        <Steps
+          items={[
+            { t: "계단 끝에 발 앞부분만 걸쳐요.", d: "난간이나 벽을 짚어 균형을 잡아요." },
+            { t: "두 발로 뒤꿈치를 올린 뒤, 아픈 쪽 발 하나로 천천히 내려와요.", d: "올라갈 때는 다시 두 발을 써요." },
+            { t: "살짝 당기는 정도에서 해 보세요.", d: "날카롭게 아프면 그날은 멈춰요." },
+          ]}
+        />
+        <Caveat>몇 번씩 하라는 기준은 확인한 자료가 없어요. 아프지 않은 만큼 꾸준히 해 보세요.</Caveat>
+
+        <OneLine>계단에서 뒤꿈치를 천천히 내리는 운동부터, 살짝 당기는 정도로 꾸준히 해 봐요.</OneLine>
+
+        {/* ── 3 ─────────────────────────────────────────── */}
+        <h2 id="why" className={H2}>
+          <Num n={3} />아킬레스건은 왜 아프고, 무엇을 줄여야 하나요?
+        </h2>
+        <P>
+          <strong>많이 써서 생기는 부상</strong>으로 흔해요. 그래서 최근에 무엇이 늘었는지부터 돌아보고, 늘어난 것을 줄여 보세요.
+        </P>
+        <Steps
+          title="최근에 이런 게 바뀌었는지 돌아봐요"
+          items={[
+            { t: "거리나 속도를 갑자기 늘렸어요.", d: "늘린 만큼을 먼저 되돌려 보세요." },
+            { t: "언덕이나 계단 달리기를 새로 넣었어요.", d: "아픈 동안은 평지에서 뛰어 보세요." },
+            { t: "착지를 앞꿈치 쪽으로 바꾸는 중이에요.", d: "새 착지는 짧은 구간에서만 해 보길 권해요." },
+          ]}
+        />
+        <P>
+          처음 달리는 사람도 겪지만, 오래 달린 사람도 예외가 아니에요. 한 조사에서는 오래 달린 사람의 부상 가운데 아킬레스건이
+          차지하는 몫이 처음 달리는 사람보다 컸어요.
+        </P>
+
+        <OneLine>최근에 늘어난 것을 찾아 먼저 되돌려요. 오래 달린 사람도 예외가 아니에요.</OneLine>
+
+        {/* ── 4 ─────────────────────────────────────────── */}
+        {/* 2026-09-14: 「드롭 8~12mm 유지」는 근거 없는 mm 처방이라 뺐다. shoe-finder 가 #drop 을 가리킨다 — id 를 바꾸지 않는다 */}
+        <h2 id="drop" className={H2}>
+          <Num n={4} />신발이나 걸음 수를 바꾸면 나아지나요?
+        </h2>
+        <P>
+          <strong>걸음 수를 조금 올리는 건 해 볼 만해요.</strong> 한 실험에서 평소보다 걸음 수를 올리자 착지 방식과 상관없이
+          아킬레스건이 받는 힘이 줄었어요.
+        </P>
+        <Steps
+          items={[
+            { t: "지금 걸음 수에서 5~10%쯤만 올려 보길 권해요.", d: "지금 분당 160보라면 168~176보예요." },
+            { t: "보폭을 억지로 좁히지 말고, 발을 조금 더 자주 놓는다고 생각해요." },
+          ]}
+        />
+        <Caveat>아킬레스건 쪽을 잰 실험은 5% 올린 조건만 시험했어요. 올리는 폭은 걸음 수 글과 같은 기준이에요.</Caveat>
+        <P>
+          드롭은 신발 뒤꿈치와 앞꿈치의 굽 높이 차이예요. 드롭이 낮은 신발이 아킬레스건 부담을 키운다는 말이 흔하지만,{" "}
+          <strong>확인한 자료가 없어요.</strong> 그래서 몇 mm를 신으라고는 적지 않아요.
+        </P>
+        <Steps
+          items={[
+            { t: "지금보다 드롭이 많이 낮은 신발로 갑자기 바꾸지 않길 권해요." },
+            { t: "신발을 바꾼 뒤 아프기 시작했다면 원래 신발로 돌아가 봐요." },
+          ]}
+        />
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/cadence" className={pill}>걸음 수를 올리는 법이 궁금하다면 →</Link>
+        </div>
+
+        {/* 2026-10-07: 「걸러서」도 틀렸다 — 엔진은 거르지 않고 점수만 조정한다.
             2026-11-23: 부상 이력 점수를 0으로 바꿨다(굽 차이가 아킬레스에 맞는다는 시험을 찾지 못함 — recommend.ts 9번 블록). 문구도 맞췄다. */}
         <FinderCta from="achilles" variant="inline" headline="부상 이력은 신발 순서에 넣지 않아요. 신발 구조가 아킬레스 부담을 줄인다는 시험을 찾지 못했어요." />
 
-        {/* ── ② ─────────────────────────────────────────── */}
-        {/* 2026-09-21: 「전환 중 꼭 해야 할 스트레칭 루틴」이었다. 「전환」이 또 주법 전제다 */}
-        <h2 id="exercises" className={H2}>
-          아킬레스건이 아플 때 어떤 스트레칭을 하나요?
+        <OneLine>걸음 수는 오늘 조금 올려 볼 수 있어요. 신발은 갑자기 바꾸지 않는 게 먼저예요.</OneLine>
+
+        {/* ── 5 ─────────────────────────────────────────── */}
+        <h2 id="doctor" className={H2}>
+          <Num n={5} />언제 병원에 가야 하나요?
         </h2>
         <P>
-          셋 중 <strong>근거가 가장 많은 것은 ③ 편심성 힐 드롭</strong>입니다. 원인과 상관없이 같습니다.
-          <Basis kind="paper" />
+          <strong>쉬어도 나아지는 느낌이 없으면</strong> 진료를 받아 보세요. 운동만으로 치료한 사람들을 5년 뒤에 보니 80%가
+          완전히 나았다는 연구가 있어요.
         </P>
-        <Note>① 벽 카프 스트레칭과 ② 솔리어스 스트레칭은 함께 하는 운동입니다. 단독 효과는 아래 인용 연구가 따로 보지 않았습니다.</Note>
-
-        <div className="mt-6 space-y-6">
-          <div className="rounded-xl border border-gray-100 p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-xl">1</span>
-              <h3 className="font-bold text-gray-900">벽 카프 스트레칭 (종아리 앞쪽 늘리기)</h3>
-            </div>
-            <p className="mb-3 break-keep text-base leading-relaxed text-gray-700">
-              달리기 후 아킬레스건이 당길 때 가장 먼저 해야 하는 스트레칭입니다.
-            </p>
-            <div className="rounded-lg bg-gray-50 p-4 text-base text-gray-700">
-              <ol className="list-inside list-decimal space-y-1 break-keep">
-                <li>벽에 손을 짚고 한 발을 뒤로 뺍니다</li>
-                <li>뒤쪽 발 뒤꿈치를 바닥에 완전히 붙인 채 앞쪽 무릎을 굽힙니다</li>
-                <li>종아리가 당기는 느낌이 날 때 30초 유지합니다</li>
-                <li>반대쪽도 반복 / 양쪽 각 3세트</li>
-              </ol>
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-gray-100 p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-xl">2</span>
-              <h3 className="font-bold text-gray-900">솔리어스 스트레칭 (종아리 깊은 근육)</h3>
-            </div>
-            <p className="mb-3 break-keep text-base leading-relaxed text-gray-700">
-              아킬레스건에 직접 붙어 있는 솔리어스 근육입니다. 무릎을 구부린 상태에서만 늘어납니다.
-            </p>
-            <div className="rounded-lg bg-gray-50 p-4 text-base text-gray-700">
-              <ol className="list-inside list-decimal space-y-1 break-keep">
-                <li>벽에 손을 짚고 스트레칭할 발을 뒤로 반 발자국만 뺍니다</li>
-                <li>뒤쪽 발 뒤꿈치를 바닥에 붙인 채 <strong>뒤쪽 무릎도 같이 굽힙니다</strong></li>
-                <li>아킬레스건 바로 위가 당기는 느낌이 나면 성공입니다 / 30초 유지</li>
-                <li>양쪽 각 3세트</li>
-              </ol>
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-gray-100 p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-xl">3</span>
-              <h3 className="font-bold text-gray-900">편심성 힐 드롭 (아킬레스건 강화)</h3>
-            </div>
-            <p className="mb-3 break-keep text-base leading-relaxed text-gray-700">
-              세 가지 중 근거가 가장 많은 운동입니다. 통증이 줄어든 뒤에도 계속하는 경우가 많습니다.
-            </p>
-            <div className="rounded-lg bg-gray-50 p-4 text-base text-gray-700">
-              <ol className="list-inside list-decimal space-y-1 break-keep">
-                <li>계단 끝에 발 앞부분만 걸칩니다</li>
-                <li>양발로 올라간 뒤, 한 발로만 천천히(3~5초) 내려옵니다</li>
-                <li>한쪽 15회 × 3세트 / 하루 1~2회</li>
-                <li>처음엔 살짝 당기는 느낌이 정상입니다. 날카로운 통증이 오면 멈춥니다</li>
-              </ol>
-            </div>
-            <Evidence n={2}>
-              <p>
-                메타분석은 편심 운동이 다른 운동보다 통증 개선에 효과적이라고 결론 냈습니다.{" "}
-                <S>(Prudêncio et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/36698184/" />)</S>
-              </p>
-              <p>
-                편심 운동은 근력도 개선했습니다(기능 지표를 모은 체계적 고찰).{" "}
-                <S>(Kim et al. (2023) <Up h="https://pubmed.ncbi.nlm.nih.gov/37265492/" />)</S>
-              </p>
-            </Evidence>
-          </div>
+        <Warn title="이럴 땐 진료를 받아 보세요">
+          <ul className="list-disc space-y-1 pl-5">
+            <li>쉬어도 나아지는 느낌이 없다</li>
+            <li>걸을 때도 아킬레스건이 아프다</li>
+            <li>아킬레스건이 붓거나 열감이 있다</li>
+          </ul>
+        </Warn>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/injury/plantar-fasciitis" className={pill}>발바닥 뒤꿈치가 아프다면 →</Link>
         </div>
 
-        {/* ── ③ ─────────────────────────────────────────── */}
-        {/**
-         * ⚠️ 2026-09-14 — **드롭 주장에 인용이 없다.**
-         *
-         * 이 페이지의 인용 2건(Prudêncio 2023 / Kim 2023)은 둘 다
-         * **편심성·점진적 부하 재활 연구**다. 초록 어디에도 힐-투-토 드롭이 없다.
-         * 그런데 본문은 "4mm 이하는 부하를 늘린다 / 8~12mm를 유지하라"고 mm 단위로 단정했다.
-         * 기전 자체는 널리 이야기되지만, **근거를 대지 못하는 상태에서 mm 숫자를 처방으로 쓰면 안 된다.**
-         * 방향만 남기고 처방을 뺐다.
-         */}
-        <h2 id="drop" className={H2}>
-          드롭 낮은 신발, 괜찮을까요?
-        </h2>
-        <P>
-          드롭(뒤꿈치와 앞발의 높이 차)이 낮은 신발은 아킬레스건이 더 많은 일을 하게 만든다고 흔히 이야기됩니다. 그래도
-          &ldquo;몇 mm를 신으세요&rdquo;라고는 말하지 않겠습니다.
-        </P>
-        <P>
-          다만 <strong>저희가 이 글에서 인용한 자료는 재활 운동 연구이고, 드롭에 관한 것이 아닙니다.</strong>
-        </P>
-        <Todo
-          basis="rule"
-          items={[
-            <><strong>지금 신던 신발보다 드롭이 낮은 것으로 갑자기 바꾸지 마세요.</strong></>,
-            "바뀐 뒤 아프기 시작했다면 되돌려 보는 것도 방법입니다.",
-          ]}
-        />
-
-        {/**
-         * 2026-09-15 — 드롭 자리를 비워 둔 채로 끝내지 않기 위해 찾은 자료.
-         * 하이닥(2026-04-17) 선상규 — 코끼리정형외과의원 **정형외과 전문의**.
-         * 요지: 아킬레스건 장력은 **드롭이 아니라 케이던스**로 줄인다.
-         * `/injury/midfoot` 이 이미 말하는 것과 같다 — 두 페이지가 같은 처방으로 이어진다.
-         */}
-        <h3 className={H3}>드롭 말고 바로 바꿀 수 있는 건 없나요?</h3>
-        <P>
-          정형외과 전문의(선상규, 아래 참고 문헌)는 아킬레스건 장력을 줄이는 방법으로 신발 드롭이 아니라{" "}
-          <strong>보폭을 줄이고 분당 걸음 수(케이던스)를 5~10% 올리는 것</strong>을 듭니다. 분당 160보로 뛰고 있다면 168~175보 정도입니다.
-        </P>
-        <P>
-          드롭은 신발을 사야 바뀌지만 케이던스는 오늘 바로 바꿀 수 있습니다.{" "}
-          <Link href="/injury/cadence" className="font-medium text-emerald-700 underline">
-            케이던스 올리는 법
-          </Link>
-        </P>
-        <Note>이를 뒷받침하는 실험은 여성 러너 19명을 본 실험실 연구입니다.</Note>
-        <Evidence n={1}>
-          <p>
-            평소보다 걸음 수를 5% 올리자 착지 방식과 상관없이 아킬레스건 최대 응력과 변형이 줄었습니다(여성 러너 19명 실험).{" "}
-            <S>(Lyght et al. (2016) <Up h="https://pubmed.ncbi.nlm.nih.gov/26955843/" />)</S>
-          </p>
-        </Evidence>
-        {/* 브랜드에 따라 드롭 범위가 갈린다. 이 글의 결론과 직접 이어지는 자료라 여기서 보낸다. */}
-        <p className="mt-4 break-keep text-sm text-gray-600">
-          브랜드마다 드롭 범위가 다릅니다.{" "}
-          <Link href="/compare/hoka-vs-brooks" className="font-medium text-emerald-600 hover:underline">
-            호카 vs 브룩스 스펙 집계
-          </Link>
-          에서 실제 수치를 비교해 보세요.
-        </p>
-
-        {/* ── ④ ─────────────────────────────────────────── */}
-        <h2 id="rest-or-run" className={H2}>
-          아킬레스건이 아프면 달리기를 쉬어야 하나요?
-        </h2>
-        <P>
-          <strong>꼭 완전히 쉬지 않아도 됩니다.</strong> 재활 운동을 같이 하며 통증을 기준으로 달리기를 계속한 그룹과 6주 쉰 그룹은
-          회복 속도에 차이가 없었습니다(한 무작위 시험).
-          <Basis kind="paper" />
-        </P>
-        <Evidence n={2}>
-          <p>
-            12개월 동안 두 그룹의 회복 속도에 차이가 없었습니다. 계속 달린 쪽에서 나쁜 영향은 보이지 않았습니다. 아킬레스건병증
-            환자 38명을 나눠 한쪽은 통증을 기준으로 달리기와 점프를 계속하고, 다른 쪽은 6주 동안 쉬게 한 시험입니다. 재활 운동은
-            같았습니다.{" "}
-            <S>(Silbernagel et al. (2007) <Up h="https://pubmed.ncbi.nlm.nih.gov/17307888/" />)</S>
-          </p>
-          <p>
-            80%가 완전히 회복했습니다(운동 치료만 받은 34명을 5년 추적). 움직이는 것을 두려워할수록 종아리 기능 회복이
-            더뎠습니다. <S>(Silbernagel et al. (2011) <Up h="https://pubmed.ncbi.nlm.nih.gov/21084657/" />)</S>
-          </p>
-        </Evidence>
-        <P>
-          통증 몇 점까지 괜찮은지, 다음 날 아침 반응을 어떻게 보는지는{" "}
-          <Link href="/injury/return-to-running#rest-or-run" className="font-medium text-emerald-700 underline">
-            쉬었다가 다시 달리는 법
-          </Link>
-          에 있습니다. 단, 아래 신호가 있으면 이 방법을 쓰지 말고 진료부터 받으세요.
-        </P>
-
-        <Warn title="병원에 가야 할 신호">
-          아침에 첫 발걸음을 뗄 때 아킬레스건이 극심하게 아프거나, 아킬레스건 자체가 붓고 열감이 있다면 아킬레스건염이나 파열
-          가능성이 있습니다. 즉시 달리기를 멈추고 진료를 받으세요.
-        </Warn>
-
-        <YoutubeSection links={[
-          { label: "아킬레스건이 아픈 원인과 치료, 스트레칭 방법까지! (골통 의사 윤재웅)", url: "https://www.youtube.com/watch?v=aKWMUcOL4bE" },
-          { label: "아킬레스건 통증! 순식간에 사라지는 운동 루틴", channel: "몸수리 (구 운동한입)", url: "https://www.youtube.com/watch?v=gj8XiInamMw" },
-          { label: "아킬레스건 통증 해결을 위한 5분 운동", channel: "피지오스튜디오 PHYSIOSTUDIO", url: "https://www.youtube.com/watch?v=SJ_DtvsdNlo" },
-          { label: "달리기 후 아킬레스건 통증 해결하는 3분 운동", channel: "피지오스튜디오 PHYSIOSTUDIO", url: "https://www.youtube.com/shorts/2BsTWOvhmPg" },
-        ]} />
+        <OneLine>운동으로 나아지는 경우가 많아요. 쉬어도 그대로면 진료를 받아요.</OneLine>
 
         <div className="mt-14">
-          <FaqSection items={[
-            {
-              q: "미드풋으로 바꾼 뒤 아킬레스건이 당기는 게 정상인가요?",
-              // 2026-09-21: 「최소 6~8주」를 뺐다. 2026-09-14 에 본문 상자에서 같은 숫자를
-              // 출처 없음으로 판정해 지웠는데 **FAQ 는 안 고쳤다.** 한 군데만 고치고 끝낸
-              // rest-day 와 같은 실수다(AGENTS.md — "한 곳이 아니라 전부 고친다").
-              a: "앞·중간발 착지는 뒤꿈치 착지보다 아킬레스건 부하가 크다는 실험실 연구가 있습니다(Almonroeder 2013, Lyght 2016). 그래서 전환 초기의 가벼운 당김은 흔합니다. 전환은 몇 주에 걸쳐 천천히 하는 것이 흔한 권고입니다. 다만 구체적인 주차를 정한 연구는 저희가 확인하지 못했습니다. 날카로운 통증이 오거나 아침 첫 발걸음에 극심한 통증이 있다면 중단하고 진료를 받아야 합니다.",
-            },
-            {
-              q: "아킬레스건이나 종아리가 아플 때 어떤 스트레칭이 효과적인가요?",
-              a: "세 가지를 권장합니다. ① 벽 카프 스트레칭 30초 ② 솔리어스(종아리 깊은 근육) 스트레칭 30초 ③ 편심성 카프 레이즈(양발로 올라가 한 발로 3~5초에 걸쳐 천천히 내려오기, 한쪽 15회×3세트 하루 1~2회). 메타분석(Prudêncio 2023)은 ③ 편심 운동이 다른 운동보다 통증 개선에 효과적이라고 결론 내렸습니다. 다만 포함 연구의 편향 위험이 높은 편이라 확정적인 근거는 아닙니다. ①② 스트레칭 단독의 효과는 이 연구가 따로 보지 않았습니다.",
-            },
-            {
-              q: "아킬레스건이 약하면 신발 드롭은 몇 mm가 좋나요?",
-              a: "몇 mm라고 말하지 않겠습니다. 드롭이 낮으면 아킬레스건이 더 많은 일을 한다고 흔히 이야기됩니다. 하지만 이 글이 인용한 자료는 재활 운동 연구이고 드롭에 관한 것이 아닙니다. 실용적인 선은 '지금 신던 것보다 드롭이 낮은 신발로 갑자기 바꾸지 않는다'입니다. 바꾼 뒤 아프기 시작했다면 되돌려 보세요.",
-            },
-          ]} />
+          <YoutubeSection
+            links={[
+              { label: "아킬레스건이 아픈 원인과 치료, 스트레칭 방법까지! (골통 의사 윤재웅)", url: "https://www.youtube.com/watch?v=aKWMUcOL4bE" },
+              { label: "아킬레스건 통증! 순식간에 사라지는 운동 루틴", channel: "몸수리 (구 운동한입)", url: "https://www.youtube.com/watch?v=gj8XiInamMw" },
+              { label: "아킬레스건 통증 해결을 위한 5분 운동", channel: "피지오스튜디오 PHYSIOSTUDIO", url: "https://www.youtube.com/watch?v=SJ_DtvsdNlo" },
+              { label: "달리기 후 아킬레스건 통증 해결하는 3분 운동", channel: "피지오스튜디오 PHYSIOSTUDIO", url: "https://www.youtube.com/shorts/2BsTWOvhmPg" },
+            ]}
+          />
         </div>
 
-        {/* 2026-09-06: 글 안에서 바로 묻게 한다.
-            /community 로 보내면 클릭 한 번이 필요하고, 그 한 번에서 대부분을 잃는다 —
-            두 달간 질문 0건이 그 증거다. */}
-        <InlineAsk from="achilles" tag="아킬레스" placeholder="예) 아킬레스가 아침에만 뻣뻣한데 뛰어도 되나요?" />
+        <div className="mt-14">
+          <FaqSection items={FAQ} />
+        </div>
 
-        <FinderCta from="achilles" headline="발볼과 용도로 신발 찾기" sub="발볼과 용도를 넣으면 4켤레를 골라 드려요. 아킬레스가 지금 아프다면 신발보다 진료가 먼저예요." />
-        <ShareButtons from="achilles" title="아킬레스건염 대처법" description="아킬레스가 아플 때 뭘 해야 하고 뭘 하면 안 되는지." />
-
-        <References n={9} note="2026-10-07 초록과 대조했습니다.">
-          <ul>
-            <li>
-              {/* ⚠️ 2026-09-14 정정 — 이 설명문이 논문 초록과 어긋났다(저널명·"효과적임을 확인"·Alfredson 프로토콜).
-                  ⚠️ 2026-10-06 재정정 — 9/14 정정이 **방향을 거꾸로** 읽었다.
-                  "gap in the evidence" 문장은 초록 첫머리의 **배경**이고, 이 논문의 **결론**은
-                  "EE is effective in the management of AT" 다. 지금 문장은 결론 + 한계를 같이 적는다.
-                  PubMed 초록(PMID 36698184) 2026-10-06 직접 확인. */}
-              <strong>Prudêncio et al. (2023) BMC Sports Sci Med Rehabil 15(1):9</strong> — 메타분석(8편). <strong>편심 운동(아래 ③)이 다른 운동보다 통증 개선에 효과적</strong>이라는 결론. 다만 메타분석은 통증 하나(5편)뿐이고 포함 연구 전부 편향 우려·높음이라 저자들도 더 나은 시험이 필요하다고 적었습니다.{" "}
-              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9878810/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PMC 원문 →</a>
-            </li>
-            {/* 2026-09-15 추가 — 드롭 주장을 뺀 자리를 대체한다. 한국어 · 정형외과 전문의. */}
-            <li>
-              <strong>선상규 (코끼리정형외과의원 정형외과 전문의)</strong> — 아킬레스건 장력은 신발 드롭이 아니라 케이던스로 줄인다. 보폭을 줄이고 분당 걸음 수를 5~10% 올리면 최대 장력 감소(160보 → 168~175보).{" "}
-              <a href="https://news.hidoc.co.kr/news/articleView.html?idxno=61267" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">하이닥 (2026-04-17) →</a>
-            </li>
-            <li>
-              {/* 2026-08-28 정정: 이 링크의 제1저자는 Beyer가 아니라 Kim이다. */}
-              {/* 2026-10-07 정정 — 이 고찰은 통증이 아니라 기능 지표(근력·파워·가동범위·균형)를 봤고,
-                  이질성 때문에 메타분석 없이 질적 종합만 했다. PubMed 초록(PMID 37265492) 2026-10-07 직접 확인. */}
-              <strong>Kim et al. (2023, Front Sports Act Living)</strong> — 아킬레스건 중부 건병증 운동 치료가 기능 지표에 미치는 효과, 체계적 고찰(10편, 질적 종합). 편심 운동은 근력을 개선했고 파워·균형은 중간 수준 근거, 가동범위는 변화 없음. 통증은 이 고찰의 대상이 아닙니다.{" "}
-              <a href="https://www.frontiersin.org/articles/10.3389/fspor.2023.1144484/full" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">Frontiers 원문 →</a>
-            </li>
-            <li>
-              <strong>Silbernagel et al. (2007)</strong> — 아킬레스건병증 38명 무작위 시험, 통증 모니터링 하 활동 지속 대 6주 휴식. Am J Sports Med 35(6):897-906.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Silbernagel et al. (2011)</strong> — 운동 치료만 받은 34명 5년 추적, 80% 완전 회복. Am J Sports Med 39(3):607-13.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/21084657/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Almonroeder et al. (2013)</strong> — 착지 방식별 아킬레스건 부하, 맨발 여성 19명 모델링. Ann Biomed Eng 41(8):1758-66.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/23640524/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Lyght et al. (2016)</strong> — 착지 방식·걸음 수(±5%)와 아킬레스건 응력, 여성 19명. J Appl Biomech 32(4):365-72.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/26955843/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Kemler et al. (2018)</strong> — 네덜란드 러너 4,621명, 초보·경력자 부상 부위 비교. Phys Sportsmed 46(4):485-491.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/30071170/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-            <li>
-              <strong>Nielsen et al. (2014)</strong> — 초보 933명 코호트 중 부상 254명의 진단 분포. PLOS ONE 9(6):e99877.{" "}
-              <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">PubMed →</a>
-            </li>
-          </ul>
-        </References>
-        <p className="mt-6 text-xs text-gray-400">※ 이 콘텐츠는 의학적 진단이나 치료를 대체하지 않습니다. 지속적 통증은 전문의 상담을 권장합니다.</p>
+        <Sources>
+          <Src n={1}>
+            <strong>Silbernagel et al. (2007)</strong> 아킬레스건병증 환자 38명을 나눠, 통증을 보며 달리기·점프를 이어 간 사람들과 처음 6주 동안 멈춘 사람들을 비교한 시험이에요. 재활 운동은 같았고, 12개월 동안 나아지는 정도에 뚜렷한 차이가 없었어요.
+            <Ref>Am J Sports Med 35(6):897-906 · <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={2}>
+            <strong>Prudêncio et al. (2023)</strong> 연구 8편을 모았고, 통증만 5편을 합쳐 보니 뒤꿈치를 천천히 내리는 운동이 다른 운동보다 통증이 더 줄었어요. 8편 모두 편향 우려가 있거나 높았고, 저자들도 더 잘 설계된 시험이 필요하다고 적었어요.
+            <Ref>BMC Sports Sci Med Rehabil 15(1):9 · <a href="https://pubmed.ncbi.nlm.nih.gov/36698184/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={3}>
+            <strong>Kim et al. (2023)</strong> 운동 치료가 종아리 기능에 주는 효과를 본 연구 10편을 정리했어요. 뒤꿈치를 천천히 내리는 운동으로 근력이 좋아졌어요. 통증은 이 정리의 대상이 아니었어요.
+            <Ref>Front Sports Act Living 5:1144484 · <a href="https://pubmed.ncbi.nlm.nih.gov/37265492/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={4}>
+            <strong>Alfredson et al. (1998)</strong> 오래 아팠던 운동선수 15명이 12주 동안 뒤꿈치를 천천히 내리는 운동을 한 뒤 모두 달리기로 돌아갔어요. 무작위로 나누지 않은 작은 비교 연구예요.
+            <Ref>Am J Sports Med 26(3):360-6 · <a href="https://pubmed.ncbi.nlm.nih.gov/9617396/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={5}>
+            <strong>Lyght et al. (2016)</strong> 여성 러너 19명이 두 착지와 세 가지 걸음 수로 달렸어요. 앞꿈치 착지에서 아킬레스건 최대 응력과 변형이 더 컸고, 걸음 수를 5% 올리면 두 착지 모두에서 줄었어요. 부상을 센 연구는 아니에요.
+            <Ref>J Appl Biomech 32(4):365-72 · <a href="https://pubmed.ncbi.nlm.nih.gov/26955843/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={6}>
+            <strong>Almonroeder et al. (2013)</strong> 여성 러너 19명이 맨발로 달렸을 때, 뒤꿈치가 아닌 착지 쪽의 걸음당 아킬레스건 충격량이 11% 컸어요(통계적으로 경계선).
+            <Ref>Ann Biomed Eng 41(8):1758-66 · <a href="https://pubmed.ncbi.nlm.nih.gov/23640524/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={7}>
+            <strong>Kemler et al. (2018)</strong> 네덜란드 러너 4,621명 설문에서 부상 가운데 아킬레스건이 차지하는 몫이 처음 달리는 사람 2.3%, 오래 달린 사람 8.4%였어요.
+            <Ref>Phys Sportsmed 46(4):485-491 · <a href="https://pubmed.ncbi.nlm.nih.gov/30071170/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={8}>
+            <strong>Nielsen et al. (2014)</strong> 덴마크에서 처음 달리기를 시작한 933명 가운데 다친 254명의 진단을 보니, 아킬레스건병증이 7%였어요.
+            <Ref>PLoS One 9(6):e99877 · <a href="https://pubmed.ncbi.nlm.nih.gov/24923269/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+          <Src n={9}>
+            <strong>Silbernagel et al. (2011)</strong> 운동 치료만 받은 34명을 5년 뒤에 보니 80%가 완전히 나았어요(그중 일부는 증상이 다시 생겼어요). 움직이기를 두려워할수록 까치발 들기 회복이 더뎠어요. 대조군 없는 추적 연구예요.
+            <Ref>Am J Sports Med 39(3):607-13 · <a href="https://pubmed.ncbi.nlm.nih.gov/21084657/" target="_blank" rel="noopener noreferrer">PubMed</a></Ref>
+          </Src>
+        </Sources>
+        <AuthorNote />
+        <p className="mt-3 text-xs text-gray-400">이 글은 의학적 진단을 대체하지 않아요. 통증이 이어지면 전문의와 상담하세요.</p>
       </article>
       </main>
     </>
