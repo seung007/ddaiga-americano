@@ -1868,28 +1868,29 @@
       "mm": 45,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/mizuno-neo-vista-3/J1GM261054.html",
-        "quote": "THE 44.5MM STACK HEIGHT AND 8MM DROP PROVIDES A DYNAMIC, YET STABLE RUNNING EXPERIENCE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-mizuno-neo-vista-3-mens/",
+        "quote": "Stack Height 36.5mm (FF)• 44.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/mizuno-neo-vista-3/J1GM261054.html",
-        "quote": "THE 44.5MM STACK HEIGHT AND 8MM DROP PROVIDES A DYNAMIC, YET STABLE RUNNING EXPERIENCE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-mizuno-neo-vista-3-mens/",
+        "quote": "Drop 8mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
       "g": 266,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-vista-3",
-        "quote": "Weight 9.4 oz (266g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-vista-3-mens/",
+        "quote": "Weight 9.4 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -1906,31 +1907,32 @@
   },
   "mizuno-neo-zen-2": {
     "stack": {
-      "mm": 40,
+      "mm": 41,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-zen-2",
-        "quote": "Heel stack 39.9 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-zen-2-mens",
+        "quote": "Stack Height 34.5mm (FF)• 40.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 5,
+      "mm": 6,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-zen-2",
-        "quote": "Drop 5.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-zen-2-mens",
+        "quote": "Drop 6mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 237,
+      "g": 244,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-zen-2",
-        "quote": "Weight 8.4 oz (237g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-zen-2-mens",
+        "quote": "Weight 8.6 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -1947,31 +1949,32 @@
   },
   "mizuno-wave-inspire-22": {
     "stack": {
-      "mm": 37,
+      "mm": 39,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
-        "quote": "Heel stack 36.6 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-inspire-22-mens",
+        "quote": "Stack Height 28.5mm (FF)• 38.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 8,
+      "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
-        "quote": "Drop 7.6 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-inspire-22-mens",
+        "quote": "Drop 10mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 280,
+      "g": 295,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
-        "quote": "Weight 9.9 oz (280g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-inspire-22-mens",
+        "quote": "Weight 10.4 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -1988,31 +1991,32 @@
   },
   "mizuno-wave-rebellion-flash-3": {
     "stack": {
-      "mm": 40,
+      "mm": 38,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
-        "quote": "Heel stack 40.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rebellion-flash-3-mens/",
+        "quote": "Stack Height 34.5mm (FF)• 37.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 8,
+      "mm": 3,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
-        "quote": "Drop 7.5 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rebellion-flash-3-mens/",
+        "quote": "Drop 3mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
       "g": 244,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
-        "quote": "Weight 8.6 oz (244g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rebellion-flash-3-mens/",
+        "quote": "Weight 8.6 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2031,29 +2035,30 @@
     "stack": {
       "mm": 40,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
-        "quote": "Heel stack 39.9 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-unisex-wave-rebellion-pro-3-running-shoe/",
+        "quote": "Stack Height 36mm (FF)• 40mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 5,
+      "mm": 4,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
-        "quote": "Drop 5.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-unisex-wave-rebellion-pro-3-running-shoe/",
+        "quote": "Drop 4mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 227,
+      "g": 224,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
-        "quote": "Weight 8.0 oz (227g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-unisex-wave-rebellion-pro-3-running-shoe/",
+        "quote": "Weight 7.9 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2073,28 +2078,29 @@
       "mm": 39,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-29/J1GC250352.html",
-        "quote": "THE 38.5MM STACK HEIGHT AND 10MM DROP CREATES A TRADITIONAL, CUSHIONED RUNNING EXPERIENCE.",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-29-mens",
+        "quote": "Stack Height 29mm (FF)• 39mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 10,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-29/J1GC250352.html",
-        "quote": "THE 38.5MM STACK HEIGHT AND 10MM DROP CREATES A TRADITIONAL, CUSHIONED RUNNING EXPERIENCE.",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-29-mens",
+        "quote": "Drop 10mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 258,
+      "g": 264,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rider-29",
-        "quote": "Weight 9.1 oz (258g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rider-29-mens",
+        "quote": "Weight 9.3 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2114,28 +2120,29 @@
       "mm": 43,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-30/J1GM262055.html",
-        "quote": "42.5MM STACK HEIGHT; 8MM DROP; 265G",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-30-mens/",
+        "quote": "Stack Height 34.5mm (FF)• 42.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-30/J1GM262055.html",
-        "quote": "42.5MM STACK HEIGHT; 8MM DROP; 265G",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-30-mens/",
+        "quote": "Drop 8mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
       "g": 266,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rider-30",
-        "quote": "Weight 9.4 oz (266g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rider-30-mens/",
+        "quote": "Weight 9.4 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2155,28 +2162,29 @@
       "mm": 44,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-sky-9/J1GC250202.html",
-        "quote": "THE 44MM STACK HEIGHT AND 6MM CREATES A SMOOTH, PROTECTIVE RUNNING EXPERIE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-sky-9-mens",
+        "quote": "Stack Height 38mm (FF)• 44mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 6,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-sky-9/J1GC250202.html",
-        "quote": "THE 44MM STACK HEIGHT AND 6MM CREATES A SMOOTH, PROTECTIVE RUNNING EXPERIE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-sky-9-mens",
+        "quote": "Drop 6mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 295,
+      "g": 289,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-sky-9",
-        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-sky-9-mens",
+        "quote": "Weight 10.2 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
