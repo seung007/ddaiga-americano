@@ -443,10 +443,11 @@
       "g": 298,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gel-kayano-33",
-        "quote": "Weight 10.5 oz (298g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/",
+        "quote": "Weight* M 298 g | W 259 g",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식 블로그(GT-2000 15 와 GEL-KAYANO 33 비교표). 「*Weights are approximate and based on men’s size 9 and women’s size 8.」 남성 US 9 = 27 cm(아식스 사이즈표). 2026-11-27 Chrome 으로 읽음"
       }
     },
     "softness": {
@@ -588,10 +589,11 @@
     "stack": {
       "mm": 38,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gt-2000-15",
-        "quote": "Heel stack 38.2 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/",
+        "quote": "Stack Height M 30 – 38 mm | W 29 – 37 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식 블로그(GT-2000 15 와 GEL-KAYANO 33 비교표). 「*Weights are approximate and based on men’s size 9 and women’s size 8.」 남성 US 9 = 27 cm(아식스 사이즈표). 2026-11-27 Chrome 으로 읽음"
       }
     },
     "drop": {
@@ -608,10 +610,11 @@
       "g": 252,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gt-2000-15",
-        "quote": "Weight 8.9 oz (252g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/",
+        "quote": "Weight* M 252 g | W 221g",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식 블로그(GT-2000 15 와 GEL-KAYANO 33 비교표). 「*Weights are approximate and based on men’s size 9 and women’s size 8.」 남성 US 9 = 27 cm(아식스 사이즈표). 2026-11-27 Chrome 으로 읽음"
       }
     },
     "softness": {
