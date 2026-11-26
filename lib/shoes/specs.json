@@ -15,7 +15,8 @@
         "from": "runrepeat",
         "url": "https://runrepeat.com/adidas-adizero-adios-pro-4",
         "quote": "Drop 8.1 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "checkedAt": "2026-11-24",
+        "note": "2026-11-27 브랜드 페이지 안에서 값이 어긋남(원문 두 가지): 상품 설명 「미드솔 드롭: 6mm(힐 33mm/39mm)」「미드솔 굽높이: 6 mm (뒤꿈치 39 mm / 앞발 33 mm)」「중량: 약 174g(사이즈 245mm)」 · 페이지 데이터 midsole_offset 5.000 · heel_stack_height 37.00, 여성(gender W) 상품 (https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4-%ED%94%84%EB%A1%9C-4/KI1471.html). 바꾸지 않고 보류"
       }
     },
     "weight": {
@@ -42,31 +43,34 @@
   },
   "adidas-adizero-boston-12": {
     "stack": {
-      "mm": 35,
+      "mm": 38,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-12",
-        "quote": "Heel stack 34.5 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-12/ID4234.html",
+        "quote": "미드솔 굽높이: 7 mm (뒤꿈치: 38 mm / 앞발: 31 mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "drop": {
-      "mm": 6,
+      "mm": 7,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-12",
-        "quote": "Drop 6.1 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-12/ID4234.html",
+        "quote": "미드솔 굽높이: 7 mm (뒤꿈치: 38 mm / 앞발: 31 mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
-      "g": 261,
-      "sizeMm": 270,
+      "g": 260,
+      "sizeMm": 265,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-12",
-        "quote": "Weight 9.2 oz (261g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-12/ID4234.html",
+        "quote": "중량: 260 g (사이즈 265 mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "softness": {
@@ -83,21 +87,23 @@
   },
   "adidas-adizero-boston-13": {
     "stack": {
-      "mm": 34,
+      "mm": 36,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-13",
-        "quote": "Heel stack 34.3 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-13/KH5603.html",
+        "quote": "미드솔 드롭: 6mm(힐 36mm/포어풋 30mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "drop": {
       "mm": 6,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-13",
-        "quote": "Drop 6.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-13/KH5603.html",
+        "quote": "미드솔 드롭: 6mm(힐 36mm/포어풋 30mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -138,7 +144,8 @@
         "from": "runrepeat",
         "url": "https://runrepeat.com/adidas-adizero-evo-sl",
         "quote": "Drop 8.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "checkedAt": "2026-11-24",
+        "note": "2026-11-27 브랜드 페이지 안에서 값이 어긋남(원문 두 가지): 상품 설명 「미드솔 드롭: 6mm(힐: 38mm/포어풋: 32mm)」「평균 중량: 224g(사이즈 270mm)」 · 페이지 데이터 midsole_offset 7.000 · heel_stack_height 39.00 (https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-evo-sl-%EB%9F%AC%EB%8B%9D%ED%99%94/JS1182.html). 바꾸지 않고 보류"
       }
     },
     "weight": {
@@ -206,21 +213,23 @@
   },
   "adidas-supernova-rise-3": {
     "stack": {
-      "mm": 35,
+      "mm": 37,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-supernova-rise-3",
-        "quote": "Heel stack 35.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/supernova-rise-3-%EB%9F%AC%EB%8B%9D%ED%99%94/JQ8502.html",
+        "quote": "미드솔 드롭: 8mm(힐 37mm/포어풋 29mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-supernova-rise-3",
-        "quote": "Drop 7.8 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/supernova-rise-3-%EB%9F%AC%EB%8B%9D%ED%99%94/JQ8502.html",
+        "quote": "미드솔 드롭: 8mm(힐 37mm/포어풋 29mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -421,12 +430,13 @@
       }
     },
     "drop": {
-      "mm": 9,
+      "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gel-kayano-33",
-        "quote": "Drop 8.5 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/gel-kayano-33/p/ANA_1011C167-002.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -863,12 +873,13 @@
       }
     },
     "drop": {
-      "mm": 7,
+      "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-novablast-5",
-        "quote": "Drop 7.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/novablast--5/p/ANA_1011B974-500.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -904,12 +915,13 @@
       }
     },
     "drop": {
-      "mm": 7,
+      "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-novablast-6",
-        "quote": "Drop 7.1 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/novablast-6/p/ANA_1011C243-002.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -1110,12 +1122,13 @@
       }
     },
     "drop": {
-      "mm": 13,
+      "mm": 12,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-beast-gts-24",
-        "quote": "Drop 12.7 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/beast-gts-24/110425.html",
+        "quote": "Midsole drop 12mm",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 미국 공식몰 Beast GTS 24 상품 페이지. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
