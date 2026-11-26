@@ -587,10 +587,11 @@
     "drop": {
       "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gt-2000-15",
-        "quote": "Drop 8.2 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/gt-2000-15/p/ANA_1011C235-400.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. Chrome 으로 읽음(헤드리스 수집기는 403)"
       }
     },
     "weight": {
@@ -1152,10 +1153,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-ghost-17",
-        "quote": "Drop 10.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/ghost-evolution.html",
+        "quote": "With a 10mm offset, it provides a smooth, traditional feel",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그(Ghost 계보). Chrome 으로 읽음"
       }
     },
     "weight": {
@@ -1193,10 +1195,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-ghost-17",
-        "quote": "Drop 10.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/ghost-evolution.html",
+        "quote": "With a 10mm offset, it provides a smooth, traditional feel",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그(Ghost 계보). 남녀 같은 모델 — 같은 굽 차이"
       }
     },
     "weight": {
@@ -1317,10 +1320,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-glycerin-22",
-        "quote": "Drop 10.3 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/glycerin-evolution.html",
+        "quote": "While the midsole drop remained at 10mm for both versions",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그(Glycerin 계보, Glycerin 21 → 22). Chrome 으로 읽음"
       }
     },
     "weight": {
@@ -1358,10 +1362,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-glycerin-22",
-        "quote": "Drop 10.3 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/glycerin-evolution.html",
+        "quote": "While the midsole drop remained at 10mm for both versions",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그. 남녀 같은 모델 — 같은 굽 차이"
       }
     },
     "weight": {
@@ -1552,7 +1557,16 @@
   },
   "decathlon-kiprun-ks500-2": {
     "stack": null,
-    "drop": null,
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.decathlon.fr/p/chaussure-de-running-homme-kiprun-ks500-2-noir-jaune/341860/c382c132m8772865",
+        "quote": "DROP Le drop de la chaussure est de 6mm",
+        "checkedAt": "2026-11-27",
+        "note": "데카트론 프랑스 공식몰. Chrome 으로 읽음. 영국몰은 사람 확인 화면이라 멈춤"
+      }
+    },
     "weight": {
       "g": 280,
       "sizeMm": null,
