@@ -274,7 +274,17 @@
         "checkedAt": "2026-11-23"
       }
     },
-    "softness": null
+    "softness": {
+      "label": "balanced",
+      "value": 38.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-ultraboost-5-x",
+        "quote": "Midsole softness 38.1 AC · Balanced",
+        "checkedAt": "2026-11-27"
+      }
+    }
   },
   "asics-gel-cumulus-27": {
     "stack": {
