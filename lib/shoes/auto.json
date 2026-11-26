@@ -92,17 +92,17 @@
     "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
-  "on-cloudsoma-w": {
+  "on-cloudswift-amp-w": {
     "kind": "newFamily",
     "brand": "On",
-    "model": "Cloudsoma",
+    "model": "Cloudswift Amp",
     "gender": "female",
-    "priceKrw": 219000,
-    "url": "https://www.on.com/ko-kr/products/cloudsoma-w-3wf3037/womens/black-black-shoes-3WF30371043",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/4UwZFlVLuOiDllAA6qx6h0/34036017077cbeaaf697e41d393e51cc/0d60fe8958feaf744114fe50b40694a2f909acf8.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 195,
-    "dropMm": 6,
-    "checkedAt": "2026-11-19",
+    "priceKrw": 229000,
+    "url": "https://www.on.com/ko-kr/products/cloudswift-amp-w-3wg1039/womens/white-white-shoes-3WG10391200",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/2H7TdkPAuutsLWZGc7MQia/3d1ef6147e08a4abccba5137866f8ba4/2fb84336ff25c4d590c4c931b3e125472f9a5099.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 291,
+    "dropMm": 8,
+    "checkedAt": "2026-11-26",
     "checkedBy": "수집기"
   },
   "on-cloudtilt": {
@@ -155,6 +155,75 @@
     "weightG": 205,
     "dropMm": 6,
     "checkedAt": "2026-11-18",
+    "checkedBy": "수집기"
+  },
+  "on-the-roger-advantage-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "THE ROGER Advantage",
+    "gender": "female",
+    "priceKrw": 199000,
+    "url": "https://www.on.com/ko-kr/products/the-roger-advantage-w-3wf3039/womens/white-white-shoes-3WF30391200",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/jSG3u89KreyGcqlh5NcIY/dd97ed185ea86ed329eccc15ee77c228/70684e04064e96326cfc7c58e2a259a9200a8b87.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 265,
+    "dropMm": 6,
+    "checkedAt": "2026-11-26",
+    "checkedBy": "수집기"
+  },
+  "puma-deviate-nitro-4": {
+    "kind": "newFamily",
+    "brand": "Puma",
+    "model": "Deviate NITRO 4",
+    "gender": "unisex",
+    "priceKrw": 219000,
+    "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-4-%3Cbr%3Edeviate-nitro-4/312123.html",
+    "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/312123/02/sv01/fnd/KOR/fmt/png/디비에이트-나이트로-4-brDeviate-NITRO-4",
+    "weightG": 250,
+    "weightBasis": "UK 8 사이즈 기준",
+    "dropMm": 8,
+    "checkedAt": "2026-11-26",
+    "checkedBy": "수집기"
+  },
+  "puma-deviate-nitro-4-rc": {
+    "kind": "newFamily",
+    "brand": "Puma",
+    "model": "Deviate NITRO 4 RC",
+    "gender": "unisex",
+    "priceKrw": 219000,
+    "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-4-rc-%3Cbr%3Edeviate-nitro-4-rc/312903.html",
+    "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/312903/01/sv01/fnd/KOR/fmt/png/디비에이트-나이트로-4-RC-brDeviate-NITRO-4-RC",
+    "weightG": 250,
+    "weightBasis": "UK 8 사이즈 기준",
+    "dropMm": 8,
+    "checkedAt": "2026-11-26",
+    "checkedBy": "수집기"
+  },
+  "puma-deviate-nitro-elite-4": {
+    "kind": "newFamily",
+    "brand": "Puma",
+    "model": "Deviate NITRO Elite 4",
+    "gender": "unisex",
+    "priceKrw": 289000,
+    "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-%EC%97%98%EB%A6%AC%ED%8A%B8-4-%3Cbr%3Edeviate-nitro-elite-4/312127.html",
+    "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/312127/05/sv01/fnd/KOR/fmt/png/디비에이트-나이트로-엘리트-4-brDeviate-NITRO-Elite-4",
+    "weightG": 170,
+    "weightBasis": "UK 8 사이즈 기준",
+    "dropMm": 8,
+    "checkedAt": "2026-11-26",
+    "checkedBy": "수집기"
+  },
+  "puma-deviate-nitro-elite-4-rc-w": {
+    "kind": "newFamily",
+    "brand": "Puma",
+    "model": "Deviate NITRO Elite 4 RC",
+    "gender": "female",
+    "priceKrw": 289000,
+    "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-%EC%97%98%EB%A6%AC%ED%8A%B8-4-rc-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Edeviate-nitro-elite-4-rc-wns/312908.html",
+    "imageUrl": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/312908/01/sv01/fnd/KOR/fmt/png/디비에이트-나이트로-엘리트-4-RC-우먼스-brDeviate-NITRO-Elite-4-RC-Wns",
+    "weightG": 170,
+    "weightBasis": "UK 8 사이즈 기준",
+    "dropMm": 8,
+    "checkedAt": "2026-11-26",
     "checkedBy": "수집기"
   }
 }
