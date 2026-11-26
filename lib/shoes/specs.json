@@ -15,7 +15,8 @@
         "from": "runrepeat",
         "url": "https://runrepeat.com/adidas-adizero-adios-pro-4",
         "quote": "Drop 8.1 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "checkedAt": "2026-11-24",
+        "note": "2026-11-27 브랜드 페이지 안에서 값이 어긋남(원문 두 가지): 상품 설명 「미드솔 드롭: 6mm(힐 33mm/39mm)」「미드솔 굽높이: 6 mm (뒤꿈치 39 mm / 앞발 33 mm)」「중량: 약 174g(사이즈 245mm)」 · 페이지 데이터 midsole_offset 5.000 · heel_stack_height 37.00, 여성(gender W) 상품 (https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4-%ED%94%84%EB%A1%9C-4/KI1471.html). 바꾸지 않고 보류"
       }
     },
     "weight": {
@@ -42,31 +43,34 @@
   },
   "adidas-adizero-boston-12": {
     "stack": {
-      "mm": 35,
+      "mm": 38,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-12",
-        "quote": "Heel stack 34.5 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-12/ID4234.html",
+        "quote": "미드솔 굽높이: 7 mm (뒤꿈치: 38 mm / 앞발: 31 mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "drop": {
-      "mm": 6,
+      "mm": 7,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-12",
-        "quote": "Drop 6.1 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-12/ID4234.html",
+        "quote": "미드솔 굽높이: 7 mm (뒤꿈치: 38 mm / 앞발: 31 mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
-      "g": 261,
-      "sizeMm": 270,
+      "g": 260,
+      "sizeMm": 265,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-12",
-        "quote": "Weight 9.2 oz (261g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-12/ID4234.html",
+        "quote": "중량: 260 g (사이즈 265 mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "softness": {
@@ -83,21 +87,23 @@
   },
   "adidas-adizero-boston-13": {
     "stack": {
-      "mm": 34,
+      "mm": 36,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-13",
-        "quote": "Heel stack 34.3 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-13/KH5603.html",
+        "quote": "미드솔 드롭: 6mm(힐 36mm/포어풋 30mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "drop": {
       "mm": 6,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-adizero-boston-13",
-        "quote": "Drop 6.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EB%B3%B4%EC%8A%A4%ED%84%B4-13/KH5603.html",
+        "quote": "미드솔 드롭: 6mm(힐 36mm/포어풋 30mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -138,7 +144,8 @@
         "from": "runrepeat",
         "url": "https://runrepeat.com/adidas-adizero-evo-sl",
         "quote": "Drop 8.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "checkedAt": "2026-11-24",
+        "note": "2026-11-27 브랜드 페이지 안에서 값이 어긋남(원문 두 가지): 상품 설명 「미드솔 드롭: 6mm(힐: 38mm/포어풋: 32mm)」「평균 중량: 224g(사이즈 270mm)」 · 페이지 데이터 midsole_offset 7.000 · heel_stack_height 39.00 (https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-evo-sl-%EB%9F%AC%EB%8B%9D%ED%99%94/JS1182.html). 바꾸지 않고 보류"
       }
     },
     "weight": {
@@ -206,21 +213,23 @@
   },
   "adidas-supernova-rise-3": {
     "stack": {
-      "mm": 35,
+      "mm": 37,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-supernova-rise-3",
-        "quote": "Heel stack 35.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/supernova-rise-3-%EB%9F%AC%EB%8B%9D%ED%99%94/JQ8502.html",
+        "quote": "미드솔 드롭: 8mm(힐 37mm/포어풋 29mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/adidas-supernova-rise-3",
-        "quote": "Drop 7.8 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.adidas.co.kr/supernova-rise-3-%EB%9F%AC%EB%8B%9D%ED%99%94/JQ8502.html",
+        "quote": "미드솔 드롭: 8mm(힐 37mm/포어풋 29mm)",
+        "checkedAt": "2026-11-27",
+        "note": "2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -274,7 +283,17 @@
         "checkedAt": "2026-11-23"
       }
     },
-    "softness": null
+    "softness": {
+      "label": "balanced",
+      "value": 38.1,
+      "unit": "AC",
+      "src": {
+        "from": "runrepeat",
+        "url": "https://runrepeat.com/adidas-ultraboost-5-x",
+        "quote": "Midsole softness 38.1 AC · Balanced",
+        "checkedAt": "2026-11-27"
+      }
+    }
   },
   "asics-gel-cumulus-27": {
     "stack": {
@@ -411,22 +430,24 @@
       }
     },
     "drop": {
-      "mm": 9,
+      "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gel-kayano-33",
-        "quote": "Drop 8.5 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/gel-kayano-33/p/ANA_1011C167-002.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
       "g": 298,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gel-kayano-33",
-        "quote": "Weight 10.5 oz (298g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/",
+        "quote": "Weight* M 298 g | W 259 g",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식 블로그(GT-2000 15 와 GEL-KAYANO 33 비교표). 「*Weights are approximate and based on men’s size 9 and women’s size 8.」 남성 US 9 = 27 cm(아식스 사이즈표). 2026-11-27 Chrome 으로 읽음"
       }
     },
     "softness": {
@@ -568,29 +589,32 @@
     "stack": {
       "mm": 38,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gt-2000-15",
-        "quote": "Heel stack 38.2 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/",
+        "quote": "Stack Height M 30 – 38 mm | W 29 – 37 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식 블로그(GT-2000 15 와 GEL-KAYANO 33 비교표). 「*Weights are approximate and based on men’s size 9 and women’s size 8.」 남성 US 9 = 27 cm(아식스 사이즈표). 2026-11-27 Chrome 으로 읽음"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gt-2000-15",
-        "quote": "Drop 8.2 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/gt-2000-15/p/ANA_1011C235-400.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. Chrome 으로 읽음(헤드리스 수집기는 403)"
       }
     },
     "weight": {
       "g": 252,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-gt-2000-15",
-        "quote": "Weight 8.9 oz (252g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/",
+        "quote": "Weight* M 252 g | W 221g",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식 블로그(GT-2000 15 와 GEL-KAYANO 33 비교표). 「*Weights are approximate and based on men’s size 9 and women’s size 8.」 남성 US 9 = 27 cm(아식스 사이즈표). 2026-11-27 Chrome 으로 읽음"
       }
     },
     "softness": {
@@ -852,12 +876,13 @@
       }
     },
     "drop": {
-      "mm": 7,
+      "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-novablast-5",
-        "quote": "Drop 7.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/novablast--5/p/ANA_1011B974-500.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -893,12 +918,13 @@
       }
     },
     "drop": {
-      "mm": 7,
+      "mm": 8,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/asics-novablast-6",
-        "quote": "Drop 7.1 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.asics.com/us/en-us/novablast-6/p/ANA_1011C243-002.html",
+        "quote": "HEEL DROP 8 mm",
+        "checkedAt": "2026-11-27",
+        "note": "아식스 미국 공식몰. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -1099,12 +1125,13 @@
       }
     },
     "drop": {
-      "mm": 13,
+      "mm": 12,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-beast-gts-24",
-        "quote": "Drop 12.7 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/beast-gts-24/110425.html",
+        "quote": "Midsole drop 12mm",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 미국 공식몰 Beast GTS 24 상품 페이지. 2026-11-27 Chrome 으로 robots.txt 확인 뒤 읽음"
       }
     },
     "weight": {
@@ -1142,10 +1169,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-ghost-17",
-        "quote": "Drop 10.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/ghost-evolution.html",
+        "quote": "With a 10mm offset, it provides a smooth, traditional feel",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그(Ghost 계보). Chrome 으로 읽음"
       }
     },
     "weight": {
@@ -1183,10 +1211,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-ghost-17",
-        "quote": "Drop 10.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/ghost-evolution.html",
+        "quote": "With a 10mm offset, it provides a smooth, traditional feel",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그(Ghost 계보). 남녀 같은 모델 — 같은 굽 차이"
       }
     },
     "weight": {
@@ -1307,10 +1336,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-glycerin-22",
-        "quote": "Drop 10.3 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/glycerin-evolution.html",
+        "quote": "While the midsole drop remained at 10mm for both versions",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그(Glycerin 계보, Glycerin 21 → 22). Chrome 으로 읽음"
       }
     },
     "weight": {
@@ -1348,10 +1378,11 @@
     "drop": {
       "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/brooks-glycerin-22",
-        "quote": "Drop 10.3 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://www.brooksrunning.com/en_us/blog/gear-stories/glycerin-evolution.html",
+        "quote": "While the midsole drop remained at 10mm for both versions",
+        "checkedAt": "2026-11-27",
+        "note": "브룩스 공식 블로그. 남녀 같은 모델 — 같은 굽 차이"
       }
     },
     "weight": {
@@ -1542,7 +1573,16 @@
   },
   "decathlon-kiprun-ks500-2": {
     "stack": null,
-    "drop": null,
+    "drop": {
+      "mm": 6,
+      "src": {
+        "from": "brand",
+        "url": "https://www.decathlon.fr/p/chaussure-de-running-homme-kiprun-ks500-2-noir-jaune/341860/c382c132m8772865",
+        "quote": "DROP Le drop de la chaussure est de 6mm",
+        "checkedAt": "2026-11-27",
+        "note": "데카트론 프랑스 공식몰. Chrome 으로 읽음. 영국몰은 사람 확인 화면이라 멈춤"
+      }
+    },
     "weight": {
       "g": 280,
       "sizeMm": null,
@@ -1858,28 +1898,29 @@
       "mm": 45,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/mizuno-neo-vista-3/J1GM261054.html",
-        "quote": "THE 44.5MM STACK HEIGHT AND 8MM DROP PROVIDES A DYNAMIC, YET STABLE RUNNING EXPERIENCE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-mizuno-neo-vista-3-mens/",
+        "quote": "Stack Height 36.5mm (FF)• 44.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/mizuno-neo-vista-3/J1GM261054.html",
-        "quote": "THE 44.5MM STACK HEIGHT AND 8MM DROP PROVIDES A DYNAMIC, YET STABLE RUNNING EXPERIENCE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-mizuno-neo-vista-3-mens/",
+        "quote": "Drop 8mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
       "g": 266,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-vista-3",
-        "quote": "Weight 9.4 oz (266g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-vista-3-mens/",
+        "quote": "Weight 9.4 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -1896,31 +1937,32 @@
   },
   "mizuno-neo-zen-2": {
     "stack": {
-      "mm": 40,
+      "mm": 41,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-zen-2",
-        "quote": "Heel stack 39.9 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-zen-2-mens",
+        "quote": "Stack Height 34.5mm (FF)• 40.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 5,
+      "mm": 6,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-zen-2",
-        "quote": "Drop 5.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-zen-2-mens",
+        "quote": "Drop 6mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 237,
+      "g": 244,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-neo-zen-2",
-        "quote": "Weight 8.4 oz (237g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-mizuno-neo-zen-2-mens",
+        "quote": "Weight 8.6 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -1937,31 +1979,32 @@
   },
   "mizuno-wave-inspire-22": {
     "stack": {
-      "mm": 37,
+      "mm": 39,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
-        "quote": "Heel stack 36.6 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-inspire-22-mens",
+        "quote": "Stack Height 28.5mm (FF)• 38.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 8,
+      "mm": 10,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
-        "quote": "Drop 7.6 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-inspire-22-mens",
+        "quote": "Drop 10mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 280,
+      "g": 295,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-inspire-22",
-        "quote": "Weight 9.9 oz (280g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-inspire-22-mens",
+        "quote": "Weight 10.4 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -1978,31 +2021,32 @@
   },
   "mizuno-wave-rebellion-flash-3": {
     "stack": {
-      "mm": 40,
+      "mm": 38,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
-        "quote": "Heel stack 40.0 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rebellion-flash-3-mens/",
+        "quote": "Stack Height 34.5mm (FF)• 37.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 8,
+      "mm": 3,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
-        "quote": "Drop 7.5 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rebellion-flash-3-mens/",
+        "quote": "Drop 3mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
       "g": 244,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-flash-3",
-        "quote": "Weight 8.6 oz (244g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rebellion-flash-3-mens/",
+        "quote": "Weight 8.6 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2021,29 +2065,30 @@
     "stack": {
       "mm": 40,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
-        "quote": "Heel stack 39.9 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-unisex-wave-rebellion-pro-3-running-shoe/",
+        "quote": "Stack Height 36mm (FF)• 40mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
-      "mm": 5,
+      "mm": 4,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
-        "quote": "Drop 5.4 mm (lab)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-unisex-wave-rebellion-pro-3-running-shoe/",
+        "quote": "Drop 4mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 227,
+      "g": 224,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rebellion-pro-3",
-        "quote": "Weight 8.0 oz (227g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-unisex-wave-rebellion-pro-3-running-shoe/",
+        "quote": "Weight 7.9 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2063,28 +2108,29 @@
       "mm": 39,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-29/J1GC250352.html",
-        "quote": "THE 38.5MM STACK HEIGHT AND 10MM DROP CREATES A TRADITIONAL, CUSHIONED RUNNING EXPERIENCE.",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-29-mens",
+        "quote": "Stack Height 29mm (FF)• 39mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 10,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-29/J1GC250352.html",
-        "quote": "THE 38.5MM STACK HEIGHT AND 10MM DROP CREATES A TRADITIONAL, CUSHIONED RUNNING EXPERIENCE.",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-29-mens",
+        "quote": "Drop 10mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 258,
+      "g": 264,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rider-29",
-        "quote": "Weight 9.1 oz (258g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rider-29-mens",
+        "quote": "Weight 9.3 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2104,28 +2150,29 @@
       "mm": 43,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-30/J1GM262055.html",
-        "quote": "42.5MM STACK HEIGHT; 8MM DROP; 265G",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-30-mens/",
+        "quote": "Stack Height 34.5mm (FF)• 42.5mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 8,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-rider-30/J1GM262055.html",
-        "quote": "42.5MM STACK HEIGHT; 8MM DROP; 265G",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-rider-30-mens/",
+        "quote": "Drop 8mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
       "g": 266,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-rider-30",
-        "quote": "Weight 9.4 oz (266g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-rider-30-mens/",
+        "quote": "Weight 9.4 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
@@ -2145,28 +2192,29 @@
       "mm": 44,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-sky-9/J1GC250202.html",
-        "quote": "THE 44MM STACK HEIGHT AND 6MM CREATES A SMOOTH, PROTECTIVE RUNNING EXPERIE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-sky-9-mens",
+        "quote": "Stack Height 38mm (FF)• 44mm (H)",
+        "checkedAt": "2026-11-27"
       }
     },
     "drop": {
       "mm": 6,
       "src": {
         "from": "brand",
-        "url": "https://emea.mizuno.com/eu/en/wave-sky-9/J1GC250202.html",
-        "quote": "THE 44MM STACK HEIGHT AND 6MM CREATES A SMOOTH, PROTECTIVE RUNNING EXPERIE",
-        "checkedAt": "2026-11-24"
+        "url": "https://usa.mizuno.com/running-wave-sky-9-mens",
+        "quote": "Drop 6mm",
+        "checkedAt": "2026-11-27"
       }
     },
     "weight": {
-      "g": 295,
+      "g": 289,
       "sizeMm": 270,
       "src": {
-        "from": "runrepeat",
-        "url": "https://runrepeat.com/mizuno-wave-sky-9",
-        "quote": "Weight 10.4 oz (295g) (lab, men's US 9)",
-        "checkedAt": "2026-11-24"
+        "from": "brand",
+        "url": "https://usa.mizuno.com/running-wave-sky-9-mens",
+        "quote": "Weight 10.2 oz (Size 9)",
+        "checkedAt": "2026-11-27",
+        "note": "무게는 oz 를 g 로 바꿈(1 oz = 28.3495 g). Size 9 = 미즈노 사이즈표 남성·유니섹스 US 9 = 27.0 cm(https://sgp.mizuno.com/pages/size-chart). 미국 공식몰은 2026-11-27 노트북(한국 IP)에서 읽음"
       }
     },
     "softness": {
