@@ -579,7 +579,7 @@
       10,
       21.0975
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "금산인삼엑스포주차장",
     "registrationStart": "2026-10-01",
     "registrationEnd": "2026-11-26",
@@ -604,7 +604,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2027-jeonmahyeop-new-year-s-marathon-11c05e58816d4e8bb0cb12d44266ca0e",
     "officialUrl": "https://mara1080.com/event/2c881231-b5dd-4ae8-a587-c02d539566af",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-18",
+    "checkedAt": "2026-11-25",
     "checkedBy": "수집기"
   },
   {
@@ -729,7 +729,7 @@
       5,
       10
     ],
-    "status": "접수중",
+    "status": "마감",
     "venue": "하남미사 경정공원",
     "registrationStart": "2026-08-01",
     "registrationEnd": "2026-11-26",
@@ -749,7 +749,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-hanam-misa-lake-energy-run",
     "officialUrl": "https://energyrun.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-18",
+    "checkedAt": "2026-11-25",
     "checkedBy": "수집기"
   },
   {
