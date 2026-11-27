@@ -697,10 +697,10 @@
       5,
       10
     ],
-    "status": "마감",
+    "status": "접수중",
     "venue": "탄천종합운동장 (경기 성남시 분당구 탄천로 215)",
     "registrationStart": "2026-10-22",
-    "registrationEnd": "2026-11-06",
+    "registrationEnd": "2026-12-05",
     "fees": [
       {
         "label": "5km",
@@ -717,7 +717,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-seongnam-heritage-run-2c45567a9e3d44eda24de02de2d8eb29",
     "officialUrl": "https://charun.co.kr/",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-06",
+    "checkedAt": "2026-11-28",
     "checkedBy": "수집기"
   },
   {
@@ -1052,7 +1052,7 @@
     "sourceUrl": "https://www.kormarathon.com/ko/races/2026-support-run-for-child-heads-of-household",
     "officialUrl": "https://gibukidsrun.kr",
     "factsFrom": "모음",
-    "checkedAt": "2026-11-03",
+    "checkedAt": "2026-11-28",
     "checkedBy": "수집기"
   },
   {
@@ -2161,6 +2161,167 @@
     "officialUrl": "https://www.ggimarathon.com/ggimarathon",
     "factsFrom": "모음",
     "checkedAt": "2026-11-20",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "yi-sun-sin-run-festa-2026",
+    "name": "2026 이순신 런 페스타",
+    "date": "2026-12-13",
+    "region": "충남",
+    "distancesKm": [
+      6.4
+    ],
+    "status": "접수중",
+    "venue": "신정호 국민관광지 야외음악당",
+    "registrationStart": "2026-11-01",
+    "registrationEnd": "2026-12-02",
+    "fees": [
+      {
+        "label": "6.4km",
+        "distanceKm": 6.4,
+        "krw": 10000
+      }
+    ],
+    "organizer": "(사)이순신백의종군길마라톤",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2026-yi-sun-sin-run-festa-09c5c89e2a2748e389a6a9c36b8ef321",
+    "officialUrl": "https://yssmarathon.com/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-28",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "hope-youth-run-2027",
+    "name": "2027 희망 청춘 런",
+    "date": "2027-02-20",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "신정교 하부 영롱이 억새구장",
+    "registrationStart": "2026-11-01",
+    "registrationEnd": "2027-02-11",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "(사)중소자영업총연합회",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-hope-youth-run-26a1fdf2407046778f4a85807bf0ffbb",
+    "officialUrl": "https://hope-young.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-28",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "choco-run-2027",
+    "name": "2027 초코런",
+    "date": "2027-02-14",
+    "region": "서울",
+    "distancesKm": [
+      5,
+      10
+    ],
+    "status": "접수중",
+    "venue": "신정교하부육상트랙구장",
+    "registrationStart": "2026-11-25",
+    "registrationEnd": "2027-01-27",
+    "fees": [
+      {
+        "label": "5km",
+        "distanceKm": 5,
+        "krw": 50000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "열린사회자원봉사연합",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/choco-run-595ea98fb26a4bbaab36222c12cbf1c0",
+    "officialUrl": "https://www.chocorun.kr:9024/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-28",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "bucheon-international-10km-road-race-2027",
+    "name": "2027 부천국제10km로드레이스",
+    "date": "2027-03-07",
+    "region": "경기",
+    "distancesKm": [
+      3.5,
+      10
+    ],
+    "status": "접수중",
+    "venue": "부천중앙공원~심곡천 일원",
+    "registrationStart": "2026-11-17",
+    "registrationEnd": "2027-01-06",
+    "fees": [
+      {
+        "label": "3.5km",
+        "distanceKm": 3.5,
+        "krw": 40000
+      },
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      }
+    ],
+    "organizer": "부천시체육회, 한국실업육상연맹, 경기일보",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-bucheon-international-10km-road-race-b888449d3c404207891c41415985e38d",
+    "officialUrl": "https://bskrun.co.kr/",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-28",
+    "checkedBy": "수집기"
+  },
+  {
+    "id": "geumsan-ginseng-well-being-marathon-2027",
+    "name": "2027 금산 인삼 웰빙 마라톤대회",
+    "date": "2027-03-13",
+    "region": "충남",
+    "distancesKm": [
+      5,
+      10,
+      21.0975
+    ],
+    "status": "접수중",
+    "venue": "금산인삼엑스포주차장",
+    "registrationStart": "2026-11-17",
+    "registrationEnd": "2027-03-12",
+    "fees": [
+      {
+        "label": "10km",
+        "distanceKm": 10,
+        "krw": 50000
+      },
+      {
+        "label": "하프",
+        "distanceKm": 21.0975,
+        "krw": 50000
+      }
+    ],
+    "organizer": "금산군육상연맹",
+    "sourceUrl": "https://www.kormarathon.com/ko/races/2027-geumsan-ginseng-well-being-marathon-bc83cf7e1a7643be804d232caaf7e925",
+    "officialUrl": "https://mara1080.com/event/6397382b-be8d-4aee-b724-68f9fad03f29",
+    "factsFrom": "모음",
+    "checkedAt": "2026-11-28",
     "checkedBy": "수집기"
   }
 ]
