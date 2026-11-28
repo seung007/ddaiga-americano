@@ -14,17 +14,17 @@
     "checkedAt": "2026-11-13",
     "checkedBy": "수집기"
   },
-  "on-cloud-x-5": {
+  "on-cloud-6-coast": {
     "kind": "newFamily",
     "brand": "On",
-    "model": "Cloud X 5",
+    "model": "Cloud 6 Coast",
     "gender": "unisex",
     "priceKrw": 209000,
-    "url": "https://www.on.com/ko-kr/products/cloud-x-5-m-3mg3008/mens/white-black-shoes-3MG30080462",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/38yGyfk6RZ1HY4pV7F5Rit/cdf0e26b8c8376f180a632bafc3462fc/e74d8a335f3ec4b839e8c4cb73817f541b164c1b.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 290,
+    "url": "https://www.on.com/ko-kr/products/cloud-6-coast-3mf1003/mens/black-rock-shoes-3MF10030080",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/7JDwayE2jGgvXcjHbA1Pf1/750ab4157609ac031a9c14ca2eaa3b81/fd2154d7e8e60cae5a6505b106d782737cfc416d.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 226,
     "dropMm": 8,
-    "checkedAt": "2026-11-23",
+    "checkedAt": "2026-11-28",
     "checkedBy": "수집기"
   },
   "on-cloudboom-strike-2": {
@@ -79,19 +79,6 @@
     "checkedAt": "2026-11-17",
     "checkedBy": "수집기"
   },
-  "on-cloudsoma-paf-w": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloudsoma PAF",
-    "gender": "female",
-    "priceKrw": 239000,
-    "url": "https://www.on.com/ko-kr/products/cloudsoma-paf-w-3wg3065/womens/haze-linen-shoes-3WG30656223",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/1RUHCGbqH1vTO83GdtWWbR/e5c7855c228a9a8e9469df5dc068b012/2abfc6d23a191c9fc885b743e6f643625c037ab2.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 195,
-    "dropMm": 6,
-    "checkedAt": "2026-11-17",
-    "checkedBy": "수집기"
-  },
   "on-cloudswift-amp-w": {
     "kind": "newFamily",
     "brand": "On",
@@ -103,19 +90,6 @@
     "weightG": 291,
     "dropMm": 8,
     "checkedAt": "2026-11-26",
-    "checkedBy": "수집기"
-  },
-  "on-cloudtilt": {
-    "kind": "newFamily",
-    "brand": "On",
-    "model": "Cloudtilt",
-    "gender": "unisex",
-    "priceKrw": 219000,
-    "url": "https://www.on.com/ko-kr/products/cloudtilt-m-3me1010/mens/eclipse-jay-shoes-3ME10105218",
-    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/7t9OT05Dcm5K5iKfQ62kbd/1f1147ab2766cb91ce691a60f7962650/beb5a86031464bbcd08b91ecf2195c5e20cd52fd.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
-    "weightG": 303,
-    "dropMm": 7,
-    "checkedAt": "2026-11-23",
     "checkedBy": "수집기"
   },
   "on-cloudvista-3-w": {
@@ -168,6 +142,19 @@
     "weightG": 265,
     "dropMm": 6,
     "checkedAt": "2026-11-26",
+    "checkedBy": "수집기"
+  },
+  "on-the-roger-clubhouse-pro-2-w": {
+    "kind": "newFamily",
+    "brand": "On",
+    "model": "THE ROGER Clubhouse Pro 2",
+    "gender": "female",
+    "priceKrw": 229000,
+    "url": "https://www.on.com/ko-kr/products/the-roger-clubhouse-pro-2-w-3wg3005/womens/white-ivory-shoes-3WG30050924",
+    "imageUrl": "https://images.ctfassets.net/hnk2vsx53n6l/6VwK7RLrDBGmndbvvYZINo/aad332b18e56eea770af6ef768d7012f/ef38e9e8b6177663fd006578d6a0079a926bf9e8.png?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+    "weightG": 328,
+    "dropMm": 5,
+    "checkedAt": "2026-11-28",
     "checkedBy": "수집기"
   },
   "puma-deviate-nitro-4": {
